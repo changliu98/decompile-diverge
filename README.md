@@ -1,6 +1,8 @@
 # ddiv
 
-Find an input that makes two C programs behave differently, and show the input
+This project is the implementation from the paper https://arxiv.org/abs/2609.05370
+
+It finds an input that makes two C programs behave differently, and show the input
 and both post-states. Each source already contains a `main` that calls the
 function being tested. The framework is Python, with a small C runtime linked
 into the tested programs to capture their state.
