@@ -1,8 +1,6 @@
 # Decompile-Diverge: code and data
 
-Everything needed to reproduce the paper's differential-testing results, offline, in one Docker
-image: the oracle, 3,089 benchmark functions with their frozen replay inputs, the outputs of all
-11 systems, the tests the established corpora ship, and the paper's verdicts.
+The data and implementation of the paper [When LLM Decompilers Recompile More and Preserve Less](https://arxiv.org/abs/2609.05370).
 
 | | HumanEval | ExeBench | AnghaBench | MBPP | GitHub | CVE |
 |---|---|---|---|---|---|---|
