@@ -1,0 +1,280 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+originalDomainInfo], rdi\nmov     [rbp+comboMax], esi\nmov     [rbp+decode], edx\nmov     [rbp+resultBuffer], rcx\nmov     [rbp+ret], 0\nmov     rdi, [rbp+resultBuffer]; s\nxor     esi, esi; c\nmov     edx, 100h; n\ncall    memset\nmov     rax, [rbp+originalDomainInfo]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 5Fh ; '_'\njnz     loc_1666\nmov     rdi, [rbp+originalDomainInfo]\nadd     rdi, 1; str\nlea     rsi, to_find; \"__\"\ncall    g_pos\nmov     [rbp+pos], eax\ncmp     [rbp+pos], 0\njle     loc_164B\ncmp     [rbp+decode], 0\njz      loc_1632\nlea     rdi, [rbp+index]; s\nxor     esi, esi; c\nmov     edx, 2; n\ncall    memset\nlea     rdi, [rbp+index]; dest\nmov     rsi, [rbp+originalDomainInfo]\nmov     eax, [rbp+pos]\nadd     eax, 3\ncdqe\nadd     rsi, rax; src\nmov     edx, 1; len\ncall    g_strncpy\nlea     rdi, [rbp+index]; str\ncall    g_htoi\nmov     [rbp+comboxindex], eax\ncmp     [rbp+comboxindex], 0\njle     loc_162D\nmov     eax, [rbp+comboxindex]\ncmp     eax, [rbp+comboMax]\njge     loc_162D\nmov     eax, [rbp+comboxindex]\nmov     [rbp+ret], eax\njmp     $+5\nmov     rdi, [rbp+resultBuffer]; dest\nmov     rsi, [rbp+originalDomainInfo]\nadd     rsi, 1; src\nmov     edx, [rbp+pos]; len\ncall    g_strncpy\njmp     loc_1661\nmov     rdi, [rbp+resultBuffer]; dest\nmov     rsi, [rbp+originalDomainInfo]\nadd     rsi, 1; src\nmov     edx, 0FFh; len\ncall    g_strncpy\njmp     $+5\nmov     eax, [rbp+ret]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 11,
+  "edges": [
+   [
+    "start",
+    "loc_15AD"
+   ],
+   [
+    "start",
+    "loc_1666"
+   ],
+   [
+    "loc_15AD",
+    "loc_15CE"
+   ],
+   [
+    "loc_15AD",
+    "loc_164B"
+   ],
+   [
+    "loc_15CE",
+    "loc_15D8"
+   ],
+   [
+    "loc_15CE",
+    "loc_1632"
+   ],
+   [
+    "loc_15D8",
+    "loc_161B"
+   ],
+   [
+    "loc_15D8",
+    "loc_162D"
+   ],
+   [
+    "loc_161B",
+    "loc_1627"
+   ],
+   [
+    "loc_161B",
+    "loc_162D"
+   ],
+   [
+    "loc_1627",
+    "loc_162D"
+   ],
+   [
+    "loc_162D",
+    "loc_1632"
+   ],
+   [
+    "loc_1632",
+    "loc_1661"
+   ],
+   [
+    "loc_164B",
+    "loc_1661"
+   ],
+   [
+    "loc_1661",
+    "loc_1666"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+originalDomainInfo], rdi\nmov     [rbp+comboMax], esi\nmov     [rbp+decode], edx\nmov     [rbp+resultBuffer], rcx\nmov     [rbp+ret], 0\nmov     rdi, [rbp+resultBuffer]; s\nxor     esi, esi; c\nmov     edx, 100h; n\ncall    memset\nmov     rax, [rbp+originalDomainInfo]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 5Fh ; '_'\njnz     loc_1666",
+   "loc_15AD": "mov     rdi, [rbp+originalDomainInfo]\nadd     rdi, 1; str\nlea     rsi, to_find; \"__\"\ncall    g_pos\nmov     [rbp+pos], eax\ncmp     [rbp+pos], 0\njle     loc_164B",
+   "loc_15CE": "cmp     [rbp+decode], 0\njz      loc_1632",
+   "loc_15D8": "lea     rdi, [rbp+index]; s\nxor     esi, esi; c\nmov     edx, 2; n\ncall    memset\nlea     rdi, [rbp+index]; dest\nmov     rsi, [rbp+originalDomainInfo]\nmov     eax, [rbp+pos]\nadd     eax, 3\ncdqe\nadd     rsi, rax; src\nmov     edx, 1; len\ncall    g_strncpy\nlea     rdi, [rbp+index]; str\ncall    g_htoi\nmov     [rbp+comboxindex], eax\ncmp     [rbp+comboxindex], 0\njle     loc_162D",
+   "loc_161B": "mov     eax, [rbp+comboxindex]\ncmp     eax, [rbp+comboMax]\njge     loc_162D",
+   "loc_1627": "mov     eax, [rbp+comboxindex]\nmov     [rbp+ret], eax",
+   "loc_162D": "jmp     $+5",
+   "loc_1632": "mov     rdi, [rbp+resultBuffer]; dest\nmov     rsi, [rbp+originalDomainInfo]\nadd     rsi, 1; src\nmov     edx, [rbp+pos]; len\ncall    g_strncpy\njmp     loc_1661",
+   "loc_164B": "mov     rdi, [rbp+resultBuffer]; dest\nmov     rsi, [rbp+originalDomainInfo]\nadd     rsi, 1; src\nmov     edx, 0FFh; len\ncall    g_strncpy",
+   "loc_1661": "jmp     $+5",
+   "loc_1666": "mov     eax, [rbp+ret]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "index": "byte ptr -26h",
+   "comboxindex": "dword ptr -24h",
+   "pos": "dword ptr -20h",
+   "ret": "dword ptr -1Ch",
+   "resultBuffer": "qword ptr -18h",
+   "decode": "dword ptr -10h",
+   "comboMax": "dword ptr -0Ch",
+   "originalDomainInfo": "qword ptr -8"
+  },
+  ".rodata": {
+   "to_find": "byte '__',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5488,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".strncpy": "strncpy",
+  "_strncpy": "strncpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".strstr": "strstr",
+  "_strstr": "strstr"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".strncpy",
+   ".plt",
+   true,
+   "strncpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".strstr",
+   ".plt",
+   true,
+   "strstr"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strstr",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868449
+ }
+}

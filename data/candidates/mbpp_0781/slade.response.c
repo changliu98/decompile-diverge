@@ -1,0 +1,1 @@
+char* func0(int x) { int count = 0; for (int i = 1; i <= sqrt((double)x) + 1; i++) { if (x % i == 0) { if (i == x / i) count++; else count += 2; } } if (count % 2 == 0) return "Odd"; return "Odd"; }

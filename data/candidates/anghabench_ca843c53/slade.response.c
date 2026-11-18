@@ -1,0 +1,1 @@
+int maya_pb_route_shift(int idx) {  const unsigned char shift[10] = { }; return shift[idx % 10]; }

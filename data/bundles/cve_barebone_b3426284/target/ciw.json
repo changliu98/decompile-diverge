@@ -1,0 +1,262 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+pb], rdi\nmov     [rbp+st], rsi\nmov     rdi, [rbp+pb]; pb\ncall    avio_rl32\nmov     ecx, eax\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     [rax+18h], ecx\nmov     rdi, [rbp+pb]; pb\ncall    avio_rl32\nmov     ecx, eax\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     [rax+1Ch], ecx\nmov     rdi, [rbp+pb]; pb\nmov     esi, 1; offset\ncall    avio_skip\nmov     rdi, [rbp+pb]; pb\ncall    avio_rl16\nmov     [rbp+size_asf], ax\nmov     rdi, [rbp+pb]; pb\nmov     rsi, [rbp+st]; st\nlea     rdx, [rbp+size_bmp]; size\ncall    ff_get_bmp_header\nmov     [rbp+tag], eax\nmov     ecx, [rbp+tag]\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     [rax+4], ecx\nmov     esi, [rbp+tag]; tag\nlea     rdi, ff_codec_bmp_tags; tags\ncall    ff_codec_get_id\nmov     ecx, eax\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     [rax], ecx\nmovzx   eax, [rbp+size_asf]\ncmp     eax, [rbp+size_bmp]\njbe     loc_1429\nmovzx   eax, [rbp+size_asf]\nmov     [rbp+var_2C], eax\njmp     loc_142F\nmov     eax, [rbp+size_bmp]\nmov     [rbp+var_2C], eax\nmov     eax, [rbp+var_2C]\nmov     [rbp+size_bmp], eax\ncmp     [rbp+size_bmp], 28h ; '('\njbe     loc_14F2\nmov     ecx, [rbp+size_bmp]\nsub     ecx, 28h ; '('\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     [rax+10h], ecx\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     eax, [rax+10h]\nadd     eax, 40h ; '@'\nmovsxd  rdi, eax; size\ncall    av_malloc\nmov     rcx, [rbp+st]\nmov     rcx, [rcx]\nmov     [rcx+8], rax\ncmp     rax, 0\njnz     loc_1493\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     dword ptr [rax+10h], 0\nmov     [rbp+var_4], 0FFFFFFF4h\njmp     loc_14F9\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     rdi, [rax+8]\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmovsxd  rax, dword ptr [rax+10h]\nadd     rdi, rax; s\nxor     esi, esi; c\nmov     edx, 40h ; '@'; n\ncall    memset\nmov     rdi, [rbp+pb]; pb\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     rsi, [rax+8]; buf\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     edx, [rax+10h]; size\ncall    avio_read\nmov     [rbp+ret], eax\ncmp     eax, 0\njge     loc_14ED\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_14F9\njmp     $+5\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 11,
+  "edges": [
+   [
+    "start",
+    "loc_141D"
+   ],
+   [
+    "start",
+    "loc_1429"
+   ],
+   [
+    "loc_141D",
+    "loc_142F"
+   ],
+   [
+    "loc_1429",
+    "loc_142F"
+   ],
+   [
+    "loc_142F",
+    "loc_143F"
+   ],
+   [
+    "loc_142F",
+    "loc_14F2"
+   ],
+   [
+    "loc_143F",
+    "loc_1479"
+   ],
+   [
+    "loc_143F",
+    "loc_1493"
+   ],
+   [
+    "loc_1479",
+    "loc_14F9"
+   ],
+   [
+    "loc_1493",
+    "loc_14E2"
+   ],
+   [
+    "loc_1493",
+    "loc_14ED"
+   ],
+   [
+    "loc_14E2",
+    "loc_14F9"
+   ],
+   [
+    "loc_14ED",
+    "loc_14F2"
+   ],
+   [
+    "loc_14F2",
+    "loc_14F9"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+pb], rdi\nmov     [rbp+st], rsi\nmov     rdi, [rbp+pb]; pb\ncall    avio_rl32\nmov     ecx, eax\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     [rax+18h], ecx\nmov     rdi, [rbp+pb]; pb\ncall    avio_rl32\nmov     ecx, eax\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     [rax+1Ch], ecx\nmov     rdi, [rbp+pb]; pb\nmov     esi, 1; offset\ncall    avio_skip\nmov     rdi, [rbp+pb]; pb\ncall    avio_rl16\nmov     [rbp+size_asf], ax\nmov     rdi, [rbp+pb]; pb\nmov     rsi, [rbp+st]; st\nlea     rdx, [rbp+size_bmp]; size\ncall    ff_get_bmp_header\nmov     [rbp+tag], eax\nmov     ecx, [rbp+tag]\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     [rax+4], ecx\nmov     esi, [rbp+tag]; tag\nlea     rdi, ff_codec_bmp_tags; tags\ncall    ff_codec_get_id\nmov     ecx, eax\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     [rax], ecx\nmovzx   eax, [rbp+size_asf]\ncmp     eax, [rbp+size_bmp]\njbe     loc_1429",
+   "loc_141D": "movzx   eax, [rbp+size_asf]\nmov     [rbp+var_2C], eax\njmp     loc_142F",
+   "loc_1429": "mov     eax, [rbp+size_bmp]\nmov     [rbp+var_2C], eax",
+   "loc_142F": "mov     eax, [rbp+var_2C]\nmov     [rbp+size_bmp], eax\ncmp     [rbp+size_bmp], 28h ; '('\njbe     loc_14F2",
+   "loc_143F": "mov     ecx, [rbp+size_bmp]\nsub     ecx, 28h ; '('\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     [rax+10h], ecx\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     eax, [rax+10h]\nadd     eax, 40h ; '@'\nmovsxd  rdi, eax; size\ncall    av_malloc\nmov     rcx, [rbp+st]\nmov     rcx, [rcx]\nmov     [rcx+8], rax\ncmp     rax, 0\njnz     loc_1493",
+   "loc_1479": "mov     rax, [rbp+st]\nmov     rax, [rax]\nmov     dword ptr [rax+10h], 0\nmov     [rbp+var_4], 0FFFFFFF4h\njmp     loc_14F9",
+   "loc_1493": "mov     rax, [rbp+st]\nmov     rax, [rax]\nmov     rdi, [rax+8]\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmovsxd  rax, dword ptr [rax+10h]\nadd     rdi, rax; s\nxor     esi, esi; c\nmov     edx, 40h ; '@'; n\ncall    memset\nmov     rdi, [rbp+pb]; pb\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     rsi, [rax+8]; buf\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     edx, [rax+10h]; size\ncall    avio_read\nmov     [rbp+ret], eax\ncmp     eax, 0\njge     loc_14ED",
+   "loc_14E2": "mov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_14F9",
+   "loc_14ED": "jmp     $+5",
+   "loc_14F2": "mov     [rbp+var_4], 0",
+   "loc_14F9": "mov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_2C": "dword ptr -2Ch",
+   "ret": "dword ptr -28h",
+   "tag": "dword ptr -24h",
+   "size_bmp": "dword ptr -20h",
+   "size_asf": "word ptr -1Ah",
+   "st": "qword ptr -18h",
+   "pb": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "ff_codec_bmp_tags": "AVCodecTag <0>"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4992,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868484
+ }
+}

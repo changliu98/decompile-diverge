@@ -1,0 +1,1 @@
+void normalize_quat(quat q) { int i; float norm = q[0]*q[0] + q[1]*q[1] + q[2]*q[2] + q[3]*q[3]; for (i = 0; i < 4; ++i) q[i] /= norm; }

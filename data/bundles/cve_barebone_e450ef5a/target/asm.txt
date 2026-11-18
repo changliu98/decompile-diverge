@@ -1,0 +1,169 @@
+0000000000001260 <adjust_skipcol>:
+    1260:	push   %rbp
+    1261:	mov    %rsp,%rbp
+    1264:	sub    $0x40,%rsp
+    1268:	mov    0x2e31(%rip),%rax        # 40a0 <curwin>
+    126f:	cmpl   $0x0,(%rax)
+    1272:	je     12a5 <adjust_skipcol+0x45>
+    1278:	mov    0x2e21(%rip),%rax        # 40a0 <curwin>
+    127f:	cmpl   $0x0,0x4(%rax)
+    1283:	je     12a5 <adjust_skipcol+0x45>
+    1289:	mov    0x2e10(%rip),%rax        # 40a0 <curwin>
+    1290:	mov    0x8(%rax),%rax
+    1294:	mov    0x2e05(%rip),%rcx        # 40a0 <curwin>
+    129b:	cmp    0x18(%rcx),%rax
+    129f:	je     12aa <adjust_skipcol+0x4a>
+    12a5:	jmp    1509 <adjust_skipcol+0x2a9>
+    12aa:	mov    0x2def(%rip),%rax        # 40a0 <curwin>
+    12b1:	mov    0x24(%rax),%eax
+    12b4:	mov    %eax,-0x28(%rbp)
+    12b7:	call   11e0 <curwin_col_off>
+    12bc:	mov    %eax,%ecx
+    12be:	mov    -0x28(%rbp),%eax
+    12c1:	sub    %ecx,%eax
+    12c3:	mov    %eax,-0x4(%rbp)
+    12c6:	mov    -0x4(%rbp),%eax
+    12c9:	mov    %eax,-0x24(%rbp)
+    12cc:	call   11f0 <curwin_col_off2>
+    12d1:	mov    %eax,%ecx
+    12d3:	mov    -0x24(%rbp),%eax
+    12d6:	add    %ecx,%eax
+    12d8:	mov    %eax,-0x8(%rbp)
+    12db:	call   1200 <get_scrolloff_value>
+    12e0:	mov    %rax,-0x10(%rbp)
+    12e4:	cmpq   $0x0,-0x10(%rbp)
+    12e9:	jne    12fa <adjust_skipcol+0x9a>
+    12ef:	xor    %eax,%eax
+    12f1:	mov    %rax,-0x30(%rbp)
+    12f5:	jmp    1315 <adjust_skipcol+0xb5>
+    12fa:	movslq -0x4(%rbp),%rax
+    12fe:	mov    -0x10(%rbp),%rcx
+    1302:	sub    $0x1,%rcx
+    1306:	movslq -0x8(%rbp),%rdx
+    130a:	imul   %rdx,%rcx
+    130e:	add    %rcx,%rax
+    1311:	mov    %rax,-0x30(%rbp)
+    1315:	mov    -0x30(%rbp),%rax
+    1319:	mov    %eax,-0x14(%rbp)
+    131c:	movl   $0x0,-0x18(%rbp)
+    1323:	call   1210 <validate_cheight>
+    1328:	mov    0x2d71(%rip),%rax        # 40a0 <curwin>
+    132f:	mov    0x28(%rax),%eax
+    1332:	mov    0x2d67(%rip),%rcx        # 40a0 <curwin>
+    1339:	cmp    0x20(%rcx),%eax
+    133c:	jne    1375 <adjust_skipcol+0x115>
+    1342:	mov    0x2d57(%rip),%rdi        # 40a0 <curwin>
+    1349:	mov    0x2d50(%rip),%rax        # 40a0 <curwin>
+    1350:	mov    0x8(%rax),%rsi
+    1354:	xor    %edx,%edx
+    1356:	call   1230 <plines_win>
+    135b:	mov    0x2d3e(%rip),%rcx        # 40a0 <curwin>
+    1362:	cmp    0x20(%rcx),%eax
+    1365:	jg     1375 <adjust_skipcol+0x115>
+    136b:	call   1510 <reset_skipcol>
+    1370:	jmp    1509 <adjust_skipcol+0x2a9>
+    1375:	call   1220 <validate_virtcol>
+    137a:	mov    0x2d1f(%rip),%rcx        # 40a0 <curwin>
+    1381:	xor    %eax,%eax
+    1383:	cmpl   $0x0,0x30(%rcx)
+    1387:	mov    %al,-0x31(%rbp)
+    138a:	jle    13b2 <adjust_skipcol+0x152>
+    1390:	mov    0x2d09(%rip),%rax        # 40a0 <curwin>
+    1397:	mov    0x2c(%rax),%eax
+    139a:	mov    0x2cff(%rip),%rcx        # 40a0 <curwin>
+    13a1:	mov    0x30(%rcx),%ecx
+    13a4:	add    $0x3,%ecx
+    13a7:	add    -0x14(%rbp),%ecx
+    13aa:	cmp    %ecx,%eax
+    13ac:	setl   %al
+    13af:	mov    %al,-0x31(%rbp)
+    13b2:	mov    -0x31(%rbp),%al
+    13b5:	test   $0x1,%al
+    13b7:	jne    13c2 <adjust_skipcol+0x162>
+    13bd:	jmp    141e <adjust_skipcol+0x1be>
+    13c2:	mov    0x2cd7(%rip),%rax        # 40a0 <curwin>
+    13c9:	mov    0x30(%rax),%eax
+    13cc:	mov    -0x4(%rbp),%ecx
+    13cf:	add    -0x8(%rbp),%ecx
+    13d2:	cmp    %ecx,%eax
+    13d4:	jl     13f1 <adjust_skipcol+0x191>
+    13da:	mov    -0x8(%rbp),%edx
+    13dd:	mov    0x2cbc(%rip),%rax        # 40a0 <curwin>
+    13e4:	mov    0x30(%rax),%ecx
+    13e7:	sub    %edx,%ecx
+    13e9:	mov    %ecx,0x30(%rax)
+    13ec:	jmp    1403 <adjust_skipcol+0x1a3>
+    13f1:	mov    -0x4(%rbp),%edx
+    13f4:	mov    0x2ca5(%rip),%rax        # 40a0 <curwin>
+    13fb:	mov    0x30(%rax),%ecx
+    13fe:	sub    %edx,%ecx
+    1400:	mov    %ecx,0x30(%rax)
+    1403:	mov    $0x28,%edi
+    1408:	call   1250 <redraw_later>
+    140d:	movl   $0x1,-0x18(%rbp)
+    1414:	call   1220 <validate_virtcol>
+    1419:	jmp    137a <adjust_skipcol+0x11a>
+    141e:	cmpl   $0x0,-0x18(%rbp)
+    1422:	je     142d <adjust_skipcol+0x1cd>
+    1428:	jmp    1509 <adjust_skipcol+0x2a9>
+    142d:	mov    0x2c6c(%rip),%rax        # 40a0 <curwin>
+    1434:	mov    0x2c(%rax),%eax
+    1437:	mov    0x2c62(%rip),%rcx        # 40a0 <curwin>
+    143e:	sub    0x30(%rcx),%eax
+    1441:	add    -0x14(%rbp),%eax
+    1444:	mov    %eax,-0x1c(%rbp)
+    1447:	movl   $0x0,-0x20(%rbp)
+    144e:	mov    -0x1c(%rbp),%eax
+    1451:	cmp    -0x4(%rbp),%eax
+    1454:	jl     146e <adjust_skipcol+0x20e>
+    145a:	mov    -0x4(%rbp),%ecx
+    145d:	mov    -0x1c(%rbp),%eax
+    1460:	sub    %ecx,%eax
+    1462:	mov    %eax,-0x1c(%rbp)
+    1465:	mov    -0x20(%rbp),%eax
+    1468:	add    $0x1,%eax
+    146b:	mov    %eax,-0x20(%rbp)
+    146e:	mov    -0x1c(%rbp),%eax
+    1471:	cmp    -0x8(%rbp),%eax
+    1474:	jle    1491 <adjust_skipcol+0x231>
+    147a:	mov    -0x1c(%rbp),%eax
+    147d:	cltd
+    147e:	idivl  -0x8(%rbp)
+    1481:	add    -0x20(%rbp),%eax
+    1484:	mov    %eax,-0x20(%rbp)
+    1487:	mov    -0x1c(%rbp),%eax
+    148a:	cltd
+    148b:	idivl  -0x8(%rbp)
+    148e:	mov    %edx,-0x1c(%rbp)
+    1491:	mov    -0x20(%rbp),%eax
+    1494:	mov    0x2c05(%rip),%rcx        # 40a0 <curwin>
+    149b:	cmp    0x20(%rcx),%eax
+    149e:	jl     1509 <adjust_skipcol+0x2a9>
+    14a4:	mov    0x2bf5(%rip),%rax        # 40a0 <curwin>
+    14ab:	cmpl   $0x0,0x30(%rax)
+    14af:	jne    14ce <adjust_skipcol+0x26e>
+    14b5:	mov    -0x4(%rbp),%ecx
+    14b8:	mov    0x2be1(%rip),%rax        # 40a0 <curwin>
+    14bf:	add    0x30(%rax),%ecx
+    14c2:	mov    %ecx,0x30(%rax)
+    14c5:	mov    -0x20(%rbp),%eax
+    14c8:	add    $0xffffffff,%eax
+    14cb:	mov    %eax,-0x20(%rbp)
+    14ce:	mov    -0x20(%rbp),%eax
+    14d1:	mov    0x2bc8(%rip),%rcx        # 40a0 <curwin>
+    14d8:	cmp    0x20(%rcx),%eax
+    14db:	jl     14ff <adjust_skipcol+0x29f>
+    14e1:	mov    -0x20(%rbp),%ecx
+    14e4:	mov    0x2bb5(%rip),%rax        # 40a0 <curwin>
+    14eb:	sub    0x20(%rax),%ecx
+    14ee:	imul   -0x8(%rbp),%ecx
+    14f2:	mov    0x2ba7(%rip),%rax        # 40a0 <curwin>
+    14f9:	add    0x30(%rax),%ecx
+    14fc:	mov    %ecx,0x30(%rax)
+    14ff:	mov    $0x28,%edi
+    1504:	call   1250 <redraw_later>
+    1509:	add    $0x40,%rsp
+    150d:	pop    %rbp
+    150e:	ret
+
+Disassembly of section .fini:

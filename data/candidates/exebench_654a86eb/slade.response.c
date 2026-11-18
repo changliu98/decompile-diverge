@@ -1,0 +1,1 @@
+void previousPage(int pageNumber, struct battle_char *bc){ if(bc->speed!=0) bc->speed--; return ; }

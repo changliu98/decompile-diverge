@@ -1,0 +1,1 @@
+int obdRevConvert_10(float input, int *width, int *height, byte *in, byte *out) { input *= 100.0f; *width = (int) input / 256; *height = (int) input % 256; return 2; }

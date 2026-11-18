@@ -1,0 +1,4 @@
+void __cdecl lf_lifo_queue_init_nABA32(volatile unsigned int *head)
+{
+  *head = 0;
+}

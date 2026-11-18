@@ -1,0 +1,1 @@
+double func0(int n, int k, int l) { return (2 * n + k - 1) * k * l / 2.0; }

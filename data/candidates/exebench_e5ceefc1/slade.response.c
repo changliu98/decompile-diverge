@@ -1,0 +1,1 @@
+int set1d(double a[], double x) { int ix; for (ix = 0; ix < 40; ix ++) a[ix] = x; return 0; }

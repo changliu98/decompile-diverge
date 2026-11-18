@@ -1,0 +1,1 @@
+int func0(uint32_t val) { int count = 0; uint32_t mask = 1; while (val >= mask) { if ((mask & val) == 0) count++; mask <<= 1; } return count; }

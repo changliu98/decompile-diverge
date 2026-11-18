@@ -1,0 +1,1 @@
+char **func0(int x, int y, int z) { char **M = malloc(sizeof(char*) * z); for (int i = 0; i < z; i++) { M[i] = malloc(sizeof(char) * y); for (int j = 0; j < y; j++) { M[i][j] = malloc(sizeof(char) * x); for (int k = 0; k < x; k++) { M[i][j] = '*'; } } } return M; }

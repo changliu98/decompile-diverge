@@ -1,0 +1,1 @@
+void ft_ft(t_lpr *stc) { stc->i = 42; }

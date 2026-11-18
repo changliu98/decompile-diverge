@@ -1,0 +1,1 @@
+const char *translate_digimax(struct Scsi_Host *shpnt, char *buf, size_t size) { return ""; }

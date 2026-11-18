@@ -1,0 +1,1 @@
+void swapNumbers(number *a, number *b) { number temp = *a; *a = *b; *b = temp; }

@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n#include <string.h>\n#include <stdbool.h>\n\nbool func0(const char* str) {\n    int l = strlen(str);\n    if (l < 2) return false;\n    for (int i = 2; i * i <= l; i++) {\n        if (l % i == 0) return false;\n    }\n    return true;\n}",
+ "c_test": "#include <assert.h>\n\nint main() {\n    assert(func0(\"Hello\") == true);\n    assert(func0(\"abcdcba\") == true);\n    assert(func0(\"kittens\") == true);\n    assert(func0(\"orange\") == false);\n    assert(func0(\"wow\") == true);\n    assert(func0(\"world\") == true);\n    assert(func0(\"MadaM\") == true);\n    assert(func0(\"Wow\") == true);\n    assert(func0(\"\") == false);\n    assert(func0(\"HI\") == true);\n    assert(func0(\"go\") == true);\n    assert(func0(\"gogo\") == false);\n    assert(func0(\"aaaaaaaaaaaaaaa\") == false);\n    assert(func0(\"Madam\") == true);\n    assert(func0(\"M\") == false);\n    assert(func0(\"0\") == false);\n    \n    return 0;\n}"
+}

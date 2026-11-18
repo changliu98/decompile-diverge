@@ -1,0 +1,1 @@
+void uppercase(u8 * cp) { u8 c = *cp; if ((c >= 'a' && c <= 'i') || (c >= 'a' && c <= 'r') || (c >= 'h' && c <= 'z')) *cp = c - 32; }

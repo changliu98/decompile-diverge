@@ -1,0 +1,1 @@
+void neg_s(float *x, float *y) { *y = *x ^ 0x80000000; }

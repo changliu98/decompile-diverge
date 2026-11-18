@@ -1,0 +1,1 @@
+int matCopyVdf(GLdouble m[3], GLfloat mOut[3]) { mOut[0] = (float) m[0]; mOut[1] = (float) m[2]; mOut[2] = (float) m[4]; return 0; }

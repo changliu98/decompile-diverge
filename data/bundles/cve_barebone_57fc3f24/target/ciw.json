@@ -1,0 +1,293 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+ctrl], rdi\nmov     [rbp+str], rsi\nmov     rax, [rbp+ctrl]\ncmp     dword ptr [rax+4], 0\njle     loc_1392\nmov     rdi, [rbp+ctrl]\nadd     rdi, 8; w\ncall    uev_io_stop\nmov     rax, [rbp+ctrl]\nmov     edi, [rax+4]; fd\ncall    close\nmov     rax, [rbp+ctrl]\nmov     dword ptr [rax+4], 0FFFFFFFFh\nmov     rdi, [rbp+str]\nlea     rsi, aDDDDDD; \"%d,%d,%d,%d,%d,%d\"\nlea     rdx, [rbp+a]\nlea     rcx, [rbp+b]\nlea     r8, [rbp+c]\nlea     r9, [rbp+d]\nlea     r10, [rbp+e]\nlea     rax, [rbp+f]\nmov     [rsp+60h+var_60], r10\nmov     [rsp+60h+var_58], rax\nmov     al, 0\ncall    ___isoc99_sscanf\nlea     rdi, [rbp+addr]; s\nmov     edx, [rbp+a]\nmov     ecx, [rbp+b]\nmov     r8d, [rbp+c]\nmov     r9d, [rbp+d]\nlea     rsi, format; \"%d.%d.%d.%d\"\nmov     al, 0\ncall    sprintf\nlea     rdi, [rbp+addr]; cp\nlea     rsi, [rbp+sin]\nadd     rsi, 4; inp\ncall    inet_aton\ncmp     eax, 0\njnz     loc_1420\njmp     $+5\njmp     $+5\nmov     rax, [rbp+ctrl]\nmov     edi, [rax]; sd\nlea     rsi, msg; \"500 Illegal PORT command.\\r\\n\"\ncall    send_msg\njmp     loc_145D\nmov     rdi, [rbp+ctrl]\nadd     rdi, 0Ch; dst\nlea     rsi, [rbp+addr]; src\nmov     edx, 10h; siz\ncall    strlcpy\nmov     ecx, [rbp+e]\nshl     ecx, 8\nadd     ecx, [rbp+f]\nmov     rax, [rbp+ctrl]\nmov     [rax+1Ch], ecx\njmp     $+5\nmov     rax, [rbp+ctrl]\nmov     edi, [rax]; sd\nlea     rsi, a200PortCommand; \"200 PORT command successful.\\r\\n\"\ncall    send_msg\nadd     rsp, 60h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 9,
+  "edges": [
+   [
+    "start",
+    "loc_136E"
+   ],
+   [
+    "start",
+    "loc_1392"
+   ],
+   [
+    "loc_136E",
+    "loc_1392"
+   ],
+   [
+    "loc_1392",
+    "loc_13FF"
+   ],
+   [
+    "loc_1392",
+    "loc_1420"
+   ],
+   [
+    "loc_13FF",
+    "loc_1404"
+   ],
+   [
+    "loc_1404",
+    "loc_1409"
+   ],
+   [
+    "loc_1409",
+    "loc_145D"
+   ],
+   [
+    "loc_1420",
+    "loc_144B"
+   ],
+   [
+    "loc_144B",
+    "loc_145D"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+ctrl], rdi\nmov     [rbp+str], rsi\nmov     rax, [rbp+ctrl]\ncmp     dword ptr [rax+4], 0\njle     loc_1392",
+   "loc_136E": "mov     rdi, [rbp+ctrl]\nadd     rdi, 8; w\ncall    uev_io_stop\nmov     rax, [rbp+ctrl]\nmov     edi, [rax+4]; fd\ncall    close\nmov     rax, [rbp+ctrl]\nmov     dword ptr [rax+4], 0FFFFFFFFh",
+   "loc_1392": "mov     rdi, [rbp+str]\nlea     rsi, aDDDDDD; \"%d,%d,%d,%d,%d,%d\"\nlea     rdx, [rbp+a]\nlea     rcx, [rbp+b]\nlea     r8, [rbp+c]\nlea     r9, [rbp+d]\nlea     r10, [rbp+e]\nlea     rax, [rbp+f]\nmov     [rsp+60h+var_60], r10\nmov     [rsp+60h+var_58], rax\nmov     al, 0\ncall    ___isoc99_sscanf\nlea     rdi, [rbp+addr]; s\nmov     edx, [rbp+a]\nmov     ecx, [rbp+b]\nmov     r8d, [rbp+c]\nmov     r9d, [rbp+d]\nlea     rsi, format; \"%d.%d.%d.%d\"\nmov     al, 0\ncall    sprintf\nlea     rdi, [rbp+addr]; cp\nlea     rsi, [rbp+sin]\nadd     rsi, 4; inp\ncall    inet_aton\ncmp     eax, 0\njnz     loc_1420",
+   "loc_13FF": "jmp     $+5",
+   "loc_1404": "jmp     $+5",
+   "loc_1409": "mov     rax, [rbp+ctrl]\nmov     edi, [rax]; sd\nlea     rsi, msg; \"500 Illegal PORT command.\\r\\n\"\ncall    send_msg\njmp     loc_145D",
+   "loc_1420": "mov     rdi, [rbp+ctrl]\nadd     rdi, 0Ch; dst\nlea     rsi, [rbp+addr]; src\nmov     edx, 10h; siz\ncall    strlcpy\nmov     ecx, [rbp+e]\nshl     ecx, 8\nadd     ecx, [rbp+f]\nmov     rax, [rbp+ctrl]\nmov     [rax+1Ch], ecx\njmp     $+5",
+   "loc_144B": "mov     rax, [rbp+ctrl]\nmov     edi, [rax]; sd\nlea     rsi, a200PortCommand; \"200 PORT command successful.\\r\\n\"\ncall    send_msg",
+   "loc_145D": "add     rsp, 60h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_60": "qword ptr -60h",
+   "var_58": "qword ptr -58h",
+   "sin": "sockaddr_in ptr -50h",
+   "addr": "byte ptr -40h",
+   "f": "dword ptr -28h",
+   "e": "dword ptr -24h",
+   "d": "dword ptr -20h",
+   "c": "dword ptr -1Ch",
+   "b": "dword ptr -18h",
+   "a": "dword ptr -14h",
+   "str": "qword ptr -10h",
+   "ctrl": "qword ptr -8"
+  },
+  ".rodata": {
+   "aDDDDDD": "byte '%d,%d,%d,%d,%d,%d',0",
+   "format": "byte '%d.%d.%d.%d',0",
+   "msg": "byte '500 Illegal PORT command.',0Dh,0Ah,0",
+   "a200PortCommand": "byte '200 PORT command successful.',0Dh,0Ah,0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4944,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".close": "close",
+  "_close": "close",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".inet_aton": "inet_aton",
+  "_inet_aton": "inet_aton",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".__isoc99_sscanf": "__isoc99_sscanf",
+  "_isoc99_sscanf": "__isoc99_sscanf",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".sprintf": "sprintf",
+  "_sprintf": "sprintf"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".close",
+   ".plt",
+   true,
+   "close"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".inet_aton",
+   ".plt",
+   true,
+   "inet_aton"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".__isoc99_sscanf",
+   ".plt",
+   true,
+   "__isoc99_sscanf"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".sprintf",
+   ".plt",
+   true,
+   "sprintf"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "close",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "inet_aton",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__isoc99_sscanf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "sprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868464
+ }
+}

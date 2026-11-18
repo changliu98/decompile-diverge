@@ -1,0 +1,252 @@
+0000000000001290 <gf_text_get_utf8_line>:
+    1290:	push   %rbp
+    1291:	mov    %rsp,%rbp
+    1294:	sub    $0x850,%rsp
+    129b:	mov    %rdi,-0x10(%rbp)
+    129f:	mov    %esi,-0x14(%rbp)
+    12a2:	mov    %rdx,-0x20(%rbp)
+    12a6:	mov    %ecx,-0x24(%rbp)
+    12a9:	mov    -0x10(%rbp),%rdi
+    12ad:	mov    -0x14(%rbp),%eax
+    12b0:	mov    %eax,%edx
+    12b2:	shl    $0x0,%rdx
+    12b6:	xor    %esi,%esi
+    12b8:	call   10a0 <memset@plt>
+    12bd:	mov    -0x10(%rbp),%rdi
+    12c1:	mov    -0x14(%rbp),%eax
+    12c4:	mov    %eax,%esi
+    12c6:	mov    -0x20(%rbp),%rdx
+    12ca:	call   1240 <gf_fgets>
+    12cf:	mov    %rax,-0x38(%rbp)
+    12d3:	cmpq   $0x0,-0x38(%rbp)
+    12d8:	jne    12eb <gf_text_get_utf8_line+0x5b>
+    12de:	movq   $0x0,-0x8(%rbp)
+    12e6:	jmp    166f <gf_text_get_utf8_line+0x3df>
+    12eb:	cmpl   $0x1,-0x24(%rbp)
+    12ef:	jg     1574 <gf_text_get_utf8_line+0x2e4>
+    12f5:	movl   $0x0,-0x2c(%rbp)
+    12fc:	mov    -0x10(%rbp),%rdi
+    1300:	call   1080 <strlen@plt>
+    1305:	mov    %eax,-0x30(%rbp)
+    1308:	movl   $0x0,-0x28(%rbp)
+    130f:	mov    -0x28(%rbp),%eax
+    1312:	cmp    -0x30(%rbp),%eax
+    1315:	jae    154c <gf_text_get_utf8_line+0x2bc>
+    131b:	cmpl   $0x0,-0x24(%rbp)
+    131f:	jne    1508 <gf_text_get_utf8_line+0x278>
+    1325:	mov    -0x10(%rbp),%rax
+    1329:	mov    -0x28(%rbp),%ecx
+    132c:	movsbl (%rax,%rcx,1),%eax
+    1330:	and    $0x80,%eax
+    1335:	cmp    $0x0,%eax
+    1338:	je     1508 <gf_text_get_utf8_line+0x278>
+    133e:	mov    -0x10(%rbp),%rax
+    1342:	mov    -0x28(%rbp),%ecx
+    1345:	add    $0x1,%ecx
+    1348:	mov    %ecx,%ecx
+    134a:	movsbl (%rax,%rcx,1),%eax
+    134e:	and    $0xc0,%eax
+    1353:	cmp    $0x80,%eax
+    1358:	je     13a2 <gf_text_get_utf8_line+0x112>
+    135e:	mov    -0x10(%rbp),%rax
+    1362:	mov    -0x28(%rbp),%ecx
+    1365:	movsbl (%rax,%rcx,1),%eax
+    1369:	sar    $0x6,%eax
+    136c:	and    $0x3,%eax
+    136f:	or     $0xc0,%eax
+    1374:	mov    %al,%cl
+    1376:	mov    -0x2c(%rbp),%eax
+    1379:	mov    %cl,-0x840(%rbp,%rax,1)
+    1380:	mov    -0x2c(%rbp),%eax
+    1383:	add    $0x1,%eax
+    1386:	mov    %eax,-0x2c(%rbp)
+    1389:	mov    -0x10(%rbp),%rax
+    138d:	mov    -0x28(%rbp),%ecx
+    1390:	movsbl (%rax,%rcx,1),%edx
+    1394:	and    $0xbf,%edx
+    139a:	mov    %dl,(%rax,%rcx,1)
+    139d:	jmp    1503 <gf_text_get_utf8_line+0x273>
+    13a2:	mov    -0x10(%rbp),%rax
+    13a6:	mov    -0x28(%rbp),%ecx
+    13a9:	movsbl (%rax,%rcx,1),%eax
+    13ad:	and    $0xe0,%eax
+    13b2:	cmp    $0xc0,%eax
+    13b7:	jne    13e8 <gf_text_get_utf8_line+0x158>
+    13bd:	mov    -0x10(%rbp),%rax
+    13c1:	mov    -0x28(%rbp),%ecx
+    13c4:	mov    (%rax,%rcx,1),%cl
+    13c7:	mov    -0x2c(%rbp),%eax
+    13ca:	mov    %cl,-0x840(%rbp,%rax,1)
+    13d1:	mov    -0x28(%rbp),%eax
+    13d4:	add    $0x1,%eax
+    13d7:	mov    %eax,-0x28(%rbp)
+    13da:	mov    -0x2c(%rbp),%eax
+    13dd:	add    $0x1,%eax
+    13e0:	mov    %eax,-0x2c(%rbp)
+    13e3:	jmp    14fe <gf_text_get_utf8_line+0x26e>
+    13e8:	mov    -0x10(%rbp),%rax
+    13ec:	mov    -0x28(%rbp),%ecx
+    13ef:	movsbl (%rax,%rcx,1),%eax
+    13f3:	and    $0xf0,%eax
+    13f8:	cmp    $0xe0,%eax
+    13fd:	jne    1454 <gf_text_get_utf8_line+0x1c4>
+    1403:	mov    -0x10(%rbp),%rax
+    1407:	mov    -0x28(%rbp),%ecx
+    140a:	mov    (%rax,%rcx,1),%cl
+    140d:	mov    -0x2c(%rbp),%eax
+    1410:	mov    %cl,-0x840(%rbp,%rax,1)
+    1417:	mov    -0x28(%rbp),%eax
+    141a:	add    $0x1,%eax
+    141d:	mov    %eax,-0x28(%rbp)
+    1420:	mov    -0x2c(%rbp),%eax
+    1423:	add    $0x1,%eax
+    1426:	mov    %eax,-0x2c(%rbp)
+    1429:	mov    -0x10(%rbp),%rax
+    142d:	mov    -0x28(%rbp),%ecx
+    1430:	mov    (%rax,%rcx,1),%cl
+    1433:	mov    -0x2c(%rbp),%eax
+    1436:	mov    %cl,-0x840(%rbp,%rax,1)
+    143d:	mov    -0x28(%rbp),%eax
+    1440:	add    $0x1,%eax
+    1443:	mov    %eax,-0x28(%rbp)
+    1446:	mov    -0x2c(%rbp),%eax
+    1449:	add    $0x1,%eax
+    144c:	mov    %eax,-0x2c(%rbp)
+    144f:	jmp    14f9 <gf_text_get_utf8_line+0x269>
+    1454:	mov    -0x10(%rbp),%rax
+    1458:	mov    -0x28(%rbp),%ecx
+    145b:	movsbl (%rax,%rcx,1),%eax
+    145f:	and    $0xf8,%eax
+    1464:	cmp    $0xf0,%eax
+    1469:	jne    14e6 <gf_text_get_utf8_line+0x256>
+    146f:	mov    -0x10(%rbp),%rax
+    1473:	mov    -0x28(%rbp),%ecx
+    1476:	mov    (%rax,%rcx,1),%cl
+    1479:	mov    -0x2c(%rbp),%eax
+    147c:	mov    %cl,-0x840(%rbp,%rax,1)
+    1483:	mov    -0x28(%rbp),%eax
+    1486:	add    $0x1,%eax
+    1489:	mov    %eax,-0x28(%rbp)
+    148c:	mov    -0x2c(%rbp),%eax
+    148f:	add    $0x1,%eax
+    1492:	mov    %eax,-0x2c(%rbp)
+    1495:	mov    -0x10(%rbp),%rax
+    1499:	mov    -0x28(%rbp),%ecx
+    149c:	mov    (%rax,%rcx,1),%cl
+    149f:	mov    -0x2c(%rbp),%eax
+    14a2:	mov    %cl,-0x840(%rbp,%rax,1)
+    14a9:	mov    -0x28(%rbp),%eax
+    14ac:	add    $0x1,%eax
+    14af:	mov    %eax,-0x28(%rbp)
+    14b2:	mov    -0x2c(%rbp),%eax
+    14b5:	add    $0x1,%eax
+    14b8:	mov    %eax,-0x2c(%rbp)
+    14bb:	mov    -0x10(%rbp),%rax
+    14bf:	mov    -0x28(%rbp),%ecx
+    14c2:	mov    (%rax,%rcx,1),%cl
+    14c5:	mov    -0x2c(%rbp),%eax
+    14c8:	mov    %cl,-0x840(%rbp,%rax,1)
+    14cf:	mov    -0x28(%rbp),%eax
+    14d2:	add    $0x1,%eax
+    14d5:	mov    %eax,-0x28(%rbp)
+    14d8:	mov    -0x2c(%rbp),%eax
+    14db:	add    $0x1,%eax
+    14de:	mov    %eax,-0x2c(%rbp)
+    14e1:	jmp    14f4 <gf_text_get_utf8_line+0x264>
+    14e6:	mov    -0x28(%rbp),%eax
+    14e9:	add    $0x1,%eax
+    14ec:	mov    %eax,-0x28(%rbp)
+    14ef:	jmp    153e <gf_text_get_utf8_line+0x2ae>
+    14f4:	jmp    14f9 <gf_text_get_utf8_line+0x269>
+    14f9:	jmp    14fe <gf_text_get_utf8_line+0x26e>
+    14fe:	jmp    1503 <gf_text_get_utf8_line+0x273>
+    1503:	jmp    1508 <gf_text_get_utf8_line+0x278>
+    1508:	mov    -0x10(%rbp),%rax
+    150c:	mov    -0x28(%rbp),%ecx
+    150f:	mov    (%rax,%rcx,1),%cl
+    1512:	mov    -0x2c(%rbp),%eax
+    1515:	mov    %cl,-0x840(%rbp,%rax,1)
+    151c:	mov    -0x2c(%rbp),%eax
+    151f:	add    $0x1,%eax
+    1522:	mov    %eax,-0x2c(%rbp)
+    1525:	mov    -0x2c(%rbp),%eax
+    1528:	cmp    $0x7ff,%rax
+    152e:	jb     1539 <gf_text_get_utf8_line+0x2a9>
+    1534:	jmp    154c <gf_text_get_utf8_line+0x2bc>
+    1539:	jmp    153e <gf_text_get_utf8_line+0x2ae>
+    153e:	mov    -0x28(%rbp),%eax
+    1541:	add    $0x1,%eax
+    1544:	mov    %eax,-0x28(%rbp)
+    1547:	jmp    130f <gf_text_get_utf8_line+0x7f>
+    154c:	mov    -0x2c(%rbp),%eax
+    154f:	movb   $0x0,-0x840(%rbp,%rax,1)
+    1557:	mov    -0x10(%rbp),%rdi
+    155b:	lea    -0x840(%rbp),%rsi
+    1562:	call   1050 <strcpy@plt>
+    1567:	mov    -0x38(%rbp),%rax
+    156b:	mov    %rax,-0x8(%rbp)
+    156f:	jmp    166f <gf_text_get_utf8_line+0x3df>
+    1574:	cmpl   $0x2,-0x24(%rbp)
+    1578:	jne    1602 <gf_text_get_utf8_line+0x372>
+    157e:	movl   $0x0,-0x28(%rbp)
+    1585:	mov    -0x10(%rbp),%rax
+    1589:	mov    -0x28(%rbp),%ecx
+    158c:	cmpb   $0x0,(%rax,%rcx,1)
+    1590:	jne    15b1 <gf_text_get_utf8_line+0x321>
+    1596:	mov    -0x10(%rbp),%rax
+    159a:	mov    -0x28(%rbp),%ecx
+    159d:	add    $0x1,%ecx
+    15a0:	mov    %ecx,%ecx
+    15a2:	cmpb   $0x0,(%rax,%rcx,1)
+    15a6:	jne    15b1 <gf_text_get_utf8_line+0x321>
+    15ac:	jmp    15fd <gf_text_get_utf8_line+0x36d>
+    15b1:	mov    -0x10(%rbp),%rax
+    15b5:	mov    -0x28(%rbp),%ecx
+    15b8:	add    $0x1,%ecx
+    15bb:	mov    %ecx,%ecx
+    15bd:	mov    (%rax,%rcx,1),%al
+    15c0:	mov    %al,-0x849(%rbp)
+    15c6:	mov    -0x10(%rbp),%rax
+    15ca:	mov    -0x28(%rbp),%ecx
+    15cd:	mov    (%rax,%rcx,1),%dl
+    15d0:	mov    -0x10(%rbp),%rax
+    15d4:	mov    -0x28(%rbp),%ecx
+    15d7:	add    $0x1,%ecx
+    15da:	mov    %ecx,%ecx
+    15dc:	mov    %dl,(%rax,%rcx,1)
+    15df:	mov    -0x849(%rbp),%dl
+    15e5:	mov    -0x10(%rbp),%rax
+    15e9:	mov    -0x28(%rbp),%ecx
+    15ec:	mov    %dl,(%rax,%rcx,1)
+    15ef:	mov    -0x28(%rbp),%eax
+    15f2:	add    $0x2,%eax
+    15f5:	mov    %eax,-0x28(%rbp)
+    15f8:	jmp    1585 <gf_text_get_utf8_line+0x2f5>
+    15fd:	jmp    1602 <gf_text_get_utf8_line+0x372>
+    1602:	mov    -0x10(%rbp),%rax
+    1606:	mov    %rax,-0x848(%rbp)
+    160d:	lea    -0x840(%rbp),%rdi
+    1614:	mov    $0x800,%esi
+    1619:	lea    -0x848(%rbp),%rdx
+    1620:	call   1220 <gf_utf8_wcstombs>
+    1625:	mov    %eax,-0x28(%rbp)
+    1628:	cmpl   $0xffffffff,-0x28(%rbp)
+    162c:	jne    1639 <gf_text_get_utf8_line+0x3a9>
+    1632:	movl   $0x0,-0x28(%rbp)
+    1639:	mov    -0x28(%rbp),%eax
+    163c:	movb   $0x0,-0x840(%rbp,%rax,1)
+    1644:	mov    -0x10(%rbp),%rdi
+    1648:	lea    -0x840(%rbp),%rsi
+    164f:	call   1050 <strcpy@plt>
+    1654:	cmpl   $0x3,-0x24(%rbp)
+    1658:	jne    1667 <gf_text_get_utf8_line+0x3d7>
+    165e:	mov    -0x20(%rbp),%rdi
+    1662:	call   1270 <gf_fgetc>
+    1667:	mov    -0x38(%rbp),%rax
+    166b:	mov    %rax,-0x8(%rbp)
+    166f:	mov    -0x8(%rbp),%rax
+    1673:	add    $0x850,%rsp
+    167a:	pop    %rbp
+    167b:	ret
+
+Disassembly of section .fini:

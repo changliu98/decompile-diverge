@@ -1,0 +1,1 @@
+const char* func0(int i, int j, int k) { if (i == k) return "Yes"; return "No"; }

@@ -1,0 +1,1 @@
+void cube(Vector *p, Vector *q) { double x; x = p->value; *q = x * x * x; }

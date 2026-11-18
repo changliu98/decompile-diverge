@@ -1,0 +1,1 @@
+size_t t_add(size_t a, size_t b, int *ok) { *ok = (*ok && a + b >= b ? a : b) + 1; return (*ok) ? a + b : 0; }

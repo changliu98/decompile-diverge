@@ -1,0 +1,471 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 6060h\nmov     [rbp+rctx], rdi\nmov     [rbp+retval], 0\nmov     rdi, [rbp+rctx]; rctx\nmov     rsi, [rbp+rctx]\nadd     rsi, 484h; buf\nmov     edx, 9; buflen\ncall    iwgif_read\ncmp     eax, 0\njnz     loc_169D\njmp     done\nmov     rdi, [rbp+rctx]\nadd     rdi, 484h; b\ncall    iw_get_ui16le\nmov     ecx, eax\nmov     rax, [rbp+rctx]\nmov     [rax+3Ch], ecx\nmov     rdi, [rbp+rctx]\nadd     rdi, 484h\nadd     rdi, 2; b\ncall    iw_get_ui16le\nmov     ecx, eax\nmov     rax, [rbp+rctx]\nmov     [rax+40h], ecx\nmov     rdi, [rbp+rctx]\nadd     rdi, 484h\nadd     rdi, 4; b\ncall    iw_get_ui16le\nmov     ecx, eax\nmov     rax, [rbp+rctx]\nmov     [rax+34h], ecx\nmov     rdi, [rbp+rctx]\nadd     rdi, 484h\nadd     rdi, 6; b\ncall    iw_get_ui16le\nmov     ecx, eax\nmov     rax, [rbp+rctx]\nmov     [rax+38h], ecx\nmov     rax, [rbp+rctx]\nmovzx   ecx, byte ptr [rax+48Ch]\nsar     ecx, 6\nand     ecx, 1\nmov     rax, [rbp+rctx]\nmov     [rax+50h], ecx\nmov     rax, [rbp+rctx]\nmovzx   eax, byte ptr [rax+48Ch]\nsar     eax, 7\nand     eax, 1\nmov     [rbp+has_local_ct], eax\ncmp     [rbp+has_local_ct], 0\njz      loc_1779\nmov     rax, [rbp+rctx]\nmovzx   eax, byte ptr [rax+48Ch]\nand     eax, 7\nmov     [rbp+local_ct_size], eax\nmov     ecx, [rbp+local_ct_size]\nadd     ecx, 1\nmov     eax, 1\nshl     eax, cl\nmov     ecx, eax\nmov     rax, [rbp+rctx]\nmov     [rax+80h], ecx\ncmp     [rbp+has_local_ct], 0\njz      loc_17AD\nmov     rdi, [rbp+rctx]; rctx\nmov     rsi, [rbp+rctx]\nadd     rsi, 80h; ct\ncall    iwgif_read_color_table\ncmp     eax, 0\njnz     loc_17A8\njmp     done\njmp     $+5\nmov     rax, [rbp+rctx]\ncmp     dword ptr [rax+58h], 0\njz      loc_17CF\nmov     rax, [rbp+rctx]\nmov     rcx, [rbp+rctx]\nmovsxd  rcx, dword ptr [rcx+64h]\nmov     byte ptr [rax+rcx*4+87h], 0\nmov     rdi, [rbp+rctx]; rctx\nmov     rsi, [rbp+rctx]\nadd     rsi, 484h; buf\nmov     edx, 1; buflen\ncall    iwgif_read\ncmp     eax, 0\njnz     loc_17F6\njmp     done\nmov     rax, [rbp+rctx]\nmovzx   eax, byte ptr [rax+484h]\nmov     [rbp+root_codesize], eax\ncmp     [rbp+root_codesize], 2\njb      loc_1821\ncmp     [rbp+root_codesize], 0Bh\njbe     loc_183A\nmov     rax, [rbp+rctx]\nmov     rdi, [rax+8]; ctx\nlea     rsi, aInvalidLzwMini; \"Invalid LZW minimum code size\"\ncall    iw_set_error\njmp     done\nmov     rdi, [rbp+rctx]; rctx\ncall    iwgif_init_screen\ncmp     eax, 0\njnz     loc_1851\njmp     done\nmov     rax, [rbp+rctx]\nmovsxd  rcx, dword ptr [rax+34h]\nmov     rax, [rbp+rctx]\nmovsxd  rax, dword ptr [rax+38h]\nimul    rcx, rax\nmov     rax, [rbp+rctx]\nmov     [rax+70h], rcx\nmov     rdi, [rbp+rctx]; rctx\ncall    iwgif_make_row_pointers\ncmp     eax, 0\njnz     loc_1884\njmp     done\nmov     esi, [rbp+root_codesize]; root_codesize\nlea     rdi, [rbp+d]; d\ncall    lzw_init\nlea     rdi, [rbp+d]; d\ncall    lzw_clear\nmov     rdi, [rbp+rctx]; rctx\nmov     rsi, [rbp+rctx]\nadd     rsi, 484h; buf\nmov     edx, 1; buflen\ncall    iwgif_read\ncmp     eax, 0\njnz     loc_18C9\njmp     done\nmov     rax, [rbp+rctx]\nmovzx   eax, byte ptr [rax+484h]\nmov     [rbp+subblocksize], rax\ncmp     [rbp+subblocksize], 0\njnz     loc_18EE\njmp     loc_1979\nmov     rdi, [rbp+rctx]; rctx\nmov     rsi, [rbp+rctx]\nadd     rsi, 484h; buf\nmov     rdx, [rbp+subblocksize]; buflen\ncall    iwgif_read\ncmp     eax, 0\njnz     loc_1917\njmp     done\nmov     rdi, [rbp+rctx]; rctx\nmov     rdx, [rbp+rctx]\nadd     rdx, 484h; data\nmov     rcx, [rbp+subblocksize]; data_size\nlea     rsi, [rbp+d]; d\ncall    lzw_process_bytes\ncmp     eax, 0\njnz     loc_1947\njmp     done\ncmp     [rbp+d.eoi_flag], 0\njz      loc_1959\njmp     loc_1979\nmov     rax, [rbp+rctx]\nmov     rax, [rax+68h]\nmov     rcx, [rbp+rctx]\ncmp     rax, [rcx+70h]\njb      loc_1974\njmp     loc_1979\njmp     loc_18A2\nmov     [rbp+retval], 1\nmov     eax, [rbp+retval]\nadd     rsp, 6060h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 35,
+  "edges": [
+   [
+    "start",
+    "loc_1698"
+   ],
+   [
+    "start",
+    "loc_169D"
+   ],
+   [
+    "loc_1698",
+    "loc_1980"
+   ],
+   [
+    "loc_169D",
+    "loc_1749"
+   ],
+   [
+    "loc_169D",
+    "loc_1779"
+   ],
+   [
+    "loc_1749",
+    "loc_1779"
+   ],
+   [
+    "loc_1779",
+    "loc_1786"
+   ],
+   [
+    "loc_1779",
+    "loc_17AD"
+   ],
+   [
+    "loc_1786",
+    "loc_17A3"
+   ],
+   [
+    "loc_1786",
+    "loc_17A8"
+   ],
+   [
+    "loc_17A3",
+    "loc_1980"
+   ],
+   [
+    "loc_17A8",
+    "loc_17AD"
+   ],
+   [
+    "loc_17AD",
+    "loc_17BB"
+   ],
+   [
+    "loc_17AD",
+    "loc_17CF"
+   ],
+   [
+    "loc_17BB",
+    "loc_17CF"
+   ],
+   [
+    "loc_17CF",
+    "loc_17F1"
+   ],
+   [
+    "loc_17CF",
+    "loc_17F6"
+   ],
+   [
+    "loc_17F1",
+    "loc_1980"
+   ],
+   [
+    "loc_17F6",
+    "loc_1814"
+   ],
+   [
+    "loc_17F6",
+    "loc_1821"
+   ],
+   [
+    "loc_1814",
+    "loc_1821"
+   ],
+   [
+    "loc_1814",
+    "loc_183A"
+   ],
+   [
+    "loc_1821",
+    "loc_1980"
+   ],
+   [
+    "loc_183A",
+    "loc_184C"
+   ],
+   [
+    "loc_183A",
+    "loc_1851"
+   ],
+   [
+    "loc_184C",
+    "loc_1980"
+   ],
+   [
+    "loc_1851",
+    "loc_187F"
+   ],
+   [
+    "loc_1851",
+    "loc_1884"
+   ],
+   [
+    "loc_187F",
+    "loc_1980"
+   ],
+   [
+    "loc_1884",
+    "loc_18A2"
+   ],
+   [
+    "loc_18A2",
+    "loc_18C4"
+   ],
+   [
+    "loc_18A2",
+    "loc_18C9"
+   ],
+   [
+    "loc_18C4",
+    "loc_1980"
+   ],
+   [
+    "loc_18C9",
+    "loc_18E9"
+   ],
+   [
+    "loc_18C9",
+    "loc_18EE"
+   ],
+   [
+    "loc_18E9",
+    "loc_1979"
+   ],
+   [
+    "loc_18EE",
+    "loc_1912"
+   ],
+   [
+    "loc_18EE",
+    "loc_1917"
+   ],
+   [
+    "loc_1912",
+    "loc_1980"
+   ],
+   [
+    "loc_1917",
+    "loc_1942"
+   ],
+   [
+    "loc_1917",
+    "loc_1947"
+   ],
+   [
+    "loc_1942",
+    "loc_1980"
+   ],
+   [
+    "loc_1947",
+    "loc_1954"
+   ],
+   [
+    "loc_1947",
+    "loc_1959"
+   ],
+   [
+    "loc_1954",
+    "loc_1979"
+   ],
+   [
+    "loc_1959",
+    "loc_196F"
+   ],
+   [
+    "loc_1959",
+    "loc_1974"
+   ],
+   [
+    "loc_196F",
+    "loc_1979"
+   ],
+   [
+    "loc_1974",
+    "loc_18A2"
+   ],
+   [
+    "loc_1979",
+    "loc_1980"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 6060h\nmov     [rbp+rctx], rdi\nmov     [rbp+retval], 0\nmov     rdi, [rbp+rctx]; rctx\nmov     rsi, [rbp+rctx]\nadd     rsi, 484h; buf\nmov     edx, 9; buflen\ncall    iwgif_read\ncmp     eax, 0\njnz     loc_169D",
+   "loc_1698": "jmp     done",
+   "loc_169D": "mov     rdi, [rbp+rctx]\nadd     rdi, 484h; b\ncall    iw_get_ui16le\nmov     ecx, eax\nmov     rax, [rbp+rctx]\nmov     [rax+3Ch], ecx\nmov     rdi, [rbp+rctx]\nadd     rdi, 484h\nadd     rdi, 2; b\ncall    iw_get_ui16le\nmov     ecx, eax\nmov     rax, [rbp+rctx]\nmov     [rax+40h], ecx\nmov     rdi, [rbp+rctx]\nadd     rdi, 484h\nadd     rdi, 4; b\ncall    iw_get_ui16le\nmov     ecx, eax\nmov     rax, [rbp+rctx]\nmov     [rax+34h], ecx\nmov     rdi, [rbp+rctx]\nadd     rdi, 484h\nadd     rdi, 6; b\ncall    iw_get_ui16le\nmov     ecx, eax\nmov     rax, [rbp+rctx]\nmov     [rax+38h], ecx\nmov     rax, [rbp+rctx]\nmovzx   ecx, byte ptr [rax+48Ch]\nsar     ecx, 6\nand     ecx, 1\nmov     rax, [rbp+rctx]\nmov     [rax+50h], ecx\nmov     rax, [rbp+rctx]\nmovzx   eax, byte ptr [rax+48Ch]\nsar     eax, 7\nand     eax, 1\nmov     [rbp+has_local_ct], eax\ncmp     [rbp+has_local_ct], 0\njz      loc_1779",
+   "loc_1749": "mov     rax, [rbp+rctx]\nmovzx   eax, byte ptr [rax+48Ch]\nand     eax, 7\nmov     [rbp+local_ct_size], eax\nmov     ecx, [rbp+local_ct_size]\nadd     ecx, 1\nmov     eax, 1\nshl     eax, cl\nmov     ecx, eax\nmov     rax, [rbp+rctx]\nmov     [rax+80h], ecx",
+   "loc_1779": "cmp     [rbp+has_local_ct], 0\njz      loc_17AD",
+   "loc_1786": "mov     rdi, [rbp+rctx]; rctx\nmov     rsi, [rbp+rctx]\nadd     rsi, 80h; ct\ncall    iwgif_read_color_table\ncmp     eax, 0\njnz     loc_17A8",
+   "loc_17A3": "jmp     done",
+   "loc_17A8": "jmp     $+5",
+   "loc_17AD": "mov     rax, [rbp+rctx]\ncmp     dword ptr [rax+58h], 0\njz      loc_17CF",
+   "loc_17BB": "mov     rax, [rbp+rctx]\nmov     rcx, [rbp+rctx]\nmovsxd  rcx, dword ptr [rcx+64h]\nmov     byte ptr [rax+rcx*4+87h], 0",
+   "loc_17CF": "mov     rdi, [rbp+rctx]; rctx\nmov     rsi, [rbp+rctx]\nadd     rsi, 484h; buf\nmov     edx, 1; buflen\ncall    iwgif_read\ncmp     eax, 0\njnz     loc_17F6",
+   "loc_17F1": "jmp     done",
+   "loc_17F6": "mov     rax, [rbp+rctx]\nmovzx   eax, byte ptr [rax+484h]\nmov     [rbp+root_codesize], eax\ncmp     [rbp+root_codesize], 2\njb      loc_1821",
+   "loc_1814": "cmp     [rbp+root_codesize], 0Bh\njbe     loc_183A",
+   "loc_1821": "mov     rax, [rbp+rctx]\nmov     rdi, [rax+8]; ctx\nlea     rsi, aInvalidLzwMini; \"Invalid LZW minimum code size\"\ncall    iw_set_error\njmp     done",
+   "loc_183A": "mov     rdi, [rbp+rctx]; rctx\ncall    iwgif_init_screen\ncmp     eax, 0\njnz     loc_1851",
+   "loc_184C": "jmp     done",
+   "loc_1851": "mov     rax, [rbp+rctx]\nmovsxd  rcx, dword ptr [rax+34h]\nmov     rax, [rbp+rctx]\nmovsxd  rax, dword ptr [rax+38h]\nimul    rcx, rax\nmov     rax, [rbp+rctx]\nmov     [rax+70h], rcx\nmov     rdi, [rbp+rctx]; rctx\ncall    iwgif_make_row_pointers\ncmp     eax, 0\njnz     loc_1884",
+   "loc_187F": "jmp     done",
+   "loc_1884": "mov     esi, [rbp+root_codesize]; root_codesize\nlea     rdi, [rbp+d]; d\ncall    lzw_init\nlea     rdi, [rbp+d]; d\ncall    lzw_clear",
+   "loc_18A2": "mov     rdi, [rbp+rctx]; rctx\nmov     rsi, [rbp+rctx]\nadd     rsi, 484h; buf\nmov     edx, 1; buflen\ncall    iwgif_read\ncmp     eax, 0\njnz     loc_18C9",
+   "loc_18C4": "jmp     done",
+   "loc_18C9": "mov     rax, [rbp+rctx]\nmovzx   eax, byte ptr [rax+484h]\nmov     [rbp+subblocksize], rax\ncmp     [rbp+subblocksize], 0\njnz     loc_18EE",
+   "loc_18E9": "jmp     loc_1979",
+   "loc_18EE": "mov     rdi, [rbp+rctx]; rctx\nmov     rsi, [rbp+rctx]\nadd     rsi, 484h; buf\nmov     rdx, [rbp+subblocksize]; buflen\ncall    iwgif_read\ncmp     eax, 0\njnz     loc_1917",
+   "loc_1912": "jmp     done",
+   "loc_1917": "mov     rdi, [rbp+rctx]; rctx\nmov     rdx, [rbp+rctx]\nadd     rdx, 484h; data\nmov     rcx, [rbp+subblocksize]; data_size\nlea     rsi, [rbp+d]; d\ncall    lzw_process_bytes\ncmp     eax, 0\njnz     loc_1947",
+   "loc_1942": "jmp     done",
+   "loc_1947": "cmp     [rbp+d.eoi_flag], 0\njz      loc_1959",
+   "loc_1954": "jmp     loc_1979",
+   "loc_1959": "mov     rax, [rbp+rctx]\nmov     rax, [rax+68h]\nmov     rcx, [rbp+rctx]\ncmp     rax, [rcx+70h]\njb      loc_1974",
+   "loc_196F": "jmp     loc_1979",
+   "loc_1974": "jmp     loc_18A2",
+   "loc_1979": "mov     [rbp+retval], 1",
+   "loc_1980": "mov     eax, [rbp+retval]\nadd     rsp, 6060h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "root_codesize": "dword ptr -6054h",
+   "local_ct_size": "dword ptr -6050h",
+   "has_local_ct": "dword ptr -604Ch",
+   "subblocksize": "qword ptr -6048h",
+   "d": "lzwdeccontext ptr -6040h",
+   "retval": "dword ptr -0Ch",
+   "rctx": "qword ptr -8"
+  },
+  ".rodata": {
+   "aInvalidLzwMini": "byte 'Invalid LZW minimum code size',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5728,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868445
+ }
+}

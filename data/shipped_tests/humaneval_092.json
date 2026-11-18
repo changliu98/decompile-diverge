@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n#include <math.h>\n\nint func0(float a, float b, float c) {\n    if (roundf(a) != a) return 0;\n    if (roundf(b) != b) return 0;\n    if (roundf(c) != c) return 0;\n    if ((a + b == c) || (a + c == b) || (b + c == a)) return 1;\n    return 0;\n}",
+ "c_test": "#include <assert.h>\n\nint main() {\n    assert(func0(2, 3, 1) == 1);\n    assert(func0(2.5, 2, 3) == 0);\n    assert(func0(1.5, 5, 3.5) == 0);\n    assert(func0(2, 6, 2) == 0);\n    assert(func0(4, 2, 2) == 1);\n    assert(func0(2.2, 2.2, 2.2) == 0);\n    assert(func0(-4, 6, 2) == 1);\n    assert(func0(2, 1, 1) == 1);\n    assert(func0(3, 4, 7) == 1);\n    assert(func0(3.01, 4, 7) == 0);\n\n    return 0;\n}"
+}

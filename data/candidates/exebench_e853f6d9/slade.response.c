@@ -1,0 +1,1 @@
+int summe(int *x, int *y) { return *x == 0 || --*y, summe(x, y) != 0; }

@@ -1,0 +1,1 @@
+void func0(double *sum, double a, double b) { *sum = a + b; }

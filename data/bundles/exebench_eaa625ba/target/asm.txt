@@ -1,0 +1,254 @@
+00000000000015d0 <get_char_utf8>:
+    15d0:	push   %rbp
+    15d1:	mov    %rsp,%rbp
+    15d4:	mov    %rdi,-0x10(%rbp)
+    15d8:	mov    %rsi,-0x18(%rbp)
+    15dc:	mov    -0x18(%rbp),%rax
+    15e0:	movzbl (%rax),%eax
+    15e3:	mov    %eax,-0x1c(%rbp)
+    15e6:	mov    -0x1c(%rbp),%eax
+    15e9:	and    $0x80,%eax
+    15ee:	cmp    $0x0,%eax
+    15f1:	jne    1614 <get_char_utf8+0x44>
+    15f7:	mov    -0x1c(%rbp),%ecx
+    15fa:	mov    -0x10(%rbp),%rax
+    15fe:	mov    %ecx,(%rax)
+    1600:	cmpl   $0x0,-0x1c(%rbp)
+    1604:	setne  %al
+    1607:	and    $0x1,%al
+    1609:	movzbl %al,%eax
+    160c:	mov    %eax,-0x4(%rbp)
+    160f:	jmp    198f <get_char_utf8+0x3bf>
+    1614:	mov    -0x1c(%rbp),%eax
+    1617:	and    $0x40,%eax
+    161a:	cmp    $0x0,%eax
+    161d:	jne    1639 <get_char_utf8+0x69>
+    1623:	mov    -0x10(%rbp),%rax
+    1627:	movl   $0xffffffff,(%rax)
+    162d:	movl   $0xffffffff,-0x4(%rbp)
+    1634:	jmp    198f <get_char_utf8+0x3bf>
+    1639:	mov    -0x18(%rbp),%rax
+    163d:	movzbl 0x1(%rax),%eax
+    1641:	mov    %eax,-0x20(%rbp)
+    1644:	mov    -0x20(%rbp),%eax
+    1647:	and    $0xc0,%eax
+    164c:	cmp    $0x80,%eax
+    1651:	je     166d <get_char_utf8+0x9d>
+    1657:	mov    -0x10(%rbp),%rax
+    165b:	movl   $0xffffffff,(%rax)
+    1661:	movl   $0xffffffff,-0x4(%rbp)
+    1668:	jmp    198f <get_char_utf8+0x3bf>
+    166d:	mov    -0x1c(%rbp),%eax
+    1670:	and    $0x20,%eax
+    1673:	cmp    $0x0,%eax
+    1676:	jne    16c4 <get_char_utf8+0xf4>
+    167c:	mov    -0x1c(%rbp),%eax
+    167f:	and    $0x1e,%eax
+    1682:	cmp    $0x0,%eax
+    1685:	jg     16a1 <get_char_utf8+0xd1>
+    168b:	mov    -0x10(%rbp),%rax
+    168f:	movl   $0xffffffff,(%rax)
+    1695:	movl   $0xffffffff,-0x4(%rbp)
+    169c:	jmp    198f <get_char_utf8+0x3bf>
+    16a1:	mov    -0x1c(%rbp),%ecx
+    16a4:	and    $0x1f,%ecx
+    16a7:	shl    $0x6,%ecx
+    16aa:	mov    -0x20(%rbp),%eax
+    16ad:	and    $0x3f,%eax
+    16b0:	or     %eax,%ecx
+    16b2:	mov    -0x10(%rbp),%rax
+    16b6:	mov    %ecx,(%rax)
+    16b8:	movl   $0x2,-0x4(%rbp)
+    16bf:	jmp    198f <get_char_utf8+0x3bf>
+    16c4:	mov    -0x18(%rbp),%rax
+    16c8:	movzbl 0x2(%rax),%eax
+    16cc:	mov    %eax,-0x24(%rbp)
+    16cf:	mov    -0x24(%rbp),%eax
+    16d2:	and    $0xc0,%eax
+    16d7:	cmp    $0x80,%eax
+    16dc:	je     16f8 <get_char_utf8+0x128>
+    16e2:	mov    -0x10(%rbp),%rax
+    16e6:	movl   $0xffffffff,(%rax)
+    16ec:	movl   $0xffffffff,-0x4(%rbp)
+    16f3:	jmp    198f <get_char_utf8+0x3bf>
+    16f8:	mov    -0x1c(%rbp),%eax
+    16fb:	and    $0x10,%eax
+    16fe:	cmp    $0x0,%eax
+    1701:	jne    1762 <get_char_utf8+0x192>
+    1707:	mov    -0x1c(%rbp),%eax
+    170a:	and    $0xf,%eax
+    170d:	mov    -0x20(%rbp),%ecx
+    1710:	and    $0x20,%ecx
+    1713:	or     %ecx,%eax
+    1715:	cmp    $0x0,%eax
+    1718:	jg     1734 <get_char_utf8+0x164>
+    171e:	mov    -0x10(%rbp),%rax
+    1722:	movl   $0xffffffff,(%rax)
+    1728:	movl   $0xffffffff,-0x4(%rbp)
+    172f:	jmp    198f <get_char_utf8+0x3bf>
+    1734:	mov    -0x1c(%rbp),%ecx
+    1737:	and    $0xf,%ecx
+    173a:	shl    $0xc,%ecx
+    173d:	mov    -0x20(%rbp),%eax
+    1740:	and    $0x3f,%eax
+    1743:	shl    $0x6,%eax
+    1746:	or     %eax,%ecx
+    1748:	mov    -0x24(%rbp),%eax
+    174b:	and    $0x3f,%eax
+    174e:	or     %eax,%ecx
+    1750:	mov    -0x10(%rbp),%rax
+    1754:	mov    %ecx,(%rax)
+    1756:	movl   $0x3,-0x4(%rbp)
+    175d:	jmp    198f <get_char_utf8+0x3bf>
+    1762:	mov    -0x18(%rbp),%rax
+    1766:	movzbl 0x3(%rax),%eax
+    176a:	mov    %eax,-0x28(%rbp)
+    176d:	mov    -0x28(%rbp),%eax
+    1770:	and    $0xc0,%eax
+    1775:	cmp    $0x80,%eax
+    177a:	je     1796 <get_char_utf8+0x1c6>
+    1780:	mov    -0x10(%rbp),%rax
+    1784:	movl   $0xffffffff,(%rax)
+    178a:	movl   $0xffffffff,-0x4(%rbp)
+    1791:	jmp    198f <get_char_utf8+0x3bf>
+    1796:	mov    -0x1c(%rbp),%eax
+    1799:	and    $0x8,%eax
+    179c:	cmp    $0x0,%eax
+    179f:	jne    180b <get_char_utf8+0x23b>
+    17a5:	mov    -0x1c(%rbp),%eax
+    17a8:	and    $0x7,%eax
+    17ab:	mov    -0x20(%rbp),%ecx
+    17ae:	and    $0x30,%ecx
+    17b1:	or     %ecx,%eax
+    17b3:	cmp    $0x0,%eax
+    17b6:	jg     17d2 <get_char_utf8+0x202>
+    17bc:	mov    -0x10(%rbp),%rax
+    17c0:	movl   $0xffffffff,(%rax)
+    17c6:	movl   $0xffffffff,-0x4(%rbp)
+    17cd:	jmp    198f <get_char_utf8+0x3bf>
+    17d2:	mov    -0x1c(%rbp),%ecx
+    17d5:	and    $0x7,%ecx
+    17d8:	shl    $0x12,%ecx
+    17db:	mov    -0x20(%rbp),%eax
+    17de:	and    $0x3f,%eax
+    17e1:	shl    $0xc,%eax
+    17e4:	or     %eax,%ecx
+    17e6:	mov    -0x24(%rbp),%eax
+    17e9:	and    $0x3f,%eax
+    17ec:	shl    $0x6,%eax
+    17ef:	or     %eax,%ecx
+    17f1:	mov    -0x28(%rbp),%eax
+    17f4:	and    $0x3f,%eax
+    17f7:	or     %eax,%ecx
+    17f9:	mov    -0x10(%rbp),%rax
+    17fd:	mov    %ecx,(%rax)
+    17ff:	movl   $0x4,-0x4(%rbp)
+    1806:	jmp    198f <get_char_utf8+0x3bf>
+    180b:	mov    -0x18(%rbp),%rax
+    180f:	movzbl 0x4(%rax),%eax
+    1813:	mov    %eax,-0x2c(%rbp)
+    1816:	mov    -0x2c(%rbp),%eax
+    1819:	and    $0xc0,%eax
+    181e:	cmp    $0x80,%eax
+    1823:	je     183f <get_char_utf8+0x26f>
+    1829:	mov    -0x10(%rbp),%rax
+    182d:	movl   $0xffffffff,(%rax)
+    1833:	movl   $0xffffffff,-0x4(%rbp)
+    183a:	jmp    198f <get_char_utf8+0x3bf>
+    183f:	mov    -0x1c(%rbp),%eax
+    1842:	and    $0x4,%eax
+    1845:	cmp    $0x0,%eax
+    1848:	jne    18bf <get_char_utf8+0x2ef>
+    184e:	mov    -0x1c(%rbp),%eax
+    1851:	and    $0x3,%eax
+    1854:	mov    -0x20(%rbp),%ecx
+    1857:	and    $0x38,%ecx
+    185a:	or     %ecx,%eax
+    185c:	cmp    $0x0,%eax
+    185f:	jg     187b <get_char_utf8+0x2ab>
+    1865:	mov    -0x10(%rbp),%rax
+    1869:	movl   $0xffffffff,(%rax)
+    186f:	movl   $0xffffffff,-0x4(%rbp)
+    1876:	jmp    198f <get_char_utf8+0x3bf>
+    187b:	mov    -0x1c(%rbp),%ecx
+    187e:	and    $0x3,%ecx
+    1881:	shl    $0x18,%ecx
+    1884:	mov    -0x20(%rbp),%eax
+    1887:	and    $0x3f,%eax
+    188a:	shl    $0x12,%eax
+    188d:	or     %eax,%ecx
+    188f:	mov    -0x24(%rbp),%eax
+    1892:	and    $0x3f,%eax
+    1895:	shl    $0xc,%eax
+    1898:	or     %eax,%ecx
+    189a:	mov    -0x28(%rbp),%eax
+    189d:	and    $0x3f,%eax
+    18a0:	shl    $0x6,%eax
+    18a3:	or     %eax,%ecx
+    18a5:	mov    -0x2c(%rbp),%eax
+    18a8:	and    $0x3f,%eax
+    18ab:	or     %eax,%ecx
+    18ad:	mov    -0x10(%rbp),%rax
+    18b1:	mov    %ecx,(%rax)
+    18b3:	movl   $0x5,-0x4(%rbp)
+    18ba:	jmp    198f <get_char_utf8+0x3bf>
+    18bf:	mov    -0x18(%rbp),%rax
+    18c3:	movzbl 0x5(%rax),%eax
+    18c7:	mov    %eax,-0x30(%rbp)
+    18ca:	mov    -0x30(%rbp),%eax
+    18cd:	and    $0xc0,%eax
+    18d2:	cmp    $0x80,%eax
+    18d7:	je     18f3 <get_char_utf8+0x323>
+    18dd:	mov    -0x10(%rbp),%rax
+    18e1:	movl   $0xffffffff,(%rax)
+    18e7:	movl   $0xffffffff,-0x4(%rbp)
+    18ee:	jmp    198f <get_char_utf8+0x3bf>
+    18f3:	mov    -0x1c(%rbp),%eax
+    18f6:	and    $0x2,%eax
+    18f9:	cmp    $0x0,%eax
+    18fc:	jne    197e <get_char_utf8+0x3ae>
+    1902:	mov    -0x1c(%rbp),%eax
+    1905:	and    $0x1,%eax
+    1908:	mov    -0x20(%rbp),%ecx
+    190b:	and    $0x3c,%ecx
+    190e:	or     %ecx,%eax
+    1910:	cmp    $0x0,%eax
+    1913:	jg     192f <get_char_utf8+0x35f>
+    1919:	mov    -0x10(%rbp),%rax
+    191d:	movl   $0xffffffff,(%rax)
+    1923:	movl   $0xffffffff,-0x4(%rbp)
+    192a:	jmp    198f <get_char_utf8+0x3bf>
+    192f:	mov    -0x1c(%rbp),%ecx
+    1932:	and    $0x1,%ecx
+    1935:	shl    $0x1e,%ecx
+    1938:	mov    -0x20(%rbp),%eax
+    193b:	and    $0x3f,%eax
+    193e:	shl    $0x18,%eax
+    1941:	or     %eax,%ecx
+    1943:	mov    -0x24(%rbp),%eax
+    1946:	and    $0x3f,%eax
+    1949:	shl    $0x12,%eax
+    194c:	or     %eax,%ecx
+    194e:	mov    -0x28(%rbp),%eax
+    1951:	and    $0x3f,%eax
+    1954:	shl    $0xc,%eax
+    1957:	or     %eax,%ecx
+    1959:	mov    -0x2c(%rbp),%eax
+    195c:	and    $0x3f,%eax
+    195f:	shl    $0x6,%eax
+    1962:	or     %eax,%ecx
+    1964:	mov    -0x30(%rbp),%eax
+    1967:	and    $0x3f,%eax
+    196a:	or     %eax,%ecx
+    196c:	mov    -0x10(%rbp),%rax
+    1970:	mov    %ecx,(%rax)
+    1972:	movl   $0x6,-0x4(%rbp)
+    1979:	jmp    198f <get_char_utf8+0x3bf>
+    197e:	mov    -0x10(%rbp),%rax
+    1982:	movl   $0xffffffff,(%rax)
+    1988:	movl   $0xffffffff,-0x4(%rbp)
+    198f:	mov    -0x4(%rbp),%eax
+    1992:	pop    %rbp
+    1993:	ret
+
+Disassembly of section .fini:

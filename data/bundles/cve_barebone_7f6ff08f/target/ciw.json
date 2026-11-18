@@ -1,0 +1,550 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     ax, cx\nmov     [rbp+i], rdi\nmov     [rbp+context], rsi\nmov     [rbp+pixels], rdx\nmov     [rbp+n], ax\nmov     rax, [rbp+i]\nmov     rax, [rax+8]\nmov     [rbp+p], rax\nmovzx   eax, [rbp+n]\ncmp     eax, 0\njle     loc_19BC\nmov     rax, [rbp+context]\nmovzx   eax, word ptr [rax+10h]\nmovzx   ecx, [rbp+n]\ncmp     eax, ecx\njge     loc_15E8\nmov     rax, [rbp+context]\nmovzx   eax, word ptr [rax+10h]\nmov     [rbp+var_34], eax\njmp     loc_15EF\nmovzx   eax, [rbp+n]\nmov     [rbp+var_34], eax\nmov     eax, [rbp+var_34]\nmov     [rbp+tocopy], ax\nmov     rax, [rbp+i]\nmov     al, [rax+1Bh]\nshr     al, 4\nand     al, 1\ncmp     al, 0\njnz     loc_16BC\nmov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+43h]\nand     eax, 1\ncmp     eax, 0\njz      loc_165F\nmov     rax, [rbp+context]\nmov     rdi, [rax]; dest\nmov     rsi, [rbp+pixels]; src\nmovzx   eax, [rbp+tocopy]\nmov     edx, eax; n\ncall    memcpy\nmovzx   ecx, [rbp+tocopy]\nmov     rax, [rbp+pixels]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+pixels], rax\nmovzx   edx, [rbp+tocopy]\nmov     rax, [rbp+context]\nmov     rcx, [rax]\nmovsxd  rdx, edx\nadd     rcx, rdx\nmov     [rax], rcx\njmp     loc_16B7\nmovzx   eax, [rbp+tocopy]\nmov     [rbp+j], eax\ncmp     [rbp+j], 0\njle     loc_16B2\nmov     rax, [rbp+i]\nmov     rdi, [rax+10h]; palette\nmov     rax, [rbp+pixels]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+pixels], rcx\nmovzx   esi, byte ptr [rax]; v\ncall    GifIndexToTrueColor\nmov     ecx, eax\nmov     rdx, [rbp+context]\nmov     rax, [rdx]\nmov     rsi, rax\nadd     rsi, 4\nmov     [rdx], rsi\nmov     [rax], ecx\nmov     eax, [rbp+j]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+j], eax\njmp     loc_1666\njmp     $+5\njmp     loc_17AD\nmov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+43h]\nand     eax, 1\ncmp     eax, 0\njz      loc_1734\nmovzx   eax, [rbp+tocopy]\nmov     [rbp+j_0], eax\ncmp     [rbp+j_0], 0\njle     loc_172F\nmov     rax, [rbp+pixels]\nmovzx   eax, byte ptr [rax]\nmov     rcx, [rbp+i]\nmovzx   ecx, byte ptr [rcx+1Ah]\ncmp     eax, ecx\njz      loc_1707\nmov     rax, [rbp+pixels]\nmov     cl, [rax]\nmov     rax, [rbp+context]\nmov     rax, [rax]\nmov     [rax], cl\nmov     rax, [rbp+pixels]\nadd     rax, 1\nmov     [rbp+pixels], rax\nmov     rax, [rbp+context]\nmov     rcx, [rax]\nadd     rcx, 1\nmov     [rax], rcx\nmov     eax, [rbp+j_0]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+j_0], eax\njmp     loc_16D7\njmp     loc_17A8\nmovzx   eax, [rbp+tocopy]\nmov     [rbp+j_0], eax\ncmp     [rbp+j_0], 0\njle     loc_17A3\nmov     rax, [rbp+pixels]\nmovzx   eax, byte ptr [rax]\nmov     rcx, [rbp+i]\nmovzx   ecx, byte ptr [rcx+1Ah]\ncmp     eax, ecx\njz      loc_177B\nmov     rax, [rbp+i]\nmov     rdi, [rax+10h]; palette\nmov     rax, [rbp+pixels]\nmovzx   esi, byte ptr [rax]; v\ncall    GifIndexToTrueColor\nmov     ecx, eax\nmov     rax, [rbp+context]\nmov     rax, [rax]\nmov     [rax], ecx\nmov     rax, [rbp+pixels]\nadd     rax, 1\nmov     [rbp+pixels], rax\nmov     rax, [rbp+context]\nmov     rcx, [rax]\nadd     rcx, 4\nmov     [rax], rcx\nmov     eax, [rbp+j_0]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+j_0], eax\njmp     loc_173B\njmp     $+5\njmp     $+5\nmovzx   edx, [rbp+tocopy]\nmov     rax, [rbp+context]\nmovzx   ecx, word ptr [rax+10h]\nsub     ecx, edx\nmov     [rax+10h], cx\nmov     rax, [rbp+context]\nmovzx   eax, word ptr [rax+10h]\ncmp     eax, 0\njnz     loc_19A9\nmov     rax, [rbp+i]\nmov     cx, [rax+1Eh]\nmov     rax, [rbp+context]\nmov     [rax+10h], cx\nmov     rax, [rbp+context]\nmovzx   eax, byte ptr [rax+18h]\nmov     [rbp+var_40], rax\nsub     rax, 4; switch 5 cases\nja      def_1808; jumptable 0000000000001808 default case\nmov     rax, [rbp+var_40]\nlea     rcx, jpt_1808\nmovsxd  rax, ds:(jpt_1808 - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nmov     rax, [rbp+context]; jumptable 0000000000001808 case 0\nmov     cx, [rax+12h]\nadd     cx, 1\nmov     [rax+12h], cx\njmp     def_1808; jumptable 0000000000001808 default case\nmov     rax, [rbp+context]; jumptable 0000000000001808 case 1\nmovzx   ecx, word ptr [rax+12h]\nadd     ecx, 8\nmov     [rax+12h], cx\nmov     rax, [rbp+context]\nmovzx   eax, word ptr [rax+12h]\nmov     rcx, [rbp+p]\nmovzx   ecx, word ptr [rcx+3Ch]\ncmp     eax, ecx\njl      loc_1869\nmov     rax, [rbp+context]\nmov     cl, [rax+18h]\nadd     cl, 1\nmov     [rax+18h], cl\nmov     rax, [rbp+i]\nmovzx   eax, word ptr [rax+24h]\nadd     eax, 4\nmov     cx, ax\nmov     rax, [rbp+context]\nmov     [rax+12h], cx\njmp     def_1808; jumptable 0000000000001808 default case\nmov     rax, [rbp+context]; jumptable 0000000000001808 case 2\nmovzx   ecx, word ptr [rax+12h]\nadd     ecx, 8\nmov     [rax+12h], cx\nmov     rax, [rbp+context]\nmovzx   eax, word ptr [rax+12h]\nmov     rcx, [rbp+p]\nmovzx   ecx, word ptr [rcx+3Ch]\ncmp     eax, ecx\njl      loc_18B8\nmov     rax, [rbp+context]\nmov     cl, [rax+18h]\nadd     cl, 1\nmov     [rax+18h], cl\nmov     rax, [rbp+i]\nmovzx   eax, word ptr [rax+24h]\nadd     eax, 2\nmov     cx, ax\nmov     rax, [rbp+context]\nmov     [rax+12h], cx\njmp     def_1808; jumptable 0000000000001808 default case\nmov     rax, [rbp+context]; jumptable 0000000000001808 case 3\nmovzx   ecx, word ptr [rax+12h]\nadd     ecx, 4\nmov     [rax+12h], cx\nmov     rax, [rbp+context]\nmovzx   eax, word ptr [rax+12h]\nmov     rcx, [rbp+p]\nmovzx   ecx, word ptr [rcx+3Ch]\ncmp     eax, ecx\njl      loc_1907\nmov     rax, [rbp+context]\nmov     cl, [rax+18h]\nadd     cl, 1\nmov     [rax+18h], cl\nmov     rax, [rbp+i]\nmovzx   eax, word ptr [rax+24h]\nadd     eax, 1\nmov     cx, ax\nmov     rax, [rbp+context]\nmov     [rax+12h], cx\njmp     def_1808; jumptable 0000000000001808 default case\nmov     rax, [rbp+context]; jumptable 0000000000001808 case 4\nmovzx   ecx, word ptr [rax+12h]\nadd     ecx, 2\nmov     [rax+12h], cx\nmov     rax, [rbp+p]; jumptable 0000000000001808 default case\nmovzx   eax, byte ptr [rax+43h]\nand     eax, 1\ncmp     eax, 0\njz      loc_1968\nmov     rax, [rbp+p]\nmov     rcx, [rax+20h]\nmov     rax, [rbp+context]\nmovzx   eax, word ptr [rax+12h]\nmov     rdx, [rbp+p]\nmovzx   edx, word ptr [rdx+3Ah]\nimul    eax, edx\nmov     eax, eax\nadd     rcx, rax\nmov     rax, [rbp+i]\nmovzx   eax, word ptr [rax+22h]\ncdqe\nadd     rcx, rax\nmov     rax, [rbp+context]\nmov     [rax], rcx\njmp     loc_19A4\nmov     rax, [rbp+p]\nmov     rcx, [rax+20h]\nmov     rax, [rbp+context]\nmovzx   eax, word ptr [rax+12h]\nmov     rdx, [rbp+p]\nmovzx   edx, word ptr [rdx+3Ah]\nimul    eax, edx\nmov     eax, eax\nshl     rax, 2\nadd     rcx, rax\nmov     rax, [rbp+i]\nmovzx   eax, word ptr [rax+22h]\ncdqe\nshl     rax, 2\nadd     rcx, rax\nmov     rax, [rbp+context]\nmov     [rax], rcx\njmp     $+5\nmovzx   ecx, [rbp+tocopy]\nmovzx   eax, [rbp+n]\nsub     eax, ecx\nmov     [rbp+n], ax\njmp     loc_15B7\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 47,
+  "edges": [
+   [
+    "start",
+    "loc_15B7"
+   ],
+   [
+    "loc_15B7",
+    "loc_15C4"
+   ],
+   [
+    "loc_15B7",
+    "loc_19BC"
+   ],
+   [
+    "loc_15C4",
+    "loc_15D8"
+   ],
+   [
+    "loc_15C4",
+    "loc_15E8"
+   ],
+   [
+    "loc_15D8",
+    "loc_15EF"
+   ],
+   [
+    "loc_15E8",
+    "loc_15EF"
+   ],
+   [
+    "loc_15EF",
+    "loc_160A"
+   ],
+   [
+    "loc_15EF",
+    "loc_16BC"
+   ],
+   [
+    "loc_160A",
+    "loc_161E"
+   ],
+   [
+    "loc_160A",
+    "loc_165F"
+   ],
+   [
+    "loc_161E",
+    "loc_16B7"
+   ],
+   [
+    "loc_165F",
+    "loc_1666"
+   ],
+   [
+    "loc_1666",
+    "loc_1670"
+   ],
+   [
+    "loc_1666",
+    "loc_16B2"
+   ],
+   [
+    "loc_1670",
+    "loc_1666"
+   ],
+   [
+    "loc_16B2",
+    "loc_16B7"
+   ],
+   [
+    "loc_16B7",
+    "loc_17AD"
+   ],
+   [
+    "loc_16BC",
+    "loc_16D0"
+   ],
+   [
+    "loc_16BC",
+    "loc_1734"
+   ],
+   [
+    "loc_16D0",
+    "loc_16D7"
+   ],
+   [
+    "loc_16D7",
+    "loc_16E1"
+   ],
+   [
+    "loc_16D7",
+    "loc_172F"
+   ],
+   [
+    "loc_16E1",
+    "loc_16F8"
+   ],
+   [
+    "loc_16E1",
+    "loc_1707"
+   ],
+   [
+    "loc_16F8",
+    "loc_1707"
+   ],
+   [
+    "loc_1707",
+    "loc_16D7"
+   ],
+   [
+    "loc_172F",
+    "loc_17A8"
+   ],
+   [
+    "loc_1734",
+    "loc_173B"
+   ],
+   [
+    "loc_173B",
+    "loc_1745"
+   ],
+   [
+    "loc_173B",
+    "loc_17A3"
+   ],
+   [
+    "loc_1745",
+    "loc_175C"
+   ],
+   [
+    "loc_1745",
+    "loc_177B"
+   ],
+   [
+    "loc_175C",
+    "loc_177B"
+   ],
+   [
+    "loc_177B",
+    "loc_173B"
+   ],
+   [
+    "loc_17A3",
+    "loc_17A8"
+   ],
+   [
+    "loc_17A8",
+    "loc_17AD"
+   ],
+   [
+    "loc_17AD",
+    "loc_17D0"
+   ],
+   [
+    "loc_17AD",
+    "loc_19A9"
+   ],
+   [
+    "loc_17D0",
+    "loc_17F6"
+   ],
+   [
+    "loc_17D0",
+    "loc_191B"
+   ],
+   [
+    "loc_17F6",
+    "loc_180A"
+   ],
+   [
+    "loc_17F6",
+    "loc_181F"
+   ],
+   [
+    "loc_17F6",
+    "loc_186E"
+   ],
+   [
+    "loc_17F6",
+    "loc_18BD"
+   ],
+   [
+    "loc_17F6",
+    "loc_190C"
+   ],
+   [
+    "loc_180A",
+    "loc_191B"
+   ],
+   [
+    "loc_181F",
+    "loc_1846"
+   ],
+   [
+    "loc_181F",
+    "loc_1869"
+   ],
+   [
+    "loc_1846",
+    "loc_1869"
+   ],
+   [
+    "loc_1869",
+    "loc_191B"
+   ],
+   [
+    "loc_186E",
+    "loc_1895"
+   ],
+   [
+    "loc_186E",
+    "loc_18B8"
+   ],
+   [
+    "loc_1895",
+    "loc_18B8"
+   ],
+   [
+    "loc_18B8",
+    "loc_191B"
+   ],
+   [
+    "loc_18BD",
+    "loc_18E4"
+   ],
+   [
+    "loc_18BD",
+    "loc_1907"
+   ],
+   [
+    "loc_18E4",
+    "loc_1907"
+   ],
+   [
+    "loc_1907",
+    "loc_191B"
+   ],
+   [
+    "loc_190C",
+    "loc_191B"
+   ],
+   [
+    "loc_191B",
+    "loc_192F"
+   ],
+   [
+    "loc_191B",
+    "loc_1968"
+   ],
+   [
+    "loc_192F",
+    "loc_19A4"
+   ],
+   [
+    "loc_1968",
+    "loc_19A4"
+   ],
+   [
+    "loc_19A4",
+    "loc_19A9"
+   ],
+   [
+    "loc_19A9",
+    "loc_15B7"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     ax, cx\nmov     [rbp+i], rdi\nmov     [rbp+context], rsi\nmov     [rbp+pixels], rdx\nmov     [rbp+n], ax\nmov     rax, [rbp+i]\nmov     rax, [rax+8]\nmov     [rbp+p], rax",
+   "loc_15B7": "movzx   eax, [rbp+n]\ncmp     eax, 0\njle     loc_19BC",
+   "loc_15C4": "mov     rax, [rbp+context]\nmovzx   eax, word ptr [rax+10h]\nmovzx   ecx, [rbp+n]\ncmp     eax, ecx\njge     loc_15E8",
+   "loc_15D8": "mov     rax, [rbp+context]\nmovzx   eax, word ptr [rax+10h]\nmov     [rbp+var_34], eax\njmp     loc_15EF",
+   "loc_15E8": "movzx   eax, [rbp+n]\nmov     [rbp+var_34], eax",
+   "loc_15EF": "mov     eax, [rbp+var_34]\nmov     [rbp+tocopy], ax\nmov     rax, [rbp+i]\nmov     al, [rax+1Bh]\nshr     al, 4\nand     al, 1\ncmp     al, 0\njnz     loc_16BC",
+   "loc_160A": "mov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+43h]\nand     eax, 1\ncmp     eax, 0\njz      loc_165F",
+   "loc_161E": "mov     rax, [rbp+context]\nmov     rdi, [rax]; dest\nmov     rsi, [rbp+pixels]; src\nmovzx   eax, [rbp+tocopy]\nmov     edx, eax; n\ncall    memcpy\nmovzx   ecx, [rbp+tocopy]\nmov     rax, [rbp+pixels]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+pixels], rax\nmovzx   edx, [rbp+tocopy]\nmov     rax, [rbp+context]\nmov     rcx, [rax]\nmovsxd  rdx, edx\nadd     rcx, rdx\nmov     [rax], rcx\njmp     loc_16B7",
+   "loc_165F": "movzx   eax, [rbp+tocopy]\nmov     [rbp+j], eax",
+   "loc_1666": "cmp     [rbp+j], 0\njle     loc_16B2",
+   "loc_1670": "mov     rax, [rbp+i]\nmov     rdi, [rax+10h]; palette\nmov     rax, [rbp+pixels]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+pixels], rcx\nmovzx   esi, byte ptr [rax]; v\ncall    GifIndexToTrueColor\nmov     ecx, eax\nmov     rdx, [rbp+context]\nmov     rax, [rdx]\nmov     rsi, rax\nadd     rsi, 4\nmov     [rdx], rsi\nmov     [rax], ecx\nmov     eax, [rbp+j]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+j], eax\njmp     loc_1666",
+   "loc_16B2": "jmp     $+5",
+   "loc_16B7": "jmp     loc_17AD",
+   "loc_16BC": "mov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+43h]\nand     eax, 1\ncmp     eax, 0\njz      loc_1734",
+   "loc_16D0": "movzx   eax, [rbp+tocopy]\nmov     [rbp+j_0], eax",
+   "loc_16D7": "cmp     [rbp+j_0], 0\njle     loc_172F",
+   "loc_16E1": "mov     rax, [rbp+pixels]\nmovzx   eax, byte ptr [rax]\nmov     rcx, [rbp+i]\nmovzx   ecx, byte ptr [rcx+1Ah]\ncmp     eax, ecx\njz      loc_1707",
+   "loc_16F8": "mov     rax, [rbp+pixels]\nmov     cl, [rax]\nmov     rax, [rbp+context]\nmov     rax, [rax]\nmov     [rax], cl",
+   "loc_1707": "mov     rax, [rbp+pixels]\nadd     rax, 1\nmov     [rbp+pixels], rax\nmov     rax, [rbp+context]\nmov     rcx, [rax]\nadd     rcx, 1\nmov     [rax], rcx\nmov     eax, [rbp+j_0]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+j_0], eax\njmp     loc_16D7",
+   "loc_172F": "jmp     loc_17A8",
+   "loc_1734": "movzx   eax, [rbp+tocopy]\nmov     [rbp+j_0], eax",
+   "loc_173B": "cmp     [rbp+j_0], 0\njle     loc_17A3",
+   "loc_1745": "mov     rax, [rbp+pixels]\nmovzx   eax, byte ptr [rax]\nmov     rcx, [rbp+i]\nmovzx   ecx, byte ptr [rcx+1Ah]\ncmp     eax, ecx\njz      loc_177B",
+   "loc_175C": "mov     rax, [rbp+i]\nmov     rdi, [rax+10h]; palette\nmov     rax, [rbp+pixels]\nmovzx   esi, byte ptr [rax]; v\ncall    GifIndexToTrueColor\nmov     ecx, eax\nmov     rax, [rbp+context]\nmov     rax, [rax]\nmov     [rax], ecx",
+   "loc_177B": "mov     rax, [rbp+pixels]\nadd     rax, 1\nmov     [rbp+pixels], rax\nmov     rax, [rbp+context]\nmov     rcx, [rax]\nadd     rcx, 4\nmov     [rax], rcx\nmov     eax, [rbp+j_0]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+j_0], eax\njmp     loc_173B",
+   "loc_17A3": "jmp     $+5",
+   "loc_17A8": "jmp     $+5",
+   "loc_17AD": "movzx   edx, [rbp+tocopy]\nmov     rax, [rbp+context]\nmovzx   ecx, word ptr [rax+10h]\nsub     ecx, edx\nmov     [rax+10h], cx\nmov     rax, [rbp+context]\nmovzx   eax, word ptr [rax+10h]\ncmp     eax, 0\njnz     loc_19A9",
+   "loc_17D0": "mov     rax, [rbp+i]\nmov     cx, [rax+1Eh]\nmov     rax, [rbp+context]\nmov     [rax+10h], cx\nmov     rax, [rbp+context]\nmovzx   eax, byte ptr [rax+18h]\nmov     [rbp+var_40], rax\nsub     rax, 4; switch 5 cases\nja      def_1808; jumptable 0000000000001808 default case",
+   "loc_17F6": "mov     rax, [rbp+var_40]\nlea     rcx, jpt_1808\nmovsxd  rax, ds:(jpt_1808 - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_180A": "mov     rax, [rbp+context]; jumptable 0000000000001808 case 0\nmov     cx, [rax+12h]\nadd     cx, 1\nmov     [rax+12h], cx\njmp     def_1808; jumptable 0000000000001808 default case",
+   "loc_181F": "mov     rax, [rbp+context]; jumptable 0000000000001808 case 1\nmovzx   ecx, word ptr [rax+12h]\nadd     ecx, 8\nmov     [rax+12h], cx\nmov     rax, [rbp+context]\nmovzx   eax, word ptr [rax+12h]\nmov     rcx, [rbp+p]\nmovzx   ecx, word ptr [rcx+3Ch]\ncmp     eax, ecx\njl      loc_1869",
+   "loc_1846": "mov     rax, [rbp+context]\nmov     cl, [rax+18h]\nadd     cl, 1\nmov     [rax+18h], cl\nmov     rax, [rbp+i]\nmovzx   eax, word ptr [rax+24h]\nadd     eax, 4\nmov     cx, ax\nmov     rax, [rbp+context]\nmov     [rax+12h], cx",
+   "loc_1869": "jmp     def_1808; jumptable 0000000000001808 default case",
+   "loc_186E": "mov     rax, [rbp+context]; jumptable 0000000000001808 case 2\nmovzx   ecx, word ptr [rax+12h]\nadd     ecx, 8\nmov     [rax+12h], cx\nmov     rax, [rbp+context]\nmovzx   eax, word ptr [rax+12h]\nmov     rcx, [rbp+p]\nmovzx   ecx, word ptr [rcx+3Ch]\ncmp     eax, ecx\njl      loc_18B8",
+   "loc_1895": "mov     rax, [rbp+context]\nmov     cl, [rax+18h]\nadd     cl, 1\nmov     [rax+18h], cl\nmov     rax, [rbp+i]\nmovzx   eax, word ptr [rax+24h]\nadd     eax, 2\nmov     cx, ax\nmov     rax, [rbp+context]\nmov     [rax+12h], cx",
+   "loc_18B8": "jmp     def_1808; jumptable 0000000000001808 default case",
+   "loc_18BD": "mov     rax, [rbp+context]; jumptable 0000000000001808 case 3\nmovzx   ecx, word ptr [rax+12h]\nadd     ecx, 4\nmov     [rax+12h], cx\nmov     rax, [rbp+context]\nmovzx   eax, word ptr [rax+12h]\nmov     rcx, [rbp+p]\nmovzx   ecx, word ptr [rcx+3Ch]\ncmp     eax, ecx\njl      loc_1907",
+   "loc_18E4": "mov     rax, [rbp+context]\nmov     cl, [rax+18h]\nadd     cl, 1\nmov     [rax+18h], cl\nmov     rax, [rbp+i]\nmovzx   eax, word ptr [rax+24h]\nadd     eax, 1\nmov     cx, ax\nmov     rax, [rbp+context]\nmov     [rax+12h], cx",
+   "loc_1907": "jmp     def_1808; jumptable 0000000000001808 default case",
+   "loc_190C": "mov     rax, [rbp+context]; jumptable 0000000000001808 case 4\nmovzx   ecx, word ptr [rax+12h]\nadd     ecx, 2\nmov     [rax+12h], cx",
+   "loc_191B": "mov     rax, [rbp+p]; jumptable 0000000000001808 default case\nmovzx   eax, byte ptr [rax+43h]\nand     eax, 1\ncmp     eax, 0\njz      loc_1968",
+   "loc_192F": "mov     rax, [rbp+p]\nmov     rcx, [rax+20h]\nmov     rax, [rbp+context]\nmovzx   eax, word ptr [rax+12h]\nmov     rdx, [rbp+p]\nmovzx   edx, word ptr [rdx+3Ah]\nimul    eax, edx\nmov     eax, eax\nadd     rcx, rax\nmov     rax, [rbp+i]\nmovzx   eax, word ptr [rax+22h]\ncdqe\nadd     rcx, rax\nmov     rax, [rbp+context]\nmov     [rax], rcx\njmp     loc_19A4",
+   "loc_1968": "mov     rax, [rbp+p]\nmov     rcx, [rax+20h]\nmov     rax, [rbp+context]\nmovzx   eax, word ptr [rax+12h]\nmov     rdx, [rbp+p]\nmovzx   edx, word ptr [rdx+3Ah]\nimul    eax, edx\nmov     eax, eax\nshl     rax, 2\nadd     rcx, rax\nmov     rax, [rbp+i]\nmovzx   eax, word ptr [rax+22h]\ncdqe\nshl     rax, 2\nadd     rcx, rax\nmov     rax, [rbp+context]\nmov     [rax], rcx",
+   "loc_19A4": "jmp     $+5",
+   "loc_19A9": "movzx   ecx, [rbp+tocopy]\nmovzx   eax, [rbp+n]\nsub     eax, ecx\nmov     [rbp+n], ax\njmp     loc_15B7",
+   "loc_19BC": "add     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_40": "qword ptr -40h",
+   "var_34": "dword ptr -34h",
+   "j_0": "dword ptr -30h",
+   "j": "dword ptr -2Ch",
+   "p": "qword ptr -28h",
+   "tocopy": "word ptr -1Ch",
+   "n": "word ptr -1Ah",
+   "pixels": "qword ptr -18h",
+   "context": "qword ptr -10h",
+   "i": "qword ptr -8"
+  },
+  ".rodata": {
+   "jpt_1808": "dword offset loc_180A - 2004h; jump table for switch statement"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5520,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868473
+ }
+}

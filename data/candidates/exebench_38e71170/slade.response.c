@@ -1,0 +1,1 @@
+void scal3(double x, double *f) { *f++ *= x; *f++ *= x; *f++ *= x; }

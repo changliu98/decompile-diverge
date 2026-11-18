@@ -1,0 +1,1 @@
+int njs_vmcode_typeof(NjObject* vm, NjObject* obj, NjObject* o) { ((NjVMObject*)(vm))->objc = ((NjVMObject*)(types[(NjVMObject*)(obj))->c.objc]); return sizeof(NjVMObject); }

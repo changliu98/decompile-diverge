@@ -1,0 +1,1 @@
+int func0(int* arr, int size, int lo, int hi) { int count = 0; for(int i = 0; i < size; i++) { if(arr[i] >= lo && arr[i] <= hi) count++; } return count; }

@@ -1,0 +1,1 @@
+void validate_st_entry(unsigned long *flags) { *flags &= ~0x00000020; *flags |=0x00000000; }

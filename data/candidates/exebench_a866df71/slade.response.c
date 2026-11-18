@@ -1,0 +1,1 @@
+char * skip(char *p, char c) { while (*p != c && *p != '\0') p++; if (*p != '\0') *p++ = '\0'; return (p); }

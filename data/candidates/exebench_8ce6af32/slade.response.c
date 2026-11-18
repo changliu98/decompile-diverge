@@ -1,0 +1,1 @@
+int globlStrider (const char* str, int*  strlen) {   *str = 0;   return strstr (str, " }

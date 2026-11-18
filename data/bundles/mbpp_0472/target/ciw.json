@@ -1,0 +1,334 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+l], rdi\nmov     [rbp+size], esi\nmovsxd  rdi, [rbp+size]\nshl     rdi, 2; size\ncall    malloc\nmov     [rbp+sorted], rax\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+size]\njge     loc_1227\nmov     rax, [rbp+l]\nmovsxd  rcx, [rbp+i]\nmov     edx, [rax+rcx*4]\nmov     rax, [rbp+sorted]\nmovsxd  rcx, [rbp+i]\nmov     [rax+rcx*4], edx\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_11F7\nmov     [rbp+i_0], 0\nmov     eax, [rbp+i_0]\ncmp     eax, [rbp+size]\njge     loc_12C3\nmov     eax, [rbp+i_0]\nadd     eax, 1\nmov     [rbp+j], eax\nmov     eax, [rbp+j]\ncmp     eax, [rbp+size]\njge     loc_12B0\nmov     rax, [rbp+sorted]\nmovsxd  rcx, [rbp+i_0]\nmov     eax, [rax+rcx*4]\nmov     rcx, [rbp+sorted]\nmovsxd  rdx, [rbp+j]\ncmp     eax, [rcx+rdx*4]\njle     loc_129D\nmov     rax, [rbp+sorted]\nmovsxd  rcx, [rbp+i_0]\nmov     eax, [rax+rcx*4]\nmov     [rbp+temp], eax\nmov     rax, [rbp+sorted]\nmovsxd  rcx, [rbp+j]\nmov     edx, [rax+rcx*4]\nmov     rax, [rbp+sorted]\nmovsxd  rcx, [rbp+i_0]\nmov     [rax+rcx*4], edx\nmov     edx, [rbp+temp]\nmov     rax, [rbp+sorted]\nmovsxd  rcx, [rbp+j]\nmov     [rax+rcx*4], edx\njmp     $+5\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_1243\njmp     $+5\nmov     eax, [rbp+i_0]\nadd     eax, 1\nmov     [rbp+i_0], eax\njmp     loc_122E\nmov     [rbp+result], 1\nmov     [rbp+i_1], 1\nmov     eax, [rbp+i_1]\ncmp     eax, [rbp+size]\njge     loc_131C\nmov     rax, [rbp+sorted]\nmovsxd  rcx, [rbp+i_1]\nmov     eax, [rax+rcx*4]\nmov     rcx, [rbp+sorted]\nmov     edx, [rbp+i_1]\nsub     edx, 1\nmovsxd  rdx, edx\nmov     ecx, [rcx+rdx*4]\nadd     ecx, 1\ncmp     eax, ecx\njz      loc_1309\nmov     [rbp+result], 0\njmp     loc_131C\njmp     $+5\nmov     eax, [rbp+i_1]\nadd     eax, 1\nmov     [rbp+i_1], eax\njmp     loc_12CE\nmov     rdi, [rbp+sorted]; ptr\ncall    free\nmov     al, [rbp+result]\nand     al, 1\nmovzx   eax, al\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 20,
+  "edges": [
+   [
+    "start",
+    "loc_11F7"
+   ],
+   [
+    "loc_11F7",
+    "loc_1203"
+   ],
+   [
+    "loc_11F7",
+    "loc_1227"
+   ],
+   [
+    "loc_1203",
+    "loc_11F7"
+   ],
+   [
+    "loc_1227",
+    "loc_122E"
+   ],
+   [
+    "loc_122E",
+    "loc_123A"
+   ],
+   [
+    "loc_122E",
+    "loc_12C3"
+   ],
+   [
+    "loc_123A",
+    "loc_1243"
+   ],
+   [
+    "loc_1243",
+    "loc_124F"
+   ],
+   [
+    "loc_1243",
+    "loc_12B0"
+   ],
+   [
+    "loc_124F",
+    "loc_126B"
+   ],
+   [
+    "loc_124F",
+    "loc_129D"
+   ],
+   [
+    "loc_126B",
+    "loc_129D"
+   ],
+   [
+    "loc_129D",
+    "loc_12A2"
+   ],
+   [
+    "loc_12A2",
+    "loc_1243"
+   ],
+   [
+    "loc_12B0",
+    "loc_12B5"
+   ],
+   [
+    "loc_12B5",
+    "loc_122E"
+   ],
+   [
+    "loc_12C3",
+    "loc_12CE"
+   ],
+   [
+    "loc_12CE",
+    "loc_12DA"
+   ],
+   [
+    "loc_12CE",
+    "loc_131C"
+   ],
+   [
+    "loc_12DA",
+    "loc_1300"
+   ],
+   [
+    "loc_12DA",
+    "loc_1309"
+   ],
+   [
+    "loc_1300",
+    "loc_131C"
+   ],
+   [
+    "loc_1309",
+    "loc_130E"
+   ],
+   [
+    "loc_130E",
+    "loc_12CE"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+l], rdi\nmov     [rbp+size], esi\nmovsxd  rdi, [rbp+size]\nshl     rdi, 2; size\ncall    malloc\nmov     [rbp+sorted], rax\nmov     [rbp+i], 0",
+   "loc_11F7": "mov     eax, [rbp+i]\ncmp     eax, [rbp+size]\njge     loc_1227",
+   "loc_1203": "mov     rax, [rbp+l]\nmovsxd  rcx, [rbp+i]\nmov     edx, [rax+rcx*4]\nmov     rax, [rbp+sorted]\nmovsxd  rcx, [rbp+i]\nmov     [rax+rcx*4], edx\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_11F7",
+   "loc_1227": "mov     [rbp+i_0], 0",
+   "loc_122E": "mov     eax, [rbp+i_0]\ncmp     eax, [rbp+size]\njge     loc_12C3",
+   "loc_123A": "mov     eax, [rbp+i_0]\nadd     eax, 1\nmov     [rbp+j], eax",
+   "loc_1243": "mov     eax, [rbp+j]\ncmp     eax, [rbp+size]\njge     loc_12B0",
+   "loc_124F": "mov     rax, [rbp+sorted]\nmovsxd  rcx, [rbp+i_0]\nmov     eax, [rax+rcx*4]\nmov     rcx, [rbp+sorted]\nmovsxd  rdx, [rbp+j]\ncmp     eax, [rcx+rdx*4]\njle     loc_129D",
+   "loc_126B": "mov     rax, [rbp+sorted]\nmovsxd  rcx, [rbp+i_0]\nmov     eax, [rax+rcx*4]\nmov     [rbp+temp], eax\nmov     rax, [rbp+sorted]\nmovsxd  rcx, [rbp+j]\nmov     edx, [rax+rcx*4]\nmov     rax, [rbp+sorted]\nmovsxd  rcx, [rbp+i_0]\nmov     [rax+rcx*4], edx\nmov     edx, [rbp+temp]\nmov     rax, [rbp+sorted]\nmovsxd  rcx, [rbp+j]\nmov     [rax+rcx*4], edx",
+   "loc_129D": "jmp     $+5",
+   "loc_12A2": "mov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_1243",
+   "loc_12B0": "jmp     $+5",
+   "loc_12B5": "mov     eax, [rbp+i_0]\nadd     eax, 1\nmov     [rbp+i_0], eax\njmp     loc_122E",
+   "loc_12C3": "mov     [rbp+result], 1\nmov     [rbp+i_1], 1",
+   "loc_12CE": "mov     eax, [rbp+i_1]\ncmp     eax, [rbp+size]\njge     loc_131C",
+   "loc_12DA": "mov     rax, [rbp+sorted]\nmovsxd  rcx, [rbp+i_1]\nmov     eax, [rax+rcx*4]\nmov     rcx, [rbp+sorted]\nmov     edx, [rbp+i_1]\nsub     edx, 1\nmovsxd  rdx, edx\nmov     ecx, [rcx+rdx*4]\nadd     ecx, 1\ncmp     eax, ecx\njz      loc_1309",
+   "loc_1300": "mov     [rbp+result], 0\njmp     loc_131C",
+   "loc_1309": "jmp     $+5",
+   "loc_130E": "mov     eax, [rbp+i_1]\nadd     eax, 1\nmov     [rbp+i_1], eax\njmp     loc_12CE",
+   "loc_131C": "mov     rdi, [rbp+sorted]; ptr\ncall    free\nmov     al, [rbp+result]\nand     al, 1\nmovzx   eax, al\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "i_1": "dword ptr -30h",
+   "result": "byte ptr -29h",
+   "temp": "dword ptr -28h",
+   "j": "dword ptr -24h",
+   "i_0": "dword ptr -20h",
+   "i": "dword ptr -1Ch",
+   "sorted": "qword ptr -18h",
+   "size": "dword ptr -0Ch",
+   "l": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4560,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868005
+ }
+}

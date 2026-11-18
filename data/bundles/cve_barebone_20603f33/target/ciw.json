@@ -1,0 +1,330 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+in], rdi\nmov     [rbp+buf], rsi\nmov     rax, [rbp+buf]\nmov     [rbp+bufp], rax\nmov     [rbp+bytes_read], 0\nmov     rdi, [rbp+in]; tif\ncall    TIFFNumberOfStrips\nmov     [rbp+nstrips], eax\nmov     rdi, [rbp+in]; tif\ncall    TIFFStripSize\nmov     [rbp+stripsize], eax\nmov     [rbp+rows], 0\nmov     rdi, [rbp+in]; tif\nmov     esi, 116h; tag\nlea     rdx, [rbp+rps]\nmov     al, 0\ncall    TIFFGetFieldDefaulted\nmov     [rbp+rps], eax\nmov     rdi, [rbp+in]; tif\ncall    TIFFScanlineSize\nmov     [rbp+scanline_size], rax\ncmp     [rbp+scanline_size], 0\njnz     loc_1F2E\nlea     rdi, aUsageSInput+12h; module\nlea     rsi, aTiffScanlineSi; \"TIFF scanline size is zero!\"\nmov     al, 0\ncall    TIFFError\nmov     [rbp+var_4], 0\njmp     loc_2012\nmov     [rbp+strip], 0\nmov     eax, [rbp+strip]\ncmp     eax, [rbp+nstrips]\njnb     loc_200B\nmov     rdi, [rbp+in]; tif\nmov     esi, [rbp+strip]; strip\nmov     rdx, [rbp+bufp]; buf\nmov     rcx, 0FFFFFFFFFFFFFFFFh; size\ncall    TIFFReadEncodedStrip\nmov     [rbp+bytes_read], eax\nmovsxd  rax, [rbp+bytes_read]\ncqo\nidiv    [rbp+scanline_size]\nmov     [rbp+rows], eax\nmov     eax, [rbp+strip]\nmov     ecx, [rbp+nstrips]\nsub     ecx, 1\ncmp     eax, ecx\njnb     loc_1FAA\nmov     eax, [rbp+bytes_read]\ncmp     eax, [rbp+stripsize]\njz      loc_1FAA\nmov     edx, [rbp+strip]\nadd     edx, 1\nmovsxd  rcx, [rbp+bytes_read]\nmov     eax, [rbp+stripsize]\nmov     r8d, eax\nlea     rdi, aUsageSInput+12h; module\nlea     rsi, aStripDReadLuBy; \"Strip %d: read %lu bytes, strip size %l\"...\nmov     al, 0\ncall    TIFFError\ncmp     [rbp+bytes_read], 0\njge     loc_1FEC\ncmp     cs:ignore, 0\njnz     loc_1FEC\nmov     eax, [rbp+strip]\nmov     edx, eax\nmov     eax, [rbp+rows]\nmov     ecx, eax\nlea     rdi, aUsageSInput+12h; module\nlea     rsi, aErrorReadingSt; \"Error reading strip %lu after %lu rows\"\nmov     al, 0\ncall    TIFFError\nmov     [rbp+var_4], 0\njmp     loc_2012\nmov     ecx, [rbp+bytes_read]\nmov     rax, [rbp+bufp]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+bufp], rax\nmov     eax, [rbp+strip]\nadd     eax, 1\nmov     [rbp+strip], eax\njmp     loc_1F35\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 13,
+  "edges": [
+   [
+    "start",
+    "loc_1F0D"
+   ],
+   [
+    "start",
+    "loc_1F2E"
+   ],
+   [
+    "loc_1F0D",
+    "loc_2012"
+   ],
+   [
+    "loc_1F2E",
+    "loc_1F35"
+   ],
+   [
+    "loc_1F35",
+    "loc_1F41"
+   ],
+   [
+    "loc_1F35",
+    "loc_200B"
+   ],
+   [
+    "loc_1F41",
+    "loc_1F79"
+   ],
+   [
+    "loc_1F41",
+    "loc_1FAA"
+   ],
+   [
+    "loc_1F79",
+    "loc_1F85"
+   ],
+   [
+    "loc_1F79",
+    "loc_1FAA"
+   ],
+   [
+    "loc_1F85",
+    "loc_1FAA"
+   ],
+   [
+    "loc_1FAA",
+    "loc_1FB4"
+   ],
+   [
+    "loc_1FAA",
+    "loc_1FEC"
+   ],
+   [
+    "loc_1FB4",
+    "loc_1FC1"
+   ],
+   [
+    "loc_1FB4",
+    "loc_1FEC"
+   ],
+   [
+    "loc_1FC1",
+    "loc_2012"
+   ],
+   [
+    "loc_1FEC",
+    "loc_1F35"
+   ],
+   [
+    "loc_200B",
+    "loc_2012"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+in], rdi\nmov     [rbp+buf], rsi\nmov     rax, [rbp+buf]\nmov     [rbp+bufp], rax\nmov     [rbp+bytes_read], 0\nmov     rdi, [rbp+in]; tif\ncall    TIFFNumberOfStrips\nmov     [rbp+nstrips], eax\nmov     rdi, [rbp+in]; tif\ncall    TIFFStripSize\nmov     [rbp+stripsize], eax\nmov     [rbp+rows], 0\nmov     rdi, [rbp+in]; tif\nmov     esi, 116h; tag\nlea     rdx, [rbp+rps]\nmov     al, 0\ncall    TIFFGetFieldDefaulted\nmov     [rbp+rps], eax\nmov     rdi, [rbp+in]; tif\ncall    TIFFScanlineSize\nmov     [rbp+scanline_size], rax\ncmp     [rbp+scanline_size], 0\njnz     loc_1F2E",
+   "loc_1F0D": "lea     rdi, aUsageSInput+12h; module\nlea     rsi, aTiffScanlineSi; \"TIFF scanline size is zero!\"\nmov     al, 0\ncall    TIFFError\nmov     [rbp+var_4], 0\njmp     loc_2012",
+   "loc_1F2E": "mov     [rbp+strip], 0",
+   "loc_1F35": "mov     eax, [rbp+strip]\ncmp     eax, [rbp+nstrips]\njnb     loc_200B",
+   "loc_1F41": "mov     rdi, [rbp+in]; tif\nmov     esi, [rbp+strip]; strip\nmov     rdx, [rbp+bufp]; buf\nmov     rcx, 0FFFFFFFFFFFFFFFFh; size\ncall    TIFFReadEncodedStrip\nmov     [rbp+bytes_read], eax\nmovsxd  rax, [rbp+bytes_read]\ncqo\nidiv    [rbp+scanline_size]\nmov     [rbp+rows], eax\nmov     eax, [rbp+strip]\nmov     ecx, [rbp+nstrips]\nsub     ecx, 1\ncmp     eax, ecx\njnb     loc_1FAA",
+   "loc_1F79": "mov     eax, [rbp+bytes_read]\ncmp     eax, [rbp+stripsize]\njz      loc_1FAA",
+   "loc_1F85": "mov     edx, [rbp+strip]\nadd     edx, 1\nmovsxd  rcx, [rbp+bytes_read]\nmov     eax, [rbp+stripsize]\nmov     r8d, eax\nlea     rdi, aUsageSInput+12h; module\nlea     rsi, aStripDReadLuBy; \"Strip %d: read %lu bytes, strip size %l\"...\nmov     al, 0\ncall    TIFFError",
+   "loc_1FAA": "cmp     [rbp+bytes_read], 0\njge     loc_1FEC",
+   "loc_1FB4": "cmp     cs:ignore, 0\njnz     loc_1FEC",
+   "loc_1FC1": "mov     eax, [rbp+strip]\nmov     edx, eax\nmov     eax, [rbp+rows]\nmov     ecx, eax\nlea     rdi, aUsageSInput+12h; module\nlea     rsi, aErrorReadingSt; \"Error reading strip %lu after %lu rows\"\nmov     al, 0\ncall    TIFFError\nmov     [rbp+var_4], 0\njmp     loc_2012",
+   "loc_1FEC": "mov     ecx, [rbp+bytes_read]\nmov     rax, [rbp+bufp]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+bufp], rax\nmov     eax, [rbp+strip]\nadd     eax, 1\nmov     [rbp+strip], eax\njmp     loc_1F35",
+   "loc_200B": "mov     [rbp+var_4], 1",
+   "loc_2012": "mov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "scanline_size": "qword ptr -40h",
+   "rps": "dword ptr -38h",
+   "rows": "dword ptr -34h",
+   "stripsize": "dword ptr -30h",
+   "nstrips": "dword ptr -2Ch",
+   "strip": "dword ptr -28h",
+   "bytes_read": "dword ptr -24h",
+   "bufp": "qword ptr -20h",
+   "buf": "qword ptr -18h",
+   "in": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "unk_30D4": "byte 'usage: %s <input>',0Ah,0",
+   "aTiffScanlineSi": "byte 'TIFF scanline size is zero!',0",
+   "aStripDReadLuBy": "byte 'Strip %d: read %lu bytes, strip size %lu',0",
+   "aErrorReadingSt": "byte 'Error reading strip %lu after %lu rows',0"
+  },
+  ".data": {},
+  ".bss": {
+   "ignore": "[]"
+  }
+ },
+ "func_ea": 7840,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".vfprintf": "vfprintf",
+  "_vfprintf": "vfprintf"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".vfprintf",
+   ".plt",
+   true,
+   "vfprintf"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "vfprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868452
+ }
+}

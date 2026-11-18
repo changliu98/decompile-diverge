@@ -1,0 +1,1 @@
+void swapPointers(pptr *ptr1, pptr *ptr2) { pptr tmp = *ptr1; *ptr1 = *ptr2; *ptr2 = tmp; }

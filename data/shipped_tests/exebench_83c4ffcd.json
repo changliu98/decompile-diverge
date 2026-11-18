@@ -1,0 +1,147 @@
+{
+ "kind": "exebench",
+ "real_deps": "\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_51mty4v99s.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(char* where, char* what, int n, char* returnv) {\n  json output_json;\n\n  output_json[\"where\"] = where;\n\n  output_json[\"what\"] = what;\n\n  output_json[\"returnv\"] = returnv;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  char* where = strdup(input_json[\"where\"].get<std::string>().c_str());\n  char* what = strdup(input_json[\"what\"].get<std::string>().c_str());\n  int n = input_json[\"n\"];\n  clock_t begin = clock();\n  char* returnv = copy_line(where, what, n);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(where, what, n, returnv);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "where": "lzjnfgtdshenzrqjozkniqcsqczqoco",
+    "what": "qlwktccdqnn",
+    "n": 74
+   },
+   "output": {
+    "returnv": "",
+    "what": "qlwktccdqnn",
+    "where": "qlwktccdqnn"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "where": "lngss",
+    "what": "utpphgqnnstsfpvy",
+    "n": 12
+   },
+   "output": {
+    "returnv": "sfpvy",
+    "what": "utpphgqnnstsfpvy",
+    "where": "utpphgqnnst"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "where": "kekgrtrmhjy",
+    "what": "nahayxdetyxm",
+    "n": 14
+   },
+   "output": {
+    "returnv": "",
+    "what": "nahayxdetyxm",
+    "where": "nahayxdetyxm"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "where": "oemfnmulbngbwjqlemhnwhtrpg",
+    "what": "pkmev",
+    "n": 91
+   },
+   "output": {
+    "returnv": "",
+    "what": "pkmev",
+    "where": "pkmev"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "where": "hqutzjng",
+    "what": "udxu",
+    "n": 107
+   },
+   "output": {
+    "returnv": "",
+    "what": "udxu",
+    "where": "udxu"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "where": "fpvcvzrvivlgzgzamggqigbekpwhu",
+    "what": "pbenkvzechyukkoqwnxukswh",
+    "n": 55
+   },
+   "output": {
+    "returnv": "",
+    "what": "pbenkvzechyukkoqwnxukswh",
+    "where": "pbenkvzechyukkoqwnxukswh"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "where": "ndcffebcbabhxzpywy",
+    "what": "zugty",
+    "n": 95
+   },
+   "output": {
+    "returnv": "",
+    "what": "zugty",
+    "where": "zugty"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "where": "gzo",
+    "what": "uhjlfoxxui",
+    "n": 39
+   },
+   "output": {
+    "returnv": "",
+    "what": "uhjlfoxxui",
+    "where": "uhjlfoxxui"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "where": "tyqfbzeyw",
+    "what": "hpmikwgbplkfe",
+    "n": 2
+   },
+   "output": {
+    "returnv": "pmikwgbplkfe",
+    "what": "hpmikwgbplkfe",
+    "where": "h"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "where": "mkufvzvuquve",
+    "what": "bkpynliimqjbwitjamgqsrslxagelx",
+    "n": 105
+   },
+   "output": {
+    "returnv": "",
+    "what": "bkpynliimqjbwitjamgqsrslxagelx",
+    "where": "bkpynliimqjbwitjamgqsrslxagelx"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

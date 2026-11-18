@@ -1,0 +1,1 @@
+u32 func0(u32 x) { u32 b = 0; u32 r = 0; u32 e = x; while (e > 0) { if ((b % 2) == 1) { r |= (1 << b); } b++; e >>= 1; } return x | r; }

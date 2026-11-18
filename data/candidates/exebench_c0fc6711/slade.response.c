@@ -1,0 +1,1 @@
+void _quadtree_sort_swap(quad_t *a, quad_t *b) { quad_t temp = *a; *a = *b; *b = temp; }

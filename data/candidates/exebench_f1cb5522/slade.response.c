@@ -1,0 +1,1 @@
+void argorder(int a, int b, int * _a, int * _b) { int t; if (a > b) { t = a; a = b; b = t; } *_a = a; *_b = b; }

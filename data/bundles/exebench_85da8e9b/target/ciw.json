@@ -1,0 +1,297 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nmov     ax, dx\nmov     dx, si\nmov     sil, dil\nmov     [rbp+mask], sil\nmov     [rbp+col1], dx\nmov     [rbp+col2], ax\nmov     [rbp+target], rcx\nmovzx   eax, [rbp+col1]\nand     eax, 1Fh\nshl     eax, 3\nmov     [rbp+r1], ax\nmovzx   eax, [rbp+col1]\nshr     eax, 3\nand     eax, 0FCh\nmov     [rbp+g1], ax\nmovzx   eax, byte ptr [rbp+col1+1]\nand     eax, 0FFFFFFF8h\nmov     [rbp+b1], ax\nmovzx   eax, [rbp+col2]\nand     eax, 1Fh\nshl     eax, 3\nmov     [rbp+r2], ax\nmovzx   eax, [rbp+col2]\nshr     eax, 3\nand     eax, 0FCh\nmov     [rbp+g2], ax\nmovzx   eax, byte ptr [rbp+col2+1]\nand     eax, 0FFFFFFF8h\nmov     [rbp+b2], ax\nmovzx   eax, [rbp+mask]\nmov     [rbp+var_28], rax\nsub     rax, 3; switch 4 cases\nja      def_1263; jumptable 0000000000001263 default case\nmov     rax, [rbp+var_28]\nlea     rcx, jpt_1263\nmovsxd  rax, ds:(jpt_1263 - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nmov     ax, [rbp+r1]; jumptable 0000000000001263 case 0\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax], cl\nmov     ax, [rbp+g1]\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax+1], cl\nmov     ax, [rbp+b1]\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax+2], cl\njmp     def_1263; jumptable 0000000000001263 default case\nmov     ax, [rbp+r2]; jumptable 0000000000001263 case 1\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax], cl\nmov     ax, [rbp+g2]\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax+1], cl\nmov     ax, [rbp+b2]\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax+2], cl\njmp     def_1263; jumptable 0000000000001263 default case\nmovzx   eax, [rbp+col1]; jumptable 0000000000001263 case 2\nmovzx   ecx, [rbp+col2]\ncmp     eax, ecx\njle     loc_1329\nmovzx   eax, [rbp+r1]\nshl     eax, 1\nmovzx   ecx, [rbp+r2]\nadd     eax, ecx\nmov     ecx, 3\ncdq\nidiv    ecx\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax], cl\nmovzx   eax, [rbp+g1]\nshl     eax, 1\nmovzx   ecx, [rbp+g2]\nadd     eax, ecx\nmov     ecx, 3\ncdq\nidiv    ecx\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax+1], cl\nmovzx   eax, [rbp+b1]\nshl     eax, 1\nmovzx   ecx, [rbp+b2]\nadd     eax, ecx\nmov     ecx, 3\ncdq\nidiv    ecx\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax+2], cl\njmp     loc_1379\nmovzx   eax, [rbp+r1]\nmovzx   ecx, [rbp+r2]\nadd     eax, ecx\nmov     ecx, 2\ncdq\nidiv    ecx\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax], cl\nmovzx   eax, [rbp+g1]\nmovzx   ecx, [rbp+g2]\nadd     eax, ecx\nmov     ecx, 2\ncdq\nidiv    ecx\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax+1], cl\nmovzx   eax, [rbp+b1]\nmovzx   ecx, [rbp+b2]\nadd     eax, ecx\nmov     ecx, 2\ncdq\nidiv    ecx\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax+2], cl\njmp     def_1263; jumptable 0000000000001263 default case\nmovzx   eax, [rbp+col1]; jumptable 0000000000001263 case 3\nmovzx   ecx, [rbp+col2]\ncmp     eax, ecx\njle     loc_13EC\nmovzx   eax, [rbp+r1]\nmovzx   ecx, [rbp+r2]\nshl     ecx, 1\nadd     eax, ecx\nmov     ecx, 3\ncdq\nidiv    ecx\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax], cl\nmovzx   eax, [rbp+g1]\nmovzx   ecx, [rbp+g2]\nshl     ecx, 1\nadd     eax, ecx\nmov     ecx, 3\ncdq\nidiv    ecx\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax+1], cl\nmovzx   eax, [rbp+b1]\nmovzx   ecx, [rbp+b2]\nshl     ecx, 1\nadd     eax, ecx\nmov     ecx, 3\ncdq\nidiv    ecx\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax+2], cl\njmp     loc_1403\nmov     rax, [rbp+target]\nmov     byte ptr [rax+2], 0\nmov     rax, [rbp+target]\nmov     byte ptr [rax+1], 0\nmov     rax, [rbp+target]\nmov     byte ptr [rax], 0\njmp     $+5; jumptable 0000000000001263 default case\npop     rbp; jumptable 0000000000001263 default case\nretn",
+ "assemgraph_com": {
+  "nodenum": 13,
+  "edges": [
+   [
+    "start",
+    "loc_1251"
+   ],
+   [
+    "start",
+    "loc_1408"
+   ],
+   [
+    "loc_1251",
+    "loc_1265"
+   ],
+   [
+    "loc_1251",
+    "loc_1290"
+   ],
+   [
+    "loc_1251",
+    "loc_12BB"
+   ],
+   [
+    "loc_1251",
+    "loc_137E"
+   ],
+   [
+    "loc_1265",
+    "loc_1408"
+   ],
+   [
+    "loc_1290",
+    "loc_1408"
+   ],
+   [
+    "loc_12BB",
+    "loc_12CB"
+   ],
+   [
+    "loc_12BB",
+    "loc_1329"
+   ],
+   [
+    "loc_12CB",
+    "loc_1379"
+   ],
+   [
+    "loc_1329",
+    "loc_1379"
+   ],
+   [
+    "loc_1379",
+    "loc_1408"
+   ],
+   [
+    "loc_137E",
+    "loc_138E"
+   ],
+   [
+    "loc_137E",
+    "loc_13EC"
+   ],
+   [
+    "loc_138E",
+    "loc_1403"
+   ],
+   [
+    "loc_13EC",
+    "loc_1403"
+   ],
+   [
+    "loc_1403",
+    "loc_1408"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nmov     ax, dx\nmov     dx, si\nmov     sil, dil\nmov     [rbp+mask], sil\nmov     [rbp+col1], dx\nmov     [rbp+col2], ax\nmov     [rbp+target], rcx\nmovzx   eax, [rbp+col1]\nand     eax, 1Fh\nshl     eax, 3\nmov     [rbp+r1], ax\nmovzx   eax, [rbp+col1]\nshr     eax, 3\nand     eax, 0FCh\nmov     [rbp+g1], ax\nmovzx   eax, byte ptr [rbp+col1+1]\nand     eax, 0FFFFFFF8h\nmov     [rbp+b1], ax\nmovzx   eax, [rbp+col2]\nand     eax, 1Fh\nshl     eax, 3\nmov     [rbp+r2], ax\nmovzx   eax, [rbp+col2]\nshr     eax, 3\nand     eax, 0FCh\nmov     [rbp+g2], ax\nmovzx   eax, byte ptr [rbp+col2+1]\nand     eax, 0FFFFFFF8h\nmov     [rbp+b2], ax\nmovzx   eax, [rbp+mask]\nmov     [rbp+var_28], rax\nsub     rax, 3; switch 4 cases\nja      def_1263; jumptable 0000000000001263 default case",
+   "loc_1251": "mov     rax, [rbp+var_28]\nlea     rcx, jpt_1263\nmovsxd  rax, ds:(jpt_1263 - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_1265": "mov     ax, [rbp+r1]; jumptable 0000000000001263 case 0\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax], cl\nmov     ax, [rbp+g1]\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax+1], cl\nmov     ax, [rbp+b1]\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax+2], cl\njmp     def_1263; jumptable 0000000000001263 default case",
+   "loc_1290": "mov     ax, [rbp+r2]; jumptable 0000000000001263 case 1\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax], cl\nmov     ax, [rbp+g2]\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax+1], cl\nmov     ax, [rbp+b2]\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax+2], cl\njmp     def_1263; jumptable 0000000000001263 default case",
+   "loc_12BB": "movzx   eax, [rbp+col1]; jumptable 0000000000001263 case 2\nmovzx   ecx, [rbp+col2]\ncmp     eax, ecx\njle     loc_1329",
+   "loc_12CB": "movzx   eax, [rbp+r1]\nshl     eax, 1\nmovzx   ecx, [rbp+r2]\nadd     eax, ecx\nmov     ecx, 3\ncdq\nidiv    ecx\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax], cl\nmovzx   eax, [rbp+g1]\nshl     eax, 1\nmovzx   ecx, [rbp+g2]\nadd     eax, ecx\nmov     ecx, 3\ncdq\nidiv    ecx\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax+1], cl\nmovzx   eax, [rbp+b1]\nshl     eax, 1\nmovzx   ecx, [rbp+b2]\nadd     eax, ecx\nmov     ecx, 3\ncdq\nidiv    ecx\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax+2], cl\njmp     loc_1379",
+   "loc_1329": "movzx   eax, [rbp+r1]\nmovzx   ecx, [rbp+r2]\nadd     eax, ecx\nmov     ecx, 2\ncdq\nidiv    ecx\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax], cl\nmovzx   eax, [rbp+g1]\nmovzx   ecx, [rbp+g2]\nadd     eax, ecx\nmov     ecx, 2\ncdq\nidiv    ecx\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax+1], cl\nmovzx   eax, [rbp+b1]\nmovzx   ecx, [rbp+b2]\nadd     eax, ecx\nmov     ecx, 2\ncdq\nidiv    ecx\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax+2], cl",
+   "loc_1379": "jmp     def_1263; jumptable 0000000000001263 default case",
+   "loc_137E": "movzx   eax, [rbp+col1]; jumptable 0000000000001263 case 3\nmovzx   ecx, [rbp+col2]\ncmp     eax, ecx\njle     loc_13EC",
+   "loc_138E": "movzx   eax, [rbp+r1]\nmovzx   ecx, [rbp+r2]\nshl     ecx, 1\nadd     eax, ecx\nmov     ecx, 3\ncdq\nidiv    ecx\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax], cl\nmovzx   eax, [rbp+g1]\nmovzx   ecx, [rbp+g2]\nshl     ecx, 1\nadd     eax, ecx\nmov     ecx, 3\ncdq\nidiv    ecx\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax+1], cl\nmovzx   eax, [rbp+b1]\nmovzx   ecx, [rbp+b2]\nshl     ecx, 1\nadd     eax, ecx\nmov     ecx, 3\ncdq\nidiv    ecx\nmov     cl, al\nmov     rax, [rbp+target]\nmov     [rax+2], cl\njmp     loc_1403",
+   "loc_13EC": "mov     rax, [rbp+target]\nmov     byte ptr [rax+2], 0\nmov     rax, [rbp+target]\nmov     byte ptr [rax+1], 0\nmov     rax, [rbp+target]\nmov     byte ptr [rax], 0",
+   "loc_1403": "jmp     $+5; jumptable 0000000000001263 default case",
+   "loc_1408": "pop     rbp; jumptable 0000000000001263 default case\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_28": "qword ptr -28h",
+   "b2": "word ptr -1Ch",
+   "g2": "word ptr -1Ah",
+   "r2": "word ptr -18h",
+   "b1": "word ptr -16h",
+   "g1": "word ptr -14h",
+   "r1": "word ptr -12h",
+   "target": "qword ptr -10h",
+   "col2": "word ptr -6",
+   "col1": "word ptr -4",
+   "mask": "byte ptr -1"
+  },
+  ".rodata": {
+   "jpt_1263": "dword offset loc_1265 - 2004h; jump table for switch statement"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4560,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868289
+ }
+}

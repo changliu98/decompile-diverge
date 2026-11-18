@@ -1,0 +1,1 @@
+void get_neighbors(int *pos, int pos_x, int pos_y, int *neighbors) { int x = pos_y % pos_x; int y = (pos_y - x) / pos_x; int dx = y - 1; if (dx < 0) dx = pos_x - dx; int dy = x - 1; if (dy < 0) dy = pos_x - dy; int sx = (y + 1) % pos_x; int sy = (x + 1) % pos_x; neighbors[0] = x * dx + x; neighbors[1] = x * sx + x; neighbors[2] = y * y + dy; neighbors[3] = sy * y + sy; }

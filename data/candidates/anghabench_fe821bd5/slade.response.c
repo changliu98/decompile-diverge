@@ -1,0 +1,1 @@
+int ok_cp1251 (char *s, int n) { int i; for (i = 1; i < n; i++) { if (s[i] == (char)0x98) { return 0; } } return 1; }

@@ -1,0 +1,1 @@
+void doZ(GBContext *cpu) { cpu->SP +=0x10; }

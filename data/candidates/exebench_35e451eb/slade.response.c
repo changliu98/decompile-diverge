@@ -1,0 +1,1 @@
+void adjust_point(struct point *p) { if (p->x < 0) p->x = 0; else if (p->x > 100) p->x = 100; }

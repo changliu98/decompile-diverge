@@ -1,0 +1,275 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+sst], rdi\nmov     [rbp+buf], rsi\nmov     [rbp+offs], rdx\nmov     [rbp+len], rcx\nmov     [rbp+h], r8\nmov     [rbp+id], r9d\nmov     rax, [rbp+h]\nmovzx   ecx, word ptr [rax+2]\nmov     eax, 1\nshl     eax, cl\ncdqe\nmov     [rbp+ss_0], rax\nmovsxd  rax, [rbp+id]\nmov     rcx, [rbp+h]\nmovzx   ecx, word ptr [rcx+2]\nmov     edx, 1\nshl     edx, cl\nmov     ecx, edx\nmovsxd  rcx, ecx\nimul    rax, rcx\nmov     [rbp+pos], rax\nmov     rax, [rbp+ss_0]\ncmp     rax, [rbp+len]\njnz     loc_1258\njmp     loc_1277\nlea     rdi, assertion; \"ss == len\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 53h ; 'S'; line\nlea     rcx, function; \"ssize_t cdf_read_short_sector(const cdf\"...\ncall    ___assert_fail\nmov     rax, [rbp+pos]\nmov     rcx, [rbp+h]\nmovzx   ecx, word ptr [rcx]\nmov     edx, 1\nshl     edx, cl\nmov     ecx, edx\nmovsxd  rcx, ecx\nmov     rdx, [rbp+sst]\nimul    rcx, [rdx+8]\ncmp     rax, rcx\njbe     loc_12AD\nmov     [rbp+var_8], 0FFFFFFFFFFFFFFFFh\njmp     loc_12D1\nmov     rdi, [rbp+buf]\nadd     rdi, [rbp+offs]; dest\nmov     rax, [rbp+sst]\nmov     rsi, [rax]\nadd     rsi, [rbp+pos]; src\nmov     rdx, [rbp+len]; n\ncall    memcpy\nmov     rax, [rbp+len]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 7,
+  "edges": [
+   [
+    "start",
+    "loc_1253"
+   ],
+   [
+    "start",
+    "loc_1258"
+   ],
+   [
+    "loc_1253",
+    "loc_1277"
+   ],
+   [
+    "loc_1277",
+    "loc_12A0"
+   ],
+   [
+    "loc_1277",
+    "loc_12AD"
+   ],
+   [
+    "loc_12A0",
+    "loc_12D1"
+   ],
+   [
+    "loc_12AD",
+    "loc_12D1"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+sst], rdi\nmov     [rbp+buf], rsi\nmov     [rbp+offs], rdx\nmov     [rbp+len], rcx\nmov     [rbp+h], r8\nmov     [rbp+id], r9d\nmov     rax, [rbp+h]\nmovzx   ecx, word ptr [rax+2]\nmov     eax, 1\nshl     eax, cl\ncdqe\nmov     [rbp+ss_0], rax\nmovsxd  rax, [rbp+id]\nmov     rcx, [rbp+h]\nmovzx   ecx, word ptr [rcx+2]\nmov     edx, 1\nshl     edx, cl\nmov     ecx, edx\nmovsxd  rcx, ecx\nimul    rax, rcx\nmov     [rbp+pos], rax\nmov     rax, [rbp+ss_0]\ncmp     rax, [rbp+len]\njnz     loc_1258",
+   "loc_1253": "jmp     loc_1277",
+   "loc_1258": "lea     rdi, assertion; \"ss == len\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 53h ; 'S'; line\nlea     rcx, function; \"ssize_t cdf_read_short_sector(const cdf\"...\ncall    ___assert_fail",
+   "loc_1277": "mov     rax, [rbp+pos]\nmov     rcx, [rbp+h]\nmovzx   ecx, word ptr [rcx]\nmov     edx, 1\nshl     edx, cl\nmov     ecx, edx\nmovsxd  rcx, ecx\nmov     rdx, [rbp+sst]\nimul    rcx, [rdx+8]\ncmp     rax, rcx\njbe     loc_12AD",
+   "loc_12A0": "mov     [rbp+var_8], 0FFFFFFFFFFFFFFFFh\njmp     loc_12D1",
+   "loc_12AD": "mov     rdi, [rbp+buf]\nadd     rdi, [rbp+offs]; dest\nmov     rax, [rbp+sst]\nmov     rsi, [rax]\nadd     rsi, [rbp+pos]; src\nmov     rdx, [rbp+len]; n\ncall    memcpy\nmov     rax, [rbp+len]\nmov     [rbp+var_8], rax",
+   "loc_12D1": "mov     rax, [rbp+var_8]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "pos": "qword ptr -48h",
+   "ss_0": "qword ptr -40h",
+   "id": "dword ptr -34h",
+   "h": "qword ptr -30h",
+   "len": "qword ptr -28h",
+   "offs": "qword ptr -20h",
+   "buf": "qword ptr -18h",
+   "sst": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {
+   "assertion": "byte 'ss == len',0",
+   "file": "byte 'harness.c',0",
+   "function": "byte 'ssize_t cdf_read_short_sector(const cdf_stream_t *, void *, size_'"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4592,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868471
+ }
+}

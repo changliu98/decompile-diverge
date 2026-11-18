@@ -1,0 +1,162 @@
+0000000000026800 <handle_in_frameset>:
+   26800:	push   %rbp
+   26801:	mov    %rsp,%rbp
+   26804:	sub    $0x20,%rsp
+   26808:	mov    %rdi,-0x10(%rbp)
+   2680c:	mov    %rsi,-0x18(%rbp)
+   26810:	mov    -0x18(%rbp),%rax
+   26814:	cmpl   $0x4,(%rax)
+   26817:	jne    26833 <handle_in_frameset+0x33>
+   2681d:	mov    -0x10(%rbp),%rdi
+   26821:	mov    -0x18(%rbp),%rsi
+   26825:	call   27580 <insert_text_token>
+   2682a:	movb   $0x1,-0x1(%rbp)
+   2682e:	jmp    26a8b <handle_in_frameset+0x28b>
+   26833:	mov    -0x18(%rbp),%rax
+   26837:	cmpl   $0x3,(%rax)
+   2683a:	jne    2686a <handle_in_frameset+0x6a>
+   26840:	mov    -0x10(%rbp),%rax
+   26844:	mov    %rax,-0x20(%rbp)
+   26848:	mov    -0x10(%rbp),%rdi
+   2684c:	call   45a0 <get_current_node>
+   26851:	mov    -0x20(%rbp),%rdi
+   26855:	mov    %rax,%rsi
+   26858:	mov    -0x18(%rbp),%rdx
+   2685c:	call   26e80 <append_comment_node>
+   26861:	movb   $0x1,-0x1(%rbp)
+   26865:	jmp    26a8b <handle_in_frameset+0x28b>
+   2686a:	mov    -0x18(%rbp),%rax
+   2686e:	cmpl   $0x0,(%rax)
+   26871:	jne    26896 <handle_in_frameset+0x96>
+   26877:	mov    -0x10(%rbp),%rdi
+   2687b:	mov    -0x18(%rbp),%rsi
+   2687f:	call   5d60 <parser_add_parse_error>
+   26884:	mov    -0x10(%rbp),%rdi
+   26888:	call   200b0 <ignore_token>
+   2688d:	movb   $0x0,-0x1(%rbp)
+   26891:	jmp    26a8b <handle_in_frameset+0x28b>
+   26896:	mov    -0x18(%rbp),%rdi
+   2689a:	mov    $0x1,%esi
+   2689f:	xor    %edx,%edx
+   268a1:	call   20110 <tag_is>
+   268a6:	test   $0x1,%al
+   268a8:	jne    268b3 <handle_in_frameset+0xb3>
+   268ae:	jmp    268ca <handle_in_frameset+0xca>
+   268b3:	mov    -0x10(%rbp),%rdi
+   268b7:	mov    -0x18(%rbp),%rsi
+   268bb:	call   21bb0 <handle_in_body>
+   268c0:	and    $0x1,%al
+   268c2:	mov    %al,-0x1(%rbp)
+   268c5:	jmp    26a8b <handle_in_frameset+0x28b>
+   268ca:	mov    -0x18(%rbp),%rdi
+   268ce:	mov    $0x1,%esi
+   268d3:	mov    $0x81,%edx
+   268d8:	call   20110 <tag_is>
+   268dd:	test   $0x1,%al
+   268df:	jne    268ea <handle_in_frameset+0xea>
+   268e5:	jmp    26900 <handle_in_frameset+0x100>
+   268ea:	mov    -0x10(%rbp),%rdi
+   268ee:	mov    -0x18(%rbp),%rsi
+   268f2:	call   27300 <insert_element_from_token>
+   268f7:	movb   $0x1,-0x1(%rbp)
+   268fb:	jmp    26a8b <handle_in_frameset+0x28b>
+   26900:	mov    -0x18(%rbp),%rdi
+   26904:	xor    %esi,%esi
+   26906:	mov    $0x81,%edx
+   2690b:	call   20110 <tag_is>
+   26910:	test   $0x1,%al
+   26912:	jne    2691d <handle_in_frameset+0x11d>
+   26918:	jmp    269ab <handle_in_frameset+0x1ab>
+   2691d:	mov    -0x10(%rbp),%rdi
+   26921:	call   45a0 <get_current_node>
+   26926:	mov    %rax,%rdi
+   26929:	xor    %esi,%esi
+   2692b:	call   4780 <node_html_tag_is>
+   26930:	test   $0x1,%al
+   26932:	jne    2693d <handle_in_frameset+0x13d>
+   26938:	jmp    2695c <handle_in_frameset+0x15c>
+   2693d:	mov    -0x10(%rbp),%rdi
+   26941:	mov    -0x18(%rbp),%rsi
+   26945:	call   5d60 <parser_add_parse_error>
+   2694a:	mov    -0x10(%rbp),%rdi
+   2694e:	call   200b0 <ignore_token>
+   26953:	movb   $0x0,-0x1(%rbp)
+   26957:	jmp    26a8b <handle_in_frameset+0x28b>
+   2695c:	mov    -0x10(%rbp),%rdi
+   26960:	call   4840 <pop_current_node>
+   26965:	mov    -0x10(%rbp),%rdi
+   26969:	call   20020 <is_fragment_parser>
+   2696e:	test   $0x1,%al
+   26970:	jne    269a2 <handle_in_frameset+0x1a2>
+   26976:	mov    -0x10(%rbp),%rdi
+   2697a:	call   45a0 <get_current_node>
+   2697f:	mov    %rax,%rdi
+   26982:	mov    $0x81,%esi
+   26987:	call   4780 <node_html_tag_is>
+   2698c:	test   $0x1,%al
+   2698e:	jne    269a2 <handle_in_frameset+0x1a2>
+   26994:	mov    -0x10(%rbp),%rdi
+   26998:	mov    $0x14,%esi
+   2699d:	call   20000 <set_insertion_mode>
+   269a2:	movb   $0x1,-0x1(%rbp)
+   269a6:	jmp    26a8b <handle_in_frameset+0x28b>
+   269ab:	mov    -0x18(%rbp),%rdi
+   269af:	mov    $0x1,%esi
+   269b4:	mov    $0x80,%edx
+   269b9:	call   20110 <tag_is>
+   269be:	test   $0x1,%al
+   269c0:	jne    269cb <handle_in_frameset+0x1cb>
+   269c6:	jmp    269f3 <handle_in_frameset+0x1f3>
+   269cb:	mov    -0x10(%rbp),%rdi
+   269cf:	mov    -0x18(%rbp),%rsi
+   269d3:	call   27300 <insert_element_from_token>
+   269d8:	mov    -0x10(%rbp),%rdi
+   269dc:	call   4840 <pop_current_node>
+   269e1:	mov    -0x10(%rbp),%rdi
+   269e5:	call   276a0 <acknowledge_self_closing_tag>
+   269ea:	movb   $0x1,-0x1(%rbp)
+   269ee:	jmp    26a8b <handle_in_frameset+0x28b>
+   269f3:	mov    -0x18(%rbp),%rdi
+   269f7:	mov    $0x1,%esi
+   269fc:	mov    $0x82,%edx
+   26a01:	call   20110 <tag_is>
+   26a06:	test   $0x1,%al
+   26a08:	jne    26a13 <handle_in_frameset+0x213>
+   26a0e:	jmp    26a2a <handle_in_frameset+0x22a>
+   26a13:	mov    -0x10(%rbp),%rdi
+   26a17:	mov    -0x18(%rbp),%rsi
+   26a1b:	call   20fe0 <handle_in_head>
+   26a20:	and    $0x1,%al
+   26a22:	mov    %al,-0x1(%rbp)
+   26a25:	jmp    26a8b <handle_in_frameset+0x28b>
+   26a2a:	mov    -0x18(%rbp),%rax
+   26a2e:	cmpl   $0x8,(%rax)
+   26a31:	jne    26a71 <handle_in_frameset+0x271>
+   26a37:	mov    -0x10(%rbp),%rdi
+   26a3b:	call   45a0 <get_current_node>
+   26a40:	mov    %rax,%rdi
+   26a43:	xor    %esi,%esi
+   26a45:	call   4780 <node_html_tag_is>
+   26a4a:	test   $0x1,%al
+   26a4c:	jne    26a68 <handle_in_frameset+0x268>
+   26a52:	mov    -0x10(%rbp),%rdi
+   26a56:	mov    -0x18(%rbp),%rsi
+   26a5a:	call   5d60 <parser_add_parse_error>
+   26a5f:	movb   $0x0,-0x1(%rbp)
+   26a63:	jmp    26a8b <handle_in_frameset+0x28b>
+   26a68:	movb   $0x1,-0x1(%rbp)
+   26a6c:	jmp    26a8b <handle_in_frameset+0x28b>
+   26a71:	mov    -0x10(%rbp),%rdi
+   26a75:	mov    -0x18(%rbp),%rsi
+   26a79:	call   5d60 <parser_add_parse_error>
+   26a7e:	mov    -0x10(%rbp),%rdi
+   26a82:	call   200b0 <ignore_token>
+   26a87:	movb   $0x0,-0x1(%rbp)
+   26a8b:	mov    -0x1(%rbp),%al
+   26a8e:	and    $0x1,%al
+   26a90:	movzbl %al,%eax
+   26a93:	add    $0x20,%rsp
+   26a97:	pop    %rbp
+   26a98:	ret
+
+Disassembly of section .fini:

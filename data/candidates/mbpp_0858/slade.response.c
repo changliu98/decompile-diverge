@@ -1,0 +1,1 @@
+__attribute__((no, noclone)) unsigned int func0 (struct S *p, unsigned int x) { return x * x; }

@@ -1,0 +1,84 @@
+static void
+process_bitmap_updates(STREAM s)
+{
+ int i;
+ uint16 num_updates;
+
+ logger(4, NULL, "%s()", "process_bitmap_updates");
+
+ num_updates = *((uint16 *) s->p);
+ s->p += 2;
+
+ for (i = 0; i < num_updates; i++)
+ {
+  unsigned char *bmpdata;
+  unsigned char *cptr;
+  uint16 left, top, right, bottom, width, height, bpp, Bpp, bufsize, compress;
+  uint16 cx, cy, size;
+
+  left = *((uint16 *) s->p);
+  s->p += 2;
+  top = *((uint16 *) s->p);
+  s->p += 2;
+  right = *((uint16 *) s->p);
+  s->p += 2;
+  bottom = *((uint16 *) s->p);
+  s->p += 2;
+  width = *((uint16 *) s->p);
+  s->p += 2;
+  height = *((uint16 *) s->p);
+  s->p += 2;
+  bpp = *((uint16 *) s->p);
+  s->p += 2;
+  Bpp = (bpp + 7) / 8;
+  compress = *((uint16 *) s->p);
+  s->p += 2;
+  bufsize = *((uint16 *) s->p);
+  s->p += 2;
+
+  cx = right - left + 1;
+  cy = bottom - top + 1;
+
+  logger(5, NULL, "process_bitmap_updates(), [%d,%d,%d,%d], [%d,%d], bpp=%d, compress=%d, bufsize=%d",
+         left, top, right, bottom, width, height, bpp, compress, bufsize);
+
+  if (compress == 0)
+  {
+   bmpdata = (unsigned char *) xmalloc(width * height * Bpp);
+   for (int j = 0; j < height; j++)
+   {
+    memcpy(bmpdata + ((height - j - 1) * width * Bpp), s->p, width * Bpp);
+    s->p += width * Bpp;
+   }
+   ui_paint_bitmap(left, top, cx, cy, width, height, bmpdata);
+   xfree(bmpdata);
+  }
+  else
+  {
+   if (compress & 0x0400)
+    size = bufsize;
+   else
+   {
+    s->p += 2;
+    size = *((uint16 *) s->p);
+    s->p += 2;
+    s->p += 4;
+   }
+
+   cptr = s->p;
+   s->p += size;
+
+   bmpdata = (unsigned char *) xmalloc(width * height * Bpp);
+
+   if (bitmap_decompress(bmpdata, width, height, cptr, size, Bpp))
+   {
+    ui_paint_bitmap(left, top, cx, cy, width, height, bmpdata);
+   }
+   else
+   {
+    logger(5, 2, "process_bitmap_updates(), failed to decompress bitmap");
+   }
+   xfree(bmpdata);
+  }
+ }
+}

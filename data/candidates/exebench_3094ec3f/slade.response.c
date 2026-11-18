@@ -1,0 +1,1 @@
+int __attribute__((no,noclone)) g(struct A *a) { a->i = 10; return 0; }

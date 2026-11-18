@@ -1,0 +1,1 @@
+int int2arr(int a[], int len) { int out = 0; while (len) { a[out] = len%10; len /= 10; out++; } return out; }

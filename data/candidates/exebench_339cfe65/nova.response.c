@@ -1,0 +1,1 @@
+void toggle(int *x) { *x = (*x + 1) % 2; }

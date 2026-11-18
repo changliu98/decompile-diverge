@@ -1,0 +1,568 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+input_pointer], rdi\nmov     [rbp+input_end], rsi\nmov     [rbp+output_pointer], rdx\nmov     [rbp+codepoint], 0\nmov     [rbp+first_code], 0\nmov     rax, [rbp+input_pointer]\nmov     [rbp+first_sequence], rax\nmov     [rbp+utf8_length], 0\nmov     [rbp+utf8_position], 0\nmov     [rbp+sequence_length], 0\nmov     [rbp+first_byte_mark], 0\nmov     rax, [rbp+input_end]\nmov     rcx, [rbp+first_sequence]\nsub     rax, rcx\ncmp     rax, 6\njge     loc_53D5\njmp     fail\nmov     rdi, [rbp+first_sequence]\nadd     rdi, 2; input\ncall    parse_hex4\nmov     [rbp+first_code], eax\ncmp     [rbp+first_code], 0DC00h\njb      loc_5404\ncmp     [rbp+first_code], 0DFFFh\nja      loc_5404\njmp     fail\ncmp     [rbp+first_code], 0D800h\njb      loc_54CA\ncmp     [rbp+first_code], 0DBFFh\nja      loc_54CA\nmov     rax, [rbp+first_sequence]\nadd     rax, 6\nmov     [rbp+second_sequence], rax\nmov     [rbp+second_code], 0\nmov     [rbp+sequence_length], 0Ch\nmov     rax, [rbp+input_end]\nmov     rcx, [rbp+second_sequence]\nsub     rax, rcx\ncmp     rax, 6\njge     loc_544F\njmp     fail\nmov     rax, [rbp+second_sequence]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 5Ch ; '\\'\njnz     loc_5470\nmov     rax, [rbp+second_sequence]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 75h ; 'u'\njz      loc_5475\njmp     fail\nmov     rdi, [rbp+second_sequence]\nadd     rdi, 2; input\ncall    parse_hex4\nmov     [rbp+second_code], eax\ncmp     [rbp+second_code], 0DC00h\njb      loc_549F\ncmp     [rbp+second_code], 0DFFFh\njbe     loc_54A4\njmp     fail\nmov     eax, [rbp+first_code]\nand     eax, 3FFh\nshl     eax, 0Ah\nmov     ecx, [rbp+second_code]\nand     ecx, 3FFh\nor      eax, ecx\nadd     eax, 10000h\nmov     eax, eax\nmov     [rbp+codepoint], rax\njmp     loc_54D5\nmov     [rbp+sequence_length], 6\nmov     eax, [rbp+first_code]\nmov     [rbp+codepoint], rax\ncmp     [rbp+codepoint], 80h\njnb     loc_54EC\nmov     [rbp+utf8_length], 1\njmp     loc_5551\ncmp     [rbp+codepoint], 800h\njnb     loc_5507\nmov     [rbp+utf8_length], 2\nmov     [rbp+first_byte_mark], 0C0h\njmp     loc_554C\ncmp     [rbp+codepoint], 10000h\njnb     loc_5522\nmov     [rbp+utf8_length], 3\nmov     [rbp+first_byte_mark], 0E0h\njmp     loc_5547\ncmp     [rbp+codepoint], 10FFFFh\nja      loc_553D\nmov     [rbp+utf8_length], 4\nmov     [rbp+first_byte_mark], 0F0h\njmp     loc_5542\njmp     fail\njmp     $+5\njmp     $+5\njmp     $+5\nmovzx   eax, [rbp+utf8_length]\nsub     eax, 1\nmov     [rbp+utf8_position], al\nmovzx   eax, [rbp+utf8_position]\ncmp     eax, 0\njle     loc_55A1\nmov     rax, [rbp+codepoint]\nor      rax, 80h\nand     rax, 0BFh\nmov     dl, al\nmov     rax, [rbp+output_pointer]\nmov     rax, [rax]\nmovzx   ecx, [rbp+utf8_position]\nmov     [rax+rcx], dl\nmov     rax, [rbp+codepoint]\nshr     rax, 6\nmov     [rbp+codepoint], rax\nmov     al, [rbp+utf8_position]\nadd     al, 0FFh\nmov     [rbp+utf8_position], al\njmp     loc_555B\nmovzx   eax, [rbp+utf8_length]\ncmp     eax, 1\njle     loc_55CF\nmov     rax, [rbp+codepoint]\nmovzx   ecx, [rbp+first_byte_mark]\nor      rax, rcx\nand     rax, 0FFh\nmov     cl, al\nmov     rax, [rbp+output_pointer]\nmov     rax, [rax]\nmov     [rax], cl\njmp     loc_55E2\nmov     rax, [rbp+codepoint]\nand     rax, 7Fh\nmov     cl, al\nmov     rax, [rbp+output_pointer]\nmov     rax, [rax]\nmov     [rax], cl\nmovzx   edx, [rbp+utf8_length]\nmov     rax, [rbp+output_pointer]\nmov     rcx, [rax]\nmovsxd  rdx, edx\nadd     rcx, rdx\nmov     [rax], rcx\nmov     al, [rbp+sequence_length]\nmov     [rbp+var_1], al\njmp     loc_5605\nmov     [rbp+var_1], 0\nmovzx   eax, [rbp+var_1]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 38,
+  "edges": [
+   [
+    "start",
+    "loc_53D0"
+   ],
+   [
+    "start",
+    "loc_53D5"
+   ],
+   [
+    "loc_53D0",
+    "loc_5601"
+   ],
+   [
+    "loc_53D5",
+    "loc_53F2"
+   ],
+   [
+    "loc_53D5",
+    "loc_5404"
+   ],
+   [
+    "loc_53F2",
+    "loc_53FF"
+   ],
+   [
+    "loc_53F2",
+    "loc_5404"
+   ],
+   [
+    "loc_53FF",
+    "loc_5601"
+   ],
+   [
+    "loc_5404",
+    "loc_5411"
+   ],
+   [
+    "loc_5404",
+    "loc_54CA"
+   ],
+   [
+    "loc_5411",
+    "loc_541E"
+   ],
+   [
+    "loc_5411",
+    "loc_54CA"
+   ],
+   [
+    "loc_541E",
+    "loc_544A"
+   ],
+   [
+    "loc_541E",
+    "loc_544F"
+   ],
+   [
+    "loc_544A",
+    "loc_5601"
+   ],
+   [
+    "loc_544F",
+    "loc_545F"
+   ],
+   [
+    "loc_544F",
+    "loc_5470"
+   ],
+   [
+    "loc_545F",
+    "loc_5470"
+   ],
+   [
+    "loc_545F",
+    "loc_5475"
+   ],
+   [
+    "loc_5470",
+    "loc_5601"
+   ],
+   [
+    "loc_5475",
+    "loc_5492"
+   ],
+   [
+    "loc_5475",
+    "loc_549F"
+   ],
+   [
+    "loc_5492",
+    "loc_549F"
+   ],
+   [
+    "loc_5492",
+    "loc_54A4"
+   ],
+   [
+    "loc_549F",
+    "loc_5601"
+   ],
+   [
+    "loc_54A4",
+    "loc_54D5"
+   ],
+   [
+    "loc_54CA",
+    "loc_54D5"
+   ],
+   [
+    "loc_54D5",
+    "loc_54E3"
+   ],
+   [
+    "loc_54D5",
+    "loc_54EC"
+   ],
+   [
+    "loc_54E3",
+    "loc_5551"
+   ],
+   [
+    "loc_54EC",
+    "loc_54FA"
+   ],
+   [
+    "loc_54EC",
+    "loc_5507"
+   ],
+   [
+    "loc_54FA",
+    "loc_554C"
+   ],
+   [
+    "loc_5507",
+    "loc_5515"
+   ],
+   [
+    "loc_5507",
+    "loc_5522"
+   ],
+   [
+    "loc_5515",
+    "loc_5547"
+   ],
+   [
+    "loc_5522",
+    "loc_5530"
+   ],
+   [
+    "loc_5522",
+    "loc_553D"
+   ],
+   [
+    "loc_5530",
+    "loc_5542"
+   ],
+   [
+    "loc_553D",
+    "loc_5601"
+   ],
+   [
+    "loc_5542",
+    "loc_5547"
+   ],
+   [
+    "loc_5547",
+    "loc_554C"
+   ],
+   [
+    "loc_554C",
+    "loc_5551"
+   ],
+   [
+    "loc_5551",
+    "loc_555B"
+   ],
+   [
+    "loc_555B",
+    "loc_5568"
+   ],
+   [
+    "loc_555B",
+    "loc_55A1"
+   ],
+   [
+    "loc_5568",
+    "loc_555B"
+   ],
+   [
+    "loc_55A1",
+    "loc_55AE"
+   ],
+   [
+    "loc_55A1",
+    "loc_55CF"
+   ],
+   [
+    "loc_55AE",
+    "loc_55E2"
+   ],
+   [
+    "loc_55CF",
+    "loc_55E2"
+   ],
+   [
+    "loc_55E2",
+    "loc_5605"
+   ],
+   [
+    "loc_5601",
+    "loc_5605"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+input_pointer], rdi\nmov     [rbp+input_end], rsi\nmov     [rbp+output_pointer], rdx\nmov     [rbp+codepoint], 0\nmov     [rbp+first_code], 0\nmov     rax, [rbp+input_pointer]\nmov     [rbp+first_sequence], rax\nmov     [rbp+utf8_length], 0\nmov     [rbp+utf8_position], 0\nmov     [rbp+sequence_length], 0\nmov     [rbp+first_byte_mark], 0\nmov     rax, [rbp+input_end]\nmov     rcx, [rbp+first_sequence]\nsub     rax, rcx\ncmp     rax, 6\njge     loc_53D5",
+   "loc_53D0": "jmp     fail",
+   "loc_53D5": "mov     rdi, [rbp+first_sequence]\nadd     rdi, 2; input\ncall    parse_hex4\nmov     [rbp+first_code], eax\ncmp     [rbp+first_code], 0DC00h\njb      loc_5404",
+   "loc_53F2": "cmp     [rbp+first_code], 0DFFFh\nja      loc_5404",
+   "loc_53FF": "jmp     fail",
+   "loc_5404": "cmp     [rbp+first_code], 0D800h\njb      loc_54CA",
+   "loc_5411": "cmp     [rbp+first_code], 0DBFFh\nja      loc_54CA",
+   "loc_541E": "mov     rax, [rbp+first_sequence]\nadd     rax, 6\nmov     [rbp+second_sequence], rax\nmov     [rbp+second_code], 0\nmov     [rbp+sequence_length], 0Ch\nmov     rax, [rbp+input_end]\nmov     rcx, [rbp+second_sequence]\nsub     rax, rcx\ncmp     rax, 6\njge     loc_544F",
+   "loc_544A": "jmp     fail",
+   "loc_544F": "mov     rax, [rbp+second_sequence]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 5Ch ; '\\'\njnz     loc_5470",
+   "loc_545F": "mov     rax, [rbp+second_sequence]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 75h ; 'u'\njz      loc_5475",
+   "loc_5470": "jmp     fail",
+   "loc_5475": "mov     rdi, [rbp+second_sequence]\nadd     rdi, 2; input\ncall    parse_hex4\nmov     [rbp+second_code], eax\ncmp     [rbp+second_code], 0DC00h\njb      loc_549F",
+   "loc_5492": "cmp     [rbp+second_code], 0DFFFh\njbe     loc_54A4",
+   "loc_549F": "jmp     fail",
+   "loc_54A4": "mov     eax, [rbp+first_code]\nand     eax, 3FFh\nshl     eax, 0Ah\nmov     ecx, [rbp+second_code]\nand     ecx, 3FFh\nor      eax, ecx\nadd     eax, 10000h\nmov     eax, eax\nmov     [rbp+codepoint], rax\njmp     loc_54D5",
+   "loc_54CA": "mov     [rbp+sequence_length], 6\nmov     eax, [rbp+first_code]\nmov     [rbp+codepoint], rax",
+   "loc_54D5": "cmp     [rbp+codepoint], 80h\njnb     loc_54EC",
+   "loc_54E3": "mov     [rbp+utf8_length], 1\njmp     loc_5551",
+   "loc_54EC": "cmp     [rbp+codepoint], 800h\njnb     loc_5507",
+   "loc_54FA": "mov     [rbp+utf8_length], 2\nmov     [rbp+first_byte_mark], 0C0h\njmp     loc_554C",
+   "loc_5507": "cmp     [rbp+codepoint], 10000h\njnb     loc_5522",
+   "loc_5515": "mov     [rbp+utf8_length], 3\nmov     [rbp+first_byte_mark], 0E0h\njmp     loc_5547",
+   "loc_5522": "cmp     [rbp+codepoint], 10FFFFh\nja      loc_553D",
+   "loc_5530": "mov     [rbp+utf8_length], 4\nmov     [rbp+first_byte_mark], 0F0h\njmp     loc_5542",
+   "loc_553D": "jmp     fail",
+   "loc_5542": "jmp     $+5",
+   "loc_5547": "jmp     $+5",
+   "loc_554C": "jmp     $+5",
+   "loc_5551": "movzx   eax, [rbp+utf8_length]\nsub     eax, 1\nmov     [rbp+utf8_position], al",
+   "loc_555B": "movzx   eax, [rbp+utf8_position]\ncmp     eax, 0\njle     loc_55A1",
+   "loc_5568": "mov     rax, [rbp+codepoint]\nor      rax, 80h\nand     rax, 0BFh\nmov     dl, al\nmov     rax, [rbp+output_pointer]\nmov     rax, [rax]\nmovzx   ecx, [rbp+utf8_position]\nmov     [rax+rcx], dl\nmov     rax, [rbp+codepoint]\nshr     rax, 6\nmov     [rbp+codepoint], rax\nmov     al, [rbp+utf8_position]\nadd     al, 0FFh\nmov     [rbp+utf8_position], al\njmp     loc_555B",
+   "loc_55A1": "movzx   eax, [rbp+utf8_length]\ncmp     eax, 1\njle     loc_55CF",
+   "loc_55AE": "mov     rax, [rbp+codepoint]\nmovzx   ecx, [rbp+first_byte_mark]\nor      rax, rcx\nand     rax, 0FFh\nmov     cl, al\nmov     rax, [rbp+output_pointer]\nmov     rax, [rax]\nmov     [rax], cl\njmp     loc_55E2",
+   "loc_55CF": "mov     rax, [rbp+codepoint]\nand     rax, 7Fh\nmov     cl, al\nmov     rax, [rbp+output_pointer]\nmov     rax, [rax]\nmov     [rax], cl",
+   "loc_55E2": "movzx   edx, [rbp+utf8_length]\nmov     rax, [rbp+output_pointer]\nmov     rcx, [rax]\nmovsxd  rdx, edx\nadd     rcx, rdx\nmov     [rax], rcx\nmov     al, [rbp+sequence_length]\nmov     [rbp+var_1], al\njmp     loc_5605",
+   "loc_5601": "mov     [rbp+var_1], 0",
+   "loc_5605": "movzx   eax, [rbp+var_1]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "second_code": "dword ptr -4Ch",
+   "second_sequence": "qword ptr -48h",
+   "first_byte_mark": "byte ptr -3Ch",
+   "sequence_length": "byte ptr -3Bh",
+   "utf8_position": "byte ptr -3Ah",
+   "utf8_length": "byte ptr -39h",
+   "first_sequence": "qword ptr -38h",
+   "first_code": "dword ptr -2Ch",
+   "codepoint": "qword ptr -28h",
+   "output_pointer": "qword ptr -20h",
+   "input_end": "qword ptr -18h",
+   "input_pointer": "qword ptr -10h",
+   "var_1": "byte ptr -1"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 21376,
+ "thunk_map": {
+  ".strncmp": "strncmp",
+  "_strncmp": "strncmp",
+  ".strcpy": "strcpy",
+  "_strcpy": "strcpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".strtod": "strtod",
+  "_strtod": "strtod",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".tolower": "tolower",
+  "_tolower": "tolower",
+  ".__isoc99_sscanf": "__isoc99_sscanf",
+  "_isoc99_sscanf": "__isoc99_sscanf",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".sprintf": "sprintf",
+  "_sprintf": "sprintf",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".strncmp",
+   ".plt",
+   true,
+   "strncmp"
+  ],
+  [
+   ".strcpy",
+   ".plt",
+   true,
+   "strcpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".strtod",
+   ".plt",
+   true,
+   "strtod"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".tolower",
+   ".plt",
+   true,
+   "tolower"
+  ],
+  [
+   ".__isoc99_sscanf",
+   ".plt",
+   true,
+   "__isoc99_sscanf"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".sprintf",
+   ".plt",
+   true,
+   "sprintf"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "malloc",
+   ".plt.got",
+   true,
+   "__imp_malloc"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strtod",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "tolower",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__isoc99_sscanf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868556
+ }
+}

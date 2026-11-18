@@ -1,0 +1,1 @@
+int write_sock(int fd, char *buf, int len) { int ret = -1; ret = write(fd, buf, len); return len - ret; }

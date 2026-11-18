@@ -1,0 +1,1 @@
+void func0(char *input, char *output) { int i, n = strlen(input); char c; for (i = 0; i < n; i++) { c = input[i]; if (c >= 'a' && c <= 'z') c -=0x20; else if (c >= 'A' && c <= 'Z') c +=0x20; output[i] = c; } output[n] = 0; }

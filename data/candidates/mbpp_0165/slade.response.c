@@ -1,0 +1,1 @@
+int func0(char *str) { int count = 0; int i; int l = strlen(str); for (i = 0; i < l; i++) { if (i == str[i] - 'A' || i == str[i] - 'a') count++; } return count; }

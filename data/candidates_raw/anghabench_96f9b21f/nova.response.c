@@ -1,0 +1,1 @@
+static int func0(int val) { return (val * 5) + 8357; }

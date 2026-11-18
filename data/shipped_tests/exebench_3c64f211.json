@@ -1,0 +1,217 @@
+{
+ "kind": "exebench",
+ "real_deps": "\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_31x5nn9uzy.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(int* CPUInfo, int InfoType) {\n  json output_json;\n  std::vector<json> output_temp_2;\n  for (unsigned int i3 = 0; i3 < 4; i3++) {\n    int output_temp_4 = CPUInfo[i3];\n\n    output_temp_2.push_back(output_temp_4);\n  }\n  output_json[\"CPUInfo\"] = output_temp_2;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  std::vector<int> input_temp_1_vec;\n  for (auto& elem : input_json[\"CPUInfo\"]) {\n    int input_temp_1_inner = elem;\n    input_temp_1_vec.push_back(input_temp_1_inner);\n  }\n  int* CPUInfo = &input_temp_1_vec[0];\n  int InfoType = input_json[\"InfoType\"];\n  clock_t begin = clock();\n  jpq_cpuid_custom(CPUInfo, InfoType);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(CPUInfo, InfoType);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "CPUInfo": [
+     105,
+     1,
+     93,
+     99
+    ],
+    "InfoType": 73
+   },
+   "output": {
+    "CPUInfo": [
+     3000,
+     4800,
+     100,
+     0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "CPUInfo": [
+     31,
+     20,
+     54,
+     102
+    ],
+    "InfoType": 79
+   },
+   "output": {
+    "CPUInfo": [
+     3000,
+     4800,
+     100,
+     0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "CPUInfo": [
+     88,
+     96,
+     26,
+     21
+    ],
+    "InfoType": 19
+   },
+   "output": {
+    "CPUInfo": [
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "CPUInfo": [
+     22,
+     75,
+     76,
+     58
+    ],
+    "InfoType": 56
+   },
+   "output": {
+    "CPUInfo": [
+     3000,
+     4800,
+     100,
+     0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "CPUInfo": [
+     104,
+     126,
+     51,
+     96
+    ],
+    "InfoType": 3
+   },
+   "output": {
+    "CPUInfo": [
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "CPUInfo": [
+     77,
+     42,
+     19,
+     67
+    ],
+    "InfoType": 97
+   },
+   "output": {
+    "CPUInfo": [
+     3000,
+     4800,
+     100,
+     0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "CPUInfo": [
+     10,
+     3,
+     121,
+     77
+    ],
+    "InfoType": 57
+   },
+   "output": {
+    "CPUInfo": [
+     3000,
+     4800,
+     100,
+     0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "CPUInfo": [
+     15,
+     2,
+     12,
+     33
+    ],
+    "InfoType": 9
+   },
+   "output": {
+    "CPUInfo": [
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "CPUInfo": [
+     105,
+     118,
+     88,
+     77
+    ],
+    "InfoType": 62
+   },
+   "output": {
+    "CPUInfo": [
+     3000,
+     4800,
+     100,
+     0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "CPUInfo": [
+     43,
+     50,
+     12,
+     97
+    ],
+    "InfoType": 92
+   },
+   "output": {
+    "CPUInfo": [
+     3000,
+     4800,
+     100,
+     0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

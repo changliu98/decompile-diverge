@@ -1,0 +1,1 @@
+unsigned int ff_rescale_rms(unsigned int x, unsigned int y) { return (x * y) >> 10; }

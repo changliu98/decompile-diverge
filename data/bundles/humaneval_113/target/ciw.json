@@ -1,0 +1,297 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+lst], rdi\nmov     [rbp+size], esi\nmovsxd  rdi, [rbp+size]\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+out], rax\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+size]\njge     loc_1307\nmov     [rbp+sum], 0\nmov     [rbp+j], 0\nmov     rax, [rbp+lst]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+j]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 0\njz      loc_12BC\nmov     rax, [rbp+lst]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+j]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 30h ; '0'\njl      loc_12A9\nmov     rax, [rbp+lst]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+j]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 39h ; '9'\njg      loc_12A9\nmov     rax, [rbp+lst]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+j]\nmovsx   eax, byte ptr [rax+rcx]\nsub     eax, 30h ; '0'\nmov     ecx, 2\ncdq\nidiv    ecx\ncmp     edx, 1\njnz     loc_12A9\nmov     eax, [rbp+sum]\nadd     eax, 1\nmov     [rbp+sum], eax\njmp     $+5\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_1221\nmov     edi, 64h ; 'd'; size\ncall    malloc\nmov     rdx, rax\nmov     rax, [rbp+out]\nmovsxd  rcx, [rbp+i]\nmov     [rax+rcx*8], rdx\nmov     rax, [rbp+out]\nmovsxd  rcx, [rbp+i]\nmov     rdi, [rax+rcx*8]; s\nmov     edx, [rbp+sum]\nmov     ecx, [rbp+sum]\nmov     r8d, [rbp+sum]\nlea     rsi, format; \"the number of odd elements %d in the st\"...\nmov     al, 0\ncall    sprintf\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1207\nmov     rax, [rbp+out]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 12,
+  "edges": [
+   [
+    "start",
+    "loc_1207"
+   ],
+   [
+    "loc_1207",
+    "loc_1213"
+   ],
+   [
+    "loc_1207",
+    "loc_1307"
+   ],
+   [
+    "loc_1213",
+    "loc_1221"
+   ],
+   [
+    "loc_1221",
+    "loc_123E"
+   ],
+   [
+    "loc_1221",
+    "loc_12BC"
+   ],
+   [
+    "loc_123E",
+    "loc_125B"
+   ],
+   [
+    "loc_123E",
+    "loc_12A9"
+   ],
+   [
+    "loc_125B",
+    "loc_1278"
+   ],
+   [
+    "loc_125B",
+    "loc_12A9"
+   ],
+   [
+    "loc_1278",
+    "loc_12A0"
+   ],
+   [
+    "loc_1278",
+    "loc_12A9"
+   ],
+   [
+    "loc_12A0",
+    "loc_12A9"
+   ],
+   [
+    "loc_12A9",
+    "loc_12AE"
+   ],
+   [
+    "loc_12AE",
+    "loc_1221"
+   ],
+   [
+    "loc_12BC",
+    "loc_1207"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+lst], rdi\nmov     [rbp+size], esi\nmovsxd  rdi, [rbp+size]\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+out], rax\nmov     [rbp+i], 0",
+   "loc_1207": "mov     eax, [rbp+i]\ncmp     eax, [rbp+size]\njge     loc_1307",
+   "loc_1213": "mov     [rbp+sum], 0\nmov     [rbp+j], 0",
+   "loc_1221": "mov     rax, [rbp+lst]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+j]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 0\njz      loc_12BC",
+   "loc_123E": "mov     rax, [rbp+lst]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+j]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 30h ; '0'\njl      loc_12A9",
+   "loc_125B": "mov     rax, [rbp+lst]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+j]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 39h ; '9'\njg      loc_12A9",
+   "loc_1278": "mov     rax, [rbp+lst]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+j]\nmovsx   eax, byte ptr [rax+rcx]\nsub     eax, 30h ; '0'\nmov     ecx, 2\ncdq\nidiv    ecx\ncmp     edx, 1\njnz     loc_12A9",
+   "loc_12A0": "mov     eax, [rbp+sum]\nadd     eax, 1\nmov     [rbp+sum], eax",
+   "loc_12A9": "jmp     $+5",
+   "loc_12AE": "mov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_1221",
+   "loc_12BC": "mov     edi, 64h ; 'd'; size\ncall    malloc\nmov     rdx, rax\nmov     rax, [rbp+out]\nmovsxd  rcx, [rbp+i]\nmov     [rax+rcx*8], rdx\nmov     rax, [rbp+out]\nmovsxd  rcx, [rbp+i]\nmov     rdi, [rax+rcx*8]; s\nmov     edx, [rbp+sum]\nmov     ecx, [rbp+sum]\nmov     r8d, [rbp+sum]\nlea     rsi, format; \"the number of odd elements %d in the st\"...\nmov     al, 0\ncall    sprintf\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1207",
+   "loc_1307": "mov     rax, [rbp+out]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "j": "dword ptr -24h",
+   "sum": "dword ptr -20h",
+   "i": "dword ptr -1Ch",
+   "out": "qword ptr -18h",
+   "size": "dword ptr -0Ch",
+   "lst": "qword ptr -8"
+  },
+  ".rodata": {
+   "format": "byte 'the number of odd elements %d in the string %d of the %d input.',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4576,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".sprintf": "sprintf",
+  "_sprintf": "sprintf",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".sprintf",
+   ".plt",
+   true,
+   "sprintf"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "sprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792867908
+ }
+}

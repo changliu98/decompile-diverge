@@ -1,0 +1,146 @@
+00000000000014c0 <msg_puts_printf>:
+    14c0:	push   %rbp
+    14c1:	mov    %rsp,%rbp
+    14c4:	sub    $0x40,%rsp
+    14c8:	mov    %rdi,-0x8(%rbp)
+    14cc:	mov    %esi,-0xc(%rbp)
+    14cf:	mov    -0x8(%rbp),%rax
+    14d3:	mov    %rax,-0x18(%rbp)
+    14d7:	movq   $0x0,-0x20(%rbp)
+    14df:	mov    -0x18(%rbp),%rax
+    14e3:	mov    %rax,-0x28(%rbp)
+    14e7:	cmpl   $0x0,-0xc(%rbp)
+    14eb:	jl     150c <msg_puts_printf+0x4c>
+    14f1:	mov    -0x18(%rbp),%rax
+    14f5:	mov    -0x8(%rbp),%rcx
+    14f9:	sub    %rcx,%rax
+    14fc:	mov    %eax,%ecx
+    14fe:	xor    %eax,%eax
+    1500:	cmp    -0xc(%rbp),%ecx
+    1503:	mov    %al,-0x39(%rbp)
+    1506:	jge    151c <msg_puts_printf+0x5c>
+    150c:	mov    -0x18(%rbp),%rax
+    1510:	movzbl (%rax),%eax
+    1513:	cmp    $0x0,%eax
+    1516:	setne  %al
+    1519:	mov    %al,-0x39(%rbp)
+    151c:	mov    -0x39(%rbp),%al
+    151f:	test   $0x1,%al
+    1521:	jne    152c <msg_puts_printf+0x6c>
+    1527:	jmp    166f <msg_puts_printf+0x1af>
+    152c:	cmpl   $0x0,0x2b65(%rip)        # 4098 <silent_mode>
+    1533:	je     1547 <msg_puts_printf+0x87>
+    1539:	cmpq   $0x0,0x2b5f(%rip)        # 40a0 <p_verbose>
+    1541:	je     1620 <msg_puts_printf+0x160>
+    1547:	mov    -0x18(%rbp),%rax
+    154b:	movzbl (%rax),%eax
+    154e:	cmp    $0xa,%eax
+    1551:	jne    161b <msg_puts_printf+0x15b>
+    1557:	mov    -0x18(%rbp),%rax
+    155b:	mov    -0x28(%rbp),%rcx
+    155f:	sub    %rcx,%rax
+    1562:	mov    %eax,-0x2c(%rbp)
+    1565:	mov    -0x2c(%rbp),%eax
+    1568:	add    $0x3,%eax
+    156b:	movslq %eax,%rdi
+    156e:	call   1200 <alloc>
+    1573:	mov    %rax,-0x20(%rbp)
+    1577:	cmpq   $0x0,-0x20(%rbp)
+    157c:	je     160f <msg_puts_printf+0x14f>
+    1582:	mov    -0x20(%rbp),%rdi
+    1586:	mov    -0x28(%rbp),%rsi
+    158a:	movslq -0x2c(%rbp),%rdx
+    158e:	call   10b0 <memcpy@plt>
+    1593:	cmpl   $0x0,0x2b0e(%rip)        # 40a8 <info_message>
+    159a:	jne    15b6 <msg_puts_printf+0xf6>
+    15a0:	mov    -0x20(%rbp),%rax
+    15a4:	mov    -0x2c(%rbp),%ecx
+    15a7:	mov    %ecx,%edx
+    15a9:	add    $0x1,%edx
+    15ac:	mov    %edx,-0x2c(%rbp)
+    15af:	movslq %ecx,%rcx
+    15b2:	movb   $0xd,(%rax,%rcx,1)
+    15b6:	mov    -0x20(%rbp),%rax
+    15ba:	mov    -0x2c(%rbp),%ecx
+    15bd:	mov    %ecx,%edx
+    15bf:	add    $0x1,%edx
+    15c2:	mov    %edx,-0x2c(%rbp)
+    15c5:	movslq %ecx,%rcx
+    15c8:	movb   $0xa,(%rax,%rcx,1)
+    15cc:	mov    -0x20(%rbp),%rax
+    15d0:	mov    -0x2c(%rbp),%ecx
+    15d3:	mov    %ecx,%edx
+    15d5:	add    $0x1,%edx
+    15d8:	mov    %edx,-0x2c(%rbp)
+    15db:	movslq %ecx,%rcx
+    15de:	movb   $0x0,(%rax,%rcx,1)
+    15e2:	cmpl   $0x0,0x2abf(%rip)        # 40a8 <info_message>
+    15e9:	je     15fd <msg_puts_printf+0x13d>
+    15ef:	mov    -0x20(%rbp),%rdi
+    15f3:	call   12a0 <mch_msg>
+    15f8:	jmp    1606 <msg_puts_printf+0x146>
+    15fd:	mov    -0x20(%rbp),%rdi
+    1601:	call   12d0 <mch_errmsg>
+    1606:	mov    -0x20(%rbp),%rdi
+    160a:	call   1220 <vim_free>
+    160f:	mov    -0x18(%rbp),%rax
+    1613:	add    $0x1,%rax
+    1617:	mov    %rax,-0x28(%rbp)
+    161b:	jmp    1620 <msg_puts_printf+0x160>
+    1620:	mov    -0x18(%rbp),%rax
+    1624:	movzbl (%rax),%eax
+    1627:	cmp    $0xd,%eax
+    162a:	je     1640 <msg_puts_printf+0x180>
+    1630:	mov    -0x18(%rbp),%rax
+    1634:	movzbl (%rax),%eax
+    1637:	cmp    $0xa,%eax
+    163a:	jne    164f <msg_puts_printf+0x18f>
+    1640:	movl   $0x0,0x2a62(%rip)        # 40ac <msg_col>
+    164a:	jmp    165e <msg_puts_printf+0x19e>
+    164f:	mov    0x2a57(%rip),%eax        # 40ac <msg_col>
+    1655:	add    $0x1,%eax
+    1658:	mov    %eax,0x2a4e(%rip)        # 40ac <msg_col>
+    165e:	mov    -0x18(%rbp),%rax
+    1662:	add    $0x1,%rax
+    1666:	mov    %rax,-0x18(%rbp)
+    166a:	jmp    14e7 <msg_puts_printf+0x27>
+    166f:	mov    -0x28(%rbp),%rax
+    1673:	movzbl (%rax),%eax
+    1676:	cmp    $0x0,%eax
+    1679:	je     1718 <msg_puts_printf+0x258>
+    167f:	cmpl   $0x0,0x2a12(%rip)        # 4098 <silent_mode>
+    1686:	je     169a <msg_puts_printf+0x1da>
+    168c:	cmpq   $0x0,0x2a0c(%rip)        # 40a0 <p_verbose>
+    1694:	je     1718 <msg_puts_printf+0x258>
+    169a:	movq   $0x0,-0x38(%rbp)
+    16a2:	cmpl   $0x0,-0xc(%rbp)
+    16a6:	jle    16db <msg_puts_printf+0x21b>
+    16ac:	mov    -0x28(%rbp),%rdi
+    16b0:	call   1070 <strlen@plt>
+    16b5:	movslq -0xc(%rbp),%rcx
+    16b9:	cmp    %rcx,%rax
+    16bc:	jbe    16db <msg_puts_printf+0x21b>
+    16c2:	mov    -0x28(%rbp),%rdi
+    16c6:	movslq -0xc(%rbp),%rsi
+    16ca:	call   1240 <vim_strnsave>
+    16cf:	mov    %rax,-0x38(%rbp)
+    16d3:	mov    -0x38(%rbp),%rax
+    16d7:	mov    %rax,-0x28(%rbp)
+    16db:	cmpq   $0x0,-0x28(%rbp)
+    16e0:	je     1713 <msg_puts_printf+0x253>
+    16e6:	cmpl   $0x0,0x29bb(%rip)        # 40a8 <info_message>
+    16ed:	je     1701 <msg_puts_printf+0x241>
+    16f3:	mov    -0x28(%rbp),%rdi
+    16f7:	call   12a0 <mch_msg>
+    16fc:	jmp    170a <msg_puts_printf+0x24a>
+    1701:	mov    -0x28(%rbp),%rdi
+    1705:	call   12d0 <mch_errmsg>
+    170a:	mov    -0x38(%rbp),%rdi
+    170e:	call   1220 <vim_free>
+    1713:	jmp    1718 <msg_puts_printf+0x258>
+    1718:	movl   $0x1,0x298e(%rip)        # 40b0 <msg_didout>
+    1722:	add    $0x40,%rsp
+    1726:	pop    %rbp
+    1727:	ret
+
+Disassembly of section .fini:

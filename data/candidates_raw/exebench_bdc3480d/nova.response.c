@@ -1,0 +1,1 @@
+float func0(float *a, long long i) { return a[i]; }

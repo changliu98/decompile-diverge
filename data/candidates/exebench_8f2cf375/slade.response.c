@@ -1,0 +1,1 @@
+void vec2_add(float *dst, const float *a, const float *b) { dst[0] = a[0] + b[0]; dst[1] = a[1] + b[1]; }

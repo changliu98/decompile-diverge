@@ -1,0 +1,327 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 1040h\nmov     [rbp+dir], rdi\nmov     [rbp+dir_len], esi\nmov     [rbp+ptr], rdx\nlea     rdi, [rbp+src]; dest\nmov     rsi, [rbp+dir]; src\nmovsxd  rdx, [rbp+dir_len]; n\ncall    memcpy\nmovsxd  rax, [rbp+dir_len]\nmov     [rbp+rax+src], 0\nmov     rax, [rbp+ptr]\nmov     [rbp+dst], rax\ncmp     [rbp+dst], 0\njnz     loc_1280\nmov     edi, 1001h; size\ncall    uwsgi_malloc\nmov     [rbp+dst], rax\nlea     rdi, [rbp+src]; name\nmov     rsi, [rbp+dst]; resolved\ncall    realpath\ncmp     rax, 0\njnz     loc_1300\nlea     rax, [rbp+src]\nmov     [rbp+var_1040], rax\ncall    ___errno_location\nmov     edi, [rax]; errnum\ncall    strerror\nmov     rsi, [rbp+var_1040]\nmov     rdx, rax\nlea     rdi, fmt; \"realpath() of %s failed: %s [%s line %d\"...\nlea     rcx, aHarnessC; \"harness.c\"\nmov     r8d, 41h ; 'A'\nmov     al, 0\ncall    uwsgi_log\ncmp     [rbp+ptr], 0\njnz     loc_12F3\nmov     rdi, [rbp+dst]; ptr\ncall    free\nmov     [rbp+var_8], 0\njmp     loc_130B\nmov     rax, [rbp+dst]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nadd     rsp, 1040h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 8,
+  "edges": [
+   [
+    "start",
+    "loc_126F"
+   ],
+   [
+    "start",
+    "loc_1280"
+   ],
+   [
+    "loc_126F",
+    "loc_1280"
+   ],
+   [
+    "loc_1280",
+    "loc_129D"
+   ],
+   [
+    "loc_1280",
+    "loc_1300"
+   ],
+   [
+    "loc_129D",
+    "loc_12E7"
+   ],
+   [
+    "loc_129D",
+    "loc_12F3"
+   ],
+   [
+    "loc_12E7",
+    "loc_12F3"
+   ],
+   [
+    "loc_12F3",
+    "loc_130B"
+   ],
+   [
+    "loc_1300",
+    "loc_130B"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 1040h\nmov     [rbp+dir], rdi\nmov     [rbp+dir_len], esi\nmov     [rbp+ptr], rdx\nlea     rdi, [rbp+src]; dest\nmov     rsi, [rbp+dir]; src\nmovsxd  rdx, [rbp+dir_len]; n\ncall    memcpy\nmovsxd  rax, [rbp+dir_len]\nmov     [rbp+rax+src], 0\nmov     rax, [rbp+ptr]\nmov     [rbp+dst], rax\ncmp     [rbp+dst], 0\njnz     loc_1280",
+   "loc_126F": "mov     edi, 1001h; size\ncall    uwsgi_malloc\nmov     [rbp+dst], rax",
+   "loc_1280": "lea     rdi, [rbp+src]; name\nmov     rsi, [rbp+dst]; resolved\ncall    realpath\ncmp     rax, 0\njnz     loc_1300",
+   "loc_129D": "lea     rax, [rbp+src]\nmov     [rbp+var_1040], rax\ncall    ___errno_location\nmov     edi, [rax]; errnum\ncall    strerror\nmov     rsi, [rbp+var_1040]\nmov     rdx, rax\nlea     rdi, fmt; \"realpath() of %s failed: %s [%s line %d\"...\nlea     rcx, aHarnessC; \"harness.c\"\nmov     r8d, 41h ; 'A'\nmov     al, 0\ncall    uwsgi_log\ncmp     [rbp+ptr], 0\njnz     loc_12F3",
+   "loc_12E7": "mov     rdi, [rbp+dst]; ptr\ncall    free",
+   "loc_12F3": "mov     [rbp+var_8], 0\njmp     loc_130B",
+   "loc_1300": "mov     rax, [rbp+dst]\nmov     [rbp+var_8], rax",
+   "loc_130B": "mov     rax, [rbp+var_8]\nadd     rsp, 1040h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_1040": "qword ptr -1040h",
+   "dst": "qword ptr -1038h",
+   "src": "byte ptr -1030h",
+   "ptr": "qword ptr -20h",
+   "dir_len": "dword ptr -14h",
+   "dir": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {
+   "fmt": "byte 'realpath() of %s failed: %s [%s line %d]',0Ah,0",
+   "aHarnessC": "byte 'harness.c',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4640,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".__errno_location": "__errno_location",
+  "_errno_location": "__errno_location",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".realpath": "realpath",
+  "_realpath": "realpath",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".vfprintf": "vfprintf",
+  "_vfprintf": "vfprintf",
+  ".exit": "exit",
+  "_exit": "exit",
+  ".strerror": "strerror",
+  "_strerror": "strerror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".__errno_location",
+   ".plt",
+   true,
+   "__errno_location"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".realpath",
+   ".plt",
+   true,
+   "realpath"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".vfprintf",
+   ".plt",
+   true,
+   "vfprintf"
+  ],
+  [
+   ".exit",
+   ".plt",
+   true,
+   "exit"
+  ],
+  [
+   ".strerror",
+   ".plt",
+   true,
+   "strerror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__errno_location",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realpath",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "vfprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "exit",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strerror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868495
+ }
+}

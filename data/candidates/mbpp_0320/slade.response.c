@@ -1,0 +1,1 @@
+int func0(int n) { int sum = 0; int sum2 = 0; for (int i = 1; i <= n; ++i) { sum += i * i; sum2 += i; } sum2 *= sum2; return sum2 - sum; }

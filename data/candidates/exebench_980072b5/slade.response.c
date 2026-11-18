@@ -1,0 +1,1 @@
+void set_bit(int nr, void *addr) { unsigned long mask = 1UL << (nr % 64); unsigned long *p = ((unsigned long *)addr) + (nr / 64); *p |= mask; }

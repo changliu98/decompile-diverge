@@ -1,0 +1,127 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <stdio.h>\n\n#include <stdlib.h>\n\n#include <string.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_34da2e0w32.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(int mask, char* smask, char* returnv) {\n  json output_json;\n\n  output_json[\"smask\"] = smask;\n\n  output_json[\"returnv\"] = returnv;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  int mask = input_json[\"mask\"];\n  char* smask = strdup(input_json[\"smask\"].get<std::string>().c_str());\n  clock_t begin = clock();\n  char* returnv = unmakemask(mask, smask);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(mask, smask, returnv);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "mask": 34,
+    "smask": "tjhunasx"
+   },
+   "output": {
+    "returnv": "r",
+    "smask": "r"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "mask": 108,
+    "smask": "xwddgkykfcnsufmqhqhcggplbasosia"
+   },
+   "output": {
+    "returnv": "l",
+    "smask": "l"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "mask": 64,
+    "smask": "pytmwmdbf"
+   },
+   "output": {
+    "returnv": "",
+    "smask": ""
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "mask": 18,
+    "smask": "nzqzvwnlxlqybkoclwveyhvbhspvap"
+   },
+   "output": {
+    "returnv": "r",
+    "smask": "r"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "mask": 46,
+    "smask": "ntehvmplhdlrryzyqtu"
+   },
+   "output": {
+    "returnv": "rl",
+    "smask": "rl"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "mask": 85,
+    "smask": "wkogdnscoguvhuzhwpypev"
+   },
+   "output": {
+    "returnv": "cl",
+    "smask": "cl"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "mask": 62,
+    "smask": "gwplowfxzdl"
+   },
+   "output": {
+    "returnv": "rl",
+    "smask": "rl"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "mask": 123,
+    "smask": ""
+   },
+   "output": {
+    "returnv": "cr",
+    "smask": "cr"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "mask": 102,
+    "smask": "nbecukjoglkdcpupjtbitd"
+   },
+   "output": {
+    "returnv": "rl",
+    "smask": "rl"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "mask": 84,
+    "smask": "vmxvqchgyytc"
+   },
+   "output": {
+    "returnv": "l",
+    "smask": "l"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

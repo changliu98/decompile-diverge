@@ -1,0 +1,1 @@
+__size32 func0(__size32 param1, __size32 param2) { __size32 ecxt; ecxt = param1 + param2 * 2; return ecxt; }

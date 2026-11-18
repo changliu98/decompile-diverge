@@ -1,0 +1,362 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+png_ptr], rdi\nmov     [rbp+length], esi\nmov     [rbp+limit], 7FFFFFFFh\nmov     rax, [rbp+png_ptr]\ncmp     qword ptr [rax], 0\njbe     loc_1231\nmov     rax, [rbp+png_ptr]\nmov     rax, [rax]\ncmp     rax, [rbp+limit]\njnb     loc_1231\nmov     rax, [rbp+png_ptr]\nmov     rax, [rax]\nmov     [rbp+limit], rax\nmov     rax, [rbp+png_ptr]\ncmp     dword ptr [rax+10h], 49444154h\njnz     loc_1384\nmov     [rbp+idat_limit], 7FFFFFFFh\nmov     rax, [rbp+png_ptr]\nmov     eax, [rax+8]\nmov     rcx, [rbp+png_ptr]\nmovzx   ecx, byte ptr [rcx+16h]\nimul    eax, ecx\nmov     rcx, [rbp+png_ptr]\nmovzx   esi, byte ptr [rcx+15h]\nmov     ecx, 1\nmov     edx, 2\ncmp     esi, 8\ncmovg   ecx, edx\nimul    eax, ecx\nadd     eax, 1\nmov     rcx, [rbp+png_ptr]\nmovzx   esi, byte ptr [rcx+14h]\nxor     ecx, ecx\nmov     edx, 6\ncmp     esi, 0\ncmovnz  ecx, edx\nadd     eax, ecx\nmov     eax, eax\nmov     [rbp+row_factor], rax\nmov     rax, [rbp+png_ptr]\nmov     eax, [rax+0Ch]\nmov     [rbp+var_30], rax\nmov     eax, 0FFFFFFFFh\nxor     ecx, ecx\nmov     edx, ecx\ndiv     [rbp+row_factor]\nmov     rcx, rax\nmov     rax, [rbp+var_30]\ncmp     rax, rcx\njbe     loc_12CC\nmov     [rbp+idat_limit], 7FFFFFFFh\njmp     loc_12DC\nmov     rax, [rbp+png_ptr]\nmov     eax, [rax+0Ch]\nimul    rax, [rbp+row_factor]\nmov     [rbp+idat_limit], rax\ncmp     [rbp+row_factor], 7F36h\njbe     loc_12F8\nmov     eax, 7F36h\nmov     [rbp+var_38], rax\njmp     loc_1300\nmov     rax, [rbp+row_factor]\nmov     [rbp+var_38], rax\nmov     rax, [rbp+var_38]\nmov     [rbp+row_factor], rax\nmov     rax, [rbp+idat_limit]\nxor     ecx, ecx\nmov     edx, ecx\ndiv     [rbp+row_factor]\nadd     rax, 1\nimul    rax, 5\nadd     rax, 6\nadd     rax, [rbp+idat_limit]\nmov     [rbp+idat_limit], rax\ncmp     [rbp+idat_limit], 7FFFFFFFh\njnb     loc_1343\nmov     rax, [rbp+idat_limit]\nmov     [rbp+var_40], rax\njmp     loc_1351\nmov     eax, 7FFFFFFFh\nmov     [rbp+var_40], rax\njmp     $+5\nmov     rax, [rbp+var_40]\nmov     [rbp+idat_limit], rax\nmov     rax, [rbp+limit]\ncmp     rax, [rbp+idat_limit]\njnb     loc_1374\nmov     rax, [rbp+idat_limit]\nmov     [rbp+var_48], rax\njmp     loc_137C\nmov     rax, [rbp+limit]\nmov     [rbp+var_48], rax\nmov     rax, [rbp+var_48]\nmov     [rbp+limit], rax\nmov     eax, [rbp+length]\ncmp     rax, [rbp+limit]\njbe     loc_13A1\nmov     rdi, [rbp+png_ptr]; png_ptr\nlea     rsi, error_message; \"chunk data is too large\"\ncall    png_chunk_error\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 20,
+  "edges": [
+   [
+    "start",
+    "loc_1215"
+   ],
+   [
+    "start",
+    "loc_1231"
+   ],
+   [
+    "loc_1215",
+    "loc_1226"
+   ],
+   [
+    "loc_1215",
+    "loc_1231"
+   ],
+   [
+    "loc_1226",
+    "loc_1231"
+   ],
+   [
+    "loc_1231",
+    "loc_1242"
+   ],
+   [
+    "loc_1231",
+    "loc_1384"
+   ],
+   [
+    "loc_1242",
+    "loc_12BF"
+   ],
+   [
+    "loc_1242",
+    "loc_12CC"
+   ],
+   [
+    "loc_12BF",
+    "loc_12DC"
+   ],
+   [
+    "loc_12CC",
+    "loc_12DC"
+   ],
+   [
+    "loc_12DC",
+    "loc_12EA"
+   ],
+   [
+    "loc_12DC",
+    "loc_12F8"
+   ],
+   [
+    "loc_12EA",
+    "loc_1300"
+   ],
+   [
+    "loc_12F8",
+    "loc_1300"
+   ],
+   [
+    "loc_1300",
+    "loc_1336"
+   ],
+   [
+    "loc_1300",
+    "loc_1343"
+   ],
+   [
+    "loc_1336",
+    "loc_1351"
+   ],
+   [
+    "loc_1343",
+    "loc_1351"
+   ],
+   [
+    "loc_1351",
+    "loc_1367"
+   ],
+   [
+    "loc_1351",
+    "loc_1374"
+   ],
+   [
+    "loc_1367",
+    "loc_137C"
+   ],
+   [
+    "loc_1374",
+    "loc_137C"
+   ],
+   [
+    "loc_137C",
+    "loc_1384"
+   ],
+   [
+    "loc_1384",
+    "loc_1391"
+   ],
+   [
+    "loc_1384",
+    "loc_13A1"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+png_ptr], rdi\nmov     [rbp+length], esi\nmov     [rbp+limit], 7FFFFFFFh\nmov     rax, [rbp+png_ptr]\ncmp     qword ptr [rax], 0\njbe     loc_1231",
+   "loc_1215": "mov     rax, [rbp+png_ptr]\nmov     rax, [rax]\ncmp     rax, [rbp+limit]\njnb     loc_1231",
+   "loc_1226": "mov     rax, [rbp+png_ptr]\nmov     rax, [rax]\nmov     [rbp+limit], rax",
+   "loc_1231": "mov     rax, [rbp+png_ptr]\ncmp     dword ptr [rax+10h], 49444154h\njnz     loc_1384",
+   "loc_1242": "mov     [rbp+idat_limit], 7FFFFFFFh\nmov     rax, [rbp+png_ptr]\nmov     eax, [rax+8]\nmov     rcx, [rbp+png_ptr]\nmovzx   ecx, byte ptr [rcx+16h]\nimul    eax, ecx\nmov     rcx, [rbp+png_ptr]\nmovzx   esi, byte ptr [rcx+15h]\nmov     ecx, 1\nmov     edx, 2\ncmp     esi, 8\ncmovg   ecx, edx\nimul    eax, ecx\nadd     eax, 1\nmov     rcx, [rbp+png_ptr]\nmovzx   esi, byte ptr [rcx+14h]\nxor     ecx, ecx\nmov     edx, 6\ncmp     esi, 0\ncmovnz  ecx, edx\nadd     eax, ecx\nmov     eax, eax\nmov     [rbp+row_factor], rax\nmov     rax, [rbp+png_ptr]\nmov     eax, [rax+0Ch]\nmov     [rbp+var_30], rax\nmov     eax, 0FFFFFFFFh\nxor     ecx, ecx\nmov     edx, ecx\ndiv     [rbp+row_factor]\nmov     rcx, rax\nmov     rax, [rbp+var_30]\ncmp     rax, rcx\njbe     loc_12CC",
+   "loc_12BF": "mov     [rbp+idat_limit], 7FFFFFFFh\njmp     loc_12DC",
+   "loc_12CC": "mov     rax, [rbp+png_ptr]\nmov     eax, [rax+0Ch]\nimul    rax, [rbp+row_factor]\nmov     [rbp+idat_limit], rax",
+   "loc_12DC": "cmp     [rbp+row_factor], 7F36h\njbe     loc_12F8",
+   "loc_12EA": "mov     eax, 7F36h\nmov     [rbp+var_38], rax\njmp     loc_1300",
+   "loc_12F8": "mov     rax, [rbp+row_factor]\nmov     [rbp+var_38], rax",
+   "loc_1300": "mov     rax, [rbp+var_38]\nmov     [rbp+row_factor], rax\nmov     rax, [rbp+idat_limit]\nxor     ecx, ecx\nmov     edx, ecx\ndiv     [rbp+row_factor]\nadd     rax, 1\nimul    rax, 5\nadd     rax, 6\nadd     rax, [rbp+idat_limit]\nmov     [rbp+idat_limit], rax\ncmp     [rbp+idat_limit], 7FFFFFFFh\njnb     loc_1343",
+   "loc_1336": "mov     rax, [rbp+idat_limit]\nmov     [rbp+var_40], rax\njmp     loc_1351",
+   "loc_1343": "mov     eax, 7FFFFFFFh\nmov     [rbp+var_40], rax\njmp     $+5",
+   "loc_1351": "mov     rax, [rbp+var_40]\nmov     [rbp+idat_limit], rax\nmov     rax, [rbp+limit]\ncmp     rax, [rbp+idat_limit]\njnb     loc_1374",
+   "loc_1367": "mov     rax, [rbp+idat_limit]\nmov     [rbp+var_48], rax\njmp     loc_137C",
+   "loc_1374": "mov     rax, [rbp+limit]\nmov     [rbp+var_48], rax",
+   "loc_137C": "mov     rax, [rbp+var_48]\nmov     [rbp+limit], rax",
+   "loc_1384": "mov     eax, [rbp+length]\ncmp     rax, [rbp+limit]\njbe     loc_13A1",
+   "loc_1391": "mov     rdi, [rbp+png_ptr]; png_ptr\nlea     rsi, error_message; \"chunk data is too large\"\ncall    png_chunk_error",
+   "loc_13A1": "add     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_48": "qword ptr -48h",
+   "var_40": "qword ptr -40h",
+   "var_38": "qword ptr -38h",
+   "var_30": "qword ptr -30h",
+   "row_factor": "qword ptr -28h",
+   "idat_limit": "qword ptr -20h",
+   "limit": "qword ptr -18h",
+   "length": "dword ptr -0Ch",
+   "png_ptr": "qword ptr -8"
+  },
+  ".rodata": {
+   "error_message": "byte 'chunk data is too large',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4592,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".exit": "exit",
+  "_exit": "exit"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".exit",
+   ".plt",
+   true,
+   "exit"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "printf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "exit",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868476
+ }
+}

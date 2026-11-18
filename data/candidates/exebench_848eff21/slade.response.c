@@ -1,0 +1,1 @@
+void dot(float *x, float *y, float *z) { int i; *z = 0; for (i = 0; i < 4; i++) { *z += x[i] * y[i]; } }

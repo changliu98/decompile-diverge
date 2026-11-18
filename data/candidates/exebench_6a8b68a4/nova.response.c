@@ -1,0 +1,1 @@
+void fun(int *p) { *p = 30; }

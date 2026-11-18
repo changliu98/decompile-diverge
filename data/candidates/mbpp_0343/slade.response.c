@@ -1,0 +1,1 @@
+void func0(unsigned char *c, int *x, int *y) { int z = 0; int w = 0; while (*c) { if (__ctype_b_loc (*) [*c] &0x800) ++w; else if (__ctype_b_loc (*) [*c] &0x400) ++z; ++c; } *x = z; *y = w; }

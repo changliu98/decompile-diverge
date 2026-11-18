@@ -1,0 +1,1 @@
+int epindex_to_epnum(uint16_t index, uint16_t *epnum) { uint16_t epnum = index % 2; if(epnum) *epnum = epnum; return (index + epnum) / 2; }

@@ -1,0 +1,523 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\npush    rbx\nsub     rsp, 0F8h\nmov     [rbp+ndo], rdi\nmov     [rbp+pptr], rsi\nmov     [rbp+len], edx\nmov     rax, [rbp+pptr]\nmov     [rbp+tptr], rax\nmov     eax, [rbp+len]\nmov     [rbp+tlen], eax\nmov     rax, [rbp+pptr]\nmov     [rbp+vqp_common_header], rax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 8\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1493\nmov     rax, [rbp+vqp_common_header]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 8\ncmp     rax, rcx\njbe     loc_1498\njmp     trunc\nmov     rax, [rbp+vqp_common_header]\nmovzx   eax, byte ptr [rax]\nand     eax, 0FFh\ncmp     eax, 1\njz      loc_14D6\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nmov     rax, [rbp+vqp_common_header]\nmovzx   edx, byte ptr [rax]\nand     edx, 0FFh\nlea     rsi, aVqpVersionUPac; \"VQP version %u packet not supported\"\nmov     al, 0\ncall    rcx\njmp     loc_18F3\nmov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 1\njge     loc_1572\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_50], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_68], rax\nmov     rax, [rbp+vqp_common_header]\nmovzx   eax, byte ptr [rax]\nand     eax, 0FFh\nmov     [rbp+var_5C], eax\nmov     rax, [rbp+vqp_common_header]\nmovzx   edx, byte ptr [rax+1]; v\nlea     rdi, vqp_msg_type_values; lp\nlea     rsi, fmt; \"unknown (%u)\"\ncall    tok2str\nmov     [rbp+var_58], rax\nmov     rax, [rbp+vqp_common_header]\nmovzx   edx, byte ptr [rax+2]; v\nlea     rdi, vqp_error_code_values; lp\nlea     rsi, fmt; \"unknown (%u)\"\ncall    tok2str\nmov     rdi, [rbp+var_68]\nmov     edx, [rbp+var_5C]\nmov     rcx, [rbp+var_58]\nmov     r10, [rbp+var_50]\nmov     r8, rax\nmov     rax, [rbp+vqp_common_header]\nmovzx   r9d, byte ptr [rax+2]\nmov     eax, [rbp+len]\nlea     rsi, aVqpvUSMessageE; \"VQPv%u %s Message, error-code %s (%u), \"...\nmov     [rsp+100h+var_100], eax\nmov     al, 0\ncall    r10\njmp     loc_18F3\nmov     rax, [rbp+vqp_common_header]\nmov     al, [rax+3]\nmov     [rbp+nitems], al\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_70], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_98], rax\nmov     rax, [rbp+vqp_common_header]\nmovzx   eax, byte ptr [rax]\nand     eax, 0FFh\nmov     [rbp+var_8C], eax\nmov     rax, [rbp+vqp_common_header]\nmovzx   edx, byte ptr [rax+1]; v\nlea     rdi, vqp_msg_type_values; lp\nlea     rsi, fmt; \"unknown (%u)\"\ncall    tok2str\nmov     [rbp+var_88], rax\nmov     rax, [rbp+vqp_common_header]\nmovzx   edx, byte ptr [rax+2]; v\nlea     rdi, vqp_error_code_values; lp\nlea     rsi, fmt; \"unknown (%u)\"\ncall    tok2str\nmov     [rbp+var_80], rax\nmov     rax, [rbp+vqp_common_header]\nmovzx   eax, byte ptr [rax+2]\nmov     [rbp+var_74], eax\nmov     rdi, [rbp+vqp_common_header]\nadd     rdi, 4; p\ncall    EXTRACT_32BITS\nmov     rdi, [rbp+var_98]\nmov     edx, [rbp+var_8C]\nmov     rcx, [rbp+var_88]\nmov     r8, [rbp+var_80]\nmov     r9d, [rbp+var_74]\nmov     r10, [rbp+var_70]\nmov     ebx, eax\nmovzx   r11d, [rbp+nitems]\nmov     eax, [rbp+len]\nlea     rsi, aVqpvUSMessageE_0; \"\\n\\tVQPv%u, %s Message, error-code %s (\"...\nmov     [rsp+100h+var_100], ebx\nmov     [rsp+100h+var_F8], r11d\nmov     [rsp+100h+var_F0], eax\nmov     al, 0\ncall    r10\nmov     rax, [rbp+tptr]\nadd     rax, 8\nmov     [rbp+tptr], rax\nmovsxd  rax, [rbp+tlen]\nsub     rax, 8\nmov     [rbp+tlen], eax\nmovzx   ecx, [rbp+nitems]\nxor     eax, eax\ncmp     ecx, 0\nmov     [rbp+var_99], al\njle     loc_1679\ncmp     [rbp+tlen], 0\nsetnle  al\nmov     [rbp+var_99], al\nmov     al, [rbp+var_99]\ntest    al, 1\njnz     loc_168C\njmp     loc_18D7\nmov     rax, [rbp+tptr]\nmov     [rbp+vqp_obj_tlv], rax\nmov     rdi, [rbp+vqp_obj_tlv]; p\ncall    EXTRACT_32BITS\nmov     [rbp+vqp_obj_type], eax\nmov     rdi, [rbp+vqp_obj_tlv]\nadd     rdi, 4; p\ncall    EXTRACT_16BITS\nmov     [rbp+vqp_obj_len], ax\nmov     rax, [rbp+tptr]\nadd     rax, 6\nmov     [rbp+tptr], rax\nmovsxd  rax, [rbp+tlen]\nsub     rax, 6\nmov     [rbp+tlen], eax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_A8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_B0], rax\nmov     edx, [rbp+vqp_obj_type]; v\nlea     rdi, vqp_obj_values; lp\nlea     rsi, aUnknown; \"Unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_B0]\nmov     r9, [rbp+var_A8]\nmov     rdx, rax\nmov     ecx, [rbp+vqp_obj_type]\nmovzx   r8d, [rbp+vqp_obj_len]\nlea     rsi, aSObject0x08xLe; \"\\n\\t  %s Object (0x%08x), length %u, va\"...\nmov     al, 0\ncall    r9\ncmp     [rbp+vqp_obj_type], 0\njz      loc_1734\nmovzx   eax, [rbp+vqp_obj_len]\ncmp     eax, 0\njnz     loc_1739\njmp     loc_18F3\nmovzx   eax, [rbp+vqp_obj_len]\ncmp     eax, 0\njg      loc_1753\nmovzx   eax, [rbp+vqp_obj_len]\ncmp     eax, 0\njnz     loc_178F\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nmovzx   ecx, [rbp+vqp_obj_len]\nsub     rax, rcx\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_178F\nmov     rax, [rbp+tptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nmovzx   edx, [rbp+vqp_obj_len]\nsub     rcx, rdx\ncmp     rax, rcx\njbe     loc_1794\njmp     trunc\nmov     eax, [rbp+vqp_obj_type]\nadd     eax, 0FFFFF3FFh; switch 8 cases\nmov     ecx, eax\nmov     [rbp+var_B8], rcx\nsub     eax, 7\nja      def_17C3; jumptable 00000000000017C3 default case, case 3079\nmov     rax, [rbp+var_B8]\nlea     rcx, jpt_17C3\nmovsxd  rax, ds:(jpt_17C3 - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nmov     rax, [rbp+ndo]; jumptable 00000000000017C3 case 3073\nmov     rax, [rax+10h]\nmov     [rbp+var_C0], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_D0], rax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+tptr]; p\ncall    ipaddr_string\nmov     [rbp+var_C8], rax\nmov     rdi, [rbp+tptr]; p\ncall    EXTRACT_32BITS\nmov     rdi, [rbp+var_D0]\nmov     rdx, [rbp+var_C8]\nmov     r8, [rbp+var_C0]\nmov     ecx, eax\nlea     rsi, aS0x08x; \"%s (0x%08x)\"\nmov     al, 0\ncall    r8\njmp     loc_18AC\nmov     rdi, [rbp+ndo]; jumptable 00000000000017C3 cases 3074-3077\nmov     rsi, [rbp+tptr]; s\nmovzx   edx, [rbp+vqp_obj_len]; maxlen\ncall    safeputs\njmp     loc_18AC\nmov     rax, [rbp+ndo]; jumptable 00000000000017C3 cases 3078,3080\nmov     rax, [rax+10h]\nmov     [rbp+var_D8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_E0], rax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+tptr]; ep\ncall    etheraddr_string\nmov     rdi, [rbp+var_E0]\nmov     rcx, [rbp+var_D8]\nmov     rdx, rax\nlea     rsi, aS; \"%s\"\nmov     al, 0\ncall    rcx\njmp     loc_18AC\nmov     rax, [rbp+ndo]; jumptable 00000000000017C3 default case, case 3079\ncmp     dword ptr [rax], 1\njg      loc_18A7\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+tptr]; cp\nmovzx   ecx, [rbp+vqp_obj_len]; len\nlea     rdx, ident; \"\\n\\t    \"\ncall    print_unknown_data\njmp     $+5\nmovzx   ecx, [rbp+vqp_obj_len]\nmov     rax, [rbp+tptr]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+tptr], rax\nmovzx   ecx, [rbp+vqp_obj_len]\nmov     eax, [rbp+tlen]\nsub     eax, ecx\nmov     [rbp+tlen], eax\nmov     al, [rbp+nitems]\nadd     al, 0FFh\nmov     [rbp+nitems], al\njmp     loc_1657\njmp     loc_18F3\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aVqp; \"\\n\\t[|VQP]\"\nmov     al, 0\ncall    rcx\nadd     rsp, 0F8h\npop     rbx\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 32,
+  "edges": [
+   [
+    "start",
+    "loc_147A"
+   ],
+   [
+    "start",
+    "loc_1493"
+   ],
+   [
+    "loc_147A",
+    "loc_1493"
+   ],
+   [
+    "loc_147A",
+    "loc_1498"
+   ],
+   [
+    "loc_1493",
+    "loc_18DC"
+   ],
+   [
+    "loc_1498",
+    "loc_14AD"
+   ],
+   [
+    "loc_1498",
+    "loc_14D6"
+   ],
+   [
+    "loc_14AD",
+    "loc_18F3"
+   ],
+   [
+    "loc_14D6",
+    "loc_14E3"
+   ],
+   [
+    "loc_14D6",
+    "loc_1572"
+   ],
+   [
+    "loc_14E3",
+    "loc_18F3"
+   ],
+   [
+    "loc_1572",
+    "loc_1657"
+   ],
+   [
+    "loc_1657",
+    "loc_166C"
+   ],
+   [
+    "loc_1657",
+    "loc_1679"
+   ],
+   [
+    "loc_166C",
+    "loc_1679"
+   ],
+   [
+    "loc_1679",
+    "loc_1687"
+   ],
+   [
+    "loc_1679",
+    "loc_168C"
+   ],
+   [
+    "loc_1687",
+    "loc_18D7"
+   ],
+   [
+    "loc_168C",
+    "loc_1727"
+   ],
+   [
+    "loc_168C",
+    "loc_1734"
+   ],
+   [
+    "loc_1727",
+    "loc_1734"
+   ],
+   [
+    "loc_1727",
+    "loc_1739"
+   ],
+   [
+    "loc_1734",
+    "loc_18F3"
+   ],
+   [
+    "loc_1739",
+    "loc_1746"
+   ],
+   [
+    "loc_1739",
+    "loc_1753"
+   ],
+   [
+    "loc_1746",
+    "loc_1753"
+   ],
+   [
+    "loc_1746",
+    "loc_178F"
+   ],
+   [
+    "loc_1753",
+    "loc_1773"
+   ],
+   [
+    "loc_1753",
+    "loc_178F"
+   ],
+   [
+    "loc_1773",
+    "loc_178F"
+   ],
+   [
+    "loc_1773",
+    "loc_1794"
+   ],
+   [
+    "loc_178F",
+    "loc_18DC"
+   ],
+   [
+    "loc_1794",
+    "loc_17AE"
+   ],
+   [
+    "loc_1794",
+    "loc_1882"
+   ],
+   [
+    "loc_17AE",
+    "loc_17C5"
+   ],
+   [
+    "loc_17AE",
+    "loc_1824"
+   ],
+   [
+    "loc_17AE",
+    "loc_183A"
+   ],
+   [
+    "loc_17AE",
+    "loc_1882"
+   ],
+   [
+    "loc_17C5",
+    "loc_18AC"
+   ],
+   [
+    "loc_1824",
+    "loc_18AC"
+   ],
+   [
+    "loc_183A",
+    "loc_18AC"
+   ],
+   [
+    "loc_1882",
+    "loc_188F"
+   ],
+   [
+    "loc_1882",
+    "loc_18A7"
+   ],
+   [
+    "loc_188F",
+    "loc_18A7"
+   ],
+   [
+    "loc_18A7",
+    "loc_18AC"
+   ],
+   [
+    "loc_18AC",
+    "loc_1657"
+   ],
+   [
+    "loc_18D7",
+    "loc_18F3"
+   ],
+   [
+    "loc_18DC",
+    "loc_18F3"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\npush    rbx\nsub     rsp, 0F8h\nmov     [rbp+ndo], rdi\nmov     [rbp+pptr], rsi\nmov     [rbp+len], edx\nmov     rax, [rbp+pptr]\nmov     [rbp+tptr], rax\nmov     eax, [rbp+len]\nmov     [rbp+tlen], eax\nmov     rax, [rbp+pptr]\nmov     [rbp+vqp_common_header], rax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 8\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1493",
+   "loc_147A": "mov     rax, [rbp+vqp_common_header]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 8\ncmp     rax, rcx\njbe     loc_1498",
+   "loc_1493": "jmp     trunc",
+   "loc_1498": "mov     rax, [rbp+vqp_common_header]\nmovzx   eax, byte ptr [rax]\nand     eax, 0FFh\ncmp     eax, 1\njz      loc_14D6",
+   "loc_14AD": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nmov     rax, [rbp+vqp_common_header]\nmovzx   edx, byte ptr [rax]\nand     edx, 0FFh\nlea     rsi, aVqpVersionUPac; \"VQP version %u packet not supported\"\nmov     al, 0\ncall    rcx\njmp     loc_18F3",
+   "loc_14D6": "mov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 1\njge     loc_1572",
+   "loc_14E3": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_50], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_68], rax\nmov     rax, [rbp+vqp_common_header]\nmovzx   eax, byte ptr [rax]\nand     eax, 0FFh\nmov     [rbp+var_5C], eax\nmov     rax, [rbp+vqp_common_header]\nmovzx   edx, byte ptr [rax+1]; v\nlea     rdi, vqp_msg_type_values; lp\nlea     rsi, fmt; \"unknown (%u)\"\ncall    tok2str\nmov     [rbp+var_58], rax\nmov     rax, [rbp+vqp_common_header]\nmovzx   edx, byte ptr [rax+2]; v\nlea     rdi, vqp_error_code_values; lp\nlea     rsi, fmt; \"unknown (%u)\"\ncall    tok2str\nmov     rdi, [rbp+var_68]\nmov     edx, [rbp+var_5C]\nmov     rcx, [rbp+var_58]\nmov     r10, [rbp+var_50]\nmov     r8, rax\nmov     rax, [rbp+vqp_common_header]\nmovzx   r9d, byte ptr [rax+2]\nmov     eax, [rbp+len]\nlea     rsi, aVqpvUSMessageE; \"VQPv%u %s Message, error-code %s (%u), \"...\nmov     [rsp+100h+var_100], eax\nmov     al, 0\ncall    r10\njmp     loc_18F3",
+   "loc_1572": "mov     rax, [rbp+vqp_common_header]\nmov     al, [rax+3]\nmov     [rbp+nitems], al\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_70], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_98], rax\nmov     rax, [rbp+vqp_common_header]\nmovzx   eax, byte ptr [rax]\nand     eax, 0FFh\nmov     [rbp+var_8C], eax\nmov     rax, [rbp+vqp_common_header]\nmovzx   edx, byte ptr [rax+1]; v\nlea     rdi, vqp_msg_type_values; lp\nlea     rsi, fmt; \"unknown (%u)\"\ncall    tok2str\nmov     [rbp+var_88], rax\nmov     rax, [rbp+vqp_common_header]\nmovzx   edx, byte ptr [rax+2]; v\nlea     rdi, vqp_error_code_values; lp\nlea     rsi, fmt; \"unknown (%u)\"\ncall    tok2str\nmov     [rbp+var_80], rax\nmov     rax, [rbp+vqp_common_header]\nmovzx   eax, byte ptr [rax+2]\nmov     [rbp+var_74], eax\nmov     rdi, [rbp+vqp_common_header]\nadd     rdi, 4; p\ncall    EXTRACT_32BITS\nmov     rdi, [rbp+var_98]\nmov     edx, [rbp+var_8C]\nmov     rcx, [rbp+var_88]\nmov     r8, [rbp+var_80]\nmov     r9d, [rbp+var_74]\nmov     r10, [rbp+var_70]\nmov     ebx, eax\nmovzx   r11d, [rbp+nitems]\nmov     eax, [rbp+len]\nlea     rsi, aVqpvUSMessageE_0; \"\\n\\tVQPv%u, %s Message, error-code %s (\"...\nmov     [rsp+100h+var_100], ebx\nmov     [rsp+100h+var_F8], r11d\nmov     [rsp+100h+var_F0], eax\nmov     al, 0\ncall    r10\nmov     rax, [rbp+tptr]\nadd     rax, 8\nmov     [rbp+tptr], rax\nmovsxd  rax, [rbp+tlen]\nsub     rax, 8\nmov     [rbp+tlen], eax",
+   "loc_1657": "movzx   ecx, [rbp+nitems]\nxor     eax, eax\ncmp     ecx, 0\nmov     [rbp+var_99], al\njle     loc_1679",
+   "loc_166C": "cmp     [rbp+tlen], 0\nsetnle  al\nmov     [rbp+var_99], al",
+   "loc_1679": "mov     al, [rbp+var_99]\ntest    al, 1\njnz     loc_168C",
+   "loc_1687": "jmp     loc_18D7",
+   "loc_168C": "mov     rax, [rbp+tptr]\nmov     [rbp+vqp_obj_tlv], rax\nmov     rdi, [rbp+vqp_obj_tlv]; p\ncall    EXTRACT_32BITS\nmov     [rbp+vqp_obj_type], eax\nmov     rdi, [rbp+vqp_obj_tlv]\nadd     rdi, 4; p\ncall    EXTRACT_16BITS\nmov     [rbp+vqp_obj_len], ax\nmov     rax, [rbp+tptr]\nadd     rax, 6\nmov     [rbp+tptr], rax\nmovsxd  rax, [rbp+tlen]\nsub     rax, 6\nmov     [rbp+tlen], eax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_A8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_B0], rax\nmov     edx, [rbp+vqp_obj_type]; v\nlea     rdi, vqp_obj_values; lp\nlea     rsi, aUnknown; \"Unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_B0]\nmov     r9, [rbp+var_A8]\nmov     rdx, rax\nmov     ecx, [rbp+vqp_obj_type]\nmovzx   r8d, [rbp+vqp_obj_len]\nlea     rsi, aSObject0x08xLe; \"\\n\\t  %s Object (0x%08x), length %u, va\"...\nmov     al, 0\ncall    r9\ncmp     [rbp+vqp_obj_type], 0\njz      loc_1734",
+   "loc_1727": "movzx   eax, [rbp+vqp_obj_len]\ncmp     eax, 0\njnz     loc_1739",
+   "loc_1734": "jmp     loc_18F3",
+   "loc_1739": "movzx   eax, [rbp+vqp_obj_len]\ncmp     eax, 0\njg      loc_1753",
+   "loc_1746": "movzx   eax, [rbp+vqp_obj_len]\ncmp     eax, 0\njnz     loc_178F",
+   "loc_1753": "mov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nmovzx   ecx, [rbp+vqp_obj_len]\nsub     rax, rcx\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_178F",
+   "loc_1773": "mov     rax, [rbp+tptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nmovzx   edx, [rbp+vqp_obj_len]\nsub     rcx, rdx\ncmp     rax, rcx\njbe     loc_1794",
+   "loc_178F": "jmp     trunc",
+   "loc_1794": "mov     eax, [rbp+vqp_obj_type]\nadd     eax, 0FFFFF3FFh; switch 8 cases\nmov     ecx, eax\nmov     [rbp+var_B8], rcx\nsub     eax, 7\nja      def_17C3; jumptable 00000000000017C3 default case, case 3079",
+   "loc_17AE": "mov     rax, [rbp+var_B8]\nlea     rcx, jpt_17C3\nmovsxd  rax, ds:(jpt_17C3 - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_17C5": "mov     rax, [rbp+ndo]; jumptable 00000000000017C3 case 3073\nmov     rax, [rax+10h]\nmov     [rbp+var_C0], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_D0], rax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+tptr]; p\ncall    ipaddr_string\nmov     [rbp+var_C8], rax\nmov     rdi, [rbp+tptr]; p\ncall    EXTRACT_32BITS\nmov     rdi, [rbp+var_D0]\nmov     rdx, [rbp+var_C8]\nmov     r8, [rbp+var_C0]\nmov     ecx, eax\nlea     rsi, aS0x08x; \"%s (0x%08x)\"\nmov     al, 0\ncall    r8\njmp     loc_18AC",
+   "loc_1824": "mov     rdi, [rbp+ndo]; jumptable 00000000000017C3 cases 3074-3077\nmov     rsi, [rbp+tptr]; s\nmovzx   edx, [rbp+vqp_obj_len]; maxlen\ncall    safeputs\njmp     loc_18AC",
+   "loc_183A": "mov     rax, [rbp+ndo]; jumptable 00000000000017C3 cases 3078,3080\nmov     rax, [rax+10h]\nmov     [rbp+var_D8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_E0], rax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+tptr]; ep\ncall    etheraddr_string\nmov     rdi, [rbp+var_E0]\nmov     rcx, [rbp+var_D8]\nmov     rdx, rax\nlea     rsi, aS; \"%s\"\nmov     al, 0\ncall    rcx\njmp     loc_18AC",
+   "loc_1882": "mov     rax, [rbp+ndo]; jumptable 00000000000017C3 default case, case 3079\ncmp     dword ptr [rax], 1\njg      loc_18A7",
+   "loc_188F": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+tptr]; cp\nmovzx   ecx, [rbp+vqp_obj_len]; len\nlea     rdx, ident; \"\\n\\t    \"\ncall    print_unknown_data",
+   "loc_18A7": "jmp     $+5",
+   "loc_18AC": "movzx   ecx, [rbp+vqp_obj_len]\nmov     rax, [rbp+tptr]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+tptr], rax\nmovzx   ecx, [rbp+vqp_obj_len]\nmov     eax, [rbp+tlen]\nsub     eax, ecx\nmov     [rbp+tlen], eax\nmov     al, [rbp+nitems]\nadd     al, 0FFh\nmov     [rbp+nitems], al\njmp     loc_1657",
+   "loc_18D7": "jmp     loc_18F3",
+   "loc_18DC": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aVqp; \"\\n\\t[|VQP]\"\nmov     al, 0\ncall    rcx",
+   "loc_18F3": "add     rsp, 0F8h\npop     rbx\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_100": "dword ptr -100h",
+   "var_F8": "dword ptr -0F8h",
+   "var_F0": "dword ptr -0F0h",
+   "var_E0": "qword ptr -0E0h",
+   "var_D8": "qword ptr -0D8h",
+   "var_D0": "qword ptr -0D0h",
+   "var_C8": "qword ptr -0C8h",
+   "var_C0": "qword ptr -0C0h",
+   "var_B8": "qword ptr -0B8h",
+   "var_B0": "qword ptr -0B0h",
+   "var_A8": "qword ptr -0A8h",
+   "var_99": "byte ptr -99h",
+   "var_98": "qword ptr -98h",
+   "var_8C": "dword ptr -8Ch",
+   "var_88": "qword ptr -88h",
+   "var_80": "qword ptr -80h",
+   "var_74": "dword ptr -74h",
+   "var_70": "qword ptr -70h",
+   "var_68": "qword ptr -68h",
+   "var_5C": "dword ptr -5Ch",
+   "var_58": "qword ptr -58h",
+   "var_50": "qword ptr -50h",
+   "nitems": "byte ptr -45h",
+   "tlen": "dword ptr -44h",
+   "vqp_obj_type": "dword ptr -40h",
+   "vqp_obj_len": "word ptr -3Ah",
+   "tptr": "qword ptr -38h",
+   "vqp_obj_tlv": "qword ptr -30h",
+   "vqp_common_header": "qword ptr -28h",
+   "len": "dword ptr -1Ch",
+   "pptr": "qword ptr -18h",
+   "ndo": "qword ptr -10h"
+  },
+  ".rodata": {
+   "aVqpVersionUPac": "byte 'VQP version %u packet not supported',0",
+   "fmt": "byte 'unknown (%u)',0",
+   "aVqpvUSMessageE": "byte 'VQPv%u %s Message, error-code %s (%u), length %u',0",
+   "aVqpvUSMessageE_0": "byte 0Ah",
+   "aUnknown": "byte 'Unknown',0",
+   "aSObject0x08xLe": "byte 0Ah",
+   "jpt_17C3": "dword offset loc_17C5 - 2004h; jump table for switch statement",
+   "aS0x08x": "byte '%s (0x%08x)',0",
+   "aS": "byte '%s',0",
+   "ident": "byte 0Ah",
+   "aVqp": "byte 0Ah"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5168,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".ntohs": "ntohs",
+  "_ntohs": "ntohs",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".vfprintf": "vfprintf",
+  "_vfprintf": "vfprintf",
+  ".ntohl": "ntohl",
+  "_ntohl": "ntohl"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".ntohs",
+   ".plt",
+   true,
+   "ntohs"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".vfprintf",
+   ".plt",
+   true,
+   "vfprintf"
+  ],
+  [
+   ".ntohl",
+   ".plt",
+   true,
+   "ntohl"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "snprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ntohs",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "vfprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ntohl",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868455
+ }
+}

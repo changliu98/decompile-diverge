@@ -1,0 +1,1 @@
+static inline int cpu_map__id_to_cpu(int id) { return id & 0xffff; }

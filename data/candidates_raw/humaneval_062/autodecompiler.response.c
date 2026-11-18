@@ -1,0 +1,11 @@
+void foo (float *x, int n, float *y)
+{
+  int i;
+  for (i = 1; ; i++)
+    {
+      if (i < n)
+ y[i-1] = i * x[i];
+      else
+ return;
+    }
+}

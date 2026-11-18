@@ -1,0 +1,1 @@
+void rbc_force_stat(float *rtime, float *wtime) { *rtime = 1; *wtime = 1; }

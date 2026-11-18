@@ -1,0 +1,68 @@
+000000000000cd40 <crypto_eddsa_sign>:
+    cd40:	push   %rbp
+    cd41:	mov    %rsp,%rbp
+    cd44:	sub    $0xd0,%rsp
+    cd4b:	mov    %rdi,-0x8(%rbp)
+    cd4f:	mov    %rsi,-0x10(%rbp)
+    cd53:	mov    %rdx,-0x18(%rbp)
+    cd57:	mov    %rcx,-0x20(%rbp)
+    cd5b:	lea    -0x60(%rbp),%rdi
+    cd5f:	mov    -0x10(%rbp),%rdx
+    cd63:	mov    $0x40,%esi
+    cd68:	mov    $0x20,%ecx
+    cd6d:	call   7a00 <crypto_blake2b>
+    cd72:	lea    -0x60(%rbp),%rdi
+    cd76:	lea    -0x60(%rbp),%rsi
+    cd7a:	call   b170 <crypto_eddsa_trim_scalar>
+    cd7f:	lea    -0x80(%rbp),%rdi
+    cd83:	lea    -0x60(%rbp),%rsi
+    cd87:	add    $0x20,%rsi
+    cd8b:	mov    -0x18(%rbp),%rcx
+    cd8f:	mov    -0x20(%rbp),%r8
+    cd93:	mov    $0x20,%edx
+    cd98:	xor    %eax,%eax
+    cd9a:	mov    %eax,%r9d
+    cd9d:	movq   $0x0,(%rsp)
+    cda5:	call   ce80 <hash_reduce>
+    cdaa:	lea    -0xc0(%rbp),%rdi
+    cdb1:	lea    -0x80(%rbp),%rsi
+    cdb5:	call   ca10 <crypto_eddsa_scalarbase>
+    cdba:	lea    -0xa0(%rbp),%rdi
+    cdc1:	lea    -0xc0(%rbp),%rsi
+    cdc8:	mov    -0x10(%rbp),%rcx
+    cdcc:	add    $0x20,%rcx
+    cdd0:	mov    -0x18(%rbp),%r9
+    cdd4:	mov    -0x20(%rbp),%rax
+    cdd8:	mov    $0x20,%r8d
+    cdde:	mov    %r8,%rdx
+    cde1:	mov    %rax,(%rsp)
+    cde5:	call   ce80 <hash_reduce>
+    cdea:	movq   $0x0,-0xc8(%rbp)
+    cdf5:	cmpq   $0x20,-0xc8(%rbp)
+    cdfd:	jae    ce36 <crypto_eddsa_sign+0xf6>
+    ce03:	mov    -0xc8(%rbp),%rax
+    ce0a:	mov    -0xc0(%rbp,%rax,1),%dl
+    ce11:	mov    -0x8(%rbp),%rax
+    ce15:	mov    -0xc8(%rbp),%rcx
+    ce1c:	mov    %dl,(%rax,%rcx,1)
+    ce1f:	mov    -0xc8(%rbp),%rax
+    ce26:	add    $0x1,%rax
+    ce2a:	mov    %rax,-0xc8(%rbp)
+    ce31:	jmp    cdf5 <crypto_eddsa_sign+0xb5>
+    ce36:	mov    -0x8(%rbp),%rdi
+    ce3a:	add    $0x20,%rdi
+    ce3e:	lea    -0xa0(%rbp),%rsi
+    ce45:	lea    -0x60(%rbp),%rdx
+    ce49:	lea    -0x80(%rbp),%rcx
+    ce4d:	call   b940 <crypto_eddsa_mul_add>
+    ce52:	lea    -0x60(%rbp),%rdi
+    ce56:	mov    $0x40,%esi
+    ce5b:	call   13b0 <crypto_wipe>
+    ce60:	lea    -0x80(%rbp),%rdi
+    ce64:	mov    $0x20,%esi
+    ce69:	call   13b0 <crypto_wipe>
+    ce6e:	add    $0xd0,%rsp
+    ce75:	pop    %rbp
+    ce76:	ret
+
+Disassembly of section .fini:

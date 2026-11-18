@@ -1,0 +1,117 @@
+{
+ "kind": "exebench",
+ "real_deps": "\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_42xbapbol8.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(unsigned short value, char* s) {\n  json output_json;\n\n  output_json[\"s\"] = s;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  unsigned short value = input_json[\"value\"];\n  char* s = strdup(input_json[\"s\"].get<std::string>().c_str());\n  clock_t begin = clock();\n  itoa(value, s);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(value, s);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "value": 345,
+    "s": "jnrjbuchjlk"
+   },
+   "output": {
+    "s": "345"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "value": 873,
+    "s": "unjtbhshjberdjbcpdjlv"
+   },
+   "output": {
+    "s": "873"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "value": 158,
+    "s": "gfcwddk"
+   },
+   "output": {
+    "s": "158"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "value": 976,
+    "s": "vl"
+   },
+   "output": {
+    "s": "976"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "value": 424,
+    "s": "gyslwwtfnbkwtao"
+   },
+   "output": {
+    "s": "424"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "value": 869,
+    "s": "wktigpk"
+   },
+   "output": {
+    "s": "869"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "value": 549,
+    "s": "oyztvmg"
+   },
+   "output": {
+    "s": "549"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "value": 206,
+    "s": "rujlhoidnigafzqlxrgewqs"
+   },
+   "output": {
+    "s": "206"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "value": 959,
+    "s": "bblkr"
+   },
+   "output": {
+    "s": "959"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "value": 445,
+    "s": "ktuysmuqnihkokzybwmvwjufdjyt"
+   },
+   "output": {
+    "s": "445"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

@@ -1,0 +1,1 @@
+void drmp3_L3_idct3(float val1, float val2, float val3, drmp3_uint8 *out) { drmp3_uint16 off1 = val2 * 0.5f; drmp3_uint16 off2 = val1 - val3 * 0.5f; out[1] = val1 + val3; out[0] = off2 + off1; out[2] = off2 - off1; }

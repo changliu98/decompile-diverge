@@ -1,0 +1,1 @@
+int func0(const int *p, int n) { int sum = 0; for (int i = 0; i < n; i++) sum += p[i]; for (int i = 0, j = 0; j < n; j++) { sum -= p[j]; if (i == sum) return j; i += p[j]; } return -1; }

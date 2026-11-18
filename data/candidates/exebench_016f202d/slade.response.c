@@ -1,0 +1,1 @@
+void cpuid(uint32_t eax, uint32_t *eax_in, uint32_t *ebx_in, uint32_t *ecx_in, uint32_t *edx_in) { register uint32_t eax_out; *eax_in = eax; *ebx_in = ecx_in; *edx_in = edx_in; }

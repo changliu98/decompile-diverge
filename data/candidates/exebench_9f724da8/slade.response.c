@@ -1,0 +1,1 @@
+void inc2(packet_t *p) { p->x += 1; }

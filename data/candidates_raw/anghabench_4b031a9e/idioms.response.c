@@ -1,0 +1,9 @@
+int is_valid_type(long type)
+{
+  if (type & (0x00 | 0x04))
+    if (type & (0x02 | 0x08))
+      if (type & (0x00 | 0x04 | 0x10))
+        if (type == (0x00 | 0x04 | 0x10 | 0x08))
+          return 1;
+  return 0;
+}

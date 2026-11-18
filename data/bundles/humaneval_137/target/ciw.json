@@ -1,0 +1,427 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+a], rdi\nmov     [rbp+b], rsi\nmov     rdi, [rbp+a]; s\ncall    strdup\nmov     [rbp+a_modified], rax\nmov     rdi, [rbp+b]; s\ncall    strdup\nmov     [rbp+b_modified], rax\nmov     [rbp+i], 0\nmov     rax, [rbp+a_modified]\nmovsxd  rcx, [rbp+i]\ncmp     byte ptr [rax+rcx], 0\njz      loc_1287\nmov     rax, [rbp+a_modified]\nmovsxd  rcx, [rbp+i]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 2Ch ; ','\njnz     loc_1274\nmov     rax, [rbp+a_modified]\nmovsxd  rcx, [rbp+i]\nmov     byte ptr [rax+rcx], 2Eh ; '.'\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1241\nmov     [rbp+i_0], 0\nmov     rax, [rbp+b_modified]\nmovsxd  rcx, [rbp+i_0]\ncmp     byte ptr [rax+rcx], 0\njz      loc_12D4\nmov     rax, [rbp+b_modified]\nmovsxd  rcx, [rbp+i_0]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 2Ch ; ','\njnz     loc_12C1\nmov     rax, [rbp+b_modified]\nmovsxd  rcx, [rbp+i_0]\nmov     byte ptr [rax+rcx], 2Eh ; '.'\njmp     $+5\nmov     eax, [rbp+i_0]\nadd     eax, 1\nmov     [rbp+i_0], eax\njmp     loc_128E\nmov     rdi, [rbp+a_modified]; nptr\nlea     rsi, [rbp+end]; endptr\ncall    strtod\nmovsd   [rbp+numa], xmm0\nmov     rax, [rbp+end]\ncmp     byte ptr [rax], 0\njz      loc_1315\nmov     rdi, [rbp+a_modified]; ptr\ncall    free\nmov     rdi, [rbp+b_modified]; ptr\ncall    free\nlea     rax, aInvalidInput; \"Invalid input\"\nmov     [rbp+var_8], rax\njmp     loc_13BB\nmov     rdi, [rbp+b_modified]; nptr\nlea     rsi, [rbp+end]; endptr\ncall    strtod\nmovsd   [rbp+numb], xmm0\nmov     rax, [rbp+end]\ncmp     byte ptr [rax], 0\njz      loc_1356\nmov     rdi, [rbp+a_modified]; ptr\ncall    free\nmov     rdi, [rbp+b_modified]; ptr\ncall    free\nlea     rax, aInvalidInput; \"Invalid input\"\nmov     [rbp+var_8], rax\njmp     loc_13BB\nmov     rdi, [rbp+a_modified]; ptr\ncall    free\nmov     rdi, [rbp+b_modified]; ptr\ncall    free\nmovsd   xmm0, [rbp+numa]\nucomisd xmm0, [rbp+numb]\njnz     loc_138E\njp      loc_138E\nlea     rax, aNone; \"None\"\nmov     [rbp+var_8], rax\njmp     loc_13BB\nmovsd   xmm0, [rbp+numa]\nucomisd xmm0, [rbp+numb]\njbe     loc_13AB\nmov     rax, [rbp+a]\nmov     [rbp+var_50], rax\njmp     loc_13B3\nmov     rax, [rbp+b]\nmov     [rbp+var_50], rax\nmov     rax, [rbp+var_50]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 24,
+  "edges": [
+   [
+    "start",
+    "loc_1241"
+   ],
+   [
+    "loc_1241",
+    "loc_1253"
+   ],
+   [
+    "loc_1241",
+    "loc_1287"
+   ],
+   [
+    "loc_1253",
+    "loc_1268"
+   ],
+   [
+    "loc_1253",
+    "loc_1274"
+   ],
+   [
+    "loc_1268",
+    "loc_1274"
+   ],
+   [
+    "loc_1274",
+    "loc_1279"
+   ],
+   [
+    "loc_1279",
+    "loc_1241"
+   ],
+   [
+    "loc_1287",
+    "loc_128E"
+   ],
+   [
+    "loc_128E",
+    "loc_12A0"
+   ],
+   [
+    "loc_128E",
+    "loc_12D4"
+   ],
+   [
+    "loc_12A0",
+    "loc_12B5"
+   ],
+   [
+    "loc_12A0",
+    "loc_12C1"
+   ],
+   [
+    "loc_12B5",
+    "loc_12C1"
+   ],
+   [
+    "loc_12C1",
+    "loc_12C6"
+   ],
+   [
+    "loc_12C6",
+    "loc_128E"
+   ],
+   [
+    "loc_12D4",
+    "loc_12F3"
+   ],
+   [
+    "loc_12D4",
+    "loc_1315"
+   ],
+   [
+    "loc_12F3",
+    "loc_13BB"
+   ],
+   [
+    "loc_1315",
+    "loc_1334"
+   ],
+   [
+    "loc_1315",
+    "loc_1356"
+   ],
+   [
+    "loc_1334",
+    "loc_13BB"
+   ],
+   [
+    "loc_1356",
+    "loc_1378"
+   ],
+   [
+    "loc_1356",
+    "loc_138E"
+   ],
+   [
+    "loc_1378",
+    "loc_137E"
+   ],
+   [
+    "loc_1378",
+    "loc_138E"
+   ],
+   [
+    "loc_137E",
+    "loc_13BB"
+   ],
+   [
+    "loc_138E",
+    "loc_139E"
+   ],
+   [
+    "loc_138E",
+    "loc_13AB"
+   ],
+   [
+    "loc_139E",
+    "loc_13B3"
+   ],
+   [
+    "loc_13AB",
+    "loc_13B3"
+   ],
+   [
+    "loc_13B3",
+    "loc_13BB"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+a], rdi\nmov     [rbp+b], rsi\nmov     rdi, [rbp+a]; s\ncall    strdup\nmov     [rbp+a_modified], rax\nmov     rdi, [rbp+b]; s\ncall    strdup\nmov     [rbp+b_modified], rax\nmov     [rbp+i], 0",
+   "loc_1241": "mov     rax, [rbp+a_modified]\nmovsxd  rcx, [rbp+i]\ncmp     byte ptr [rax+rcx], 0\njz      loc_1287",
+   "loc_1253": "mov     rax, [rbp+a_modified]\nmovsxd  rcx, [rbp+i]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 2Ch ; ','\njnz     loc_1274",
+   "loc_1268": "mov     rax, [rbp+a_modified]\nmovsxd  rcx, [rbp+i]\nmov     byte ptr [rax+rcx], 2Eh ; '.'",
+   "loc_1274": "jmp     $+5",
+   "loc_1279": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1241",
+   "loc_1287": "mov     [rbp+i_0], 0",
+   "loc_128E": "mov     rax, [rbp+b_modified]\nmovsxd  rcx, [rbp+i_0]\ncmp     byte ptr [rax+rcx], 0\njz      loc_12D4",
+   "loc_12A0": "mov     rax, [rbp+b_modified]\nmovsxd  rcx, [rbp+i_0]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 2Ch ; ','\njnz     loc_12C1",
+   "loc_12B5": "mov     rax, [rbp+b_modified]\nmovsxd  rcx, [rbp+i_0]\nmov     byte ptr [rax+rcx], 2Eh ; '.'",
+   "loc_12C1": "jmp     $+5",
+   "loc_12C6": "mov     eax, [rbp+i_0]\nadd     eax, 1\nmov     [rbp+i_0], eax\njmp     loc_128E",
+   "loc_12D4": "mov     rdi, [rbp+a_modified]; nptr\nlea     rsi, [rbp+end]; endptr\ncall    strtod\nmovsd   [rbp+numa], xmm0\nmov     rax, [rbp+end]\ncmp     byte ptr [rax], 0\njz      loc_1315",
+   "loc_12F3": "mov     rdi, [rbp+a_modified]; ptr\ncall    free\nmov     rdi, [rbp+b_modified]; ptr\ncall    free\nlea     rax, aInvalidInput; \"Invalid input\"\nmov     [rbp+var_8], rax\njmp     loc_13BB",
+   "loc_1315": "mov     rdi, [rbp+b_modified]; nptr\nlea     rsi, [rbp+end]; endptr\ncall    strtod\nmovsd   [rbp+numb], xmm0\nmov     rax, [rbp+end]\ncmp     byte ptr [rax], 0\njz      loc_1356",
+   "loc_1334": "mov     rdi, [rbp+a_modified]; ptr\ncall    free\nmov     rdi, [rbp+b_modified]; ptr\ncall    free\nlea     rax, aInvalidInput; \"Invalid input\"\nmov     [rbp+var_8], rax\njmp     loc_13BB",
+   "loc_1356": "mov     rdi, [rbp+a_modified]; ptr\ncall    free\nmov     rdi, [rbp+b_modified]; ptr\ncall    free\nmovsd   xmm0, [rbp+numa]\nucomisd xmm0, [rbp+numb]\njnz     loc_138E",
+   "loc_1378": "jp      loc_138E",
+   "loc_137E": "lea     rax, aNone; \"None\"\nmov     [rbp+var_8], rax\njmp     loc_13BB",
+   "loc_138E": "movsd   xmm0, [rbp+numa]\nucomisd xmm0, [rbp+numb]\njbe     loc_13AB",
+   "loc_139E": "mov     rax, [rbp+a]\nmov     [rbp+var_50], rax\njmp     loc_13B3",
+   "loc_13AB": "mov     rax, [rbp+b]\nmov     [rbp+var_50], rax",
+   "loc_13B3": "mov     rax, [rbp+var_50]\nmov     [rbp+var_8], rax",
+   "loc_13BB": "mov     rax, [rbp+var_8]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_50": "qword ptr -50h",
+   "numb": "qword ptr -48h",
+   "numa": "qword ptr -40h",
+   "i_0": "dword ptr -38h",
+   "i": "dword ptr -34h",
+   "b_modified": "qword ptr -30h",
+   "a_modified": "qword ptr -28h",
+   "end": "qword ptr -20h",
+   "b": "qword ptr -18h",
+   "a": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {
+   "aInvalidInput": "byte 'Invalid input',0",
+   "aNone": "byte 'None',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4624,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".strtod": "strtod",
+  "_strtod": "strtod",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".strdup": "strdup",
+  "_strdup": "strdup"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".strtod",
+   ".plt",
+   true,
+   "strtod"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   ".strdup",
+   ".plt",
+   true,
+   "strdup"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strtod",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strdup",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792867914
+ }
+}

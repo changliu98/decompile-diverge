@@ -1,0 +1,1 @@
+ssize_t write_buff(int fd, const void *buff, size_t size) { ssize_t nleft; ssize_t nwritten; const char *p; p = buff; nleft = size; while (nleft > 0) { if ((nwritten = write(fd, p, nleft)) < 0) return -1; nleft -= nwritten; p += nwritten; } return size; }

@@ -1,0 +1,120 @@
+0000000000001240 <get_number>:
+    1240:	push   %rbp
+    1241:	mov    %rsp,%rbp
+    1244:	sub    $0x20,%rsp
+    1248:	mov    %edi,-0x8(%rbp)
+    124b:	mov    %rsi,-0x10(%rbp)
+    124f:	movl   $0x0,-0x14(%rbp)
+    1256:	movl   $0x0,-0x1c(%rbp)
+    125d:	cmpq   $0x0,-0x10(%rbp)
+    1262:	je     1272 <get_number+0x32>
+    1268:	mov    -0x10(%rbp),%rax
+    126c:	movl   $0x0,(%rax)
+    1272:	cmpl   $0x0,0x2df7(%rip)        # 4070 <msg_silent>
+    1279:	je     128b <get_number+0x4b>
+    127f:	movl   $0x0,-0x4(%rbp)
+    1286:	jmp    1469 <get_number+0x229>
+    128b:	mov    0x2de3(%rip),%eax        # 4074 <no_mapping>
+    1291:	add    $0x1,%eax
+    1294:	mov    %eax,0x2dda(%rip)        # 4074 <no_mapping>
+    129a:	mov    0x2dd8(%rip),%eax        # 4078 <allow_keys>
+    12a0:	add    $0x1,%eax
+    12a3:	mov    %eax,0x2dcf(%rip)        # 4078 <allow_keys>
+    12a9:	mov    0x2dcd(%rip),%edi        # 407c <msg_row>
+    12af:	mov    0x2dcb(%rip),%esi        # 4080 <msg_col>
+    12b5:	call   11b0 <windgoto>
+    12ba:	call   11f0 <safe_vgetc>
+    12bf:	mov    %eax,-0x18(%rbp)
+    12c2:	mov    -0x18(%rbp),%eax
+    12c5:	sub    $0x30,%eax
+    12c8:	cmp    $0xa,%eax
+    12cb:	jae    12f4 <get_number+0xb4>
+    12d1:	imul   $0xa,-0x14(%rbp),%eax
+    12d5:	add    -0x18(%rbp),%eax
+    12d8:	sub    $0x30,%eax
+    12db:	mov    %eax,-0x14(%rbp)
+    12de:	mov    -0x18(%rbp),%edi
+    12e1:	call   11c0 <msg_putchar>
+    12e6:	mov    -0x1c(%rbp),%eax
+    12e9:	add    $0x1,%eax
+    12ec:	mov    %eax,-0x1c(%rbp)
+    12ef:	jmp    1440 <get_number+0x200>
+    12f4:	cmpl   $0xffffbb95,-0x18(%rbp)
+    12fb:	je     1325 <get_number+0xe5>
+    1301:	cmpl   $0xffffaf03,-0x18(%rbp)
+    1308:	je     1325 <get_number+0xe5>
+    130e:	cmpl   $0xffff9d95,-0x18(%rbp)
+    1315:	je     1325 <get_number+0xe5>
+    131b:	cmpl   $0x8,-0x18(%rbp)
+    131f:	jne    1357 <get_number+0x117>
+    1325:	cmpl   $0x0,-0x1c(%rbp)
+    1329:	jle    1344 <get_number+0x104>
+    132f:	lea    0xcce(%rip),%rdi        # 2004 <_IO_stdin_used+0x4>
+    1336:	call   11d0 <msg_puts>
+    133b:	mov    -0x1c(%rbp),%eax
+    133e:	add    $0xffffffff,%eax
+    1341:	mov    %eax,-0x1c(%rbp)
+    1344:	mov    -0x14(%rbp),%eax
+    1347:	mov    $0xa,%ecx
+    134c:	cltd
+    134d:	idiv   %ecx
+    134f:	mov    %eax,-0x14(%rbp)
+    1352:	jmp    143b <get_number+0x1fb>
+    1357:	cmpq   $0x0,-0x10(%rbp)
+    135c:	je     138a <get_number+0x14a>
+    1362:	cmpl   $0xffffd303,-0x18(%rbp)
+    1369:	jne    138a <get_number+0x14a>
+    136f:	mov    -0x10(%rbp),%rax
+    1373:	movl   $0x1,(%rax)
+    1379:	mov    0x2d15(%rip),%eax        # 4094 <mouse_row>
+    137f:	add    $0x1,%eax
+    1382:	mov    %eax,-0x14(%rbp)
+    1385:	jmp    1445 <get_number+0x205>
+    138a:	cmpl   $0x0,-0x14(%rbp)
+    138e:	jne    13e4 <get_number+0x1a4>
+    1394:	cmpl   $0x3a,-0x18(%rbp)
+    1398:	jne    13e4 <get_number+0x1a4>
+    139e:	cmpl   $0x0,-0x8(%rbp)
+    13a2:	je     13e4 <get_number+0x1a4>
+    13a8:	mov    $0x3a,%edi
+    13ad:	call   11e0 <stuffcharReadbuff>
+    13b2:	cmpl   $0x0,0x2ccb(%rip)        # 4084 <exmode_active>
+    13b9:	jne    13cb <get_number+0x18b>
+    13bf:	mov    0x2cb7(%rip),%eax        # 407c <msg_row>
+    13c5:	mov    %eax,0x2cbd(%rip)        # 4088 <cmdline_row>
+    13cb:	movl   $0x1,0x2cb7(%rip)        # 408c <skip_redraw>
+    13d5:	movl   $0x0,0x2cb1(%rip)        # 4090 <do_redraw>
+    13df:	jmp    1445 <get_number+0x205>
+    13e4:	cmpl   $0x3,-0x18(%rbp)
+    13e8:	je     1402 <get_number+0x1c2>
+    13ee:	cmpl   $0x1b,-0x18(%rbp)
+    13f2:	je     1402 <get_number+0x1c2>
+    13f8:	cmpl   $0x71,-0x18(%rbp)
+    13fc:	jne    140e <get_number+0x1ce>
+    1402:	movl   $0x0,-0x14(%rbp)
+    1409:	jmp    1445 <get_number+0x205>
+    140e:	cmpl   $0xd,-0x18(%rbp)
+    1412:	je     1422 <get_number+0x1e2>
+    1418:	cmpl   $0xa,-0x18(%rbp)
+    141c:	jne    1427 <get_number+0x1e7>
+    1422:	jmp    1445 <get_number+0x205>
+    1427:	jmp    142c <get_number+0x1ec>
+    142c:	jmp    1431 <get_number+0x1f1>
+    1431:	jmp    1436 <get_number+0x1f6>
+    1436:	jmp    143b <get_number+0x1fb>
+    143b:	jmp    1440 <get_number+0x200>
+    1440:	jmp    12a9 <get_number+0x69>
+    1445:	mov    0x2c29(%rip),%eax        # 4074 <no_mapping>
+    144b:	add    $0xffffffff,%eax
+    144e:	mov    %eax,0x2c20(%rip)        # 4074 <no_mapping>
+    1454:	mov    0x2c1e(%rip),%eax        # 4078 <allow_keys>
+    145a:	add    $0xffffffff,%eax
+    145d:	mov    %eax,0x2c15(%rip)        # 4078 <allow_keys>
+    1463:	mov    -0x14(%rbp),%eax
+    1466:	mov    %eax,-0x4(%rbp)
+    1469:	mov    -0x4(%rbp),%eax
+    146c:	add    $0x20,%rsp
+    1470:	pop    %rbp
+    1471:	ret
+
+Disassembly of section .fini:

@@ -1,0 +1,1 @@
+void drv_generic_graphic_window(const int row, const int col, const int n, int *rows, const int *cols) { int r = row; int c = row + col; *rows = 0; *cols = 0; if (r > n || c < 0) return ; if (col < 0) r = 0; if (c > n) c = n; *rows = r; *cols = c - r; }

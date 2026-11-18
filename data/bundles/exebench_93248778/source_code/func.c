@@ -1,0 +1,8 @@
+#include <stdio.h>
+
+void troca(int *a, int *b) {
+ int c;
+ c = *a;
+ *a = *b;
+ *b = c;
+}

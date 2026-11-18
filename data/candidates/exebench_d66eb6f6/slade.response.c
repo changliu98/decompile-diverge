@@ -1,0 +1,1 @@
+unsigned int bcd2int(unsigned char *data, int len) { unsigned int val; int i; if (len > 5) return 0; val = 0; for (i = 0; i < len; i++) val = val * 100 + (data[i] >> 4) * 10 + (data[i] &0xf); return val; }

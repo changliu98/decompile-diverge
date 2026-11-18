@@ -1,0 +1,34 @@
+static void BTIC2D_TransWHT_Vert8(const uint8_t* src, uint8_t* dst) {
+  const int16_t src0 = src[0];
+  const int16_t src1 = src[1];
+  const int16_t src2 = src[2];
+  const int16_t src3 = src[3];
+  const int16_t src4 = src[4];
+  const int16_t src5 = src[5];
+  const int16_t src6 = src[6];
+  const int16_t src7 = src[7];
+  const int16_t src8 = src0 + src6;
+  const int16_t src9 = src1 + src7;
+  const int16_t src10 = src2 + src8;
+  const int16_t src11 = src3 + src9;
+  const int16_t src12 = src4 + src10;
+  const int16_t src13 = src5 + src11;
+  const int16_t src14 = src6 + src12;
+  const int16_t src15 = src7 + src13;
+  dst[0] = src14;
+  dst[1] = src15;
+  dst[2] = src15;
+  dst[3] = src15;
+  dst[4] = src14;
+  dst[5] = src13;
+  dst[6] = src12;
+  dst[7] = src11;
+  dst[8] = src10;
+  dst[9] = src9;
+  dst[10] = src8;
+  dst[11] = src7;
+  dst[12] = src6;
+  dst[13] = src5;
+  dst[14] = src4;
+  dst[15] = src3;
+}

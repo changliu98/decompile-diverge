@@ -1,0 +1,401 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 90h\nmov     [rbp+object], rdi\nmov     [rbp+wrapping_value], 0\nmov     [rbp+key], 0\nmov     [rbp+value], 0\nmov     [rbp+i], 0\nmov     rax, [rbp+object]\nmov     rax, [rax+40h]\nshl     rax, 1\ncmp     rax, 10h\njbe     loc_50FC\nmov     rax, [rbp+object]\nmov     rax, [rax+40h]\nshl     rax, 1\nmov     [rbp+var_90], rax\njmp     loc_510D\nmov     eax, 10h\nmov     [rbp+var_90], rax\njmp     $+5\nmov     rax, [rbp+var_90]\nmov     [rbp+new_capacity], rax\nmov     rsi, [rbp+new_capacity]; capacity\nlea     rdi, [rbp+new_object]; object\ncall    json_object_init\nmov     [rbp+res], eax\ncmp     [rbp+res], 0\njz      loc_5144\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_5213\nmov     rdi, [rbp+object]; object\ncall    dwarf_errno\nmov     [rbp+wrapping_value], rax\nmov     rax, [rbp+wrapping_value]\nmov     [rbp+new_object.wrapping_value], rax\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\nmov     rcx, [rbp+object]\ncmp     rax, [rcx+30h]\njnb     loc_51ED\nmov     rax, [rbp+object]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmov     [rbp+key], rax\nmov     rax, [rbp+object]\nmov     rax, [rax+20h]\nmov     ecx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmov     [rbp+value], rax\nmov     rsi, [rbp+key]; name\nmov     rdx, [rbp+value]; value\nlea     rdi, [rbp+new_object]; object\ncall    json_object_add\nmov     [rbp+res], eax\ncmp     [rbp+res], 0\njz      loc_51D4\nlea     rdi, [rbp+new_object]; object\nxor     edx, edx; free_values\nmov     esi, edx; free_keys\ncall    json_object_deinit\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_5213\nmov     rcx, [rbp+wrapping_value]\nmov     rax, [rbp+value]\nmov     [rax], rcx\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_5160\nmov     rdi, [rbp+object]; object\nxor     edx, edx; free_values\nmov     esi, edx; free_keys\ncall    json_object_deinit\nmov     rdi, [rbp+object]; dest\nlea     rsi, [rbp+new_object]; src\nmov     edx, 48h ; 'H'; n\ncall    memcpy\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 90h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 12,
+  "edges": [
+   [
+    "start",
+    "loc_50E4"
+   ],
+   [
+    "start",
+    "loc_50FC"
+   ],
+   [
+    "loc_50E4",
+    "loc_510D"
+   ],
+   [
+    "loc_50FC",
+    "loc_510D"
+   ],
+   [
+    "loc_510D",
+    "loc_5138"
+   ],
+   [
+    "loc_510D",
+    "loc_5144"
+   ],
+   [
+    "loc_5138",
+    "loc_5213"
+   ],
+   [
+    "loc_5144",
+    "loc_5160"
+   ],
+   [
+    "loc_5160",
+    "loc_5171"
+   ],
+   [
+    "loc_5160",
+    "loc_51ED"
+   ],
+   [
+    "loc_5171",
+    "loc_51BB"
+   ],
+   [
+    "loc_5171",
+    "loc_51D4"
+   ],
+   [
+    "loc_51BB",
+    "loc_5213"
+   ],
+   [
+    "loc_51D4",
+    "loc_5160"
+   ],
+   [
+    "loc_51ED",
+    "loc_5213"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 90h\nmov     [rbp+object], rdi\nmov     [rbp+wrapping_value], 0\nmov     [rbp+key], 0\nmov     [rbp+value], 0\nmov     [rbp+i], 0\nmov     rax, [rbp+object]\nmov     rax, [rax+40h]\nshl     rax, 1\ncmp     rax, 10h\njbe     loc_50FC",
+   "loc_50E4": "mov     rax, [rbp+object]\nmov     rax, [rax+40h]\nshl     rax, 1\nmov     [rbp+var_90], rax\njmp     loc_510D",
+   "loc_50FC": "mov     eax, 10h\nmov     [rbp+var_90], rax\njmp     $+5",
+   "loc_510D": "mov     rax, [rbp+var_90]\nmov     [rbp+new_capacity], rax\nmov     rsi, [rbp+new_capacity]; capacity\nlea     rdi, [rbp+new_object]; object\ncall    json_object_init\nmov     [rbp+res], eax\ncmp     [rbp+res], 0\njz      loc_5144",
+   "loc_5138": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_5213",
+   "loc_5144": "mov     rdi, [rbp+object]; object\ncall    dwarf_errno\nmov     [rbp+wrapping_value], rax\nmov     rax, [rbp+wrapping_value]\nmov     [rbp+new_object.wrapping_value], rax\nmov     [rbp+i], 0",
+   "loc_5160": "mov     eax, [rbp+i]\nmov     rcx, [rbp+object]\ncmp     rax, [rcx+30h]\njnb     loc_51ED",
+   "loc_5171": "mov     rax, [rbp+object]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmov     [rbp+key], rax\nmov     rax, [rbp+object]\nmov     rax, [rax+20h]\nmov     ecx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmov     [rbp+value], rax\nmov     rsi, [rbp+key]; name\nmov     rdx, [rbp+value]; value\nlea     rdi, [rbp+new_object]; object\ncall    json_object_add\nmov     [rbp+res], eax\ncmp     [rbp+res], 0\njz      loc_51D4",
+   "loc_51BB": "lea     rdi, [rbp+new_object]; object\nxor     edx, edx; free_values\nmov     esi, edx; free_keys\ncall    json_object_deinit\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_5213",
+   "loc_51D4": "mov     rcx, [rbp+wrapping_value]\nmov     rax, [rbp+value]\nmov     [rax], rcx\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_5160",
+   "loc_51ED": "mov     rdi, [rbp+object]; object\nxor     edx, edx; free_values\nmov     esi, edx; free_keys\ncall    json_object_deinit\nmov     rdi, [rbp+object]; dest\nlea     rsi, [rbp+new_object]; src\nmov     edx, 48h ; 'H'; n\ncall    memcpy\nmov     [rbp+var_4], 0",
+   "loc_5213": "mov     eax, [rbp+var_4]\nadd     rsp, 90h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_90": "qword ptr -90h",
+   "res": "dword ptr -84h",
+   "new_capacity": "qword ptr -80h",
+   "i": "dword ptr -74h",
+   "value": "qword ptr -70h",
+   "key": "qword ptr -68h",
+   "new_object": "JSON_Object ptr -60h",
+   "wrapping_value": "qword ptr -18h",
+   "object": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 20640,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".__errno_location": "__errno_location",
+  "_errno_location": "__errno_location",
+  ".strncmp": "strncmp",
+  "_strncmp": "strncmp",
+  ".ferror": "ferror",
+  "_ferror": "ferror",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".strtod": "strtod",
+  "_strtod": "strtod",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".strchr": "strchr",
+  "_strchr": "strchr",
+  ".rewind": "rewind",
+  "_rewind": "rewind",
+  ".fputs": "fputs",
+  "_fputs": "fputs",
+  ".memcmp": "memcmp",
+  "_memcmp": "memcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".vsprintf": "vsprintf",
+  "_vsprintf": "vsprintf",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".llround": "llround",
+  "_llround": "llround",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".strstr": "strstr",
+  "_strstr": "strstr",
+  ".__ctype_b_loc": "__ctype_b_loc",
+  "_ctype_b_loc": "__ctype_b_loc"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".__errno_location",
+   ".plt",
+   true,
+   "__errno_location"
+  ],
+  [
+   ".strncmp",
+   ".plt",
+   true,
+   "strncmp"
+  ],
+  [
+   ".ferror",
+   ".plt",
+   true,
+   "ferror"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".strtod",
+   ".plt",
+   true,
+   "strtod"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".strchr",
+   ".plt",
+   true,
+   "strchr"
+  ],
+  [
+   ".rewind",
+   ".plt",
+   true,
+   "rewind"
+  ],
+  [
+   ".fputs",
+   ".plt",
+   true,
+   "fputs"
+  ],
+  [
+   ".memcmp",
+   ".plt",
+   true,
+   "memcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".vsprintf",
+   ".plt",
+   true,
+   "vsprintf"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".llround",
+   ".plt",
+   true,
+   "llround"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   ".strstr",
+   ".plt",
+   true,
+   "strstr"
+  ],
+  [
+   ".__ctype_b_loc",
+   ".plt",
+   true,
+   "__ctype_b_loc"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__errno_location",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ferror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strtod",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strchr",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "rewind",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fputs",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872678
+ }
+}

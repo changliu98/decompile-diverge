@@ -1,0 +1,1 @@
+void copia(char *a, char *b){ while(*b != '\0'){ *a++ = *b++; } *a = '\0'; }

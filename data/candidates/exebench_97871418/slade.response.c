@@ -1,0 +1,1 @@
+void ltr_int_add_vecs(double vec1[3], double vec2[3], double vec3_out[2]){ vec3_out[0] = vec1[0] + vec2[0]; vec3_out[1] = vec1[1] + vec2[1]; vec3_out[2] = vec1[2] + vec2[2]; }

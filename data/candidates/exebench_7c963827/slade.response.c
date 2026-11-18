@@ -1,0 +1,1 @@
+size_t scan_ulong(const char* src,size_t* dest) { size_t i; unsigned long l; l=i=0; while((l=src[i]-'0')<10) { l+=l; i++; } *dest=l; return i; }

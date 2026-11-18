@@ -1,0 +1,40 @@
+00000000000011d0 <alps_check_valid_firmware_id>:
+    11d0:	push   %rbp
+    11d1:	mov    %rsp,%rbp
+    11d4:	mov    %rdi,-0x10(%rbp)
+    11d8:	mov    -0x10(%rbp),%rax
+    11dc:	movzbl (%rax),%eax
+    11df:	cmp    $0x73,%eax
+    11e2:	jne    11f4 <alps_check_valid_firmware_id+0x24>
+    11e8:	movl   $0x1,-0x4(%rbp)
+    11ef:	jmp    126b <alps_check_valid_firmware_id+0x9b>
+    11f4:	mov    -0x10(%rbp),%rax
+    11f8:	movzbl (%rax),%eax
+    11fb:	cmp    $0x88,%eax
+    1200:	jne    1264 <alps_check_valid_firmware_id+0x94>
+    1206:	mov    -0x10(%rbp),%rax
+    120a:	movzbl 0x1(%rax),%eax
+    120e:	cmp    $0x7,%eax
+    1211:	je     1258 <alps_check_valid_firmware_id+0x88>
+    1217:	mov    -0x10(%rbp),%rax
+    121b:	movzbl 0x1(%rax),%eax
+    121f:	cmp    $0x8,%eax
+    1222:	je     1258 <alps_check_valid_firmware_id+0x88>
+    1228:	mov    -0x10(%rbp),%rax
+    122c:	movzbl 0x1(%rax),%eax
+    1230:	and    $0xf0,%eax
+    1235:	cmp    $0xb0,%eax
+    123a:	je     1258 <alps_check_valid_firmware_id+0x88>
+    1240:	mov    -0x10(%rbp),%rax
+    1244:	movzbl 0x1(%rax),%eax
+    1248:	and    $0xf0,%eax
+    124d:	cmp    $0xc0,%eax
+    1252:	jne    1264 <alps_check_valid_firmware_id+0x94>
+    1258:	movl   $0x1,-0x4(%rbp)
+    125f:	jmp    126b <alps_check_valid_firmware_id+0x9b>
+    1264:	movl   $0x0,-0x4(%rbp)
+    126b:	mov    -0x4(%rbp),%eax
+    126e:	pop    %rbp
+    126f:	ret
+
+Disassembly of section .fini:

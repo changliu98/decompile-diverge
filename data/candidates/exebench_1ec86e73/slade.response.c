@@ -1,0 +1,1 @@
+uble frexp(double x, int* p) { int sign = 1; if (x < 0.0) { sign = -1; x *= sign; } else if (x == 0.0) { *p = 0; return 0.0; } *p = 0; int power = 1; double y = x; while (y < 1.0 || y >= 1.0 || y >= 1.0) { power <<= 1; (*p)++; y /= power; } return y * sign; }

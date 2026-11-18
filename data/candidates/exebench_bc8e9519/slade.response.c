@@ -1,0 +1,1 @@
+void generic_set_bit(int nr, void *addr) { unsigned long mask = 1UL << (nr % 32); unsigned long *b = ((unsigned long *)addr) + (nr / 32); *b |= mask; }

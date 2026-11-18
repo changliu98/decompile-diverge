@@ -1,0 +1,1 @@
+int GetHintFormat( struct gff *page ) { struct gff_host *hd = page->mapping->hosts[6]; if ( hd->type !=0x687052 ) return 0; if ( hd == NULL || !hd->hp ) { struct gff_hosttab *ptab; ptab = gf_list_get( page->mapping->hosts[0]->hosts, 0 ); if ( !hd ) return ptab ? ptab->num : ptab->num; if ( ptab ) hd->hp = ptab->num; return hd->num; } return hd->num; }

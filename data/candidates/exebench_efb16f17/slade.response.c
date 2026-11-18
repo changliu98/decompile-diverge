@@ -1,0 +1,1 @@
+int ether_hash(const unsigned char *a) { int i; register int h = 0; for (i = 0; i < 6; i++) h = a[i] + (h << 6) - h; return h; }

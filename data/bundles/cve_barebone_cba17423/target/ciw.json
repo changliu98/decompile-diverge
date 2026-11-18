@@ -1,0 +1,448 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 70h\nmov     [rbp+cmd], rdi\nmov     [rbp+dummy], rsi\nmov     [rbp+arg], rdx\nmov     rdi, [rbp+arg]; s\nmov     esi, 3Eh ; '>'; c\ncall    strrchr\nmov     [rbp+endp], rax\nmov     rax, [rbp+cmd]\nmov     rax, [rax+60h]\nmov     rax, [rax+10h]\nmov     [rbp+tog], rax\nmov     [rbp+limited], 0\nmov     rax, [rbp+cmd]\nmov     rax, [rax+18h]\nmov     [rbp+old_limited], rax\ncmp     [rbp+endp], 0\njnz     loc_1297\nmov     rdi, [rbp+cmd]; cmd\ncall    unclosed_directive\nmov     [rbp+var_8], rax\njmp     loc_1479\nmov     rax, [rbp+cmd]\nmov     rdi, [rax+48h]; p\nmov     rsi, [rbp+arg]; s\nmov     rdx, [rbp+endp]\nmov     rax, [rbp+arg]\nsub     rdx, rax; n\ncall    apr_pstrmemdup\nmov     [rbp+limited_methods], rax\nmov     rax, [rbp+limited_methods]\ncmp     byte ptr [rax], 0\njnz     loc_12D6\nmov     rdi, [rbp+cmd]; cmd\ncall    missing_container_arg\nmov     [rbp+var_8], rax\njmp     loc_1479\njmp     $+5\nmov     rax, [rbp+limited_methods]\ncmp     byte ptr [rax], 0\njz      loc_1383\nmov     rax, [rbp+cmd]\nmov     rdi, [rax+48h]; p\nlea     rsi, [rbp+limited_methods]; line\ncall    ap_getword_conf\nmov     [rbp+method], rax\nmov     rdi, [rbp+method]; method\ncall    ap_method_number_of\nmov     [rbp+methnum], eax\ncmp     [rbp+methnum], 6\njnz     loc_132E\ncmp     [rbp+tog], 0\njnz     loc_132E\nlea     rax, aTraceCannotBeC; \"TRACE cannot be controlled by <Limit>, \"...\nmov     [rbp+var_8], rax\njmp     loc_1479\ncmp     [rbp+methnum], 1Ah\njnz     loc_1364\nmov     rax, [rbp+cmd]\nmov     rax, [rax+40h]\nmov     [rbp+p], rax\nmov     rax, [rbp+cmd]\nmov     rdi, [rax+40h]; p\nmov     rsi, [rbp+method]; s\ncall    apr_pstrdup\nmov     rdi, [rbp+p]; p\nmov     rsi, rax; methname\ncall    ap_method_register\nmov     [rbp+methnum], eax\njmp     $+5\nmov     eax, [rbp+methnum]\nmov     ecx, eax\nmov     eax, 1\nshl     rax, cl\nor      rax, [rbp+limited]\nmov     [rbp+limited], rax\njmp     loc_12DB\ncmp     [rbp+tog], 0\njz      loc_139F\nmov     rax, [rbp+limited]\nxor     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+var_70], rax\njmp     loc_13A7\nmov     rax, [rbp+limited]\nmov     [rbp+var_70], rax\nmov     rax, [rbp+var_70]\nmov     [rbp+limited], rax\nmov     rax, [rbp+old_limited]\nand     rax, [rbp+limited]\ncmp     rax, 0\njnz     loc_13EF\nmov     rax, [rbp+cmd]\nmov     rdi, [rax+40h]; p\nmov     rax, [rbp+cmd]\nmov     rax, [rax+60h]\nmov     rsi, [rax]\nlea     rdx, aDirectiveExclu; \"> directive excludes all methods\"\nxor     eax, eax\nmov     ecx, eax\nmov     al, 0\ncall    apr_pstrcat\nmov     [rbp+var_8], rax\njmp     loc_1479\nmov     rax, [rbp+old_limited]\nand     rax, [rbp+limited]\ncmp     rax, [rbp+old_limited]\njnz     loc_142F\nmov     rax, [rbp+cmd]\nmov     rdi, [rax+40h]; p\nmov     rax, [rbp+cmd]\nmov     rax, [rax+60h]\nmov     rsi, [rax]\nlea     rdx, aDirectiveSpeci; \"> directive specifies methods already e\"...\nxor     eax, eax\nmov     ecx, eax\nmov     al, 0\ncall    apr_pstrcat\nmov     [rbp+var_8], rax\njmp     loc_1479\njmp     $+5\nmov     rcx, [rbp+limited]\nmov     rax, [rbp+cmd]\nand     rcx, [rax+18h]\nmov     [rax+18h], rcx\nmov     rax, [rbp+cmd]\nmov     rax, [rax+38h]\nmov     rdi, [rax+18h]; current\nmov     rsi, [rbp+cmd]; cmd\nmov     rax, [rbp+cmd]\nmov     rdx, [rax+68h]; context\ncall    ap_walk_config\nmov     [rbp+errmsg], rax\nmov     rcx, [rbp+old_limited]\nmov     rax, [rbp+cmd]\nmov     [rax+18h], rcx\nmov     rax, [rbp+errmsg]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nadd     rsp, 70h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 23,
+  "edges": [
+   [
+    "start",
+    "loc_1285"
+   ],
+   [
+    "start",
+    "loc_1297"
+   ],
+   [
+    "loc_1285",
+    "loc_1479"
+   ],
+   [
+    "loc_1297",
+    "loc_12C4"
+   ],
+   [
+    "loc_1297",
+    "loc_12D6"
+   ],
+   [
+    "loc_12C4",
+    "loc_1479"
+   ],
+   [
+    "loc_12D6",
+    "loc_12DB"
+   ],
+   [
+    "loc_12DB",
+    "loc_12E8"
+   ],
+   [
+    "loc_12DB",
+    "loc_1383"
+   ],
+   [
+    "loc_12E8",
+    "loc_1313"
+   ],
+   [
+    "loc_12E8",
+    "loc_132E"
+   ],
+   [
+    "loc_1313",
+    "loc_131E"
+   ],
+   [
+    "loc_1313",
+    "loc_132E"
+   ],
+   [
+    "loc_131E",
+    "loc_1479"
+   ],
+   [
+    "loc_132E",
+    "loc_1338"
+   ],
+   [
+    "loc_132E",
+    "loc_1364"
+   ],
+   [
+    "loc_1338",
+    "loc_1364"
+   ],
+   [
+    "loc_1364",
+    "loc_1369"
+   ],
+   [
+    "loc_1369",
+    "loc_12DB"
+   ],
+   [
+    "loc_1383",
+    "loc_138E"
+   ],
+   [
+    "loc_1383",
+    "loc_139F"
+   ],
+   [
+    "loc_138E",
+    "loc_13A7"
+   ],
+   [
+    "loc_139F",
+    "loc_13A7"
+   ],
+   [
+    "loc_13A7",
+    "loc_13C1"
+   ],
+   [
+    "loc_13A7",
+    "loc_13EF"
+   ],
+   [
+    "loc_13C1",
+    "loc_1479"
+   ],
+   [
+    "loc_13EF",
+    "loc_1401"
+   ],
+   [
+    "loc_13EF",
+    "loc_142F"
+   ],
+   [
+    "loc_1401",
+    "loc_1479"
+   ],
+   [
+    "loc_142F",
+    "loc_1434"
+   ],
+   [
+    "loc_1434",
+    "loc_1479"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 70h\nmov     [rbp+cmd], rdi\nmov     [rbp+dummy], rsi\nmov     [rbp+arg], rdx\nmov     rdi, [rbp+arg]; s\nmov     esi, 3Eh ; '>'; c\ncall    strrchr\nmov     [rbp+endp], rax\nmov     rax, [rbp+cmd]\nmov     rax, [rax+60h]\nmov     rax, [rax+10h]\nmov     [rbp+tog], rax\nmov     [rbp+limited], 0\nmov     rax, [rbp+cmd]\nmov     rax, [rax+18h]\nmov     [rbp+old_limited], rax\ncmp     [rbp+endp], 0\njnz     loc_1297",
+   "loc_1285": "mov     rdi, [rbp+cmd]; cmd\ncall    unclosed_directive\nmov     [rbp+var_8], rax\njmp     loc_1479",
+   "loc_1297": "mov     rax, [rbp+cmd]\nmov     rdi, [rax+48h]; p\nmov     rsi, [rbp+arg]; s\nmov     rdx, [rbp+endp]\nmov     rax, [rbp+arg]\nsub     rdx, rax; n\ncall    apr_pstrmemdup\nmov     [rbp+limited_methods], rax\nmov     rax, [rbp+limited_methods]\ncmp     byte ptr [rax], 0\njnz     loc_12D6",
+   "loc_12C4": "mov     rdi, [rbp+cmd]; cmd\ncall    missing_container_arg\nmov     [rbp+var_8], rax\njmp     loc_1479",
+   "loc_12D6": "jmp     $+5",
+   "loc_12DB": "mov     rax, [rbp+limited_methods]\ncmp     byte ptr [rax], 0\njz      loc_1383",
+   "loc_12E8": "mov     rax, [rbp+cmd]\nmov     rdi, [rax+48h]; p\nlea     rsi, [rbp+limited_methods]; line\ncall    ap_getword_conf\nmov     [rbp+method], rax\nmov     rdi, [rbp+method]; method\ncall    ap_method_number_of\nmov     [rbp+methnum], eax\ncmp     [rbp+methnum], 6\njnz     loc_132E",
+   "loc_1313": "cmp     [rbp+tog], 0\njnz     loc_132E",
+   "loc_131E": "lea     rax, aTraceCannotBeC; \"TRACE cannot be controlled by <Limit>, \"...\nmov     [rbp+var_8], rax\njmp     loc_1479",
+   "loc_132E": "cmp     [rbp+methnum], 1Ah\njnz     loc_1364",
+   "loc_1338": "mov     rax, [rbp+cmd]\nmov     rax, [rax+40h]\nmov     [rbp+p], rax\nmov     rax, [rbp+cmd]\nmov     rdi, [rax+40h]; p\nmov     rsi, [rbp+method]; s\ncall    apr_pstrdup\nmov     rdi, [rbp+p]; p\nmov     rsi, rax; methname\ncall    ap_method_register\nmov     [rbp+methnum], eax",
+   "loc_1364": "jmp     $+5",
+   "loc_1369": "mov     eax, [rbp+methnum]\nmov     ecx, eax\nmov     eax, 1\nshl     rax, cl\nor      rax, [rbp+limited]\nmov     [rbp+limited], rax\njmp     loc_12DB",
+   "loc_1383": "cmp     [rbp+tog], 0\njz      loc_139F",
+   "loc_138E": "mov     rax, [rbp+limited]\nxor     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+var_70], rax\njmp     loc_13A7",
+   "loc_139F": "mov     rax, [rbp+limited]\nmov     [rbp+var_70], rax",
+   "loc_13A7": "mov     rax, [rbp+var_70]\nmov     [rbp+limited], rax\nmov     rax, [rbp+old_limited]\nand     rax, [rbp+limited]\ncmp     rax, 0\njnz     loc_13EF",
+   "loc_13C1": "mov     rax, [rbp+cmd]\nmov     rdi, [rax+40h]; p\nmov     rax, [rbp+cmd]\nmov     rax, [rax+60h]\nmov     rsi, [rax]\nlea     rdx, aDirectiveExclu; \"> directive excludes all methods\"\nxor     eax, eax\nmov     ecx, eax\nmov     al, 0\ncall    apr_pstrcat\nmov     [rbp+var_8], rax\njmp     loc_1479",
+   "loc_13EF": "mov     rax, [rbp+old_limited]\nand     rax, [rbp+limited]\ncmp     rax, [rbp+old_limited]\njnz     loc_142F",
+   "loc_1401": "mov     rax, [rbp+cmd]\nmov     rdi, [rax+40h]; p\nmov     rax, [rbp+cmd]\nmov     rax, [rax+60h]\nmov     rsi, [rax]\nlea     rdx, aDirectiveSpeci; \"> directive specifies methods already e\"...\nxor     eax, eax\nmov     ecx, eax\nmov     al, 0\ncall    apr_pstrcat\nmov     [rbp+var_8], rax\njmp     loc_1479",
+   "loc_142F": "jmp     $+5",
+   "loc_1434": "mov     rcx, [rbp+limited]\nmov     rax, [rbp+cmd]\nand     rcx, [rax+18h]\nmov     [rax+18h], rcx\nmov     rax, [rbp+cmd]\nmov     rax, [rax+38h]\nmov     rdi, [rax+18h]; current\nmov     rsi, [rbp+cmd]; cmd\nmov     rax, [rbp+cmd]\nmov     rdx, [rax+68h]; context\ncall    ap_walk_config\nmov     [rbp+errmsg], rax\nmov     rcx, [rbp+old_limited]\nmov     rax, [rbp+cmd]\nmov     [rax+18h], rcx\nmov     rax, [rbp+errmsg]\nmov     [rbp+var_8], rax",
+   "loc_1479": "mov     rax, [rbp+var_8]\nadd     rsp, 70h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_70": "qword ptr -70h",
+   "p": "qword ptr -68h",
+   "methnum": "dword ptr -5Ch",
+   "method": "qword ptr -58h",
+   "errmsg": "qword ptr -50h",
+   "old_limited": "qword ptr -48h",
+   "limited": "qword ptr -40h",
+   "tog": "qword ptr -38h",
+   "limited_methods": "qword ptr -30h",
+   "endp": "qword ptr -28h",
+   "arg": "qword ptr -20h",
+   "dummy": "qword ptr -18h",
+   "cmd": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {
+   "aTraceCannotBeC": "byte 'TRACE cannot be controlled by <Limit>, see TraceEnable',0",
+   "aDirectiveExclu": "byte '> directive excludes all methods',0",
+   "aDirectiveSpeci": "byte '> directive specifies methods already excluded',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4656,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".strrchr": "strrchr",
+  "_strrchr": "strrchr",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".memcmp": "memcmp",
+  "_memcmp": "memcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".__ctype_b_loc": "__ctype_b_loc",
+  "_ctype_b_loc": "__ctype_b_loc"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".strrchr",
+   ".plt",
+   true,
+   "strrchr"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".memcmp",
+   ".plt",
+   true,
+   "memcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".__ctype_b_loc",
+   ".plt",
+   true,
+   "__ctype_b_loc"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strrchr",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__ctype_b_loc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868489
+ }
+}

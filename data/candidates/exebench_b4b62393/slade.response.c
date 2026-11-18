@@ -1,0 +1,1 @@
+void intercambiar(int *p, int *q) { if (p != q) { int aux = *p; *p = *q; *q = aux; } }

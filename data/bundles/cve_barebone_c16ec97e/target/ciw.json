@@ -1,0 +1,265 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+vm], rdi\nmov     [rbp+array], rsi\nmov     rsi, [rbp+array]; array\nlea     rdi, [rbp+value]; value\ncall    njs_set_array\nmov     rax, [rbp+array]\nmov     cl, [rax]\nand     cl, 0FEh\nor      cl, 0\nmov     [rax], cl\nmov     rax, [rbp+array]\nmov     eax, [rax+8]\nmov     [rbp+length], eax\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+length]\njnb     loc_12A7\nmov     rax, [rbp+array]\nmov     rax, [rax+10h]\nmov     ecx, [rbp+i]\nshl     rcx, 4\nadd     rax, rcx\nmovzx   eax, byte ptr [rax]\ncmp     eax, 7\njz      loc_1294\nmov     esi, [rbp+i]; u32\nlea     rdi, [rbp+index]; value\ncall    njs_uint32_to_string\nmov     rdi, [rbp+vm]; vm\nlea     rsi, [rbp+value]; object\nlea     rdx, [rbp+index]; key\nxor     ecx, ecx; replace\ncall    njs_object_property_add\nmov     [rbp+prop], rax\ncmp     [rbp+prop], 0\njnz     loc_1270\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_12CE\nmov     rax, [rbp+prop]\nmov     rcx, [rbp+array]\nmov     rcx, [rcx+10h]\nmov     edx, [rbp+i]\nshl     rdx, 4\nadd     rcx, rdx\nmov     rdx, [rcx]\nmov     [rax], rdx\nmov     rcx, [rcx+8]\nmov     [rax+8], rcx\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_120C\nmov     rax, [rbp+vm]\nmov     rdi, [rax]; mp\nmov     rax, [rbp+array]\nmov     rsi, [rax+10h]; p\ncall    njs_mp_free\nmov     rax, [rbp+array]\nmov     qword ptr [rax+10h], 0\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 10,
+  "edges": [
+   [
+    "start",
+    "loc_120C"
+   ],
+   [
+    "loc_120C",
+    "loc_1218"
+   ],
+   [
+    "loc_120C",
+    "loc_12A7"
+   ],
+   [
+    "loc_1218",
+    "loc_1236"
+   ],
+   [
+    "loc_1218",
+    "loc_1294"
+   ],
+   [
+    "loc_1236",
+    "loc_1264"
+   ],
+   [
+    "loc_1236",
+    "loc_1270"
+   ],
+   [
+    "loc_1264",
+    "loc_12CE"
+   ],
+   [
+    "loc_1270",
+    "loc_1294"
+   ],
+   [
+    "loc_1294",
+    "loc_1299"
+   ],
+   [
+    "loc_1299",
+    "loc_120C"
+   ],
+   [
+    "loc_12A7",
+    "loc_12CE"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+vm], rdi\nmov     [rbp+array], rsi\nmov     rsi, [rbp+array]; array\nlea     rdi, [rbp+value]; value\ncall    njs_set_array\nmov     rax, [rbp+array]\nmov     cl, [rax]\nand     cl, 0FEh\nor      cl, 0\nmov     [rax], cl\nmov     rax, [rbp+array]\nmov     eax, [rax+8]\nmov     [rbp+length], eax\nmov     [rbp+i], 0",
+   "loc_120C": "mov     eax, [rbp+i]\ncmp     eax, [rbp+length]\njnb     loc_12A7",
+   "loc_1218": "mov     rax, [rbp+array]\nmov     rax, [rax+10h]\nmov     ecx, [rbp+i]\nshl     rcx, 4\nadd     rax, rcx\nmovzx   eax, byte ptr [rax]\ncmp     eax, 7\njz      loc_1294",
+   "loc_1236": "mov     esi, [rbp+i]; u32\nlea     rdi, [rbp+index]; value\ncall    njs_uint32_to_string\nmov     rdi, [rbp+vm]; vm\nlea     rsi, [rbp+value]; object\nlea     rdx, [rbp+index]; key\nxor     ecx, ecx; replace\ncall    njs_object_property_add\nmov     [rbp+prop], rax\ncmp     [rbp+prop], 0\njnz     loc_1270",
+   "loc_1264": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_12CE",
+   "loc_1270": "mov     rax, [rbp+prop]\nmov     rcx, [rbp+array]\nmov     rcx, [rcx+10h]\nmov     edx, [rbp+i]\nshl     rdx, 4\nadd     rcx, rdx\nmov     rdx, [rcx]\nmov     [rax], rdx\nmov     rcx, [rcx+8]\nmov     [rax+8], rcx",
+   "loc_1294": "jmp     $+5",
+   "loc_1299": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_120C",
+   "loc_12A7": "mov     rax, [rbp+vm]\nmov     rdi, [rax]; mp\nmov     rax, [rbp+array]\nmov     rsi, [rax+10h]; p\ncall    njs_mp_free\nmov     rax, [rbp+array]\nmov     qword ptr [rax+10h], 0\nmov     [rbp+var_4], 0",
+   "loc_12CE": "mov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "prop": "qword ptr -48h",
+   "value": "njs_value_t ptr -40h",
+   "index": "njs_value_t ptr -30h",
+   "length": "dword ptr -20h",
+   "i": "dword ptr -1Ch",
+   "array": "qword ptr -18h",
+   "vm": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4560,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "printf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868487
+ }
+}

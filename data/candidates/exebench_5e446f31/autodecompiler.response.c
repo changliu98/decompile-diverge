@@ -1,0 +1,7 @@
+void copy2(char *s, char *t)
+{
+    while (*s = *t) {
+        s++;
+        t++;
+    }
+}

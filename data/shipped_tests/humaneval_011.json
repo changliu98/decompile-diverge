@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar *func0(const char *a, const char *b) {\n    int len_a = strlen(a);\n    int len_b = strlen(b);\n    int min_len = len_a < len_b ? len_a : len_b;\n    char *output = malloc((min_len + 1) * sizeof(char));\n    if (!output) return NULL;\n\n    for (int i = 0; i < min_len; i++) {\n        output[i] = (a[i] == b[i]) ? '0' : '1';\n    }\n    output[min_len] = '\\0';\n    return output;\n}",
+ "c_test": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <assert.h>\n\nint main() {\n    char *result;\n\n    result = func0(\"111000\", \"101010\");\n    assert(strcmp(result, \"010010\") == 0);\n    free(result);\n\n    result = func0(\"1\", \"1\");\n    assert(strcmp(result, \"0\") == 0);\n    free(result);\n\n    result = func0(\"0101\", \"0000\");\n    assert(strcmp(result, \"0101\") == 0);\n    free(result);\n\n    return 0;\n}"
+}

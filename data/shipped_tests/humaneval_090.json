@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n#include <limits.h>\n\nint func0(int *lst, int size) {\n    if (size < 2) return -1;\n\n    int first = INT_MAX, second = INT_MAX;\n    for (int i = 0; i < size; ++i) {\n        if (lst[i] < first) {\n            second = first;\n            first = lst[i];\n        } else if (lst[i] < second && lst[i] != first) {\n            second = lst[i];\n        }\n    }\n\n    if (second == INT_MAX) return -1;\n    return second;\n}",
+ "c_test": "#include <assert.h>\n\nint main() {\n    int test1[] = {1, 2, 3, 4, 5};\n    assert(func0(test1, 5) == 2);\n\n    int test2[] = {5, 1, 4, 3, 2};\n    assert(func0(test2, 5) == 2);\n\n    assert(func0((const int[]){}, 0) == -1);\n\n    int test4[] = {1, 1};\n    assert(func0(test4, 2) == -1);\n\n    int test5[] = {1, 1, 1, 1, 0};\n    assert(func0(test5, 5) == 1);\n\n    int test6[] = {-35, 34, 12, -45};\n    assert(func0(test6, 4) == -35);\n\n    return 0;\n}"
+}

@@ -1,0 +1,1 @@
+void cpuid_detect(int *b0, int *b1) { if (b0 != NULL) { *b0 = 0; } if (b1 != NULL) { *b1 = 0; } }

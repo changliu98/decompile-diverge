@@ -1,0 +1,1 @@
+int func0(int i) { if (i % 4 != 2) return 1; else return 0; }

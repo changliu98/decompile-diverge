@@ -1,0 +1,1 @@
+void ut32_unpack(const unsigned char s[4], ut32 *i) { ut32 result; result = (ut32) s[3]; result <<= 8; result += (ut32) s[2]; result <<= 8; result += (ut32) s[1]; result <<= 8; result += (ut32) s[0]; *i = result; }

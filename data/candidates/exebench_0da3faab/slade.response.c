@@ -1,0 +1,1 @@
+void mac_real(float* f1, float* f2, float* result) { result[0] += f1[0] * f2[0]; result[1] += f1[1] * f2[0]; }

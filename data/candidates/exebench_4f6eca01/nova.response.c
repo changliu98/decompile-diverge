@@ -1,0 +1,1 @@
+void clearIRQflag(char *buf) { buf[5] = '0'; }

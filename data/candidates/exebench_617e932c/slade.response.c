@@ -1,0 +1,1 @@
+void parabolic_interpolation(float x1, float y1, float x2, int y2, float *p1, int *p2) { float i = 0.5 * ((x1 - x2) / (x1 - 2 * y1 + x2)); *p2 = i + y2; *p1 = y1 - 0.5 * (x1 - x2) * i; }

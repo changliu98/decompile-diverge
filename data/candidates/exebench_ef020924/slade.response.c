@@ -1,0 +1,1 @@
+void swapfloat(float *f) { unsigned *i = (unsigned *)f; *i = (*i &0x000000ff) << 24 | (*i &0x0000ff00) << 8 | (*i &0x00ff0000) >> 8 | (*i &0xff000000) >> 24; }

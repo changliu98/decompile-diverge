@@ -1,0 +1,1 @@
+void file_perms_get(const char *fname, mode_t *mode, int *uid) { if (*mode) *mode = 0; if (*uid) *uid = 0; struct stat st; if (stat(fname, &st) < 0) return ; if (mode) *mode = st.st_mode; if (uid) *uid = st.st_uid & 07777; }

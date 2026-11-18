@@ -1,0 +1,1 @@
+int atomicIncrement(atomic_t *p) { int r; __asm__ __volatile__ ( "lock; xaddl	%0,%1" : "=r" (r) : "r" (1), "c" (p) : "memory"); return r + 1; }

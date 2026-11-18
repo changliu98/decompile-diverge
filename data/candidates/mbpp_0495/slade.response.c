@@ -1,0 +1,1 @@
+char *func0(char *str) { int i, j = 0; for (i = 0; str[i] != '\0'; i++) { if ((str[i] < 'a') || (str[i] > 'z')) { result[j++] = str[i]; } } result[j] = '\0'; return result; }

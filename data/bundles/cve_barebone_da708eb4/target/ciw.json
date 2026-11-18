@@ -1,0 +1,272 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     qword ptr [rbp+n.kind_flags], rdi\nmov     qword ptr [rbp+n.u], rsi\nmovzx   eax, [rbp+n.kind_flags]\ncmp     eax, 94h\njnz     loc_2494\njmp     loc_24B3\nlea     rdi, assertion; \"JVP_HAS_FLAGS(n, JVP_FLAGS_NUMBER_LITER\"...\nlea     rsi, file; \"harness.c\"\nmov     edx, 12Dh; line\nlea     rcx, function; \"const char *jvp_literal_number_literal(\"...\ncall    ___assert_fail\nmov     rdi, qword ptr [rbp+n.kind_flags]; j\nmov     rsi, qword ptr [rbp+n.u]; j\ncall    jvp_dec_number_ptr\nmov     [rbp+pdec], rax\nmov     rdi, qword ptr [rbp+n.kind_flags]; j\nmov     rsi, qword ptr [rbp+n.u]; j\ncall    jvp_literal_number_ptr\nmov     [rbp+plit], rax\nmov     rax, [rbp+pdec]\nmovzx   eax, byte ptr [rax+8]\nand     eax, 30h\ncmp     eax, 0\njz      loc_24F9\nlea     rax, aNull; \"null\"\nmov     [rbp+var_8], rax\njmp     loc_256F\nmov     rax, [rbp+pdec]\nmovzx   eax, byte ptr [rax+8]\nand     eax, 40h\ncmp     eax, 0\njz      loc_251A\nmov     [rbp+var_8], 0\njmp     loc_256F\nmov     rax, [rbp+plit]\ncmp     qword ptr [rax+10h], 0\njnz     loc_2563\nmov     rdi, qword ptr [rbp+n.kind_flags]; j\nmov     rsi, qword ptr [rbp+n.u]; j\ncall    jvp_dec_number_ptr\nmov     eax, [rax]\nadd     eax, 0Eh\nmov     [rbp+len], eax\nmovsxd  rdi, [rbp+len]; sz\ncall    jv_mem_alloc\nmov     rcx, rax\nmov     rax, [rbp+plit]\nmov     [rax+10h], rcx\nmov     rdi, [rbp+pdec]; dn\nmov     rax, [rbp+plit]\nmov     rsi, [rax+10h]; string\ncall    decNumberToString\nmov     rax, [rbp+plit]\nmov     rax, [rax+10h]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 11,
+  "edges": [
+   [
+    "start",
+    "loc_248F"
+   ],
+   [
+    "start",
+    "loc_2494"
+   ],
+   [
+    "loc_248F",
+    "loc_24B3"
+   ],
+   [
+    "loc_24B3",
+    "loc_24E9"
+   ],
+   [
+    "loc_24B3",
+    "loc_24F9"
+   ],
+   [
+    "loc_24E9",
+    "loc_256F"
+   ],
+   [
+    "loc_24F9",
+    "loc_250D"
+   ],
+   [
+    "loc_24F9",
+    "loc_251A"
+   ],
+   [
+    "loc_250D",
+    "loc_256F"
+   ],
+   [
+    "loc_251A",
+    "loc_2529"
+   ],
+   [
+    "loc_251A",
+    "loc_2563"
+   ],
+   [
+    "loc_2529",
+    "loc_2563"
+   ],
+   [
+    "loc_2563",
+    "loc_256F"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     qword ptr [rbp+n.kind_flags], rdi\nmov     qword ptr [rbp+n.u], rsi\nmovzx   eax, [rbp+n.kind_flags]\ncmp     eax, 94h\njnz     loc_2494",
+   "loc_248F": "jmp     loc_24B3",
+   "loc_2494": "lea     rdi, assertion; \"JVP_HAS_FLAGS(n, JVP_FLAGS_NUMBER_LITER\"...\nlea     rsi, file; \"harness.c\"\nmov     edx, 12Dh; line\nlea     rcx, function; \"const char *jvp_literal_number_literal(\"...\ncall    ___assert_fail",
+   "loc_24B3": "mov     rdi, qword ptr [rbp+n.kind_flags]; j\nmov     rsi, qword ptr [rbp+n.u]; j\ncall    jvp_dec_number_ptr\nmov     [rbp+pdec], rax\nmov     rdi, qword ptr [rbp+n.kind_flags]; j\nmov     rsi, qword ptr [rbp+n.u]; j\ncall    jvp_literal_number_ptr\nmov     [rbp+plit], rax\nmov     rax, [rbp+pdec]\nmovzx   eax, byte ptr [rax+8]\nand     eax, 30h\ncmp     eax, 0\njz      loc_24F9",
+   "loc_24E9": "lea     rax, aNull; \"null\"\nmov     [rbp+var_8], rax\njmp     loc_256F",
+   "loc_24F9": "mov     rax, [rbp+pdec]\nmovzx   eax, byte ptr [rax+8]\nand     eax, 40h\ncmp     eax, 0\njz      loc_251A",
+   "loc_250D": "mov     [rbp+var_8], 0\njmp     loc_256F",
+   "loc_251A": "mov     rax, [rbp+plit]\ncmp     qword ptr [rax+10h], 0\njnz     loc_2563",
+   "loc_2529": "mov     rdi, qword ptr [rbp+n.kind_flags]; j\nmov     rsi, qword ptr [rbp+n.u]; j\ncall    jvp_dec_number_ptr\nmov     eax, [rax]\nadd     eax, 0Eh\nmov     [rbp+len], eax\nmovsxd  rdi, [rbp+len]; sz\ncall    jv_mem_alloc\nmov     rcx, rax\nmov     rax, [rbp+plit]\nmov     [rax+10h], rcx\nmov     rdi, [rbp+pdec]; dn\nmov     rax, [rbp+plit]\nmov     rsi, [rax+10h]; string\ncall    decNumberToString",
+   "loc_2563": "mov     rax, [rbp+plit]\nmov     rax, [rax+10h]\nmov     [rbp+var_8], rax",
+   "loc_256F": "mov     rax, [rbp+var_8]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "len": "dword ptr -2Ch",
+   "plit": "qword ptr -28h",
+   "pdec": "qword ptr -20h",
+   "n": "jv ptr -18h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {
+   "assertion": "byte 'JVP_HAS_FLAGS(n, JVP_FLAGS_NUMBER_LITERAL)',0",
+   "file": "byte 'harness.c',0",
+   "function": "byte 'const char *jvp_literal_number_literal(jv)',0",
+   "aNull": "byte 'null',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 9328,
+ "thunk_map": {
+  ".abort": "abort",
+  "_abort": "abort",
+  ".strcpy": "strcpy",
+  "_strcpy": "strcpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".abort",
+   ".plt",
+   true,
+   "abort"
+  ],
+  [
+   ".strcpy",
+   ".plt",
+   true,
+   "strcpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "abort",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868493
+ }
+}

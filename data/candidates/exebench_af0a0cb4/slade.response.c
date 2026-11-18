@@ -1,0 +1,1 @@
+void vertausche (int *x, int *y) { int tmp; tmp = *x; *x = *y; *y = tmp; }

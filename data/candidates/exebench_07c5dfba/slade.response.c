@@ -1,0 +1,1 @@
+void _itoa_dec(unsigned int n, char *s) {  const char dectab[11] = "0123456789abcdef"; unsigned int i; for (i = 0; i < 10; i++) { if (n > 0 || i == 0) { s[9 - i] = dectab[n % 10]; } else { s[9 - i] = ' '; } n /= 10; } }

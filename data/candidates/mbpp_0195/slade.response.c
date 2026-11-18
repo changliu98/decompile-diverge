@@ -1,0 +1,1 @@
+__attribute__((no, noclone)) int func0(int *array, int x, int y) { int a, b, c, d; a = 0; b = y - 1; c = -1; while (a <= b) { c = (a + b) / 2; if (x < array[c]) b = c - 1; else if (x > array[c]) a = c + 1; else { c = c; b = c - 1; } } return c; }

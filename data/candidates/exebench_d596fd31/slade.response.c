@@ -1,0 +1,1 @@
+size_t itoa(uint64_t n, char *s, unsigned base) { const unsigned char *p = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"; char buf[32]; size_t i, j; if (base < 2 || base > 36) { return 0; } if (n == 0) { s[0] = '0'; return 1; } for (i = 0; n > 0; i++) { j = n % base; n = n / base; buf[i] = p[j]; } for (i = 0; i < i; i++) { s[i] = buf[i - 1]; } return i; }

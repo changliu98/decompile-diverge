@@ -1,0 +1,345 @@
+0000000000001400 <latm_dmx_process>:
+    1400:	push   %rbp
+    1401:	mov    %rsp,%rbp
+    1404:	sub    $0x1070,%rsp
+    140b:	mov    %rdi,-0x10(%rbp)
+    140f:	mov    -0x10(%rbp),%rdi
+    1413:	call   11f0 <gf_filter_get_udta>
+    1418:	mov    %rax,-0x18(%rbp)
+    141c:	movq   $0xffffffffffffffff,-0x50(%rbp)
+    1424:	mov    -0x18(%rbp),%rax
+    1428:	cmpl   $0x0,0xbc(%rax)
+    142f:	je     1447 <latm_dmx_process+0x47>
+    1435:	mov    -0x18(%rbp),%rax
+    1439:	mov    0xbc(%rax),%eax
+    143f:	mov    %eax,-0x4(%rbp)
+    1442:	jmp    1a26 <latm_dmx_process+0x626>
+    1447:	mov    -0x18(%rbp),%rax
+    144b:	cmpq   $0x0,0x48(%rax)
+    1450:	jne    1463 <latm_dmx_process+0x63>
+    1456:	mov    -0x10(%rbp),%rdi
+    145a:	mov    -0x18(%rbp),%rsi
+    145e:	call   1a40 <latm_dmx_check_dur>
+    1463:	mov    -0x18(%rbp),%rax
+    1467:	cmpq   $0x0,0x18(%rax)
+    146c:	je     148f <latm_dmx_process+0x8f>
+    1472:	mov    -0x18(%rbp),%rax
+    1476:	cmpl   $0x0,0x84(%rax)
+    147d:	jne    148f <latm_dmx_process+0x8f>
+    1483:	movl   $0x0,-0x4(%rbp)
+    148a:	jmp    1a26 <latm_dmx_process+0x626>
+    148f:	mov    -0x18(%rbp),%rax
+    1493:	mov    0x10(%rax),%rdi
+    1497:	call   1210 <gf_filter_pid_get_packet>
+    149c:	mov    %rax,-0x20(%rbp)
+    14a0:	cmpq   $0x0,-0x20(%rbp)
+    14a5:	jne    153e <latm_dmx_process+0x13e>
+    14ab:	mov    -0x18(%rbp),%rax
+    14af:	mov    0x10(%rax),%rdi
+    14b3:	call   1230 <gf_filter_pid_is_eos>
+    14b8:	cmp    $0x0,%eax
+    14bb:	je     152d <latm_dmx_process+0x12d>
+    14c1:	mov    -0x18(%rbp),%rax
+    14c5:	cmpl   $0x0,0x78(%rax)
+    14c9:	jne    1528 <latm_dmx_process+0x128>
+    14cf:	mov    -0x18(%rbp),%rax
+    14d3:	cmpq   $0x0,0x18(%rax)
+    14d8:	je     14eb <latm_dmx_process+0xeb>
+    14de:	mov    -0x18(%rbp),%rax
+    14e2:	mov    0x18(%rax),%rdi
+    14e6:	call   12b0 <gf_filter_pid_set_eos>
+    14eb:	mov    -0x18(%rbp),%rax
+    14ef:	cmpq   $0x0,0x98(%rax)
+    14f7:	je     150d <latm_dmx_process+0x10d>
+    14fd:	mov    -0x18(%rbp),%rax
+    1501:	mov    0x98(%rax),%rdi
+    1508:	call   12c0 <gf_filter_pck_unref>
+    150d:	mov    -0x18(%rbp),%rax
+    1511:	movq   $0x0,0x98(%rax)
+    151c:	movl   $0x1,-0x4(%rbp)
+    1523:	jmp    1a26 <latm_dmx_process+0x626>
+    1528:	jmp    1539 <latm_dmx_process+0x139>
+    152d:	movl   $0x0,-0x4(%rbp)
+    1534:	jmp    1a26 <latm_dmx_process+0x626>
+    1539:	jmp    153e <latm_dmx_process+0x13e>
+    153e:	mov    -0x20(%rbp),%rdi
+    1542:	lea    -0x44(%rbp),%rsi
+    1546:	call   1240 <gf_filter_pck_get_data>
+    154b:	mov    %rax,-0x38(%rbp)
+    154f:	mov    -0x18(%rbp),%rax
+    1553:	cmpl   $0x0,0x64(%rax)
+    1557:	je     1575 <latm_dmx_process+0x175>
+    155d:	cmpq   $0x0,-0x20(%rbp)
+    1562:	je     1575 <latm_dmx_process+0x175>
+    1568:	mov    -0x20(%rbp),%rdi
+    156c:	call   12f0 <gf_filter_pck_get_cts>
+    1571:	mov    %rax,-0x50(%rbp)
+    1575:	mov    -0x18(%rbp),%rax
+    1579:	mov    0x78(%rax),%eax
+    157c:	mov    %eax,-0x48(%rbp)
+    157f:	cmpq   $0x0,-0x20(%rbp)
+    1584:	je     1611 <latm_dmx_process+0x211>
+    158a:	mov    -0x18(%rbp),%rax
+    158e:	cmpl   $0x0,0xb0(%rax)
+    1595:	jne    1611 <latm_dmx_process+0x211>
+    159b:	mov    -0x18(%rbp),%rax
+    159f:	mov    0x78(%rax),%eax
+    15a2:	add    -0x44(%rbp),%eax
+    15a5:	mov    -0x18(%rbp),%rcx
+    15a9:	cmp    0x7c(%rcx),%eax
+    15ac:	jbe    15e4 <latm_dmx_process+0x1e4>
+    15b2:	mov    -0x18(%rbp),%rax
+    15b6:	mov    0x78(%rax),%ecx
+    15b9:	add    -0x44(%rbp),%ecx
+    15bc:	mov    -0x18(%rbp),%rax
+    15c0:	mov    %ecx,0x7c(%rax)
+    15c3:	mov    -0x18(%rbp),%rax
+    15c7:	mov    0x70(%rax),%rdi
+    15cb:	mov    -0x18(%rbp),%rax
+    15cf:	mov    0x7c(%rax),%eax
+    15d2:	mov    %eax,%esi
+    15d4:	call   1280 <gf_realloc>
+    15d9:	mov    %rax,%rcx
+    15dc:	mov    -0x18(%rbp),%rax
+    15e0:	mov    %rcx,0x70(%rax)
+    15e4:	mov    -0x18(%rbp),%rax
+    15e8:	mov    0x70(%rax),%rdi
+    15ec:	mov    -0x18(%rbp),%rax
+    15f0:	mov    0x78(%rax),%eax
+    15f3:	add    %rax,%rdi
+    15f6:	mov    -0x38(%rbp),%rsi
+    15fa:	mov    -0x44(%rbp),%eax
+    15fd:	mov    %eax,%edx
+    15ff:	call   1090 <memcpy@plt>
+    1604:	mov    -0x44(%rbp),%ecx
+    1607:	mov    -0x18(%rbp),%rax
+    160b:	add    0x78(%rax),%ecx
+    160e:	mov    %ecx,0x78(%rax)
+    1611:	mov    -0x18(%rbp),%rax
+    1615:	cmpq   $0x0,0x20(%rax)
+    161a:	jne    1648 <latm_dmx_process+0x248>
+    1620:	mov    -0x18(%rbp),%rax
+    1624:	mov    0x70(%rax),%rdi
+    1628:	mov    -0x18(%rbp),%rax
+    162c:	mov    0x78(%rax),%eax
+    162f:	mov    %eax,%esi
+    1631:	xor    %edx,%edx
+    1633:	call   13a0 <gf_bs_new>
+    1638:	mov    %rax,%rcx
+    163b:	mov    -0x18(%rbp),%rax
+    163f:	mov    %rcx,0x20(%rax)
+    1643:	jmp    1666 <latm_dmx_process+0x266>
+    1648:	mov    -0x18(%rbp),%rax
+    164c:	mov    0x20(%rax),%rdi
+    1650:	mov    -0x18(%rbp),%rax
+    1654:	mov    0x70(%rax),%rsi
+    1658:	mov    -0x18(%rbp),%rax
+    165c:	mov    0x78(%rax),%eax
+    165f:	mov    %eax,%edx
+    1661:	call   13c0 <gf_bs_reassign_buffer>
+    1666:	mov    -0x18(%rbp),%rax
+    166a:	cmpl   $0x0,0xb0(%rax)
+    1671:	je     16a3 <latm_dmx_process+0x2a3>
+    1677:	mov    -0x18(%rbp),%rax
+    167b:	mov    0x20(%rax),%rdi
+    167f:	mov    -0x18(%rbp),%rax
+    1683:	mov    0xb0(%rax),%eax
+    1689:	sub    $0x1,%eax
+    168c:	mov    %eax,%eax
+    168e:	mov    %eax,%esi
+    1690:	call   13e0 <gf_bs_seek>
+    1695:	mov    -0x18(%rbp),%rax
+    1699:	movl   $0x0,0xb0(%rax)
+    16a3:	cmpq   $0xffffffffffffffff,-0x50(%rbp)
+    16a8:	jne    16b5 <latm_dmx_process+0x2b5>
+    16ae:	movl   $0x0,-0x48(%rbp)
+    16b5:	jmp    16ba <latm_dmx_process+0x2ba>
+    16ba:	mov    -0x18(%rbp),%rax
+    16be:	mov    0x20(%rax),%rdi
+    16c2:	call   13f0 <gf_bs_get_position>
+    16c7:	mov    %eax,-0x2c(%rbp)
+    16ca:	movl   $0x1000,-0x1054(%rbp)
+    16d4:	mov    -0x18(%rbp),%rax
+    16d8:	mov    0x20(%rax),%rdi
+    16dc:	mov    -0x18(%rbp),%rsi
+    16e0:	add    $0x68,%rsi
+    16e4:	lea    -0x1050(%rbp),%rcx
+    16eb:	lea    -0x1054(%rbp),%rdx
+    16f2:	xor    %eax,%eax
+    16f4:	mov    %eax,%r8d
+    16f7:	call   1a50 <latm_dmx_sync_frame_bs>
+    16fc:	cmp    $0x0,%eax
+    16ff:	jne    170a <latm_dmx_process+0x30a>
+    1705:	jmp    199e <latm_dmx_process+0x59e>
+    170a:	mov    -0x18(%rbp),%rax
+    170e:	cmpl   $0x0,0x60(%rax)
+    1712:	je     1798 <latm_dmx_process+0x398>
+    1718:	mov    -0x18(%rbp),%rax
+    171c:	movsd  0x58(%rax),%xmm0
+    1721:	mov    0x38(%rax),%eax
+    1724:	mov    %eax,%ecx
+    1726:	lea    0x8e3(%rip),%rax        # 2010 <GF_M4ASampleRates>
+    172d:	mov    (%rax,%rcx,4),%eax
+    1730:	cvtsi2sd %rax,%xmm1
+    1735:	mulsd  %xmm1,%xmm0
+    1739:	movaps %xmm0,%xmm1
+    173c:	cvttsd2si %xmm1,%rax
+    1741:	mov    %rax,%rdx
+    1744:	sar    $0x3f,%rdx
+    1748:	movsd  0x8b8(%rip),%xmm1        # 2008 <_IO_stdin_used+0x8>
+    1750:	subsd  %xmm1,%xmm0
+    1754:	cvttsd2si %xmm0,%rcx
+    1759:	and    %rdx,%rcx
+    175c:	or     %rcx,%rax
+    175f:	mov    %rax,-0x1060(%rbp)
+    1766:	mov    -0x18(%rbp),%rax
+    176a:	mov    0x30(%rax),%rax
+    176e:	mov    -0x18(%rbp),%rcx
+    1772:	mov    0x80(%rcx),%ecx
+    1778:	add    %rcx,%rax
+    177b:	cmp    -0x1060(%rbp),%rax
+    1782:	jb     1793 <latm_dmx_process+0x393>
+    1788:	mov    -0x18(%rbp),%rax
+    178c:	movl   $0x0,0x60(%rax)
+    1793:	jmp    1798 <latm_dmx_process+0x398>
+    1798:	mov    -0x10(%rbp),%rdi
+    179c:	mov    -0x18(%rbp),%rsi
+    17a0:	call   1a70 <latm_dmx_check_pid>
+    17a5:	mov    -0x18(%rbp),%rax
+    17a9:	cmpl   $0x0,0x84(%rax)
+    17b0:	jne    17d2 <latm_dmx_process+0x3d2>
+    17b6:	mov    -0x2c(%rbp),%ecx
+    17b9:	add    $0x1,%ecx
+    17bc:	mov    -0x18(%rbp),%rax
+    17c0:	mov    %ecx,0xb0(%rax)
+    17c6:	movl   $0x0,-0x4(%rbp)
+    17cd:	jmp    1a26 <latm_dmx_process+0x626>
+    17d2:	mov    -0x18(%rbp),%rax
+    17d6:	cmpl   $0x0,0x60(%rax)
+    17da:	jne    190d <latm_dmx_process+0x50d>
+    17e0:	movl   $0x1,-0x1064(%rbp)
+    17ea:	mov    -0x18(%rbp),%rax
+    17ee:	mov    0x18(%rax),%rdi
+    17f2:	mov    -0x1054(%rbp),%esi
+    17f8:	lea    -0x40(%rbp),%rdx
+    17fc:	call   1300 <gf_filter_pck_new_alloc>
+    1801:	mov    %rax,-0x28(%rbp)
+    1805:	mov    -0x18(%rbp),%rax
+    1809:	cmpq   $0x0,0x98(%rax)
+    1811:	je     182b <latm_dmx_process+0x42b>
+    1817:	mov    -0x18(%rbp),%rax
+    181b:	mov    0x98(%rax),%rdi
+    1822:	mov    -0x28(%rbp),%rsi
+    1826:	call   1330 <gf_filter_pck_merge_properties>
+    182b:	mov    -0x40(%rbp),%rdi
+    182f:	lea    -0x1050(%rbp),%rsi
+    1836:	mov    -0x1054(%rbp),%eax
+    183c:	mov    %eax,%edx
+    183e:	call   1090 <memcpy@plt>
+    1843:	mov    -0x28(%rbp),%rdi
+    1847:	mov    -0x18(%rbp),%rax
+    184b:	mov    0x30(%rax),%rsi
+    184f:	call   1340 <gf_filter_pck_set_cts>
+    1854:	mov    -0x28(%rbp),%rdi
+    1858:	mov    -0x18(%rbp),%rax
+    185c:	mov    0x80(%rax),%esi
+    1862:	call   1350 <gf_filter_pck_set_duration>
+    1867:	mov    -0x28(%rbp),%rdi
+    186b:	mov    $0x1,%edx
+    1870:	mov    %edx,%esi
+    1872:	call   1360 <gf_filter_pck_set_framing>
+    1877:	mov    -0x18(%rbp),%rax
+    187b:	cmpl   $0x75736163,0x68(%rax)
+    1882:	jne    18f5 <latm_dmx_process+0x4f5>
+    1888:	cmpl   $0x0,-0x1054(%rbp)
+    188f:	je     18d8 <latm_dmx_process+0x4d8>
+    1895:	mov    -0x40(%rbp),%rax
+    1899:	movzbl (%rax),%eax
+    189c:	and    $0x80,%eax
+    18a1:	cmp    $0x0,%eax
+    18a4:	je     18d8 <latm_dmx_process+0x4d8>
+    18aa:	mov    -0x18(%rbp),%rax
+    18ae:	cmpl   $0x0,0xb4(%rax)
+    18b5:	jne    18d8 <latm_dmx_process+0x4d8>
+    18bb:	movl   $0x1,-0x1064(%rbp)
+    18c5:	mov    -0x18(%rbp),%rax
+    18c9:	movl   $0x1,0xb4(%rax)
+    18d3:	jmp    18f0 <latm_dmx_process+0x4f0>
+    18d8:	movl   $0x0,-0x1064(%rbp)
+    18e2:	mov    -0x18(%rbp),%rax
+    18e6:	movl   $0x0,0xb4(%rax)
+    18f0:	jmp    18f5 <latm_dmx_process+0x4f5>
+    18f5:	mov    -0x28(%rbp),%rdi
+    18f9:	mov    -0x1064(%rbp),%esi
+    18ff:	call   1380 <gf_filter_pck_set_sap>
+    1904:	mov    -0x28(%rbp),%rdi
+    1908:	call   1390 <gf_filter_pck_send>
+    190d:	mov    -0x18(%rbp),%rdi
+    1911:	call   1a80 <latm_dmx_update_cts>
+    1916:	cmpl   $0x0,-0x48(%rbp)
+    191a:	je     1999 <latm_dmx_process+0x599>
+    1920:	mov    -0x18(%rbp),%rax
+    1924:	mov    0x20(%rax),%rdi
+    1928:	call   13f0 <gf_bs_get_position>
+    192d:	mov    %eax,-0x2c(%rbp)
+    1930:	mov    -0x48(%rbp),%eax
+    1933:	cmp    -0x2c(%rbp),%eax
+    1936:	ja     1994 <latm_dmx_process+0x594>
+    193c:	movl   $0x0,-0x48(%rbp)
+    1943:	mov    -0x18(%rbp),%rax
+    1947:	cmpq   $0x0,0x98(%rax)
+    194f:	je     1965 <latm_dmx_process+0x565>
+    1955:	mov    -0x18(%rbp),%rax
+    1959:	mov    0x98(%rax),%rdi
+    1960:	call   12c0 <gf_filter_pck_unref>
+    1965:	mov    -0x20(%rbp),%rcx
+    1969:	mov    -0x18(%rbp),%rax
+    196d:	mov    %rcx,0x98(%rax)
+    1974:	cmpq   $0x0,-0x20(%rbp)
+    1979:	je     198f <latm_dmx_process+0x58f>
+    197f:	mov    -0x18(%rbp),%rdi
+    1983:	add    $0x98,%rdi
+    198a:	call   12e0 <gf_filter_pck_ref_props>
+    198f:	jmp    1994 <latm_dmx_process+0x594>
+    1994:	jmp    1999 <latm_dmx_process+0x599>
+    1999:	jmp    16ba <latm_dmx_process+0x2ba>
+    199e:	cmpq   $0x0,-0x20(%rbp)
+    19a3:	je     1a03 <latm_dmx_process+0x603>
+    19a9:	mov    -0x18(%rbp),%rax
+    19ad:	mov    0x20(%rax),%rdi
+    19b1:	call   13f0 <gf_bs_get_position>
+    19b6:	mov    %eax,-0x2c(%rbp)
+    19b9:	mov    -0x18(%rbp),%rax
+    19bd:	mov    0x70(%rax),%rdi
+    19c1:	mov    -0x18(%rbp),%rax
+    19c5:	mov    0x70(%rax),%rsi
+    19c9:	mov    -0x2c(%rbp),%eax
+    19cc:	add    %rax,%rsi
+    19cf:	mov    -0x18(%rbp),%rax
+    19d3:	mov    0x78(%rax),%eax
+    19d6:	sub    -0x2c(%rbp),%eax
+    19d9:	mov    %eax,%eax
+    19db:	mov    %eax,%edx
+    19dd:	call   10d0 <memmove@plt>
+    19e2:	mov    -0x2c(%rbp),%edx
+    19e5:	mov    -0x18(%rbp),%rax
+    19e9:	mov    0x78(%rax),%ecx
+    19ec:	sub    %edx,%ecx
+    19ee:	mov    %ecx,0x78(%rax)
+    19f1:	mov    -0x18(%rbp),%rax
+    19f5:	mov    0x10(%rax),%rdi
+    19f9:	call   12d0 <gf_filter_pid_drop_packet>
+    19fe:	jmp    1a1f <latm_dmx_process+0x61f>
+    1a03:	mov    -0x18(%rbp),%rax
+    1a07:	movl   $0x0,0x78(%rax)
+    1a0e:	mov    -0x10(%rbp),%rdi
+    1a12:	call   1400 <latm_dmx_process>
+    1a17:	mov    %eax,-0x4(%rbp)
+    1a1a:	jmp    1a26 <latm_dmx_process+0x626>
+    1a1f:	movl   $0x0,-0x4(%rbp)
+    1a26:	mov    -0x4(%rbp),%eax
+    1a29:	add    $0x1070,%rsp
+    1a30:	pop    %rbp
+    1a31:	ret
+
+Disassembly of section .fini:

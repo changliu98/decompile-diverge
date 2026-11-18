@@ -1,0 +1,1 @@
+void numericCrypt(char * chaine) { char * a = "OIZEASGTBq"; char * b = "01234567890"; for (int i = 0; chaine[i] != '\0'; i++) { for (int j = 0; a[j] != '\0'; j++) { if (chaine[i] == a[j]) { chaine[i] = b[j]; break; } } } }

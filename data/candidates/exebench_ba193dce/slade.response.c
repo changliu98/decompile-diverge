@@ -1,0 +1,1 @@
+int nogr_prompt_dir(const char *c, int *in, int *out) { *in = 1; *out = 0; return 0; }

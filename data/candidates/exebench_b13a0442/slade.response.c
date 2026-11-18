@@ -1,0 +1,1 @@
+void strrev(char *str) { int i, j; char temp; for (i = 0; str[i] != '\0'; i++); i--; for (j = 0; j < i; j++) { temp = str[i]; str[i] = str[j]; str[j] = temp; i--; } }

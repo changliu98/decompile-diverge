@@ -1,0 +1,1 @@
+void SetDouble(HString *T) { T[0]=0.0001; }

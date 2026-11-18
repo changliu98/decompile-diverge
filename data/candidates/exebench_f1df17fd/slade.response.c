@@ -1,0 +1,1 @@
+int FNEGQ(UCHAR *p, UCHAR *q) { p[0] = q[0] ^0x8000000000000000ULL; p[1] = q[1]; return 1; }

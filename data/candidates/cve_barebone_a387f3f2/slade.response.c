@@ -1,0 +1,1 @@
+void pj_scan_skip_line(PJ *P) { char *s = (char *) pj_memchr(P->i, '\n', (intptr_t) (P->s - P->ibuf)); if (!s) { P->ibuf = P->s; } else { P->ibuf = s++; P->ibuf = P->ibuf; P->n++; } }

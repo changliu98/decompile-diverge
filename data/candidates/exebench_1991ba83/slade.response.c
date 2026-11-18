@@ -1,0 +1,1 @@
+int obdRevConvert_52(float t, int *p_out, int *p_in, int *p_out, int *p_err) { *p_out = (int) (t*52.0f/100.0f); return 1; }

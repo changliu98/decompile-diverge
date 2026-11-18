@@ -1,0 +1,1 @@
+char* GO_strcpy(char *d, const char *s) { char *tmp = d; while ((*d++ = *s++)) ; return tmp; }

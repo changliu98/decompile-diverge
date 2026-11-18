@@ -1,0 +1,1 @@
+int slevmar_box_check(float *box1, float *box2, int length) { register int i; if(!box1 || !box2) return 1; for(i=0; i<length; i++) { if(box1[i] > box2[i]) return 0; } return 1; }

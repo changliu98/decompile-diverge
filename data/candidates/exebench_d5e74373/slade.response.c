@@ -1,0 +1,1 @@
+int16_t obdRevConvert_3C_3F(float rad, int32_t *code, int16_t *length, const uint8_t *src, const uint8_t *msf) { rad += 1024.0f; rad *= 255.0f; (*code) = (int16_t) (rad) / 256; (*length) = (int16_t) (rad % 256); return 2; }

@@ -1,0 +1,1 @@
+void GetCPUInfo(uint32_t *cpu_info, uint32_t cpuid) { *cpu_info = *(cpu_info + 1); }

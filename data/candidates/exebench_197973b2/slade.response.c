@@ -1,0 +1,1 @@
+void computesizes(int nums[], int max, int *nsize, int *size) { int i; int size = nums[0], size1 = size, size2 = size1 == 0 ? -1 : 0; for (i = 1; nums[0] > size && *nsize < (1 << (i - 1)); i++) { if (nums[i] > 0) { size += nums[i]; if (size >= (1 << (i - 1))) { size2 = i; size1 = size; } } } *size = max - size1; *nsize = size2 == -1 ? 0 : (1 << size2); }

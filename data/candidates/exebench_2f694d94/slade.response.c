@@ -1,0 +1,1 @@
+void computeVariables(double x, double *params, double *value, void *userData) { (void) params; (void) x; (void) userData[1] = *value; }

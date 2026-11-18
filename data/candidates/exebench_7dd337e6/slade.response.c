@@ -1,0 +1,1 @@
+void _kahan_summation_step(kahan_float_t sum, double* output, double* in1, double* in2, double* out) { *in2 = sum - *in1; *out = *output + *in2; *in1 = *out - *output - *in2; *output = *out; }

@@ -1,0 +1,9 @@
+int valid_bo_pre_v2(long type)
+{
+  if (type & (0x00 | 0x04))
+    if (type & (0x02 | 0x08))
+      if (type & (0x00 | 0x04 | 0x10))
+        if (type == (0x00 | 0x04 | 0x10 | 0x08))
+          return 1;
+  return 0;
+}

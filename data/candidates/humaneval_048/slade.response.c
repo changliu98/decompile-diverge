@@ -1,0 +1,1 @@
+int func0(char *s) { int i,l=strlen(s); for(i=0;i<l/2;i++) if(s[i]!=s[l-1-i]) return 0; return 1; }

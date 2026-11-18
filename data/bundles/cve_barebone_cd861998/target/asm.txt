@@ -1,0 +1,211 @@
+00000000000016f0 <open_ssl_connection>:
+    16f0:	push   %rbp
+    16f1:	mov    %rsp,%rbp
+    16f4:	sub    $0x60,%rsp
+    16f8:	mov    %dl,%al
+    16fa:	mov    %rdi,-0x10(%rbp)
+    16fe:	mov    %esi,-0x14(%rbp)
+    1701:	mov    %al,-0x15(%rbp)
+    1704:	mov    %rcx,-0x20(%rbp)
+    1708:	movq   $0x0,-0x28(%rbp)
+    1710:	movq   $0x0,-0x30(%rbp)
+    1718:	movl   $0x0,-0x38(%rbp)
+    171f:	mov    -0x20(%rbp),%rax
+    1723:	mov    0x20(%rax),%al
+    1726:	mov    %al,-0x41(%rbp)
+    1729:	call   1ac0 <SSLv23_client_method>
+    172e:	mov    %rax,%rdi
+    1731:	call   1a90 <SSL_CTX_new>
+    1736:	mov    %rax,-0x28(%rbp)
+    173a:	cmp    $0x0,%rax
+    173e:	jne    1760 <open_ssl_connection+0x70>
+    1744:	lea    0x905(%rip),%rdi        # 2050 <_IO_stdin_used+0x50>
+    174b:	mov    $0x0,%al
+    174d:	call   *0x2935(%rip)        # 4088 <rfbClientLog>
+    1753:	movq   $0x0,-0x8(%rbp)
+    175b:	jmp    1a80 <open_ssl_connection+0x390>
+    1760:	call   1ad0 <X509_VERIFY_PARAM_new>
+    1765:	mov    %rax,-0x40(%rbp)
+    1769:	cmpb   $0x0,-0x15(%rbp)
+    176d:	jne    1980 <open_ssl_connection+0x290>
+    1773:	mov    -0x20(%rbp),%rax
+    1777:	cmpq   $0x0,(%rax)
+    177b:	je     17c1 <open_ssl_connection+0xd1>
+    1781:	mov    -0x28(%rbp),%rdi
+    1785:	mov    -0x20(%rbp),%rax
+    1789:	mov    (%rax),%rsi
+    178c:	xor    %eax,%eax
+    178e:	mov    %eax,%edx
+    1790:	call   1af0 <SSL_CTX_load_verify_locations>
+    1795:	cmp    $0x0,%eax
+    1798:	jne    17bc <open_ssl_connection+0xcc>
+    179e:	mov    0x28e3(%rip),%rcx        # 4088 <rfbClientLog>
+    17a5:	mov    -0x20(%rbp),%rax
+    17a9:	mov    (%rax),%rsi
+    17ac:	lea    0x8c0(%rip),%rdi        # 2073 <_IO_stdin_used+0x73>
+    17b3:	mov    $0x0,%al
+    17b5:	call   *%rcx
+    17b7:	jmp    1a66 <open_ssl_connection+0x376>
+    17bc:	jmp    17d9 <open_ssl_connection+0xe9>
+    17c1:	lea    0x8d3(%rip),%rdi        # 209b <_IO_stdin_used+0x9b>
+    17c8:	mov    $0x0,%al
+    17ca:	call   *0x28b8(%rip)        # 4088 <rfbClientLog>
+    17d0:	mov    -0x28(%rbp),%rdi
+    17d4:	call   1b10 <SSL_CTX_set_default_verify_paths>
+    17d9:	mov    -0x20(%rbp),%rax
+    17dd:	cmpq   $0x0,0x8(%rax)
+    17e2:	je     182b <open_ssl_connection+0x13b>
+    17e8:	mov    -0x20(%rbp),%rax
+    17ec:	mov    0x8(%rax),%rdi
+    17f0:	mov    -0x28(%rbp),%rsi
+    17f4:	call   1b20 <load_crls_from_file>
+    17f9:	cmp    $0x0,%al
+    17fb:	jne    1815 <open_ssl_connection+0x125>
+    1801:	lea    0x8c6(%rip),%rdi        # 20ce <_IO_stdin_used+0xce>
+    1808:	mov    $0x0,%al
+    180a:	call   *0x2878(%rip)        # 4088 <rfbClientLog>
+    1810:	jmp    1a66 <open_ssl_connection+0x376>
+    1815:	movzbl -0x41(%rbp),%eax
+    1819:	cmp    $0x0,%eax
+    181c:	jne    1826 <open_ssl_connection+0x136>
+    1822:	movb   $0x2,-0x41(%rbp)
+    1826:	jmp    182b <open_ssl_connection+0x13b>
+    182b:	mov    -0x20(%rbp),%rax
+    182f:	cmpq   $0x0,0x10(%rax)
+    1834:	je     18d5 <open_ssl_connection+0x1e5>
+    183a:	mov    -0x20(%rbp),%rax
+    183e:	cmpq   $0x0,0x18(%rax)
+    1843:	je     18d5 <open_ssl_connection+0x1e5>
+    1849:	mov    -0x28(%rbp),%rdi
+    184d:	mov    -0x20(%rbp),%rax
+    1851:	mov    0x10(%rax),%rsi
+    1855:	call   1b40 <SSL_CTX_use_certificate_chain_file>
+    185a:	cmp    $0x1,%eax
+    185d:	je     1877 <open_ssl_connection+0x187>
+    1863:	lea    0x87f(%rip),%rdi        # 20e9 <_IO_stdin_used+0xe9>
+    186a:	mov    $0x0,%al
+    186c:	call   *0x2816(%rip)        # 4088 <rfbClientLog>
+    1872:	jmp    1a66 <open_ssl_connection+0x376>
+    1877:	mov    -0x28(%rbp),%rdi
+    187b:	mov    -0x20(%rbp),%rax
+    187f:	mov    0x18(%rax),%rsi
+    1883:	mov    $0x1,%edx
+    1888:	call   1b60 <SSL_CTX_use_PrivateKey_file>
+    188d:	cmp    $0x1,%eax
+    1890:	je     18aa <open_ssl_connection+0x1ba>
+    1896:	lea    0x875(%rip),%rdi        # 2112 <_IO_stdin_used+0x112>
+    189d:	mov    $0x0,%al
+    189f:	call   *0x27e3(%rip)        # 4088 <rfbClientLog>
+    18a5:	jmp    1a66 <open_ssl_connection+0x376>
+    18aa:	mov    -0x28(%rbp),%rdi
+    18ae:	call   1b80 <SSL_CTX_check_private_key>
+    18b3:	cmp    $0x0,%eax
+    18b6:	jne    18d0 <open_ssl_connection+0x1e0>
+    18bc:	lea    0x878(%rip),%rdi        # 213b <_IO_stdin_used+0x13b>
+    18c3:	mov    $0x0,%al
+    18c5:	call   *0x27bd(%rip)        # 4088 <rfbClientLog>
+    18cb:	jmp    1a66 <open_ssl_connection+0x376>
+    18d0:	jmp    18d5 <open_ssl_connection+0x1e5>
+    18d5:	mov    -0x28(%rbp),%rdi
+    18d9:	mov    $0x1,%esi
+    18de:	xor    %eax,%eax
+    18e0:	mov    %eax,%edx
+    18e2:	call   1b90 <SSL_CTX_set_verify>
+    18e7:	movzbl -0x41(%rbp),%eax
+    18eb:	cmp    $0x1,%eax
+    18ee:	jne    1907 <open_ssl_connection+0x217>
+    18f4:	mov    -0x40(%rbp),%rdi
+    18f8:	mov    $0x4,%esi
+    18fd:	call   1bb0 <X509_VERIFY_PARAM_set_flags>
+    1902:	jmp    1927 <open_ssl_connection+0x237>
+    1907:	movzbl -0x41(%rbp),%eax
+    190b:	cmp    $0x2,%eax
+    190e:	jne    1922 <open_ssl_connection+0x232>
+    1914:	mov    -0x40(%rbp),%rdi
+    1918:	mov    $0x8004,%esi
+    191d:	call   1bb0 <X509_VERIFY_PARAM_set_flags>
+    1922:	jmp    1927 <open_ssl_connection+0x237>
+    1927:	mov    -0x40(%rbp),%rax
+    192b:	mov    %rax,-0x58(%rbp)
+    192f:	mov    -0x10(%rbp),%rax
+    1933:	mov    (%rax),%rax
+    1936:	mov    %rax,-0x50(%rbp)
+    193a:	mov    -0x10(%rbp),%rax
+    193e:	mov    (%rax),%rdi
+    1941:	call   1060 <strlen@plt>
+    1946:	mov    -0x58(%rbp),%rdi
+    194a:	mov    -0x50(%rbp),%rsi
+    194e:	mov    %rax,%rdx
+    1951:	call   1bd0 <X509_VERIFY_PARAM_set1_host>
+    1956:	cmp    $0x0,%eax
+    1959:	jne    1973 <open_ssl_connection+0x283>
+    195f:	lea    0x807(%rip),%rdi        # 216d <_IO_stdin_used+0x16d>
+    1966:	mov    $0x0,%al
+    1968:	call   *0x271a(%rip)        # 4088 <rfbClientLog>
+    196e:	jmp    1a66 <open_ssl_connection+0x376>
+    1973:	mov    -0x28(%rbp),%rdi
+    1977:	mov    -0x40(%rbp),%rsi
+    197b:	call   1bf0 <SSL_CTX_set1_param>
+    1980:	mov    -0x28(%rbp),%rdi
+    1984:	call   1c10 <SSL_new>
+    1989:	mov    %rax,-0x30(%rbp)
+    198d:	cmp    $0x0,%rax
+    1991:	jne    19ab <open_ssl_connection+0x2bb>
+    1997:	lea    0x7fc(%rip),%rdi        # 219a <_IO_stdin_used+0x19a>
+    199e:	mov    $0x0,%al
+    19a0:	call   *0x26e2(%rip)        # 4088 <rfbClientLog>
+    19a6:	jmp    1a66 <open_ssl_connection+0x376>
+    19ab:	mov    -0x30(%rbp),%rdi
+    19af:	lea    0x809(%rip),%rsi        # 21bf <_IO_stdin_used+0x1bf>
+    19b6:	call   1c40 <SSL_set_cipher_list>
+    19bb:	mov    -0x30(%rbp),%rdi
+    19bf:	mov    -0x14(%rbp),%esi
+    19c2:	call   1c60 <SSL_set_fd>
+    19c7:	mov    -0x28(%rbp),%rdi
+    19cb:	mov    -0x10(%rbp),%rsi
+    19cf:	call   1c80 <SSL_CTX_set_app_data>
+    19d4:	mov    -0x30(%rbp),%rdi
+    19d8:	call   1ca0 <SSL_connect>
+    19dd:	mov    %eax,-0x34(%rbp)
+    19e0:	cmpl   $0x1,-0x34(%rbp)
+    19e4:	je     1a1e <open_ssl_connection+0x32e>
+    19ea:	mov    -0x30(%rbp),%rdi
+    19ee:	mov    -0x34(%rbp),%esi
+    19f1:	mov    $0x1,%edx
+    19f6:	call   1cb0 <wait_for_data>
+    19fb:	cmp    $0x1,%eax
+    19fe:	je     1a19 <open_ssl_connection+0x329>
+    1a04:	movl   $0x1,-0x38(%rbp)
+    1a0b:	mov    -0x30(%rbp),%rdi
+    1a0f:	call   1cd0 <SSL_shutdown>
+    1a14:	jmp    1a5d <open_ssl_connection+0x36d>
+    1a19:	jmp    1a1e <open_ssl_connection+0x32e>
+    1a1e:	jmp    1a23 <open_ssl_connection+0x333>
+    1a23:	xor    %eax,%eax
+    1a25:	cmpl   $0x1,-0x34(%rbp)
+    1a29:	mov    %al,-0x59(%rbp)
+    1a2c:	je     1a3c <open_ssl_connection+0x34c>
+    1a32:	cmpl   $0x1,-0x38(%rbp)
+    1a36:	setne  %al
+    1a39:	mov    %al,-0x59(%rbp)
+    1a3c:	mov    -0x59(%rbp),%al
+    1a3f:	test   $0x1,%al
+    1a41:	jne    19d4 <open_ssl_connection+0x2e4>
+    1a47:	mov    -0x40(%rbp),%rdi
+    1a4b:	call   1ce0 <X509_VERIFY_PARAM_free>
+    1a50:	mov    -0x30(%rbp),%rax
+    1a54:	mov    %rax,-0x8(%rbp)
+    1a58:	jmp    1a80 <open_ssl_connection+0x390>
+    1a5d:	mov    -0x30(%rbp),%rdi
+    1a61:	call   1d00 <SSL_free>
+    1a66:	mov    -0x40(%rbp),%rdi
+    1a6a:	call   1ce0 <X509_VERIFY_PARAM_free>
+    1a6f:	mov    -0x28(%rbp),%rdi
+    1a73:	call   1d20 <SSL_CTX_free>
+    1a78:	movq   $0x0,-0x8(%rbp)
+    1a80:	mov    -0x8(%rbp),%rax
+    1a84:	add    $0x60,%rsp
+    1a88:	pop    %rbp
+    1a89:	ret
+
+Disassembly of section .fini:

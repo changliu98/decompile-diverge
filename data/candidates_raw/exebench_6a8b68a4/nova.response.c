@@ -1,0 +1,1 @@
+void func0(int *p) { *p = 30; }

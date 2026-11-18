@@ -1,0 +1,1 @@
+void decode_mode10_short_delta(uint16_t mode10, uint8_t *r, uint8_t *g, uint8_t *b) { *b = mode10 &0x1F; if (*b &0x10) *b |=0xFFFFFFFF00; *b <<= 1; *g = (mode10 >> 5) &0x1F; if (*g &0x10) *g |=0xFFFFFFFF00; *r = (mode10 >> 10) &0x1F; if (*r &0x10) *r |=0xFFFFFFFF00; }

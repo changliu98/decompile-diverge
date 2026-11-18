@@ -1,0 +1,137 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <stdio.h>\n\n#include <stdlib.h>\n\n#include <string.h>\n\n#include <errno.h>\n\n#include <sys/types.h>\n\n#include <sys/stat.h>\n\n#include <fcntl.h>\n\n#include <unistd.h>\n\n#include <signal.h>\n\n#include <limits.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_52875ja_sg.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(int fd, unsigned char data, long int size, int returnv) {\n  json output_json;\n\n  output_json[\"data\"] = data;\n\n  output_json[\"returnv\"] = returnv;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  int fd = input_json[\"fd\"];\n  unsigned char data = input_json[\"data\"];\n  long int size = input_json[\"size\"];\n  clock_t begin = clock();\n  int returnv = write_buff(fd, data, size);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(fd, data, size, returnv);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "fd": 48,
+    "data": 582,
+    "size": 2
+   },
+   "output": {
+    "data": 70,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fd": 24,
+    "data": 418,
+    "size": 21
+   },
+   "output": {
+    "data": 162,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fd": 14,
+    "data": 25,
+    "size": 84
+   },
+   "output": {
+    "data": 25,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fd": 75,
+    "data": 966,
+    "size": 9
+   },
+   "output": {
+    "data": 198,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fd": 25,
+    "data": 35,
+    "size": 41
+   },
+   "output": {
+    "data": 35,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fd": 120,
+    "data": 923,
+    "size": 45
+   },
+   "output": {
+    "data": 155,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fd": 24,
+    "data": 916,
+    "size": 2
+   },
+   "output": {
+    "data": 148,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fd": 43,
+    "data": 608,
+    "size": 17
+   },
+   "output": {
+    "data": 96,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fd": 80,
+    "data": 267,
+    "size": 18
+   },
+   "output": {
+    "data": 11,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fd": 22,
+    "data": 934,
+    "size": 23
+   },
+   "output": {
+    "data": 166,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

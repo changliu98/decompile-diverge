@@ -1,0 +1,24 @@
+char *ata_err_string(unsigned int err_mask)
+{
+ if (err_mask & (AC_ERR_HOST_BUS))
+  return "host bus error";
+ if (err_mask & (AC_ERR_ATA_BUS))
+  return "ATA bus error";
+ if (err_mask & (AC_ERR_TIMEOUT))
+  return "timeout";
+ if (err_mask & (AC_ERR_HSM))
+  return "HSM violation";
+ if (err_mask & (AC_ERR_SYSTEM))
+  return "internal error";
+ if (err_mask & (AC_ERR_MEDIA))
+  return "media error";
+ if (err_mask & (AC_ERR_INVALID))
+  return "invalid argument";
+ if (err_mask & (AC_ERR_DEV))
+  return "device error";
+ if (err_mask & (AC_ERR_NCQ))
+  return "NCQ error";
+ if (err_mask & (AC_ERR_NODEV_HINT))
+  return "Polling detection error";
+ return "unknown error";
+}

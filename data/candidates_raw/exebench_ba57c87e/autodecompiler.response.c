@@ -1,0 +1,1 @@
+void add_r(char *s) { s[2] = 'r'; }

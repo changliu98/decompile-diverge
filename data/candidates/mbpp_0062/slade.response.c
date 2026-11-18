@@ -1,0 +1,1 @@
+int func0(int *ptr, int n) { int max =0x7FFFFFFF; for (int i = 0; i < n; ++i) { if (ptr[i] < max) max = ptr[i]; } return max; }

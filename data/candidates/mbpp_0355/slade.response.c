@@ -1,0 +1,1 @@
+int func0(int N) { int count = 0; int N2 = N + N; int N4 = N2 * N2; for (int i = 1; i < 2*N; ++i) { for (int j = 1; j < 2*N; ++j) { int sum = i * i + j * j; if (sum <= N4) { count = count + 1; } } } return count; }

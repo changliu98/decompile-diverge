@@ -1,0 +1,337 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <stdio.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_29mb1uuy7o.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(int* arr, int num) {\n  json output_json;\n  std::vector<json> output_temp_2;\n  for (unsigned int i3 = 0; i3 < 10; i3++) {\n    int output_temp_4 = arr[i3];\n\n    output_temp_2.push_back(output_temp_4);\n  }\n  output_json[\"arr\"] = output_temp_2;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  std::vector<int> input_temp_1_vec;\n  for (auto& elem : input_json[\"arr\"]) {\n    int input_temp_1_inner = elem;\n    input_temp_1_vec.push_back(input_temp_1_inner);\n  }\n  int* arr = &input_temp_1_vec[0];\n  int num = input_json[\"num\"];\n  clock_t begin = clock();\n  multiply_all(arr, num);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(arr, num);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "arr": [
+     117,
+     16,
+     65,
+     15,
+     24,
+     108,
+     23,
+     54,
+     62,
+     9
+    ],
+    "num": 54
+   },
+   "output": {
+    "arr": [
+     6318,
+     864,
+     3510,
+     810,
+     1296,
+     5832,
+     1242,
+     2916,
+     3348,
+     486
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "arr": [
+     56,
+     10,
+     101,
+     7,
+     32,
+     87,
+     53,
+     50,
+     126,
+     111
+    ],
+    "num": 12
+   },
+   "output": {
+    "arr": [
+     672,
+     120,
+     1212,
+     84,
+     384,
+     1044,
+     636,
+     600,
+     1512,
+     1332
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "arr": [
+     49,
+     8,
+     46,
+     63,
+     75,
+     46,
+     98,
+     101,
+     58,
+     123
+    ],
+    "num": 124
+   },
+   "output": {
+    "arr": [
+     6076,
+     992,
+     5704,
+     7812,
+     9300,
+     5704,
+     12152,
+     12524,
+     7192,
+     15252
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "arr": [
+     78,
+     89,
+     38,
+     65,
+     59,
+     124,
+     83,
+     14,
+     121,
+     96
+    ],
+    "num": 100
+   },
+   "output": {
+    "arr": [
+     7800,
+     8900,
+     3800,
+     6500,
+     5900,
+     12400,
+     8300,
+     1400,
+     12100,
+     9600
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "arr": [
+     7,
+     32,
+     87,
+     64,
+     2,
+     1,
+     23,
+     46,
+     58,
+     119
+    ],
+    "num": 63
+   },
+   "output": {
+    "arr": [
+     441,
+     2016,
+     5481,
+     4032,
+     126,
+     63,
+     1449,
+     2898,
+     3654,
+     7497
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "arr": [
+     68,
+     65,
+     55,
+     83,
+     1,
+     56,
+     92,
+     65,
+     3,
+     110
+    ],
+    "num": 55
+   },
+   "output": {
+    "arr": [
+     3740,
+     3575,
+     3025,
+     4565,
+     55,
+     3080,
+     5060,
+     3575,
+     165,
+     6050
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "arr": [
+     14,
+     81,
+     83,
+     45,
+     125,
+     41,
+     105,
+     75,
+     111,
+     59
+    ],
+    "num": 86
+   },
+   "output": {
+    "arr": [
+     1204,
+     6966,
+     7138,
+     3870,
+     10750,
+     3526,
+     9030,
+     6450,
+     9546,
+     5074
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "arr": [
+     121,
+     40,
+     38,
+     108,
+     123,
+     114,
+     111,
+     17,
+     9,
+     11
+    ],
+    "num": 98
+   },
+   "output": {
+    "arr": [
+     11858,
+     3920,
+     3724,
+     10584,
+     12054,
+     11172,
+     10878,
+     1666,
+     882,
+     1078
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "arr": [
+     115,
+     28,
+     26,
+     49,
+     71,
+     63,
+     92,
+     101,
+     35,
+     14
+    ],
+    "num": 23
+   },
+   "output": {
+    "arr": [
+     2645,
+     644,
+     598,
+     1127,
+     1633,
+     1449,
+     2116,
+     2323,
+     805,
+     322
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "arr": [
+     79,
+     52,
+     103,
+     81,
+     23,
+     12,
+     124,
+     26,
+     99,
+     96
+    ],
+    "num": 93
+   },
+   "output": {
+    "arr": [
+     7347,
+     4836,
+     9579,
+     7533,
+     2139,
+     1116,
+     11532,
+     2418,
+     9207,
+     8928
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

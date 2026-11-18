@@ -1,0 +1,1 @@
+int func0(int n) { int a = 3, b = 0, c = 2, d, e = 5; if (n == 0) return 3; else if (n == 1) return 3; else if (n == 2) return 5; else for (e = 5; n > 2; n--) { d = a + b; e += d; a = b; b = c; c = d; } return e; }

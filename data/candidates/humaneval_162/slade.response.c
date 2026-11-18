@@ -1,0 +1,1 @@
+char *func0(const char *src) { if (!*src) { return strdup("None"); } unsigned a =0xffffffff; unsigned i = 0; while (src[i]) { unsigned b = src[i]; a ^= b; for (unsigned j = 0; j < 8; ++j) { if (a & 1) { a = (a >> 1) ^0xedb88320; } else { a >>= 1; } } ++i; } a = ~a; char *buf = malloc(9 * sizeof(char)); if (buf) { sprintf(buf, "%08X", a); } return buf; }

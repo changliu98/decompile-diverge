@@ -1,0 +1,1 @@
+void atomic_and(atomic_t *a, long val) { *a = val; }

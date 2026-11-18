@@ -1,0 +1,44 @@
+00000000000015c0 <sha256_update>:
+    15c0:	push   %rbp
+    15c1:	mov    %rsp,%rbp
+    15c4:	sub    $0x20,%rsp
+    15c8:	mov    %rdi,-0x8(%rbp)
+    15cc:	mov    %rsi,-0x10(%rbp)
+    15d0:	mov    %rdx,-0x18(%rbp)
+    15d4:	movl   $0x0,-0x1c(%rbp)
+    15db:	mov    -0x1c(%rbp),%eax
+    15de:	cmp    -0x18(%rbp),%rax
+    15e2:	jae    1659 <sha256_update+0x99>
+    15e8:	mov    -0x10(%rbp),%rax
+    15ec:	mov    -0x1c(%rbp),%ecx
+    15ef:	mov    (%rax,%rcx,1),%dl
+    15f2:	mov    -0x8(%rbp),%rax
+    15f6:	mov    -0x8(%rbp),%rcx
+    15fa:	mov    0x40(%rcx),%ecx
+    15fd:	mov    %dl,(%rax,%rcx,1)
+    1600:	mov    -0x8(%rbp),%rax
+    1604:	mov    0x40(%rax),%ecx
+    1607:	add    $0x1,%ecx
+    160a:	mov    %ecx,0x40(%rax)
+    160d:	mov    -0x8(%rbp),%rax
+    1611:	cmpl   $0x40,0x40(%rax)
+    1615:	jne    1646 <sha256_update+0x86>
+    161b:	mov    -0x8(%rbp),%rdi
+    161f:	mov    -0x8(%rbp),%rsi
+    1623:	call   11d0 <sha256_transform>
+    1628:	mov    -0x8(%rbp),%rax
+    162c:	mov    0x48(%rax),%rcx
+    1630:	add    $0x200,%rcx
+    1637:	mov    %rcx,0x48(%rax)
+    163b:	mov    -0x8(%rbp),%rax
+    163f:	movl   $0x0,0x40(%rax)
+    1646:	jmp    164b <sha256_update+0x8b>
+    164b:	mov    -0x1c(%rbp),%eax
+    164e:	add    $0x1,%eax
+    1651:	mov    %eax,-0x1c(%rbp)
+    1654:	jmp    15db <sha256_update+0x1b>
+    1659:	add    $0x20,%rsp
+    165d:	pop    %rbp
+    165e:	ret
+
+Disassembly of section .fini:

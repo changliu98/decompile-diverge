@@ -1,0 +1,1 @@
+int func0(char a[], char b[]) { int lena = strlen(a); int lenb = strlen(b); char *buf = malloc((size_t)(2*lenb+1)); for (int i = 0; i < lenb; i++) { strncpy(buf, b+i, lenb-i); strncpy(buf+lenb-i, b, i); buf[lenb] = '\0'; if (strstr(a, buf)) { free(buf); return 1; } } free(buf); return 0; }

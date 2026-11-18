@@ -1,0 +1,349 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+opll], rdi\nmov     rax, [rbp+opll]\nmov     ecx, [rax+74h]\nadd     ecx, 1\nmov     [rax+74h], ecx\nmov     [rbp+i], 0\ncmp     [rbp+i], 12h\njge     loc_4014\nmov     rax, [rbp+opll]\nadd     rax, 0B0h\nmovsxd  rcx, [rbp+i]\nimul    rcx, 48h ; 'H'\nadd     rax, rcx\nmov     [rbp+slot], rax\nmov     [rbp+buddy], 0\nmov     rax, [rbp+slot]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 0\njnz     loc_3F7A\nmov     rax, [rbp+opll]\nadd     rax, 0B0h\nmov     ecx, [rbp+i]\nadd     ecx, 1\nmovsxd  rcx, ecx\nimul    rcx, 48h ; 'H'\nadd     rax, rcx\nmov     [rbp+buddy], rax\nmov     rax, [rbp+slot]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 1\njnz     loc_3FA9\nmov     rax, [rbp+opll]\nadd     rax, 0B0h\nmov     ecx, [rbp+i]\nsub     ecx, 1\nmovsxd  rcx, ecx\nimul    rcx, 48h ; 'H'\nadd     rax, rcx\nmov     [rbp+buddy], rax\nmov     rax, [rbp+slot]\ncmp     dword ptr [rax+44h], 0\njz      loc_3FC0\nmov     rdi, [rbp+slot]; slot\ncall    commit_slot_update\nmov     rdi, [rbp+slot]; slot\nmov     rsi, [rbp+buddy]; buddy\nmov     rax, [rbp+opll]\nmov     eax, [rax+74h]\nmov     cx, ax\nmov     rax, [rbp+opll]\nmovzx   eax, byte ptr [rax+68h]\nand     eax, 1\nmovzx   edx, cx; eg_counter\nmovzx   ecx, al; test\ncall    calc_envelope\nmov     rdi, [rbp+slot]; slot\nmov     rax, [rbp+opll]\nmov     esi, [rax+78h]; pm_phase\nmov     rax, [rbp+opll]\nmovzx   eax, byte ptr [rax+68h]\nand     eax, 4\nmovzx   edx, al; reset\ncall    calc_phase\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_3F20\nadd     rsp, 20h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 10,
+  "edges": [
+   [
+    "start",
+    "loc_3F20"
+   ],
+   [
+    "loc_3F20",
+    "loc_3F2A"
+   ],
+   [
+    "loc_3F20",
+    "loc_4014"
+   ],
+   [
+    "loc_3F2A",
+    "loc_3F5C"
+   ],
+   [
+    "loc_3F2A",
+    "loc_3F7A"
+   ],
+   [
+    "loc_3F5C",
+    "loc_3F7A"
+   ],
+   [
+    "loc_3F7A",
+    "loc_3F8B"
+   ],
+   [
+    "loc_3F7A",
+    "loc_3FA9"
+   ],
+   [
+    "loc_3F8B",
+    "loc_3FA9"
+   ],
+   [
+    "loc_3FA9",
+    "loc_3FB7"
+   ],
+   [
+    "loc_3FA9",
+    "loc_3FC0"
+   ],
+   [
+    "loc_3FB7",
+    "loc_3FC0"
+   ],
+   [
+    "loc_3FC0",
+    "loc_3F20"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+opll], rdi\nmov     rax, [rbp+opll]\nmov     ecx, [rax+74h]\nadd     ecx, 1\nmov     [rax+74h], ecx\nmov     [rbp+i], 0",
+   "loc_3F20": "cmp     [rbp+i], 12h\njge     loc_4014",
+   "loc_3F2A": "mov     rax, [rbp+opll]\nadd     rax, 0B0h\nmovsxd  rcx, [rbp+i]\nimul    rcx, 48h ; 'H'\nadd     rax, rcx\nmov     [rbp+slot], rax\nmov     [rbp+buddy], 0\nmov     rax, [rbp+slot]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 0\njnz     loc_3F7A",
+   "loc_3F5C": "mov     rax, [rbp+opll]\nadd     rax, 0B0h\nmov     ecx, [rbp+i]\nadd     ecx, 1\nmovsxd  rcx, ecx\nimul    rcx, 48h ; 'H'\nadd     rax, rcx\nmov     [rbp+buddy], rax",
+   "loc_3F7A": "mov     rax, [rbp+slot]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 1\njnz     loc_3FA9",
+   "loc_3F8B": "mov     rax, [rbp+opll]\nadd     rax, 0B0h\nmov     ecx, [rbp+i]\nsub     ecx, 1\nmovsxd  rcx, ecx\nimul    rcx, 48h ; 'H'\nadd     rax, rcx\nmov     [rbp+buddy], rax",
+   "loc_3FA9": "mov     rax, [rbp+slot]\ncmp     dword ptr [rax+44h], 0\njz      loc_3FC0",
+   "loc_3FB7": "mov     rdi, [rbp+slot]; slot\ncall    commit_slot_update",
+   "loc_3FC0": "mov     rdi, [rbp+slot]; slot\nmov     rsi, [rbp+buddy]; buddy\nmov     rax, [rbp+opll]\nmov     eax, [rax+74h]\nmov     cx, ax\nmov     rax, [rbp+opll]\nmovzx   eax, byte ptr [rax+68h]\nand     eax, 1\nmovzx   edx, cx; eg_counter\nmovzx   ecx, al; test\ncall    calc_envelope\nmov     rdi, [rbp+slot]; slot\nmov     rax, [rbp+opll]\nmov     esi, [rax+78h]; pm_phase\nmov     rax, [rbp+opll]\nmovzx   eax, byte ptr [rax+68h]\nand     eax, 4\nmovzx   edx, al; reset\ncall    calc_phase\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_3F20",
+   "loc_4014": "add     rsp, 20h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "buddy": "qword ptr -20h",
+   "slot": "qword ptr -18h",
+   "i": "dword ptr -0Ch",
+   "opll": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 16128,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".cos": "cos",
+  "_cos": "cos",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".sin": "sin",
+  "_sin": "sin",
+  ".floor": "floor",
+  "_floor": "floor",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".cos",
+   ".plt",
+   true,
+   "cos"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".sin",
+   ".plt",
+   true,
+   "sin"
+  ],
+  [
+   ".floor",
+   ".plt",
+   true,
+   "floor"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "cos",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "sin",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "floor",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872666
+ }
+}

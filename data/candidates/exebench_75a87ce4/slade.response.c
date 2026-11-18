@@ -1,0 +1,1 @@
+void f(struct s *a, char *b) { b[1] = a->a; }

@@ -1,0 +1,1 @@
+int sendbytes(int dev, char *buf, int count) { write(dev, buf, count); return 0; }

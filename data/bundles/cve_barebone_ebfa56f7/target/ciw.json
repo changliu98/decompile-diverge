@@ -1,0 +1,535 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 140h\nmov     [rbp+new], rdi\nmov     [rbp+c], 0FFFFFFFFh\nmov     [rbp+bot], 0\nmov     eax, cs:supported_elements_count\nmov     [rbp+top], eax\nmov     eax, [rbp+top]\ncmp     eax, [rbp+bot]\njle     loc_297A\nmov     eax, [rbp+top]\nadd     eax, [rbp+bot]\nmov     ecx, 2\ncdq\nidiv    ecx\nmov     [rbp+mid], eax\nmov     rdi, [rbp+new]\nadd     rdi, 20h ; ' '; s1\nmovsxd  rcx, [rbp+mid]\nlea     rax, supported_elements\nshl     rcx, 4\nadd     rax, rcx\nmov     rsi, [rax]; s2\ncall    strcmp\nmov     [rbp+c], eax\ncmp     [rbp+c], 0\njnz     loc_2957\njmp     loc_297A\ncmp     [rbp+c], 0\njge     loc_296C\nmov     eax, [rbp+mid]\nmov     [rbp+top], eax\njmp     loc_2975\nmov     eax, [rbp+mid]\nadd     eax, 1\nmov     [rbp+bot], eax\njmp     loc_2906\ncmp     [rbp+c], 0\njz      loc_29EF\nmov     rdi, cs:unknown_element_tree; p\nmov     rsi, [rbp+new]\nadd     rsi, 20h ; ' '; name\ncall    tree_search\nmov     [rbp+tn], rax\ncmp     [rbp+tn], 0\njnz     loc_29EA\nmov     rdi, [rbp+new]\nadd     rdi, 20h ; ' '; s\ncall    strlen\ncdqe\nadd     rax, 20h ; ' '\nmov     edi, eax; size\ncall    misc_malloc\nmov     [rbp+tn], rax\nmov     rdi, [rbp+tn]\nadd     rdi, 19h; dest\nmov     rsi, [rbp+new]\nadd     rsi, 20h ; ' '; src\ncall    strcpy\nmov     rsi, [rbp+tn]; node\nlea     rdi, unknown_element_tree; treebase\ncall    tree_insertnode\njmp     loc_2BEB\nmov     rax, [rbp+new]\nmov     rax, [rax+40h]\nmov     [rbp+param], rax\ncmp     [rbp+param], 0\njz      loc_2BEB\nmov     rax, [rbp+param]\nmovzx   eax, byte ptr [rax+8]\ncmp     eax, 23h ; '#'\njnz     loc_2A1C\njmp     loc_2BDB\nmov     rdi, [rbp+param]\nadd     rdi, 8; s1\nlea     rsi, s2; \"revisionflag\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_2A8D\nmov     rdi, [rbp+param]\nadd     rdi, 29h ; ')'; s1\nlea     rsi, aChanged; \"changed\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_2A5B\njmp     loc_2BDB\nlea     rdi, [rbp+buffer]; s\nmov     rdx, [rbp+param]\nadd     rdx, 8\nmov     rcx, [rbp+param]\nadd     rcx, 29h ; ')'\nmov     r8, [rbp+new]\nadd     r8, 20h ; ' '\nlea     rsi, format; \"+%s=%s:%s\"\nmov     al, 0\ncall    sprintf\njmp     loc_2B73\nmovsxd  rcx, [rbp+mid]\nlea     rax, supported_elements\nshl     rcx, 4\nadd     rax, rcx\nmov     rax, [rax+8]\nmov     [rbp+aptr], rax\ncmp     [rbp+aptr], 0\njz      loc_2B4E\nmov     rax, [rbp+aptr]\nmov     rdi, [rax]; s1\nlea     rsi, asc_3004; \"*\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_2ADC\njmp     loc_2BDB\njmp     $+5\nmov     rax, [rbp+aptr]\ncmp     qword ptr [rax], 0\njz      loc_2B33\nmov     rax, [rbp+aptr]\nmov     rdi, [rax]; s1\nmov     rsi, [rbp+param]\nadd     rsi, 8; s2\ncall    strcmp\ncmp     eax, 0\njnz     loc_2B17\njmp     loc_2B33\njmp     $+5\nmov     rax, [rbp+aptr]\nadd     rax, 8\nmov     [rbp+aptr], rax\njmp     loc_2AE1\nmov     rax, [rbp+aptr]\ncmp     qword ptr [rax], 0\njz      loc_2B49\njmp     loc_2BDB\njmp     $+5\nlea     rdi, [rbp+buffer]; s\nmov     rdx, [rbp+param]\nadd     rdx, 8\nmov     rcx, [rbp+new]\nadd     rcx, 20h ; ' '\nlea     rsi, aSS; \"+%s:%s\"\nmov     al, 0\ncall    sprintf\nmov     rdi, cs:unknown_element_tree; p\nlea     rsi, [rbp+buffer]; name\ncall    tree_search\nmov     [rbp+tn], rax\ncmp     [rbp+tn], 0\njnz     loc_2BD6\nlea     rdi, [rbp+buffer]; s\ncall    strlen\ncdqe\nadd     rax, 20h ; ' '\nmov     edi, eax; size\ncall    misc_malloc\nmov     [rbp+tn], rax\nmov     rdi, [rbp+tn]\nadd     rdi, 19h; dest\nlea     rsi, [rbp+buffer]; src\ncall    strcpy\nmov     rsi, [rbp+tn]; node\nlea     rdi, unknown_element_tree; treebase\ncall    tree_insertnode\njmp     $+5\nmov     rax, [rbp+param]\nmov     rax, [rax]\nmov     [rbp+param], rax\njmp     loc_29FB\nadd     rsp, 140h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 38,
+  "edges": [
+   [
+    "start",
+    "loc_2906"
+   ],
+   [
+    "loc_2906",
+    "loc_2912"
+   ],
+   [
+    "loc_2906",
+    "loc_297A"
+   ],
+   [
+    "loc_2912",
+    "loc_2952"
+   ],
+   [
+    "loc_2912",
+    "loc_2957"
+   ],
+   [
+    "loc_2952",
+    "loc_297A"
+   ],
+   [
+    "loc_2957",
+    "loc_2961"
+   ],
+   [
+    "loc_2957",
+    "loc_296C"
+   ],
+   [
+    "loc_2961",
+    "loc_2975"
+   ],
+   [
+    "loc_296C",
+    "loc_2975"
+   ],
+   [
+    "loc_2975",
+    "loc_2906"
+   ],
+   [
+    "loc_297A",
+    "loc_2984"
+   ],
+   [
+    "loc_297A",
+    "loc_29EF"
+   ],
+   [
+    "loc_2984",
+    "loc_29A7"
+   ],
+   [
+    "loc_2984",
+    "loc_29EA"
+   ],
+   [
+    "loc_29A7",
+    "loc_29EA"
+   ],
+   [
+    "loc_29EA",
+    "loc_2BEB"
+   ],
+   [
+    "loc_29EF",
+    "loc_29FB"
+   ],
+   [
+    "loc_29FB",
+    "loc_2A06"
+   ],
+   [
+    "loc_29FB",
+    "loc_2BEB"
+   ],
+   [
+    "loc_2A06",
+    "loc_2A17"
+   ],
+   [
+    "loc_2A06",
+    "loc_2A1C"
+   ],
+   [
+    "loc_2A17",
+    "loc_2BDB"
+   ],
+   [
+    "loc_2A1C",
+    "loc_2A39"
+   ],
+   [
+    "loc_2A1C",
+    "loc_2A8D"
+   ],
+   [
+    "loc_2A39",
+    "loc_2A56"
+   ],
+   [
+    "loc_2A39",
+    "loc_2A5B"
+   ],
+   [
+    "loc_2A56",
+    "loc_2BDB"
+   ],
+   [
+    "loc_2A5B",
+    "loc_2B73"
+   ],
+   [
+    "loc_2A8D",
+    "loc_2AB8"
+   ],
+   [
+    "loc_2A8D",
+    "loc_2B4E"
+   ],
+   [
+    "loc_2AB8",
+    "loc_2AD7"
+   ],
+   [
+    "loc_2AB8",
+    "loc_2ADC"
+   ],
+   [
+    "loc_2AD7",
+    "loc_2BDB"
+   ],
+   [
+    "loc_2ADC",
+    "loc_2AE1"
+   ],
+   [
+    "loc_2AE1",
+    "loc_2AF2"
+   ],
+   [
+    "loc_2AE1",
+    "loc_2B33"
+   ],
+   [
+    "loc_2AF2",
+    "loc_2B12"
+   ],
+   [
+    "loc_2AF2",
+    "loc_2B17"
+   ],
+   [
+    "loc_2B12",
+    "loc_2B33"
+   ],
+   [
+    "loc_2B17",
+    "loc_2B1C"
+   ],
+   [
+    "loc_2B1C",
+    "loc_2AE1"
+   ],
+   [
+    "loc_2B33",
+    "loc_2B44"
+   ],
+   [
+    "loc_2B33",
+    "loc_2B49"
+   ],
+   [
+    "loc_2B44",
+    "loc_2BDB"
+   ],
+   [
+    "loc_2B49",
+    "loc_2B4E"
+   ],
+   [
+    "loc_2B4E",
+    "loc_2B73"
+   ],
+   [
+    "loc_2B73",
+    "loc_2B95"
+   ],
+   [
+    "loc_2B73",
+    "loc_2BD6"
+   ],
+   [
+    "loc_2B95",
+    "loc_2BD6"
+   ],
+   [
+    "loc_2BD6",
+    "loc_2BDB"
+   ],
+   [
+    "loc_2BDB",
+    "loc_29FB"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 140h\nmov     [rbp+new], rdi\nmov     [rbp+c], 0FFFFFFFFh\nmov     [rbp+bot], 0\nmov     eax, cs:supported_elements_count\nmov     [rbp+top], eax",
+   "loc_2906": "mov     eax, [rbp+top]\ncmp     eax, [rbp+bot]\njle     loc_297A",
+   "loc_2912": "mov     eax, [rbp+top]\nadd     eax, [rbp+bot]\nmov     ecx, 2\ncdq\nidiv    ecx\nmov     [rbp+mid], eax\nmov     rdi, [rbp+new]\nadd     rdi, 20h ; ' '; s1\nmovsxd  rcx, [rbp+mid]\nlea     rax, supported_elements\nshl     rcx, 4\nadd     rax, rcx\nmov     rsi, [rax]; s2\ncall    strcmp\nmov     [rbp+c], eax\ncmp     [rbp+c], 0\njnz     loc_2957",
+   "loc_2952": "jmp     loc_297A",
+   "loc_2957": "cmp     [rbp+c], 0\njge     loc_296C",
+   "loc_2961": "mov     eax, [rbp+mid]\nmov     [rbp+top], eax\njmp     loc_2975",
+   "loc_296C": "mov     eax, [rbp+mid]\nadd     eax, 1\nmov     [rbp+bot], eax",
+   "loc_2975": "jmp     loc_2906",
+   "loc_297A": "cmp     [rbp+c], 0\njz      loc_29EF",
+   "loc_2984": "mov     rdi, cs:unknown_element_tree; p\nmov     rsi, [rbp+new]\nadd     rsi, 20h ; ' '; name\ncall    tree_search\nmov     [rbp+tn], rax\ncmp     [rbp+tn], 0\njnz     loc_29EA",
+   "loc_29A7": "mov     rdi, [rbp+new]\nadd     rdi, 20h ; ' '; s\ncall    strlen\ncdqe\nadd     rax, 20h ; ' '\nmov     edi, eax; size\ncall    misc_malloc\nmov     [rbp+tn], rax\nmov     rdi, [rbp+tn]\nadd     rdi, 19h; dest\nmov     rsi, [rbp+new]\nadd     rsi, 20h ; ' '; src\ncall    strcpy\nmov     rsi, [rbp+tn]; node\nlea     rdi, unknown_element_tree; treebase\ncall    tree_insertnode",
+   "loc_29EA": "jmp     loc_2BEB",
+   "loc_29EF": "mov     rax, [rbp+new]\nmov     rax, [rax+40h]\nmov     [rbp+param], rax",
+   "loc_29FB": "cmp     [rbp+param], 0\njz      loc_2BEB",
+   "loc_2A06": "mov     rax, [rbp+param]\nmovzx   eax, byte ptr [rax+8]\ncmp     eax, 23h ; '#'\njnz     loc_2A1C",
+   "loc_2A17": "jmp     loc_2BDB",
+   "loc_2A1C": "mov     rdi, [rbp+param]\nadd     rdi, 8; s1\nlea     rsi, s2; \"revisionflag\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_2A8D",
+   "loc_2A39": "mov     rdi, [rbp+param]\nadd     rdi, 29h ; ')'; s1\nlea     rsi, aChanged; \"changed\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_2A5B",
+   "loc_2A56": "jmp     loc_2BDB",
+   "loc_2A5B": "lea     rdi, [rbp+buffer]; s\nmov     rdx, [rbp+param]\nadd     rdx, 8\nmov     rcx, [rbp+param]\nadd     rcx, 29h ; ')'\nmov     r8, [rbp+new]\nadd     r8, 20h ; ' '\nlea     rsi, format; \"+%s=%s:%s\"\nmov     al, 0\ncall    sprintf\njmp     loc_2B73",
+   "loc_2A8D": "movsxd  rcx, [rbp+mid]\nlea     rax, supported_elements\nshl     rcx, 4\nadd     rax, rcx\nmov     rax, [rax+8]\nmov     [rbp+aptr], rax\ncmp     [rbp+aptr], 0\njz      loc_2B4E",
+   "loc_2AB8": "mov     rax, [rbp+aptr]\nmov     rdi, [rax]; s1\nlea     rsi, asc_3004; \"*\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_2ADC",
+   "loc_2AD7": "jmp     loc_2BDB",
+   "loc_2ADC": "jmp     $+5",
+   "loc_2AE1": "mov     rax, [rbp+aptr]\ncmp     qword ptr [rax], 0\njz      loc_2B33",
+   "loc_2AF2": "mov     rax, [rbp+aptr]\nmov     rdi, [rax]; s1\nmov     rsi, [rbp+param]\nadd     rsi, 8; s2\ncall    strcmp\ncmp     eax, 0\njnz     loc_2B17",
+   "loc_2B12": "jmp     loc_2B33",
+   "loc_2B17": "jmp     $+5",
+   "loc_2B1C": "mov     rax, [rbp+aptr]\nadd     rax, 8\nmov     [rbp+aptr], rax\njmp     loc_2AE1",
+   "loc_2B33": "mov     rax, [rbp+aptr]\ncmp     qword ptr [rax], 0\njz      loc_2B49",
+   "loc_2B44": "jmp     loc_2BDB",
+   "loc_2B49": "jmp     $+5",
+   "loc_2B4E": "lea     rdi, [rbp+buffer]; s\nmov     rdx, [rbp+param]\nadd     rdx, 8\nmov     rcx, [rbp+new]\nadd     rcx, 20h ; ' '\nlea     rsi, aSS; \"+%s:%s\"\nmov     al, 0\ncall    sprintf",
+   "loc_2B73": "mov     rdi, cs:unknown_element_tree; p\nlea     rsi, [rbp+buffer]; name\ncall    tree_search\nmov     [rbp+tn], rax\ncmp     [rbp+tn], 0\njnz     loc_2BD6",
+   "loc_2B95": "lea     rdi, [rbp+buffer]; s\ncall    strlen\ncdqe\nadd     rax, 20h ; ' '\nmov     edi, eax; size\ncall    misc_malloc\nmov     [rbp+tn], rax\nmov     rdi, [rbp+tn]\nadd     rdi, 19h; dest\nlea     rsi, [rbp+buffer]; src\ncall    strcpy\nmov     rsi, [rbp+tn]; node\nlea     rdi, unknown_element_tree; treebase\ncall    tree_insertnode",
+   "loc_2BD6": "jmp     $+5",
+   "loc_2BDB": "mov     rax, [rbp+param]\nmov     rax, [rax]\nmov     [rbp+param], rax\njmp     loc_29FB",
+   "loc_2BEB": "add     rsp, 140h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "aptr": "qword ptr -138h",
+   "buffer": "byte ptr -130h",
+   "param": "qword ptr -28h",
+   "tn": "qword ptr -20h",
+   "mid": "dword ptr -18h",
+   "top": "dword ptr -14h",
+   "bot": "dword ptr -10h",
+   "c": "dword ptr -0Ch",
+   "new": "qword ptr -8"
+  },
+  ".rodata": {
+   "s2": "byte 'revisionflag',0",
+   "aChanged": "byte 'changed',0",
+   "format": "byte '+%s=%s:%s',0",
+   "asc_3004": "byte '*',0",
+   "aSS": "byte '+%s:%s',0"
+  },
+  ".data": {
+   "supported_elements_count": "dword 80h",
+   "supported_elements": "qword offset aAbbrev"
+  },
+  ".bss": {
+   "unknown_element_tree": "[]"
+  }
+ },
+ "func_ea": 10464,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".strcpy": "strcpy",
+  "_strcpy": "strcpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".sprintf": "sprintf",
+  "_sprintf": "sprintf",
+  ".exit": "exit",
+  "_exit": "exit"
+ },
+ "thunk_debug": [
+  [
+   "sub_2020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".strcpy",
+   ".plt",
+   true,
+   "strcpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".sprintf",
+   ".plt",
+   true,
+   "sprintf"
+  ],
+  [
+   ".exit",
+   ".plt",
+   true,
+   "exit"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "sprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "exit",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868498
+ }
+}

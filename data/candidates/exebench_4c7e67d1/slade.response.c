@@ -1,0 +1,1 @@
+float ffvers(float *x) { return (*x = 3.14f); }

@@ -1,0 +1,55 @@
+00000000000011e0 <xCorrCoef>:
+    11e0:	push   %rbp
+    11e1:	mov    %rsp,%rbp
+    11e4:	mov    %rdi,-0x10(%rbp)
+    11e8:	mov    %rsi,-0x18(%rbp)
+    11ec:	mov    %edx,-0x1c(%rbp)
+    11ef:	xorps  %xmm0,%xmm0
+    11f2:	movss  %xmm0,-0x24(%rbp)
+    11f7:	xorps  %xmm0,%xmm0
+    11fa:	movss  %xmm0,-0x28(%rbp)
+    11ff:	movl   $0x0,-0x20(%rbp)
+    1206:	mov    -0x20(%rbp),%eax
+    1209:	cmp    -0x1c(%rbp),%eax
+    120c:	jge    1278 <xCorrCoef+0x98>
+    1212:	mov    -0x10(%rbp),%rax
+    1216:	movslq -0x20(%rbp),%rcx
+    121a:	movss  (%rax,%rcx,4),%xmm0
+    121f:	mov    -0x18(%rbp),%rax
+    1223:	movslq -0x20(%rbp),%rcx
+    1227:	movss  (%rax,%rcx,4),%xmm2
+    122c:	movss  -0x24(%rbp),%xmm1
+    1231:	mulss  %xmm2,%xmm0
+    1235:	addss  %xmm1,%xmm0
+    1239:	movss  %xmm0,-0x24(%rbp)
+    123e:	mov    -0x18(%rbp),%rax
+    1242:	movslq -0x20(%rbp),%rcx
+    1246:	movss  (%rax,%rcx,4),%xmm0
+    124b:	mov    -0x18(%rbp),%rax
+    124f:	movslq -0x20(%rbp),%rcx
+    1253:	movss  (%rax,%rcx,4),%xmm2
+    1258:	movss  -0x28(%rbp),%xmm1
+    125d:	mulss  %xmm2,%xmm0
+    1261:	addss  %xmm1,%xmm0
+    1265:	movss  %xmm0,-0x28(%rbp)
+    126a:	mov    -0x20(%rbp),%eax
+    126d:	add    $0x1,%eax
+    1270:	mov    %eax,-0x20(%rbp)
+    1273:	jmp    1206 <xCorrCoef+0x26>
+    1278:	movss  -0x24(%rbp),%xmm0
+    127d:	cvtss2sd %xmm0,%xmm0
+    1281:	xorps  %xmm1,%xmm1
+    1284:	ucomisd %xmm1,%xmm0
+    1288:	jbe    12a7 <xCorrCoef+0xc7>
+    128e:	movss  -0x24(%rbp),%xmm0
+    1293:	mulss  -0x24(%rbp),%xmm0
+    1298:	divss  -0x28(%rbp),%xmm0
+    129d:	movss  %xmm0,-0x4(%rbp)
+    12a2:	jmp    12af <xCorrCoef+0xcf>
+    12a7:	xorps  %xmm0,%xmm0
+    12aa:	movss  %xmm0,-0x4(%rbp)
+    12af:	movss  -0x4(%rbp),%xmm0
+    12b4:	pop    %rbp
+    12b5:	ret
+
+Disassembly of section .fini:

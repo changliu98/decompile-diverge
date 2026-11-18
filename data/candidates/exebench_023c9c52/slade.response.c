@@ -1,0 +1,1 @@
+int i2s_sf_sclkdiv(int sclk, u32 * div_bits) { int div; switch (sclk) { case 1: *div_bits |=0x00800000 |0x00800000; return 0; case 3: *div_bits |=0x00800000; return 0; } return 0; }

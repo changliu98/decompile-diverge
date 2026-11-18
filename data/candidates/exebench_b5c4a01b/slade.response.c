@@ -1,0 +1,1 @@
+void vec3d_set(vec3d r, double x, double y, double z) { r[0] = x; r[1] = y; r[2] = z; }

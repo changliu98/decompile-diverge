@@ -1,0 +1,58 @@
+00000000000011c0 <denormal_addf1>:
+    11c0:	push   %rbp
+    11c1:	mov    %rsp,%rbp
+    11c4:	mov    %edi,-0x8(%rbp)
+    11c7:	mov    %esi,-0xc(%rbp)
+    11ca:	cmpl   $0x800000,-0x8(%rbp)
+    11d1:	jae    11e5 <denormal_addf1+0x25>
+    11d7:	mov    -0x8(%rbp),%eax
+    11da:	add    -0xc(%rbp),%eax
+    11dd:	mov    %eax,-0x4(%rbp)
+    11e0:	jmp    127c <denormal_addf1+0xbc>
+    11e5:	mov    -0x8(%rbp),%eax
+    11e8:	and    $0x7f800000,%eax
+    11ed:	shr    $0x17,%eax
+    11f0:	mov    %eax,-0x14(%rbp)
+    11f3:	mov    -0x14(%rbp),%eax
+    11f6:	sub    $0x1,%eax
+    11f9:	cmp    $0x1f,%eax
+    11fc:	jle    120d <denormal_addf1+0x4d>
+    1202:	mov    -0x8(%rbp),%eax
+    1205:	mov    %eax,-0x4(%rbp)
+    1208:	jmp    127c <denormal_addf1+0xbc>
+    120d:	mov    -0x14(%rbp),%ecx
+    1210:	sub    $0x1,%ecx
+    1213:	mov    -0xc(%rbp),%eax
+    1216:	shr    %cl,%eax
+    1218:	mov    %eax,-0xc(%rbp)
+    121b:	cmpl   $0x0,-0xc(%rbp)
+    121f:	jne    1230 <denormal_addf1+0x70>
+    1225:	mov    -0x8(%rbp),%eax
+    1228:	mov    %eax,-0x4(%rbp)
+    122b:	jmp    127c <denormal_addf1+0xbc>
+    1230:	mov    -0x8(%rbp),%eax
+    1233:	and    $0x7fffff,%eax
+    1238:	or     $0x800000,%eax
+    123d:	mov    %eax,-0x10(%rbp)
+    1240:	mov    -0xc(%rbp),%eax
+    1243:	add    -0x10(%rbp),%eax
+    1246:	mov    %eax,-0x10(%rbp)
+    1249:	cmpl   $0x1000000,-0x10(%rbp)
+    1250:	jl     1268 <denormal_addf1+0xa8>
+    1256:	mov    -0x10(%rbp),%eax
+    1259:	sar    $0x1,%eax
+    125c:	mov    %eax,-0x10(%rbp)
+    125f:	mov    -0x14(%rbp),%eax
+    1262:	add    $0x1,%eax
+    1265:	mov    %eax,-0x14(%rbp)
+    1268:	mov    -0x14(%rbp),%eax
+    126b:	shl    $0x17,%eax
+    126e:	mov    -0x10(%rbp),%ecx
+    1271:	and    $0x7fffff,%ecx
+    1277:	or     %ecx,%eax
+    1279:	mov    %eax,-0x4(%rbp)
+    127c:	mov    -0x4(%rbp),%eax
+    127f:	pop    %rbp
+    1280:	ret
+
+Disassembly of section .fini:

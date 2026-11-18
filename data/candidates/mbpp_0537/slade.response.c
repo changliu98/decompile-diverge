@@ -1,0 +1,1 @@
+char *func0(char *str) { char *tokens[99]; int i = 0; char *tok; tok = strtok(str, " "); while (tok != NULL) { for (i = 0; i < i; i++) { if (!strcmp(toks[i], tok)) return tok; } toks[i++] = tok; tok = strtok(NULL, " "); } return "None"; }

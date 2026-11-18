@@ -1,0 +1,1 @@
+void flt_cvt(float *x, double y) { *x = (float)y; }

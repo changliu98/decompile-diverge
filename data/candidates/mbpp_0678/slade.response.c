@@ -1,0 +1,1 @@
+char *func0(char *str) { int i; int j = 0; int l = strlen(str); for (i = 0; i < l; i++) { if (str[i] != ' ') str[j++] = str[i]; } str[j] = '\0'; return str; }

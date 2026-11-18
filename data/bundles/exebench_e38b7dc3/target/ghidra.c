@@ -1,0 +1,62 @@
+void rfft4pt(float *ioptr)
+
+{
+  float fVar1;
+  float fVar2;
+  float fVar3;
+  float fVar4;
+  float fVar5;
+  float fVar6;
+  float fVar7;
+  float fVar8;
+  float fVar9;
+  float fVar10;
+  float fVar11;
+  float fVar12;
+  float scale;
+  float Two;
+  float w0r;
+  float t1i;
+  float t1r;
+  float t0i;
+  float t0r;
+  float f3i;
+  float f3r;
+  float f2i;
+  float f2r;
+  float f1i;
+  float f1r;
+  float f0i;
+  float f0r;
+  float *ioptr_local;
+  
+  fVar1 = *ioptr + ioptr[4];
+  fVar2 = ioptr[1] + ioptr[5];
+  fVar3 = *ioptr - ioptr[4];
+  fVar4 = ioptr[1] - ioptr[5];
+  fVar5 = ioptr[2] - ioptr[6];
+  fVar6 = ioptr[3] - ioptr[7];
+  fVar7 = ioptr[2] + ioptr[6];
+  fVar8 = ioptr[3] + ioptr[7];
+  fVar9 = fVar1 + fVar7;
+  fVar10 = fVar2 + fVar8;
+  fVar11 = fVar3 - fVar6;
+  fVar12 = fVar4 + fVar5;
+  fVar3 = fVar3 + fVar6;
+  fVar4 = fVar4 - fVar5;
+  fVar5 = fVar3 + fVar11;
+  fVar6 = fVar4 - fVar12;
+  fVar4 = fVar4 + fVar12;
+  fVar11 = fVar11 - fVar3;
+  fVar12 = DAT_00102028 * fVar11 + DAT_00102028 * fVar4 + fVar5;
+  fVar3 = DAT_00102028 * fVar11 + -DAT_00102028 * fVar4 + fVar6;
+  ioptr[4] = fVar1 - fVar7;
+  ioptr[5] = fVar8 - fVar2;
+  *ioptr = fVar9 + fVar10;
+  ioptr[1] = fVar9 - fVar10;
+  ioptr[2] = DAT_00102020 * fVar12;
+  ioptr[3] = DAT_00102020 * fVar3;
+  ioptr[6] = DAT_00102020 * (fVar5 + fVar5 + -fVar12);
+  ioptr[7] = DAT_00102020 * (fVar3 - (fVar6 + fVar6));
+  return;
+}

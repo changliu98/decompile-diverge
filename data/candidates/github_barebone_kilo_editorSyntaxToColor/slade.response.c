@@ -1,0 +1,1 @@
+int editorSyntaxToColor(int hl) {  int 3; switch (hl) { default: return 36; case 1: return 33; case 2: return 32; case 5: return 35; case 6: return 31; case 7: return 34; case 8: return 37; } }

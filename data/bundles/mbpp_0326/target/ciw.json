@@ -1,0 +1,490 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 80h\nmov     [rbp+n], edi\nmov     [rbp+test_list], rsi\nmov     [rbp+unique], 0\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+n]\njge     loc_1469\nmov     rax, [rbp+test_list]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmov     [rbp+str], rax\nmov     [rbp+pos], 0\nmov     rax, [rbp+str]\ncmp     byte ptr [rax], 0\njz      loc_137F\ncall    ___ctype_b_loc\nmov     rax, [rax]\nmov     rcx, [rbp+str]\nmovsx   ecx, byte ptr [rcx]\nmovsxd  rcx, ecx\nmovzx   eax, word ptr [rax+rcx*2]\nand     eax, 2000h\ncmp     eax, 0\njnz     loc_1290\nmov     rax, [rbp+str]\nmov     cl, [rax]\nmov     eax, [rbp+pos]\nmov     edx, eax\nadd     edx, 1\nmov     [rbp+pos], edx\ncdqe\nmov     [rbp+rax+word], cl\njmp     loc_136E\ncmp     [rbp+pos], 0\njle     loc_1369\nmovsxd  rax, [rbp+pos]\nmov     [rbp+rax+word], 0\nmov     [rbp+found], 0\nmov     [rbp+j], 0\nmov     eax, [rbp+j]\ncmp     eax, [rbp+unique]\njge     loc_131B\nmovsxd  rax, [rbp+j]\nlea     rdi, func0_words\nimul    rax, 38h ; '8'\nadd     rdi, rax; s1\nlea     rsi, [rbp+word]; s2\ncall    strcmp\ncmp     eax, 0\njnz     loc_1308\nmovsxd  rcx, [rbp+j]\nlea     rax, func0_words\nimul    rcx, 38h ; '8'\nadd     rax, rcx\nmov     ecx, [rax+34h]\nadd     ecx, 1\nmov     [rax+34h], ecx\nmov     [rbp+found], 1\njmp     loc_131B\njmp     $+5\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_12B1\ncmp     [rbp+found], 0\njnz     loc_1362\nmovsxd  rax, [rbp+unique]\nlea     rdi, func0_words\nimul    rax, 38h ; '8'\nadd     rdi, rax; dest\nlea     rsi, [rbp+word]; src\ncall    strcpy\nmovsxd  rcx, [rbp+unique]\nlea     rax, func0_words\nimul    rcx, 38h ; '8'\nadd     rax, rcx\nmov     dword ptr [rax+34h], 1\nmov     eax, [rbp+unique]\nadd     eax, 1\nmov     [rbp+unique], eax\nmov     [rbp+pos], 0\njmp     $+5\nmov     rax, [rbp+str]\nadd     rax, 1\nmov     [rbp+str], rax\njmp     loc_1243\ncmp     [rbp+pos], 0\njle     loc_1456\nmovsxd  rax, [rbp+pos]\nmov     [rbp+rax+word], 0\nmov     [rbp+found_0], 0\nmov     [rbp+j_0], 0\nmov     eax, [rbp+j_0]\ncmp     eax, [rbp+unique]\njge     loc_140A\nmovsxd  rax, [rbp+j_0]\nlea     rdi, func0_words\nimul    rax, 38h ; '8'\nadd     rdi, rax; s1\nlea     rsi, [rbp+word]; s2\ncall    strcmp\ncmp     eax, 0\njnz     loc_13F7\nmovsxd  rcx, [rbp+j_0]\nlea     rax, func0_words\nimul    rcx, 38h ; '8'\nadd     rax, rcx\nmov     ecx, [rax+34h]\nadd     ecx, 1\nmov     [rax+34h], ecx\nmov     [rbp+found_0], 1\njmp     loc_140A\njmp     $+5\nmov     eax, [rbp+j_0]\nadd     eax, 1\nmov     [rbp+j_0], eax\njmp     loc_13A0\ncmp     [rbp+found_0], 0\njnz     loc_1451\nmovsxd  rax, [rbp+unique]\nlea     rdi, func0_words\nimul    rax, 38h ; '8'\nadd     rdi, rax; dest\nlea     rsi, [rbp+word]; src\ncall    strcpy\nmovsxd  rcx, [rbp+unique]\nlea     rax, func0_words\nimul    rcx, 38h ; '8'\nadd     rax, rcx\nmov     dword ptr [rax+34h], 1\nmov     eax, [rbp+unique]\nadd     eax, 1\nmov     [rbp+unique], eax\njmp     $+5\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1220\nmov     [rbp+max], 0\nmov     [rbp+index], 0\nmov     [rbp+i_0], 0\nmov     eax, [rbp+i_0]\ncmp     eax, [rbp+unique]\njge     loc_14D9\nmovsxd  rcx, [rbp+i_0]\nlea     rax, func0_words\nimul    rcx, 38h ; '8'\nadd     rax, rcx\nmov     eax, [rax+34h]\ncmp     eax, [rbp+max]\njle     loc_14C6\nmovsxd  rcx, [rbp+i_0]\nlea     rax, func0_words\nimul    rcx, 38h ; '8'\nadd     rax, rcx\nmov     eax, [rax+34h]\nmov     [rbp+max], eax\nmov     eax, [rbp+i_0]\nmov     [rbp+index], eax\njmp     $+5\nmov     eax, [rbp+i_0]\nadd     eax, 1\nmov     [rbp+i_0], eax\njmp     loc_147E\nmovsxd  rcx, [rbp+index]\nlea     rax, func0_words\nimul    rcx, 38h ; '8'\nadd     rax, rcx\nadd     rsp, 80h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 37,
+  "edges": [
+   [
+    "start",
+    "loc_1220"
+   ],
+   [
+    "loc_1220",
+    "loc_122C"
+   ],
+   [
+    "loc_1220",
+    "loc_1469"
+   ],
+   [
+    "loc_122C",
+    "loc_1243"
+   ],
+   [
+    "loc_1243",
+    "loc_1250"
+   ],
+   [
+    "loc_1243",
+    "loc_137F"
+   ],
+   [
+    "loc_1250",
+    "loc_1274"
+   ],
+   [
+    "loc_1250",
+    "loc_1290"
+   ],
+   [
+    "loc_1274",
+    "loc_136E"
+   ],
+   [
+    "loc_1290",
+    "loc_129A"
+   ],
+   [
+    "loc_1290",
+    "loc_1369"
+   ],
+   [
+    "loc_129A",
+    "loc_12B1"
+   ],
+   [
+    "loc_12B1",
+    "loc_12BD"
+   ],
+   [
+    "loc_12B1",
+    "loc_131B"
+   ],
+   [
+    "loc_12BD",
+    "loc_12E1"
+   ],
+   [
+    "loc_12BD",
+    "loc_1308"
+   ],
+   [
+    "loc_12E1",
+    "loc_131B"
+   ],
+   [
+    "loc_1308",
+    "loc_130D"
+   ],
+   [
+    "loc_130D",
+    "loc_12B1"
+   ],
+   [
+    "loc_131B",
+    "loc_1325"
+   ],
+   [
+    "loc_131B",
+    "loc_1362"
+   ],
+   [
+    "loc_1325",
+    "loc_1362"
+   ],
+   [
+    "loc_1362",
+    "loc_1369"
+   ],
+   [
+    "loc_1369",
+    "loc_136E"
+   ],
+   [
+    "loc_136E",
+    "loc_1243"
+   ],
+   [
+    "loc_137F",
+    "loc_1389"
+   ],
+   [
+    "loc_137F",
+    "loc_1456"
+   ],
+   [
+    "loc_1389",
+    "loc_13A0"
+   ],
+   [
+    "loc_13A0",
+    "loc_13AC"
+   ],
+   [
+    "loc_13A0",
+    "loc_140A"
+   ],
+   [
+    "loc_13AC",
+    "loc_13D0"
+   ],
+   [
+    "loc_13AC",
+    "loc_13F7"
+   ],
+   [
+    "loc_13D0",
+    "loc_140A"
+   ],
+   [
+    "loc_13F7",
+    "loc_13FC"
+   ],
+   [
+    "loc_13FC",
+    "loc_13A0"
+   ],
+   [
+    "loc_140A",
+    "loc_1414"
+   ],
+   [
+    "loc_140A",
+    "loc_1451"
+   ],
+   [
+    "loc_1414",
+    "loc_1451"
+   ],
+   [
+    "loc_1451",
+    "loc_1456"
+   ],
+   [
+    "loc_1456",
+    "loc_145B"
+   ],
+   [
+    "loc_145B",
+    "loc_1220"
+   ],
+   [
+    "loc_1469",
+    "loc_147E"
+   ],
+   [
+    "loc_147E",
+    "loc_148A"
+   ],
+   [
+    "loc_147E",
+    "loc_14D9"
+   ],
+   [
+    "loc_148A",
+    "loc_14A8"
+   ],
+   [
+    "loc_148A",
+    "loc_14C6"
+   ],
+   [
+    "loc_14A8",
+    "loc_14C6"
+   ],
+   [
+    "loc_14C6",
+    "loc_14CB"
+   ],
+   [
+    "loc_14CB",
+    "loc_147E"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 80h\nmov     [rbp+n], edi\nmov     [rbp+test_list], rsi\nmov     [rbp+unique], 0\nmov     [rbp+i], 0",
+   "loc_1220": "mov     eax, [rbp+i]\ncmp     eax, [rbp+n]\njge     loc_1469",
+   "loc_122C": "mov     rax, [rbp+test_list]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmov     [rbp+str], rax\nmov     [rbp+pos], 0",
+   "loc_1243": "mov     rax, [rbp+str]\ncmp     byte ptr [rax], 0\njz      loc_137F",
+   "loc_1250": "call    ___ctype_b_loc\nmov     rax, [rax]\nmov     rcx, [rbp+str]\nmovsx   ecx, byte ptr [rcx]\nmovsxd  rcx, ecx\nmovzx   eax, word ptr [rax+rcx*2]\nand     eax, 2000h\ncmp     eax, 0\njnz     loc_1290",
+   "loc_1274": "mov     rax, [rbp+str]\nmov     cl, [rax]\nmov     eax, [rbp+pos]\nmov     edx, eax\nadd     edx, 1\nmov     [rbp+pos], edx\ncdqe\nmov     [rbp+rax+word], cl\njmp     loc_136E",
+   "loc_1290": "cmp     [rbp+pos], 0\njle     loc_1369",
+   "loc_129A": "movsxd  rax, [rbp+pos]\nmov     [rbp+rax+word], 0\nmov     [rbp+found], 0\nmov     [rbp+j], 0",
+   "loc_12B1": "mov     eax, [rbp+j]\ncmp     eax, [rbp+unique]\njge     loc_131B",
+   "loc_12BD": "movsxd  rax, [rbp+j]\nlea     rdi, func0_words\nimul    rax, 38h ; '8'\nadd     rdi, rax; s1\nlea     rsi, [rbp+word]; s2\ncall    strcmp\ncmp     eax, 0\njnz     loc_1308",
+   "loc_12E1": "movsxd  rcx, [rbp+j]\nlea     rax, func0_words\nimul    rcx, 38h ; '8'\nadd     rax, rcx\nmov     ecx, [rax+34h]\nadd     ecx, 1\nmov     [rax+34h], ecx\nmov     [rbp+found], 1\njmp     loc_131B",
+   "loc_1308": "jmp     $+5",
+   "loc_130D": "mov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_12B1",
+   "loc_131B": "cmp     [rbp+found], 0\njnz     loc_1362",
+   "loc_1325": "movsxd  rax, [rbp+unique]\nlea     rdi, func0_words\nimul    rax, 38h ; '8'\nadd     rdi, rax; dest\nlea     rsi, [rbp+word]; src\ncall    strcpy\nmovsxd  rcx, [rbp+unique]\nlea     rax, func0_words\nimul    rcx, 38h ; '8'\nadd     rax, rcx\nmov     dword ptr [rax+34h], 1\nmov     eax, [rbp+unique]\nadd     eax, 1\nmov     [rbp+unique], eax",
+   "loc_1362": "mov     [rbp+pos], 0",
+   "loc_1369": "jmp     $+5",
+   "loc_136E": "mov     rax, [rbp+str]\nadd     rax, 1\nmov     [rbp+str], rax\njmp     loc_1243",
+   "loc_137F": "cmp     [rbp+pos], 0\njle     loc_1456",
+   "loc_1389": "movsxd  rax, [rbp+pos]\nmov     [rbp+rax+word], 0\nmov     [rbp+found_0], 0\nmov     [rbp+j_0], 0",
+   "loc_13A0": "mov     eax, [rbp+j_0]\ncmp     eax, [rbp+unique]\njge     loc_140A",
+   "loc_13AC": "movsxd  rax, [rbp+j_0]\nlea     rdi, func0_words\nimul    rax, 38h ; '8'\nadd     rdi, rax; s1\nlea     rsi, [rbp+word]; s2\ncall    strcmp\ncmp     eax, 0\njnz     loc_13F7",
+   "loc_13D0": "movsxd  rcx, [rbp+j_0]\nlea     rax, func0_words\nimul    rcx, 38h ; '8'\nadd     rax, rcx\nmov     ecx, [rax+34h]\nadd     ecx, 1\nmov     [rax+34h], ecx\nmov     [rbp+found_0], 1\njmp     loc_140A",
+   "loc_13F7": "jmp     $+5",
+   "loc_13FC": "mov     eax, [rbp+j_0]\nadd     eax, 1\nmov     [rbp+j_0], eax\njmp     loc_13A0",
+   "loc_140A": "cmp     [rbp+found_0], 0\njnz     loc_1451",
+   "loc_1414": "movsxd  rax, [rbp+unique]\nlea     rdi, func0_words\nimul    rax, 38h ; '8'\nadd     rdi, rax; dest\nlea     rsi, [rbp+word]; src\ncall    strcpy\nmovsxd  rcx, [rbp+unique]\nlea     rax, func0_words\nimul    rcx, 38h ; '8'\nadd     rax, rcx\nmov     dword ptr [rax+34h], 1\nmov     eax, [rbp+unique]\nadd     eax, 1\nmov     [rbp+unique], eax",
+   "loc_1451": "jmp     $+5",
+   "loc_1456": "jmp     $+5",
+   "loc_145B": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1220",
+   "loc_1469": "mov     [rbp+max], 0\nmov     [rbp+index], 0\nmov     [rbp+i_0], 0",
+   "loc_147E": "mov     eax, [rbp+i_0]\ncmp     eax, [rbp+unique]\njge     loc_14D9",
+   "loc_148A": "movsxd  rcx, [rbp+i_0]\nlea     rax, func0_words\nimul    rcx, 38h ; '8'\nadd     rax, rcx\nmov     eax, [rax+34h]\ncmp     eax, [rbp+max]\njle     loc_14C6",
+   "loc_14A8": "movsxd  rcx, [rbp+i_0]\nlea     rax, func0_words\nimul    rcx, 38h ; '8'\nadd     rax, rcx\nmov     eax, [rax+34h]\nmov     [rbp+max], eax\nmov     eax, [rbp+i_0]\nmov     [rbp+index], eax",
+   "loc_14C6": "jmp     $+5",
+   "loc_14CB": "mov     eax, [rbp+i_0]\nadd     eax, 1\nmov     [rbp+i_0], eax\njmp     loc_147E",
+   "loc_14D9": "movsxd  rcx, [rbp+index]\nlea     rax, func0_words\nimul    rcx, 38h ; '8'\nadd     rax, rcx\nadd     rsp, 80h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "i_0": "dword ptr -80h",
+   "index": "dword ptr -7Ch",
+   "max": "dword ptr -78h",
+   "j_0": "dword ptr -74h",
+   "found_0": "dword ptr -70h",
+   "j": "dword ptr -6Ch",
+   "found": "dword ptr -68h",
+   "pos": "dword ptr -64h",
+   "word": "byte ptr -60h",
+   "str": "qword ptr -20h",
+   "i": "dword ptr -18h",
+   "unique": "dword ptr -14h",
+   "test_list": "qword ptr -10h",
+   "n": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {
+   "func0.words": "[]"
+  }
+ },
+ "func_ea": 4608,
+ "thunk_map": {
+  ".strcpy": "strcpy",
+  "_strcpy": "strcpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".__ctype_b_loc": "__ctype_b_loc",
+  "_ctype_b_loc": "__ctype_b_loc"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".strcpy",
+   ".plt",
+   true,
+   "strcpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   ".__ctype_b_loc",
+   ".plt",
+   true,
+   "__ctype_b_loc"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__ctype_b_loc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792867980
+ }
+}

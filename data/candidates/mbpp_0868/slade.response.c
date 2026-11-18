@@ -1,0 +1,1 @@
+int func0(char * str) { int count = 0; char *p = str; while (*p == ' ') p++; for (int i = 0; i < strlen(p); i++) { if (p[i] == ' ') count = 0; else count++; } return count; }

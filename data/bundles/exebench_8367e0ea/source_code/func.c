@@ -1,0 +1,8 @@
+#include <math.h>
+
+#include <stdlib.h>
+
+void initializeStatesAndConstants(double *states, double *variables)
+{
+    states[0] = 0.0;
+}

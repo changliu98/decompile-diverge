@@ -1,0 +1,1 @@
+void a_inc(volatile int *p) { __asm__ __volatile__ ("lock incl %0;" : : "a" (*p) : : "memory"); }

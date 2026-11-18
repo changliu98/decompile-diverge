@@ -1,0 +1,467 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     al, dil\nmov     [rbp+mcuBlock], al\ncall    idctRows\ncall    idctCols\nmov     eax, cs:gScanType\nmov     [rbp+var_10], rax\nsub     rax, 4; switch 5 cases\nja      def_235E; jumptable 000000000000235E default case\nmov     rax, [rbp+var_10]\nlea     rcx, jpt_235E\nmovsxd  rax, ds:(jpt_235E - 602Ch)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nxor     edi, edi; jumptable 000000000000235E case 0\ncall    copyY\njmp     def_235E; jumptable 000000000000235E default case\nmovzx   eax, [rbp+mcuBlock]; jumptable 000000000000235E case 1\nmov     [rbp+var_14], eax\ntest    eax, eax\njz      loc_23A2\njmp     $+5\nmov     eax, [rbp+var_14]\nsub     eax, 1\njz      loc_23AE\njmp     $+5\nmov     eax, [rbp+var_14]\nsub     eax, 2\njz      loc_23BA\njmp     loc_23C1\nxor     edi, edi; dstOfs\ncall    copyY\njmp     loc_23C1\nxor     edi, edi; dstOfs\ncall    convertCb\njmp     loc_23C1\nxor     edi, edi; dstOfs\ncall    convertCr\njmp     def_235E; jumptable 000000000000235E default case\nmovzx   eax, [rbp+mcuBlock]; jumptable 000000000000235E case 3\nmov     [rbp+var_20], rax\nsub     rax, 3; switch 4 cases\nja      def_23EA; jumptable 00000000000023EA default case\nmov     rax, [rbp+var_20]\nlea     rcx, jpt_23EA\nmovsxd  rax, ds:(jpt_23EA - 6068h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nxor     edi, edi; jumptable 00000000000023EA case 0\ncall    copyY\njmp     def_23EA; jumptable 00000000000023EA default case\nmov     edi, 80h; jumptable 00000000000023EA case 1\ncall    copyY\njmp     def_23EA; jumptable 00000000000023EA default case\nxor     esi, esi; jumptable 00000000000023EA case 2\nmov     edi, esi; srcOfs\ncall    upsampleCbV\nmov     edi, 20h ; ' '; srcOfs\nmov     esi, 80h; dstOfs\ncall    upsampleCbV\njmp     def_23EA; jumptable 00000000000023EA default case\nxor     esi, esi; jumptable 00000000000023EA case 3\nmov     edi, esi; srcOfs\ncall    upsampleCrV\nmov     edi, 20h ; ' '; srcOfs\nmov     esi, 80h; dstOfs\ncall    upsampleCrV\njmp     def_235E; jumptable 00000000000023EA default case\nmovzx   eax, [rbp+mcuBlock]; jumptable 000000000000235E case 2\nmov     [rbp+var_28], rax\nsub     rax, 3; switch 4 cases\nja      def_2465; jumptable 0000000000002465 default case\nmov     rax, [rbp+var_28]\nlea     rcx, jpt_2465\nmovsxd  rax, ds:(jpt_2465 - 6058h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nxor     edi, edi; jumptable 0000000000002465 case 0\ncall    copyY\njmp     def_2465; jumptable 0000000000002465 default case\nmov     edi, 40h ; '@'; jumptable 0000000000002465 case 1\ncall    copyY\njmp     def_2465; jumptable 0000000000002465 default case\nxor     esi, esi; jumptable 0000000000002465 case 2\nmov     edi, esi; srcOfs\ncall    upsampleCbH\nmov     edi, 4; srcOfs\nmov     esi, 40h ; '@'; dstOfs\ncall    upsampleCbH\njmp     def_2465; jumptable 0000000000002465 default case\nxor     esi, esi; jumptable 0000000000002465 case 3\nmov     edi, esi; srcOfs\ncall    upsampleCrH\nmov     edi, 4; srcOfs\nmov     esi, 40h ; '@'; dstOfs\ncall    upsampleCrH\njmp     def_235E; jumptable 0000000000002465 default case\nmovzx   eax, [rbp+mcuBlock]; jumptable 000000000000235E case 4\nmov     [rbp+var_30], rax\nsub     rax, 5; switch 6 cases\nja      def_24E0; jumptable 00000000000024E0 default case\nmov     rax, [rbp+var_30]\nlea     rcx, jpt_24E0\nmovsxd  rax, ds:(jpt_24E0 - 6040h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nxor     edi, edi; jumptable 00000000000024E0 case 0\ncall    copyY\njmp     def_24E0; jumptable 00000000000024E0 default case\nmov     edi, 40h ; '@'; jumptable 00000000000024E0 case 1\ncall    copyY\njmp     def_24E0; jumptable 00000000000024E0 default case\nmov     edi, 80h; jumptable 00000000000024E0 case 2\ncall    copyY\njmp     def_24E0; jumptable 00000000000024E0 default case\nmov     edi, 0C0h; jumptable 00000000000024E0 case 3\ncall    copyY\njmp     def_24E0; jumptable 00000000000024E0 default case\nxor     esi, esi; jumptable 00000000000024E0 case 4\nmov     edi, esi; srcOfs\ncall    upsampleCb\nmov     edi, 4; srcOfs\nmov     esi, 40h ; '@'; dstOfs\ncall    upsampleCb\nmov     edi, 20h ; ' '; srcOfs\nmov     esi, 80h; dstOfs\ncall    upsampleCb\nmov     edi, 24h ; '$'; srcOfs\nmov     esi, 0C0h; dstOfs\ncall    upsampleCb\njmp     def_24E0; jumptable 00000000000024E0 default case\nxor     esi, esi; jumptable 00000000000024E0 case 5\nmov     edi, esi; srcOfs\ncall    upsampleCr\nmov     edi, 4; srcOfs\nmov     esi, 40h ; '@'; dstOfs\ncall    upsampleCr\nmov     edi, 20h ; ' '; srcOfs\nmov     esi, 80h; dstOfs\ncall    upsampleCr\nmov     edi, 24h ; '$'; srcOfs\nmov     esi, 0C0h; dstOfs\ncall    upsampleCr\njmp     $+5; jumptable 00000000000024E0 default case\nadd     rsp, 30h; jumptable 000000000000235E default case\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 37,
+  "edges": [
+   [
+    "start",
+    "loc_234C"
+   ],
+   [
+    "start",
+    "loc_2591"
+   ],
+   [
+    "loc_234C",
+    "loc_2360"
+   ],
+   [
+    "loc_234C",
+    "loc_236C"
+   ],
+   [
+    "loc_234C",
+    "loc_23C6"
+   ],
+   [
+    "loc_234C",
+    "loc_2441"
+   ],
+   [
+    "loc_234C",
+    "loc_24BC"
+   ],
+   [
+    "loc_2360",
+    "loc_2591"
+   ],
+   [
+    "loc_236C",
+    "loc_237B"
+   ],
+   [
+    "loc_236C",
+    "loc_23A2"
+   ],
+   [
+    "loc_237B",
+    "loc_2380"
+   ],
+   [
+    "loc_2380",
+    "loc_238C"
+   ],
+   [
+    "loc_2380",
+    "loc_23AE"
+   ],
+   [
+    "loc_238C",
+    "loc_2391"
+   ],
+   [
+    "loc_2391",
+    "loc_239D"
+   ],
+   [
+    "loc_2391",
+    "loc_23BA"
+   ],
+   [
+    "loc_239D",
+    "loc_23C1"
+   ],
+   [
+    "loc_23A2",
+    "loc_23C1"
+   ],
+   [
+    "loc_23AE",
+    "loc_23C1"
+   ],
+   [
+    "loc_23BA",
+    "loc_23C1"
+   ],
+   [
+    "loc_23C1",
+    "loc_2591"
+   ],
+   [
+    "loc_23C6",
+    "loc_23D8"
+   ],
+   [
+    "loc_23C6",
+    "loc_243C"
+   ],
+   [
+    "loc_23D8",
+    "loc_23EC"
+   ],
+   [
+    "loc_23D8",
+    "loc_23F8"
+   ],
+   [
+    "loc_23D8",
+    "loc_2407"
+   ],
+   [
+    "loc_23D8",
+    "loc_2424"
+   ],
+   [
+    "loc_23EC",
+    "loc_243C"
+   ],
+   [
+    "loc_23F8",
+    "loc_243C"
+   ],
+   [
+    "loc_2407",
+    "loc_243C"
+   ],
+   [
+    "loc_2424",
+    "loc_243C"
+   ],
+   [
+    "loc_243C",
+    "loc_2591"
+   ],
+   [
+    "loc_2441",
+    "loc_2453"
+   ],
+   [
+    "loc_2441",
+    "loc_24B7"
+   ],
+   [
+    "loc_2453",
+    "loc_2467"
+   ],
+   [
+    "loc_2453",
+    "loc_2473"
+   ],
+   [
+    "loc_2453",
+    "loc_2482"
+   ],
+   [
+    "loc_2453",
+    "loc_249F"
+   ],
+   [
+    "loc_2467",
+    "loc_24B7"
+   ],
+   [
+    "loc_2473",
+    "loc_24B7"
+   ],
+   [
+    "loc_2482",
+    "loc_24B7"
+   ],
+   [
+    "loc_249F",
+    "loc_24B7"
+   ],
+   [
+    "loc_24B7",
+    "loc_2591"
+   ],
+   [
+    "loc_24BC",
+    "loc_24CE"
+   ],
+   [
+    "loc_24BC",
+    "loc_258C"
+   ],
+   [
+    "loc_24CE",
+    "loc_24E2"
+   ],
+   [
+    "loc_24CE",
+    "loc_24EE"
+   ],
+   [
+    "loc_24CE",
+    "loc_24FD"
+   ],
+   [
+    "loc_24CE",
+    "loc_250C"
+   ],
+   [
+    "loc_24CE",
+    "loc_251B"
+   ],
+   [
+    "loc_24CE",
+    "loc_2556"
+   ],
+   [
+    "loc_24E2",
+    "loc_258C"
+   ],
+   [
+    "loc_24EE",
+    "loc_258C"
+   ],
+   [
+    "loc_24FD",
+    "loc_258C"
+   ],
+   [
+    "loc_250C",
+    "loc_258C"
+   ],
+   [
+    "loc_251B",
+    "loc_258C"
+   ],
+   [
+    "loc_2556",
+    "loc_258C"
+   ],
+   [
+    "loc_258C",
+    "loc_2591"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     al, dil\nmov     [rbp+mcuBlock], al\ncall    idctRows\ncall    idctCols\nmov     eax, cs:gScanType\nmov     [rbp+var_10], rax\nsub     rax, 4; switch 5 cases\nja      def_235E; jumptable 000000000000235E default case",
+   "loc_234C": "mov     rax, [rbp+var_10]\nlea     rcx, jpt_235E\nmovsxd  rax, ds:(jpt_235E - 602Ch)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_2360": "xor     edi, edi; jumptable 000000000000235E case 0\ncall    copyY\njmp     def_235E; jumptable 000000000000235E default case",
+   "loc_236C": "movzx   eax, [rbp+mcuBlock]; jumptable 000000000000235E case 1\nmov     [rbp+var_14], eax\ntest    eax, eax\njz      loc_23A2",
+   "loc_237B": "jmp     $+5",
+   "loc_2380": "mov     eax, [rbp+var_14]\nsub     eax, 1\njz      loc_23AE",
+   "loc_238C": "jmp     $+5",
+   "loc_2391": "mov     eax, [rbp+var_14]\nsub     eax, 2\njz      loc_23BA",
+   "loc_239D": "jmp     loc_23C1",
+   "loc_23A2": "xor     edi, edi; dstOfs\ncall    copyY\njmp     loc_23C1",
+   "loc_23AE": "xor     edi, edi; dstOfs\ncall    convertCb\njmp     loc_23C1",
+   "loc_23BA": "xor     edi, edi; dstOfs\ncall    convertCr",
+   "loc_23C1": "jmp     def_235E; jumptable 000000000000235E default case",
+   "loc_23C6": "movzx   eax, [rbp+mcuBlock]; jumptable 000000000000235E case 3\nmov     [rbp+var_20], rax\nsub     rax, 3; switch 4 cases\nja      def_23EA; jumptable 00000000000023EA default case",
+   "loc_23D8": "mov     rax, [rbp+var_20]\nlea     rcx, jpt_23EA\nmovsxd  rax, ds:(jpt_23EA - 6068h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_23EC": "xor     edi, edi; jumptable 00000000000023EA case 0\ncall    copyY\njmp     def_23EA; jumptable 00000000000023EA default case",
+   "loc_23F8": "mov     edi, 80h; jumptable 00000000000023EA case 1\ncall    copyY\njmp     def_23EA; jumptable 00000000000023EA default case",
+   "loc_2407": "xor     esi, esi; jumptable 00000000000023EA case 2\nmov     edi, esi; srcOfs\ncall    upsampleCbV\nmov     edi, 20h ; ' '; srcOfs\nmov     esi, 80h; dstOfs\ncall    upsampleCbV\njmp     def_23EA; jumptable 00000000000023EA default case",
+   "loc_2424": "xor     esi, esi; jumptable 00000000000023EA case 3\nmov     edi, esi; srcOfs\ncall    upsampleCrV\nmov     edi, 20h ; ' '; srcOfs\nmov     esi, 80h; dstOfs\ncall    upsampleCrV",
+   "loc_243C": "jmp     def_235E; jumptable 00000000000023EA default case",
+   "loc_2441": "movzx   eax, [rbp+mcuBlock]; jumptable 000000000000235E case 2\nmov     [rbp+var_28], rax\nsub     rax, 3; switch 4 cases\nja      def_2465; jumptable 0000000000002465 default case",
+   "loc_2453": "mov     rax, [rbp+var_28]\nlea     rcx, jpt_2465\nmovsxd  rax, ds:(jpt_2465 - 6058h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_2467": "xor     edi, edi; jumptable 0000000000002465 case 0\ncall    copyY\njmp     def_2465; jumptable 0000000000002465 default case",
+   "loc_2473": "mov     edi, 40h ; '@'; jumptable 0000000000002465 case 1\ncall    copyY\njmp     def_2465; jumptable 0000000000002465 default case",
+   "loc_2482": "xor     esi, esi; jumptable 0000000000002465 case 2\nmov     edi, esi; srcOfs\ncall    upsampleCbH\nmov     edi, 4; srcOfs\nmov     esi, 40h ; '@'; dstOfs\ncall    upsampleCbH\njmp     def_2465; jumptable 0000000000002465 default case",
+   "loc_249F": "xor     esi, esi; jumptable 0000000000002465 case 3\nmov     edi, esi; srcOfs\ncall    upsampleCrH\nmov     edi, 4; srcOfs\nmov     esi, 40h ; '@'; dstOfs\ncall    upsampleCrH",
+   "loc_24B7": "jmp     def_235E; jumptable 0000000000002465 default case",
+   "loc_24BC": "movzx   eax, [rbp+mcuBlock]; jumptable 000000000000235E case 4\nmov     [rbp+var_30], rax\nsub     rax, 5; switch 6 cases\nja      def_24E0; jumptable 00000000000024E0 default case",
+   "loc_24CE": "mov     rax, [rbp+var_30]\nlea     rcx, jpt_24E0\nmovsxd  rax, ds:(jpt_24E0 - 6040h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_24E2": "xor     edi, edi; jumptable 00000000000024E0 case 0\ncall    copyY\njmp     def_24E0; jumptable 00000000000024E0 default case",
+   "loc_24EE": "mov     edi, 40h ; '@'; jumptable 00000000000024E0 case 1\ncall    copyY\njmp     def_24E0; jumptable 00000000000024E0 default case",
+   "loc_24FD": "mov     edi, 80h; jumptable 00000000000024E0 case 2\ncall    copyY\njmp     def_24E0; jumptable 00000000000024E0 default case",
+   "loc_250C": "mov     edi, 0C0h; jumptable 00000000000024E0 case 3\ncall    copyY\njmp     def_24E0; jumptable 00000000000024E0 default case",
+   "loc_251B": "xor     esi, esi; jumptable 00000000000024E0 case 4\nmov     edi, esi; srcOfs\ncall    upsampleCb\nmov     edi, 4; srcOfs\nmov     esi, 40h ; '@'; dstOfs\ncall    upsampleCb\nmov     edi, 20h ; ' '; srcOfs\nmov     esi, 80h; dstOfs\ncall    upsampleCb\nmov     edi, 24h ; '$'; srcOfs\nmov     esi, 0C0h; dstOfs\ncall    upsampleCb\njmp     def_24E0; jumptable 00000000000024E0 default case",
+   "loc_2556": "xor     esi, esi; jumptable 00000000000024E0 case 5\nmov     edi, esi; srcOfs\ncall    upsampleCr\nmov     edi, 4; srcOfs\nmov     esi, 40h ; '@'; dstOfs\ncall    upsampleCr\nmov     edi, 20h ; ' '; srcOfs\nmov     esi, 80h; dstOfs\ncall    upsampleCr\nmov     edi, 24h ; '$'; srcOfs\nmov     esi, 0C0h; dstOfs\ncall    upsampleCr",
+   "loc_258C": "jmp     $+5; jumptable 00000000000024E0 default case",
+   "loc_2591": "add     rsp, 30h; jumptable 000000000000235E default case\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_30": "qword ptr -30h",
+   "var_28": "qword ptr -28h",
+   "var_20": "qword ptr -20h",
+   "var_14": "dword ptr -14h",
+   "var_10": "qword ptr -10h",
+   "mcuBlock": "byte ptr -1"
+  },
+  ".rodata": {
+   "jpt_235E": "dword offset loc_2360 - 602Ch; jump table for switch statement",
+   "jpt_23EA": "dword offset loc_23EC - 6068h; jump table for switch statement",
+   "jpt_2465": "dword offset loc_2467 - 6058h; jump table for switch statement",
+   "jpt_24E0": "dword offset loc_24E2 - 6040h; jump table for switch statement"
+  },
+  ".data": {},
+  ".bss": {
+   "gScanType": "[]"
+  }
+ },
+ "func_ea": 8992,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872679
+ }
+}

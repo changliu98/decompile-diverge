@@ -1,0 +1,1 @@
+void initialize_temp(const int *src, int *temp) { int i, j; for (i = 9, j = 14; i >= 0; i--, j--) temp[j] = src[i]; while (j != -1) temp[j--] = 0; }

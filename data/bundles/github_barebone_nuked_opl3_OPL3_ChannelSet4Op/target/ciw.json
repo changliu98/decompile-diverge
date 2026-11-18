@@ -1,0 +1,261 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 10h\nmov     al, sil\nmov     [rbp+chip], rdi\nmov     [rbp+data], al\nmov     [rbp+bit], 0\nmovzx   eax, [rbp+bit]\ncmp     eax, 6\njge     loc_29F4\nmov     al, [rbp+bit]\nmov     [rbp+chnum], al\nmovzx   eax, [rbp+bit]\ncmp     eax, 3\njl      loc_2930\nmovzx   eax, [rbp+chnum]\nadd     eax, 6\nmov     [rbp+chnum], al\nmovzx   eax, [rbp+data]\nmovzx   ecx, [rbp+bit]\nsar     eax, cl\nand     eax, 1\ncmp     eax, 0\njz      loc_298A\nmov     rax, [rbp+chip]\nmovzx   ecx, [rbp+chnum]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     byte ptr [rax+40h], 1\nmov     rax, [rbp+chip]\nmovzx   ecx, [rbp+chnum]\nadd     ecx, 3\nmov     ecx, ecx\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     byte ptr [rax+40h], 2\nmov     rdi, [rbp+chip]\nmovzx   eax, [rbp+chnum]\nimul    rax, 58h ; 'X'\nadd     rdi, rax; channel\ncall    OPL3_ChannelUpdateAlg\njmp     loc_29E2\nmov     rax, [rbp+chip]\nmovzx   ecx, [rbp+chnum]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     byte ptr [rax+40h], 0\nmov     rax, [rbp+chip]\nmovzx   ecx, [rbp+chnum]\nadd     ecx, 3\nmov     ecx, ecx\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     byte ptr [rax+40h], 0\nmov     rdi, [rbp+chip]\nmovzx   eax, [rbp+chnum]\nimul    rax, 58h ; 'X'\nadd     rdi, rax; channel\ncall    OPL3_ChannelUpdateAlg\nmov     rdi, [rbp+chip]\nmovzx   eax, [rbp+chnum]\nadd     eax, 3\nmov     eax, eax\nimul    rax, 58h ; 'X'\nadd     rdi, rax; channel\ncall    OPL3_ChannelUpdateAlg\njmp     $+5\nmov     al, [rbp+bit]\nadd     al, 1\nmov     [rbp+bit], al\njmp     loc_2906\nadd     rsp, 10h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 10,
+  "edges": [
+   [
+    "start",
+    "loc_2906"
+   ],
+   [
+    "loc_2906",
+    "loc_2913"
+   ],
+   [
+    "loc_2906",
+    "loc_29F4"
+   ],
+   [
+    "loc_2913",
+    "loc_2926"
+   ],
+   [
+    "loc_2913",
+    "loc_2930"
+   ],
+   [
+    "loc_2926",
+    "loc_2930"
+   ],
+   [
+    "loc_2930",
+    "loc_2946"
+   ],
+   [
+    "loc_2930",
+    "loc_298A"
+   ],
+   [
+    "loc_2946",
+    "loc_29E2"
+   ],
+   [
+    "loc_298A",
+    "loc_29E2"
+   ],
+   [
+    "loc_29E2",
+    "loc_29E7"
+   ],
+   [
+    "loc_29E7",
+    "loc_2906"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 10h\nmov     al, sil\nmov     [rbp+chip], rdi\nmov     [rbp+data], al\nmov     [rbp+bit], 0",
+   "loc_2906": "movzx   eax, [rbp+bit]\ncmp     eax, 6\njge     loc_29F4",
+   "loc_2913": "mov     al, [rbp+bit]\nmov     [rbp+chnum], al\nmovzx   eax, [rbp+bit]\ncmp     eax, 3\njl      loc_2930",
+   "loc_2926": "movzx   eax, [rbp+chnum]\nadd     eax, 6\nmov     [rbp+chnum], al",
+   "loc_2930": "movzx   eax, [rbp+data]\nmovzx   ecx, [rbp+bit]\nsar     eax, cl\nand     eax, 1\ncmp     eax, 0\njz      loc_298A",
+   "loc_2946": "mov     rax, [rbp+chip]\nmovzx   ecx, [rbp+chnum]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     byte ptr [rax+40h], 1\nmov     rax, [rbp+chip]\nmovzx   ecx, [rbp+chnum]\nadd     ecx, 3\nmov     ecx, ecx\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     byte ptr [rax+40h], 2\nmov     rdi, [rbp+chip]\nmovzx   eax, [rbp+chnum]\nimul    rax, 58h ; 'X'\nadd     rdi, rax; channel\ncall    OPL3_ChannelUpdateAlg\njmp     loc_29E2",
+   "loc_298A": "mov     rax, [rbp+chip]\nmovzx   ecx, [rbp+chnum]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     byte ptr [rax+40h], 0\nmov     rax, [rbp+chip]\nmovzx   ecx, [rbp+chnum]\nadd     ecx, 3\nmov     ecx, ecx\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     byte ptr [rax+40h], 0\nmov     rdi, [rbp+chip]\nmovzx   eax, [rbp+chnum]\nimul    rax, 58h ; 'X'\nadd     rdi, rax; channel\ncall    OPL3_ChannelUpdateAlg\nmov     rdi, [rbp+chip]\nmovzx   eax, [rbp+chnum]\nadd     eax, 3\nmov     eax, eax\nimul    rax, 58h ; 'X'\nadd     rdi, rax; channel\ncall    OPL3_ChannelUpdateAlg",
+   "loc_29E2": "jmp     $+5",
+   "loc_29E7": "mov     al, [rbp+bit]\nadd     al, 1\nmov     [rbp+bit], al\njmp     loc_2906",
+   "loc_29F4": "add     rsp, 10h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "chnum": "byte ptr -0Bh",
+   "bit": "byte ptr -0Ah",
+   "data": "byte ptr -9",
+   "chip": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 10480,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872675
+ }
+}

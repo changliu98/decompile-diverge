@@ -1,0 +1,35 @@
+unsigned int gf_mult(unsigned int a, unsigned int b, unsigned int p) {
+  unsigned int pp[2];
+  unsigned int aa[2];
+  unsigned int r;
+  pp[1] = p;
+  aa[1] = b;
+  aa[0] = 0;
+  pp[0] = 0;
+  r = 0;
+  r ^= aa[a & 1];
+  a >>= 1;
+  aa[1] = (aa[1] << 1) ^ pp[aa[1] >> 7];
+  r ^= aa[a & 1];
+  a >>= 1;
+  aa[1] = (aa[1] << 1) ^ pp[aa[1] >> 7];
+  r ^= aa[a & 1];
+  a >>= 1;
+  aa[1] = (aa[1] << 1) ^ pp[aa[1] >> 7];
+  r ^= aa[a & 1];
+  a >>= 1;
+  aa[1] = (aa[1] << 1) ^ pp[aa[1] >> 7];
+  r ^= aa[a & 1];
+  a >>= 1;
+  aa[1] = (aa[1] << 1) ^ pp[aa[1] >> 7];
+  r ^= aa[a & 1];
+  a >>= 1;
+  aa[1] = (aa[1] << 1) ^ pp[aa[1] >> 7];
+  r ^= aa[a & 1];
+  a >>= 1;
+  aa[1] = (aa[1] << 1) ^ pp[aa[1] >> 7];
+  r ^= aa[a & 1];
+  a >>= 1;
+  aa[1] = (aa[1] << 1) ^ pp[aa[1] >> 7];
+  return r;
+}

@@ -1,0 +1,1 @@
+void cftx020(double *a) { double s, t; s = a[0]-a[2]; t = a[1]-a[3]; a[0]+=a[2]; a[1]+=a[3]; a[2]=s; a[3]=t; }

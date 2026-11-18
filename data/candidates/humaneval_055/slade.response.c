@@ -1,0 +1,1 @@
+int func0(int n) { int i; int sum[1000] = {0}; sum[0] = 1; for (i = 2; i <= n; i++) { sum[i] = sum[i-1] + sum[i-2]; } return sum[n]; }

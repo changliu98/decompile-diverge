@@ -1,0 +1,1 @@
+static char func0(int n) { return table[n % 10]; }

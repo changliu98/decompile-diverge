@@ -1,0 +1,278 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+sr], rdi\ncmp     cs:smb_flush_required, 0\njnz     loc_120D\nmov     rdi, [rbp+sr]; sr\ncall    smbsr_encode_empty_result\nmov     [rbp+rc], eax\nmov     edx, [rbp+rc]\nmov     eax, 1\nxor     ecx, ecx\ncmp     edx, 0\ncmovz   eax, ecx\nmov     [rbp+var_4], eax\njmp     loc_12FD\nmov     rax, [rbp+sr]\nmovzx   eax, word ptr [rax]\ncmp     eax, 0FFFFh\njz      loc_1271\nmov     rdi, [rbp+sr]; sr\ncall    smbsr_lookup_file\nmov     rax, [rbp+sr]\ncmp     qword ptr [rax+10h], 0\njnz     loc_125B\nmov     rdi, [rbp+sr]; sr\nmov     esi, 0C0000008h; st\nmov     edx, 1; cl_0\nmov     ecx, 6; co\ncall    smbsr_status\nmov     [rbp+var_4], 1\njmp     loc_12FD\nmov     rdi, [rbp+sr]; sr\nmov     rax, [rbp+sr]\nmov     rsi, [rax+10h]; ofile\ncall    smb_flush_file\njmp     loc_12DE\nmov     rax, [rbp+sr]\nmov     rax, [rax+8]\nmov     [rbp+flist], rax\nmov     rdi, [rbp+flist]; ll\nxor     esi, esi; mode\ncall    smb_llist_enter\nmov     rdi, [rbp+flist]; ll\ncall    smb_llist_head\nmov     [rbp+file], rax\ncmp     [rbp+file], 0\njz      loc_12D5\nmov     rdi, [rbp+file]; m\ncall    mutex_enter\nmov     rdi, [rbp+sr]; sr\nmov     rsi, [rbp+file]; ofile\ncall    smb_flush_file\nmov     rdi, [rbp+file]; m\ncall    mutex_exit\nmov     rdi, [rbp+flist]; ll\nmov     rsi, [rbp+file]; obj\ncall    smb_llist_next\nmov     [rbp+file], rax\njmp     loc_1295\nmov     rdi, [rbp+flist]; ll\ncall    smb_llist_exit\nmov     rdi, [rbp+sr]; sr\ncall    smbsr_encode_empty_result\nmov     [rbp+rc], eax\nmov     edx, [rbp+rc]\nmov     eax, 1\nxor     ecx, ecx\ncmp     edx, 0\ncmovz   eax, ecx\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 12,
+  "edges": [
+   [
+    "start",
+    "loc_11E9"
+   ],
+   [
+    "start",
+    "loc_120D"
+   ],
+   [
+    "loc_11E9",
+    "loc_12FD"
+   ],
+   [
+    "loc_120D",
+    "loc_121F"
+   ],
+   [
+    "loc_120D",
+    "loc_1271"
+   ],
+   [
+    "loc_121F",
+    "loc_1237"
+   ],
+   [
+    "loc_121F",
+    "loc_125B"
+   ],
+   [
+    "loc_1237",
+    "loc_12FD"
+   ],
+   [
+    "loc_125B",
+    "loc_12DE"
+   ],
+   [
+    "loc_1271",
+    "loc_1295"
+   ],
+   [
+    "loc_1295",
+    "loc_12A0"
+   ],
+   [
+    "loc_1295",
+    "loc_12D5"
+   ],
+   [
+    "loc_12A0",
+    "loc_1295"
+   ],
+   [
+    "loc_12D5",
+    "loc_12DE"
+   ],
+   [
+    "loc_12DE",
+    "loc_12FD"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+sr], rdi\ncmp     cs:smb_flush_required, 0\njnz     loc_120D",
+   "loc_11E9": "mov     rdi, [rbp+sr]; sr\ncall    smbsr_encode_empty_result\nmov     [rbp+rc], eax\nmov     edx, [rbp+rc]\nmov     eax, 1\nxor     ecx, ecx\ncmp     edx, 0\ncmovz   eax, ecx\nmov     [rbp+var_4], eax\njmp     loc_12FD",
+   "loc_120D": "mov     rax, [rbp+sr]\nmovzx   eax, word ptr [rax]\ncmp     eax, 0FFFFh\njz      loc_1271",
+   "loc_121F": "mov     rdi, [rbp+sr]; sr\ncall    smbsr_lookup_file\nmov     rax, [rbp+sr]\ncmp     qword ptr [rax+10h], 0\njnz     loc_125B",
+   "loc_1237": "mov     rdi, [rbp+sr]; sr\nmov     esi, 0C0000008h; st\nmov     edx, 1; cl_0\nmov     ecx, 6; co\ncall    smbsr_status\nmov     [rbp+var_4], 1\njmp     loc_12FD",
+   "loc_125B": "mov     rdi, [rbp+sr]; sr\nmov     rax, [rbp+sr]\nmov     rsi, [rax+10h]; ofile\ncall    smb_flush_file\njmp     loc_12DE",
+   "loc_1271": "mov     rax, [rbp+sr]\nmov     rax, [rax+8]\nmov     [rbp+flist], rax\nmov     rdi, [rbp+flist]; ll\nxor     esi, esi; mode\ncall    smb_llist_enter\nmov     rdi, [rbp+flist]; ll\ncall    smb_llist_head\nmov     [rbp+file], rax",
+   "loc_1295": "cmp     [rbp+file], 0\njz      loc_12D5",
+   "loc_12A0": "mov     rdi, [rbp+file]; m\ncall    mutex_enter\nmov     rdi, [rbp+sr]; sr\nmov     rsi, [rbp+file]; ofile\ncall    smb_flush_file\nmov     rdi, [rbp+file]; m\ncall    mutex_exit\nmov     rdi, [rbp+flist]; ll\nmov     rsi, [rbp+file]; obj\ncall    smb_llist_next\nmov     [rbp+file], rax\njmp     loc_1295",
+   "loc_12D5": "mov     rdi, [rbp+flist]; ll\ncall    smb_llist_exit",
+   "loc_12DE": "mov     rdi, [rbp+sr]; sr\ncall    smbsr_encode_empty_result\nmov     [rbp+rc], eax\nmov     edx, [rbp+rc]\nmov     eax, 1\nxor     ecx, ecx\ncmp     edx, 0\ncmovz   eax, ecx\nmov     [rbp+var_4], eax",
+   "loc_12FD": "mov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "rc": "dword ptr -24h",
+   "flist": "qword ptr -20h",
+   "file": "qword ptr -18h",
+   "sr": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {
+   "smb_flush_required": "dword 1"
+  },
+  ".bss": {}
+ },
+ "func_ea": 4560,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868500
+ }
+}

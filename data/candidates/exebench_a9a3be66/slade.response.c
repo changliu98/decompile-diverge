@@ -1,0 +1,1 @@
+void byte2bits(const char byte, char *bits) { int shift = 7; while (shift >= 0) *bits++ = ((byte >> shift--) & 1) + '0'; *bits = 0; }

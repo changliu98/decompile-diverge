@@ -1,0 +1,1 @@
+int valid_bo_pre_v2 (long value) { if ((value &0x14) == 0) return 1; if ((value &0x14) ==0x4) return (value &0x2) == 0; if ((value &0x14) ==0x10) return (value &0x8) == 0; return value ==0x14; }

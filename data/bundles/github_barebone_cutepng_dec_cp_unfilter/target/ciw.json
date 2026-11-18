@@ -1,0 +1,690 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+w], edi\nmov     [rbp+h], esi\nmov     [rbp+bpp], edx\nmov     [rbp+raw], rcx\nmov     eax, [rbp+w]\nimul    eax, [rbp+bpp]\nmov     [rbp+len], eax\ncmp     [rbp+h], 0\njle     loc_2E53\nmov     rax, [rbp+raw]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+raw], rcx\nmovzx   eax, byte ptr [rax]\nmov     [rbp+var_38], rax\nsub     rax, 4; switch 5 cases\nja      def_2D4B; jumptable 0000000000002D4B default case\nmov     rax, [rbp+var_38]\nlea     rcx, jpt_2D4B\nmovsxd  rax, ds:(jpt_2D4B - 7030h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\njmp     loc_2E4E; jumptable 0000000000002D4B case 0\nmov     eax, [rbp+bpp]; jumptable 0000000000002D4B case 1\nmov     [rbp+x], eax\nmov     eax, [rbp+x]\ncmp     eax, [rbp+len]\njge     loc_2D94\nmov     rax, [rbp+raw]\nmov     ecx, [rbp+x]\nsub     ecx, [rbp+bpp]\nmovsxd  rcx, ecx\nmovzx   esi, byte ptr [rax+rcx]\nmov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, esi\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_2D58\njmp     loc_2E4E\njmp     loc_2E4E; jumptable 0000000000002D4B case 2\nmov     eax, [rbp+bpp]; jumptable 0000000000002D4B case 3\nmov     [rbp+x], eax\nmov     eax, [rbp+x]\ncmp     eax, [rbp+len]\njge     loc_2DEA\nmov     rax, [rbp+raw]\nmov     ecx, [rbp+x]\nsub     ecx, [rbp+bpp]\nmovsxd  rcx, ecx\nmovzx   eax, byte ptr [rax+rcx]\nmov     ecx, 2\ncdq\nidiv    ecx\nmov     esi, eax\nmov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, esi\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_2DA4\njmp     loc_2E4E\nmov     eax, [rbp+bpp]; jumptable 0000000000002D4B case 4\nmov     [rbp+x], eax\nmov     eax, [rbp+x]\ncmp     eax, [rbp+len]\njge     loc_2E3D\nmov     rax, [rbp+raw]\nmov     ecx, [rbp+x]\nsub     ecx, [rbp+bpp]\nmovsxd  rcx, ecx\nxor     edx, edx; c\nmovzx   edi, byte ptr [rax+rcx]; a\nmov     esi, edx; b\ncall    cp_paeth\nmovzx   esi, al\nmov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, esi\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_2DF5\njmp     loc_2E4E\nmov     [rbp+var_4], 0; jumptable 0000000000002D4B default case\njmp     loc_3144\njmp     $+5\nmov     rax, [rbp+raw]\nmov     [rbp+prev], rax\nmov     ecx, [rbp+len]\nmov     rax, [rbp+raw]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+raw], rax\nmov     [rbp+y], 1\nmov     eax, [rbp+y]\ncmp     eax, [rbp+h]\njge     loc_313D\nmov     rax, [rbp+raw]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+raw], rcx\nmovzx   eax, byte ptr [rax]\nmov     [rbp+var_40], rax\nsub     rax, 4; switch 5 cases\nja      def_2EB1; jumptable 0000000000002EB1 default case\nmov     rax, [rbp+var_40]\nlea     rcx, jpt_2EB1\nmovsxd  rax, ds:(jpt_2EB1 - 7044h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\njmp     loc_3111; jumptable 0000000000002EB1 case 0\nmov     [rbp+x], 0; jumptable 0000000000002EB1 case 1\nmov     eax, [rbp+x]\ncmp     eax, [rbp+bpp]\njge     loc_2EEB\nmov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, 0\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_2EBF\njmp     $+5\nmov     eax, [rbp+x]\ncmp     eax, [rbp+len]\njge     loc_2F2C\nmov     rax, [rbp+raw]\nmov     ecx, [rbp+x]\nsub     ecx, [rbp+bpp]\nmovsxd  rcx, ecx\nmovzx   esi, byte ptr [rax+rcx]\nmov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, esi\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_2EF0\njmp     loc_3111\nmov     [rbp+x], 0; jumptable 0000000000002EB1 case 2\nmov     eax, [rbp+x]\ncmp     eax, [rbp+bpp]\njge     loc_2F6F\nmov     rax, [rbp+prev]\nmovsxd  rcx, [rbp+x]\nmovzx   esi, byte ptr [rax+rcx]\nmov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, esi\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_2F38\njmp     $+5\nmov     eax, [rbp+x]\ncmp     eax, [rbp+len]\njge     loc_2FAB\nmov     rax, [rbp+prev]\nmovsxd  rcx, [rbp+x]\nmovzx   esi, byte ptr [rax+rcx]\nmov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, esi\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_2F74\njmp     loc_3111\nmov     [rbp+x], 0; jumptable 0000000000002EB1 case 3\nmov     eax, [rbp+x]\ncmp     eax, [rbp+bpp]\njge     loc_2FF8\nmov     rax, [rbp+prev]\nmovsxd  rcx, [rbp+x]\nmovzx   eax, byte ptr [rax+rcx]\nmov     ecx, 2\ncdq\nidiv    ecx\nmov     esi, eax\nmov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, esi\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_2FB7\njmp     $+5\nmov     eax, [rbp+x]\ncmp     eax, [rbp+len]\njge     loc_3051\nmov     rax, [rbp+raw]\nmov     ecx, [rbp+x]\nsub     ecx, [rbp+bpp]\nmovsxd  rcx, ecx\nmovzx   eax, byte ptr [rax+rcx]\nmov     rcx, [rbp+prev]\nmovsxd  rdx, [rbp+x]\nmovzx   ecx, byte ptr [rcx+rdx]\nadd     eax, ecx\nmov     ecx, 2\ncdq\nidiv    ecx\nmov     esi, eax\nmov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, esi\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_2FFD\njmp     loc_3111\nmov     [rbp+x], 0; jumptable 0000000000002EB1 case 4\nmov     eax, [rbp+x]\ncmp     eax, [rbp+bpp]\njge     loc_3094\nmov     rax, [rbp+prev]\nmovsxd  rcx, [rbp+x]\nmovzx   esi, byte ptr [rax+rcx]\nmov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, esi\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_305D\njmp     $+5\nmov     eax, [rbp+x]\ncmp     eax, [rbp+len]\njge     loc_3100\nmov     rax, [rbp+raw]\nmov     ecx, [rbp+x]\nsub     ecx, [rbp+bpp]\nmovsxd  rcx, ecx\nmov     sil, [rax+rcx]\nmov     rax, [rbp+prev]\nmovsxd  rcx, [rbp+x]\nmov     dl, [rax+rcx]\nmov     rax, [rbp+prev]\nmov     ecx, [rbp+x]\nsub     ecx, [rbp+bpp]\nmovsxd  rcx, ecx\nmovzx   edi, sil; a\nmovzx   esi, dl; b\nmovzx   edx, byte ptr [rax+rcx]; c\ncall    cp_paeth\nmovzx   esi, al\nmov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, esi\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_3099\njmp     loc_3111\nmov     [rbp+var_4], 0; jumptable 0000000000002EB1 default case\njmp     loc_3144\njmp     $+5\nmov     eax, [rbp+y]\nadd     eax, 1\nmov     [rbp+y], eax\nmov     rax, [rbp+raw]\nmov     [rbp+prev], rax\nmov     ecx, [rbp+len]\nmov     rax, [rbp+raw]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+raw], rax\njmp     loc_2E73\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 57,
+  "edges": [
+   [
+    "start",
+    "loc_2D19"
+   ],
+   [
+    "start",
+    "loc_2E53"
+   ],
+   [
+    "loc_2D19",
+    "loc_2D39"
+   ],
+   [
+    "loc_2D19",
+    "loc_2E42"
+   ],
+   [
+    "loc_2D39",
+    "loc_2D4D"
+   ],
+   [
+    "loc_2D39",
+    "loc_2D52"
+   ],
+   [
+    "loc_2D39",
+    "loc_2D99"
+   ],
+   [
+    "loc_2D39",
+    "loc_2D9E"
+   ],
+   [
+    "loc_2D39",
+    "loc_2DEF"
+   ],
+   [
+    "loc_2D4D",
+    "loc_2E4E"
+   ],
+   [
+    "loc_2D52",
+    "loc_2D58"
+   ],
+   [
+    "loc_2D58",
+    "loc_2D64"
+   ],
+   [
+    "loc_2D58",
+    "loc_2D94"
+   ],
+   [
+    "loc_2D64",
+    "loc_2D58"
+   ],
+   [
+    "loc_2D94",
+    "loc_2E4E"
+   ],
+   [
+    "loc_2D99",
+    "loc_2E4E"
+   ],
+   [
+    "loc_2D9E",
+    "loc_2DA4"
+   ],
+   [
+    "loc_2DA4",
+    "loc_2DB0"
+   ],
+   [
+    "loc_2DA4",
+    "loc_2DEA"
+   ],
+   [
+    "loc_2DB0",
+    "loc_2DA4"
+   ],
+   [
+    "loc_2DEA",
+    "loc_2E4E"
+   ],
+   [
+    "loc_2DEF",
+    "loc_2DF5"
+   ],
+   [
+    "loc_2DF5",
+    "loc_2E01"
+   ],
+   [
+    "loc_2DF5",
+    "loc_2E3D"
+   ],
+   [
+    "loc_2E01",
+    "loc_2DF5"
+   ],
+   [
+    "loc_2E3D",
+    "loc_2E4E"
+   ],
+   [
+    "loc_2E42",
+    "loc_3144"
+   ],
+   [
+    "loc_2E4E",
+    "loc_2E53"
+   ],
+   [
+    "loc_2E53",
+    "loc_2E73"
+   ],
+   [
+    "loc_2E73",
+    "loc_2E7F"
+   ],
+   [
+    "loc_2E73",
+    "loc_313D"
+   ],
+   [
+    "loc_2E7F",
+    "loc_2E9F"
+   ],
+   [
+    "loc_2E7F",
+    "loc_3105"
+   ],
+   [
+    "loc_2E9F",
+    "loc_2EB3"
+   ],
+   [
+    "loc_2E9F",
+    "loc_2EB8"
+   ],
+   [
+    "loc_2E9F",
+    "loc_2F31"
+   ],
+   [
+    "loc_2E9F",
+    "loc_2FB0"
+   ],
+   [
+    "loc_2E9F",
+    "loc_3056"
+   ],
+   [
+    "loc_2EB3",
+    "loc_3111"
+   ],
+   [
+    "loc_2EB8",
+    "loc_2EBF"
+   ],
+   [
+    "loc_2EBF",
+    "loc_2ECB"
+   ],
+   [
+    "loc_2EBF",
+    "loc_2EEB"
+   ],
+   [
+    "loc_2ECB",
+    "loc_2EBF"
+   ],
+   [
+    "loc_2EEB",
+    "loc_2EF0"
+   ],
+   [
+    "loc_2EF0",
+    "loc_2EFC"
+   ],
+   [
+    "loc_2EF0",
+    "loc_2F2C"
+   ],
+   [
+    "loc_2EFC",
+    "loc_2EF0"
+   ],
+   [
+    "loc_2F2C",
+    "loc_3111"
+   ],
+   [
+    "loc_2F31",
+    "loc_2F38"
+   ],
+   [
+    "loc_2F38",
+    "loc_2F44"
+   ],
+   [
+    "loc_2F38",
+    "loc_2F6F"
+   ],
+   [
+    "loc_2F44",
+    "loc_2F38"
+   ],
+   [
+    "loc_2F6F",
+    "loc_2F74"
+   ],
+   [
+    "loc_2F74",
+    "loc_2F80"
+   ],
+   [
+    "loc_2F74",
+    "loc_2FAB"
+   ],
+   [
+    "loc_2F80",
+    "loc_2F74"
+   ],
+   [
+    "loc_2FAB",
+    "loc_3111"
+   ],
+   [
+    "loc_2FB0",
+    "loc_2FB7"
+   ],
+   [
+    "loc_2FB7",
+    "loc_2FC3"
+   ],
+   [
+    "loc_2FB7",
+    "loc_2FF8"
+   ],
+   [
+    "loc_2FC3",
+    "loc_2FB7"
+   ],
+   [
+    "loc_2FF8",
+    "loc_2FFD"
+   ],
+   [
+    "loc_2FFD",
+    "loc_3009"
+   ],
+   [
+    "loc_2FFD",
+    "loc_3051"
+   ],
+   [
+    "loc_3009",
+    "loc_2FFD"
+   ],
+   [
+    "loc_3051",
+    "loc_3111"
+   ],
+   [
+    "loc_3056",
+    "loc_305D"
+   ],
+   [
+    "loc_305D",
+    "loc_3069"
+   ],
+   [
+    "loc_305D",
+    "loc_3094"
+   ],
+   [
+    "loc_3069",
+    "loc_305D"
+   ],
+   [
+    "loc_3094",
+    "loc_3099"
+   ],
+   [
+    "loc_3099",
+    "loc_30A5"
+   ],
+   [
+    "loc_3099",
+    "loc_3100"
+   ],
+   [
+    "loc_30A5",
+    "loc_3099"
+   ],
+   [
+    "loc_3100",
+    "loc_3111"
+   ],
+   [
+    "loc_3105",
+    "loc_3144"
+   ],
+   [
+    "loc_3111",
+    "loc_3116"
+   ],
+   [
+    "loc_3116",
+    "loc_2E73"
+   ],
+   [
+    "loc_313D",
+    "loc_3144"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+w], edi\nmov     [rbp+h], esi\nmov     [rbp+bpp], edx\nmov     [rbp+raw], rcx\nmov     eax, [rbp+w]\nimul    eax, [rbp+bpp]\nmov     [rbp+len], eax\ncmp     [rbp+h], 0\njle     loc_2E53",
+   "loc_2D19": "mov     rax, [rbp+raw]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+raw], rcx\nmovzx   eax, byte ptr [rax]\nmov     [rbp+var_38], rax\nsub     rax, 4; switch 5 cases\nja      def_2D4B; jumptable 0000000000002D4B default case",
+   "loc_2D39": "mov     rax, [rbp+var_38]\nlea     rcx, jpt_2D4B\nmovsxd  rax, ds:(jpt_2D4B - 7030h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_2D4D": "jmp     loc_2E4E; jumptable 0000000000002D4B case 0",
+   "loc_2D52": "mov     eax, [rbp+bpp]; jumptable 0000000000002D4B case 1\nmov     [rbp+x], eax",
+   "loc_2D58": "mov     eax, [rbp+x]\ncmp     eax, [rbp+len]\njge     loc_2D94",
+   "loc_2D64": "mov     rax, [rbp+raw]\nmov     ecx, [rbp+x]\nsub     ecx, [rbp+bpp]\nmovsxd  rcx, ecx\nmovzx   esi, byte ptr [rax+rcx]\nmov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, esi\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_2D58",
+   "loc_2D94": "jmp     loc_2E4E",
+   "loc_2D99": "jmp     loc_2E4E; jumptable 0000000000002D4B case 2",
+   "loc_2D9E": "mov     eax, [rbp+bpp]; jumptable 0000000000002D4B case 3\nmov     [rbp+x], eax",
+   "loc_2DA4": "mov     eax, [rbp+x]\ncmp     eax, [rbp+len]\njge     loc_2DEA",
+   "loc_2DB0": "mov     rax, [rbp+raw]\nmov     ecx, [rbp+x]\nsub     ecx, [rbp+bpp]\nmovsxd  rcx, ecx\nmovzx   eax, byte ptr [rax+rcx]\nmov     ecx, 2\ncdq\nidiv    ecx\nmov     esi, eax\nmov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, esi\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_2DA4",
+   "loc_2DEA": "jmp     loc_2E4E",
+   "loc_2DEF": "mov     eax, [rbp+bpp]; jumptable 0000000000002D4B case 4\nmov     [rbp+x], eax",
+   "loc_2DF5": "mov     eax, [rbp+x]\ncmp     eax, [rbp+len]\njge     loc_2E3D",
+   "loc_2E01": "mov     rax, [rbp+raw]\nmov     ecx, [rbp+x]\nsub     ecx, [rbp+bpp]\nmovsxd  rcx, ecx\nxor     edx, edx; c\nmovzx   edi, byte ptr [rax+rcx]; a\nmov     esi, edx; b\ncall    cp_paeth\nmovzx   esi, al\nmov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, esi\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_2DF5",
+   "loc_2E3D": "jmp     loc_2E4E",
+   "loc_2E42": "mov     [rbp+var_4], 0; jumptable 0000000000002D4B default case\njmp     loc_3144",
+   "loc_2E4E": "jmp     $+5",
+   "loc_2E53": "mov     rax, [rbp+raw]\nmov     [rbp+prev], rax\nmov     ecx, [rbp+len]\nmov     rax, [rbp+raw]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+raw], rax\nmov     [rbp+y], 1",
+   "loc_2E73": "mov     eax, [rbp+y]\ncmp     eax, [rbp+h]\njge     loc_313D",
+   "loc_2E7F": "mov     rax, [rbp+raw]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+raw], rcx\nmovzx   eax, byte ptr [rax]\nmov     [rbp+var_40], rax\nsub     rax, 4; switch 5 cases\nja      def_2EB1; jumptable 0000000000002EB1 default case",
+   "loc_2E9F": "mov     rax, [rbp+var_40]\nlea     rcx, jpt_2EB1\nmovsxd  rax, ds:(jpt_2EB1 - 7044h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_2EB3": "jmp     loc_3111; jumptable 0000000000002EB1 case 0",
+   "loc_2EB8": "mov     [rbp+x], 0; jumptable 0000000000002EB1 case 1",
+   "loc_2EBF": "mov     eax, [rbp+x]\ncmp     eax, [rbp+bpp]\njge     loc_2EEB",
+   "loc_2ECB": "mov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, 0\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_2EBF",
+   "loc_2EEB": "jmp     $+5",
+   "loc_2EF0": "mov     eax, [rbp+x]\ncmp     eax, [rbp+len]\njge     loc_2F2C",
+   "loc_2EFC": "mov     rax, [rbp+raw]\nmov     ecx, [rbp+x]\nsub     ecx, [rbp+bpp]\nmovsxd  rcx, ecx\nmovzx   esi, byte ptr [rax+rcx]\nmov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, esi\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_2EF0",
+   "loc_2F2C": "jmp     loc_3111",
+   "loc_2F31": "mov     [rbp+x], 0; jumptable 0000000000002EB1 case 2",
+   "loc_2F38": "mov     eax, [rbp+x]\ncmp     eax, [rbp+bpp]\njge     loc_2F6F",
+   "loc_2F44": "mov     rax, [rbp+prev]\nmovsxd  rcx, [rbp+x]\nmovzx   esi, byte ptr [rax+rcx]\nmov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, esi\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_2F38",
+   "loc_2F6F": "jmp     $+5",
+   "loc_2F74": "mov     eax, [rbp+x]\ncmp     eax, [rbp+len]\njge     loc_2FAB",
+   "loc_2F80": "mov     rax, [rbp+prev]\nmovsxd  rcx, [rbp+x]\nmovzx   esi, byte ptr [rax+rcx]\nmov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, esi\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_2F74",
+   "loc_2FAB": "jmp     loc_3111",
+   "loc_2FB0": "mov     [rbp+x], 0; jumptable 0000000000002EB1 case 3",
+   "loc_2FB7": "mov     eax, [rbp+x]\ncmp     eax, [rbp+bpp]\njge     loc_2FF8",
+   "loc_2FC3": "mov     rax, [rbp+prev]\nmovsxd  rcx, [rbp+x]\nmovzx   eax, byte ptr [rax+rcx]\nmov     ecx, 2\ncdq\nidiv    ecx\nmov     esi, eax\nmov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, esi\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_2FB7",
+   "loc_2FF8": "jmp     $+5",
+   "loc_2FFD": "mov     eax, [rbp+x]\ncmp     eax, [rbp+len]\njge     loc_3051",
+   "loc_3009": "mov     rax, [rbp+raw]\nmov     ecx, [rbp+x]\nsub     ecx, [rbp+bpp]\nmovsxd  rcx, ecx\nmovzx   eax, byte ptr [rax+rcx]\nmov     rcx, [rbp+prev]\nmovsxd  rdx, [rbp+x]\nmovzx   ecx, byte ptr [rcx+rdx]\nadd     eax, ecx\nmov     ecx, 2\ncdq\nidiv    ecx\nmov     esi, eax\nmov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, esi\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_2FFD",
+   "loc_3051": "jmp     loc_3111",
+   "loc_3056": "mov     [rbp+x], 0; jumptable 0000000000002EB1 case 4",
+   "loc_305D": "mov     eax, [rbp+x]\ncmp     eax, [rbp+bpp]\njge     loc_3094",
+   "loc_3069": "mov     rax, [rbp+prev]\nmovsxd  rcx, [rbp+x]\nmovzx   esi, byte ptr [rax+rcx]\nmov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, esi\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_305D",
+   "loc_3094": "jmp     $+5",
+   "loc_3099": "mov     eax, [rbp+x]\ncmp     eax, [rbp+len]\njge     loc_3100",
+   "loc_30A5": "mov     rax, [rbp+raw]\nmov     ecx, [rbp+x]\nsub     ecx, [rbp+bpp]\nmovsxd  rcx, ecx\nmov     sil, [rax+rcx]\nmov     rax, [rbp+prev]\nmovsxd  rcx, [rbp+x]\nmov     dl, [rax+rcx]\nmov     rax, [rbp+prev]\nmov     ecx, [rbp+x]\nsub     ecx, [rbp+bpp]\nmovsxd  rcx, ecx\nmovzx   edi, sil; a\nmovzx   esi, dl; b\nmovzx   edx, byte ptr [rax+rcx]; c\ncall    cp_paeth\nmovzx   esi, al\nmov     rax, [rbp+raw]\nmovsxd  rcx, [rbp+x]\nmovzx   edx, byte ptr [rax+rcx]\nadd     edx, esi\nmov     [rax+rcx], dl\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\njmp     loc_3099",
+   "loc_3100": "jmp     loc_3111",
+   "loc_3105": "mov     [rbp+var_4], 0; jumptable 0000000000002EB1 default case\njmp     loc_3144",
+   "loc_3111": "jmp     $+5",
+   "loc_3116": "mov     eax, [rbp+y]\nadd     eax, 1\nmov     [rbp+y], eax\nmov     rax, [rbp+raw]\nmov     [rbp+prev], rax\nmov     ecx, [rbp+len]\nmov     rax, [rbp+raw]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+raw], rax\njmp     loc_2E73",
+   "loc_313D": "mov     [rbp+var_4], 1",
+   "loc_3144": "mov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_40": "qword ptr -40h",
+   "var_38": "qword ptr -38h",
+   "y": "dword ptr -30h",
+   "x": "dword ptr -2Ch",
+   "prev": "qword ptr -28h",
+   "len": "dword ptr -1Ch",
+   "raw": "qword ptr -18h",
+   "bpp": "dword ptr -10h",
+   "h": "dword ptr -0Ch",
+   "w": "dword ptr -8",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "jpt_2D4B": "dword offset loc_2D4D - 7030h; jump table for switch statement",
+   "jpt_2EB1": "dword offset loc_2EB3 - 7044h; jump table for switch statement"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 11504,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".ferror": "ferror",
+  "_ferror": "ferror",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".abs": "abs",
+  "_abs": "abs",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".ferror",
+   ".plt",
+   true,
+   "ferror"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".abs",
+   ".plt",
+   true,
+   "abs"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ferror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "abs",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872658
+ }
+}

@@ -1,0 +1,1 @@
+__attribute__((no))  int64_t func0(int64_t N) { int64_t s = 0; for (int64_t i = 1; i <= N; ++i) { s += i * i * i * i; } return s; }

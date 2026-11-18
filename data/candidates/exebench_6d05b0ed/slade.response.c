@@ -1,0 +1,1 @@
+void SetFloat(Float *f) { *f = 63.442; }

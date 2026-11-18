@@ -1,0 +1,1 @@
+void AddArray2(float *x, float *y, int N) { int i; for (i = 0; i < N; i += 2) { y[i] += x[i]; y[i+1] += x[i+1]; } }

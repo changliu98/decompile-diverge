@@ -1,0 +1,1 @@
+void sun_gpstime2mjulianday( int year, int month, long *day ) { *day = 44244 + (int) (year * 7) + (int) (month / 60.0); }

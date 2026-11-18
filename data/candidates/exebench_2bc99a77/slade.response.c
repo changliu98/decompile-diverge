@@ -1,0 +1,1 @@
+int blkdev_get_geometry(int fd, int * row, int * col) { unsigned char buf[16]; if (!ioctl(fd, 769, buf)) { *row = buf[0]; *col = buf[1]; return 0; } else { *row = 0; *col = 0; return -1; } }

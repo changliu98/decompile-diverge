@@ -1,0 +1,1 @@
+int func0(const int *p, int N) { int ret = 0; for (int i = N - 1; i >= 0; i--) { ret += p[i] * i - (N - 1 - i) * p[i]; } return ret; }

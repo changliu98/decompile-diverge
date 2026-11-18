@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n#include <stdlib.h>\n\nchar *func0(int n) {\n    int len = 2; \n    for (int i = 1; i <= n; ++i) {\n        len += snprintf(NULL, 0, \" %d\", i);\n    }\n\n    char *out = malloc(len);\n    if (!out) {\n        return NULL;\n    }\n    \n    char *ptr = out;\n    ptr += sprintf(ptr, \"0\");\n    for (int i = 1; i <= n; ++i) {\n        ptr += sprintf(ptr, \" %d\", i);\n    }\n    return out;\n}",
+ "c_test": "#include <assert.h>\n#include <string.h>\n\nint main() {\n    char *result;\n\n    result = func0(0);\n    assert(strcmp(result, \"0\") == 0);\n    free(result);\n\n    result = func0(3);\n    assert(strcmp(result, \"0 1 2 3\") == 0);\n    free(result);\n\n    result = func0(10);\n    assert(strcmp(result, \"0 1 2 3 4 5 6 7 8 9 10\") == 0);\n    free(result);\n\n    return 0;\n}"
+}

@@ -1,0 +1,5 @@
+void spin_unlock(char *s)
+{
+   s[0] = '\0';
+
+}

@@ -1,0 +1,1 @@
+void removeslave(int *slaves, int n) { int i; for (i = 9; i >= 0; i--) { if (slaves[i]) { slaves[i] = 0; n--; } if (!n) return ; } }

@@ -1,0 +1,1 @@
+float v_inner( Vec a, Vec b, int N) { int i; float sum; for( i = 0, sum = 0.0f; i < N; i++ ) sum += a[i] * b[i]; return sum; }

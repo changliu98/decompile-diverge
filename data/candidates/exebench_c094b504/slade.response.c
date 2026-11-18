@@ -1,0 +1,1 @@
+void ComputeReverb16(short *src, short *dest, long count, long factor) { long max = 32767; long min = -32767; short s; while (count-- > 0) { s = *dest + (*src++ * factor) / 21; if (s > max) { s = max; } else if (s < min) { s = min; } *dest++ = s; } }

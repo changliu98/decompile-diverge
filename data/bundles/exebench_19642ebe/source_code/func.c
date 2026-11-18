@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+#include <stdlib.h>
+
+#include <time.h>
+
+#include <sys/time.h>
+
+#include <stdint.h>
+
+#include <emmintrin.h>
+
+void
+multiply_naive(const float* A, const float* B, float* result) {
+    for (int i = 0; i < 16; i += 4) {
+        for (int j = 0; j < 4; j++) {
+            result[i+j] = B[i] * A[j] +
+                          B[i+1] * A[j+4] +
+                          B[i+2] * A[j+8] +
+                          B[i+3] * A[j+12];
+        }
+    }
+}

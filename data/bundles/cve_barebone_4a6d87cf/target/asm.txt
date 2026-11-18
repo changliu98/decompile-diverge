@@ -1,0 +1,211 @@
+00000000000014a0 <jpc_dec_process_sod>:
+    14a0:	push   %rbp
+    14a1:	mov    %rsp,%rbp
+    14a4:	sub    $0x50,%rsp
+    14a8:	mov    %rdi,-0x10(%rbp)
+    14ac:	mov    %rsi,-0x18(%rbp)
+    14b0:	mov    -0x10(%rbp),%rax
+    14b4:	mov    (%rax),%rax
+    14b7:	mov    %rax,-0x20(%rbp)
+    14bb:	cmp    $0x0,%rax
+    14bf:	jne    14d1 <jpc_dec_process_sod+0x31>
+    14c5:	movl   $0xffffffff,-0x4(%rbp)
+    14cc:	jmp    182f <jpc_dec_process_sod+0x38f>
+    14d1:	mov    -0x20(%rbp),%rax
+    14d5:	cmpl   $0x0,0x18(%rax)
+    14d9:	jne    154a <jpc_dec_process_sod+0xaa>
+    14df:	mov    -0x20(%rbp),%rax
+    14e3:	mov    0x10(%rax),%rdi
+    14e7:	call   1840 <jpc_dec_cp_isvalid>
+    14ec:	cmp    $0x0,%eax
+    14ef:	jne    1501 <jpc_dec_process_sod+0x61>
+    14f5:	movl   $0xffffffff,-0x4(%rbp)
+    14fc:	jmp    182f <jpc_dec_process_sod+0x38f>
+    1501:	mov    -0x20(%rbp),%rax
+    1505:	mov    0x10(%rax),%rdi
+    1509:	call   1850 <jpc_dec_cp_prepare>
+    150e:	cmp    $0x0,%eax
+    1511:	je     1523 <jpc_dec_process_sod+0x83>
+    1517:	movl   $0xffffffff,-0x4(%rbp)
+    151e:	jmp    182f <jpc_dec_process_sod+0x38f>
+    1523:	mov    -0x10(%rbp),%rdi
+    1527:	mov    -0x20(%rbp),%rsi
+    152b:	call   1860 <jpc_dec_tileinit>
+    1530:	cmp    $0x0,%eax
+    1533:	je     1545 <jpc_dec_process_sod+0xa5>
+    1539:	movl   $0xffffffff,-0x4(%rbp)
+    1540:	jmp    182f <jpc_dec_process_sod+0x38f>
+    1545:	jmp    154a <jpc_dec_process_sod+0xaa>
+    154a:	mov    -0x10(%rbp),%rax
+    154e:	cmpq   $0x0,0x10(%rax)
+    1553:	je     158b <jpc_dec_process_sod+0xeb>
+    1559:	mov    -0x10(%rbp),%rax
+    155d:	mov    0x10(%rax),%rdi
+    1561:	xor    %esi,%esi
+    1563:	call   1880 <jpc_streamlist_remove>
+    1568:	mov    -0x20(%rbp),%rcx
+    156c:	mov    %rax,0x8(%rcx)
+    1570:	cmp    $0x0,%rax
+    1574:	jne    1586 <jpc_dec_process_sod+0xe6>
+    157a:	movl   $0xffffffff,-0x4(%rbp)
+    1581:	jmp    182f <jpc_dec_process_sod+0x38f>
+    1586:	jmp    158b <jpc_dec_process_sod+0xeb>
+    158b:	mov    -0x20(%rbp),%rax
+    158f:	cmpq   $0x0,(%rax)
+    1593:	je     164f <jpc_dec_process_sod+0x1af>
+    1599:	mov    -0x20(%rbp),%rax
+    159d:	cmpq   $0x0,0x8(%rax)
+    15a2:	jne    15d6 <jpc_dec_process_sod+0x136>
+    15a8:	xor    %eax,%eax
+    15aa:	mov    %eax,%edi
+    15ac:	xor    %esi,%esi
+    15ae:	call   1940 <jas_stream_memopen>
+    15b3:	mov    -0x20(%rbp),%rcx
+    15b7:	mov    %rax,0x8(%rcx)
+    15bb:	cmp    $0x0,%rax
+    15bf:	jne    15d1 <jpc_dec_process_sod+0x131>
+    15c5:	movl   $0xffffffff,-0x4(%rbp)
+    15cc:	jmp    182f <jpc_dec_process_sod+0x38f>
+    15d1:	jmp    15d6 <jpc_dec_process_sod+0x136>
+    15d6:	mov    -0x20(%rbp),%rax
+    15da:	mov    0x8(%rax),%rdi
+    15de:	call   1950 <jas_stream_tell>
+    15e3:	mov    %eax,-0x24(%rbp)
+    15e6:	mov    -0x20(%rbp),%rax
+    15ea:	mov    0x8(%rax),%rdi
+    15ee:	xor    %eax,%eax
+    15f0:	mov    %eax,%esi
+    15f2:	mov    $0x2,%edx
+    15f7:	call   1960 <jas_stream_seek>
+    15fc:	mov    -0x20(%rbp),%rax
+    1600:	mov    0x8(%rax),%rdi
+    1604:	mov    -0x20(%rbp),%rax
+    1608:	mov    (%rax),%rsi
+    160b:	call   1980 <jpc_pptstabwrite>
+    1610:	cmp    $0x0,%eax
+    1613:	je     1625 <jpc_dec_process_sod+0x185>
+    1619:	movl   $0xffffffff,-0x4(%rbp)
+    1620:	jmp    182f <jpc_dec_process_sod+0x38f>
+    1625:	mov    -0x20(%rbp),%rax
+    1629:	mov    0x8(%rax),%rdi
+    162d:	movslq -0x24(%rbp),%rsi
+    1631:	xor    %edx,%edx
+    1633:	call   1960 <jas_stream_seek>
+    1638:	mov    -0x20(%rbp),%rax
+    163c:	mov    (%rax),%rdi
+    163f:	call   19a0 <jpc_ppxstab_destroy>
+    1644:	mov    -0x20(%rbp),%rax
+    1648:	movq   $0x0,(%rax)
+    164f:	call   19b0 <jas_get_debug_level>
+    1654:	cmp    $0xa,%eax
+    1657:	jl     1666 <jpc_dec_process_sod+0x1c6>
+    165d:	mov    -0x10(%rbp),%rdi
+    1661:	call   19c0 <jpc_dec_dump>
+    1666:	mov    -0x10(%rbp),%rax
+    166a:	mov    %rax,-0x40(%rbp)
+    166e:	mov    -0x20(%rbp),%rax
+    1672:	cmpq   $0x0,0x8(%rax)
+    1677:	je     168e <jpc_dec_process_sod+0x1ee>
+    167d:	mov    -0x20(%rbp),%rax
+    1681:	mov    0x8(%rax),%rax
+    1685:	mov    %rax,-0x48(%rbp)
+    1689:	jmp    169a <jpc_dec_process_sod+0x1fa>
+    168e:	mov    -0x10(%rbp),%rax
+    1692:	mov    0x8(%rax),%rax
+    1696:	mov    %rax,-0x48(%rbp)
+    169a:	mov    -0x40(%rbp),%rdi
+    169e:	mov    -0x48(%rbp),%rsi
+    16a2:	mov    -0x10(%rbp),%rax
+    16a6:	mov    0x8(%rax),%rdx
+    16aa:	call   19d0 <jpc_dec_decodepkts>
+    16af:	cmp    $0x0,%eax
+    16b2:	je     16d2 <jpc_dec_process_sod+0x232>
+    16b8:	lea    0x960(%rip),%rdi        # 201f <_IO_stdin_used+0x1f>
+    16bf:	mov    $0x0,%al
+    16c1:	call   19f0 <jas_logerrorf>
+    16c6:	movl   $0xffffffff,-0x4(%rbp)
+    16cd:	jmp    182f <jpc_dec_process_sod+0x38f>
+    16d2:	mov    -0x10(%rbp),%rax
+    16d6:	cmpq   $0x0,0x18(%rax)
+    16db:	jle    17af <jpc_dec_process_sod+0x30f>
+    16e1:	mov    -0x10(%rbp),%rax
+    16e5:	mov    0x8(%rax),%rdi
+    16e9:	call   1a00 <jas_stream_getrwcount>
+    16ee:	mov    %rax,-0x30(%rbp)
+    16f2:	mov    -0x30(%rbp),%rax
+    16f6:	mov    -0x10(%rbp),%rcx
+    16fa:	cmp    0x18(%rcx),%rax
+    16fe:	jge    1779 <jpc_dec_process_sod+0x2d9>
+    1704:	mov    -0x10(%rbp),%rax
+    1708:	mov    0x18(%rax),%rax
+    170c:	sub    -0x30(%rbp),%rax
+    1710:	mov    %rax,-0x38(%rbp)
+    1714:	mov    -0x38(%rbp),%rsi
+    1718:	lea    0x91b(%rip),%rdi        # 203a <_IO_stdin_used+0x3a>
+    171f:	mov    $0x0,%al
+    1721:	call   1a10 <jas_logwarnf>
+    1726:	mov    -0x38(%rbp),%rax
+    172a:	mov    %rax,%rcx
+    172d:	add    $0xffffffffffffffff,%rcx
+    1731:	mov    %rcx,-0x38(%rbp)
+    1735:	cmp    $0x0,%rax
+    1739:	jbe    1774 <jpc_dec_process_sod+0x2d4>
+    173f:	mov    -0x10(%rbp),%rax
+    1743:	mov    0x8(%rax),%rdi
+    1747:	call   1a20 <jas_stream_getc>
+    174c:	cmp    $0xffffffff,%eax
+    174f:	jne    176f <jpc_dec_process_sod+0x2cf>
+    1755:	lea    0x90e(%rip),%rdi        # 206a <_IO_stdin_used+0x6a>
+    175c:	mov    $0x0,%al
+    175e:	call   19f0 <jas_logerrorf>
+    1763:	movl   $0xffffffff,-0x4(%rbp)
+    176a:	jmp    182f <jpc_dec_process_sod+0x38f>
+    176f:	jmp    1726 <jpc_dec_process_sod+0x286>
+    1774:	jmp    17aa <jpc_dec_process_sod+0x30a>
+    1779:	mov    -0x30(%rbp),%rax
+    177d:	mov    -0x10(%rbp),%rcx
+    1781:	cmp    0x18(%rcx),%rax
+    1785:	jle    17a5 <jpc_dec_process_sod+0x305>
+    178b:	mov    -0x30(%rbp),%rsi
+    178f:	mov    -0x10(%rbp),%rax
+    1793:	sub    0x18(%rax),%rsi
+    1797:	lea    0x8d8(%rip),%rdi        # 2076 <_IO_stdin_used+0x76>
+    179e:	mov    $0x0,%al
+    17a0:	call   1a10 <jas_logwarnf>
+    17a5:	jmp    17aa <jpc_dec_process_sod+0x30a>
+    17aa:	jmp    17af <jpc_dec_process_sod+0x30f>
+    17af:	mov    -0x20(%rbp),%rax
+    17b3:	cmpl   $0x0,0x1c(%rax)
+    17b7:	jbe    1805 <jpc_dec_process_sod+0x365>
+    17bd:	mov    -0x20(%rbp),%rax
+    17c1:	mov    0x18(%rax),%eax
+    17c4:	mov    -0x20(%rbp),%rcx
+    17c8:	mov    0x1c(%rcx),%ecx
+    17cb:	sub    $0x1,%ecx
+    17ce:	cmp    %ecx,%eax
+    17d0:	jne    1805 <jpc_dec_process_sod+0x365>
+    17d6:	mov    -0x10(%rbp),%rdi
+    17da:	mov    -0x20(%rbp),%rsi
+    17de:	call   1a30 <jpc_dec_tiledecode>
+    17e3:	cmp    $0x0,%eax
+    17e6:	je     17f8 <jpc_dec_process_sod+0x358>
+    17ec:	movl   $0xffffffff,-0x4(%rbp)
+    17f3:	jmp    182f <jpc_dec_process_sod+0x38f>
+    17f8:	mov    -0x10(%rbp),%rdi
+    17fc:	mov    -0x20(%rbp),%rsi
+    1800:	call   1a50 <jpc_dec_tilefini>
+    1805:	mov    -0x10(%rbp),%rax
+    1809:	movq   $0x0,(%rax)
+    1810:	mov    -0x20(%rbp),%rax
+    1814:	mov    0x18(%rax),%ecx
+    1817:	add    $0x1,%ecx
+    181a:	mov    %ecx,0x18(%rax)
+    181d:	mov    -0x10(%rbp),%rax
+    1821:	movl   $0x8,0x20(%rax)
+    1828:	movl   $0x0,-0x4(%rbp)
+    182f:	mov    -0x4(%rbp),%eax
+    1832:	add    $0x50,%rsp
+    1836:	pop    %rbp
+    1837:	ret
+
+Disassembly of section .fini:

@@ -1,0 +1,53 @@
+00000000000014b0 <fdc_crc4>:
+    14b0:	push   %rbp
+    14b1:	mov    %rsp,%rbp
+    14b4:	mov    %rdi,-0x8(%rbp)
+    14b8:	mov    %rsi,-0x10(%rbp)
+    14bc:	movb   $0xf,-0x11(%rbp)
+    14c0:	movq   $0x0,-0x20(%rbp)
+    14c8:	mov    -0x20(%rbp),%rax
+    14cc:	cmp    -0x10(%rbp),%rax
+    14d0:	jae    1562 <fdc_crc4+0xb2>
+    14d6:	movl   $0x7,-0x24(%rbp)
+    14dd:	cmpl   $0x0,-0x24(%rbp)
+    14e1:	jg     1540 <fdc_crc4+0x90>
+    14e7:	movzbl -0x11(%rbp),%eax
+    14eb:	shl    $0x1,%eax
+    14ee:	mov    %al,-0x11(%rbp)
+    14f1:	mov    -0x8(%rbp),%rax
+    14f5:	movzbl (%rax),%eax
+    14f8:	mov    -0x24(%rbp),%ecx
+    14fb:	sar    %cl,%eax
+    14fd:	and    $0x1,%eax
+    1500:	cmp    $0x0,%eax
+    1503:	je     1513 <fdc_crc4+0x63>
+    1509:	movzbl -0x11(%rbp),%eax
+    150d:	or     $0x1,%eax
+    1510:	mov    %al,-0x11(%rbp)
+    1513:	movzbl -0x11(%rbp),%eax
+    1517:	and    $0x10,%eax
+    151a:	cmp    $0x0,%eax
+    151d:	je     152d <fdc_crc4+0x7d>
+    1523:	movzbl -0x11(%rbp),%eax
+    1527:	xor    $0x3,%eax
+    152a:	mov    %al,-0x11(%rbp)
+    152d:	jmp    1532 <fdc_crc4+0x82>
+    1532:	mov    -0x24(%rbp),%eax
+    1535:	add    $0xffffffff,%eax
+    1538:	mov    %eax,-0x24(%rbp)
+    153b:	jmp    14dd <fdc_crc4+0x2d>
+    1540:	jmp    1545 <fdc_crc4+0x95>
+    1545:	mov    -0x20(%rbp),%rax
+    1549:	add    $0x1,%rax
+    154d:	mov    %rax,-0x20(%rbp)
+    1551:	mov    -0x8(%rbp),%rax
+    1555:	add    $0x1,%rax
+    1559:	mov    %rax,-0x8(%rbp)
+    155d:	jmp    14c8 <fdc_crc4+0x18>
+    1562:	movzbl -0x11(%rbp),%eax
+    1566:	and    $0xf,%eax
+    1569:	movzbl %al,%eax
+    156c:	pop    %rbp
+    156d:	ret
+
+Disassembly of section .fini:

@@ -1,0 +1,1 @@
+int set_filename(char *dest, const char *src) { while (*src) { if (*src == '/') { *dest = '\0'; return 2; } *dest = *src; dest++; src++; } *dest = '\0'; return 1; }

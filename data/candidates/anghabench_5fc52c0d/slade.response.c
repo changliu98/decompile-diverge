@@ -1,0 +1,1 @@
+void sjis2jis(unsigned char *p1, unsigned char *p2) { unsigned char c1 = *p1; unsigned char c2 = *p2; unsigned int x = c2 <=0xA6; unsigned int y = c1 <=0x61?0x70:0xB0; unsigned int z = x ? (c2 &0x80) :0x7E; *p1 = (int)(x - y) << 1; *p2 -= z; }

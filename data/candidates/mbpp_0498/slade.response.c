@@ -1,0 +1,1 @@
+__size32 func0(__size32 param1, __size32 param2) { __size32 eax; __size32 eax_1; eax = 1; if (param1 % param2 == 0) return param2; eax_1 = param2 / 2; while (eax_1 > 0) { if (param1 % eax_1 == 0 && param2 % eax_1 == 0) { eax = eax_1; break; } --eax_1; } return eax; }

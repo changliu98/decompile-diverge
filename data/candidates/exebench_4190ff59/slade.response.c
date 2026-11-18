@@ -1,0 +1,1 @@
+void motorctrl_backward(motorctrl_t *mc) { mc->direction -= 128; }

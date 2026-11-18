@@ -1,0 +1,1 @@
+void clearZeroflag(char *buf) { buf[6] = '0'; }

@@ -1,0 +1,4 @@
+static inline int walNextHash(int iPriorHash)
+{
+  return ( ( iPriorHash + 1 ) & ( HASHTABLE_NSLOT - 1 ) );
+}

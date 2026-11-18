@@ -1,0 +1,1 @@
+void func0(char *ch) { char *s = "AEIOUaeiou"; char *p = ch; while (*ch) { if (strchr(s, *ch) == NULL) *p++ = *ch; ++ch; } *p = '\0'; }

@@ -1,0 +1,1 @@
+char func0(int i) { return i % 11 == 0; }

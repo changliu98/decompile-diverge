@@ -1,0 +1,1 @@
+void ref_add_double(double i, double j, double* r) { *r = i + j; }

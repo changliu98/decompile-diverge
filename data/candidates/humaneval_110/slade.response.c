@@ -1,0 +1,1 @@
+char* func0(int* arr, int size, int* arr2, int size2) { int count = 0; for (int i = 0; i < size; ++i) { if (!(arr[i] % 2)) count++; } for (int i = 0; i < size2; ++i) { if (!(arr2[i] % 2)) count++; } if (count >= size) return "YES"; return "NO"; }

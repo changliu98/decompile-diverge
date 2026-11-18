@@ -1,0 +1,1 @@
+int sizeof_ns2_led_priv(int num_leds) { return sizeof(struct ns2_led_priv) + sizeof(struct led_priv) * num_leds; }

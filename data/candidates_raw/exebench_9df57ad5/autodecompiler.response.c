@@ -1,0 +1,1 @@
+void _cairo_clip_path_reference(cairo_clip_path_t *cp, cairo_clip_path_t *new) { cp->ref_count = new->ref_count; __sync_fetch_and_or (&cp->ref_count, 0); }

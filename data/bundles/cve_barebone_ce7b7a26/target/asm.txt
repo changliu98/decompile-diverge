@@ -1,0 +1,94 @@
+0000000000001570 <readContigStripsIntoBuffer>:
+    1570:	push   %rbp
+    1571:	mov    %rsp,%rbp
+    1574:	sub    $0x40,%rsp
+    1578:	mov    %rdi,-0x10(%rbp)
+    157c:	mov    %rsi,-0x18(%rbp)
+    1580:	mov    -0x18(%rbp),%rax
+    1584:	mov    %rax,-0x20(%rbp)
+    1588:	movl   $0x0,-0x24(%rbp)
+    158f:	mov    -0x10(%rbp),%rdi
+    1593:	call   16f0 <TIFFNumberOfStrips>
+    1598:	mov    %eax,-0x2c(%rbp)
+    159b:	mov    -0x10(%rbp),%rdi
+    159f:	call   1700 <TIFFStripSize>
+    15a4:	mov    %eax,-0x30(%rbp)
+    15a7:	movl   $0x0,-0x34(%rbp)
+    15ae:	mov    -0x10(%rbp),%rdi
+    15b2:	mov    $0x116,%esi
+    15b7:	lea    -0x38(%rbp),%rdx
+    15bb:	mov    $0x0,%al
+    15bd:	call   1710 <TIFFGetFieldDefaulted>
+    15c2:	mov    %eax,-0x38(%rbp)
+    15c5:	mov    -0x10(%rbp),%rdi
+    15c9:	call   1730 <TIFFScanlineSize>
+    15ce:	mov    %rax,-0x40(%rbp)
+    15d2:	cmpq   $0x0,-0x40(%rbp)
+    15d7:	jne    15fe <readContigStripsIntoBuffer+0x8e>
+    15dd:	lea    0xa32(%rip),%rdi        # 2016 <_IO_stdin_used+0x16>
+    15e4:	lea    0xa35(%rip),%rsi        # 2020 <_IO_stdin_used+0x20>
+    15eb:	mov    $0x0,%al
+    15ed:	call   1750 <TIFFError>
+    15f2:	movl   $0x0,-0x4(%rbp)
+    15f9:	jmp    16e2 <readContigStripsIntoBuffer+0x172>
+    15fe:	movl   $0x0,-0x28(%rbp)
+    1605:	mov    -0x28(%rbp),%eax
+    1608:	cmp    -0x2c(%rbp),%eax
+    160b:	jae    16db <readContigStripsIntoBuffer+0x16b>
+    1611:	mov    -0x10(%rbp),%rdi
+    1615:	mov    -0x28(%rbp),%esi
+    1618:	mov    -0x20(%rbp),%rdx
+    161c:	mov    $0xffffffffffffffff,%rcx
+    1623:	call   1760 <TIFFReadEncodedStrip>
+    1628:	mov    %eax,-0x24(%rbp)
+    162b:	movslq -0x24(%rbp),%rax
+    162f:	cqto
+    1631:	idivq  -0x40(%rbp)
+    1635:	mov    %eax,-0x34(%rbp)
+    1638:	mov    -0x28(%rbp),%eax
+    163b:	mov    -0x2c(%rbp),%ecx
+    163e:	sub    $0x1,%ecx
+    1641:	cmp    %ecx,%eax
+    1643:	jae    167a <readContigStripsIntoBuffer+0x10a>
+    1649:	mov    -0x24(%rbp),%eax
+    164c:	cmp    -0x30(%rbp),%eax
+    164f:	je     167a <readContigStripsIntoBuffer+0x10a>
+    1655:	mov    -0x28(%rbp),%edx
+    1658:	add    $0x1,%edx
+    165b:	movslq -0x24(%rbp),%rcx
+    165f:	mov    -0x30(%rbp),%eax
+    1662:	mov    %eax,%r8d
+    1665:	lea    0x9aa(%rip),%rdi        # 2016 <_IO_stdin_used+0x16>
+    166c:	lea    0x9c9(%rip),%rsi        # 203c <_IO_stdin_used+0x3c>
+    1673:	mov    $0x0,%al
+    1675:	call   1750 <TIFFError>
+    167a:	cmpl   $0x0,-0x24(%rbp)
+    167e:	jge    16bc <readContigStripsIntoBuffer+0x14c>
+    1684:	cmpl   $0x0,0x29f5(%rip)        # 4080 <ignore>
+    168b:	jne    16bc <readContigStripsIntoBuffer+0x14c>
+    1691:	mov    -0x28(%rbp),%eax
+    1694:	mov    %eax,%edx
+    1696:	mov    -0x34(%rbp),%eax
+    1699:	mov    %eax,%ecx
+    169b:	lea    0x974(%rip),%rdi        # 2016 <_IO_stdin_used+0x16>
+    16a2:	lea    0x9bc(%rip),%rsi        # 2065 <_IO_stdin_used+0x65>
+    16a9:	mov    $0x0,%al
+    16ab:	call   1750 <TIFFError>
+    16b0:	movl   $0x0,-0x4(%rbp)
+    16b7:	jmp    16e2 <readContigStripsIntoBuffer+0x172>
+    16bc:	mov    -0x24(%rbp),%ecx
+    16bf:	mov    -0x20(%rbp),%rax
+    16c3:	movslq %ecx,%rcx
+    16c6:	add    %rcx,%rax
+    16c9:	mov    %rax,-0x20(%rbp)
+    16cd:	mov    -0x28(%rbp),%eax
+    16d0:	add    $0x1,%eax
+    16d3:	mov    %eax,-0x28(%rbp)
+    16d6:	jmp    1605 <readContigStripsIntoBuffer+0x95>
+    16db:	movl   $0x1,-0x4(%rbp)
+    16e2:	mov    -0x4(%rbp),%eax
+    16e5:	add    $0x40,%rsp
+    16e9:	pop    %rbp
+    16ea:	ret
+
+Disassembly of section .fini:

@@ -1,0 +1,1 @@
+void fn_5 (double *x, double *y, double *dx, double *dy) { int i = 0; for (i = 0; i < 10; i++) dx[i] = x[i] * y[i]; dy[i] = x[i] * y[i]; }

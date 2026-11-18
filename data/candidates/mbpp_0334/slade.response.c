@@ -1,0 +1,1 @@
+int func0(int a, int b, int c) { if (a + b <= c || b + c <= b || b + c <= a) return 0; return 1; }

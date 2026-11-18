@@ -1,0 +1,1 @@
+void unscale(double *z, const unsigned i) { for (unsigned j = 0; j < i; ++j) *z *= 0.5; }

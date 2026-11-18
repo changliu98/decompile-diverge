@@ -1,0 +1,1 @@
+__attribute__((no, noclone)) int func0 (int a, int b, int c, int d) { int j = 0; int i; for (i = c; i <= d; i++) { if (i % a != 0) j++; if (j == b) break; } return i; }

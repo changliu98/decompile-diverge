@@ -1,0 +1,1 @@
+void get_proc_info_mpi(u_int *size, u_int *mpi) { *size = 0; *mpi = 1; }

@@ -1,0 +1,475 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+str], rdi\nmov     [rbp+pbool], rsi\ncmp     [rbp+str], 0\njz      loc_7B16\ncmp     [rbp+pbool], 0\njnz     loc_7B22\nmov     [rbp+var_4], 0\njmp     loc_7CA3\nmov     rdi, [rbp+str]; s1\nlea     rsi, src; \"true\"\ncall    strcasecmp\ncmp     eax, 0\njnz     loc_7B40\njmp     _loc_true\nmov     rdi, [rbp+str]; s1\nlea     rsi, aYes; \"yes\"\ncall    strcasecmp\ncmp     eax, 0\njnz     loc_7B5E\njmp     _loc_true\nmov     rdi, [rbp+str]; s1\nlea     rsi, aOn; \"on\"\ncall    strcasecmp\ncmp     eax, 0\njnz     loc_7B7C\njmp     _loc_true\nmov     rdi, [rbp+str]; s1\nlea     rsi, aFalse; \"false\"\ncall    strcasecmp\ncmp     eax, 0\njnz     loc_7B9A\njmp     _loc_false\nmov     rdi, [rbp+str]; s1\nlea     rsi, aNo; \"no\"\ncall    strcasecmp\ncmp     eax, 0\njnz     loc_7BB8\njmp     _loc_false\nmov     rdi, [rbp+str]; s1\nlea     rsi, aOff; \"off\"\ncall    strcasecmp\ncmp     eax, 0\njnz     loc_7BD6\njmp     _loc_false\nmov     rdi, [rbp+str]; p\ncall    is_integer\ncmp     eax, 0\njz      loc_7C19\nmov     rdi, [rbp+str]; str\ncall    atoi64\nmov     [rbp+vint], rax\nmov     rdx, [rbp+vint]\nxor     ecx, ecx\nmov     eax, 1\ncmp     rdx, 0\ncmovnz  ecx, eax\nmov     rax, [rbp+pbool]\nmov     [rax], ecx\nmov     [rbp+var_4], 1\njmp     loc_7CA3\nmov     rdi, [rbp+str]; p\ncall    is_float\ncmp     eax, 0\njz      loc_7C6B\nmov     rdi, [rbp+str]; nptr\ncall    atof\nmovsd   [rbp+vdouble], xmm0\nmovsd   xmm0, [rbp+vdouble]\nxorps   xmm1, xmm1\nxor     ecx, ecx\nmov     eax, 1\nucomisd xmm0, xmm1\nsetp    sil\nsetnz   dl\nor      dl, sil\ncmovnz  ecx, eax\nmov     rax, [rbp+pbool]\nmov     [rax], ecx\nmov     [rbp+var_4], 1\njmp     loc_7CA3\njmp     $+5\nmov     [rbp+var_4], 0\njmp     loc_7CA3\nmov     rax, [rbp+pbool]\nmov     dword ptr [rax], 1\nmov     [rbp+var_4], 1\njmp     loc_7CA3\nmov     rax, [rbp+pbool]\nmov     dword ptr [rax], 0\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 24,
+  "edges": [
+   [
+    "start",
+    "loc_7B0B"
+   ],
+   [
+    "start",
+    "loc_7B16"
+   ],
+   [
+    "loc_7B0B",
+    "loc_7B16"
+   ],
+   [
+    "loc_7B0B",
+    "loc_7B22"
+   ],
+   [
+    "loc_7B16",
+    "loc_7CA3"
+   ],
+   [
+    "loc_7B22",
+    "loc_7B3B"
+   ],
+   [
+    "loc_7B22",
+    "loc_7B40"
+   ],
+   [
+    "loc_7B3B",
+    "loc_7C7C"
+   ],
+   [
+    "loc_7B40",
+    "loc_7B59"
+   ],
+   [
+    "loc_7B40",
+    "loc_7B5E"
+   ],
+   [
+    "loc_7B59",
+    "loc_7C7C"
+   ],
+   [
+    "loc_7B5E",
+    "loc_7B77"
+   ],
+   [
+    "loc_7B5E",
+    "loc_7B7C"
+   ],
+   [
+    "loc_7B77",
+    "loc_7C7C"
+   ],
+   [
+    "loc_7B7C",
+    "loc_7B95"
+   ],
+   [
+    "loc_7B7C",
+    "loc_7B9A"
+   ],
+   [
+    "loc_7B95",
+    "loc_7C92"
+   ],
+   [
+    "loc_7B9A",
+    "loc_7BB3"
+   ],
+   [
+    "loc_7B9A",
+    "loc_7BB8"
+   ],
+   [
+    "loc_7BB3",
+    "loc_7C92"
+   ],
+   [
+    "loc_7BB8",
+    "loc_7BD1"
+   ],
+   [
+    "loc_7BB8",
+    "loc_7BD6"
+   ],
+   [
+    "loc_7BD1",
+    "loc_7C92"
+   ],
+   [
+    "loc_7BD6",
+    "loc_7BE8"
+   ],
+   [
+    "loc_7BD6",
+    "loc_7C19"
+   ],
+   [
+    "loc_7BE8",
+    "loc_7CA3"
+   ],
+   [
+    "loc_7C19",
+    "loc_7C2B"
+   ],
+   [
+    "loc_7C19",
+    "loc_7C6B"
+   ],
+   [
+    "loc_7C2B",
+    "loc_7CA3"
+   ],
+   [
+    "loc_7C6B",
+    "loc_7C70"
+   ],
+   [
+    "loc_7C70",
+    "loc_7CA3"
+   ],
+   [
+    "loc_7C7C",
+    "loc_7CA3"
+   ],
+   [
+    "loc_7C92",
+    "loc_7CA3"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+str], rdi\nmov     [rbp+pbool], rsi\ncmp     [rbp+str], 0\njz      loc_7B16",
+   "loc_7B0B": "cmp     [rbp+pbool], 0\njnz     loc_7B22",
+   "loc_7B16": "mov     [rbp+var_4], 0\njmp     loc_7CA3",
+   "loc_7B22": "mov     rdi, [rbp+str]; s1\nlea     rsi, src; \"true\"\ncall    strcasecmp\ncmp     eax, 0\njnz     loc_7B40",
+   "loc_7B3B": "jmp     _loc_true",
+   "loc_7B40": "mov     rdi, [rbp+str]; s1\nlea     rsi, aYes; \"yes\"\ncall    strcasecmp\ncmp     eax, 0\njnz     loc_7B5E",
+   "loc_7B59": "jmp     _loc_true",
+   "loc_7B5E": "mov     rdi, [rbp+str]; s1\nlea     rsi, aOn; \"on\"\ncall    strcasecmp\ncmp     eax, 0\njnz     loc_7B7C",
+   "loc_7B77": "jmp     _loc_true",
+   "loc_7B7C": "mov     rdi, [rbp+str]; s1\nlea     rsi, aFalse; \"false\"\ncall    strcasecmp\ncmp     eax, 0\njnz     loc_7B9A",
+   "loc_7B95": "jmp     _loc_false",
+   "loc_7B9A": "mov     rdi, [rbp+str]; s1\nlea     rsi, aNo; \"no\"\ncall    strcasecmp\ncmp     eax, 0\njnz     loc_7BB8",
+   "loc_7BB3": "jmp     _loc_false",
+   "loc_7BB8": "mov     rdi, [rbp+str]; s1\nlea     rsi, aOff; \"off\"\ncall    strcasecmp\ncmp     eax, 0\njnz     loc_7BD6",
+   "loc_7BD1": "jmp     _loc_false",
+   "loc_7BD6": "mov     rdi, [rbp+str]; p\ncall    is_integer\ncmp     eax, 0\njz      loc_7C19",
+   "loc_7BE8": "mov     rdi, [rbp+str]; str\ncall    atoi64\nmov     [rbp+vint], rax\nmov     rdx, [rbp+vint]\nxor     ecx, ecx\nmov     eax, 1\ncmp     rdx, 0\ncmovnz  ecx, eax\nmov     rax, [rbp+pbool]\nmov     [rax], ecx\nmov     [rbp+var_4], 1\njmp     loc_7CA3",
+   "loc_7C19": "mov     rdi, [rbp+str]; p\ncall    is_float\ncmp     eax, 0\njz      loc_7C6B",
+   "loc_7C2B": "mov     rdi, [rbp+str]; nptr\ncall    atof\nmovsd   [rbp+vdouble], xmm0\nmovsd   xmm0, [rbp+vdouble]\nxorps   xmm1, xmm1\nxor     ecx, ecx\nmov     eax, 1\nucomisd xmm0, xmm1\nsetp    sil\nsetnz   dl\nor      dl, sil\ncmovnz  ecx, eax\nmov     rax, [rbp+pbool]\nmov     [rax], ecx\nmov     [rbp+var_4], 1\njmp     loc_7CA3",
+   "loc_7C6B": "jmp     $+5",
+   "loc_7C70": "mov     [rbp+var_4], 0\njmp     loc_7CA3",
+   "loc_7C7C": "mov     rax, [rbp+pbool]\nmov     dword ptr [rax], 1\nmov     [rbp+var_4], 1\njmp     loc_7CA3",
+   "loc_7C92": "mov     rax, [rbp+pbool]\nmov     dword ptr [rax], 0\nmov     [rbp+var_4], 1",
+   "loc_7CA3": "mov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "vdouble": "qword ptr -28h",
+   "vint": "qword ptr -20h",
+   "pbool": "qword ptr -18h",
+   "str": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "src": "byte 'true',0",
+   "aYes": "byte 'yes',0",
+   "aOn": "byte 'on',0",
+   "aFalse": "byte 'false',0",
+   "aNo": "byte 'no',0",
+   "aOff": "byte 'off',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 31472,
+ "thunk_map": {
+  ".strcasecmp": "strcasecmp",
+  "_strcasecmp": "strcasecmp",
+  ".strcpy": "strcpy",
+  "_strcpy": "strcpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".atof": "atof",
+  "_atof": "atof",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".strncasecmp": "strncasecmp",
+  "_strncasecmp": "strncasecmp",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".atoi": "atoi",
+  "_atoi": "atoi",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".strdup": "strdup",
+  "_strdup": "strdup"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".strcasecmp",
+   ".plt",
+   true,
+   "strcasecmp"
+  ],
+  [
+   ".strcpy",
+   ".plt",
+   true,
+   "strcpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".atof",
+   ".plt",
+   true,
+   "atof"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".strncasecmp",
+   ".plt",
+   true,
+   "strncasecmp"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".atoi",
+   ".plt",
+   true,
+   "atoi"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   ".strdup",
+   ".plt",
+   true,
+   "strdup"
+  ],
+  [
+   "malloc",
+   ".plt.got",
+   true,
+   "__imp_malloc"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcasecmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "atof",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "snprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncasecmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memmove",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868505
+ }
+}

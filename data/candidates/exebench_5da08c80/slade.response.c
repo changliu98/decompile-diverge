@@ -1,0 +1,1 @@
+int mmeq(float *a, float *b, size_t width, size_t height) { for (int i = 0; i < width * height; i++) { if (a[i] != b[i]) { return 0; } } return 1; }

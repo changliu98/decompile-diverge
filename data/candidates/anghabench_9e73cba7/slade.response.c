@@ -1,0 +1,1 @@
+int uasm_in_compat_space_p(long val) { return (val == (long)val); }

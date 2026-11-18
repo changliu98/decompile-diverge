@@ -1,0 +1,1 @@
+void atomic_add(int x, int *p) { *p += x; }

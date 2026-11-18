@@ -1,0 +1,1 @@
+int func0(const char *str[], int n) { int ret =0x7FFFFFFF; int i; for (i = 0; i < n; ++i) { int v; if (__isoc99_sscanf(str[i], "%d", &v) && v < ret) ret = v; } return ret; }

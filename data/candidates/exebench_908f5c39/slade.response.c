@@ -1,0 +1,1 @@
+int gcd_ptr(int *x, int *y) { int *t; while (*x > 0) { if (*x < *y) { t = x; x = y; y = t; } *x -= *y; } return *y; }

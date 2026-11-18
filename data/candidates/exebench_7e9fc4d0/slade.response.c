@@ -1,0 +1,1 @@
+void Vec3Add(const Vec3 a, const Vec3 b, Vec3 c) { c[0] = a[0] + b[0]; c[1] = a[1] + b[1]; c[2] = a[2] + b[2]; }

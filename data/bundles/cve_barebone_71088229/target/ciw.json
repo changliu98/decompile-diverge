@@ -1,0 +1,541 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+iter], rdi\nmov     [rbp+new_node], rsi\nmov     [rbp+skip_dentries], rdx\nmov     [rbp+node], 0\nmov     [rbp+need_delete], 0\nmov     rdi, [rbp+iter]; iter\nxor     esi, esi; ith\nlea     rdx, [rbp+file_de]; dentry\ncall    exfat_de_iter_get\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njnz     loc_142E\nmov     rax, [rbp+file_de]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 85h\njz      loc_1448\nlea     rdi, fmt; \"failed to get file dentry\\n\"\nmov     al, 0\ncall    exfat_err\nmov     [rbp+var_4], 0FFFFFFEAh\njmp     loc_17F5\nmov     rdi, [rbp+iter]; iter\ncall    file_calc_checksum\nmov     [rbp+checksum], ax\nmovzx   eax, [rbp+checksum]\nmov     rcx, [rbp+file_de]\nmovzx   ecx, word ptr [rcx+2]\ncmp     eax, ecx\njz      loc_1478\nmov     rax, [rbp+skip_dentries]\nmov     dword ptr [rax], 1\njmp     skip_dset\nmov     rax, [rbp+file_de]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 2\njge     loc_1498\nmov     rax, [rbp+skip_dentries]\nmov     dword ptr [rax], 1\njmp     skip_dset\nmov     rdi, [rbp+iter]; iter\nmov     esi, 1; ith\nlea     rdx, [rbp+stream_de]; dentry\ncall    exfat_de_iter_get\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njnz     loc_14C9\nmov     rax, [rbp+stream_de]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 0C0h\njz      loc_14D8\nmov     rax, [rbp+skip_dentries]\nmov     dword ptr [rax], 2\njmp     skip_dset\nmov     rax, [rbp+new_node]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+file_de]\nmovzx   edi, word ptr [rax+4]; attr\ncall    exfat_alloc_inode\nmov     [rbp+node], rax\ncmp     [rbp+node], 0\njnz     loc_150B\nmov     [rbp+var_4], 0FFFFFFF4h\njmp     loc_17F5\nmov     [rbp+i], 2\nmov     eax, [rbp+i]\nmov     rcx, [rbp+file_de]\nmovzx   ecx, byte ptr [rcx+1]\ncmp     eax, ecx\njg      loc_15F4\nmov     rdi, [rbp+iter]; iter\nmov     esi, [rbp+i]; ith\nlea     rdx, [rbp+dentry]; dentry\ncall    exfat_de_iter_get\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njnz     loc_1554\nmov     rax, [rbp+dentry]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 0C1h\njz      loc_15A1\ncmp     [rbp+i], 2\njle     loc_1590\nxor     eax, eax\ntest    al, 1\njnz     loc_156D\njmp     loc_1590\nmov     rdi, [rbp+iter]; iter\nxor     esi, esi; ith\nlea     rdx, [rbp+file_de]; dentry\ncall    _ZN4chip7BitMaskINS_3app8Clusters10EnergyEvse7FeatureEjEC2IJS4_EEES4_DpOT__0; chip::BitMask<chip::app::Clusters::EnergyEvse::Feature,uint>::BitMask<chip::app::Clusters::EnergyEvse::Feature>(chip::app::Clusters::EnergyEvse::Feature,chip::app::Clusters::EnergyEvse::Feature &&)\nmov     eax, [rbp+i]\nsub     eax, 1\nmov     cl, al\nmov     rax, [rbp+file_de]\nmov     [rax+1], cl\njmp     loc_15F4\nmov     ecx, [rbp+i]\nadd     ecx, 1\nmov     rax, [rbp+skip_dentries]\nmov     [rax], ecx\njmp     skip_dset\nmov     rax, [rbp+node]\nmov     ecx, [rbp+i]\nsub     ecx, 2\nimul    ecx, 0Fh\nmovsxd  rcx, ecx\nmov     rdx, [rbp+dentry]\nmov     rsi, [rdx+2]\nmov     [rax+rcx*2+68h], rsi\nmov     rsi, [rdx+0Ah]\nmov     [rax+rcx*2+70h], rsi\nmov     rsi, [rdx+12h]\nmov     [rax+rcx*2+78h], rsi\nmov     esi, [rdx+1Ah]\nmov     [rax+rcx*2+80h], esi\nmov     dx, [rdx+1Eh]\nmov     [rax+rcx*2+84h], dx\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1512\nmov     rdi, [rbp+iter]; iter\nmov     rsi, [rbp+node]; inode\ncall    check_name_dentry_set\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njz      loc_1624\nmov     rax, [rbp+file_de]\nmovzx   ecx, byte ptr [rax+1]\nadd     ecx, 1\nmov     rax, [rbp+skip_dentries]\nmov     [rax], ecx\njmp     skip_dset\nmov     rax, [rbp+file_de]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 2\njnz     loc_1683\nmov     rax, [rbp+stream_de]\nmovzx   eax, byte ptr [rax+3]\ncmp     eax, 2\njg      loc_1683\nmov     rdi, [rbp+iter]; iter\nmov     rsi, [rbp+dentry]; dentry\nmov     rax, [rbp+stream_de]\nmovzx   edx, byte ptr [rax+3]; strm_name_len\ncall    handle_dot_dotdot_filename\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njge     loc_167E\nmov     rax, [rbp+file_de]\nmovzx   ecx, byte ptr [rax+1]\nadd     ecx, 1\nmov     rax, [rbp+skip_dentries]\nmov     [rax], ecx\njmp     skip_dset\njmp     $+5\nmov     rax, [rbp+stream_de]\nmov     ecx, [rax+14h]\nmov     rax, [rbp+node]\nmov     [rax+38h], ecx\nmov     rax, [rbp+stream_de]\nmovzx   eax, byte ptr [rax+1]\nand     eax, 2\ncmp     eax, 0\nsetnz   cl\nmov     rax, [rbp+node]\nand     cl, 1\nmov     [rax+48h], cl\nmov     rax, [rbp+stream_de]\nmov     rcx, [rax+18h]\nmov     rax, [rbp+node]\nmov     [rax+40h], rcx\nmov     rax, [rbp+node]\nmov     rax, [rax+40h]\nmov     rcx, [rbp+stream_de]\ncmp     rax, [rcx+8]\njnb     loc_16F9\nmov     rax, [rbp+file_de]\nmovzx   ecx, byte ptr [rax+1]\nadd     ecx, 1\nmov     rax, [rbp+skip_dentries]\nmov     [rax], ecx\nmov     rax, [rbp+file_de]\nmovzx   ecx, byte ptr [rax+1]\nadd     ecx, 1\nmov     rax, [rbp+skip_dentries]\nmov     [rax], ecx\njmp     skip_dset\nmov     rax, [rbp+file_de]\nmovzx   ecx, byte ptr [rax+1]\nadd     ecx, 1\nmov     rax, [rbp+skip_dentries]\nmov     [rax], ecx\nmov     rcx, [rbp+node]\nmov     rax, [rbp+new_node]\nmov     [rax], rcx\nmov     [rbp+var_4], 0\njmp     loc_17F5\ntest    [rbp+need_delete], 1\njz      loc_1749\nmov     rdi, [rbp+iter]; iter\nxor     esi, esi; ith\nlea     rdx, [rbp+dentry]; dentry\ncall    _ZN4chip7BitMaskINS_3app8Clusters10EnergyEvse7FeatureEjEC2IJS4_EEES4_DpOT__0; chip::BitMask<chip::app::Clusters::EnergyEvse::Feature,uint>::BitMask<chip::app::Clusters::EnergyEvse::Feature>(chip::app::Clusters::EnergyEvse::Feature,chip::app::Clusters::EnergyEvse::Feature &&)\nmov     rax, [rbp+dentry]\nmovzx   ecx, byte ptr [rax]\nand     ecx, 0FFFFFF7Fh\nmov     [rax], cl\nmov     [rbp+i], 1\nmov     eax, [rbp+i]\nmov     rcx, [rbp+skip_dentries]\ncmp     eax, [rcx]\njge     loc_17C2\nmov     rdi, [rbp+iter]; iter\nmov     esi, [rbp+i]; ith\nlea     rdx, [rbp+dentry]; dentry\ncall    exfat_de_iter_get\nmov     rax, [rbp+dentry]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 85h\njnz     loc_1786\njmp     loc_17C2\ntest    [rbp+need_delete], 1\njz      loc_17AF\nmov     rdi, [rbp+iter]; iter\nmov     esi, [rbp+i]; ith\nlea     rdx, [rbp+dentry]; dentry\ncall    _ZN4chip7BitMaskINS_3app8Clusters10EnergyEvse7FeatureEjEC2IJS4_EEES4_DpOT__0; chip::BitMask<chip::app::Clusters::EnergyEvse::Feature,uint>::BitMask<chip::app::Clusters::EnergyEvse::Feature>(chip::app::Clusters::EnergyEvse::Feature,chip::app::Clusters::EnergyEvse::Feature &&)\nmov     rax, [rbp+dentry]\nmovzx   ecx, byte ptr [rax]\nand     ecx, 0FFFFFF7Fh\nmov     [rax], cl\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1750\nmov     ecx, [rbp+i]\nmov     rax, [rbp+skip_dentries]\nmov     [rax], ecx\nmov     rax, [rbp+new_node]\nmov     qword ptr [rax], 0\nmov     rdi, [rbp+node]; node\ncall    exfat_free_inode\nmov     dl, [rbp+need_delete]\nmov     eax, 0FFFFFFEAh\nmov     ecx, 1\ntest    dl, 1\ncmovnz  eax, ecx\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 44,
+  "edges": [
+   [
+    "start",
+    "loc_141C"
+   ],
+   [
+    "start",
+    "loc_142E"
+   ],
+   [
+    "loc_141C",
+    "loc_142E"
+   ],
+   [
+    "loc_141C",
+    "loc_1448"
+   ],
+   [
+    "loc_142E",
+    "loc_17F5"
+   ],
+   [
+    "loc_1448",
+    "loc_1469"
+   ],
+   [
+    "loc_1448",
+    "loc_1478"
+   ],
+   [
+    "loc_1469",
+    "loc_1721"
+   ],
+   [
+    "loc_1478",
+    "loc_1489"
+   ],
+   [
+    "loc_1478",
+    "loc_1498"
+   ],
+   [
+    "loc_1489",
+    "loc_1721"
+   ],
+   [
+    "loc_1498",
+    "loc_14B7"
+   ],
+   [
+    "loc_1498",
+    "loc_14C9"
+   ],
+   [
+    "loc_14B7",
+    "loc_14C9"
+   ],
+   [
+    "loc_14B7",
+    "loc_14D8"
+   ],
+   [
+    "loc_14C9",
+    "loc_1721"
+   ],
+   [
+    "loc_14D8",
+    "loc_14FF"
+   ],
+   [
+    "loc_14D8",
+    "loc_150B"
+   ],
+   [
+    "loc_14FF",
+    "loc_17F5"
+   ],
+   [
+    "loc_150B",
+    "loc_1512"
+   ],
+   [
+    "loc_1512",
+    "loc_1525"
+   ],
+   [
+    "loc_1512",
+    "loc_15F4"
+   ],
+   [
+    "loc_1525",
+    "loc_1542"
+   ],
+   [
+    "loc_1525",
+    "loc_1554"
+   ],
+   [
+    "loc_1542",
+    "loc_1554"
+   ],
+   [
+    "loc_1542",
+    "loc_15A1"
+   ],
+   [
+    "loc_1554",
+    "loc_155E"
+   ],
+   [
+    "loc_1554",
+    "loc_1590"
+   ],
+   [
+    "loc_155E",
+    "loc_1568"
+   ],
+   [
+    "loc_155E",
+    "loc_156D"
+   ],
+   [
+    "loc_1568",
+    "loc_1590"
+   ],
+   [
+    "loc_156D",
+    "loc_15F4"
+   ],
+   [
+    "loc_1590",
+    "loc_1721"
+   ],
+   [
+    "loc_15A1",
+    "loc_1512"
+   ],
+   [
+    "loc_15F4",
+    "loc_160E"
+   ],
+   [
+    "loc_15F4",
+    "loc_1624"
+   ],
+   [
+    "loc_160E",
+    "loc_1721"
+   ],
+   [
+    "loc_1624",
+    "loc_1635"
+   ],
+   [
+    "loc_1624",
+    "loc_1683"
+   ],
+   [
+    "loc_1635",
+    "loc_1646"
+   ],
+   [
+    "loc_1635",
+    "loc_1683"
+   ],
+   [
+    "loc_1646",
+    "loc_1668"
+   ],
+   [
+    "loc_1646",
+    "loc_167E"
+   ],
+   [
+    "loc_1668",
+    "loc_1721"
+   ],
+   [
+    "loc_167E",
+    "loc_1683"
+   ],
+   [
+    "loc_1683",
+    "loc_16D2"
+   ],
+   [
+    "loc_1683",
+    "loc_16F9"
+   ],
+   [
+    "loc_16D2",
+    "loc_1721"
+   ],
+   [
+    "loc_16F9",
+    "loc_17F5"
+   ],
+   [
+    "loc_1721",
+    "loc_172B"
+   ],
+   [
+    "loc_1721",
+    "loc_1749"
+   ],
+   [
+    "loc_172B",
+    "loc_1749"
+   ],
+   [
+    "loc_1749",
+    "loc_1750"
+   ],
+   [
+    "loc_1750",
+    "loc_175F"
+   ],
+   [
+    "loc_1750",
+    "loc_17C2"
+   ],
+   [
+    "loc_175F",
+    "loc_1781"
+   ],
+   [
+    "loc_175F",
+    "loc_1786"
+   ],
+   [
+    "loc_1781",
+    "loc_17C2"
+   ],
+   [
+    "loc_1786",
+    "loc_1790"
+   ],
+   [
+    "loc_1786",
+    "loc_17AF"
+   ],
+   [
+    "loc_1790",
+    "loc_17AF"
+   ],
+   [
+    "loc_17AF",
+    "loc_17B4"
+   ],
+   [
+    "loc_17B4",
+    "loc_1750"
+   ],
+   [
+    "loc_17C2",
+    "loc_17F5"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+iter], rdi\nmov     [rbp+new_node], rsi\nmov     [rbp+skip_dentries], rdx\nmov     [rbp+node], 0\nmov     [rbp+need_delete], 0\nmov     rdi, [rbp+iter]; iter\nxor     esi, esi; ith\nlea     rdx, [rbp+file_de]; dentry\ncall    exfat_de_iter_get\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njnz     loc_142E",
+   "loc_141C": "mov     rax, [rbp+file_de]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 85h\njz      loc_1448",
+   "loc_142E": "lea     rdi, fmt; \"failed to get file dentry\\n\"\nmov     al, 0\ncall    exfat_err\nmov     [rbp+var_4], 0FFFFFFEAh\njmp     loc_17F5",
+   "loc_1448": "mov     rdi, [rbp+iter]; iter\ncall    file_calc_checksum\nmov     [rbp+checksum], ax\nmovzx   eax, [rbp+checksum]\nmov     rcx, [rbp+file_de]\nmovzx   ecx, word ptr [rcx+2]\ncmp     eax, ecx\njz      loc_1478",
+   "loc_1469": "mov     rax, [rbp+skip_dentries]\nmov     dword ptr [rax], 1\njmp     skip_dset",
+   "loc_1478": "mov     rax, [rbp+file_de]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 2\njge     loc_1498",
+   "loc_1489": "mov     rax, [rbp+skip_dentries]\nmov     dword ptr [rax], 1\njmp     skip_dset",
+   "loc_1498": "mov     rdi, [rbp+iter]; iter\nmov     esi, 1; ith\nlea     rdx, [rbp+stream_de]; dentry\ncall    exfat_de_iter_get\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njnz     loc_14C9",
+   "loc_14B7": "mov     rax, [rbp+stream_de]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 0C0h\njz      loc_14D8",
+   "loc_14C9": "mov     rax, [rbp+skip_dentries]\nmov     dword ptr [rax], 2\njmp     skip_dset",
+   "loc_14D8": "mov     rax, [rbp+new_node]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+file_de]\nmovzx   edi, word ptr [rax+4]; attr\ncall    exfat_alloc_inode\nmov     [rbp+node], rax\ncmp     [rbp+node], 0\njnz     loc_150B",
+   "loc_14FF": "mov     [rbp+var_4], 0FFFFFFF4h\njmp     loc_17F5",
+   "loc_150B": "mov     [rbp+i], 2",
+   "loc_1512": "mov     eax, [rbp+i]\nmov     rcx, [rbp+file_de]\nmovzx   ecx, byte ptr [rcx+1]\ncmp     eax, ecx\njg      loc_15F4",
+   "loc_1525": "mov     rdi, [rbp+iter]; iter\nmov     esi, [rbp+i]; ith\nlea     rdx, [rbp+dentry]; dentry\ncall    exfat_de_iter_get\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njnz     loc_1554",
+   "loc_1542": "mov     rax, [rbp+dentry]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 0C1h\njz      loc_15A1",
+   "loc_1554": "cmp     [rbp+i], 2\njle     loc_1590",
+   "loc_155E": "xor     eax, eax\ntest    al, 1\njnz     loc_156D",
+   "loc_1568": "jmp     loc_1590",
+   "loc_156D": "mov     rdi, [rbp+iter]; iter\nxor     esi, esi; ith\nlea     rdx, [rbp+file_de]; dentry\ncall    _ZN4chip7BitMaskINS_3app8Clusters10EnergyEvse7FeatureEjEC2IJS4_EEES4_DpOT__0; chip::BitMask<chip::app::Clusters::EnergyEvse::Feature,uint>::BitMask<chip::app::Clusters::EnergyEvse::Feature>(chip::app::Clusters::EnergyEvse::Feature,chip::app::Clusters::EnergyEvse::Feature &&)\nmov     eax, [rbp+i]\nsub     eax, 1\nmov     cl, al\nmov     rax, [rbp+file_de]\nmov     [rax+1], cl\njmp     loc_15F4",
+   "loc_1590": "mov     ecx, [rbp+i]\nadd     ecx, 1\nmov     rax, [rbp+skip_dentries]\nmov     [rax], ecx\njmp     skip_dset",
+   "loc_15A1": "mov     rax, [rbp+node]\nmov     ecx, [rbp+i]\nsub     ecx, 2\nimul    ecx, 0Fh\nmovsxd  rcx, ecx\nmov     rdx, [rbp+dentry]\nmov     rsi, [rdx+2]\nmov     [rax+rcx*2+68h], rsi\nmov     rsi, [rdx+0Ah]\nmov     [rax+rcx*2+70h], rsi\nmov     rsi, [rdx+12h]\nmov     [rax+rcx*2+78h], rsi\nmov     esi, [rdx+1Ah]\nmov     [rax+rcx*2+80h], esi\nmov     dx, [rdx+1Eh]\nmov     [rax+rcx*2+84h], dx\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1512",
+   "loc_15F4": "mov     rdi, [rbp+iter]; iter\nmov     rsi, [rbp+node]; inode\ncall    check_name_dentry_set\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njz      loc_1624",
+   "loc_160E": "mov     rax, [rbp+file_de]\nmovzx   ecx, byte ptr [rax+1]\nadd     ecx, 1\nmov     rax, [rbp+skip_dentries]\nmov     [rax], ecx\njmp     skip_dset",
+   "loc_1624": "mov     rax, [rbp+file_de]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 2\njnz     loc_1683",
+   "loc_1635": "mov     rax, [rbp+stream_de]\nmovzx   eax, byte ptr [rax+3]\ncmp     eax, 2\njg      loc_1683",
+   "loc_1646": "mov     rdi, [rbp+iter]; iter\nmov     rsi, [rbp+dentry]; dentry\nmov     rax, [rbp+stream_de]\nmovzx   edx, byte ptr [rax+3]; strm_name_len\ncall    handle_dot_dotdot_filename\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njge     loc_167E",
+   "loc_1668": "mov     rax, [rbp+file_de]\nmovzx   ecx, byte ptr [rax+1]\nadd     ecx, 1\nmov     rax, [rbp+skip_dentries]\nmov     [rax], ecx\njmp     skip_dset",
+   "loc_167E": "jmp     $+5",
+   "loc_1683": "mov     rax, [rbp+stream_de]\nmov     ecx, [rax+14h]\nmov     rax, [rbp+node]\nmov     [rax+38h], ecx\nmov     rax, [rbp+stream_de]\nmovzx   eax, byte ptr [rax+1]\nand     eax, 2\ncmp     eax, 0\nsetnz   cl\nmov     rax, [rbp+node]\nand     cl, 1\nmov     [rax+48h], cl\nmov     rax, [rbp+stream_de]\nmov     rcx, [rax+18h]\nmov     rax, [rbp+node]\nmov     [rax+40h], rcx\nmov     rax, [rbp+node]\nmov     rax, [rax+40h]\nmov     rcx, [rbp+stream_de]\ncmp     rax, [rcx+8]\njnb     loc_16F9",
+   "loc_16D2": "mov     rax, [rbp+file_de]\nmovzx   ecx, byte ptr [rax+1]\nadd     ecx, 1\nmov     rax, [rbp+skip_dentries]\nmov     [rax], ecx\nmov     rax, [rbp+file_de]\nmovzx   ecx, byte ptr [rax+1]\nadd     ecx, 1\nmov     rax, [rbp+skip_dentries]\nmov     [rax], ecx\njmp     skip_dset",
+   "loc_16F9": "mov     rax, [rbp+file_de]\nmovzx   ecx, byte ptr [rax+1]\nadd     ecx, 1\nmov     rax, [rbp+skip_dentries]\nmov     [rax], ecx\nmov     rcx, [rbp+node]\nmov     rax, [rbp+new_node]\nmov     [rax], rcx\nmov     [rbp+var_4], 0\njmp     loc_17F5",
+   "loc_1721": "test    [rbp+need_delete], 1\njz      loc_1749",
+   "loc_172B": "mov     rdi, [rbp+iter]; iter\nxor     esi, esi; ith\nlea     rdx, [rbp+dentry]; dentry\ncall    _ZN4chip7BitMaskINS_3app8Clusters10EnergyEvse7FeatureEjEC2IJS4_EEES4_DpOT__0; chip::BitMask<chip::app::Clusters::EnergyEvse::Feature,uint>::BitMask<chip::app::Clusters::EnergyEvse::Feature>(chip::app::Clusters::EnergyEvse::Feature,chip::app::Clusters::EnergyEvse::Feature &&)\nmov     rax, [rbp+dentry]\nmovzx   ecx, byte ptr [rax]\nand     ecx, 0FFFFFF7Fh\nmov     [rax], cl",
+   "loc_1749": "mov     [rbp+i], 1",
+   "loc_1750": "mov     eax, [rbp+i]\nmov     rcx, [rbp+skip_dentries]\ncmp     eax, [rcx]\njge     loc_17C2",
+   "loc_175F": "mov     rdi, [rbp+iter]; iter\nmov     esi, [rbp+i]; ith\nlea     rdx, [rbp+dentry]; dentry\ncall    exfat_de_iter_get\nmov     rax, [rbp+dentry]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 85h\njnz     loc_1786",
+   "loc_1781": "jmp     loc_17C2",
+   "loc_1786": "test    [rbp+need_delete], 1\njz      loc_17AF",
+   "loc_1790": "mov     rdi, [rbp+iter]; iter\nmov     esi, [rbp+i]; ith\nlea     rdx, [rbp+dentry]; dentry\ncall    _ZN4chip7BitMaskINS_3app8Clusters10EnergyEvse7FeatureEjEC2IJS4_EEES4_DpOT__0; chip::BitMask<chip::app::Clusters::EnergyEvse::Feature,uint>::BitMask<chip::app::Clusters::EnergyEvse::Feature>(chip::app::Clusters::EnergyEvse::Feature,chip::app::Clusters::EnergyEvse::Feature &&)\nmov     rax, [rbp+dentry]\nmovzx   ecx, byte ptr [rax]\nand     ecx, 0FFFFFF7Fh\nmov     [rax], cl",
+   "loc_17AF": "jmp     $+5",
+   "loc_17B4": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1750",
+   "loc_17C2": "mov     ecx, [rbp+i]\nmov     rax, [rbp+skip_dentries]\nmov     [rax], ecx\nmov     rax, [rbp+new_node]\nmov     qword ptr [rax], 0\nmov     rdi, [rbp+node]; node\ncall    exfat_free_inode\nmov     dl, [rbp+need_delete]\nmov     eax, 0FFFFFFEAh\nmov     ecx, 1\ntest    dl, 1\ncmovnz  eax, ecx\nmov     [rbp+var_4], eax",
+   "loc_17F5": "mov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "checksum": "word ptr -4Ch",
+   "need_delete": "byte ptr -49h",
+   "ret": "dword ptr -48h",
+   "i": "dword ptr -44h",
+   "node": "qword ptr -40h",
+   "dentry": "qword ptr -38h",
+   "stream_de": "qword ptr -30h",
+   "file_de": "qword ptr -28h",
+   "skip_dentries": "qword ptr -20h",
+   "new_node": "qword ptr -18h",
+   "iter": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "fmt": "byte 'failed to get file dentry',0Ah,0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5088,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".rewind": "rewind",
+  "_rewind": "rewind",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".rewind",
+   ".plt",
+   true,
+   "rewind"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "printf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "rewind",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868470
+ }
+}

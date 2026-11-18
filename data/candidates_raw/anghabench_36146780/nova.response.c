@@ -1,0 +1,32 @@
+static void func0(short *p_out)
+{
+    int i;
+    int i_out;
+    int i_out_start;
+    int i_out_end;
+    int i_out_step;
+    int i_out_step_start;
+    int i_out_step_end;
+    int i_out_step_step;
+    int i_out_step_step_start;
+    int i_out_step_step_end;
+    int i_out_step_step_step;
+    int i_out_step_step_step_start;
+    int i_out_step_step_step_end;
+    int i_out_step_step_step_step;
+    int i_out_step_step_step_step_start;
+    int i_out_step_step_step_step_end;
+    int i_out_step_step_step_step_step;
+    int i_out_step_step_step_step_step_start;
+    int i_out_step_step_step_step_step_end;
+    int i_out_step_step_step_step_step_step;
+    int i_out_step_step_step_step_step_step_start;
+    int i_out_step_step_step_step_step_step_end;
+    int i_out_step_step_step_step_step_step_step;
+    int i_out_step_step_step_step_step_step_step_start;
+    int i_out_step_step_step_step_step_step_step_end;
+    int i_out_step_step_step_step_step_step_step_step;
+    int i_out_step_step_step_step_step_step_step_step_start;
+    int i_out_step_step_step_step_step_step_step_step_end;
+    int i_out_step_step_step_step_step_step_step_step_step;
+    int i_out_step_step_step_step_step_step_step_step_step_start;

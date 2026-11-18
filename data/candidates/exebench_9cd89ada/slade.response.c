@@ -1,0 +1,1 @@
+void release(struct lock *l) { l->locked = false; }

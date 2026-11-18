@@ -1,0 +1,1 @@
+void vec3_cross(vec3 vec, const vec3 a, const vec3 b) { vec[0] = a[1]*b[2] - a[2]*b[1]; vec[1] = a[2]*b[0] - a[0]*b[2]; vec[2] = a[0]*b[1] - a[1]*b[0]; }

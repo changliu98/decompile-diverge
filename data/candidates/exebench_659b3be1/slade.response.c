@@ -1,0 +1,1 @@
+void bitrv208(float *a) { float a1,a2,a3,a4,a5,a6,a7,a8; a1 = a[2]; a2 = a[3]; a3 = a[4]; a4 = a[7]; a5 = a[8]; a6 = a[9]; a7 = a[12]; a8 = a[13]; a[2] = a5; a[3] = a6; a[6] = a7; a[7] = a8; a[8] = a1; a[9] = a2; a[12] = a3; a[13] = a4; }

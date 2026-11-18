@@ -1,0 +1,1 @@
+int *func0(int *input, int input_len, int value, int *error) { *error = input_len > 0 ? 2*input_len - 1 : 0; int *out = (int*)malloc((size_t)(*error)*sizeof(int)); if (input_len > 0) out[0] = input[0]; for (int i = 1, j = 1; i < input_len; i++) { out[j++] = value; out[j++] = input[i]; } return out; }

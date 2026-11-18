@@ -1,0 +1,1 @@
+int func0(uint32_t N) { uint32_t a, b, c; for (a = 0; a < 10; a++) { b = N; c = 0; while (b > 0) { if (a % 10 == a) c++; if (c > a) return 0; b = b / 10; } } return 1; }

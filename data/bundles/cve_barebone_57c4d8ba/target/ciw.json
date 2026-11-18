@@ -1,0 +1,258 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+arg], rdi\nmov     [rbp+cctx], rsi\nmov     rax, [rbp+arg]\nmov     rax, [rax]\nmov     [rbp+start], rax\nmov     rax, [rbp+arg]\nmov     rcx, [rax]\nadd     rcx, 1\nmov     [rax], rcx\nmov     rdi, [rbp+arg]; arg\ncall    get_env_len\nmov     [rbp+len], eax\ncmp     [rbp+len], 0\njnz     loc_1851\nmov     rsi, [rbp+start]\nadd     rsi, 0FFFFFFFFFFFFFFFFh\nlea     rdi, e_syntax_error_at_str; \"E1002: Syntax error at %s\"\nmov     al, 0\ncall    semsg\nmov     [rbp+var_4], 0\njmp     loc_1891\nmov     rdi, [rbp+start]; string\nmov     eax, [rbp+len]\nadd     eax, 1\nmovsxd  rsi, eax; len\ncall    vim_strnsave\nmov     [rbp+name], rax\nmov     rdi, [rbp+cctx]; cctx\nmov     rcx, [rbp+name]; name\nxor     edx, edx; idx\nlea     r8, t_string; type\nmov     esi, edx; isn_type\ncall    generate_LOAD\nmov     [rbp+ret], eax\nmov     rdi, [rbp+name]; x\ncall    vim_free\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 4,
+  "edges": [
+   [
+    "start",
+    "loc_182F"
+   ],
+   [
+    "start",
+    "loc_1851"
+   ],
+   [
+    "loc_182F",
+    "loc_1891"
+   ],
+   [
+    "loc_1851",
+    "loc_1891"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+arg], rdi\nmov     [rbp+cctx], rsi\nmov     rax, [rbp+arg]\nmov     rax, [rax]\nmov     [rbp+start], rax\nmov     rax, [rbp+arg]\nmov     rcx, [rax]\nadd     rcx, 1\nmov     [rax], rcx\nmov     rdi, [rbp+arg]; arg\ncall    get_env_len\nmov     [rbp+len], eax\ncmp     [rbp+len], 0\njnz     loc_1851",
+   "loc_182F": "mov     rsi, [rbp+start]\nadd     rsi, 0FFFFFFFFFFFFFFFFh\nlea     rdi, e_syntax_error_at_str; \"E1002: Syntax error at %s\"\nmov     al, 0\ncall    semsg\nmov     [rbp+var_4], 0\njmp     loc_1891",
+   "loc_1851": "mov     rdi, [rbp+start]; string\nmov     eax, [rbp+len]\nadd     eax, 1\nmovsxd  rsi, eax; len\ncall    vim_strnsave\nmov     [rbp+name], rax\nmov     rdi, [rbp+cctx]; cctx\nmov     rcx, [rbp+name]; name\nxor     edx, edx; idx\nlea     r8, t_string; type\nmov     esi, edx; isn_type\ncall    generate_LOAD\nmov     [rbp+ret], eax\nmov     rdi, [rbp+name]; x\ncall    vim_free\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax",
+   "loc_1891": "mov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "name": "qword ptr -30h",
+   "ret": "dword ptr -28h",
+   "len": "dword ptr -24h",
+   "start": "qword ptr -20h",
+   "cctx": "qword ptr -18h",
+   "arg": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {
+   "e_syntax_error_at_str": "byte 'E1002: Syntax error at %s',0"
+  },
+  ".bss": {
+   "t_string": "[]"
+  }
+ },
+ "func_ea": 6128,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".strncpy": "strncpy",
+  "_strncpy": "strncpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".__ctype_b_loc": "__ctype_b_loc",
+  "_ctype_b_loc": "__ctype_b_loc"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".strncpy",
+   ".plt",
+   true,
+   "strncpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".__ctype_b_loc",
+   ".plt",
+   true,
+   "__ctype_b_loc"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__ctype_b_loc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868464
+ }
+}

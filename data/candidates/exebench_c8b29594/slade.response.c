@@ -1,0 +1,1 @@
+void clib_mcheck (f_int * length) { *length = 2; }

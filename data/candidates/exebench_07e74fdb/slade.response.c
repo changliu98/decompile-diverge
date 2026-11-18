@@ -1,0 +1,1 @@
+int obdRevConvert_46(float value, char *pcBuf, char *pcBuf, size_t pcBufSize, size_t *pcSize) { *pcBuf = (int)(value + 255.0f); return 1; }

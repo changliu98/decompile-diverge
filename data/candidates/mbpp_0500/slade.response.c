@@ -1,0 +1,1 @@
+char * func0 (char *const input[], int n) { int i; ans = 32; for (i = 0; i < n; i++) { strcat(ans, input[i]); } return &ans; }

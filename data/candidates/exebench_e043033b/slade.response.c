@@ -1,0 +1,1 @@
+void adjust_interval(icalrecur_iterator* impl, int max) { int factor=5; if( (double)max/(double)impl->interval < factor ) { impl->interval=1.0/factor; } }

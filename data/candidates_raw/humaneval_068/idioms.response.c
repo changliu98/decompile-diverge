@@ -1,0 +1,1 @@
+struct { int smallestEven; int index; }

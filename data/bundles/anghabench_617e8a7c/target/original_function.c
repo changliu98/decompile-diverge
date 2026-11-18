@@ -1,0 +1,1 @@
+uint32_t REG_A3XX_VFD_FETCH(uint32_t i0) { return 0x00002246 + 0x2*i0; }

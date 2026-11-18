@@ -1,0 +1,1 @@
+void vec3Cross(GLdouble a[3], GLdouble b[3], GLdouble c[3]) { c[0] = a[1] * b[2] - b[1] * a[2]; c[1] = b[0] * a[2] - a[0] * b[2]; c[2] = a[0] * b[1] - b[0] * a[1]; }

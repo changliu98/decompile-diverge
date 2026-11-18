@@ -1,0 +1,1 @@
+int div_dbl(unsigned long *data, unsigned long dbl) { if (!dbl || data[1] >= dbl) return 1; *data = data[0] % data[1]; return 0; }

@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n#include <math.h>\n\nfloat func0(float numbers[], int size) {\n    float sum = 0;\n    float avg, msum, mavg;\n    int i = 0;\n\n    for (i = 0; i < size; i++)\n        sum += numbers[i];\n\n    avg = sum / size;\n    msum = 0;\n\n    for (i = 0; i < size; i++)\n        msum += fabs(numbers[i] - avg);\n\n    return msum / size;\n}",
+ "c_test": "#include <assert.h>\n#include <math.h>\n\nint main() {\n    float case1[] = {1.0, 2.0, 3.0};\n    assert(fabs(func0(case1, 3) - 2.0/3.0) < 1e-4);\n\n    float case2[] = {1.0, 2.0, 3.0, 4.0};\n    assert(fabs(func0(case2, 4) - 1.0) < 1e-4);\n\n    float case3[] = {1.0, 2.0, 3.0, 4.0, 5.0};\n    assert(fabs(func0(case3, 5) - 6.0/5.0) < 1e-4);\n\n    return 0;\n}"
+}

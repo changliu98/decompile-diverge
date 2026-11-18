@@ -1,0 +1,1 @@
+double func0(double x, double y) { double phi, theta2; phi = x + 0.0*y; theta2 = atan2(phi2, theta2); return theta2; }

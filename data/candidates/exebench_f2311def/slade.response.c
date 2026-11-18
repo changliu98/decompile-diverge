@@ -1,0 +1,1 @@
+int INDMAXVAL(float *v, int start, int end) { int i, val; val = start; for (i = start+1; i <= end; i++) if (v[val] < v[i]) val = i; return val; }

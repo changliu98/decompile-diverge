@@ -1,0 +1,1 @@
+char func0(uint32_t x) { uint32_t m = 0; while (x != 0) { x &= x - 1; m++; } return (m % 2) ? 0 : 1; }

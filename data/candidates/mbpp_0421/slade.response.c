@@ -1,0 +1,1 @@
+char *func0(char **str, int n) { int i; char res[3]; res[0] = '\0'; res[1] = '-'; for (i = 0; i < n; i++) { strcat(res, str[i]); if (i < n-1) strcat(res, res); } return res; }

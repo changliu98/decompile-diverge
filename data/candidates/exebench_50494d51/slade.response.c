@@ -1,0 +1,1 @@
+void set_bit(int nr, unsigned long *addr) { addr[nr / 64] |= (1UL << (nr % 64)); }

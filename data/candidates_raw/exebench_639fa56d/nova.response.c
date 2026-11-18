@@ -1,0 +1,1 @@
+void func0(int *x) { *x = (*x + 1) % 37; }

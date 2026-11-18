@@ -1,0 +1,120 @@
+void OsdGetBoxSplineWeights(float v, float w, float *wP)
+{
+    float v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12;
+    float w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, w12;
+    float vw, v2w, v3w, v4w, v5w, v6w, v7w, v8w, v9w, v10w, v11w, v12w;
+    float v2w2, v3w2, v4w2, v5w2, v6w2, v7w2, v8w2, v9w2, v10w2, v11w2, v12w2;
+    float v2w3, v3w3, v4w3, v5w3, v6w3, v7w3, v8w3, v9w3, v10w3, v11w3, v12w3;
+    float v2w4, v3w4, v4w4, v5w4, v6w4, v7w4, v8w4, v9w4, v10w4, v11w4, v12w4;
+    float v2w5, v3w5, v4w5, v5w5, v6w5, v7w5, v8w5, v9w5, v10w5, v11w5, v12w5;
+    float v2w6, v3w6, v4w6, v5w6, v6w6, v7w6, v8w6, v9w6, v10w6, v11w6, v12w6;
+    float v2w7, v3w7, v4w7, v5w7, v6w7, v7w7, v8w7, v9w7, v10w7, v11w7, v12w7;
+    float v2w8, v3w8, v4w8, v5w8, v6w8, v7w8, v8w8, v9w8, v10w8, v11w8, v12w8;
+    float v2w9, v3w9, v4w9, v5w9, v6w9, v7w9, v8w9, v9w9, v10w9, v11w9, v12w9;
+    float v2w10, v3w10, v4w10, v5w10, v6w10, v7w10, v8w10, v9w10, v10w10, v11w10, v12w10;
+    float v2w11, v3w11, v4w11, v5w11, v6w11, v7w11, v8w11, v9w11, v10w11, v11w11, v12w11;
+    float v2w12, v3w12, v4w12, v5w12, v6w12, v7w12, v8w12, v9w12, v10w12, v11w12, v12w12;
+    int i;
+
+    v2 = v * v;
+    v3 = v2 * v;
+    v4 = v3 * v;
+    v5 = v4 * v;
+    v6 = v5 * v;
+    v7 = v6 * v;
+    v8 = v7 * v;
+    v9 = v8 * v;
+    v10 = v9 * v;
+    v11 = v10 * v;
+    v12 = v11 * v;
+
+    w2 = w * w;
+    w3 = w2 * w;
+    w4 = w3 * w;
+    w5 = w4 * w;
+    w6 = w5 * w;
+    w7 = w6 * w;
+    w8 = w7 * w;
+    w9 = w8 * w;
+    w10 = w9 * w;
+    w11 = w10 * w;
+    w12 = w11 * w;
+
+    vw = v * w;
+    v2w = v2 * w;
+    v3w = v3 * w;
+    v4w = v4 * w;
+    v5w = v5 * w;
+    v6w = v6 * w;
+    v7w = v7 * w;
+    v8w = v8 * w;
+    v9w = v9 * w;
+    v10w = v10 * w;
+    v11w = v11 * w;
+    v12w = v12 * w;
+
+    v2w2 = v2 * w2;
+    v3w2 = v3 * w2;
+    v4w2 = v4 * w2;
+    v5w2 = v5 * w2;
+    v6w2 = v6 * w2;
+    v7w2 = v7 * w2;
+    v8w2 = v8 * w2;
+    v9w2 = v9 * w2;
+    v10w2 = v10 * w2;
+    v11w2 = v11 * w2;
+    v12w2 = v12 * w2;
+
+    v2w3 = v2 * w3;
+    v3w3 = v3 * w3;
+    v4w3 = v4 * w3;
+    v5w3 = v5 * w3;
+    v6w3 = v6 * w3;
+    v7w3 = v7 * w3;
+    v8w3 = v8 * w3;
+    v9w3 = v9 * w3;
+    v10w3 = v10 * w3;
+    v11w3 = v11 * w3;
+    v12w3 = v12 * w3;
+
+    v2w4 = v2 * w4;
+    v3w4 = v3 * w4;
+    v4w4 = v4 * w4;
+    v5w4 = v5 * w4;
+    v6w4 = v6 * w4;
+    v7w4 = v7 * w4;
+    v8w4 = v8 * w4;
+    v9w4 = v9 * w4;
+    v10w4 = v10 * w4;
+    v11w4 = v11 * w4;
+    v12w4 = v12 * w4;
+
+    v2w5 = v2 * w5;
+    v3w5 = v3 * w5;
+    v4w5 = v4 * w5;
+    v5w5 = v5 * w5;
+    v6w5 = v6 * w5;
+    v7w5 = v7 * w5;
+    v8w5 = v8 * w5;
+    v9w5 = v9 * w5;
+    v10w5 = v10 * w5;
+    v11w5 = v11 * w5;
+    v12w5 = v12 * w5;
+
+    v2w6 = v2 * w6;
+    v3w6 = v3 * w6;
+    v4w6 = v4 * w6;
+    v5w6 = v5 * w6;
+    v6w6 = v6 * w6;
+    v7w6 = v7 * w6;
+    v8w6 = v8 * w6;
+    v9w6 = v9 * w6;
+    v10w6 = v10 * w6;
+    v11w6 = v11 * w6;
+    v12w6 = v12 * w6;
+
+    v2w7 = v2 * w7;
+    v3w7 = v3 * w7;
+    v4w7 = v4 * w7;
+    v5w7 = v5 * w7;
+    v6w7 = v6 * w7;

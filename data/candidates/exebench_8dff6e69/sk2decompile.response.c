@@ -1,0 +1,6 @@
+void dxpy1(int n, double *x, double *y) {
+  int i;
+  for (i = 0; i < n; i++) {
+    y[i] = y[i] + x[i];
+  }
+}

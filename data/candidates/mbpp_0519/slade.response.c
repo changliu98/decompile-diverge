@@ -1,0 +1,1 @@
+int func0(int x) { double t = pow((double)x,4.0)/3.14159265358; return round(t*100.0)/10.0; }

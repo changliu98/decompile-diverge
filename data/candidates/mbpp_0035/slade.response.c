@@ -1,0 +1,1 @@
+__attribute__((const)) __attribute__((always_)) int func0(int arg) { return arg * (arg + 1); }

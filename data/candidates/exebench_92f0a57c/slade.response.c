@@ -1,0 +1,1 @@
+double HTS_rnd(size_t *pos) { double f; *pos = *pos * 1103515245 + 12345; f = (double) (*pos >> 16) &0x7fff; return f / (double) 32767.0; }

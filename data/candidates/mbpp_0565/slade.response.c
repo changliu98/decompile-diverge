@@ -1,0 +1,1 @@
+char* func0(char* input, char* output) { int len = strlen(input); for (int i = 0; i < len; ++i) { output[i] = input[i]; } output[len] = '\0'; return output; }

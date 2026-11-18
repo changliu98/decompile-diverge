@@ -1,0 +1,337 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+num_options], edi\nmov     [rbp+weights], rsi\nmov     [rbp+total], 0\nmov     [rbp+k], 0\nmov     eax, [rbp+k]\ncmp     eax, [rbp+num_options]\njge     loc_2178\nmov     rax, [rbp+weights]\nmovsxd  rcx, [rbp+k]\nmov     eax, [rax+rcx*4]\nadd     eax, [rbp+total]\nmov     [rbp+total], eax\nmov     eax, [rbp+k]\nadd     eax, 1\nmov     [rbp+k], eax\njmp     loc_214D\ncall    rand\nsar     eax, 4\ncdq\nidiv    [rbp+total]\nmov     [rbp+choice], edx\nmov     [rbp+total], 0\nmov     [rbp+k], 0\nmov     eax, [rbp+k]\ncmp     eax, [rbp+num_options]\njge     loc_21D6\nmov     rax, [rbp+weights]\nmovsxd  rcx, [rbp+k]\nmov     eax, [rax+rcx*4]\nadd     eax, [rbp+total]\nmov     [rbp+total], eax\nmov     eax, [rbp+choice]\ncmp     eax, [rbp+total]\njge     loc_21C3\njmp     loc_21D6\njmp     $+5\nmov     eax, [rbp+k]\nadd     eax, 1\nmov     [rbp+k], eax\njmp     loc_2195\nmov     eax, [rbp+k]\ncmp     eax, [rbp+num_options]\njge     loc_21E7\njmp     loc_2206\nlea     rdi, aKNumOptions; \"k < num_options\"\nlea     rsi, file; \"./func.c\"\nmov     edx, 294h; line\nlea     rcx, aIntStbhwWeight; \"int stbhw__weighted(int, int *)\"\ncall    ___assert_fail\nmov     eax, [rbp+k]\nadd     rsp, 20h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 13,
+  "edges": [
+   [
+    "start",
+    "loc_214D"
+   ],
+   [
+    "loc_214D",
+    "loc_2159"
+   ],
+   [
+    "loc_214D",
+    "loc_2178"
+   ],
+   [
+    "loc_2159",
+    "loc_214D"
+   ],
+   [
+    "loc_2178",
+    "loc_2195"
+   ],
+   [
+    "loc_2195",
+    "loc_21A1"
+   ],
+   [
+    "loc_2195",
+    "loc_21D6"
+   ],
+   [
+    "loc_21A1",
+    "loc_21BE"
+   ],
+   [
+    "loc_21A1",
+    "loc_21C3"
+   ],
+   [
+    "loc_21BE",
+    "loc_21D6"
+   ],
+   [
+    "loc_21C3",
+    "loc_21C8"
+   ],
+   [
+    "loc_21C8",
+    "loc_2195"
+   ],
+   [
+    "loc_21D6",
+    "loc_21E2"
+   ],
+   [
+    "loc_21D6",
+    "loc_21E7"
+   ],
+   [
+    "loc_21E2",
+    "loc_2206"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+num_options], edi\nmov     [rbp+weights], rsi\nmov     [rbp+total], 0\nmov     [rbp+k], 0",
+   "loc_214D": "mov     eax, [rbp+k]\ncmp     eax, [rbp+num_options]\njge     loc_2178",
+   "loc_2159": "mov     rax, [rbp+weights]\nmovsxd  rcx, [rbp+k]\nmov     eax, [rax+rcx*4]\nadd     eax, [rbp+total]\nmov     [rbp+total], eax\nmov     eax, [rbp+k]\nadd     eax, 1\nmov     [rbp+k], eax\njmp     loc_214D",
+   "loc_2178": "call    rand\nsar     eax, 4\ncdq\nidiv    [rbp+total]\nmov     [rbp+choice], edx\nmov     [rbp+total], 0\nmov     [rbp+k], 0",
+   "loc_2195": "mov     eax, [rbp+k]\ncmp     eax, [rbp+num_options]\njge     loc_21D6",
+   "loc_21A1": "mov     rax, [rbp+weights]\nmovsxd  rcx, [rbp+k]\nmov     eax, [rax+rcx*4]\nadd     eax, [rbp+total]\nmov     [rbp+total], eax\nmov     eax, [rbp+choice]\ncmp     eax, [rbp+total]\njge     loc_21C3",
+   "loc_21BE": "jmp     loc_21D6",
+   "loc_21C3": "jmp     $+5",
+   "loc_21C8": "mov     eax, [rbp+k]\nadd     eax, 1\nmov     [rbp+k], eax\njmp     loc_2195",
+   "loc_21D6": "mov     eax, [rbp+k]\ncmp     eax, [rbp+num_options]\njge     loc_21E7",
+   "loc_21E2": "jmp     loc_2206",
+   "loc_21E7": "lea     rdi, aKNumOptions; \"k < num_options\"\nlea     rsi, file; \"./func.c\"\nmov     edx, 294h; line\nlea     rcx, aIntStbhwWeight; \"int stbhw__weighted(int, int *)\"\ncall    ___assert_fail",
+   "loc_2206": "mov     eax, [rbp+k]\nadd     rsp, 20h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "choice": "dword ptr -1Ch",
+   "total": "dword ptr -18h",
+   "k": "dword ptr -14h",
+   "weights": "qword ptr -10h",
+   "num_options": "dword ptr -4"
+  },
+  ".rodata": {
+   "aKNumOptions": "byte 'k < num_options',0",
+   "file": "byte './func.c',0",
+   "aIntStbhwWeight": "byte 'int stbhw__weighted(int, int *)',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 8496,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".rand": "rand",
+  "_rand": "rand"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   ".rand",
+   ".plt",
+   true,
+   "rand"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "rand",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872688
+ }
+}

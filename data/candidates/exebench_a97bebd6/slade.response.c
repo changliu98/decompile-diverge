@@ -1,0 +1,1 @@
+void calcula_target(int vector[2], int target[2], int sum[2]) { sum[0] = target[0] - vector[0] + target[0]; sum[1] = target[1] - vector[1] + target[1]; }

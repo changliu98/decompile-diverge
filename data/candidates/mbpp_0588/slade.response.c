@@ -1,0 +1,1 @@
+int func0(int *ptr, int size) { int max = -2147483647; int min = 2147483647; for (int i = 0; i < size; ++i) { if (ptr[i] > max) max = ptr[i]; if (ptr[i] < min) min = ptr[i]; } return max - min; }

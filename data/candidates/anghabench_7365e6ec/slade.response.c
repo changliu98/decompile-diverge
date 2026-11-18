@@ -1,0 +1,1 @@
+int llc_shdlc_w_used(int head, int tail) { int cn; if (tail <= head) cn = head - tail; else cn = head + (8 - tail); return cn; }

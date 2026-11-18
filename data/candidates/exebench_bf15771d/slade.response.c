@@ -1,0 +1,1 @@
+int computesizes(int* nums, int* numsl) { int n = 0; int i; int size = 0; int sizes = 0; for (i = 0, n = 1; n/2 < *numsl; i++, n <<= 1) { if (nums[i] > 0) { size += nums[i]; if (size > n/2) { sizes = n; size = size; } } if (size == *numsl) break; } *numsl = sizes; return size; }

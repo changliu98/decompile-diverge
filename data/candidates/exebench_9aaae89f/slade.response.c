@@ -1,0 +1,1 @@
+void pick(Context *ctx, Inst *inst) { if (++inst->pc >= 768) { ctx->pc++; inst->pc = 0; } if (ctx->pc >= 180) { ctx->pc = 0; } }

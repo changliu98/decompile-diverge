@@ -1,0 +1,417 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+cycles], 989680h\nmov     [rbp+total_matches], 0\nmov     eax, [rbp+cycles]\nmov     ecx, eax\nadd     ecx, 0FFFFFFFFh\nmov     [rbp+cycles], ecx\ncmp     eax, 0\njz      loc_2C07\ncall    rand\ncdqe\nand     rax, 1Fh\nmov     [rbp+strlen], eax\ncall    rand\ncdqe\nand     rax, 1Fh\nmov     [rbp+patlen], eax\nmov     [rbp+j], 0\nmov     eax, [rbp+j]\ncmp     eax, [rbp+strlen]\njge     loc_2BAE\ncall    rand\nmov     ecx, 80h\ncdq\nidiv    ecx\nmov     cl, dl\nmovsxd  rax, [rbp+j]\nmov     [rbp+rax+str], cl\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_2B7D\nmov     [rbp+j_0], 0\nmov     eax, [rbp+j_0]\ncmp     eax, [rbp+patlen]\njge     loc_2BE6\ncall    rand\nmov     ecx, 80h\ncdq\nidiv    ecx\nmov     cl, dl\nmovsxd  rax, [rbp+j_0]\nmov     [rbp+rax+pat], cl\nmov     eax, [rbp+j_0]\nadd     eax, 1\nmov     [rbp+j_0], eax\njmp     loc_2BB5\nlea     rdi, [rbp+pat]; pattern\nmov     esi, [rbp+patlen]; patternLen\nlea     rdx, [rbp+str]; string\nmov     ecx, [rbp+strlen]; stringLen\nxor     r8d, r8d; nocase\ncall    stringmatchlen\nadd     eax, [rbp+total_matches]\nmov     [rbp+total_matches], eax\njmp     loc_2B46\nmov     eax, [rbp+total_matches]\nadd     rsp, 60h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 10,
+  "edges": [
+   [
+    "start",
+    "loc_2B46"
+   ],
+   [
+    "loc_2B46",
+    "loc_2B5A"
+   ],
+   [
+    "loc_2B46",
+    "loc_2C07"
+   ],
+   [
+    "loc_2B5A",
+    "loc_2B7D"
+   ],
+   [
+    "loc_2B7D",
+    "loc_2B89"
+   ],
+   [
+    "loc_2B7D",
+    "loc_2BAE"
+   ],
+   [
+    "loc_2B89",
+    "loc_2B7D"
+   ],
+   [
+    "loc_2BAE",
+    "loc_2BB5"
+   ],
+   [
+    "loc_2BB5",
+    "loc_2BC1"
+   ],
+   [
+    "loc_2BB5",
+    "loc_2BE6"
+   ],
+   [
+    "loc_2BC1",
+    "loc_2BB5"
+   ],
+   [
+    "loc_2BE6",
+    "loc_2B46"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+cycles], 989680h\nmov     [rbp+total_matches], 0",
+   "loc_2B46": "mov     eax, [rbp+cycles]\nmov     ecx, eax\nadd     ecx, 0FFFFFFFFh\nmov     [rbp+cycles], ecx\ncmp     eax, 0\njz      loc_2C07",
+   "loc_2B5A": "call    rand\ncdqe\nand     rax, 1Fh\nmov     [rbp+strlen], eax\ncall    rand\ncdqe\nand     rax, 1Fh\nmov     [rbp+patlen], eax\nmov     [rbp+j], 0",
+   "loc_2B7D": "mov     eax, [rbp+j]\ncmp     eax, [rbp+strlen]\njge     loc_2BAE",
+   "loc_2B89": "call    rand\nmov     ecx, 80h\ncdq\nidiv    ecx\nmov     cl, dl\nmovsxd  rax, [rbp+j]\nmov     [rbp+rax+str], cl\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_2B7D",
+   "loc_2BAE": "mov     [rbp+j_0], 0",
+   "loc_2BB5": "mov     eax, [rbp+j_0]\ncmp     eax, [rbp+patlen]\njge     loc_2BE6",
+   "loc_2BC1": "call    rand\nmov     ecx, 80h\ncdq\nidiv    ecx\nmov     cl, dl\nmovsxd  rax, [rbp+j_0]\nmov     [rbp+rax+pat], cl\nmov     eax, [rbp+j_0]\nadd     eax, 1\nmov     [rbp+j_0], eax\njmp     loc_2BB5",
+   "loc_2BE6": "lea     rdi, [rbp+pat]; pattern\nmov     esi, [rbp+patlen]; patternLen\nlea     rdx, [rbp+str]; string\nmov     ecx, [rbp+strlen]; stringLen\nxor     r8d, r8d; nocase\ncall    stringmatchlen\nadd     eax, [rbp+total_matches]\nmov     [rbp+total_matches], eax\njmp     loc_2B46",
+   "loc_2C07": "mov     eax, [rbp+total_matches]\nadd     rsp, 60h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "j_0": "dword ptr -58h",
+   "j": "dword ptr -54h",
+   "patlen": "dword ptr -50h",
+   "strlen": "dword ptr -4Ch",
+   "total_matches": "dword ptr -48h",
+   "cycles": "dword ptr -44h",
+   "pat": "byte ptr -40h",
+   "str": "byte ptr -20h"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 11056,
+ "thunk_map": {
+  ".strcasecmp": "strcasecmp",
+  "_strcasecmp": "strcasecmp",
+  ".__errno_location": "__errno_location",
+  "_errno_location": "__errno_location",
+  ".fdatasync": "fdatasync",
+  "_fdatasync": "fdatasync",
+  ".unlink": "unlink",
+  "_unlink": "unlink",
+  ".mkdir": "mkdir",
+  "_mkdir": "mkdir",
+  ".llrint": "llrint",
+  "_llrint": "llrint",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".strtod": "strtod",
+  "_strtod": "strtod",
+  ".getpid": "getpid",
+  "_getpid": "getpid",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".opendir": "opendir",
+  "_opendir": "opendir",
+  ".rmdir": "rmdir",
+  "_rmdir": "rmdir",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".strchr": "strchr",
+  "_strchr": "strchr",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".dirname": "dirname",
+  "_dirname": "dirname",
+  ".gettimeofday": "gettimeofday",
+  "_gettimeofday": "gettimeofday",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".getcwd": "getcwd",
+  "_getcwd": "getcwd",
+  ".close": "close",
+  "_close": "close",
+  ".closedir": "closedir",
+  "_closedir": "closedir",
+  ".posix_fadvise": "posix_fadvise",
+  "_posix_fadvise": "posix_fadvise",
+  ".read": "read",
+  "_read": "read",
+  ".srand": "srand",
+  "_srand": "srand",
+  ".strtoull": "strtoull",
+  "_strtoull": "strtoull",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".readdir": "readdir",
+  "_readdir": "readdir",
+  ".tolower": "tolower",
+  "_tolower": "tolower",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".strtold": "strtold",
+  "_strtold": "strtold",
+  ".open": "open",
+  "_open": "open",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".fstat": "fstat",
+  "_fstat": "fstat",
+  ".rand": "rand",
+  "_rand": "rand",
+  ".__ctype_b_loc": "__ctype_b_loc",
+  "_ctype_b_loc": "__ctype_b_loc"
+ },
+ "thunk_debug": [
+  [
+   "sub_2020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".strcasecmp",
+   ".plt",
+   true,
+   "strcasecmp"
+  ],
+  [
+   ".__errno_location",
+   ".plt",
+   true,
+   "__errno_location"
+  ],
+  [
+   ".fdatasync",
+   ".plt",
+   true,
+   "fdatasync"
+  ],
+  [
+   ".unlink",
+   ".plt",
+   true,
+   "unlink"
+  ],
+  [
+   ".mkdir",
+   ".plt",
+   true,
+   "mkdir"
+  ],
+  [
+   ".llrint",
+   ".plt",
+   true,
+   "llrint"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".strtod",
+   ".plt",
+   true,
+   "strtod"
+  ],
+  [
+   ".getpid",
+   ".plt",
+   true,
+   "getpid"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".opendir",
+   ".plt",
+   true,
+   "opendir"
+  ],
+  [
+   ".rmdir",
+   ".plt",
+   true,
+   "rmdir"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".strchr",
+   ".plt",
+   true,
+   "strchr"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".dirname",
+   ".plt",
+   true,
+   "dirname"
+  ],
+  [
+   ".gettimeofday",
+   ".plt",
+   true,
+   "gettimeofday"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".getcwd",
+   ".plt",
+   true,
+   "getcwd"
+  ],
+  [
+   ".close",
+   ".plt",
+   true,
+   "close"
+  ],
+  [
+   ".closedir",
+   ".plt",
+   true,
+   "closedir"
+  ],
+  [
+   ".posix_fadvise",
+   ".plt",
+   true,
+   "posix_fadvise"
+  ],
+  [
+   ".read",
+   ".plt",
+   true,
+   "read"
+  ],
+  [
+   ".srand",
+   ".plt",
+   true,
+   "srand"
+  ],
+  [
+   ".strtoull",
+   ".plt",
+   true,
+   "strtoull"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".stat",
+   ".plt",
+   true,
+   "stat_0"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".readdir",
+   ".plt",
+   true,
+   "readdir"
+  ],
+  [
+   ".tolower",
+   ".plt",
+   true,
+   "tolower"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".strtold",
+   ".plt",
+   true,
+   "strtold"
+  ],
+  [
+   ".open",
+   ".plt",
+   true,
+   "open"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868541
+ }
+}

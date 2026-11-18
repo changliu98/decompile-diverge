@@ -1,0 +1,1 @@
+void ddelete_c(const char *name, int *status) { *status = (unlink(name) ? *__errno_location() : 0); }

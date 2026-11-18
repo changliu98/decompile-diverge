@@ -1,0 +1,1 @@
+int func0(int* arr, int size) { int sum = 0; int i; for (i = 0; i < size; ++i) { if (arr[i] < 0) { int n = -arr[i]; sum += func0(arr + ++i, n); i += n - 1; } else { sum += arr[i]; } } return sum; }

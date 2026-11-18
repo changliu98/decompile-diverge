@@ -1,0 +1,1 @@
+int parse_width(const char *str, int *width) { int w = 0; int i; for (i = 0; str[i]; i++) { if (str[i] >= '0' && str[i] <= '9') { int x = str[i] - '0'; w = w * 10 + x; } else { break; } } *width = i; return w; }

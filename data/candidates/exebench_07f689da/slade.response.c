@@ -1,0 +1,1 @@
+void Mat_GetLibraryVersion(int *version, int *major, int *minor) { if (version != NULL) *version = 1; if (major != NULL) *major = 5; if (minor != NULL) *minor = 9; }

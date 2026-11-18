@@ -1,0 +1,8 @@
+int func0(int *a, int n) {
+  int i, sum = 0;
+  for (i = 0; i < n; i++) {
+    sum += a[i];
+    if (sum < 0) return 1;
+  }
+  return 0;
+}

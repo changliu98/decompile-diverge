@@ -1,0 +1,9 @@
+int func0(int arr[], int n) {
+  int sum = 0;
+  for (int i = 0; i < n; i += 2) {
+    if (arr[i] % 2 == 0) {
+      sum += arr[i];
+    }
+  }
+  return sum;
+}

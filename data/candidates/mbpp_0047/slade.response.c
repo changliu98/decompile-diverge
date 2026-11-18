@@ -1,0 +1,1 @@
+int func0(int a, int b) { int m = 1; int i; if (a == b) { return 1; } if (b - a >= 5) { return 0; } for (i = a + 1; i <= b; i++) { m = (i % 10) * m % 10; } return m % 10; }

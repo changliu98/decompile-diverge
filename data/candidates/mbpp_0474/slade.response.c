@@ -1,0 +1,1 @@
+char *func0(char *str1, char str2, char str3) { int i; strcpy(&str2, str1); for (i = 0; i < strlen(&str2); i++) { if (str2 == str2[i]) str2[i] = str3; } return &str2; }

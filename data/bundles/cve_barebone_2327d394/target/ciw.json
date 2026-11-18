@@ -1,0 +1,462 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 140h\nmov     [rbp+context], rdi\nmov     [rbp+flags], rsi\nmov     [rbp+x], edx\nmov     [rbp+y], ecx\nmov     [rbp+ainput], 0\nmov     [rbp+callback], 0\nlea     rdi, [rbp+buffer]; s\nxor     esi, esi; c\nmov     edx, 20h ; ' '; n\ncall    memset\nmov     [rbp+time], 0\nlea     rdi, [rbp+sbuffer]; s\nxor     esi, esi; c\nmov     edx, 38h ; '8'; n\ncall    memset\nlea     rsi, [rbp+buffer]; buffer\nlea     rdi, [rbp+sbuffer]; s\nmov     edx, 20h ; ' '; size\ncall    Stream_StaticInit\nmov     [rbp+s], rax\ncmp     [rbp+s], 0\njz      loc_1A83\njmp     loc_1AA2\nlea     rdi, assertion+1; assertion\nlea     rsi, file; \"harness.c\"\nmov     edx, 208h; line\nlea     rcx, aUintAinputSend; \"UINT ainput_send_input_event(AInputClie\"...\ncall    ___assert_fail\ncmp     [rbp+context], 0\njz      loc_1AB2\njmp     loc_1AD1\nlea     rdi, aContext; \"context\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 209h; line\nlea     rcx, aUintAinputSend; \"UINT ainput_send_input_event(AInputClie\"...\ncall    ___assert_fail\ncall    winpr_GetTickCount64\nmov     [rbp+time], rax\nmov     rax, [rbp+context]\nmov     rax, [rax]\nmov     [rbp+ainput], rax\ncmp     [rbp+ainput], 0\njz      loc_1AF5\njmp     loc_1B14\nlea     rdi, aAinput; \"ainput\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 20Dh; line\nlea     rcx, aUintAinputSend; \"UINT ainput_send_input_event(AInputClie\"...\ncall    ___assert_fail\nmov     rax, [rbp+ainput]\ncmp     dword ptr [rax+80h], 1\njz      loc_1B5A\nmov     rax, [rbp+ainput]\nmov     edx, [rax+80h]\nmov     rax, [rbp+ainput]\nmov     ecx, [rax+84h]\nlea     rdi, aChannelsAinput; \"channels.ainput.client\"\nlea     rsi, aUnsupportedCha; \"Unsupported channel version %u.%u, abor\"...\nmov     al, 0\ncall    vb_wlog_stub\nmov     [rbp+var_4], 13h\njmp     loc_1DDD\nmov     rax, [rbp+ainput]\nmov     rax, [rax+38h]\nmov     rax, [rax+28h]\nmov     [rbp+callback], rax\ncmp     [rbp+callback], 0\njz      loc_1B7A\njmp     loc_1B99\nlea     rdi, aCallback; \"callback\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 216h; line\nlea     rcx, aUintAinputSend; \"UINT ainput_send_input_event(AInputClie\"...\ncall    ___assert_fail\nlea     rdi, [rbp+ebuffer]; s\nxor     esi, esi; c\nmov     edx, 80h; n\ncall    memset\nmov     rax, [rbp+time]\nmov     [rbp+var_128], rax\nmov     rdi, [rbp+flags]; flags\nlea     rsi, [rbp+ebuffer]; buffer\nmov     edx, 80h; size\ncall    ainput_flags_to_string\nmov     rdx, [rbp+var_128]\nmov     rcx, rax\nmov     r8d, [rbp+x]\nmov     r9d, [rbp+y]\nlea     rdi, aChannelsAinput; \"channels.ainput.client\"\nlea     rsi, aSendingTimesta; \"sending timestamp=0x%08lx, flags=%s, %d\"...\nmov     al, 0\ncall    vb_wlog_stub\nmov     rdi, [rbp+s]; _s\nmov     esi, 2; _v\ncall    Stream_Write_UINT16_unchecked\nmov     rdi, [rbp+s]; _s\nmov     rsi, [rbp+time]; _v\ncall    Stream_Write_UINT64\nmov     rdi, [rbp+s]; _s\nmov     rsi, [rbp+flags]; _v\ncall    Stream_Write_UINT64\ncmp     [rbp+x], 7FFFFFFFh\njg      loc_1C36\njmp     loc_1C55\nlea     rdi, aX2147483647; \"(x) <= (2147483647)\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 224h; line\nlea     rcx, aUintAinputSend; \"UINT ainput_send_input_event(AInputClie\"...\ncall    ___assert_fail\ncmp     [rbp+x], 80000000h\njl      loc_1C67\njmp     loc_1C86\nlea     rdi, aX21474836471; \"(x) >= (-2147483647-1)\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 224h; line\nlea     rcx, aUintAinputSend; \"UINT ainput_send_input_event(AInputClie\"...\ncall    ___assert_fail\nmov     rdi, [rbp+s]; _s\nmov     esi, [rbp+x]; _v\ncall    Stream_Write_INT32_unchecked\njmp     $+5\ncmp     [rbp+y], 7FFFFFFFh\njg      loc_1CAC\njmp     loc_1CCB\nlea     rdi, aY2147483647; \"(y) <= (2147483647)\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 225h; line\nlea     rcx, aUintAinputSend; \"UINT ainput_send_input_event(AInputClie\"...\ncall    ___assert_fail\ncmp     [rbp+y], 80000000h\njl      loc_1CDD\njmp     loc_1CFC\nlea     rdi, aY21474836471; \"(y) >= (-2147483647-1)\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 225h; line\nlea     rcx, aUintAinputSend; \"UINT ainput_send_input_event(AInputClie\"...\ncall    ___assert_fail\nmov     rdi, [rbp+s]; _s\nmov     esi, [rbp+y]; _v\ncall    Stream_Write_INT32_unchecked\nmov     rdi, [rbp+s]; _s\ncall    Stream_SealLength\nmov     rax, [rbp+callback]\ncmp     qword ptr [rax+30h], 0\njz      loc_1D2B\njmp     loc_1D4A\nlea     rdi, aCallbackChanne; \"callback->channel\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 229h; line\nlea     rcx, aUintAinputSend; \"UINT ainput_send_input_event(AInputClie\"...\ncall    ___assert_fail\nmov     rax, [rbp+callback]\nmov     rax, [rax+30h]\ncmp     qword ptr [rax], 0\njz      loc_1D61\njmp     loc_1D80\nlea     rdi, aCallbackChanne_0; \"callback->channel->Write\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 22Ah; line\nlea     rcx, aUintAinputSend; \"UINT ainput_send_input_event(AInputClie\"...\ncall    ___assert_fail\nmov     rax, [rbp+callback]\nmov     rax, [rax+30h]\nmov     rax, [rax]\nmov     [rbp+var_130], rax\nmov     rax, [rbp+callback]\nmov     rax, [rax+30h]\nmov     [rbp+var_140], rax\nmov     rdi, [rbp+s]; _s\ncall    Stream_Length\nmov     [rbp+var_134], eax\nmov     rdi, [rbp+s]; _s\ncall    Stream_Buffer\nmov     rdi, [rbp+var_140]\nmov     esi, [rbp+var_134]\nmov     rdx, rax\nmov     rax, [rbp+var_130]\nxor     ecx, ecx\ncall    rax\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\nadd     rsp, 140h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 35,
+  "edges": [
+   [
+    "start",
+    "loc_1A7E"
+   ],
+   [
+    "start",
+    "loc_1A83"
+   ],
+   [
+    "loc_1A7E",
+    "loc_1AA2"
+   ],
+   [
+    "loc_1AA2",
+    "loc_1AAD"
+   ],
+   [
+    "loc_1AA2",
+    "loc_1AB2"
+   ],
+   [
+    "loc_1AAD",
+    "loc_1AD1"
+   ],
+   [
+    "loc_1AD1",
+    "loc_1AF0"
+   ],
+   [
+    "loc_1AD1",
+    "loc_1AF5"
+   ],
+   [
+    "loc_1AF0",
+    "loc_1B14"
+   ],
+   [
+    "loc_1B14",
+    "loc_1B25"
+   ],
+   [
+    "loc_1B14",
+    "loc_1B5A"
+   ],
+   [
+    "loc_1B25",
+    "loc_1DDD"
+   ],
+   [
+    "loc_1B5A",
+    "loc_1B75"
+   ],
+   [
+    "loc_1B5A",
+    "loc_1B7A"
+   ],
+   [
+    "loc_1B75",
+    "loc_1B99"
+   ],
+   [
+    "loc_1B99",
+    "loc_1C31"
+   ],
+   [
+    "loc_1B99",
+    "loc_1C36"
+   ],
+   [
+    "loc_1C31",
+    "loc_1C55"
+   ],
+   [
+    "loc_1C55",
+    "loc_1C62"
+   ],
+   [
+    "loc_1C55",
+    "loc_1C67"
+   ],
+   [
+    "loc_1C62",
+    "loc_1C86"
+   ],
+   [
+    "loc_1C86",
+    "loc_1C9A"
+   ],
+   [
+    "loc_1C9A",
+    "loc_1CA7"
+   ],
+   [
+    "loc_1C9A",
+    "loc_1CAC"
+   ],
+   [
+    "loc_1CA7",
+    "loc_1CCB"
+   ],
+   [
+    "loc_1CCB",
+    "loc_1CD8"
+   ],
+   [
+    "loc_1CCB",
+    "loc_1CDD"
+   ],
+   [
+    "loc_1CD8",
+    "loc_1CFC"
+   ],
+   [
+    "loc_1CFC",
+    "loc_1D26"
+   ],
+   [
+    "loc_1CFC",
+    "loc_1D2B"
+   ],
+   [
+    "loc_1D26",
+    "loc_1D4A"
+   ],
+   [
+    "loc_1D4A",
+    "loc_1D5C"
+   ],
+   [
+    "loc_1D4A",
+    "loc_1D61"
+   ],
+   [
+    "loc_1D5C",
+    "loc_1D80"
+   ],
+   [
+    "loc_1D80",
+    "loc_1DDD"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 140h\nmov     [rbp+context], rdi\nmov     [rbp+flags], rsi\nmov     [rbp+x], edx\nmov     [rbp+y], ecx\nmov     [rbp+ainput], 0\nmov     [rbp+callback], 0\nlea     rdi, [rbp+buffer]; s\nxor     esi, esi; c\nmov     edx, 20h ; ' '; n\ncall    memset\nmov     [rbp+time], 0\nlea     rdi, [rbp+sbuffer]; s\nxor     esi, esi; c\nmov     edx, 38h ; '8'; n\ncall    memset\nlea     rsi, [rbp+buffer]; buffer\nlea     rdi, [rbp+sbuffer]; s\nmov     edx, 20h ; ' '; size\ncall    Stream_StaticInit\nmov     [rbp+s], rax\ncmp     [rbp+s], 0\njz      loc_1A83",
+   "loc_1A7E": "jmp     loc_1AA2",
+   "loc_1A83": "lea     rdi, assertion+1; assertion\nlea     rsi, file; \"harness.c\"\nmov     edx, 208h; line\nlea     rcx, aUintAinputSend; \"UINT ainput_send_input_event(AInputClie\"...\ncall    ___assert_fail",
+   "loc_1AA2": "cmp     [rbp+context], 0\njz      loc_1AB2",
+   "loc_1AAD": "jmp     loc_1AD1",
+   "loc_1AB2": "lea     rdi, aContext; \"context\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 209h; line\nlea     rcx, aUintAinputSend; \"UINT ainput_send_input_event(AInputClie\"...\ncall    ___assert_fail",
+   "loc_1AD1": "call    winpr_GetTickCount64\nmov     [rbp+time], rax\nmov     rax, [rbp+context]\nmov     rax, [rax]\nmov     [rbp+ainput], rax\ncmp     [rbp+ainput], 0\njz      loc_1AF5",
+   "loc_1AF0": "jmp     loc_1B14",
+   "loc_1AF5": "lea     rdi, aAinput; \"ainput\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 20Dh; line\nlea     rcx, aUintAinputSend; \"UINT ainput_send_input_event(AInputClie\"...\ncall    ___assert_fail",
+   "loc_1B14": "mov     rax, [rbp+ainput]\ncmp     dword ptr [rax+80h], 1\njz      loc_1B5A",
+   "loc_1B25": "mov     rax, [rbp+ainput]\nmov     edx, [rax+80h]\nmov     rax, [rbp+ainput]\nmov     ecx, [rax+84h]\nlea     rdi, aChannelsAinput; \"channels.ainput.client\"\nlea     rsi, aUnsupportedCha; \"Unsupported channel version %u.%u, abor\"...\nmov     al, 0\ncall    vb_wlog_stub\nmov     [rbp+var_4], 13h\njmp     loc_1DDD",
+   "loc_1B5A": "mov     rax, [rbp+ainput]\nmov     rax, [rax+38h]\nmov     rax, [rax+28h]\nmov     [rbp+callback], rax\ncmp     [rbp+callback], 0\njz      loc_1B7A",
+   "loc_1B75": "jmp     loc_1B99",
+   "loc_1B7A": "lea     rdi, aCallback; \"callback\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 216h; line\nlea     rcx, aUintAinputSend; \"UINT ainput_send_input_event(AInputClie\"...\ncall    ___assert_fail",
+   "loc_1B99": "lea     rdi, [rbp+ebuffer]; s\nxor     esi, esi; c\nmov     edx, 80h; n\ncall    memset\nmov     rax, [rbp+time]\nmov     [rbp+var_128], rax\nmov     rdi, [rbp+flags]; flags\nlea     rsi, [rbp+ebuffer]; buffer\nmov     edx, 80h; size\ncall    ainput_flags_to_string\nmov     rdx, [rbp+var_128]\nmov     rcx, rax\nmov     r8d, [rbp+x]\nmov     r9d, [rbp+y]\nlea     rdi, aChannelsAinput; \"channels.ainput.client\"\nlea     rsi, aSendingTimesta; \"sending timestamp=0x%08lx, flags=%s, %d\"...\nmov     al, 0\ncall    vb_wlog_stub\nmov     rdi, [rbp+s]; _s\nmov     esi, 2; _v\ncall    Stream_Write_UINT16_unchecked\nmov     rdi, [rbp+s]; _s\nmov     rsi, [rbp+time]; _v\ncall    Stream_Write_UINT64\nmov     rdi, [rbp+s]; _s\nmov     rsi, [rbp+flags]; _v\ncall    Stream_Write_UINT64\ncmp     [rbp+x], 7FFFFFFFh\njg      loc_1C36",
+   "loc_1C31": "jmp     loc_1C55",
+   "loc_1C36": "lea     rdi, aX2147483647; \"(x) <= (2147483647)\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 224h; line\nlea     rcx, aUintAinputSend; \"UINT ainput_send_input_event(AInputClie\"...\ncall    ___assert_fail",
+   "loc_1C55": "cmp     [rbp+x], 80000000h\njl      loc_1C67",
+   "loc_1C62": "jmp     loc_1C86",
+   "loc_1C67": "lea     rdi, aX21474836471; \"(x) >= (-2147483647-1)\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 224h; line\nlea     rcx, aUintAinputSend; \"UINT ainput_send_input_event(AInputClie\"...\ncall    ___assert_fail",
+   "loc_1C86": "mov     rdi, [rbp+s]; _s\nmov     esi, [rbp+x]; _v\ncall    Stream_Write_INT32_unchecked\njmp     $+5",
+   "loc_1C9A": "cmp     [rbp+y], 7FFFFFFFh\njg      loc_1CAC",
+   "loc_1CA7": "jmp     loc_1CCB",
+   "loc_1CAC": "lea     rdi, aY2147483647; \"(y) <= (2147483647)\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 225h; line\nlea     rcx, aUintAinputSend; \"UINT ainput_send_input_event(AInputClie\"...\ncall    ___assert_fail",
+   "loc_1CCB": "cmp     [rbp+y], 80000000h\njl      loc_1CDD",
+   "loc_1CD8": "jmp     loc_1CFC",
+   "loc_1CDD": "lea     rdi, aY21474836471; \"(y) >= (-2147483647-1)\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 225h; line\nlea     rcx, aUintAinputSend; \"UINT ainput_send_input_event(AInputClie\"...\ncall    ___assert_fail",
+   "loc_1CFC": "mov     rdi, [rbp+s]; _s\nmov     esi, [rbp+y]; _v\ncall    Stream_Write_INT32_unchecked\nmov     rdi, [rbp+s]; _s\ncall    Stream_SealLength\nmov     rax, [rbp+callback]\ncmp     qword ptr [rax+30h], 0\njz      loc_1D2B",
+   "loc_1D26": "jmp     loc_1D4A",
+   "loc_1D2B": "lea     rdi, aCallbackChanne; \"callback->channel\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 229h; line\nlea     rcx, aUintAinputSend; \"UINT ainput_send_input_event(AInputClie\"...\ncall    ___assert_fail",
+   "loc_1D4A": "mov     rax, [rbp+callback]\nmov     rax, [rax+30h]\ncmp     qword ptr [rax], 0\njz      loc_1D61",
+   "loc_1D5C": "jmp     loc_1D80",
+   "loc_1D61": "lea     rdi, aCallbackChanne_0; \"callback->channel->Write\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 22Ah; line\nlea     rcx, aUintAinputSend; \"UINT ainput_send_input_event(AInputClie\"...\ncall    ___assert_fail",
+   "loc_1D80": "mov     rax, [rbp+callback]\nmov     rax, [rax+30h]\nmov     rax, [rax]\nmov     [rbp+var_130], rax\nmov     rax, [rbp+callback]\nmov     rax, [rax+30h]\nmov     [rbp+var_140], rax\nmov     rdi, [rbp+s]; _s\ncall    Stream_Length\nmov     [rbp+var_134], eax\nmov     rdi, [rbp+s]; _s\ncall    Stream_Buffer\nmov     rdi, [rbp+var_140]\nmov     esi, [rbp+var_134]\nmov     rdx, rax\nmov     rax, [rbp+var_130]\nxor     ecx, ecx\ncall    rax\nmov     [rbp+var_4], eax",
+   "loc_1DDD": "mov     eax, [rbp+var_4]\nadd     rsp, 140h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_140": "qword ptr -140h",
+   "var_134": "dword ptr -134h",
+   "var_130": "qword ptr -130h",
+   "var_128": "qword ptr -128h",
+   "ebuffer": "byte ptr -120h",
+   "s": "qword ptr -98h",
+   "sbuffer": "wStream ptr -90h",
+   "time": "qword ptr -58h",
+   "buffer": "byte ptr -50h",
+   "callback": "qword ptr -30h",
+   "ainput": "qword ptr -28h",
+   "y": "dword ptr -20h",
+   "x": "dword ptr -1Ch",
+   "flags": "qword ptr -18h",
+   "context": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "unk_3005": "byte '_s',0",
+   "file": "byte 'harness.c',0",
+   "aUintAinputSend": "byte 'UINT ainput_send_input_event(AInputClientContext *, UINT64, INT32'",
+   "aContext": "byte 'context',0",
+   "aAinput": "byte 'ainput',0",
+   "aChannelsAinput": "byte 'channels.ainput.client',0",
+   "aUnsupportedCha": "byte 'Unsupported channel version %u.%u, aborting.',0",
+   "aCallback": "byte 'callback',0",
+   "aSendingTimesta": "byte 'sending timestamp=0x%08lx, flags=%s, %dx%d',0",
+   "aX2147483647": "byte '(x) <= (2147483647)',0",
+   "aX21474836471": "byte '(x) >= (-2147483647-1)',0",
+   "aY2147483647": "byte '(y) <= (2147483647)',0",
+   "aY21474836471": "byte '(y) >= (-2147483647-1)',0",
+   "aCallbackChanne": "byte 'callback->channel',0",
+   "aCallbackChanne_0": "byte 'callback->channel->Write',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6656,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".strnlen": "strnlen",
+  "_strnlen": "strnlen",
+  ".strncat": "strncat",
+  "_strncat": "strncat",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".strnlen",
+   ".plt",
+   true,
+   "strnlen"
+  ],
+  [
+   ".strncat",
+   ".plt",
+   true,
+   "strncat"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "snprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strnlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncat",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868453
+ }
+}

@@ -1,0 +1,181 @@
+00000000000011e0 <Utf8ToUnicode>:
+    11e0:	push   %rbp
+    11e1:	mov    %rsp,%rbp
+    11e4:	mov    %rdi,-0x10(%rbp)
+    11e8:	mov    %rsi,-0x18(%rbp)
+    11ec:	mov    %rdx,-0x20(%rbp)
+    11f0:	mov    %rcx,-0x28(%rbp)
+    11f4:	mov    -0x10(%rbp),%rax
+    11f8:	mov    (%rax),%al
+    11fa:	mov    %al,-0x29(%rbp)
+    11fd:	movsbl -0x29(%rbp),%eax
+    1201:	and    $0xf8,%eax
+    1206:	cmp    $0xf0,%eax
+    120b:	jne    12fa <Utf8ToUnicode+0x11a>
+    1211:	cmpq   $0x4,-0x28(%rbp)
+    1216:	jb     1264 <Utf8ToUnicode+0x84>
+    121c:	mov    -0x10(%rbp),%rax
+    1220:	movsbl 0x1(%rax),%eax
+    1224:	and    $0xc0,%eax
+    1229:	cmp    $0x80,%eax
+    122e:	jne    1264 <Utf8ToUnicode+0x84>
+    1234:	mov    -0x10(%rbp),%rax
+    1238:	movsbl 0x2(%rax),%eax
+    123c:	and    $0xc0,%eax
+    1241:	cmp    $0x80,%eax
+    1246:	jne    1264 <Utf8ToUnicode+0x84>
+    124c:	mov    -0x10(%rbp),%rax
+    1250:	movsbl 0x3(%rax),%eax
+    1254:	and    $0xc0,%eax
+    1259:	cmp    $0x80,%eax
+    125e:	je     1270 <Utf8ToUnicode+0x90>
+    1264:	movl   $0x2,-0x4(%rbp)
+    126b:	jmp    148d <Utf8ToUnicode+0x2ad>
+    1270:	mov    -0x20(%rbp),%rax
+    1274:	movl   $0x4,(%rax)
+    127a:	movsbl -0x29(%rbp),%ecx
+    127e:	and    $0x7,%ecx
+    1281:	mov    -0x18(%rbp),%rax
+    1285:	or     (%rax),%ecx
+    1287:	mov    %ecx,(%rax)
+    1289:	mov    -0x18(%rbp),%rax
+    128d:	mov    (%rax),%ecx
+    128f:	shl    $0x6,%ecx
+    1292:	mov    %ecx,(%rax)
+    1294:	mov    -0x10(%rbp),%rax
+    1298:	mov    0x1(%rax),%al
+    129b:	mov    %al,-0x29(%rbp)
+    129e:	movsbl -0x29(%rbp),%ecx
+    12a2:	and    $0x3f,%ecx
+    12a5:	mov    -0x18(%rbp),%rax
+    12a9:	or     (%rax),%ecx
+    12ab:	mov    %ecx,(%rax)
+    12ad:	mov    -0x18(%rbp),%rax
+    12b1:	mov    (%rax),%ecx
+    12b3:	shl    $0x6,%ecx
+    12b6:	mov    %ecx,(%rax)
+    12b8:	mov    -0x10(%rbp),%rax
+    12bc:	mov    0x2(%rax),%al
+    12bf:	mov    %al,-0x29(%rbp)
+    12c2:	movsbl -0x29(%rbp),%ecx
+    12c6:	and    $0x3f,%ecx
+    12c9:	mov    -0x18(%rbp),%rax
+    12cd:	or     (%rax),%ecx
+    12cf:	mov    %ecx,(%rax)
+    12d1:	mov    -0x18(%rbp),%rax
+    12d5:	mov    (%rax),%ecx
+    12d7:	shl    $0x6,%ecx
+    12da:	mov    %ecx,(%rax)
+    12dc:	mov    -0x10(%rbp),%rax
+    12e0:	mov    0x3(%rax),%al
+    12e3:	mov    %al,-0x29(%rbp)
+    12e6:	movsbl -0x29(%rbp),%ecx
+    12ea:	and    $0x3f,%ecx
+    12ed:	mov    -0x18(%rbp),%rax
+    12f1:	or     (%rax),%ecx
+    12f3:	mov    %ecx,(%rax)
+    12f5:	jmp    1486 <Utf8ToUnicode+0x2a6>
+    12fa:	movsbl -0x29(%rbp),%eax
+    12fe:	and    $0xf0,%eax
+    1303:	cmp    $0xe0,%eax
+    1308:	jne    13bb <Utf8ToUnicode+0x1db>
+    130e:	cmpq   $0x3,-0x28(%rbp)
+    1313:	jb     1349 <Utf8ToUnicode+0x169>
+    1319:	mov    -0x10(%rbp),%rax
+    131d:	movsbl 0x1(%rax),%eax
+    1321:	and    $0xc0,%eax
+    1326:	cmp    $0x80,%eax
+    132b:	jne    1349 <Utf8ToUnicode+0x169>
+    1331:	mov    -0x10(%rbp),%rax
+    1335:	movsbl 0x2(%rax),%eax
+    1339:	and    $0xc0,%eax
+    133e:	cmp    $0x80,%eax
+    1343:	je     1355 <Utf8ToUnicode+0x175>
+    1349:	movl   $0x2,-0x4(%rbp)
+    1350:	jmp    148d <Utf8ToUnicode+0x2ad>
+    1355:	mov    -0x20(%rbp),%rax
+    1359:	movl   $0x3,(%rax)
+    135f:	movsbl -0x29(%rbp),%ecx
+    1363:	and    $0xf,%ecx
+    1366:	mov    -0x18(%rbp),%rax
+    136a:	or     (%rax),%ecx
+    136c:	mov    %ecx,(%rax)
+    136e:	mov    -0x18(%rbp),%rax
+    1372:	mov    (%rax),%ecx
+    1374:	shl    $0x6,%ecx
+    1377:	mov    %ecx,(%rax)
+    1379:	mov    -0x10(%rbp),%rax
+    137d:	mov    0x1(%rax),%al
+    1380:	mov    %al,-0x29(%rbp)
+    1383:	movsbl -0x29(%rbp),%ecx
+    1387:	and    $0x3f,%ecx
+    138a:	mov    -0x18(%rbp),%rax
+    138e:	or     (%rax),%ecx
+    1390:	mov    %ecx,(%rax)
+    1392:	mov    -0x18(%rbp),%rax
+    1396:	mov    (%rax),%ecx
+    1398:	shl    $0x6,%ecx
+    139b:	mov    %ecx,(%rax)
+    139d:	mov    -0x10(%rbp),%rax
+    13a1:	mov    0x2(%rax),%al
+    13a4:	mov    %al,-0x29(%rbp)
+    13a7:	movsbl -0x29(%rbp),%ecx
+    13ab:	and    $0x3f,%ecx
+    13ae:	mov    -0x18(%rbp),%rax
+    13b2:	or     (%rax),%ecx
+    13b4:	mov    %ecx,(%rax)
+    13b6:	jmp    1481 <Utf8ToUnicode+0x2a1>
+    13bb:	movsbl -0x29(%rbp),%eax
+    13bf:	and    $0xe0,%eax
+    13c4:	cmp    $0xc0,%eax
+    13c9:	jne    1440 <Utf8ToUnicode+0x260>
+    13cf:	cmpq   $0x2,-0x28(%rbp)
+    13d4:	jb     13f2 <Utf8ToUnicode+0x212>
+    13da:	mov    -0x10(%rbp),%rax
+    13de:	movsbl 0x1(%rax),%eax
+    13e2:	and    $0xc0,%eax
+    13e7:	cmp    $0x80,%eax
+    13ec:	je     13fe <Utf8ToUnicode+0x21e>
+    13f2:	movl   $0x2,-0x4(%rbp)
+    13f9:	jmp    148d <Utf8ToUnicode+0x2ad>
+    13fe:	mov    -0x20(%rbp),%rax
+    1402:	movl   $0x2,(%rax)
+    1408:	movsbl -0x29(%rbp),%ecx
+    140c:	and    $0x1f,%ecx
+    140f:	mov    -0x18(%rbp),%rax
+    1413:	or     (%rax),%ecx
+    1415:	mov    %ecx,(%rax)
+    1417:	mov    -0x18(%rbp),%rax
+    141b:	mov    (%rax),%ecx
+    141d:	shl    $0x6,%ecx
+    1420:	mov    %ecx,(%rax)
+    1422:	mov    -0x10(%rbp),%rax
+    1426:	mov    0x1(%rax),%al
+    1429:	mov    %al,-0x29(%rbp)
+    142c:	movsbl -0x29(%rbp),%ecx
+    1430:	and    $0x3f,%ecx
+    1433:	mov    -0x18(%rbp),%rax
+    1437:	or     (%rax),%ecx
+    1439:	mov    %ecx,(%rax)
+    143b:	jmp    147c <Utf8ToUnicode+0x29c>
+    1440:	movsbl -0x29(%rbp),%eax
+    1444:	and    $0x80,%eax
+    1449:	cmp    $0x0,%eax
+    144c:	jne    146b <Utf8ToUnicode+0x28b>
+    1452:	mov    -0x20(%rbp),%rax
+    1456:	movl   $0x1,(%rax)
+    145c:	movsbl -0x29(%rbp),%ecx
+    1460:	mov    -0x18(%rbp),%rax
+    1464:	mov    %ecx,(%rax)
+    1466:	jmp    1477 <Utf8ToUnicode+0x297>
+    146b:	movl   $0x1,-0x4(%rbp)
+    1472:	jmp    148d <Utf8ToUnicode+0x2ad>
+    1477:	jmp    147c <Utf8ToUnicode+0x29c>
+    147c:	jmp    1481 <Utf8ToUnicode+0x2a1>
+    1481:	jmp    1486 <Utf8ToUnicode+0x2a6>
+    1486:	movl   $0x0,-0x4(%rbp)
+    148d:	mov    -0x4(%rbp),%eax
+    1490:	pop    %rbp
+    1491:	ret
+
+Disassembly of section .fini:

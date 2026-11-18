@@ -1,0 +1,1 @@
+void dec2bin(int n, char *p) { while (n > 0) { if (n & 1) *p++ = '1'; else *p++ = '0'; n >>= 1; } }

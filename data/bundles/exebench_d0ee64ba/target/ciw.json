@@ -1,0 +1,337 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nmov     [rbp+numerator], rdi\nmov     [rbp+denominator], rsi\nmov     rax, [rbp+numerator]\nmov     eax, [rax]\nmov     rcx, [rbp+denominator]\ncmp     eax, [rcx]\njge     loc_1209\nmov     rax, [rbp+numerator]\ncmp     dword ptr [rax], 0\njle     loc_1209\nmov     rax, [rbp+numerator]\nmov     eax, [rax]\nmov     [rbp+lowestNum], eax\njmp     loc_1232\nmov     rax, [rbp+denominator]\ncmp     dword ptr [rax], 0\njle     loc_1224\nmov     rax, [rbp+denominator]\nmov     eax, [rax]\nmov     [rbp+lowestNum], eax\njmp     loc_122D\nmov     rax, [rbp+numerator]\nmov     eax, [rax]\nmov     [rbp+lowestNum], eax\njmp     $+5\njmp     $+5\ncmp     [rbp+lowestNum], 0\njz      loc_12A4\nmov     rax, [rbp+numerator]\nmov     eax, [rax]\ncdq\nidiv    [rbp+lowestNum]\ncmp     edx, 0\njnz     loc_1279\nmov     rax, [rbp+denominator]\nmov     eax, [rax]\ncdq\nidiv    [rbp+lowestNum]\ncmp     edx, 0\njnz     loc_1279\nmov     eax, [rbp+lowestNum]\nmov     [rbp+commonNum], eax\nmov     [rbp+lowestNum], 0\njmp     loc_129F\ncmp     [rbp+lowestNum], 0\njle     loc_1291\nmov     eax, [rbp+lowestNum]\nsub     eax, 1\nmov     [rbp+lowestNum], eax\njmp     loc_129A\nmov     eax, [rbp+lowestNum]\nadd     eax, 1\nmov     [rbp+lowestNum], eax\njmp     $+5\njmp     loc_1237\ncmp     [rbp+commonNum], 0FFFFFFFFh\njnz     loc_12B8\nmov     eax, [rbp+commonNum]\nimul    eax, [rbp+commonNum]\nmov     [rbp+commonNum], eax\nmov     rax, [rbp+numerator]\nmov     eax, [rax]\ncdq\nidiv    [rbp+commonNum]\nmov     ecx, eax\nmov     rax, [rbp+numerator]\nmov     [rax], ecx\nmov     rax, [rbp+denominator]\nmov     eax, [rax]\ncdq\nidiv    [rbp+commonNum]\nmov     ecx, eax\nmov     rax, [rbp+denominator]\nmov     [rax], ecx\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 20,
+  "edges": [
+   [
+    "start",
+    "loc_11EE"
+   ],
+   [
+    "start",
+    "loc_1209"
+   ],
+   [
+    "loc_11EE",
+    "loc_11FB"
+   ],
+   [
+    "loc_11EE",
+    "loc_1209"
+   ],
+   [
+    "loc_11FB",
+    "loc_1232"
+   ],
+   [
+    "loc_1209",
+    "loc_1216"
+   ],
+   [
+    "loc_1209",
+    "loc_1224"
+   ],
+   [
+    "loc_1216",
+    "loc_122D"
+   ],
+   [
+    "loc_1224",
+    "loc_122D"
+   ],
+   [
+    "loc_122D",
+    "loc_1232"
+   ],
+   [
+    "loc_1232",
+    "loc_1237"
+   ],
+   [
+    "loc_1237",
+    "loc_1241"
+   ],
+   [
+    "loc_1237",
+    "loc_12A4"
+   ],
+   [
+    "loc_1241",
+    "loc_1254"
+   ],
+   [
+    "loc_1241",
+    "loc_1279"
+   ],
+   [
+    "loc_1254",
+    "loc_1267"
+   ],
+   [
+    "loc_1254",
+    "loc_1279"
+   ],
+   [
+    "loc_1267",
+    "loc_129F"
+   ],
+   [
+    "loc_1279",
+    "loc_1283"
+   ],
+   [
+    "loc_1279",
+    "loc_1291"
+   ],
+   [
+    "loc_1283",
+    "loc_129A"
+   ],
+   [
+    "loc_1291",
+    "loc_129A"
+   ],
+   [
+    "loc_129A",
+    "loc_129F"
+   ],
+   [
+    "loc_129F",
+    "loc_1237"
+   ],
+   [
+    "loc_12A4",
+    "loc_12AE"
+   ],
+   [
+    "loc_12A4",
+    "loc_12B8"
+   ],
+   [
+    "loc_12AE",
+    "loc_12B8"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nmov     [rbp+numerator], rdi\nmov     [rbp+denominator], rsi\nmov     rax, [rbp+numerator]\nmov     eax, [rax]\nmov     rcx, [rbp+denominator]\ncmp     eax, [rcx]\njge     loc_1209",
+   "loc_11EE": "mov     rax, [rbp+numerator]\ncmp     dword ptr [rax], 0\njle     loc_1209",
+   "loc_11FB": "mov     rax, [rbp+numerator]\nmov     eax, [rax]\nmov     [rbp+lowestNum], eax\njmp     loc_1232",
+   "loc_1209": "mov     rax, [rbp+denominator]\ncmp     dword ptr [rax], 0\njle     loc_1224",
+   "loc_1216": "mov     rax, [rbp+denominator]\nmov     eax, [rax]\nmov     [rbp+lowestNum], eax\njmp     loc_122D",
+   "loc_1224": "mov     rax, [rbp+numerator]\nmov     eax, [rax]\nmov     [rbp+lowestNum], eax",
+   "loc_122D": "jmp     $+5",
+   "loc_1232": "jmp     $+5",
+   "loc_1237": "cmp     [rbp+lowestNum], 0\njz      loc_12A4",
+   "loc_1241": "mov     rax, [rbp+numerator]\nmov     eax, [rax]\ncdq\nidiv    [rbp+lowestNum]\ncmp     edx, 0\njnz     loc_1279",
+   "loc_1254": "mov     rax, [rbp+denominator]\nmov     eax, [rax]\ncdq\nidiv    [rbp+lowestNum]\ncmp     edx, 0\njnz     loc_1279",
+   "loc_1267": "mov     eax, [rbp+lowestNum]\nmov     [rbp+commonNum], eax\nmov     [rbp+lowestNum], 0\njmp     loc_129F",
+   "loc_1279": "cmp     [rbp+lowestNum], 0\njle     loc_1291",
+   "loc_1283": "mov     eax, [rbp+lowestNum]\nsub     eax, 1\nmov     [rbp+lowestNum], eax\njmp     loc_129A",
+   "loc_1291": "mov     eax, [rbp+lowestNum]\nadd     eax, 1\nmov     [rbp+lowestNum], eax",
+   "loc_129A": "jmp     $+5",
+   "loc_129F": "jmp     loc_1237",
+   "loc_12A4": "cmp     [rbp+commonNum], 0FFFFFFFFh\njnz     loc_12B8",
+   "loc_12AE": "mov     eax, [rbp+commonNum]\nimul    eax, [rbp+commonNum]\nmov     [rbp+commonNum], eax",
+   "loc_12B8": "mov     rax, [rbp+numerator]\nmov     eax, [rax]\ncdq\nidiv    [rbp+commonNum]\nmov     ecx, eax\nmov     rax, [rbp+numerator]\nmov     [rax], ecx\nmov     rax, [rbp+denominator]\nmov     eax, [rax]\ncdq\nidiv    [rbp+commonNum]\nmov     ecx, eax\nmov     rax, [rbp+denominator]\nmov     [rax], ecx\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "lowestNum": "dword ptr -18h",
+   "commonNum": "dword ptr -14h",
+   "denominator": "qword ptr -10h",
+   "numerator": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4560,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868386
+ }
+}

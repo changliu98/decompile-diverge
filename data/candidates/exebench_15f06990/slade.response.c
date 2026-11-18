@@ -1,0 +1,1 @@
+int sync_unlock(int *lock) { return *lock = 0; }

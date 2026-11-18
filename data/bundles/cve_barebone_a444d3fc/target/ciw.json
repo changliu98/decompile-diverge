@@ -1,0 +1,380 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\npush    r15\npush    r14\npush    rbx\nsub     rsp, 0A8h\nmov     eax, [rbp+codecId]\nmov     eax, [rbp+compressed]\nmov     eax, [rbp+length]\nmov     [rbp+context], rdi\nmov     [rbp+bitmap], rsi\nmov     [rbp+pSrcData], rdx\nmov     [rbp+DstWidth], ecx\nmov     [rbp+DstHeight], r8d\nmov     [rbp+bpp], r9d\nmov     eax, [rbp+length]\nmov     [rbp+SrcSize], eax\nmov     rax, [rbp+context]\nmov     rax, [rax]\nmov     [rbp+gdi], rax\nmov     rax, [rbp+bitmap]\nmov     dword ptr [rax+10h], 0\nmov     rax, [rbp+gdi]\nmov     ecx, [rax]\nmov     rax, [rbp+bitmap]\nmov     [rax], ecx\nmov     eax, [rbp+DstWidth]\nimul    eax, [rbp+DstHeight]\nmov     [rbp+var_74], eax\nmov     rax, [rbp+bitmap]\nmov     edi, [rax]; format\ncall    GetBytesPerPixel\nmov     ecx, [rbp+var_74]\nimul    ecx, eax\nmov     rax, [rbp+bitmap]\nmov     [rax+4], ecx\nmov     rax, [rbp+bitmap]\nmov     eax, [rax+4]\nmov     edi, eax; size\nmov     esi, 10h; alignment\ncall    _aligned_malloc\nmov     rcx, rax\nmov     rax, [rbp+bitmap]\nmov     [rax+8], rcx\nmov     rax, [rbp+bitmap]\ncmp     qword ptr [rax+8], 0\njnz     loc_15A3\nmov     [rbp+var_1C], 0\njmp     loc_17D1\ncmp     [rbp+compressed], 0\njz      loc_16C6\ncmp     [rbp+bpp], 20h ; ' '\njnb     loc_1643\nmov     rax, [rbp+context]\nmov     rax, [rax+8]\nmov     rdi, [rax]; interleaved\nmov     rsi, [rbp+pSrcData]; pSrcData\nmov     edx, [rbp+SrcSize]; SrcSize\nmov     ecx, [rbp+DstWidth]; nSrcWidth\nmov     r8d, [rbp+DstHeight]; nSrcHeight\nmov     r9d, [rbp+bpp]; bpp\nmov     rax, [rbp+bitmap]\nmov     r14, [rax+8]\nmov     rax, [rbp+bitmap]\nmov     ebx, [rax]\nmov     r11d, [rbp+DstWidth]\nmov     r10d, [rbp+DstHeight]\nmov     rax, [rbp+gdi]\nadd     rax, 4\nxor     r15d, r15d\nmov     [rsp+0C0h+pDstData], r14; pDstData\nmov     [rsp+0C0h+DstFormat], ebx; DstFormat\nmov     [rsp+0C0h+nDstStep], 0; nDstStep\nmov     [rsp+0C0h+nXDst], 0; nXDst\nmov     [rsp+0C0h+nYDst], 0; nYDst\nmov     [rsp+0C0h+nDstWidth], r11d; nDstWidth\nmov     [rsp+0C0h+nDstHeight], r10d; nDstHeight\nmov     [rsp+0C0h+palette], rax; palette\ncall    interleaved_decompress\ncmp     eax, 0\njnz     loc_163E\nmov     [rbp+var_1C], 0\njmp     loc_17D1\njmp     loc_16C1\nmov     rax, [rbp+context]\nmov     rax, [rax+8]\nmov     rdi, [rax+8]; planar\nmov     rsi, [rbp+pSrcData]; pSrcData\nmov     edx, [rbp+SrcSize]; SrcSize\nmov     ecx, [rbp+DstWidth]; nSrcWidth\nmov     r8d, [rbp+DstHeight]; nSrcHeight\nmov     rax, [rbp+bitmap]\nmov     r9, [rax+8]; pDstData\nmov     rax, [rbp+bitmap]\nmov     r11d, [rax]\nmov     r10d, [rbp+DstWidth]\nmov     eax, [rbp+DstHeight]\nxor     ebx, ebx\nmov     dword ptr [rsp+0C0h+pDstData], r11d; DstFormat\nmov     [rsp+0C0h+DstFormat], 0; nDstStep\nmov     [rsp+0C0h+nDstStep], 0; nXDst\nmov     [rsp+0C0h+nXDst], 0; nYDst\nmov     [rsp+0C0h+nYDst], r10d; nDstWidth\nmov     [rsp+0C0h+nDstWidth], eax; nDstHeight\nmov     [rsp+0C0h+nDstHeight], 1; vFlip\ncall    planar_decompress\ncmp     eax, 0\njnz     loc_16BC\nmov     [rbp+var_1C], 0\njmp     loc_17D1\njmp     $+5\njmp     loc_17CA\nmov     edi, [rbp+bpp]; bitsPerPixel\ncall    gdi_get_pixel_format\nmov     [rbp+SrcFormat], eax\nmov     edi, [rbp+SrcFormat]; format\ncall    GetBytesPerPixel\nmov     eax, eax\nmov     [rbp+sbpp], rax\nmov     rax, [rbp+bitmap]\nmov     edi, [rax]; format\ncall    GetBytesPerPixel\nmov     eax, eax\nmov     [rbp+dbpp], rax\ncmp     [rbp+sbpp], 0\njz      loc_1706\ncmp     [rbp+dbpp], 0\njnz     loc_1712\nmov     [rbp+var_1C], 0\njmp     loc_17D1\nmov     eax, [rbp+SrcSize]\nimul    rax, [rbp+dbpp]\nxor     ecx, ecx\nmov     edx, ecx\ndiv     [rbp+sbpp]\nmov     [rbp+dstSize], rax\nmov     rax, [rbp+dstSize]\nmov     rcx, [rbp+bitmap]\nmov     ecx, [rcx+4]\ncmp     rax, rcx\njnb     loc_1746\nmov     [rbp+var_1C], 0\njmp     loc_17D1\njmp     $+5\nmov     rax, [rbp+bitmap]\nmov     rdi, [rax+8]; pDstData\nmov     rax, [rbp+bitmap]\nmov     esi, [rax]; DstFormat\nmov     r9d, [rbp+DstWidth]; nWidth\nmov     ebx, [rbp+DstHeight]\nmov     r11, [rbp+pSrcData]\nmov     r10d, [rbp+SrcFormat]\nmov     rax, [rbp+gdi]\nadd     rax, 4\nxor     r8d, r8d; nYDst\nmov     edx, r8d; nDstStep\nmov     ecx, r8d; nXDst\nmov     dword ptr [rsp+0C0h+pDstData], ebx; nHeight\nmov     qword ptr [rsp+0C0h+DstFormat], r11; pSrcData\nmov     [rsp+0C0h+nDstStep], r10d; SrcFormat\nmov     [rsp+0C0h+nXDst], 0; nSrcStep\nmov     [rsp+0C0h+nYDst], 0; nXSrc\nmov     [rsp+0C0h+nDstWidth], 0; nYSrc\nmov     qword ptr [rsp+0C0h+nDstHeight], rax; palette\nmov     dword ptr [rsp+0C0h+palette], 1; flags\ncall    freerdp_image_copy\ncmp     eax, 0\njnz     loc_17C5\nmov     [rbp+var_1C], 0\njmp     loc_17D1\njmp     $+5\nmov     [rbp+var_1C], 1\nmov     eax, [rbp+var_1C]\nadd     rsp, 0A8h\npop     rbx\npop     r14\npop     r15\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 22,
+  "edges": [
+   [
+    "start",
+    "loc_1597"
+   ],
+   [
+    "start",
+    "loc_15A3"
+   ],
+   [
+    "loc_1597",
+    "loc_17D1"
+   ],
+   [
+    "loc_15A3",
+    "loc_15AD"
+   ],
+   [
+    "loc_15A3",
+    "loc_16C6"
+   ],
+   [
+    "loc_15AD",
+    "loc_15B7"
+   ],
+   [
+    "loc_15AD",
+    "loc_1643"
+   ],
+   [
+    "loc_15B7",
+    "loc_1632"
+   ],
+   [
+    "loc_15B7",
+    "loc_163E"
+   ],
+   [
+    "loc_1632",
+    "loc_17D1"
+   ],
+   [
+    "loc_163E",
+    "loc_16C1"
+   ],
+   [
+    "loc_1643",
+    "loc_16B0"
+   ],
+   [
+    "loc_1643",
+    "loc_16BC"
+   ],
+   [
+    "loc_16B0",
+    "loc_17D1"
+   ],
+   [
+    "loc_16BC",
+    "loc_16C1"
+   ],
+   [
+    "loc_16C1",
+    "loc_17CA"
+   ],
+   [
+    "loc_16C6",
+    "loc_16FB"
+   ],
+   [
+    "loc_16C6",
+    "loc_1706"
+   ],
+   [
+    "loc_16FB",
+    "loc_1706"
+   ],
+   [
+    "loc_16FB",
+    "loc_1712"
+   ],
+   [
+    "loc_1706",
+    "loc_17D1"
+   ],
+   [
+    "loc_1712",
+    "loc_173A"
+   ],
+   [
+    "loc_1712",
+    "loc_1746"
+   ],
+   [
+    "loc_173A",
+    "loc_17D1"
+   ],
+   [
+    "loc_1746",
+    "loc_174B"
+   ],
+   [
+    "loc_174B",
+    "loc_17B9"
+   ],
+   [
+    "loc_174B",
+    "loc_17C5"
+   ],
+   [
+    "loc_17B9",
+    "loc_17D1"
+   ],
+   [
+    "loc_17C5",
+    "loc_17CA"
+   ],
+   [
+    "loc_17CA",
+    "loc_17D1"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\npush    r15\npush    r14\npush    rbx\nsub     rsp, 0A8h\nmov     eax, [rbp+codecId]\nmov     eax, [rbp+compressed]\nmov     eax, [rbp+length]\nmov     [rbp+context], rdi\nmov     [rbp+bitmap], rsi\nmov     [rbp+pSrcData], rdx\nmov     [rbp+DstWidth], ecx\nmov     [rbp+DstHeight], r8d\nmov     [rbp+bpp], r9d\nmov     eax, [rbp+length]\nmov     [rbp+SrcSize], eax\nmov     rax, [rbp+context]\nmov     rax, [rax]\nmov     [rbp+gdi], rax\nmov     rax, [rbp+bitmap]\nmov     dword ptr [rax+10h], 0\nmov     rax, [rbp+gdi]\nmov     ecx, [rax]\nmov     rax, [rbp+bitmap]\nmov     [rax], ecx\nmov     eax, [rbp+DstWidth]\nimul    eax, [rbp+DstHeight]\nmov     [rbp+var_74], eax\nmov     rax, [rbp+bitmap]\nmov     edi, [rax]; format\ncall    GetBytesPerPixel\nmov     ecx, [rbp+var_74]\nimul    ecx, eax\nmov     rax, [rbp+bitmap]\nmov     [rax+4], ecx\nmov     rax, [rbp+bitmap]\nmov     eax, [rax+4]\nmov     edi, eax; size\nmov     esi, 10h; alignment\ncall    _aligned_malloc\nmov     rcx, rax\nmov     rax, [rbp+bitmap]\nmov     [rax+8], rcx\nmov     rax, [rbp+bitmap]\ncmp     qword ptr [rax+8], 0\njnz     loc_15A3",
+   "loc_1597": "mov     [rbp+var_1C], 0\njmp     loc_17D1",
+   "loc_15A3": "cmp     [rbp+compressed], 0\njz      loc_16C6",
+   "loc_15AD": "cmp     [rbp+bpp], 20h ; ' '\njnb     loc_1643",
+   "loc_15B7": "mov     rax, [rbp+context]\nmov     rax, [rax+8]\nmov     rdi, [rax]; interleaved\nmov     rsi, [rbp+pSrcData]; pSrcData\nmov     edx, [rbp+SrcSize]; SrcSize\nmov     ecx, [rbp+DstWidth]; nSrcWidth\nmov     r8d, [rbp+DstHeight]; nSrcHeight\nmov     r9d, [rbp+bpp]; bpp\nmov     rax, [rbp+bitmap]\nmov     r14, [rax+8]\nmov     rax, [rbp+bitmap]\nmov     ebx, [rax]\nmov     r11d, [rbp+DstWidth]\nmov     r10d, [rbp+DstHeight]\nmov     rax, [rbp+gdi]\nadd     rax, 4\nxor     r15d, r15d\nmov     [rsp+0C0h+pDstData], r14; pDstData\nmov     [rsp+0C0h+DstFormat], ebx; DstFormat\nmov     [rsp+0C0h+nDstStep], 0; nDstStep\nmov     [rsp+0C0h+nXDst], 0; nXDst\nmov     [rsp+0C0h+nYDst], 0; nYDst\nmov     [rsp+0C0h+nDstWidth], r11d; nDstWidth\nmov     [rsp+0C0h+nDstHeight], r10d; nDstHeight\nmov     [rsp+0C0h+palette], rax; palette\ncall    interleaved_decompress\ncmp     eax, 0\njnz     loc_163E",
+   "loc_1632": "mov     [rbp+var_1C], 0\njmp     loc_17D1",
+   "loc_163E": "jmp     loc_16C1",
+   "loc_1643": "mov     rax, [rbp+context]\nmov     rax, [rax+8]\nmov     rdi, [rax+8]; planar\nmov     rsi, [rbp+pSrcData]; pSrcData\nmov     edx, [rbp+SrcSize]; SrcSize\nmov     ecx, [rbp+DstWidth]; nSrcWidth\nmov     r8d, [rbp+DstHeight]; nSrcHeight\nmov     rax, [rbp+bitmap]\nmov     r9, [rax+8]; pDstData\nmov     rax, [rbp+bitmap]\nmov     r11d, [rax]\nmov     r10d, [rbp+DstWidth]\nmov     eax, [rbp+DstHeight]\nxor     ebx, ebx\nmov     dword ptr [rsp+0C0h+pDstData], r11d; DstFormat\nmov     [rsp+0C0h+DstFormat], 0; nDstStep\nmov     [rsp+0C0h+nDstStep], 0; nXDst\nmov     [rsp+0C0h+nXDst], 0; nYDst\nmov     [rsp+0C0h+nYDst], r10d; nDstWidth\nmov     [rsp+0C0h+nDstWidth], eax; nDstHeight\nmov     [rsp+0C0h+nDstHeight], 1; vFlip\ncall    planar_decompress\ncmp     eax, 0\njnz     loc_16BC",
+   "loc_16B0": "mov     [rbp+var_1C], 0\njmp     loc_17D1",
+   "loc_16BC": "jmp     $+5",
+   "loc_16C1": "jmp     loc_17CA",
+   "loc_16C6": "mov     edi, [rbp+bpp]; bitsPerPixel\ncall    gdi_get_pixel_format\nmov     [rbp+SrcFormat], eax\nmov     edi, [rbp+SrcFormat]; format\ncall    GetBytesPerPixel\nmov     eax, eax\nmov     [rbp+sbpp], rax\nmov     rax, [rbp+bitmap]\nmov     edi, [rax]; format\ncall    GetBytesPerPixel\nmov     eax, eax\nmov     [rbp+dbpp], rax\ncmp     [rbp+sbpp], 0\njz      loc_1706",
+   "loc_16FB": "cmp     [rbp+dbpp], 0\njnz     loc_1712",
+   "loc_1706": "mov     [rbp+var_1C], 0\njmp     loc_17D1",
+   "loc_1712": "mov     eax, [rbp+SrcSize]\nimul    rax, [rbp+dbpp]\nxor     ecx, ecx\nmov     edx, ecx\ndiv     [rbp+sbpp]\nmov     [rbp+dstSize], rax\nmov     rax, [rbp+dstSize]\nmov     rcx, [rbp+bitmap]\nmov     ecx, [rcx+4]\ncmp     rax, rcx\njnb     loc_1746",
+   "loc_173A": "mov     [rbp+var_1C], 0\njmp     loc_17D1",
+   "loc_1746": "jmp     $+5",
+   "loc_174B": "mov     rax, [rbp+bitmap]\nmov     rdi, [rax+8]; pDstData\nmov     rax, [rbp+bitmap]\nmov     esi, [rax]; DstFormat\nmov     r9d, [rbp+DstWidth]; nWidth\nmov     ebx, [rbp+DstHeight]\nmov     r11, [rbp+pSrcData]\nmov     r10d, [rbp+SrcFormat]\nmov     rax, [rbp+gdi]\nadd     rax, 4\nxor     r8d, r8d; nYDst\nmov     edx, r8d; nDstStep\nmov     ecx, r8d; nXDst\nmov     dword ptr [rsp+0C0h+pDstData], ebx; nHeight\nmov     qword ptr [rsp+0C0h+DstFormat], r11; pSrcData\nmov     [rsp+0C0h+nDstStep], r10d; SrcFormat\nmov     [rsp+0C0h+nXDst], 0; nSrcStep\nmov     [rsp+0C0h+nYDst], 0; nXSrc\nmov     [rsp+0C0h+nDstWidth], 0; nYSrc\nmov     qword ptr [rsp+0C0h+nDstHeight], rax; palette\nmov     dword ptr [rsp+0C0h+palette], 1; flags\ncall    freerdp_image_copy\ncmp     eax, 0\njnz     loc_17C5",
+   "loc_17B9": "mov     [rbp+var_1C], 0\njmp     loc_17D1",
+   "loc_17C5": "jmp     $+5",
+   "loc_17CA": "mov     [rbp+var_1C], 1",
+   "loc_17D1": "mov     eax, [rbp+var_1C]\nadd     rsp, 0A8h\npop     rbx\npop     r14\npop     r15\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "pDstData": "qword ptr -0C0h",
+   "DstFormat": "qword ptr -0B8h",
+   "nDstStep": "dword ptr -0B0h",
+   "nXDst": "dword ptr -0A8h",
+   "nYDst": "dword ptr -0A0h",
+   "nDstWidth": "dword ptr -98h",
+   "nDstHeight": "qword ptr -90h",
+   "palette": "qword ptr -88h",
+   "var_74": "dword ptr -74h",
+   "dstSize": "qword ptr -70h",
+   "dbpp": "qword ptr -68h",
+   "sbpp": "qword ptr -60h",
+   "SrcFormat": "dword ptr -54h",
+   "gdi": "qword ptr -50h",
+   "SrcSize": "dword ptr -48h",
+   "bpp": "dword ptr -44h",
+   "DstHeight": "dword ptr -40h",
+   "DstWidth": "dword ptr -3Ch",
+   "pSrcData": "qword ptr -38h",
+   "bitmap": "qword ptr -30h",
+   "context": "qword ptr -28h",
+   "var_1C": "dword ptr -1Ch",
+   "length": "dword ptr 10h",
+   "compressed": "dword ptr 18h",
+   "codecId": "dword ptr 20h"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5360,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".posix_memalign": "posix_memalign",
+  "_posix_memalign": "posix_memalign"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".posix_memalign",
+   ".plt",
+   true,
+   "posix_memalign"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "printf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "posix_memalign",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868481
+ }
+}

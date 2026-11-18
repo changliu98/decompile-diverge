@@ -1,0 +1,1 @@
+void intToString(int n, char *str) { if (n == 0) { str[0] = '0'; str[1] = '\0'; } else { int i = 0, j = n, k; while (j != 0) { j = j / 10; i++; } str[i] = '\0'; i--; k = n; while (i >= 0) { str[i] = (k % 10) + '0'; i--; k = k / 10; } } }

@@ -1,0 +1,1 @@
+void set_mac(char* buffer, char* mac) { int i; for (i = 0; i < 6; i++) buffer[i] = mac[i]; }

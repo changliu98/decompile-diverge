@@ -1,0 +1,1 @@
+int StrSafeCopy(char *dst, const char *src, int maxlen) { char *d = dst; const char *s = src; int len = maxlen; if (len) { if (--len) { do { if ((*d++ = *s++) == 0) break; } while (--len); } } if (len == 0) { if (maxlen) *d = 0; while (*s++) ; } return (s - src - 1); }

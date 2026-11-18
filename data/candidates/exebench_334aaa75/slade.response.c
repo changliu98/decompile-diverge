@@ -1,0 +1,1 @@
+void phi2D_lin(double phi, double N, double *lin) { lin[0] = (1.-phi)*(1.-N); lin[1] = (1.-N)*phi; lin[2] = phi*N; lin[3] = (1.-phi)*N; }

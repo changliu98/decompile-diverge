@@ -1,0 +1,1 @@
+void qr_getSize(int width, int height, int *widths, int *heights, int *size) { widths[0] = widths[1] = width; size[0] = height; heights[0] = width; heights[1] = height; }

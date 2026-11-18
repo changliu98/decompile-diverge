@@ -1,0 +1,1 @@
+int shape_tria6 (const struct shape *shape, double out[16]) { const double a = shape->a; const double b = shape->b; const double c = 1.0 - a - b; out[0] = a * (2.0 * a - 1.0); out[1] = b * (3.0 * a * b); out[2] = b * (2.0 * b - 1.0); out[3] = b * (3.0 * b * c); out[5] = c * (2.0 * a - 1.0); out[6] = c * (3.0 * a * c); return 0; }

@@ -1,0 +1,1 @@
+int obdRevConvert_47_4B( float stream, unsigned int *pData, unsigned int *pDataSize, unsigned int *pDataSize, unsigned int *pDataSize ) { *pData = (unsigned int) ( stream*65535.0f/100.0f ); return 1; }

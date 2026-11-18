@@ -1,0 +1,1 @@
+int *func0(int x, int *y) { int *z = malloc(sizeof(int) * 32); *y = 0; for (int i = 2; i * i <= x; i++) { while (x % i == 0) { x /= i; z[(*y)++] = i; } } if (x > 1) z[(*y)++] = x; return z; }

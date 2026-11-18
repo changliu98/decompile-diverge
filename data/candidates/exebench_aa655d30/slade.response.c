@@ -1,0 +1,1 @@
+uint8_t decToBin(uint16_t dec, uint8_t *bin) { uint16_t i = 1; int j = 0; int k = 0; while (i <= dec) { i = i << 1; j++; } i = i >> 1; j--; k = j; while (k >= 0) { if (dec - i >= 0) { dec -= i; bin[j - k] = 1; } else { bin[j - k] = 0; } i = i >> 1; k--; } return j; }

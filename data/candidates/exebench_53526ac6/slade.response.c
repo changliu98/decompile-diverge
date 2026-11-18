@@ -1,0 +1,1 @@
+void update_pointer(int* const addr) { *addr = 99; }

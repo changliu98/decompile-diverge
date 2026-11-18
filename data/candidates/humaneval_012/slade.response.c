@@ -1,0 +1,1 @@
+char *func0(char **args, int n) { char *s = ""; int l = 0; for (int i = 0; i < n; i++) { int ln = strlen(args[i]); if (ln > l) { s = args[i]; l = ln; } } return s; }

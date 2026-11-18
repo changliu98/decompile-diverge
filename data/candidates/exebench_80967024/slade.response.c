@@ -1,0 +1,1 @@
+void upcoef_len_cal(int sx, int sy, int l, int *wx, int *wy) { int i; *wx = sx; *wy = sx; for (i = 0; i < l; i++) { *wy = sy + 2*(*wy) - 1; *wx = sy + 2*(*wx) - 2; } return ; }

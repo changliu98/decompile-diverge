@@ -1,0 +1,1 @@
+int func0(int a, int b) { return (int)sqrt((double)b) - (int)sqrt((double)(a-1)); }

@@ -1,0 +1,1 @@
+void __attribute__ ((noinline, noclone)) f1 (int n, float a, float *restrict x, float *restrict y) { for (int i = 0; i < n; i++) y[i] += a * x[i]; }

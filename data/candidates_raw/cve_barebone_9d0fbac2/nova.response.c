@@ -1,0 +1,47 @@
+static void func0(struct vnt_private *priv, u16 status,
+			       u16 phy_status, u16 phy_info)
+{
+	u8 *pframe = priv->current_rx_frame;
+
+	switch (status & 0xff00) {
+	case 0x0000:
+		switch (status) {
+		case 0x001b:
+		case 0x002f:
+		case 0x0035:
+		case 0x003d:
+		case 0x0043:
+		case 0x0047:
+		case 0x004b:
+		case 0x005f:
+		case 0x0063:
+		case 0x0067:
+		case 0x006b:
+		case 0x006f:
+		case 0x0073:
+		case 0x0077:
+		case 0x007b:
+		case 0x0083:
+		case 0x0087:
+		case 0x008b:
+		case 0x008f:
+		case 0x0093:
+		case 0x0097:
+		case 0x009b:
+		case 0x009f:
+		case 0x00a3:
+		case 0x00a7:
+		case 0x00ab:
+		case 0x00af:
+		case 0x00b3:
+		case 0x00b7:
+		case 0x00bb:
+		case 0x00bf:
+		case 0x00c3:
+		case 0x00c7:
+		case 0x00cb:
+		case 0x00cf:
+		case 0x00d3:
+		case 0x00d7:
+		case 0x00db:
+		case 0x00df:

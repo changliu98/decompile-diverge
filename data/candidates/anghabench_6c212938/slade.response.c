@@ -1,0 +1,1 @@
+void copy_le16(unsigned char *dest, unsigned int src) { dest[0] = src &0xff; dest[1] = src >> 8; }

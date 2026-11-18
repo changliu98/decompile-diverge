@@ -1,0 +1,1 @@
+static void func0(int n, int *p) { *p = 0; }

@@ -1,0 +1,30 @@
+void color_cmyk_to_rgb(struct cube_buffer *cube_buffer) {
+    unsigned int i;
+    for (i = 0; i < cube_buffer->size; i++) {
+        float x = cube_buffer->data[i].x;
+        float y = cube_buffer->data[i].y;
+        float z = cube_buffer->data[i].z;
+        float nx = cube_buffer->data[i].nx;
+        float ny = cube_buffer->data[i].ny;
+        float nz = cube_buffer->data[i].nz;
+        float u = cube_buffer->data[i].u;
+        float v = cube_buffer->data[i].v;
+        float w = cube_buffer->data[i].w;
+        float r = cube_buffer->data[i].r;
+        float g = cube_buffer->data[i].g;
+        float b = cube_buffer->data[i].b;
+        float a = cube_buffer->data[i].a;
+        float s = cube_buffer->data[i].s;
+        float t = cube_buffer->data[i].t;
+        float q = cube_buffer->data[i].q;
+        float p = cube_buffer->data[i].p;
+        float j = cube_buffer->data[i].j;
+        float k = cube_buffer->data[i].k;
+        float l = cube_buffer->data[i].l;
+        float m = cube_buffer->data[i].m;
+        float n = cube_buffer->data[i].n;
+        float o = cube_buffer->data[i].o;
+        float q1 = cube_buffer->data[i].q1;
+        float r1 = cube_buffer->data[i].r1;
+        float s1 = cube_buffer->data[i].s1;
+        float t1 = cube_buffer->data[i

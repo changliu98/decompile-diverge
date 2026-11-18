@@ -1,0 +1,113 @@
+uint32_t utf8lwrcodepoint(uint32_t cp) {
+    if ((cp >= 0x0041 && cp <= 0x005A) ||
+        (cp >= 0x00C0 && cp <= 0x00D6) ||
+        (cp >= 0x00D8 && cp <= 0x00DE) ||
+        (cp >= 0x0391 && cp <= 0x03A1) ||
+        (cp >= 0x03A3 && cp <= 0x03AB) ||
+        (cp >= 0x0410 && cp <= 0x042F)) {
+        return cp + 0x20;
+    }
+
+    if (cp >= 0x0400 && cp <= 0x040F) {
+        return cp + 0x50;
+    }
+
+    if ((cp >= 0x0100 && cp <= 0x012F) ||
+        (cp >= 0x0132 && cp <= 0x0137) ||
+        (cp >= 0x014A && cp <= 0x0177) ||
+        (cp >= 0x0182 && cp <= 0x0185) ||
+        (cp >= 0x01A0 && cp <= 0x01A5) ||
+        (cp >= 0x01DE && cp <= 0x01EF) ||
+        (cp >= 0x01F8 && cp <= 0x021F) ||
+        (cp >= 0x0222 && cp <= 0x0233) ||
+        (cp >= 0x0246 && cp <= 0x024F) ||
+        (cp >= 0x03D8 && cp <= 0x03EF) ||
+        (cp >= 0x0460 && cp <= 0x0481) ||
+        (cp >= 0x048A && cp <= 0x04FF)) {
+        return cp | 0x1;
+    }
+
+    if ((cp >= 0x0139 && cp <= 0x0148) ||
+        (cp >= 0x0179 && cp <= 0x017E) ||
+        (cp >= 0x01AF && cp <= 0x01B0) ||
+        (cp >= 0x01B3 && cp <= 0x01B6) ||
+        (cp >= 0x01CD && cp <= 0x01DC)) {
+        return (cp + 1) & 0xFFFFFFFE;
+    }
+
+    switch (cp) {
+        case 0x0178: return 0x00FF;
+        case 0x0181: return 0x0183;
+        case 0x0186: return 0x0184;
+        case 0x0189: return 0x018A;
+        case 0x018A: return 0x018B;
+        case 0x018B: return 0x018C;
+        case 0x018E: return 0x01DD;
+        case 0x018F: return 0x0259;
+        case 0x0190: return 0x025B;
+        case 0x0191: return 0x0192;
+        case 0x0193: return 0x0260;
+        case 0x0194: return 0x0263;
+        case 0x0196: return 0x0269;
+        case 0x0197: return 0x0268;
+        case 0x0198: return 0x0199;
+        case 0x019C: return 0x026F;
+        case 0x019D: return 0x0272;
+        case 0x019F: return 0x0275;
+        case 0x01A6: return 0x0280;
+        case 0x01A7: return 0x01A8;
+        case 0x01A9: return 0x0251;
+        case 0x01AC: return 0x01AD;
+        case 0x01AE: return 0x0288;
+        case 0x01AF: return 0x01B0;
+        case 0x01B1: return 0x028A;
+        case 0x01B2: return 0x028B;
+        case 0x01B3: return 0x01B4;
+        case 0x01B4: return 0x01B5;
+        case 0x01B5: return 0x01B6;
+        case 0x01B7: return 0x0292;
+        case 0x01B8: return 0x01B9;
+        case 0x01BC: return 0x01BD;
+        case 0x01C4: return 0x01C6;
+        case 0x01C5: return 0x01C6;
+        case 0x01C7: return 0x01C9;
+        case 0x01C8: return 0x01C9;
+        case 0x01CA: return 0x01CC;
+        case 0x01CB: return 0x01CC;
+        case 0x01F1: return 0x01F3;
+        case 0x01F2: return 0x01F3;
+        case 0x01F4: return 0x01F5;
+        case 0x01F6: return 0x0195;
+        case 0x01F7: return 0x01BF;
+        case 0x0220: return 0x019E;
+        case 0x023A: return 0x2C65;
+        case 0x023B: return 0x023C;
+        case 0x023D: return 0x019A;
+        case 0x023E: return 0x2C66;
+        case 0x0241: return 0x0242;
+        case 0x0243: return 0x0180;
+        case 0x0244: return 0x0289;
+        case 0x0245: return 0x028C;
+        case 0x0370: return 0x0371;
+        case 0x0372: return 0x0373;
+        case 0x0376: return 0x0377;
+        case 0x037F: return 0x03F3;
+        case 0x0386: return 0x03AC;
+        case 0x0388: return 0x03AD;
+        case 0x0389: return 0x03AE;
+        case 0x038A: return 0x03AF;
+        case 0x038C: return 0x03CC;
+        case 0x038E: return 0x03CD;
+        case 0x038F: return 0x03CE;
+        case 0x03CF: return 0x03D7;
+        case 0x03F4: return 0x03B8;
+        case 0x03F7: return 0x03F8;
+        case 0x03F9: return 0x03F2;
+        case 0x03FA: return 0x03FB;
+        case 0x03FD: return 0x037B;
+        case 0x03FE: return 0x037C;
+        case 0x03FF: return 0x037D;
+        default:
+            return cp;
+    }
+}

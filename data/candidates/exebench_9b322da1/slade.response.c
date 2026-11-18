@@ -1,0 +1,1 @@
+float SumFloat(Float *f1, Float *f2) { Float f1=*f1, f2=*f2; return f1+f2; }

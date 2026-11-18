@@ -1,0 +1,1 @@
+char * copy_line(char *dst, char *src, int len) { char *p = src; int i; for (i = 0; i < len - 1 && *p && (*p != '\n' && *p != '\r'); i++) *dst++ = *p++; *dst = '\0'; if (*p == '\r') p++; if (*p == '\n') p++; return p; }

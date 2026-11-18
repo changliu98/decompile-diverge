@@ -1,0 +1,198 @@
+0000000000002130 <gdImageCreateFromTgaCtx>:
+    2130:	push   %rbp
+    2131:	mov    %rsp,%rbp
+    2134:	sub    $0x40,%rsp
+    2138:	mov    %rdi,-0x10(%rbp)
+    213c:	movl   $0x0,-0x14(%rbp)
+    2143:	movq   $0x0,-0x20(%rbp)
+    214b:	movq   $0x0,-0x28(%rbp)
+    2153:	movl   $0x0,-0x2c(%rbp)
+    215a:	movl   $0x0,-0x30(%rbp)
+    2161:	mov    $0x38,%edi
+    2166:	call   11e0 <gdMalloc>
+    216b:	mov    %rax,-0x20(%rbp)
+    216f:	cmpq   $0x0,-0x20(%rbp)
+    2174:	jne    2187 <gdImageCreateFromTgaCtx+0x57>
+    217a:	movq   $0x0,-0x8(%rbp)
+    2182:	jmp    2450 <gdImageCreateFromTgaCtx+0x320>
+    2187:	mov    -0x20(%rbp),%rax
+    218b:	movq   $0x0,0x30(%rax)
+    2193:	mov    -0x20(%rbp),%rax
+    2197:	movq   $0x0,0x28(%rax)
+    219f:	mov    -0x10(%rbp),%rdi
+    21a3:	mov    -0x20(%rbp),%rsi
+    21a7:	call   1a60 <read_header_tga>
+    21ac:	cmp    $0x0,%eax
+    21af:	jge    21cb <gdImageCreateFromTgaCtx+0x9b>
+    21b5:	mov    -0x20(%rbp),%rdi
+    21b9:	call   20d0 <free_tga>
+    21be:	movq   $0x0,-0x8(%rbp)
+    21c6:	jmp    2450 <gdImageCreateFromTgaCtx+0x320>
+    21cb:	mov    -0x10(%rbp),%rdi
+    21cf:	mov    -0x20(%rbp),%rsi
+    21d3:	call   1c50 <read_image_tga>
+    21d8:	cmp    $0x0,%eax
+    21db:	jge    21f7 <gdImageCreateFromTgaCtx+0xc7>
+    21e1:	mov    -0x20(%rbp),%rdi
+    21e5:	call   20d0 <free_tga>
+    21ea:	movq   $0x0,-0x8(%rbp)
+    21f2:	jmp    2450 <gdImageCreateFromTgaCtx+0x320>
+    21f7:	mov    -0x20(%rbp),%rax
+    21fb:	mov    0x18(%rax),%edi
+    21fe:	mov    -0x20(%rbp),%rax
+    2202:	mov    0x1c(%rax),%esi
+    2205:	call   1350 <gdImageCreateTrueColor>
+    220a:	mov    %rax,-0x28(%rbp)
+    220e:	mov    -0x28(%rbp),%rax
+    2212:	cmp    $0x0,%rax
+    2216:	jne    2232 <gdImageCreateFromTgaCtx+0x102>
+    221c:	mov    -0x20(%rbp),%rdi
+    2220:	call   20d0 <free_tga>
+    2225:	movq   $0x0,-0x8(%rbp)
+    222d:	jmp    2450 <gdImageCreateFromTgaCtx+0x320>
+    2232:	mov    -0x20(%rbp),%rax
+    2236:	cmpb   $0x0,0x21(%rax)
+    223a:	je     2259 <gdImageCreateFromTgaCtx+0x129>
+    2240:	mov    -0x28(%rbp),%rdi
+    2244:	xor    %esi,%esi
+    2246:	call   1650 <gdImageAlphaBlending>
+    224b:	mov    -0x28(%rbp),%rdi
+    224f:	mov    $0x1,%esi
+    2254:	call   1670 <gdImageSaveAlpha>
+    2259:	movl   $0x0,-0x30(%rbp)
+    2260:	mov    -0x30(%rbp),%eax
+    2263:	mov    -0x20(%rbp),%rcx
+    2267:	cmp    0x1c(%rcx),%eax
+    226a:	jge    23d2 <gdImageCreateFromTgaCtx+0x2a2>
+    2270:	mov    -0x28(%rbp),%rax
+    2274:	mov    0x1c58(%rax),%rax
+    227b:	movslq -0x30(%rbp),%rcx
+    227f:	mov    (%rax,%rcx,8),%rax
+    2283:	mov    %rax,-0x38(%rbp)
+    2287:	movl   $0x0,-0x2c(%rbp)
+    228e:	mov    -0x2c(%rbp),%eax
+    2291:	mov    -0x20(%rbp),%rcx
+    2295:	cmp    0x18(%rcx),%eax
+    2298:	jge    23bf <gdImageCreateFromTgaCtx+0x28f>
+    229e:	mov    -0x20(%rbp),%rax
+    22a2:	movzbl 0x20(%rax),%eax
+    22a6:	cmp    $0x18,%eax
+    22a9:	jne    2302 <gdImageCreateFromTgaCtx+0x1d2>
+    22af:	mov    -0x20(%rbp),%rax
+    22b3:	mov    0x30(%rax),%rax
+    22b7:	mov    -0x14(%rbp),%ecx
+    22ba:	add    $0x2,%ecx
+    22bd:	movslq %ecx,%rcx
+    22c0:	mov    (%rax,%rcx,4),%ecx
+    22c3:	shl    $0x10,%ecx
+    22c6:	mov    -0x20(%rbp),%rax
+    22ca:	mov    0x30(%rax),%rax
+    22ce:	mov    -0x14(%rbp),%edx
+    22d1:	add    $0x1,%edx
+    22d4:	movslq %edx,%rdx
+    22d7:	mov    (%rax,%rdx,4),%eax
+    22da:	shl    $0x8,%eax
+    22dd:	add    %eax,%ecx
+    22df:	mov    -0x20(%rbp),%rax
+    22e3:	mov    0x30(%rax),%rax
+    22e7:	movslq -0x14(%rbp),%rdx
+    22eb:	add    (%rax,%rdx,4),%ecx
+    22ee:	mov    -0x38(%rbp),%rax
+    22f2:	mov    %ecx,(%rax)
+    22f4:	mov    -0x14(%rbp),%eax
+    22f7:	add    $0x3,%eax
+    22fa:	mov    %eax,-0x14(%rbp)
+    22fd:	jmp    23a0 <gdImageCreateFromTgaCtx+0x270>
+    2302:	mov    -0x20(%rbp),%rax
+    2306:	movzbl 0x20(%rax),%eax
+    230a:	cmp    $0x20,%eax
+    230d:	je     2324 <gdImageCreateFromTgaCtx+0x1f4>
+    2313:	mov    -0x20(%rbp),%rax
+    2317:	movzbl 0x21(%rax),%eax
+    231b:	cmp    $0x0,%eax
+    231e:	je     239b <gdImageCreateFromTgaCtx+0x26b>
+    2324:	mov    -0x20(%rbp),%rax
+    2328:	mov    0x30(%rax),%rax
+    232c:	mov    -0x14(%rbp),%ecx
+    232f:	add    $0x3,%ecx
+    2332:	movslq %ecx,%rcx
+    2335:	mov    (%rax,%rcx,4),%eax
+    2338:	mov    %eax,-0x3c(%rbp)
+    233b:	mov    -0x3c(%rbp),%eax
+    233e:	sar    $0x1,%eax
+    2341:	mov    $0x7f,%ecx
+    2346:	sub    %eax,%ecx
+    2348:	shl    $0x18,%ecx
+    234b:	mov    -0x20(%rbp),%rax
+    234f:	mov    0x30(%rax),%rax
+    2353:	mov    -0x14(%rbp),%edx
+    2356:	add    $0x2,%edx
+    2359:	movslq %edx,%rdx
+    235c:	mov    (%rax,%rdx,4),%eax
+    235f:	shl    $0x10,%eax
+    2362:	add    %eax,%ecx
+    2364:	mov    -0x20(%rbp),%rax
+    2368:	mov    0x30(%rax),%rax
+    236c:	mov    -0x14(%rbp),%edx
+    236f:	add    $0x1,%edx
+    2372:	movslq %edx,%rdx
+    2375:	mov    (%rax,%rdx,4),%eax
+    2378:	shl    $0x8,%eax
+    237b:	add    %eax,%ecx
+    237d:	mov    -0x20(%rbp),%rax
+    2381:	mov    0x30(%rax),%rax
+    2385:	movslq -0x14(%rbp),%rdx
+    2389:	add    (%rax,%rdx,4),%ecx
+    238c:	mov    -0x38(%rbp),%rax
+    2390:	mov    %ecx,(%rax)
+    2392:	mov    -0x14(%rbp),%eax
+    2395:	add    $0x4,%eax
+    2398:	mov    %eax,-0x14(%rbp)
+    239b:	jmp    23a0 <gdImageCreateFromTgaCtx+0x270>
+    23a0:	jmp    23a5 <gdImageCreateFromTgaCtx+0x275>
+    23a5:	mov    -0x2c(%rbp),%eax
+    23a8:	add    $0x1,%eax
+    23ab:	mov    %eax,-0x2c(%rbp)
+    23ae:	mov    -0x38(%rbp),%rax
+    23b2:	add    $0x4,%rax
+    23b6:	mov    %rax,-0x38(%rbp)
+    23ba:	jmp    228e <gdImageCreateFromTgaCtx+0x15e>
+    23bf:	jmp    23c4 <gdImageCreateFromTgaCtx+0x294>
+    23c4:	mov    -0x30(%rbp),%eax
+    23c7:	add    $0x1,%eax
+    23ca:	mov    %eax,-0x30(%rbp)
+    23cd:	jmp    2260 <gdImageCreateFromTgaCtx+0x130>
+    23d2:	mov    -0x20(%rbp),%rax
+    23d6:	movzbl 0x23(%rax),%eax
+    23da:	cmp    $0x0,%eax
+    23dd:	je     2402 <gdImageCreateFromTgaCtx+0x2d2>
+    23e3:	mov    -0x20(%rbp),%rax
+    23e7:	movzbl 0x22(%rax),%eax
+    23eb:	cmp    $0x0,%eax
+    23ee:	je     2402 <gdImageCreateFromTgaCtx+0x2d2>
+    23f4:	mov    -0x28(%rbp),%rdi
+    23f8:	call   1a30 <gdImageFlipBoth>
+    23fd:	jmp    243f <gdImageCreateFromTgaCtx+0x30f>
+    2402:	mov    -0x20(%rbp),%rax
+    2406:	cmpb   $0x0,0x23(%rax)
+    240a:	je     241e <gdImageCreateFromTgaCtx+0x2ee>
+    2410:	mov    -0x28(%rbp),%rdi
+    2414:	call   1690 <gdImageFlipVertical>
+    2419:	jmp    243a <gdImageCreateFromTgaCtx+0x30a>
+    241e:	mov    -0x20(%rbp),%rax
+    2422:	cmpb   $0x0,0x22(%rax)
+    2426:	je     2435 <gdImageCreateFromTgaCtx+0x305>
+    242c:	mov    -0x28(%rbp),%rdi
+    2430:	call   1880 <gdImageFlipHorizontal>
+    2435:	jmp    243a <gdImageCreateFromTgaCtx+0x30a>
+    243a:	jmp    243f <gdImageCreateFromTgaCtx+0x30f>
+    243f:	mov    -0x20(%rbp),%rdi
+    2443:	call   20d0 <free_tga>
+    2448:	mov    -0x28(%rbp),%rax
+    244c:	mov    %rax,-0x8(%rbp)
+    2450:	mov    -0x8(%rbp),%rax
+    2454:	add    $0x40,%rsp
+    2458:	pop    %rbp
+    2459:	ret
+
+Disassembly of section .fini:

@@ -1,0 +1,1 @@
+int func0(int n) { int a,b,i,d; a=n; b=0; i=0; while(n) { d=n%10; b=b+(int)(d*(int)pow(2.0,(double)i)); n=n/10; i++; } return b; }

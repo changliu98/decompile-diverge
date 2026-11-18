@@ -1,0 +1,1 @@
+double Mat_doubleSwap( double *mat ) { union { double d; unsigned char c[4]; } x, y, z; x.d = *mat; x.c[0] ^= x.c[3]; x.c[3] ^= x.c[2]; x.c[0] ^= x.c[3]; x.c[1] ^= x.c[1]; x.c[1] ^= x.c[1]; x.c[1] ^= x.c[1]; y.c[2] ^= y.c[2]; x.c[2] ^= y.c[2]; y.c[3] ^= y.c[3]; z.c[0] ^= z.c[1]; z.c[1] ^= z.c[2]; z.c[2] ^= z.c[3]; z.c[3] ^= z.c[4]; *mat = x.d; return *mat; }

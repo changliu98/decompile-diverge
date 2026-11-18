@@ -1,0 +1,13 @@
+char* convert_set_base(char* str, int* base) {
+    *base = 10;
+    if (str != NULL) {
+        if (str[0] == '0') {
+            str++;
+            if (str[0] == 'x' || str[0] == 'X') {
+                *base = 16;
+                str++;
+            }
+        }
+    }
+    return str;
+}

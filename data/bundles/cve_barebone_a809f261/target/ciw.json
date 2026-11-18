@@ -1,0 +1,362 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+ctx], rdi\nmov     [rbp+buf], rsi\nmov     [rbp+buf_size], edx\nmov     rax, [rbp+ctx]\nmov     eax, [rax]\ncmp     eax, [rbp+buf_size]\njle     loc_158E\nmov     [rbp+var_4], 0ACB9AABEh\njmp     loc_16F4\nmov     rax, [rbp+ctx]\nmov     ecx, [rax]\nmov     rax, [rbp+buf]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+buf], rax\nmov     rax, [rbp+ctx]\nmov     ecx, [rax]\nmov     eax, [rbp+buf_size]\nsub     eax, ecx\nmov     [rbp+buf_size], eax\nmov     rsi, [rbp+buf]; buf\nmov     edx, [rbp+buf_size]; buf_size\nlea     rdi, [rbp+gb]; g\ncall    bytestream2_init\nmov     [rbp+head_size], 4\nlea     rdi, [rbp+gb]; g\ncall    bytestream2_peek_le16\ncmp     eax, 0AFFh\njnz     loc_15E0\njmp     loc_16ED\nlea     rdi, [rbp+gb]; g\ncall    bytestream2_peek_le64\nmov     rcx, 204C584A0C000000h\ncmp     rax, rcx\njnz     loc_1601\njmp     loc_16ED\nlea     rdi, [rbp+gb]; g\ncall    bytestream2_get_bytes_left\ncmp     eax, 8\njge     loc_161F\nmov     [rbp+var_4], 0ACB9AABEh\njmp     loc_16F4\nlea     rdi, [rbp+gb]; g\ncall    bytestream2_get_be32\nmov     eax, eax\nmov     [rbp+size], rax\ncmp     [rbp+size], 1\njnz     loc_166B\nlea     rdi, [rbp+gb]; g\ncall    bytestream2_get_bytes_left\ncmp     eax, 0Ch\njge     loc_1657\nmov     [rbp+var_4], 0ACB9AABEh\njmp     loc_16F4\nlea     rdi, [rbp+gb]; g\ncall    bytestream2_get_be64\nmov     [rbp+size], rax\nmov     [rbp+head_size], 0Ch\ncmp     [rbp+size], 0\njnz     loc_1682\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_16F4\nmov     rax, [rbp+size]\nmov     ecx, [rbp+head_size]\nadd     ecx, 4\nmovsxd  rcx, ecx\ncmp     rax, rcx\nja      loc_16A4\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_16F4\nmov     rdx, [rbp+size]\nmov     rax, [rbp+ctx]\nmovsxd  rcx, dword ptr [rax]\nadd     rcx, rdx\nmov     [rax], ecx\nmov     rax, [rbp+size]\nmovsxd  rcx, [rbp+head_size]\nsub     rax, rcx\nmov     esi, eax; size\nlea     rdi, [rbp+gb]; g\ncall    bytestream2_skip\nlea     rdi, [rbp+gb]; g\ncall    bytestream2_get_bytes_left\ncmp     eax, 0\njg      loc_16E8\nmov     [rbp+var_4], 0ACB9AABEh\njmp     loc_16F4\njmp     loc_15C0\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 22,
+  "edges": [
+   [
+    "start",
+    "loc_1582"
+   ],
+   [
+    "start",
+    "loc_158E"
+   ],
+   [
+    "loc_1582",
+    "loc_16F4"
+   ],
+   [
+    "loc_158E",
+    "loc_15C0"
+   ],
+   [
+    "loc_15C0",
+    "loc_15DB"
+   ],
+   [
+    "loc_15C0",
+    "loc_15E0"
+   ],
+   [
+    "loc_15DB",
+    "loc_16ED"
+   ],
+   [
+    "loc_15E0",
+    "loc_15FC"
+   ],
+   [
+    "loc_15E0",
+    "loc_1601"
+   ],
+   [
+    "loc_15FC",
+    "loc_16ED"
+   ],
+   [
+    "loc_1601",
+    "loc_1613"
+   ],
+   [
+    "loc_1601",
+    "loc_161F"
+   ],
+   [
+    "loc_1613",
+    "loc_16F4"
+   ],
+   [
+    "loc_161F",
+    "loc_1639"
+   ],
+   [
+    "loc_161F",
+    "loc_166B"
+   ],
+   [
+    "loc_1639",
+    "loc_164B"
+   ],
+   [
+    "loc_1639",
+    "loc_1657"
+   ],
+   [
+    "loc_164B",
+    "loc_16F4"
+   ],
+   [
+    "loc_1657",
+    "loc_166B"
+   ],
+   [
+    "loc_166B",
+    "loc_1676"
+   ],
+   [
+    "loc_166B",
+    "loc_1682"
+   ],
+   [
+    "loc_1676",
+    "loc_16F4"
+   ],
+   [
+    "loc_1682",
+    "loc_1698"
+   ],
+   [
+    "loc_1682",
+    "loc_16A4"
+   ],
+   [
+    "loc_1698",
+    "loc_16F4"
+   ],
+   [
+    "loc_16A4",
+    "loc_16DC"
+   ],
+   [
+    "loc_16A4",
+    "loc_16E8"
+   ],
+   [
+    "loc_16DC",
+    "loc_16F4"
+   ],
+   [
+    "loc_16E8",
+    "loc_15C0"
+   ],
+   [
+    "loc_16ED",
+    "loc_16F4"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+ctx], rdi\nmov     [rbp+buf], rsi\nmov     [rbp+buf_size], edx\nmov     rax, [rbp+ctx]\nmov     eax, [rax]\ncmp     eax, [rbp+buf_size]\njle     loc_158E",
+   "loc_1582": "mov     [rbp+var_4], 0ACB9AABEh\njmp     loc_16F4",
+   "loc_158E": "mov     rax, [rbp+ctx]\nmov     ecx, [rax]\nmov     rax, [rbp+buf]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+buf], rax\nmov     rax, [rbp+ctx]\nmov     ecx, [rax]\nmov     eax, [rbp+buf_size]\nsub     eax, ecx\nmov     [rbp+buf_size], eax\nmov     rsi, [rbp+buf]; buf\nmov     edx, [rbp+buf_size]; buf_size\nlea     rdi, [rbp+gb]; g\ncall    bytestream2_init",
+   "loc_15C0": "mov     [rbp+head_size], 4\nlea     rdi, [rbp+gb]; g\ncall    bytestream2_peek_le16\ncmp     eax, 0AFFh\njnz     loc_15E0",
+   "loc_15DB": "jmp     loc_16ED",
+   "loc_15E0": "lea     rdi, [rbp+gb]; g\ncall    bytestream2_peek_le64\nmov     rcx, 204C584A0C000000h\ncmp     rax, rcx\njnz     loc_1601",
+   "loc_15FC": "jmp     loc_16ED",
+   "loc_1601": "lea     rdi, [rbp+gb]; g\ncall    bytestream2_get_bytes_left\ncmp     eax, 8\njge     loc_161F",
+   "loc_1613": "mov     [rbp+var_4], 0ACB9AABEh\njmp     loc_16F4",
+   "loc_161F": "lea     rdi, [rbp+gb]; g\ncall    bytestream2_get_be32\nmov     eax, eax\nmov     [rbp+size], rax\ncmp     [rbp+size], 1\njnz     loc_166B",
+   "loc_1639": "lea     rdi, [rbp+gb]; g\ncall    bytestream2_get_bytes_left\ncmp     eax, 0Ch\njge     loc_1657",
+   "loc_164B": "mov     [rbp+var_4], 0ACB9AABEh\njmp     loc_16F4",
+   "loc_1657": "lea     rdi, [rbp+gb]; g\ncall    bytestream2_get_be64\nmov     [rbp+size], rax\nmov     [rbp+head_size], 0Ch",
+   "loc_166B": "cmp     [rbp+size], 0\njnz     loc_1682",
+   "loc_1676": "mov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_16F4",
+   "loc_1682": "mov     rax, [rbp+size]\nmov     ecx, [rbp+head_size]\nadd     ecx, 4\nmovsxd  rcx, ecx\ncmp     rax, rcx\nja      loc_16A4",
+   "loc_1698": "mov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_16F4",
+   "loc_16A4": "mov     rdx, [rbp+size]\nmov     rax, [rbp+ctx]\nmovsxd  rcx, dword ptr [rax]\nadd     rcx, rdx\nmov     [rax], ecx\nmov     rax, [rbp+size]\nmovsxd  rcx, [rbp+head_size]\nsub     rax, rcx\nmov     esi, eax; size\nlea     rdi, [rbp+gb]; g\ncall    bytestream2_skip\nlea     rdi, [rbp+gb]; g\ncall    bytestream2_get_bytes_left\ncmp     eax, 0\njg      loc_16E8",
+   "loc_16DC": "mov     [rbp+var_4], 0ACB9AABEh\njmp     loc_16F4",
+   "loc_16E8": "jmp     loc_15C0",
+   "loc_16ED": "mov     [rbp+var_4], 0",
+   "loc_16F4": "mov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "head_size": "dword ptr -44h",
+   "size": "qword ptr -40h",
+   "gb": "GetByteContext ptr -38h",
+   "buf_size": "dword ptr -1Ch",
+   "buf": "qword ptr -18h",
+   "ctx": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5472,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868481
+ }
+}

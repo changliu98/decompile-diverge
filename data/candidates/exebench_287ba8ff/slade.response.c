@@ -1,0 +1,1 @@
+void ft_25_lines(char *str, float *x, float *y, int *i) { i[1] = str[0] - '0'; if (i[1] >= 0.0 && i[1] <= 9.0) { if (i[0] == 1.0) *x /= 10.0; *y = 10.0 * *y + i[1]; } }

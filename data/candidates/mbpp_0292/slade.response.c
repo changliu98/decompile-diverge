@@ -1,0 +1,1 @@
+__attribute__((no, noclone)) struct S func0 (int a, int b) { struct S r; r.a = a / b; return r; }

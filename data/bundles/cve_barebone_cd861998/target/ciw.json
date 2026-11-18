@@ -1,0 +1,560 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     al, dl\nmov     [rbp+client], rdi\nmov     [rbp+sockfd], esi\nmov     [rbp+anonTLS], al\nmov     [rbp+cred], rcx\nmov     [rbp+ssl_ctx], 0\nmov     [rbp+ssl], 0\nmov     [rbp+finished], 0\nmov     rax, [rbp+cred]\nmov     al, [rax+20h]\nmov     [rbp+verify_crls], al\ncall    SSLv23_client_method\nmov     rdi, rax; meth\ncall    SSL_CTX_new\nmov     [rbp+ssl_ctx], rax\ncmp     rax, 0\njnz     loc_1760\nlea     rdi, aCouldNotCreate; \"Could not create new SSL context.\\n\"\nmov     al, 0\ncall    cs:rfbClientLog\nmov     [rbp+var_8], 0\njmp     loc_1A80\ncall    X509_VERIFY_PARAM_new\nmov     [rbp+param], rax\ncmp     [rbp+anonTLS], 0\njnz     loc_1980\nmov     rax, [rbp+cred]\ncmp     qword ptr [rax], 0\njz      loc_17C1\nmov     rdi, [rbp+ssl_ctx]; ctx\nmov     rax, [rbp+cred]\nmov     rsi, [rax]; CAfile\nxor     eax, eax\nmov     edx, eax; CApath\ncall    SSL_CTX_load_verify_locations\ncmp     eax, 0\njnz     loc_17BC\nmov     rcx, cs:rfbClientLog\nmov     rax, [rbp+cred]\nmov     rsi, [rax]\nlea     rdi, aFailedToLoadCa; \"Failed to load CA certificate from %s.\"...\nmov     al, 0\ncall    rcx ; vb_null_log\njmp     error_free_ctx\njmp     loc_17D9\nlea     rdi, aUsingDefaultPa; \"Using default paths for certificate ver\"...\nmov     al, 0\ncall    cs:rfbClientLog\nmov     rdi, [rbp+ssl_ctx]; ctx\ncall    SSL_CTX_set_default_verify_paths\nmov     rax, [rbp+cred]\ncmp     qword ptr [rax+8], 0\njz      loc_182B\nmov     rax, [rbp+cred]\nmov     rdi, [rax+8]; file\nmov     rsi, [rbp+ssl_ctx]; ssl_ctx\ncall    load_crls_from_file\ncmp     al, 0\njnz     loc_1815\nlea     rdi, aCrlsCouldNotBe; \"CRLs could not be loaded.\\n\"\nmov     al, 0\ncall    cs:rfbClientLog\njmp     error_free_ctx\nmovzx   eax, [rbp+verify_crls]\ncmp     eax, 0\njnz     loc_1826\nmov     [rbp+verify_crls], 2\njmp     $+5\nmov     rax, [rbp+cred]\ncmp     qword ptr [rax+10h], 0\njz      loc_18D5\nmov     rax, [rbp+cred]\ncmp     qword ptr [rax+18h], 0\njz      loc_18D5\nmov     rdi, [rbp+ssl_ctx]; ctx\nmov     rax, [rbp+cred]\nmov     rsi, [rax+10h]; file\ncall    SSL_CTX_use_certificate_chain_file\ncmp     eax, 1\njz      loc_1877\nlea     rdi, aClientCertific; \"Client certificate could not be loaded.\"...\nmov     al, 0\ncall    cs:rfbClientLog\njmp     error_free_ctx\nmov     rdi, [rbp+ssl_ctx]; ctx\nmov     rax, [rbp+cred]\nmov     rsi, [rax+18h]; file\nmov     edx, 1; type\ncall    SSL_CTX_use_PrivateKey_file\ncmp     eax, 1\njz      loc_18AA\nlea     rdi, aClientPrivateK; \"Client private key could not be loaded.\"...\nmov     al, 0\ncall    cs:rfbClientLog\njmp     error_free_ctx\nmov     rdi, [rbp+ssl_ctx]; ctx\ncall    SSL_CTX_check_private_key\ncmp     eax, 0\njnz     loc_18D0\nlea     rdi, aClientCertific_0; \"Client certificate and private key do n\"...\nmov     al, 0\ncall    cs:rfbClientLog\njmp     error_free_ctx\njmp     $+5\nmov     rdi, [rbp+ssl_ctx]; ctx\nmov     esi, 1; mode\nxor     eax, eax\nmov     edx, eax; callback\ncall    SSL_CTX_set_verify\nmovzx   eax, [rbp+verify_crls]\ncmp     eax, 1\njnz     loc_1907\nmov     rdi, [rbp+param]; param\nmov     esi, 4; flags\ncall    X509_VERIFY_PARAM_set_flags\njmp     loc_1927\nmovzx   eax, [rbp+verify_crls]\ncmp     eax, 2\njnz     loc_1922\nmov     rdi, [rbp+param]; param\nmov     esi, 8004h; flags\ncall    X509_VERIFY_PARAM_set_flags\njmp     $+5\nmov     rax, [rbp+param]\nmov     [rbp+var_58], rax\nmov     rax, [rbp+client]\nmov     rax, [rax]\nmov     [rbp+name], rax\nmov     rax, [rbp+client]\nmov     rdi, [rax]; s\ncall    strlen\nmov     rdi, [rbp+var_58]; param\nmov     rsi, [rbp+name]; name\nmov     rdx, rax; namelen\ncall    X509_VERIFY_PARAM_set1_host\ncmp     eax, 0\njnz     loc_1973\nlea     rdi, aCouldNotSetSer; \"Could not set server name for verificat\"...\nmov     al, 0\ncall    cs:rfbClientLog\njmp     error_free_ctx\nmov     rdi, [rbp+ssl_ctx]; ctx\nmov     rsi, [rbp+param]; vpm\ncall    SSL_CTX_set1_param\nmov     rdi, [rbp+ssl_ctx]; ctx\ncall    SSL_new\nmov     [rbp+ssl], rax\ncmp     rax, 0\njnz     loc_19AB\nlea     rdi, aCouldNotCreate_0; \"Could not create a new SSL session.\\n\"\nmov     al, 0\ncall    cs:rfbClientLog\njmp     error_free_ctx\nmov     rdi, [rbp+ssl]; ssl\nlea     rsi, str; \"ALL\"\ncall    SSL_set_cipher_list\nmov     rdi, [rbp+ssl]; ssl\nmov     esi, [rbp+sockfd]; fd\ncall    SSL_set_fd\nmov     rdi, [rbp+ssl_ctx]; ctx\nmov     rsi, [rbp+client]; arg\ncall    SSL_CTX_set_app_data\nmov     rdi, [rbp+ssl]; ssl\ncall    SSL_connect\nmov     [rbp+n], eax\ncmp     [rbp+n], 1\njz      loc_1A1E\nmov     rdi, [rbp+ssl]; ssl\nmov     esi, [rbp+n]; ret\nmov     edx, 1; timeout\ncall    wait_for_data\ncmp     eax, 1\njz      loc_1A19\nmov     [rbp+finished], 1\nmov     rdi, [rbp+ssl]; ssl\ncall    SSL_shutdown\njmp     error_free_ssl\njmp     $+5\njmp     $+5\nxor     eax, eax\ncmp     [rbp+n], 1\nmov     [rbp+var_59], al\njz      loc_1A3C\ncmp     [rbp+finished], 1\nsetnz   al\nmov     [rbp+var_59], al\nmov     al, [rbp+var_59]\ntest    al, 1\njnz     loc_19D4\nmov     rdi, [rbp+param]; param\ncall    X509_VERIFY_PARAM_free\nmov     rax, [rbp+ssl]\nmov     [rbp+var_8], rax\njmp     loc_1A80\nmov     rdi, [rbp+ssl]; ssl\ncall    SSL_free\nmov     rdi, [rbp+param]; param\ncall    X509_VERIFY_PARAM_free\nmov     rdi, [rbp+ssl_ctx]; ctx\ncall    SSL_CTX_free\nmov     [rbp+var_8], 0\nmov     rax, [rbp+var_8]\nadd     rsp, 60h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 46,
+  "edges": [
+   [
+    "start",
+    "loc_1744"
+   ],
+   [
+    "start",
+    "loc_1760"
+   ],
+   [
+    "loc_1744",
+    "loc_1A80"
+   ],
+   [
+    "loc_1760",
+    "loc_1773"
+   ],
+   [
+    "loc_1760",
+    "loc_1980"
+   ],
+   [
+    "loc_1773",
+    "loc_1781"
+   ],
+   [
+    "loc_1773",
+    "loc_17C1"
+   ],
+   [
+    "loc_1781",
+    "loc_179E"
+   ],
+   [
+    "loc_1781",
+    "loc_17BC"
+   ],
+   [
+    "loc_179E",
+    "loc_1A66"
+   ],
+   [
+    "loc_17BC",
+    "loc_17D9"
+   ],
+   [
+    "loc_17C1",
+    "loc_17D9"
+   ],
+   [
+    "loc_17D9",
+    "loc_17E8"
+   ],
+   [
+    "loc_17D9",
+    "loc_182B"
+   ],
+   [
+    "loc_17E8",
+    "loc_1801"
+   ],
+   [
+    "loc_17E8",
+    "loc_1815"
+   ],
+   [
+    "loc_1801",
+    "loc_1A66"
+   ],
+   [
+    "loc_1815",
+    "loc_1822"
+   ],
+   [
+    "loc_1815",
+    "loc_1826"
+   ],
+   [
+    "loc_1822",
+    "loc_1826"
+   ],
+   [
+    "loc_1826",
+    "loc_182B"
+   ],
+   [
+    "loc_182B",
+    "loc_183A"
+   ],
+   [
+    "loc_182B",
+    "loc_18D5"
+   ],
+   [
+    "loc_183A",
+    "loc_1849"
+   ],
+   [
+    "loc_183A",
+    "loc_18D5"
+   ],
+   [
+    "loc_1849",
+    "loc_1863"
+   ],
+   [
+    "loc_1849",
+    "loc_1877"
+   ],
+   [
+    "loc_1863",
+    "loc_1A66"
+   ],
+   [
+    "loc_1877",
+    "loc_1896"
+   ],
+   [
+    "loc_1877",
+    "loc_18AA"
+   ],
+   [
+    "loc_1896",
+    "loc_1A66"
+   ],
+   [
+    "loc_18AA",
+    "loc_18BC"
+   ],
+   [
+    "loc_18AA",
+    "loc_18D0"
+   ],
+   [
+    "loc_18BC",
+    "loc_1A66"
+   ],
+   [
+    "loc_18D0",
+    "loc_18D5"
+   ],
+   [
+    "loc_18D5",
+    "loc_18F4"
+   ],
+   [
+    "loc_18D5",
+    "loc_1907"
+   ],
+   [
+    "loc_18F4",
+    "loc_1927"
+   ],
+   [
+    "loc_1907",
+    "loc_1914"
+   ],
+   [
+    "loc_1907",
+    "loc_1922"
+   ],
+   [
+    "loc_1914",
+    "loc_1922"
+   ],
+   [
+    "loc_1922",
+    "loc_1927"
+   ],
+   [
+    "loc_1927",
+    "loc_195F"
+   ],
+   [
+    "loc_1927",
+    "loc_1973"
+   ],
+   [
+    "loc_195F",
+    "loc_1A66"
+   ],
+   [
+    "loc_1973",
+    "loc_1980"
+   ],
+   [
+    "loc_1980",
+    "loc_1997"
+   ],
+   [
+    "loc_1980",
+    "loc_19AB"
+   ],
+   [
+    "loc_1997",
+    "loc_1A66"
+   ],
+   [
+    "loc_19AB",
+    "loc_19D4"
+   ],
+   [
+    "loc_19D4",
+    "loc_19EA"
+   ],
+   [
+    "loc_19D4",
+    "loc_1A1E"
+   ],
+   [
+    "loc_19EA",
+    "loc_1A04"
+   ],
+   [
+    "loc_19EA",
+    "loc_1A19"
+   ],
+   [
+    "loc_1A04",
+    "loc_1A5D"
+   ],
+   [
+    "loc_1A19",
+    "loc_1A1E"
+   ],
+   [
+    "loc_1A1E",
+    "loc_1A23"
+   ],
+   [
+    "loc_1A23",
+    "loc_1A32"
+   ],
+   [
+    "loc_1A23",
+    "loc_1A3C"
+   ],
+   [
+    "loc_1A32",
+    "loc_1A3C"
+   ],
+   [
+    "loc_1A3C",
+    "loc_19D4"
+   ],
+   [
+    "loc_1A3C",
+    "loc_1A47"
+   ],
+   [
+    "loc_1A47",
+    "loc_1A80"
+   ],
+   [
+    "loc_1A5D",
+    "loc_1A66"
+   ],
+   [
+    "loc_1A66",
+    "loc_1A80"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     al, dl\nmov     [rbp+client], rdi\nmov     [rbp+sockfd], esi\nmov     [rbp+anonTLS], al\nmov     [rbp+cred], rcx\nmov     [rbp+ssl_ctx], 0\nmov     [rbp+ssl], 0\nmov     [rbp+finished], 0\nmov     rax, [rbp+cred]\nmov     al, [rax+20h]\nmov     [rbp+verify_crls], al\ncall    SSLv23_client_method\nmov     rdi, rax; meth\ncall    SSL_CTX_new\nmov     [rbp+ssl_ctx], rax\ncmp     rax, 0\njnz     loc_1760",
+   "loc_1744": "lea     rdi, aCouldNotCreate; \"Could not create new SSL context.\\n\"\nmov     al, 0\ncall    cs:rfbClientLog\nmov     [rbp+var_8], 0\njmp     loc_1A80",
+   "loc_1760": "call    X509_VERIFY_PARAM_new\nmov     [rbp+param], rax\ncmp     [rbp+anonTLS], 0\njnz     loc_1980",
+   "loc_1773": "mov     rax, [rbp+cred]\ncmp     qword ptr [rax], 0\njz      loc_17C1",
+   "loc_1781": "mov     rdi, [rbp+ssl_ctx]; ctx\nmov     rax, [rbp+cred]\nmov     rsi, [rax]; CAfile\nxor     eax, eax\nmov     edx, eax; CApath\ncall    SSL_CTX_load_verify_locations\ncmp     eax, 0\njnz     loc_17BC",
+   "loc_179E": "mov     rcx, cs:rfbClientLog\nmov     rax, [rbp+cred]\nmov     rsi, [rax]\nlea     rdi, aFailedToLoadCa; \"Failed to load CA certificate from %s.\"...\nmov     al, 0\ncall    rcx ; vb_null_log\njmp     error_free_ctx",
+   "loc_17BC": "jmp     loc_17D9",
+   "loc_17C1": "lea     rdi, aUsingDefaultPa; \"Using default paths for certificate ver\"...\nmov     al, 0\ncall    cs:rfbClientLog\nmov     rdi, [rbp+ssl_ctx]; ctx\ncall    SSL_CTX_set_default_verify_paths",
+   "loc_17D9": "mov     rax, [rbp+cred]\ncmp     qword ptr [rax+8], 0\njz      loc_182B",
+   "loc_17E8": "mov     rax, [rbp+cred]\nmov     rdi, [rax+8]; file\nmov     rsi, [rbp+ssl_ctx]; ssl_ctx\ncall    load_crls_from_file\ncmp     al, 0\njnz     loc_1815",
+   "loc_1801": "lea     rdi, aCrlsCouldNotBe; \"CRLs could not be loaded.\\n\"\nmov     al, 0\ncall    cs:rfbClientLog\njmp     error_free_ctx",
+   "loc_1815": "movzx   eax, [rbp+verify_crls]\ncmp     eax, 0\njnz     loc_1826",
+   "loc_1822": "mov     [rbp+verify_crls], 2",
+   "loc_1826": "jmp     $+5",
+   "loc_182B": "mov     rax, [rbp+cred]\ncmp     qword ptr [rax+10h], 0\njz      loc_18D5",
+   "loc_183A": "mov     rax, [rbp+cred]\ncmp     qword ptr [rax+18h], 0\njz      loc_18D5",
+   "loc_1849": "mov     rdi, [rbp+ssl_ctx]; ctx\nmov     rax, [rbp+cred]\nmov     rsi, [rax+10h]; file\ncall    SSL_CTX_use_certificate_chain_file\ncmp     eax, 1\njz      loc_1877",
+   "loc_1863": "lea     rdi, aClientCertific; \"Client certificate could not be loaded.\"...\nmov     al, 0\ncall    cs:rfbClientLog\njmp     error_free_ctx",
+   "loc_1877": "mov     rdi, [rbp+ssl_ctx]; ctx\nmov     rax, [rbp+cred]\nmov     rsi, [rax+18h]; file\nmov     edx, 1; type\ncall    SSL_CTX_use_PrivateKey_file\ncmp     eax, 1\njz      loc_18AA",
+   "loc_1896": "lea     rdi, aClientPrivateK; \"Client private key could not be loaded.\"...\nmov     al, 0\ncall    cs:rfbClientLog\njmp     error_free_ctx",
+   "loc_18AA": "mov     rdi, [rbp+ssl_ctx]; ctx\ncall    SSL_CTX_check_private_key\ncmp     eax, 0\njnz     loc_18D0",
+   "loc_18BC": "lea     rdi, aClientCertific_0; \"Client certificate and private key do n\"...\nmov     al, 0\ncall    cs:rfbClientLog\njmp     error_free_ctx",
+   "loc_18D0": "jmp     $+5",
+   "loc_18D5": "mov     rdi, [rbp+ssl_ctx]; ctx\nmov     esi, 1; mode\nxor     eax, eax\nmov     edx, eax; callback\ncall    SSL_CTX_set_verify\nmovzx   eax, [rbp+verify_crls]\ncmp     eax, 1\njnz     loc_1907",
+   "loc_18F4": "mov     rdi, [rbp+param]; param\nmov     esi, 4; flags\ncall    X509_VERIFY_PARAM_set_flags\njmp     loc_1927",
+   "loc_1907": "movzx   eax, [rbp+verify_crls]\ncmp     eax, 2\njnz     loc_1922",
+   "loc_1914": "mov     rdi, [rbp+param]; param\nmov     esi, 8004h; flags\ncall    X509_VERIFY_PARAM_set_flags",
+   "loc_1922": "jmp     $+5",
+   "loc_1927": "mov     rax, [rbp+param]\nmov     [rbp+var_58], rax\nmov     rax, [rbp+client]\nmov     rax, [rax]\nmov     [rbp+name], rax\nmov     rax, [rbp+client]\nmov     rdi, [rax]; s\ncall    strlen\nmov     rdi, [rbp+var_58]; param\nmov     rsi, [rbp+name]; name\nmov     rdx, rax; namelen\ncall    X509_VERIFY_PARAM_set1_host\ncmp     eax, 0\njnz     loc_1973",
+   "loc_195F": "lea     rdi, aCouldNotSetSer; \"Could not set server name for verificat\"...\nmov     al, 0\ncall    cs:rfbClientLog\njmp     error_free_ctx",
+   "loc_1973": "mov     rdi, [rbp+ssl_ctx]; ctx\nmov     rsi, [rbp+param]; vpm\ncall    SSL_CTX_set1_param",
+   "loc_1980": "mov     rdi, [rbp+ssl_ctx]; ctx\ncall    SSL_new\nmov     [rbp+ssl], rax\ncmp     rax, 0\njnz     loc_19AB",
+   "loc_1997": "lea     rdi, aCouldNotCreate_0; \"Could not create a new SSL session.\\n\"\nmov     al, 0\ncall    cs:rfbClientLog\njmp     error_free_ctx",
+   "loc_19AB": "mov     rdi, [rbp+ssl]; ssl\nlea     rsi, str; \"ALL\"\ncall    SSL_set_cipher_list\nmov     rdi, [rbp+ssl]; ssl\nmov     esi, [rbp+sockfd]; fd\ncall    SSL_set_fd\nmov     rdi, [rbp+ssl_ctx]; ctx\nmov     rsi, [rbp+client]; arg\ncall    SSL_CTX_set_app_data",
+   "loc_19D4": "mov     rdi, [rbp+ssl]; ssl\ncall    SSL_connect\nmov     [rbp+n], eax\ncmp     [rbp+n], 1\njz      loc_1A1E",
+   "loc_19EA": "mov     rdi, [rbp+ssl]; ssl\nmov     esi, [rbp+n]; ret\nmov     edx, 1; timeout\ncall    wait_for_data\ncmp     eax, 1\njz      loc_1A19",
+   "loc_1A04": "mov     [rbp+finished], 1\nmov     rdi, [rbp+ssl]; ssl\ncall    SSL_shutdown\njmp     error_free_ssl",
+   "loc_1A19": "jmp     $+5",
+   "loc_1A1E": "jmp     $+5",
+   "loc_1A23": "xor     eax, eax\ncmp     [rbp+n], 1\nmov     [rbp+var_59], al\njz      loc_1A3C",
+   "loc_1A32": "cmp     [rbp+finished], 1\nsetnz   al\nmov     [rbp+var_59], al",
+   "loc_1A3C": "mov     al, [rbp+var_59]\ntest    al, 1\njnz     loc_19D4",
+   "loc_1A47": "mov     rdi, [rbp+param]; param\ncall    X509_VERIFY_PARAM_free\nmov     rax, [rbp+ssl]\nmov     [rbp+var_8], rax\njmp     loc_1A80",
+   "loc_1A5D": "mov     rdi, [rbp+ssl]; ssl\ncall    SSL_free",
+   "loc_1A66": "mov     rdi, [rbp+param]; param\ncall    X509_VERIFY_PARAM_free\nmov     rdi, [rbp+ssl_ctx]; ctx\ncall    SSL_CTX_free\nmov     [rbp+var_8], 0",
+   "loc_1A80": "mov     rax, [rbp+var_8]\nadd     rsp, 60h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_59": "byte ptr -59h",
+   "var_58": "qword ptr -58h",
+   "name": "qword ptr -50h",
+   "verify_crls": "byte ptr -41h",
+   "param": "qword ptr -40h",
+   "finished": "dword ptr -38h",
+   "n": "dword ptr -34h",
+   "ssl": "qword ptr -30h",
+   "ssl_ctx": "qword ptr -28h",
+   "cred": "qword ptr -20h",
+   "anonTLS": "byte ptr -15h",
+   "sockfd": "dword ptr -14h",
+   "client": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {
+   "aCouldNotCreate": "byte 'Could not create new SSL context.',0Ah,0",
+   "aFailedToLoadCa": "byte 'Failed to load CA certificate from %s.',0Ah,0",
+   "aUsingDefaultPa": "byte 'Using default paths for certificate verification.',0Ah,0",
+   "aCrlsCouldNotBe": "byte 'CRLs could not be loaded.',0Ah,0",
+   "aClientCertific": "byte 'Client certificate could not be loaded.',0Ah,0",
+   "aClientPrivateK": "byte 'Client private key could not be loaded.',0Ah,0",
+   "aClientCertific_0": "byte 'Client certificate and private key do not match.',0Ah,0",
+   "aCouldNotSetSer": "byte 'Could not set server name for verification.',0Ah,0",
+   "aCouldNotCreate_0": "byte 'Could not create a new SSL session.',0Ah,0",
+   "str": "byte 'ALL',0"
+  },
+  ".data": {
+   "rfbClientLog": "qword offset vb_null_log"
+  },
+  ".bss": {}
+ },
+ "func_ea": 5872,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".strdup": "strdup",
+  "_strdup": "strdup"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".strdup",
+   ".plt",
+   true,
+   "strdup"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strdup",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868490
+ }
+}

@@ -1,0 +1,1 @@
+void func0(struct pkt *packet) { packet->pkt_type = 0x31; }

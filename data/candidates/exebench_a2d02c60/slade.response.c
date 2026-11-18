@@ -1,0 +1,1 @@
+int ft_pn(char *buf, int *pn, int i) { while (buf[i] == ' ' || (buf[i] >= 9 && buf[i] <= 13)) i++; if (buf[i] == '\0') *pn = -3; if (buf[i] == '-') *pn = -2; return (i); }

@@ -1,0 +1,1 @@
+void adders_io(int a, int b, int *sum) { *sum = a + b + *sum; }

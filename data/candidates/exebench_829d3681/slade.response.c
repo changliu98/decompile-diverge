@@ -1,0 +1,1 @@
+void word2string(unsigned int word, char *s) { int i; char *p = s; if (word == 0) { *p =0x2048; return ; } for (i = 0; i < 5; i++) { if (p + (word / _smth[i]) == s) continue; *p = '0' + word / _smth[i]; p++; word %= _smth[i]; } *p =0x20; }

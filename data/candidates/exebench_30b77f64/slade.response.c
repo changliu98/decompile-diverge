@@ -1,0 +1,1 @@
+void computeVariables(double s, State *state, Variable *variables, double *data) { data[0] = 2 * s; data[1] = 0.5 * data[0]; }

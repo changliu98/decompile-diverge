@@ -1,0 +1,1 @@
+void write_integer_attribute(Attribute attr) { attr->is_integer = 2; }

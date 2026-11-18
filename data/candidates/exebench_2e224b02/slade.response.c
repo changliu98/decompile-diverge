@@ -1,0 +1,1 @@
+void _prtl16(long long i, char *p) { char t [9]; int j; t[0] = 0; for (j = 1; j < 9; j++) { t [j] = "0123456789abcdef"[i &0xf]; i >>= 4; } for (j = 8; t[j] == '0'; j--) ; if (j == 0) j++; while (j >= 0) *p++ = t[j--]; }

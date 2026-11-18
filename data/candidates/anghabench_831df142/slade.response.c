@@ -1,0 +1,1 @@
+int left_child(int i) { return i * 2 + 1; }

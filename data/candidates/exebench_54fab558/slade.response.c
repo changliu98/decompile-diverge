@@ -1,0 +1,1 @@
+void sse_dot4(float *p1, float *p2, float *p3) { *(p1) = addps((p2), (p3[0]), (p4[0]), (p4[0]), (p4[0]), (p4[0]), (p4[0]) ) ; }

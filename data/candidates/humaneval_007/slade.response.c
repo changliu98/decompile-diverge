@@ -1,0 +1,1 @@
+char** func0(char** strs, int strsSize, char* pattern, int* return Size) { char** result = NULL; int count = 0; for (int i = 0; i < strsSize; i++) { if (strstr(strs[i], pattern) != NULL) { result = (char**) realloc(result, (size_t) ((count + 1) * sizeof(char*))); result[count] = strs[i]; count++; } } *return Size = count; return result; }

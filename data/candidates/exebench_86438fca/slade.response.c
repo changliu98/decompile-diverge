@@ -1,0 +1,1 @@
+int atomic_sub(atomic_t *atomic, int val) { return ({ __asm__ __volatile__("lock\n\t" : " "lock"); __asm__ __volatile__("lock\n\t" : " "xaddl %0,%1" : "=r" (val) : "0" (-val)); }); }

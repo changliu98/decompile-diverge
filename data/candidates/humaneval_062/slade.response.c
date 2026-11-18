@@ -1,0 +1,1 @@
+void func0(float *x, int N, float *y) { for (int i = 1; i < N; ++i) y[i - 1] = i * x[i]; }

@@ -1,0 +1,1 @@
+unsigned char func0(int *array, int a, int b, int *ptr) { unsigned char result; *ptr = 0; for (result = 0; *ptr < a && result ^ 1; (*ptr)++) { if (array[*ptr] == b) result = 1; else (*ptr)++; } return result; }

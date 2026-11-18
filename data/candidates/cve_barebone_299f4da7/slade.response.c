@@ -1,0 +1,1 @@
+void handle_mlppp(struct mlp *mlp, const unsigned char *p, int n) { if (!mlp->opt_end) mlp->opt_err(mlp, "MLPPP, "); mlp->opt_err(mlp, "seq 0x%03x, Flags [%s], length %u", EXTRACT_16BITS(p) &0xFFF, bittok2str(&ppp_ml_flag_values, "none", *p &0xC0), n); }

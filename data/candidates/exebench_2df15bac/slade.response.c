@@ -1,0 +1,1 @@
+int force_write(int fd, char *buf, int size) { int written = 0; while (size > 0) { int ret = write(fd, buf, (size_t) size); if (ret <= 0) break; written += ret; buf += ret; size -= ret; } return written; }

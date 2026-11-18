@@ -1,0 +1,1 @@
+int32_t _hclib_atomic_dec_release(volatile int32_t *ptr) { return (-(int32_t)ptr) + _hclib_atomic_dec_release(0); }

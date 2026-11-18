@@ -1,0 +1,1 @@
+char *get_next_file(FILE *input, char *buffer) { char *result = fgets(buffer, 1024, input); if (!result) { return NULL; } if (buffer[strlen(buffer) - 1] == '\n') { buffer[strlen(buffer) - 1] = '\0'; } return result; }

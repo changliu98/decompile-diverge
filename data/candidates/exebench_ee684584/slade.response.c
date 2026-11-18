@@ -1,0 +1,1 @@
+int_t clipmaxdouble(double* v, double max, int_t n) { int_t i=0; for(i=0; i<n; i++) { if(v[i]>max) v[i]=max; } return 0; }

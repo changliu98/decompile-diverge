@@ -1,0 +1,1 @@
+void swapIntEndian(int *p) { register char c; char *q = p; c = q[0]; q[0] = q[3]; q[3] = c; c = q[1]; q[1] = q[2]; q[2] = c; }

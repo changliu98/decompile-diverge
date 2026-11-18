@@ -1,0 +1,1 @@
+int byte_col_big5(uint8_t byte) { if ((byte >=0x40) && (byte <=0x7E)) return byte -0x40; if ((byte >=0xA1) && (byte <=0xFE)) return byte -0x61; return -1; }

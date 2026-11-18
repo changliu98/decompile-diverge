@@ -1,0 +1,1 @@
+int cvmx_helper_get_ipd_port(int interface, int port) { switch (interface) { case 0: return port; case 1: return port + 16; case 2: return port + 32; case 3: return port + 36; case 4: return port + 40; case 5: return port + 44; default: return -1; } }

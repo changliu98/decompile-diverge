@@ -1,0 +1,1 @@
+int subprocess_error_from_errno (int error_code) { switch (error_code) { case 2: return -4; case 4: case 5: case 6: case 7: case 8: case 9: case 10: case 11: case 12: return -5; case 14: case 15: case 16: return -6; default: return -1; } }

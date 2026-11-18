@@ -1,0 +1,339 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+left], edi\nmov     [rbp+round], esi\nmov     [rbp+amount], edx\nmov     [rbp+call_changed_bytes], ecx\nmov     rdi, cs:curbuf; buf\ncall    get_sw_value_indent\nmov     [rbp+sw_val], eax\ncall    get_indent\nmov     [rbp+count], eax\ncmp     [rbp+round], 0\njz      loc_12C9\nmov     eax, [rbp+count]\ncdq\nidiv    [rbp+sw_val]\nmov     [rbp+i], eax\nmov     eax, [rbp+count]\ncdq\nidiv    [rbp+sw_val]\nmov     [rbp+j], edx\ncmp     [rbp+j], 0\njz      loc_1286\ncmp     [rbp+left], 0\njz      loc_1286\nmov     eax, [rbp+amount]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+amount], eax\ncmp     [rbp+left], 0\njz      loc_12B1\nmov     ecx, [rbp+amount]\nmov     eax, [rbp+i]\nsub     eax, ecx\nmov     [rbp+i], eax\ncmp     [rbp+i], 0\njge     loc_12AC\nmov     [rbp+i], 0\njmp     loc_12BA\nmov     eax, [rbp+amount]\nadd     eax, [rbp+i]\nmov     [rbp+i], eax\nmov     eax, [rbp+i]\nimul    eax, [rbp+sw_val]\nmov     [rbp+count], eax\njmp     loc_130A\ncmp     [rbp+left], 0\njz      loc_12F8\nmov     ecx, [rbp+sw_val]\nimul    ecx, [rbp+amount]\nmov     eax, [rbp+count]\nsub     eax, ecx\nmov     [rbp+count], eax\ncmp     [rbp+count], 0\njge     loc_12F3\nmov     [rbp+count], 0\njmp     loc_1305\nmov     eax, [rbp+sw_val]\nimul    eax, [rbp+amount]\nadd     eax, [rbp+count]\nmov     [rbp+count], eax\njmp     $+5\nmov     eax, cs:State\nand     eax, 200h\ncmp     eax, 0\njz      loc_1338\nmov     esi, [rbp+count]; amount\nmov     r8d, [rbp+call_changed_bytes]; call_changed_bytes\nmov     edi, 1; type\nxor     ecx, ecx; replaced\nmov     edx, ecx; round\ncall    change_indent\njmp     loc_1350\nmov     edi, [rbp+count]; size\nmov     ecx, [rbp+call_changed_bytes]\nxor     esi, esi\nmov     eax, 1\ncmp     ecx, 0\ncmovnz  esi, eax; flags\ncall    set_indent\nadd     rsp, 20h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 20,
+  "edges": [
+   [
+    "start",
+    "loc_1255"
+   ],
+   [
+    "start",
+    "loc_12C9"
+   ],
+   [
+    "loc_1255",
+    "loc_1273"
+   ],
+   [
+    "loc_1255",
+    "loc_1286"
+   ],
+   [
+    "loc_1273",
+    "loc_127D"
+   ],
+   [
+    "loc_1273",
+    "loc_1286"
+   ],
+   [
+    "loc_127D",
+    "loc_1286"
+   ],
+   [
+    "loc_1286",
+    "loc_1290"
+   ],
+   [
+    "loc_1286",
+    "loc_12B1"
+   ],
+   [
+    "loc_1290",
+    "loc_12A5"
+   ],
+   [
+    "loc_1290",
+    "loc_12AC"
+   ],
+   [
+    "loc_12A5",
+    "loc_12AC"
+   ],
+   [
+    "loc_12AC",
+    "loc_12BA"
+   ],
+   [
+    "loc_12B1",
+    "loc_12BA"
+   ],
+   [
+    "loc_12BA",
+    "loc_130A"
+   ],
+   [
+    "loc_12C9",
+    "loc_12D3"
+   ],
+   [
+    "loc_12C9",
+    "loc_12F8"
+   ],
+   [
+    "loc_12D3",
+    "loc_12EC"
+   ],
+   [
+    "loc_12D3",
+    "loc_12F3"
+   ],
+   [
+    "loc_12EC",
+    "loc_12F3"
+   ],
+   [
+    "loc_12F3",
+    "loc_1305"
+   ],
+   [
+    "loc_12F8",
+    "loc_1305"
+   ],
+   [
+    "loc_1305",
+    "loc_130A"
+   ],
+   [
+    "loc_130A",
+    "loc_131E"
+   ],
+   [
+    "loc_130A",
+    "loc_1338"
+   ],
+   [
+    "loc_131E",
+    "loc_1350"
+   ],
+   [
+    "loc_1338",
+    "loc_1350"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+left], edi\nmov     [rbp+round], esi\nmov     [rbp+amount], edx\nmov     [rbp+call_changed_bytes], ecx\nmov     rdi, cs:curbuf; buf\ncall    get_sw_value_indent\nmov     [rbp+sw_val], eax\ncall    get_indent\nmov     [rbp+count], eax\ncmp     [rbp+round], 0\njz      loc_12C9",
+   "loc_1255": "mov     eax, [rbp+count]\ncdq\nidiv    [rbp+sw_val]\nmov     [rbp+i], eax\nmov     eax, [rbp+count]\ncdq\nidiv    [rbp+sw_val]\nmov     [rbp+j], edx\ncmp     [rbp+j], 0\njz      loc_1286",
+   "loc_1273": "cmp     [rbp+left], 0\njz      loc_1286",
+   "loc_127D": "mov     eax, [rbp+amount]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+amount], eax",
+   "loc_1286": "cmp     [rbp+left], 0\njz      loc_12B1",
+   "loc_1290": "mov     ecx, [rbp+amount]\nmov     eax, [rbp+i]\nsub     eax, ecx\nmov     [rbp+i], eax\ncmp     [rbp+i], 0\njge     loc_12AC",
+   "loc_12A5": "mov     [rbp+i], 0",
+   "loc_12AC": "jmp     loc_12BA",
+   "loc_12B1": "mov     eax, [rbp+amount]\nadd     eax, [rbp+i]\nmov     [rbp+i], eax",
+   "loc_12BA": "mov     eax, [rbp+i]\nimul    eax, [rbp+sw_val]\nmov     [rbp+count], eax\njmp     loc_130A",
+   "loc_12C9": "cmp     [rbp+left], 0\njz      loc_12F8",
+   "loc_12D3": "mov     ecx, [rbp+sw_val]\nimul    ecx, [rbp+amount]\nmov     eax, [rbp+count]\nsub     eax, ecx\nmov     [rbp+count], eax\ncmp     [rbp+count], 0\njge     loc_12F3",
+   "loc_12EC": "mov     [rbp+count], 0",
+   "loc_12F3": "jmp     loc_1305",
+   "loc_12F8": "mov     eax, [rbp+sw_val]\nimul    eax, [rbp+amount]\nadd     eax, [rbp+count]\nmov     [rbp+count], eax",
+   "loc_1305": "jmp     $+5",
+   "loc_130A": "mov     eax, cs:State\nand     eax, 200h\ncmp     eax, 0\njz      loc_1338",
+   "loc_131E": "mov     esi, [rbp+count]; amount\nmov     r8d, [rbp+call_changed_bytes]; call_changed_bytes\nmov     edi, 1; type\nxor     ecx, ecx; replaced\nmov     edx, ecx; round\ncall    change_indent\njmp     loc_1350",
+   "loc_1338": "mov     edi, [rbp+count]; size\nmov     ecx, [rbp+call_changed_bytes]\nxor     esi, esi\nmov     eax, 1\ncmp     ecx, 0\ncmovnz  esi, eax; flags\ncall    set_indent",
+   "loc_1350": "add     rsp, 20h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "sw_val": "dword ptr -20h",
+   "j": "dword ptr -1Ch",
+   "i": "dword ptr -18h",
+   "count": "dword ptr -14h",
+   "call_changed_bytes": "dword ptr -10h",
+   "amount": "dword ptr -0Ch",
+   "round": "dword ptr -8",
+   "left": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {
+   "State": "dword 1"
+  },
+  ".bss": {
+   "curbuf": "[]"
+  }
+ },
+ "func_ea": 4640,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868466
+ }
+}

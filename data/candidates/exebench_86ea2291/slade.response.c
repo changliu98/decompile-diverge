@@ -1,0 +1,1 @@
+void decrement_value(int *value) { if (value != NULL) (*value)--; }

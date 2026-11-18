@@ -1,0 +1,34 @@
+000000000000b100 <drwav_s16_to_f32>:
+    b100:	push   %rbp
+    b101:	mov    %rsp,%rbp
+    b104:	mov    %rdi,-0x8(%rbp)
+    b108:	mov    %rsi,-0x10(%rbp)
+    b10c:	mov    %rdx,-0x18(%rbp)
+    b110:	cmpq   $0x0,-0x8(%rbp)
+    b115:	je     b126 <drwav_s16_to_f32+0x26>
+    b11b:	cmpq   $0x0,-0x10(%rbp)
+    b120:	jne    b12b <drwav_s16_to_f32+0x2b>
+    b126:	jmp    b181 <drwav_s16_to_f32+0x81>
+    b12b:	movq   $0x0,-0x20(%rbp)
+    b133:	mov    -0x20(%rbp),%rax
+    b137:	cmp    -0x18(%rbp),%rax
+    b13b:	jae    b181 <drwav_s16_to_f32+0x81>
+    b141:	mov    -0x10(%rbp),%rax
+    b145:	mov    -0x20(%rbp),%rcx
+    b149:	movswl (%rax,%rcx,2),%eax
+    b14d:	cvtsi2ss %eax,%xmm0
+    b151:	movss  0x8f37(%rip),%xmm1        # 14090 <_IO_stdin_used+0x90>
+    b159:	mulss  %xmm1,%xmm0
+    b15d:	mov    -0x8(%rbp),%rax
+    b161:	mov    %rax,%rcx
+    b164:	add    $0x4,%rcx
+    b168:	mov    %rcx,-0x8(%rbp)
+    b16c:	movss  %xmm0,(%rax)
+    b170:	mov    -0x20(%rbp),%rax
+    b174:	add    $0x1,%rax
+    b178:	mov    %rax,-0x20(%rbp)
+    b17c:	jmp    b133 <drwav_s16_to_f32+0x33>
+    b181:	pop    %rbp
+    b182:	ret
+
+Disassembly of section .fini:

@@ -1,0 +1,569 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+im], rdi\nmov     [rbp+x], esi\nmov     [rbp+y], edx\nmov     [rbp+border], ecx\nmov     [rbp+color], r8d\ncmp     [rbp+border], 0\njge     loc_1A48\njmp     loc_1D39\nmov     [rbp+leftLimit], 0FFFFFFFFh\nmov     rax, [rbp+im]\nmov     eax, [rax+1C60h]\nmov     [rbp+restoreAlphaBleding], eax\nmov     rax, [rbp+im]\nmov     dword ptr [rax+1C60h], 0\nmov     eax, [rbp+x]\nmov     rcx, [rbp+im]\ncmp     eax, [rcx+8]\njl      loc_1A8C\nmov     rax, [rbp+im]\nmov     eax, [rax+8]\nsub     eax, 1\nmov     [rbp+x], eax\njmp     loc_1AA2\ncmp     [rbp+x], 0\njge     loc_1A9D\nmov     [rbp+x], 0\njmp     $+5\nmov     eax, [rbp+y]\nmov     rcx, [rbp+im]\ncmp     eax, [rcx+0Ch]\njl      loc_1AC4\nmov     rax, [rbp+im]\nmov     eax, [rax+0Ch]\nsub     eax, 1\nmov     [rbp+y], eax\njmp     loc_1ADA\ncmp     [rbp+y], 0\njge     loc_1AD5\nmov     [rbp+y], 0\njmp     $+5\nmov     eax, [rbp+x]\nmov     [rbp+i], eax\ncmp     [rbp+i], 0\njl      loc_1B2D\nmov     rdi, [rbp+im]; im\nmov     esi, [rbp+i]; x\nmov     edx, [rbp+y]; y\ncall    gdImageGetPixel\ncmp     eax, [rbp+border]\njnz     loc_1B07\njmp     loc_1B2D\nmov     rdi, [rbp+im]; im\nmov     esi, [rbp+i]; x\nmov     edx, [rbp+y]; y\nmov     ecx, [rbp+color]; color\ncall    gdImageSetPixel\nmov     eax, [rbp+i]\nmov     [rbp+leftLimit], eax\nmov     eax, [rbp+i]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+i], eax\njmp     loc_1AE0\ncmp     [rbp+leftLimit], 0FFFFFFFFh\njnz     loc_1B49\nmov     ecx, [rbp+restoreAlphaBleding]\nmov     rax, [rbp+im]\nmov     [rax+1C60h], ecx\njmp     loc_1D39\nmov     eax, [rbp+x]\nmov     [rbp+rightLimit], eax\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+i], eax\nmov     eax, [rbp+i]\nmov     rcx, [rbp+im]\ncmp     eax, [rcx+8]\njge     loc_1BAB\nmov     rdi, [rbp+im]; im\nmov     esi, [rbp+i]; x\nmov     edx, [rbp+y]; y\ncall    gdImageGetPixel\ncmp     eax, [rbp+border]\njnz     loc_1B85\njmp     loc_1BAB\nmov     rdi, [rbp+im]; im\nmov     esi, [rbp+i]; x\nmov     edx, [rbp+y]; y\nmov     ecx, [rbp+color]; color\ncall    gdImageSetPixel\nmov     eax, [rbp+i]\nmov     [rbp+rightLimit], eax\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1B58\ncmp     [rbp+y], 0\njle     loc_1C66\nmov     [rbp+lastBorder], 1\nmov     eax, [rbp+leftLimit]\nmov     [rbp+i], eax\nmov     eax, [rbp+i]\ncmp     eax, [rbp+rightLimit]\njg      loc_1C61\nmov     rdi, [rbp+im]; im\nmov     esi, [rbp+i]; x\nmov     edx, [rbp+y]\nsub     edx, 1; y\ncall    gdImageGetPixel\nmov     [rbp+c], eax\ncmp     [rbp+lastBorder], 0\njz      loc_1C2A\nmov     eax, [rbp+c]\ncmp     eax, [rbp+border]\njz      loc_1C25\nmov     eax, [rbp+c]\ncmp     eax, [rbp+color]\njz      loc_1C25\nmov     rdi, [rbp+im]; im\nmov     esi, [rbp+i]; x\nmov     edx, [rbp+y]\nsub     edx, 1; y\nmov     ecx, [rbp+border]; border\nmov     r8d, [rbp+color]; color\ncall    gdImageFillToBorder\nmov     [rbp+lastBorder], 0\njmp     loc_1C4E\nmov     eax, [rbp+c]\ncmp     eax, [rbp+border]\njz      loc_1C42\nmov     eax, [rbp+c]\ncmp     eax, [rbp+color]\njnz     loc_1C49\nmov     [rbp+lastBorder], 1\njmp     $+5\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1BC2\njmp     $+5\nmov     eax, [rbp+y]\nmov     rcx, [rbp+im]\nmov     ecx, [rcx+0Ch]\nsub     ecx, 1\ncmp     eax, ecx\njge     loc_1D2C\nmov     [rbp+lastBorder], 1\nmov     eax, [rbp+leftLimit]\nmov     [rbp+i], eax\nmov     eax, [rbp+i]\ncmp     eax, [rbp+rightLimit]\njg      loc_1D27\nmov     rdi, [rbp+im]; im\nmov     esi, [rbp+i]; x\nmov     edx, [rbp+y]\nadd     edx, 1; y\ncall    gdImageGetPixel\nmov     [rbp+c_0], eax\ncmp     [rbp+lastBorder], 0\njz      loc_1CF0\nmov     eax, [rbp+c_0]\ncmp     eax, [rbp+border]\njz      loc_1CEB\nmov     eax, [rbp+c_0]\ncmp     eax, [rbp+color]\njz      loc_1CEB\nmov     rdi, [rbp+im]; im\nmov     esi, [rbp+i]; x\nmov     edx, [rbp+y]\nadd     edx, 1; y\nmov     ecx, [rbp+border]; border\nmov     r8d, [rbp+color]; color\ncall    gdImageFillToBorder\nmov     [rbp+lastBorder], 0\njmp     loc_1D14\nmov     eax, [rbp+c_0]\ncmp     eax, [rbp+border]\njz      loc_1D08\nmov     eax, [rbp+c_0]\ncmp     eax, [rbp+color]\njnz     loc_1D0F\nmov     [rbp+lastBorder], 1\njmp     $+5\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1C88\njmp     $+5\nmov     ecx, [rbp+restoreAlphaBleding]\nmov     rax, [rbp+im]\nmov     [rax+1C60h], ecx\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 56,
+  "edges": [
+   [
+    "start",
+    "loc_1A43"
+   ],
+   [
+    "start",
+    "loc_1A48"
+   ],
+   [
+    "loc_1A43",
+    "loc_1D39"
+   ],
+   [
+    "loc_1A48",
+    "loc_1A7A"
+   ],
+   [
+    "loc_1A48",
+    "loc_1A8C"
+   ],
+   [
+    "loc_1A7A",
+    "loc_1AA2"
+   ],
+   [
+    "loc_1A8C",
+    "loc_1A96"
+   ],
+   [
+    "loc_1A8C",
+    "loc_1A9D"
+   ],
+   [
+    "loc_1A96",
+    "loc_1A9D"
+   ],
+   [
+    "loc_1A9D",
+    "loc_1AA2"
+   ],
+   [
+    "loc_1AA2",
+    "loc_1AB2"
+   ],
+   [
+    "loc_1AA2",
+    "loc_1AC4"
+   ],
+   [
+    "loc_1AB2",
+    "loc_1ADA"
+   ],
+   [
+    "loc_1AC4",
+    "loc_1ACE"
+   ],
+   [
+    "loc_1AC4",
+    "loc_1AD5"
+   ],
+   [
+    "loc_1ACE",
+    "loc_1AD5"
+   ],
+   [
+    "loc_1AD5",
+    "loc_1ADA"
+   ],
+   [
+    "loc_1ADA",
+    "loc_1AE0"
+   ],
+   [
+    "loc_1AE0",
+    "loc_1AEA"
+   ],
+   [
+    "loc_1AE0",
+    "loc_1B2D"
+   ],
+   [
+    "loc_1AEA",
+    "loc_1B02"
+   ],
+   [
+    "loc_1AEA",
+    "loc_1B07"
+   ],
+   [
+    "loc_1B02",
+    "loc_1B2D"
+   ],
+   [
+    "loc_1B07",
+    "loc_1AE0"
+   ],
+   [
+    "loc_1B2D",
+    "loc_1B37"
+   ],
+   [
+    "loc_1B2D",
+    "loc_1B49"
+   ],
+   [
+    "loc_1B37",
+    "loc_1D39"
+   ],
+   [
+    "loc_1B49",
+    "loc_1B58"
+   ],
+   [
+    "loc_1B58",
+    "loc_1B68"
+   ],
+   [
+    "loc_1B58",
+    "loc_1BAB"
+   ],
+   [
+    "loc_1B68",
+    "loc_1B80"
+   ],
+   [
+    "loc_1B68",
+    "loc_1B85"
+   ],
+   [
+    "loc_1B80",
+    "loc_1BAB"
+   ],
+   [
+    "loc_1B85",
+    "loc_1B58"
+   ],
+   [
+    "loc_1BAB",
+    "loc_1BB5"
+   ],
+   [
+    "loc_1BAB",
+    "loc_1C66"
+   ],
+   [
+    "loc_1BB5",
+    "loc_1BC2"
+   ],
+   [
+    "loc_1BC2",
+    "loc_1BCE"
+   ],
+   [
+    "loc_1BC2",
+    "loc_1C61"
+   ],
+   [
+    "loc_1BCE",
+    "loc_1BED"
+   ],
+   [
+    "loc_1BCE",
+    "loc_1C2A"
+   ],
+   [
+    "loc_1BED",
+    "loc_1BF9"
+   ],
+   [
+    "loc_1BED",
+    "loc_1C25"
+   ],
+   [
+    "loc_1BF9",
+    "loc_1C05"
+   ],
+   [
+    "loc_1BF9",
+    "loc_1C25"
+   ],
+   [
+    "loc_1C05",
+    "loc_1C25"
+   ],
+   [
+    "loc_1C25",
+    "loc_1C4E"
+   ],
+   [
+    "loc_1C2A",
+    "loc_1C36"
+   ],
+   [
+    "loc_1C2A",
+    "loc_1C42"
+   ],
+   [
+    "loc_1C36",
+    "loc_1C42"
+   ],
+   [
+    "loc_1C36",
+    "loc_1C49"
+   ],
+   [
+    "loc_1C42",
+    "loc_1C49"
+   ],
+   [
+    "loc_1C49",
+    "loc_1C4E"
+   ],
+   [
+    "loc_1C4E",
+    "loc_1C53"
+   ],
+   [
+    "loc_1C53",
+    "loc_1BC2"
+   ],
+   [
+    "loc_1C61",
+    "loc_1C66"
+   ],
+   [
+    "loc_1C66",
+    "loc_1C7B"
+   ],
+   [
+    "loc_1C66",
+    "loc_1D2C"
+   ],
+   [
+    "loc_1C7B",
+    "loc_1C88"
+   ],
+   [
+    "loc_1C88",
+    "loc_1C94"
+   ],
+   [
+    "loc_1C88",
+    "loc_1D27"
+   ],
+   [
+    "loc_1C94",
+    "loc_1CB3"
+   ],
+   [
+    "loc_1C94",
+    "loc_1CF0"
+   ],
+   [
+    "loc_1CB3",
+    "loc_1CBF"
+   ],
+   [
+    "loc_1CB3",
+    "loc_1CEB"
+   ],
+   [
+    "loc_1CBF",
+    "loc_1CCB"
+   ],
+   [
+    "loc_1CBF",
+    "loc_1CEB"
+   ],
+   [
+    "loc_1CCB",
+    "loc_1CEB"
+   ],
+   [
+    "loc_1CEB",
+    "loc_1D14"
+   ],
+   [
+    "loc_1CF0",
+    "loc_1CFC"
+   ],
+   [
+    "loc_1CF0",
+    "loc_1D08"
+   ],
+   [
+    "loc_1CFC",
+    "loc_1D08"
+   ],
+   [
+    "loc_1CFC",
+    "loc_1D0F"
+   ],
+   [
+    "loc_1D08",
+    "loc_1D0F"
+   ],
+   [
+    "loc_1D0F",
+    "loc_1D14"
+   ],
+   [
+    "loc_1D14",
+    "loc_1D19"
+   ],
+   [
+    "loc_1D19",
+    "loc_1C88"
+   ],
+   [
+    "loc_1D27",
+    "loc_1D2C"
+   ],
+   [
+    "loc_1D2C",
+    "loc_1D39"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+im], rdi\nmov     [rbp+x], esi\nmov     [rbp+y], edx\nmov     [rbp+border], ecx\nmov     [rbp+color], r8d\ncmp     [rbp+border], 0\njge     loc_1A48",
+   "loc_1A43": "jmp     loc_1D39",
+   "loc_1A48": "mov     [rbp+leftLimit], 0FFFFFFFFh\nmov     rax, [rbp+im]\nmov     eax, [rax+1C60h]\nmov     [rbp+restoreAlphaBleding], eax\nmov     rax, [rbp+im]\nmov     dword ptr [rax+1C60h], 0\nmov     eax, [rbp+x]\nmov     rcx, [rbp+im]\ncmp     eax, [rcx+8]\njl      loc_1A8C",
+   "loc_1A7A": "mov     rax, [rbp+im]\nmov     eax, [rax+8]\nsub     eax, 1\nmov     [rbp+x], eax\njmp     loc_1AA2",
+   "loc_1A8C": "cmp     [rbp+x], 0\njge     loc_1A9D",
+   "loc_1A96": "mov     [rbp+x], 0",
+   "loc_1A9D": "jmp     $+5",
+   "loc_1AA2": "mov     eax, [rbp+y]\nmov     rcx, [rbp+im]\ncmp     eax, [rcx+0Ch]\njl      loc_1AC4",
+   "loc_1AB2": "mov     rax, [rbp+im]\nmov     eax, [rax+0Ch]\nsub     eax, 1\nmov     [rbp+y], eax\njmp     loc_1ADA",
+   "loc_1AC4": "cmp     [rbp+y], 0\njge     loc_1AD5",
+   "loc_1ACE": "mov     [rbp+y], 0",
+   "loc_1AD5": "jmp     $+5",
+   "loc_1ADA": "mov     eax, [rbp+x]\nmov     [rbp+i], eax",
+   "loc_1AE0": "cmp     [rbp+i], 0\njl      loc_1B2D",
+   "loc_1AEA": "mov     rdi, [rbp+im]; im\nmov     esi, [rbp+i]; x\nmov     edx, [rbp+y]; y\ncall    gdImageGetPixel\ncmp     eax, [rbp+border]\njnz     loc_1B07",
+   "loc_1B02": "jmp     loc_1B2D",
+   "loc_1B07": "mov     rdi, [rbp+im]; im\nmov     esi, [rbp+i]; x\nmov     edx, [rbp+y]; y\nmov     ecx, [rbp+color]; color\ncall    gdImageSetPixel\nmov     eax, [rbp+i]\nmov     [rbp+leftLimit], eax\nmov     eax, [rbp+i]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+i], eax\njmp     loc_1AE0",
+   "loc_1B2D": "cmp     [rbp+leftLimit], 0FFFFFFFFh\njnz     loc_1B49",
+   "loc_1B37": "mov     ecx, [rbp+restoreAlphaBleding]\nmov     rax, [rbp+im]\nmov     [rax+1C60h], ecx\njmp     loc_1D39",
+   "loc_1B49": "mov     eax, [rbp+x]\nmov     [rbp+rightLimit], eax\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+i], eax",
+   "loc_1B58": "mov     eax, [rbp+i]\nmov     rcx, [rbp+im]\ncmp     eax, [rcx+8]\njge     loc_1BAB",
+   "loc_1B68": "mov     rdi, [rbp+im]; im\nmov     esi, [rbp+i]; x\nmov     edx, [rbp+y]; y\ncall    gdImageGetPixel\ncmp     eax, [rbp+border]\njnz     loc_1B85",
+   "loc_1B80": "jmp     loc_1BAB",
+   "loc_1B85": "mov     rdi, [rbp+im]; im\nmov     esi, [rbp+i]; x\nmov     edx, [rbp+y]; y\nmov     ecx, [rbp+color]; color\ncall    gdImageSetPixel\nmov     eax, [rbp+i]\nmov     [rbp+rightLimit], eax\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1B58",
+   "loc_1BAB": "cmp     [rbp+y], 0\njle     loc_1C66",
+   "loc_1BB5": "mov     [rbp+lastBorder], 1\nmov     eax, [rbp+leftLimit]\nmov     [rbp+i], eax",
+   "loc_1BC2": "mov     eax, [rbp+i]\ncmp     eax, [rbp+rightLimit]\njg      loc_1C61",
+   "loc_1BCE": "mov     rdi, [rbp+im]; im\nmov     esi, [rbp+i]; x\nmov     edx, [rbp+y]\nsub     edx, 1; y\ncall    gdImageGetPixel\nmov     [rbp+c], eax\ncmp     [rbp+lastBorder], 0\njz      loc_1C2A",
+   "loc_1BED": "mov     eax, [rbp+c]\ncmp     eax, [rbp+border]\njz      loc_1C25",
+   "loc_1BF9": "mov     eax, [rbp+c]\ncmp     eax, [rbp+color]\njz      loc_1C25",
+   "loc_1C05": "mov     rdi, [rbp+im]; im\nmov     esi, [rbp+i]; x\nmov     edx, [rbp+y]\nsub     edx, 1; y\nmov     ecx, [rbp+border]; border\nmov     r8d, [rbp+color]; color\ncall    gdImageFillToBorder\nmov     [rbp+lastBorder], 0",
+   "loc_1C25": "jmp     loc_1C4E",
+   "loc_1C2A": "mov     eax, [rbp+c]\ncmp     eax, [rbp+border]\njz      loc_1C42",
+   "loc_1C36": "mov     eax, [rbp+c]\ncmp     eax, [rbp+color]\njnz     loc_1C49",
+   "loc_1C42": "mov     [rbp+lastBorder], 1",
+   "loc_1C49": "jmp     $+5",
+   "loc_1C4E": "jmp     $+5",
+   "loc_1C53": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1BC2",
+   "loc_1C61": "jmp     $+5",
+   "loc_1C66": "mov     eax, [rbp+y]\nmov     rcx, [rbp+im]\nmov     ecx, [rcx+0Ch]\nsub     ecx, 1\ncmp     eax, ecx\njge     loc_1D2C",
+   "loc_1C7B": "mov     [rbp+lastBorder], 1\nmov     eax, [rbp+leftLimit]\nmov     [rbp+i], eax",
+   "loc_1C88": "mov     eax, [rbp+i]\ncmp     eax, [rbp+rightLimit]\njg      loc_1D27",
+   "loc_1C94": "mov     rdi, [rbp+im]; im\nmov     esi, [rbp+i]; x\nmov     edx, [rbp+y]\nadd     edx, 1; y\ncall    gdImageGetPixel\nmov     [rbp+c_0], eax\ncmp     [rbp+lastBorder], 0\njz      loc_1CF0",
+   "loc_1CB3": "mov     eax, [rbp+c_0]\ncmp     eax, [rbp+border]\njz      loc_1CEB",
+   "loc_1CBF": "mov     eax, [rbp+c_0]\ncmp     eax, [rbp+color]\njz      loc_1CEB",
+   "loc_1CCB": "mov     rdi, [rbp+im]; im\nmov     esi, [rbp+i]; x\nmov     edx, [rbp+y]\nadd     edx, 1; y\nmov     ecx, [rbp+border]; border\nmov     r8d, [rbp+color]; color\ncall    gdImageFillToBorder\nmov     [rbp+lastBorder], 0",
+   "loc_1CEB": "jmp     loc_1D14",
+   "loc_1CF0": "mov     eax, [rbp+c_0]\ncmp     eax, [rbp+border]\njz      loc_1D08",
+   "loc_1CFC": "mov     eax, [rbp+c_0]\ncmp     eax, [rbp+color]\njnz     loc_1D0F",
+   "loc_1D08": "mov     [rbp+lastBorder], 1",
+   "loc_1D0F": "jmp     $+5",
+   "loc_1D14": "jmp     $+5",
+   "loc_1D19": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1C88",
+   "loc_1D27": "jmp     $+5",
+   "loc_1D2C": "mov     ecx, [rbp+restoreAlphaBleding]\nmov     rax, [rbp+im]\nmov     [rax+1C60h], ecx",
+   "loc_1D39": "add     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "c_0": "dword ptr -34h",
+   "c": "dword ptr -30h",
+   "restoreAlphaBleding": "dword ptr -2Ch",
+   "i": "dword ptr -28h",
+   "rightLimit": "dword ptr -24h",
+   "leftLimit": "dword ptr -20h",
+   "lastBorder": "dword ptr -1Ch",
+   "color": "dword ptr -18h",
+   "border": "dword ptr -14h",
+   "y": "dword ptr -10h",
+   "x": "dword ptr -0Ch",
+   "im": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6688,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".rewind": "rewind",
+  "_rewind": "rewind",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".rewind",
+   ".plt",
+   true,
+   "rewind"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "rewind",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868447
+ }
+}

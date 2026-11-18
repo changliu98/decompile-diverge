@@ -1,0 +1,1 @@
+char *checkpath(char *path, char *src) { char *dst = path; if (path && src) { while (*src) { if (*src == '\\') { *dst++ = '/'; src++; } else { *dst++ = *src++; } } *dst = *src; } return path; }

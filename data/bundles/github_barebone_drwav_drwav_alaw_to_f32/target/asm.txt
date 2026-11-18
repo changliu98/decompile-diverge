@@ -1,0 +1,39 @@
+000000000000b370 <drwav_alaw_to_f32>:
+    b370:	push   %rbp
+    b371:	mov    %rsp,%rbp
+    b374:	mov    %rdi,-0x10(%rbp)
+    b378:	mov    %rsi,-0x18(%rbp)
+    b37c:	mov    %rdx,-0x20(%rbp)
+    b380:	cmpq   $0x0,-0x10(%rbp)
+    b385:	je     b396 <drwav_alaw_to_f32+0x26>
+    b38b:	cmpq   $0x0,-0x18(%rbp)
+    b390:	jne    b39b <drwav_alaw_to_f32+0x2b>
+    b396:	jmp    b404 <drwav_alaw_to_f32+0x94>
+    b39b:	movq   $0x0,-0x28(%rbp)
+    b3a3:	mov    -0x28(%rbp),%rax
+    b3a7:	cmp    -0x20(%rbp),%rax
+    b3ab:	jae    b404 <drwav_alaw_to_f32+0x94>
+    b3b1:	mov    -0x18(%rbp),%rax
+    b3b5:	mov    -0x28(%rbp),%rcx
+    b3b9:	mov    (%rax,%rcx,1),%al
+    b3bc:	mov    %al,-0x1(%rbp)
+    b3bf:	movzbl -0x1(%rbp),%eax
+    b3c3:	mov    %eax,%ecx
+    b3c5:	lea    0xa834(%rip),%rax        # 15c00 <g_drwavAlawTable>
+    b3cc:	movswl (%rax,%rcx,2),%eax
+    b3d0:	cvtsi2ss %eax,%xmm0
+    b3d4:	movss  0x8cb8(%rip),%xmm1        # 14094 <_IO_stdin_used+0x94>
+    b3dc:	divss  %xmm1,%xmm0
+    b3e0:	mov    -0x10(%rbp),%rax
+    b3e4:	mov    %rax,%rcx
+    b3e7:	add    $0x4,%rcx
+    b3eb:	mov    %rcx,-0x10(%rbp)
+    b3ef:	movss  %xmm0,(%rax)
+    b3f3:	mov    -0x28(%rbp),%rax
+    b3f7:	add    $0x1,%rax
+    b3fb:	mov    %rax,-0x28(%rbp)
+    b3ff:	jmp    b3a3 <drwav_alaw_to_f32+0x33>
+    b404:	pop    %rbp
+    b405:	ret
+
+Disassembly of section .fini:

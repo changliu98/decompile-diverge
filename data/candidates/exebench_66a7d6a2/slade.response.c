@@ -1,0 +1,1 @@
+void swapdouble (void *v) { unsigned int t; unsigned int *a; a = v; t = (a[0] << 24) | ((a[0] << 8) &0x00FF0000) | ((a[0] >> 8) &0x0000FF00) | ((a[0] >> 24) &0x000000FF); a[0] = (a[1] << 24) | ((a[1] << 8) &0x0000FF00) | ((a[1] >> 8) &0x0000FF00) | ((a[1] >> 24) &0x000000FF); a[1] = t; }

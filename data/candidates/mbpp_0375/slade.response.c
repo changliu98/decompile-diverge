@@ -1,0 +1,1 @@
+int func0(int x, int y) { int a = x / y * y; int b = a + y; return x - a > b - x ? b : a; }

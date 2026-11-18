@@ -1,0 +1,1 @@
+int func0(char *str, char ch) { int index = -1; int len = strlen(str); for (int i = 0; i < len; i++) { if (str[i] == ch) { index = i; } } if (index == -1) { return -1; } return index + 1; }

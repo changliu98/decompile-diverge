@@ -1,0 +1,160 @@
+0000000000003250 <store_update>:
+    3250:	push   %rbp
+    3251:	mov    %rsp,%rbp
+    3254:	sub    $0x80,%rsp
+    325b:	mov    %rdi,-0x10(%rbp)
+    325f:	mov    %rsi,-0x18(%rbp)
+    3263:	mov    -0x10(%rbp),%rax
+    3267:	mov    0x8(%rax),%rax
+    326b:	mov    %rax,-0x70(%rbp)
+    326f:	mov    -0x10(%rbp),%rax
+    3273:	mov    0x10(%rax),%eax
+    3276:	mov    %eax,-0x74(%rbp)
+    3279:	mov    -0x18(%rbp),%rsi
+    327d:	lea    -0x4c4(%rip),%rdi        # 2dc0 <xdr_kdb_incr_update_t>
+    3284:	call   20c0 <xdr_sizeof>
+    3289:	mov    %rax,-0x60(%rbp)
+    328d:	mov    -0x60(%rbp),%rax
+    3291:	add    $0x1c,%rax
+    3295:	mov    %eax,-0x58(%rbp)
+    3298:	mov    -0x58(%rbp),%eax
+    329b:	mov    -0x70(%rbp),%rcx
+    329f:	movzwl 0x26(%rcx),%ecx
+    32a3:	cmp    %ecx,%eax
+    32a5:	jbe    32de <store_update+0x8e>
+    32ab:	mov    -0x70(%rbp),%rdi
+    32af:	mov    -0x74(%rbp),%esi
+    32b2:	mov    -0x10(%rbp),%rax
+    32b6:	mov    0x14(%rax),%edx
+    32b9:	mov    -0x58(%rbp),%ecx
+    32bc:	call   37e0 <resize>
+    32c1:	mov    %eax,-0x64(%rbp)
+    32c4:	cmpl   $0x0,-0x64(%rbp)
+    32c8:	je     32d9 <store_update+0x89>
+    32ce:	mov    -0x64(%rbp),%eax
+    32d1:	mov    %eax,-0x4(%rbp)
+    32d4:	jmp    34a9 <store_update+0x259>
+    32d9:	jmp    32de <store_update+0x8e>
+    32de:	mov    -0x70(%rbp),%rax
+    32e2:	movw   $0x2,0x24(%rax)
+    32e8:	mov    -0x18(%rbp),%rax
+    32ec:	mov    0x10(%rax),%eax
+    32ef:	sub    $0x1,%eax
+    32f2:	xor    %edx,%edx
+    32f4:	divl   -0x74(%rbp)
+    32f7:	mov    %edx,-0x54(%rbp)
+    32fa:	mov    -0x70(%rbp),%rax
+    32fe:	add    $0x28,%rax
+    3302:	mov    -0x54(%rbp),%ecx
+    3305:	mov    -0x70(%rbp),%rdx
+    3309:	movzwl 0x26(%rdx),%edx
+    330d:	imul   %edx,%ecx
+    3310:	mov    %ecx,%ecx
+    3312:	add    %rcx,%rax
+    3315:	mov    %rax,-0x50(%rbp)
+    3319:	mov    -0x50(%rbp),%rdi
+    331d:	mov    -0x70(%rbp),%rax
+    3321:	movzwl 0x26(%rax),%eax
+    3325:	mov    %eax,%edx
+    3327:	xor    %esi,%esi
+    3329:	call   1070 <memset@plt>
+    332e:	mov    -0x50(%rbp),%rax
+    3332:	movl   $0x6661212,(%rax)
+    3338:	mov    -0x60(%rbp),%rax
+    333c:	mov    %eax,%ecx
+    333e:	mov    -0x50(%rbp),%rax
+    3342:	mov    %ecx,0x14(%rax)
+    3345:	mov    -0x18(%rbp),%rax
+    3349:	mov    0x10(%rax),%ecx
+    334c:	mov    -0x50(%rbp),%rax
+    3350:	mov    %ecx,0x4(%rax)
+    3353:	mov    -0x50(%rbp),%rax
+    3357:	mov    -0x18(%rbp),%rcx
+    335b:	mov    0x14(%rcx),%rcx
+    335f:	mov    %rcx,0x8(%rax)
+    3363:	mov    -0x50(%rbp),%rax
+    3367:	movl   $0x0,0x10(%rax)
+    336e:	mov    -0x50(%rbp),%rsi
+    3372:	add    $0x18,%rsi
+    3376:	mov    -0x50(%rbp),%rax
+    337a:	mov    0x14(%rax),%edx
+    337d:	lea    -0x48(%rbp),%rdi
+    3381:	xor    %ecx,%ecx
+    3383:	call   2050 <xdrmem_create>
+    3388:	mov    -0x18(%rbp),%rsi
+    338c:	lea    -0x48(%rbp),%rdi
+    3390:	call   2dc0 <xdr_kdb_incr_update_t>
+    3395:	cmp    $0x0,%eax
+    3398:	jne    33aa <store_update+0x15a>
+    339e:	movl   $0x95e4fafe,-0x4(%rbp)
+    33a5:	jmp    34a9 <store_update+0x259>
+    33aa:	mov    -0x50(%rbp),%rax
+    33ae:	movl   $0x1,0x10(%rax)
+    33b5:	mov    -0x70(%rbp),%rdi
+    33b9:	mov    -0x50(%rbp),%rsi
+    33bd:	call   38b0 <sync_update>
+    33c2:	mov    -0x18(%rbp),%rax
+    33c6:	mov    0x10(%rax),%ecx
+    33c9:	mov    -0x70(%rbp),%rax
+    33cd:	mov    %ecx,0x20(%rax)
+    33d0:	mov    -0x70(%rbp),%rax
+    33d4:	mov    -0x18(%rbp),%rcx
+    33d8:	mov    0x14(%rcx),%rcx
+    33dc:	mov    %rcx,0x14(%rax)
+    33e0:	mov    -0x70(%rbp),%rax
+    33e4:	cmpl   $0x0,0x8(%rax)
+    33e8:	jne    341c <store_update+0x1cc>
+    33ee:	mov    -0x70(%rbp),%rax
+    33f2:	movl   $0x1,0x8(%rax)
+    33f9:	mov    -0x18(%rbp),%rax
+    33fd:	mov    0x10(%rax),%ecx
+    3400:	mov    -0x70(%rbp),%rax
+    3404:	mov    %ecx,0x1c(%rax)
+    3407:	mov    -0x70(%rbp),%rax
+    340b:	mov    -0x18(%rbp),%rcx
+    340f:	mov    0x14(%rcx),%rcx
+    3413:	mov    %rcx,0xc(%rax)
+    3417:	jmp    348f <store_update+0x23f>
+    341c:	mov    -0x70(%rbp),%rax
+    3420:	mov    0x8(%rax),%eax
+    3423:	cmp    -0x74(%rbp),%eax
+    3426:	jae    343e <store_update+0x1ee>
+    342c:	mov    -0x70(%rbp),%rax
+    3430:	mov    0x8(%rax),%ecx
+    3433:	add    $0x1,%ecx
+    3436:	mov    %ecx,0x8(%rax)
+    3439:	jmp    348a <store_update+0x23a>
+    343e:	mov    -0x18(%rbp),%rax
+    3442:	mov    0x10(%rax),%eax
+    3445:	xor    %edx,%edx
+    3447:	divl   -0x74(%rbp)
+    344a:	mov    %edx,-0x54(%rbp)
+    344d:	mov    -0x70(%rbp),%rax
+    3451:	add    $0x28,%rax
+    3455:	mov    -0x54(%rbp),%ecx
+    3458:	mov    -0x70(%rbp),%rdx
+    345c:	movzwl 0x26(%rdx),%edx
+    3460:	imul   %edx,%ecx
+    3463:	mov    %ecx,%ecx
+    3465:	add    %rcx,%rax
+    3468:	mov    %rax,-0x50(%rbp)
+    346c:	mov    -0x50(%rbp),%rax
+    3470:	mov    0x4(%rax),%ecx
+    3473:	mov    -0x70(%rbp),%rax
+    3477:	mov    %ecx,0x1c(%rax)
+    347a:	mov    -0x70(%rbp),%rax
+    347e:	mov    -0x50(%rbp),%rcx
+    3482:	mov    0x8(%rcx),%rcx
+    3486:	mov    %rcx,0xc(%rax)
+    348a:	jmp    348f <store_update+0x23f>
+    348f:	mov    -0x70(%rbp),%rax
+    3493:	movw   $0x1,0x24(%rax)
+    3499:	mov    -0x70(%rbp),%rdi
+    349d:	call   38c0 <sync_header>
+    34a2:	movl   $0x0,-0x4(%rbp)
+    34a9:	mov    -0x4(%rbp),%eax
+    34ac:	add    $0x80,%rsp
+    34b3:	pop    %rbp
+    34b4:	ret
+
+Disassembly of section .fini:

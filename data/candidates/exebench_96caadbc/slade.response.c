@@ -1,0 +1,1 @@
+long ihk_atomic_add_long_return (long *ptr, long value) { long prev = ptr; *(volatile long *) ptr = value; return ptr + prev; }

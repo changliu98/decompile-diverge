@@ -1,0 +1,44 @@
+0000000000001230 <connectToServer>:
+    1230:	push   %rbp
+    1231:	mov    %rsp,%rbp
+    1234:	sub    $0x30,%rsp
+    1238:	mov    %rdi,-0x10(%rbp)
+    123c:	mov    %rsi,-0x18(%rbp)
+    1240:	mov    %edx,-0x1c(%rbp)
+    1243:	mov    $0x2,%edi
+    1248:	mov    $0x1,%esi
+    124d:	xor    %edx,%edx
+    124f:	call   1120 <socket@plt>
+    1254:	mov    -0x10(%rbp),%rcx
+    1258:	mov    %eax,(%rcx)
+    125a:	cmp    $0xffffffff,%eax
+    125d:	jne    126f <connectToServer+0x3f>
+    1263:	movl   $0xffffffff,-0x4(%rbp)
+    126a:	jmp    12cb <connectToServer+0x9b>
+    126f:	movw   $0x2,-0x30(%rbp)
+    1275:	mov    -0x18(%rbp),%rdi
+    1279:	call   1090 <inet_addr@plt>
+    127e:	mov    %eax,-0x2c(%rbp)
+    1281:	mov    -0x1c(%rbp),%eax
+    1284:	movzwl %ax,%edi
+    1287:	call   1060 <htons@plt>
+    128c:	mov    %ax,-0x2e(%rbp)
+    1290:	mov    -0x10(%rbp),%rax
+    1294:	mov    (%rax),%edi
+    1296:	lea    -0x30(%rbp),%rsi
+    129a:	mov    $0x10,%edx
+    129f:	call   1100 <connect@plt>
+    12a4:	cmp    $0xffffffff,%eax
+    12a7:	jne    12c4 <connectToServer+0x94>
+    12ad:	mov    -0x10(%rbp),%rax
+    12b1:	mov    (%rax),%edi
+    12b3:	call   1070 <close@plt>
+    12b8:	movl   $0xffffffff,-0x4(%rbp)
+    12bf:	jmp    12cb <connectToServer+0x9b>
+    12c4:	movl   $0x0,-0x4(%rbp)
+    12cb:	mov    -0x4(%rbp),%eax
+    12ce:	add    $0x30,%rsp
+    12d2:	pop    %rbp
+    12d3:	ret
+
+Disassembly of section .fini:

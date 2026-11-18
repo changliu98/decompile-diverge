@@ -1,0 +1,1 @@
+void mlVectorScaleTo(const float *a, float scale, float *result) { unsigned int i; for (i = 0; i < 3; ++i) result[i] = a[i] * scale; }

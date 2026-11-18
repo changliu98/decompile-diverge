@@ -1,0 +1,553 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 6C0h\nmov     [rbp+outstring], rdi\nmov     [rbp+infl], rsi\nmov     [rbp+orth_entry], rdx\nmov     rax, [rbp+orth_entry]\nmov     rax, [rax]\nmov     [rbp+label], rax\nmov     [rbp+infl_groups], 0\nmov     rsi, [rbp+orth_entry]; entry\nlea     rdi, [rbp+infl_groups]; tagarr\nmov     edx, 2Ah ; '*'; tagid\ncall    mobi_get_indxentry_tagarray\nmov     [rbp+infl_count], rax\ncmp     [rbp+infl_count], 0\njz      loc_19E6\ncmp     [rbp+infl_groups], 0\njnz     loc_19F2\nmov     [rbp+var_4], 0\njmp     loc_1DAF\nlea     rax, aIdxInfl; \"<idx:infl>\"\nmov     [rbp+start_tag], rax\nlea     rax, aIdxInfl_0; \"</idx:infl>\"\nmov     [rbp+end_tag], rax\nlea     rax, aIdxIformSValue; \"<idx:iform%s value=\\\"%s\\\"/>\"\nmov     [rbp+iform_tag], rax\nmov     rdi, [rbp+outstring]; dest\nmov     rsi, [rbp+start_tag]; src\ncall    strcpy\nmov     rdi, [rbp+start_tag]; s\ncall    strlen\nmov     [rbp+var_6C0], rax\nmov     rdi, [rbp+end_tag]; s\ncall    strlen\nmov     rcx, rax\nmov     rax, [rbp+var_6C0]\nadd     rax, rcx\nmov     [rbp+initlen], rax\nmov     rax, [rbp+initlen]\nmov     [rbp+outlen], rax\nmov     rdi, [rbp+label]; s\ncall    strlen\nmov     [rbp+label_length], rax\ncmp     [rbp+label_length], 1F4h\njbe     loc_1A88\nmov     [rbp+var_4], 3\njmp     loc_1DAF\nmov     rax, [rbp+infl]\ncmp     qword ptr [rax+40h], 0\njnz     loc_1AA3\nmov     [rbp+var_4], 3\njmp     loc_1DAF\nmov     [rbp+i], 0\nmov     rax, [rbp+i]\ncmp     rax, [rbp+infl_count]\njnb     loc_1D7B\nmov     rax, [rbp+infl_groups]\nmov     rcx, [rbp+i]\nmov     eax, [rax+rcx*4]\nmov     [rbp+offset], rax\nmov     rax, [rbp+offset]\nmov     rcx, [rbp+infl]\ncmp     rax, [rcx+8]\njb      loc_1AF5\nmov     [rbp+var_4], 3\njmp     loc_1DAF\nmov     rax, [rbp+infl]\nmov     rsi, [rax+48h]\nimul    rax, [rbp+offset], 18h\nadd     rsi, rax; entry\nlea     rdi, [rbp+groups]; tagarr\nmov     edx, 5; tagid\ncall    mobi_get_indxentry_tagarray\nmov     [rbp+group_cnt], rax\nmov     rax, [rbp+infl]\nmov     rsi, [rax+48h]\nimul    rax, [rbp+offset], 18h\nadd     rsi, rax; entry\nlea     rdi, [rbp+parts]; tagarr\nmov     edx, 1Ah; tagid\ncall    mobi_get_indxentry_tagarray\nmov     [rbp+part_cnt], rax\nmov     rax, [rbp+group_cnt]\ncmp     rax, [rbp+part_cnt]\njz      loc_1B6B\nmov     [rbp+var_4], 3\njmp     loc_1DAF\nmov     [rbp+j], 0\nmov     rax, [rbp+j]\ncmp     rax, [rbp+part_cnt]\njnb     loc_1D5F\nmov     [rbp+name_attr], 0\nmov     rax, [rbp+infl]\nmov     rdi, [rax+40h]; cncx_record\nmov     rax, [rbp+groups]\nmov     rcx, [rbp+j]\nmov     esi, [rax+rcx*4]; cncx_offset\ncall    mobi_get_cncx_string\nmov     [rbp+group_name], rax\ncmp     [rbp+group_name], 0\njnz     loc_1BD0\nmov     [rbp+var_4], 7\njmp     loc_1DAF\nmov     rdi, [rbp+group_name]; s\ncall    strlen\ncmp     rax, 0\njz      loc_1C07\nlea     rdi, [rbp+name_attr]; s\nmov     rcx, [rbp+group_name]\nmov     esi, 1F4h; maxlen\nlea     rdx, format; \" name=\\\"%s\\\"\"\nmov     al, 0\ncall    snprintf\nmov     rdi, [rbp+group_name]; ptr\ncall    free\nlea     rdi, [rbp+decoded]; s\nxor     esi, esi; c\nmov     edx, 1F5h; n\ncall    memset\nmov     rax, [rbp+infl]\nmov     rax, [rax+48h]\nmov     rcx, [rbp+parts]\nmov     rdx, [rbp+j]\nmov     ecx, [rcx+rdx*4]\nimul    rcx, 18h\nadd     rax, rcx\nmov     rax, [rax]\nmov     [rbp+rule], rax\nlea     rdi, [rbp+decoded]; dest\nmov     rsi, [rbp+label]; src\nmov     rdx, [rbp+label_length]; n\ncall    memcpy\nmov     rax, [rbp+label_length]\nmov     [rbp+decoded_length], eax\nlea     rdi, [rbp+decoded]; decoded\nmov     rdx, [rbp+rule]; rule\nlea     rsi, [rbp+decoded_length]; decoded_size\ncall    mobi_decode_infl\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njz      loc_1CAF\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_1DAF\ncmp     [rbp+decoded_length], 0\njnz     loc_1CC1\njmp     loc_1D48\nlea     rdi, [rbp+infl_tag]; s\nmov     rdx, [rbp+iform_tag]; format\nlea     rcx, [rbp+name_attr]\nlea     r8, [rbp+decoded]\nmov     esi, 1F4h; maxlen\nmov     al, 0\ncall    snprintf\nmov     [rbp+n], eax\ncmp     [rbp+n], 1F4h\njle     loc_1D01\njmp     loc_1D48\nlea     rdi, [rbp+infl_tag]; s\ncall    strlen\nadd     rax, [rbp+outlen]\nmov     [rbp+outlen], rax\ncmp     [rbp+outlen], 61A8h\njbe     loc_1D38\nmov     [rbp+var_4], 1\njmp     loc_1DAF\nmov     rdi, [rbp+outstring]; dest\nlea     rsi, [rbp+infl_tag]; src\ncall    strcat\nmov     rax, [rbp+j]\nadd     rax, 1\nmov     [rbp+j], rax\njmp     loc_1B76\njmp     $+5\nmov     rax, [rbp+i]\nadd     rax, 1\nmov     [rbp+i], rax\njmp     loc_1AAE\nmov     rax, [rbp+outlen]\ncmp     rax, [rbp+initlen]\njnz     loc_1D9B\nmov     rax, [rbp+outstring]\nmov     byte ptr [rax], 0\njmp     loc_1DA8\nmov     rdi, [rbp+outstring]; dest\nmov     rsi, [rbp+end_tag]; src\ncall    strcat\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 6C0h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 36,
+  "edges": [
+   [
+    "start",
+    "loc_19DB"
+   ],
+   [
+    "start",
+    "loc_19E6"
+   ],
+   [
+    "loc_19DB",
+    "loc_19E6"
+   ],
+   [
+    "loc_19DB",
+    "loc_19F2"
+   ],
+   [
+    "loc_19E6",
+    "loc_1DAF"
+   ],
+   [
+    "loc_19F2",
+    "loc_1A7C"
+   ],
+   [
+    "loc_19F2",
+    "loc_1A88"
+   ],
+   [
+    "loc_1A7C",
+    "loc_1DAF"
+   ],
+   [
+    "loc_1A88",
+    "loc_1A97"
+   ],
+   [
+    "loc_1A88",
+    "loc_1AA3"
+   ],
+   [
+    "loc_1A97",
+    "loc_1DAF"
+   ],
+   [
+    "loc_1AA3",
+    "loc_1AAE"
+   ],
+   [
+    "loc_1AAE",
+    "loc_1ABF"
+   ],
+   [
+    "loc_1AAE",
+    "loc_1D7B"
+   ],
+   [
+    "loc_1ABF",
+    "loc_1AE9"
+   ],
+   [
+    "loc_1ABF",
+    "loc_1AF5"
+   ],
+   [
+    "loc_1AE9",
+    "loc_1DAF"
+   ],
+   [
+    "loc_1AF5",
+    "loc_1B5F"
+   ],
+   [
+    "loc_1AF5",
+    "loc_1B6B"
+   ],
+   [
+    "loc_1B5F",
+    "loc_1DAF"
+   ],
+   [
+    "loc_1B6B",
+    "loc_1B76"
+   ],
+   [
+    "loc_1B76",
+    "loc_1B8A"
+   ],
+   [
+    "loc_1B76",
+    "loc_1D5F"
+   ],
+   [
+    "loc_1B8A",
+    "loc_1BC4"
+   ],
+   [
+    "loc_1B8A",
+    "loc_1BD0"
+   ],
+   [
+    "loc_1BC4",
+    "loc_1DAF"
+   ],
+   [
+    "loc_1BD0",
+    "loc_1BE6"
+   ],
+   [
+    "loc_1BD0",
+    "loc_1C07"
+   ],
+   [
+    "loc_1BE6",
+    "loc_1C07"
+   ],
+   [
+    "loc_1C07",
+    "loc_1CA1"
+   ],
+   [
+    "loc_1C07",
+    "loc_1CAF"
+   ],
+   [
+    "loc_1CA1",
+    "loc_1DAF"
+   ],
+   [
+    "loc_1CAF",
+    "loc_1CBC"
+   ],
+   [
+    "loc_1CAF",
+    "loc_1CC1"
+   ],
+   [
+    "loc_1CBC",
+    "loc_1D48"
+   ],
+   [
+    "loc_1CC1",
+    "loc_1CFC"
+   ],
+   [
+    "loc_1CC1",
+    "loc_1D01"
+   ],
+   [
+    "loc_1CFC",
+    "loc_1D48"
+   ],
+   [
+    "loc_1D01",
+    "loc_1D2C"
+   ],
+   [
+    "loc_1D01",
+    "loc_1D38"
+   ],
+   [
+    "loc_1D2C",
+    "loc_1DAF"
+   ],
+   [
+    "loc_1D38",
+    "loc_1D48"
+   ],
+   [
+    "loc_1D48",
+    "loc_1B76"
+   ],
+   [
+    "loc_1D5F",
+    "loc_1D64"
+   ],
+   [
+    "loc_1D64",
+    "loc_1AAE"
+   ],
+   [
+    "loc_1D7B",
+    "loc_1D8F"
+   ],
+   [
+    "loc_1D7B",
+    "loc_1D9B"
+   ],
+   [
+    "loc_1D8F",
+    "loc_1DA8"
+   ],
+   [
+    "loc_1D9B",
+    "loc_1DA8"
+   ],
+   [
+    "loc_1DA8",
+    "loc_1DAF"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 6C0h\nmov     [rbp+outstring], rdi\nmov     [rbp+infl], rsi\nmov     [rbp+orth_entry], rdx\nmov     rax, [rbp+orth_entry]\nmov     rax, [rax]\nmov     [rbp+label], rax\nmov     [rbp+infl_groups], 0\nmov     rsi, [rbp+orth_entry]; entry\nlea     rdi, [rbp+infl_groups]; tagarr\nmov     edx, 2Ah ; '*'; tagid\ncall    mobi_get_indxentry_tagarray\nmov     [rbp+infl_count], rax\ncmp     [rbp+infl_count], 0\njz      loc_19E6",
+   "loc_19DB": "cmp     [rbp+infl_groups], 0\njnz     loc_19F2",
+   "loc_19E6": "mov     [rbp+var_4], 0\njmp     loc_1DAF",
+   "loc_19F2": "lea     rax, aIdxInfl; \"<idx:infl>\"\nmov     [rbp+start_tag], rax\nlea     rax, aIdxInfl_0; \"</idx:infl>\"\nmov     [rbp+end_tag], rax\nlea     rax, aIdxIformSValue; \"<idx:iform%s value=\\\"%s\\\"/>\"\nmov     [rbp+iform_tag], rax\nmov     rdi, [rbp+outstring]; dest\nmov     rsi, [rbp+start_tag]; src\ncall    strcpy\nmov     rdi, [rbp+start_tag]; s\ncall    strlen\nmov     [rbp+var_6C0], rax\nmov     rdi, [rbp+end_tag]; s\ncall    strlen\nmov     rcx, rax\nmov     rax, [rbp+var_6C0]\nadd     rax, rcx\nmov     [rbp+initlen], rax\nmov     rax, [rbp+initlen]\nmov     [rbp+outlen], rax\nmov     rdi, [rbp+label]; s\ncall    strlen\nmov     [rbp+label_length], rax\ncmp     [rbp+label_length], 1F4h\njbe     loc_1A88",
+   "loc_1A7C": "mov     [rbp+var_4], 3\njmp     loc_1DAF",
+   "loc_1A88": "mov     rax, [rbp+infl]\ncmp     qword ptr [rax+40h], 0\njnz     loc_1AA3",
+   "loc_1A97": "mov     [rbp+var_4], 3\njmp     loc_1DAF",
+   "loc_1AA3": "mov     [rbp+i], 0",
+   "loc_1AAE": "mov     rax, [rbp+i]\ncmp     rax, [rbp+infl_count]\njnb     loc_1D7B",
+   "loc_1ABF": "mov     rax, [rbp+infl_groups]\nmov     rcx, [rbp+i]\nmov     eax, [rax+rcx*4]\nmov     [rbp+offset], rax\nmov     rax, [rbp+offset]\nmov     rcx, [rbp+infl]\ncmp     rax, [rcx+8]\njb      loc_1AF5",
+   "loc_1AE9": "mov     [rbp+var_4], 3\njmp     loc_1DAF",
+   "loc_1AF5": "mov     rax, [rbp+infl]\nmov     rsi, [rax+48h]\nimul    rax, [rbp+offset], 18h\nadd     rsi, rax; entry\nlea     rdi, [rbp+groups]; tagarr\nmov     edx, 5; tagid\ncall    mobi_get_indxentry_tagarray\nmov     [rbp+group_cnt], rax\nmov     rax, [rbp+infl]\nmov     rsi, [rax+48h]\nimul    rax, [rbp+offset], 18h\nadd     rsi, rax; entry\nlea     rdi, [rbp+parts]; tagarr\nmov     edx, 1Ah; tagid\ncall    mobi_get_indxentry_tagarray\nmov     [rbp+part_cnt], rax\nmov     rax, [rbp+group_cnt]\ncmp     rax, [rbp+part_cnt]\njz      loc_1B6B",
+   "loc_1B5F": "mov     [rbp+var_4], 3\njmp     loc_1DAF",
+   "loc_1B6B": "mov     [rbp+j], 0",
+   "loc_1B76": "mov     rax, [rbp+j]\ncmp     rax, [rbp+part_cnt]\njnb     loc_1D5F",
+   "loc_1B8A": "mov     [rbp+name_attr], 0\nmov     rax, [rbp+infl]\nmov     rdi, [rax+40h]; cncx_record\nmov     rax, [rbp+groups]\nmov     rcx, [rbp+j]\nmov     esi, [rax+rcx*4]; cncx_offset\ncall    mobi_get_cncx_string\nmov     [rbp+group_name], rax\ncmp     [rbp+group_name], 0\njnz     loc_1BD0",
+   "loc_1BC4": "mov     [rbp+var_4], 7\njmp     loc_1DAF",
+   "loc_1BD0": "mov     rdi, [rbp+group_name]; s\ncall    strlen\ncmp     rax, 0\njz      loc_1C07",
+   "loc_1BE6": "lea     rdi, [rbp+name_attr]; s\nmov     rcx, [rbp+group_name]\nmov     esi, 1F4h; maxlen\nlea     rdx, format; \" name=\\\"%s\\\"\"\nmov     al, 0\ncall    snprintf",
+   "loc_1C07": "mov     rdi, [rbp+group_name]; ptr\ncall    free\nlea     rdi, [rbp+decoded]; s\nxor     esi, esi; c\nmov     edx, 1F5h; n\ncall    memset\nmov     rax, [rbp+infl]\nmov     rax, [rax+48h]\nmov     rcx, [rbp+parts]\nmov     rdx, [rbp+j]\nmov     ecx, [rcx+rdx*4]\nimul    rcx, 18h\nadd     rax, rcx\nmov     rax, [rax]\nmov     [rbp+rule], rax\nlea     rdi, [rbp+decoded]; dest\nmov     rsi, [rbp+label]; src\nmov     rdx, [rbp+label_length]; n\ncall    memcpy\nmov     rax, [rbp+label_length]\nmov     [rbp+decoded_length], eax\nlea     rdi, [rbp+decoded]; decoded\nmov     rdx, [rbp+rule]; rule\nlea     rsi, [rbp+decoded_length]; decoded_size\ncall    mobi_decode_infl\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njz      loc_1CAF",
+   "loc_1CA1": "mov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_1DAF",
+   "loc_1CAF": "cmp     [rbp+decoded_length], 0\njnz     loc_1CC1",
+   "loc_1CBC": "jmp     loc_1D48",
+   "loc_1CC1": "lea     rdi, [rbp+infl_tag]; s\nmov     rdx, [rbp+iform_tag]; format\nlea     rcx, [rbp+name_attr]\nlea     r8, [rbp+decoded]\nmov     esi, 1F4h; maxlen\nmov     al, 0\ncall    snprintf\nmov     [rbp+n], eax\ncmp     [rbp+n], 1F4h\njle     loc_1D01",
+   "loc_1CFC": "jmp     loc_1D48",
+   "loc_1D01": "lea     rdi, [rbp+infl_tag]; s\ncall    strlen\nadd     rax, [rbp+outlen]\nmov     [rbp+outlen], rax\ncmp     [rbp+outlen], 61A8h\njbe     loc_1D38",
+   "loc_1D2C": "mov     [rbp+var_4], 1\njmp     loc_1DAF",
+   "loc_1D38": "mov     rdi, [rbp+outstring]; dest\nlea     rsi, [rbp+infl_tag]; src\ncall    strcat",
+   "loc_1D48": "mov     rax, [rbp+j]\nadd     rax, 1\nmov     [rbp+j], rax\njmp     loc_1B76",
+   "loc_1D5F": "jmp     $+5",
+   "loc_1D64": "mov     rax, [rbp+i]\nadd     rax, 1\nmov     [rbp+i], rax\njmp     loc_1AAE",
+   "loc_1D7B": "mov     rax, [rbp+outlen]\ncmp     rax, [rbp+initlen]\njnz     loc_1D9B",
+   "loc_1D8F": "mov     rax, [rbp+outstring]\nmov     byte ptr [rax], 0\njmp     loc_1DA8",
+   "loc_1D9B": "mov     rdi, [rbp+outstring]; dest\nmov     rsi, [rbp+end_tag]; src\ncall    strcat",
+   "loc_1DA8": "mov     [rbp+var_4], 0",
+   "loc_1DAF": "mov     eax, [rbp+var_4]\nadd     rsp, 6C0h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_6C0": "qword ptr -6C0h",
+   "n": "dword ptr -6B4h",
+   "ret": "dword ptr -6B0h",
+   "decoded_length": "dword ptr -6ACh",
+   "rule": "qword ptr -6A8h",
+   "decoded": "byte ptr -6A0h",
+   "group_name": "qword ptr -4A8h",
+   "j": "qword ptr -4A0h",
+   "part_cnt": "qword ptr -498h",
+   "parts": "qword ptr -490h",
+   "group_cnt": "qword ptr -488h",
+   "groups": "qword ptr -480h",
+   "offset": "qword ptr -478h",
+   "i": "qword ptr -470h",
+   "label_length": "qword ptr -468h",
+   "outlen": "qword ptr -460h",
+   "initlen": "qword ptr -458h",
+   "infl_tag": "byte ptr -450h",
+   "name_attr": "byte ptr -250h",
+   "iform_tag": "qword ptr -50h",
+   "end_tag": "qword ptr -48h",
+   "start_tag": "qword ptr -40h",
+   "infl_count": "qword ptr -38h",
+   "infl_groups": "qword ptr -30h",
+   "label": "qword ptr -28h",
+   "orth_entry": "qword ptr -20h",
+   "infl": "qword ptr -18h",
+   "outstring": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "aIdxInfl": "byte '<idx:infl>',0",
+   "aIdxInfl_0": "byte '</idx:infl>',0",
+   "aIdxIformSValue": "byte '<idx:iform%s value=\"%s\"/>',0",
+   "format": "byte ' name=\"%s\"',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6544,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".strcpy": "strcpy",
+  "_strcpy": "strcpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".strcat": "strcat",
+  "_strcat": "strcat"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".strcpy",
+   ".plt",
+   true,
+   "strcpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".strcat",
+   ".plt",
+   true,
+   "strcat"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "snprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memmove",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcat",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868447
+ }
+}

@@ -1,0 +1,426 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+font], rdi\nmov     rdi, [rbp+font]; font\nxor     eax, eax\nmov     esi, eax; offset\nmov     edx, 0Ch; margin\ncall    is_safe_offset\ncmp     eax, 0\njnz     loc_13C3\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_14F9\nmov     rdi, [rbp+font]; font\nxor     eax, eax\nmov     esi, eax; offset\ncall    getu32\nmov     eax, eax\nmov     [rbp+scalerType], rax\ncmp     [rbp+scalerType], 10000h\njz      loc_13FE\ncmp     [rbp+scalerType], 74727565h\njz      loc_13FE\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_14F9\nmov     rdi, [rbp+font]; font\nlea     rsi, tag; \"head\"\nlea     rdx, [rbp+head]; offset\ncall    gettable\ncmp     eax, 0\njge     loc_1427\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_14F9\nmov     rdi, [rbp+font]; font\nmov     rsi, [rbp+head]; offset\nmov     edx, 36h ; '6'; margin\ncall    is_safe_offset\ncmp     eax, 0\njnz     loc_144E\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_14F9\nmov     rdi, [rbp+font]; font\nmov     rsi, [rbp+head]\nadd     rsi, 12h; offset\ncall    getu16\nmov     cx, ax\nmov     rax, [rbp+font]\nmov     [rax+14h], cx\nmov     rdi, [rbp+font]; font\nmov     rsi, [rbp+head]\nadd     rsi, 32h ; '2'; offset\ncall    geti16\nmov     cx, ax\nmov     rax, [rbp+font]\nmov     [rax+16h], cx\nmov     rdi, [rbp+font]; font\nlea     rsi, aHhea; \"hhea\"\nlea     rdx, [rbp+hhea]; offset\ncall    gettable\ncmp     eax, 0\njge     loc_14AF\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_14F9\nmov     rdi, [rbp+font]; font\nmov     rsi, [rbp+hhea]; offset\nmov     edx, 24h ; '$'; margin\ncall    is_safe_offset\ncmp     eax, 0\njnz     loc_14D6\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_14F9\nmov     rdi, [rbp+font]; font\nmov     rsi, [rbp+hhea]\nadd     rsi, 22h ; '\"'; offset\ncall    getu16\nmov     cx, ax\nmov     rax, [rbp+font]\nmov     [rax+18h], cx\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 15,
+  "edges": [
+   [
+    "start",
+    "loc_13B7"
+   ],
+   [
+    "start",
+    "loc_13C3"
+   ],
+   [
+    "loc_13B7",
+    "loc_14F9"
+   ],
+   [
+    "loc_13C3",
+    "loc_13E4"
+   ],
+   [
+    "loc_13C3",
+    "loc_13FE"
+   ],
+   [
+    "loc_13E4",
+    "loc_13F2"
+   ],
+   [
+    "loc_13E4",
+    "loc_13FE"
+   ],
+   [
+    "loc_13F2",
+    "loc_14F9"
+   ],
+   [
+    "loc_13FE",
+    "loc_141B"
+   ],
+   [
+    "loc_13FE",
+    "loc_1427"
+   ],
+   [
+    "loc_141B",
+    "loc_14F9"
+   ],
+   [
+    "loc_1427",
+    "loc_1442"
+   ],
+   [
+    "loc_1427",
+    "loc_144E"
+   ],
+   [
+    "loc_1442",
+    "loc_14F9"
+   ],
+   [
+    "loc_144E",
+    "loc_14A3"
+   ],
+   [
+    "loc_144E",
+    "loc_14AF"
+   ],
+   [
+    "loc_14A3",
+    "loc_14F9"
+   ],
+   [
+    "loc_14AF",
+    "loc_14CA"
+   ],
+   [
+    "loc_14AF",
+    "loc_14D6"
+   ],
+   [
+    "loc_14CA",
+    "loc_14F9"
+   ],
+   [
+    "loc_14D6",
+    "loc_14F9"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+font], rdi\nmov     rdi, [rbp+font]; font\nxor     eax, eax\nmov     esi, eax; offset\nmov     edx, 0Ch; margin\ncall    is_safe_offset\ncmp     eax, 0\njnz     loc_13C3",
+   "loc_13B7": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_14F9",
+   "loc_13C3": "mov     rdi, [rbp+font]; font\nxor     eax, eax\nmov     esi, eax; offset\ncall    getu32\nmov     eax, eax\nmov     [rbp+scalerType], rax\ncmp     [rbp+scalerType], 10000h\njz      loc_13FE",
+   "loc_13E4": "cmp     [rbp+scalerType], 74727565h\njz      loc_13FE",
+   "loc_13F2": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_14F9",
+   "loc_13FE": "mov     rdi, [rbp+font]; font\nlea     rsi, tag; \"head\"\nlea     rdx, [rbp+head]; offset\ncall    gettable\ncmp     eax, 0\njge     loc_1427",
+   "loc_141B": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_14F9",
+   "loc_1427": "mov     rdi, [rbp+font]; font\nmov     rsi, [rbp+head]; offset\nmov     edx, 36h ; '6'; margin\ncall    is_safe_offset\ncmp     eax, 0\njnz     loc_144E",
+   "loc_1442": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_14F9",
+   "loc_144E": "mov     rdi, [rbp+font]; font\nmov     rsi, [rbp+head]\nadd     rsi, 12h; offset\ncall    getu16\nmov     cx, ax\nmov     rax, [rbp+font]\nmov     [rax+14h], cx\nmov     rdi, [rbp+font]; font\nmov     rsi, [rbp+head]\nadd     rsi, 32h ; '2'; offset\ncall    geti16\nmov     cx, ax\nmov     rax, [rbp+font]\nmov     [rax+16h], cx\nmov     rdi, [rbp+font]; font\nlea     rsi, aHhea; \"hhea\"\nlea     rdx, [rbp+hhea]; offset\ncall    gettable\ncmp     eax, 0\njge     loc_14AF",
+   "loc_14A3": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_14F9",
+   "loc_14AF": "mov     rdi, [rbp+font]; font\nmov     rsi, [rbp+hhea]; offset\nmov     edx, 24h ; '$'; margin\ncall    is_safe_offset\ncmp     eax, 0\njnz     loc_14D6",
+   "loc_14CA": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_14F9",
+   "loc_14D6": "mov     rdi, [rbp+font]; font\nmov     rsi, [rbp+hhea]\nadd     rsi, 22h ; '\"'; offset\ncall    getu16\nmov     cx, ax\nmov     rax, [rbp+font]\nmov     [rax+18h], cx\nmov     [rbp+var_4], 0",
+   "loc_14F9": "mov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "hhea": "qword ptr -28h",
+   "head": "qword ptr -20h",
+   "scalerType": "qword ptr -18h",
+   "font": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "tag": "byte 'head',0",
+   "aHhea": "byte 'hhea',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5008,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".__errno_location": "__errno_location",
+  "_errno_location": "__errno_location",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".mmap": "mmap",
+  "_mmap": "mmap",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".close": "close",
+  "_close": "close",
+  ".nextafter": "nextafter",
+  "_nextafter": "nextafter",
+  ".memcmp": "memcmp",
+  "_memcmp": "memcmp",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".munmap": "munmap",
+  "_munmap": "munmap",
+  ".open": "open",
+  "_open": "open",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".floor": "floor",
+  "_floor": "floor",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".bsearch": "bsearch",
+  "_bsearch": "bsearch",
+  ".ceil": "ceil",
+  "_ceil": "ceil",
+  ".fstat": "fstat",
+  "_fstat": "fstat"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".__errno_location",
+   ".plt",
+   true,
+   "__errno_location"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".mmap",
+   ".plt",
+   true,
+   "mmap"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".close",
+   ".plt",
+   true,
+   "close"
+  ],
+  [
+   ".nextafter",
+   ".plt",
+   true,
+   "nextafter"
+  ],
+  [
+   ".memcmp",
+   ".plt",
+   true,
+   "memcmp"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".munmap",
+   ".plt",
+   true,
+   "munmap"
+  ],
+  [
+   ".open",
+   ".plt",
+   true,
+   "open"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".floor",
+   ".plt",
+   true,
+   "floor"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   ".bsearch",
+   ".plt",
+   true,
+   "bsearch"
+  ],
+  [
+   ".ceil",
+   ".plt",
+   true,
+   "ceil"
+  ],
+  [
+   ".fstat",
+   ".plt",
+   true,
+   "fstat"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__errno_location",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "mmap",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "close",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "nextafter",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872681
+ }
+}

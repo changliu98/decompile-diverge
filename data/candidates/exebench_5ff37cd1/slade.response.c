@@ -1,0 +1,1 @@
+void go_south_east(int* x, int* y) { (*x)--; (*y)++; }

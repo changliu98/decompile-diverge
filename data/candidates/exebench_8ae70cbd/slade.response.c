@@ -1,0 +1,1 @@
+int foo (struct A *p) { p->i += 3; return p->i; }

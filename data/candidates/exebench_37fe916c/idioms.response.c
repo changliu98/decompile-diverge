@@ -1,0 +1,5 @@
+int stream_open(char *path, int oflag, int *mode)
+{
+  *mode = 1;
+  return 0;
+}

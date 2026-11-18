@@ -1,0 +1,1 @@
+void mtxLoadTranslate(float *pMatrix, float x, float y, float z) { pMatrix[0] = pMatrix[5] = pMatrix[10] = pMatrix[15] = 1.0f; pMatrix[1] = pMatrix[2] = pMatrix[3] = pMatrix[4] = pMatrix[6] = pMatrix[7] = pMatrix[8] = 0.0f; pMatrix[12] = x; pMatrix[13] = y; pMatrix[14] = z; }

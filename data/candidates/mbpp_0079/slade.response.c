@@ -1,0 +1,1 @@
+int func0(char string[]) { char *token = strtok(string, " "); if (token != NULL) { if (strlen(token) % 2 != 0) { return 1; } else { return 0; } } else { return 0; } }

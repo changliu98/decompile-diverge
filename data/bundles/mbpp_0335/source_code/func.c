@@ -1,0 +1,7 @@
+
+
+#include <assert.h>
+
+
+
+double func0(int a, int n, int d) { return (n * (2 * a + (n - 1) * d)) / 2.0; }

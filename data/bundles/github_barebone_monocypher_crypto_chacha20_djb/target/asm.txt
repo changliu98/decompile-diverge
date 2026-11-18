@@ -1,0 +1,174 @@
+0000000000001a80 <crypto_chacha20_djb>:
+    1a80:	push   %rbp
+    1a81:	mov    %rsp,%rbp
+    1a84:	sub    $0x140,%rsp
+    1a8b:	mov    %rdi,-0x8(%rbp)
+    1a8f:	mov    %rsi,-0x10(%rbp)
+    1a93:	mov    %rdx,-0x18(%rbp)
+    1a97:	mov    %rcx,-0x20(%rbp)
+    1a9b:	mov    %r8,-0x28(%rbp)
+    1a9f:	mov    %r9,-0x30(%rbp)
+    1aa3:	lea    -0x70(%rbp),%rdi
+    1aa7:	mov    0x145ca(%rip),%rsi        # 16078 <chacha20_constant>
+    1aae:	mov    $0x4,%edx
+    1ab3:	call   14b0 <load32_le_buf>
+    1ab8:	lea    -0x70(%rbp),%rdi
+    1abc:	add    $0x10,%rdi
+    1ac0:	mov    -0x20(%rbp),%rsi
+    1ac4:	mov    $0x8,%edx
+    1ac9:	call   14b0 <load32_le_buf>
+    1ace:	lea    -0x70(%rbp),%rdi
+    1ad2:	add    $0x38,%rdi
+    1ad6:	mov    -0x28(%rbp),%rsi
+    1ada:	mov    $0x2,%edx
+    1adf:	call   14b0 <load32_le_buf>
+    1ae4:	mov    -0x30(%rbp),%rax
+    1ae8:	mov    %eax,-0x40(%rbp)
+    1aeb:	mov    -0x30(%rbp),%rax
+    1aef:	shr    $0x20,%rax
+    1af3:	mov    %eax,-0x3c(%rbp)
+    1af6:	mov    -0x18(%rbp),%rax
+    1afa:	shr    $0x6,%rax
+    1afe:	mov    %rax,-0xb8(%rbp)
+    1b05:	movq   $0x0,-0xc0(%rbp)
+    1b10:	mov    -0xc0(%rbp),%rax
+    1b17:	cmp    -0xb8(%rbp),%rax
+    1b1e:	jae    1c86 <crypto_chacha20_djb+0x206>
+    1b24:	lea    -0xb0(%rbp),%rdi
+    1b2b:	lea    -0x70(%rbp),%rsi
+    1b2f:	call   1520 <chacha20_rounds>
+    1b34:	cmpq   $0x0,-0x10(%rbp)
+    1b39:	je     1bdf <crypto_chacha20_djb+0x15f>
+    1b3f:	movq   $0x0,-0xc8(%rbp)
+    1b4a:	cmpq   $0x10,-0xc8(%rbp)
+    1b52:	jae    1bda <crypto_chacha20_djb+0x15a>
+    1b58:	mov    -0xc8(%rbp),%rax
+    1b5f:	mov    -0xb0(%rbp,%rax,4),%eax
+    1b66:	mov    -0xc8(%rbp),%rcx
+    1b6d:	add    -0x70(%rbp,%rcx,4),%eax
+    1b71:	mov    %eax,-0xcc(%rbp)
+    1b77:	mov    -0x8(%rbp),%rax
+    1b7b:	mov    %rax,-0x138(%rbp)
+    1b82:	mov    -0xcc(%rbp),%eax
+    1b88:	mov    %eax,-0x13c(%rbp)
+    1b8e:	mov    -0x10(%rbp),%rdi
+    1b92:	call   1e40 <load32_le>
+    1b97:	mov    -0x13c(%rbp),%esi
+    1b9d:	mov    -0x138(%rbp),%rdi
+    1ba4:	xor    %eax,%esi
+    1ba6:	call   1df0 <store32_le>
+    1bab:	mov    -0x8(%rbp),%rax
+    1baf:	add    $0x4,%rax
+    1bb3:	mov    %rax,-0x8(%rbp)
+    1bb7:	mov    -0x10(%rbp),%rax
+    1bbb:	add    $0x4,%rax
+    1bbf:	mov    %rax,-0x10(%rbp)
+    1bc3:	mov    -0xc8(%rbp),%rax
+    1bca:	add    $0x1,%rax
+    1bce:	mov    %rax,-0xc8(%rbp)
+    1bd5:	jmp    1b4a <crypto_chacha20_djb+0xca>
+    1bda:	jmp    1c4e <crypto_chacha20_djb+0x1ce>
+    1bdf:	movq   $0x0,-0xd8(%rbp)
+    1bea:	cmpq   $0x10,-0xd8(%rbp)
+    1bf2:	jae    1c49 <crypto_chacha20_djb+0x1c9>
+    1bf8:	mov    -0xd8(%rbp),%rax
+    1bff:	mov    -0xb0(%rbp,%rax,4),%eax
+    1c06:	mov    -0xd8(%rbp),%rcx
+    1c0d:	add    -0x70(%rbp,%rcx,4),%eax
+    1c11:	mov    %eax,-0xdc(%rbp)
+    1c17:	mov    -0x8(%rbp),%rdi
+    1c1b:	mov    -0xdc(%rbp),%esi
+    1c21:	call   1df0 <store32_le>
+    1c26:	mov    -0x8(%rbp),%rax
+    1c2a:	add    $0x4,%rax
+    1c2e:	mov    %rax,-0x8(%rbp)
+    1c32:	mov    -0xd8(%rbp),%rax
+    1c39:	add    $0x1,%rax
+    1c3d:	mov    %rax,-0xd8(%rbp)
+    1c44:	jmp    1bea <crypto_chacha20_djb+0x16a>
+    1c49:	jmp    1c4e <crypto_chacha20_djb+0x1ce>
+    1c4e:	mov    -0x40(%rbp),%eax
+    1c51:	add    $0x1,%eax
+    1c54:	mov    %eax,-0x40(%rbp)
+    1c57:	cmpl   $0x0,-0x40(%rbp)
+    1c5b:	jne    1c6a <crypto_chacha20_djb+0x1ea>
+    1c61:	mov    -0x3c(%rbp),%eax
+    1c64:	add    $0x1,%eax
+    1c67:	mov    %eax,-0x3c(%rbp)
+    1c6a:	jmp    1c6f <crypto_chacha20_djb+0x1ef>
+    1c6f:	mov    -0xc0(%rbp),%rax
+    1c76:	add    $0x1,%rax
+    1c7a:	mov    %rax,-0xc0(%rbp)
+    1c81:	jmp    1b10 <crypto_chacha20_djb+0x90>
+    1c86:	mov    -0x18(%rbp),%rax
+    1c8a:	and    $0x3f,%rax
+    1c8e:	mov    %rax,-0x18(%rbp)
+    1c92:	cmpq   $0x0,-0x18(%rbp)
+    1c97:	jbe    1d9a <crypto_chacha20_djb+0x31a>
+    1c9d:	cmpq   $0x0,-0x10(%rbp)
+    1ca2:	jne    1cb3 <crypto_chacha20_djb+0x233>
+    1ca8:	lea    0x10361(%rip),%rax        # 12010 <zero>
+    1caf:	mov    %rax,-0x10(%rbp)
+    1cb3:	lea    -0xb0(%rbp),%rdi
+    1cba:	lea    -0x70(%rbp),%rsi
+    1cbe:	call   1520 <chacha20_rounds>
+    1cc3:	movq   $0x0,-0x128(%rbp)
+    1cce:	cmpq   $0x10,-0x128(%rbp)
+    1cd6:	jae    1d26 <crypto_chacha20_djb+0x2a6>
+    1cdc:	lea    -0x120(%rbp),%rdi
+    1ce3:	mov    -0x128(%rbp),%rax
+    1cea:	shl    $0x2,%rax
+    1cee:	add    %rax,%rdi
+    1cf1:	mov    -0x128(%rbp),%rax
+    1cf8:	mov    -0xb0(%rbp,%rax,4),%esi
+    1cff:	mov    -0x128(%rbp),%rax
+    1d06:	add    -0x70(%rbp,%rax,4),%esi
+    1d0a:	call   1df0 <store32_le>
+    1d0f:	mov    -0x128(%rbp),%rax
+    1d16:	add    $0x1,%rax
+    1d1a:	mov    %rax,-0x128(%rbp)
+    1d21:	jmp    1cce <crypto_chacha20_djb+0x24e>
+    1d26:	movq   $0x0,-0x130(%rbp)
+    1d31:	mov    -0x130(%rbp),%rax
+    1d38:	cmp    -0x18(%rbp),%rax
+    1d3c:	jae    1d89 <crypto_chacha20_djb+0x309>
+    1d42:	mov    -0x130(%rbp),%rax
+    1d49:	movzbl -0x120(%rbp,%rax,1),%eax
+    1d51:	mov    -0x10(%rbp),%rcx
+    1d55:	mov    -0x130(%rbp),%rdx
+    1d5c:	movzbl (%rcx,%rdx,1),%ecx
+    1d60:	xor    %ecx,%eax
+    1d62:	mov    %al,%dl
+    1d64:	mov    -0x8(%rbp),%rax
+    1d68:	mov    -0x130(%rbp),%rcx
+    1d6f:	mov    %dl,(%rax,%rcx,1)
+    1d72:	mov    -0x130(%rbp),%rax
+    1d79:	add    $0x1,%rax
+    1d7d:	mov    %rax,-0x130(%rbp)
+    1d84:	jmp    1d31 <crypto_chacha20_djb+0x2b1>
+    1d89:	lea    -0x120(%rbp),%rdi
+    1d90:	mov    $0x40,%esi
+    1d95:	call   13b0 <crypto_wipe>
+    1d9a:	mov    -0x40(%rbp),%eax
+    1d9d:	mov    -0x3c(%rbp),%ecx
+    1da0:	shl    $0x20,%rcx
+    1da4:	add    %rcx,%rax
+    1da7:	cmpq   $0x0,-0x18(%rbp)
+    1dac:	seta   %cl
+    1daf:	and    $0x1,%cl
+    1db2:	movzbl %cl,%ecx
+    1db5:	movslq %ecx,%rcx
+    1db8:	add    %rcx,%rax
+    1dbb:	mov    %rax,-0x30(%rbp)
+    1dbf:	lea    -0xb0(%rbp),%rdi
+    1dc6:	mov    $0x40,%esi
+    1dcb:	call   13b0 <crypto_wipe>
+    1dd0:	lea    -0x70(%rbp),%rdi
+    1dd4:	mov    $0x40,%esi
+    1dd9:	call   13b0 <crypto_wipe>
+    1dde:	mov    -0x30(%rbp),%rax
+    1de2:	add    $0x140,%rsp
+    1de9:	pop    %rbp
+    1dea:	ret
+
+Disassembly of section .fini:

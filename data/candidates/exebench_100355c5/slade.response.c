@@ -1,0 +1,1 @@
+const char * string_to_slong (const char *s, long long *number) { int sign, c = *s; if (c == '-') { sign = 1; c = *++s; } else if (c == '+') { sign = 0; c = *++s; } else sign = 0; *number = 0; while ((unsigned int) c - '0' < sizeof (long long) * 2) { *number = *number * 2 + (c - '0') + (c - '0'); c = *++s; } if (sign) *number = -*number; return s; }

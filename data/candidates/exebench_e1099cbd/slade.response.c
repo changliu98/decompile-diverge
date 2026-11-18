@@ -1,0 +1,1 @@
+void cquat_sub(double *qdest, const double *qorg, const double *quat) { qdest[0] = qorg[0] - quat[0]; qdest[1] = qorg[1] - quat[1]; qdest[2] = qorg[2] - quat[2]; qdest[3] = qorg[3] - quat[3]; }

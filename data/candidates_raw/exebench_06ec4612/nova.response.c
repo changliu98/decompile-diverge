@@ -1,0 +1,40 @@
+void func0(double *ptr, double matriz[3][3]) {
+    int i = 0;
+
+    i++;
+    i++;
+    i++;
+    matriz[0][0] = *(ptr + i);
+    i++;
+    i++;
+    i++;
+    matriz[0][1] = *(ptr + i);
+    i++;
+    i++;
+    i++;
+    matriz[0][2] = *(ptr + i);
+    i++;
+    i++;
+    i++;
+    matriz[1][0] = *(ptr + i);
+    i++;
+    i++;
+    i++;
+    matriz[1][1] = *(ptr + i);
+    i++;
+    i++;
+    i++;
+    matriz[1][2] = *(ptr + i);
+    i++;
+    i++;
+    i++;
+    matriz[2][0] = *(ptr + i);
+    i++;
+    i++;
+    i++;
+    matriz[2][1] = *(ptr + i);
+    i++;
+    i++;
+    i++;
+    matriz[2][2] = *(ptr + i);
+}

@@ -1,0 +1,446 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+heap], rdi\nmov     [rbp+other], rsi\nmov     rax, [rbp+heap]\nmov     eax, [rax+20h]\nmov     rcx, [rbp+other]\ncmp     eax, [rcx+20h]\njbe     loc_1476\nmov     rax, [rbp+heap]\nmov     eax, [rax+20h]\nadd     eax, 1\nmov     [rbp+max], eax\njmp     loc_1483\nmov     rax, [rbp+other]\nmov     eax, [rax+20h]\nadd     eax, 1\nmov     [rbp+max], eax\nmov     eax, [rbp+max]\nmov     edi, eax\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+new_roots], rax\ncmp     [rbp+new_roots], 0\njnz     loc_14AC\nmov     [rbp+var_4], 0\njmp     loc_16DB\nmov     [rbp+new_roots_length], 0\nmov     [rbp+carry], 0\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+max]\njnb     loc_165D\nmov     [rbp+num_vals], 0\nmov     eax, [rbp+i]\nmov     rcx, [rbp+heap]\ncmp     eax, [rcx+20h]\njnb     loc_151C\nmov     rax, [rbp+heap]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+i]\ncmp     qword ptr [rax+rcx*8], 0\njz      loc_151C\nmov     rax, [rbp+heap]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+i]\nmov     rcx, [rax+rcx*8]\nmovsxd  rax, [rbp+num_vals]\nmov     [rbp+rax*8+vals], rcx\nmov     eax, [rbp+num_vals]\nadd     eax, 1\nmov     [rbp+num_vals], eax\nmov     eax, [rbp+i]\nmov     rcx, [rbp+other]\ncmp     eax, [rcx+20h]\njnb     loc_1563\nmov     rax, [rbp+other]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+i]\ncmp     qword ptr [rax+rcx*8], 0\njz      loc_1563\nmov     rax, [rbp+other]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+i]\nmov     rcx, [rax+rcx*8]\nmovsxd  rax, [rbp+num_vals]\nmov     [rbp+rax*8+vals], rcx\nmov     eax, [rbp+num_vals]\nadd     eax, 1\nmov     [rbp+num_vals], eax\ncmp     [rbp+carry], 0\njz      loc_1584\nmov     rcx, [rbp+carry]\nmovsxd  rax, [rbp+num_vals]\nmov     [rbp+rax*8+vals], rcx\nmov     eax, [rbp+num_vals]\nadd     eax, 1\nmov     [rbp+num_vals], eax\nmov     eax, [rbp+num_vals]\nand     eax, 1\ncmp     eax, 0\njz      loc_15C9\nmov     eax, [rbp+num_vals]\nsub     eax, 1\ncdqe\nmov     rdx, [rbp+rax*8+vals]\nmov     rax, [rbp+new_roots]\nmov     ecx, [rbp+i]\nmov     [rax+rcx*8], rdx\nmov     rax, [rbp+new_roots]\nmov     ecx, [rbp+i]\nmov     rdi, [rax+rcx*8]; tree\ncall    binomial_tree_ref\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+new_roots_length], eax\njmp     loc_15D8\nmov     rax, [rbp+new_roots]\nmov     ecx, [rbp+i]\nmov     qword ptr [rax+rcx*8], 0\nmov     eax, [rbp+num_vals]\nand     eax, 2\ncmp     eax, 0\njz      loc_162D\nmov     rdi, [rbp+heap]; heap\nmov     rsi, [rbp+vals]; tree1\nmov     rdx, [rbp+vals+8]; tree2\ncall    binomial_tree_merge\nmov     [rbp+new_carry], rax\ncmp     [rbp+new_carry], 0\njnz     loc_1628\nmov     rdi, [rbp+new_roots]; new_roots\nmov     esi, [rbp+i]; count\ncall    binomial_heap_merge_undo\nmov     rdi, [rbp+carry]; tree\ncall    binomial_tree_unref\nmov     [rbp+var_4], 0\njmp     loc_16DB\njmp     loc_1635\nmov     [rbp+new_carry], 0\nmov     rdi, [rbp+carry]; tree\ncall    binomial_tree_unref\nmov     rax, [rbp+new_carry]\nmov     [rbp+carry], rax\nmov     rdi, [rbp+carry]; tree\ncall    binomial_tree_ref\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_14C2\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\nmov     rcx, [rbp+heap]\ncmp     eax, [rcx+20h]\njnb     loc_16B1\nmov     rax, [rbp+heap]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+i]\ncmp     qword ptr [rax+rcx*8], 0\njz      loc_169E\nmov     rax, [rbp+heap]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+i]\nmov     rdi, [rax+rcx*8]; tree\ncall    binomial_tree_unref\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1664\nmov     rax, [rbp+heap]\nmov     rdi, [rax+18h]; ptr\ncall    free\nmov     rcx, [rbp+new_roots]\nmov     rax, [rbp+heap]\nmov     [rax+18h], rcx\nmov     ecx, [rbp+new_roots_length]\nmov     rax, [rbp+heap]\nmov     [rax+20h], ecx\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 60h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 32,
+  "edges": [
+   [
+    "start",
+    "loc_1464"
+   ],
+   [
+    "start",
+    "loc_1476"
+   ],
+   [
+    "loc_1464",
+    "loc_1483"
+   ],
+   [
+    "loc_1476",
+    "loc_1483"
+   ],
+   [
+    "loc_1483",
+    "loc_14A0"
+   ],
+   [
+    "loc_1483",
+    "loc_14AC"
+   ],
+   [
+    "loc_14A0",
+    "loc_16DB"
+   ],
+   [
+    "loc_14AC",
+    "loc_14C2"
+   ],
+   [
+    "loc_14C2",
+    "loc_14CE"
+   ],
+   [
+    "loc_14C2",
+    "loc_165D"
+   ],
+   [
+    "loc_14CE",
+    "loc_14E5"
+   ],
+   [
+    "loc_14CE",
+    "loc_151C"
+   ],
+   [
+    "loc_14E5",
+    "loc_14FB"
+   ],
+   [
+    "loc_14E5",
+    "loc_151C"
+   ],
+   [
+    "loc_14FB",
+    "loc_151C"
+   ],
+   [
+    "loc_151C",
+    "loc_152C"
+   ],
+   [
+    "loc_151C",
+    "loc_1563"
+   ],
+   [
+    "loc_152C",
+    "loc_1542"
+   ],
+   [
+    "loc_152C",
+    "loc_1563"
+   ],
+   [
+    "loc_1542",
+    "loc_1563"
+   ],
+   [
+    "loc_1563",
+    "loc_156E"
+   ],
+   [
+    "loc_1563",
+    "loc_1584"
+   ],
+   [
+    "loc_156E",
+    "loc_1584"
+   ],
+   [
+    "loc_1584",
+    "loc_1593"
+   ],
+   [
+    "loc_1584",
+    "loc_15C9"
+   ],
+   [
+    "loc_1593",
+    "loc_15D8"
+   ],
+   [
+    "loc_15C9",
+    "loc_15D8"
+   ],
+   [
+    "loc_15D8",
+    "loc_15E7"
+   ],
+   [
+    "loc_15D8",
+    "loc_162D"
+   ],
+   [
+    "loc_15E7",
+    "loc_1607"
+   ],
+   [
+    "loc_15E7",
+    "loc_1628"
+   ],
+   [
+    "loc_1607",
+    "loc_16DB"
+   ],
+   [
+    "loc_1628",
+    "loc_1635"
+   ],
+   [
+    "loc_162D",
+    "loc_1635"
+   ],
+   [
+    "loc_1635",
+    "loc_14C2"
+   ],
+   [
+    "loc_165D",
+    "loc_1664"
+   ],
+   [
+    "loc_1664",
+    "loc_1674"
+   ],
+   [
+    "loc_1664",
+    "loc_16B1"
+   ],
+   [
+    "loc_1674",
+    "loc_168A"
+   ],
+   [
+    "loc_1674",
+    "loc_169E"
+   ],
+   [
+    "loc_168A",
+    "loc_169E"
+   ],
+   [
+    "loc_169E",
+    "loc_16A3"
+   ],
+   [
+    "loc_16A3",
+    "loc_1664"
+   ],
+   [
+    "loc_16B1",
+    "loc_16DB"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+heap], rdi\nmov     [rbp+other], rsi\nmov     rax, [rbp+heap]\nmov     eax, [rax+20h]\nmov     rcx, [rbp+other]\ncmp     eax, [rcx+20h]\njbe     loc_1476",
+   "loc_1464": "mov     rax, [rbp+heap]\nmov     eax, [rax+20h]\nadd     eax, 1\nmov     [rbp+max], eax\njmp     loc_1483",
+   "loc_1476": "mov     rax, [rbp+other]\nmov     eax, [rax+20h]\nadd     eax, 1\nmov     [rbp+max], eax",
+   "loc_1483": "mov     eax, [rbp+max]\nmov     edi, eax\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+new_roots], rax\ncmp     [rbp+new_roots], 0\njnz     loc_14AC",
+   "loc_14A0": "mov     [rbp+var_4], 0\njmp     loc_16DB",
+   "loc_14AC": "mov     [rbp+new_roots_length], 0\nmov     [rbp+carry], 0\nmov     [rbp+i], 0",
+   "loc_14C2": "mov     eax, [rbp+i]\ncmp     eax, [rbp+max]\njnb     loc_165D",
+   "loc_14CE": "mov     [rbp+num_vals], 0\nmov     eax, [rbp+i]\nmov     rcx, [rbp+heap]\ncmp     eax, [rcx+20h]\njnb     loc_151C",
+   "loc_14E5": "mov     rax, [rbp+heap]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+i]\ncmp     qword ptr [rax+rcx*8], 0\njz      loc_151C",
+   "loc_14FB": "mov     rax, [rbp+heap]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+i]\nmov     rcx, [rax+rcx*8]\nmovsxd  rax, [rbp+num_vals]\nmov     [rbp+rax*8+vals], rcx\nmov     eax, [rbp+num_vals]\nadd     eax, 1\nmov     [rbp+num_vals], eax",
+   "loc_151C": "mov     eax, [rbp+i]\nmov     rcx, [rbp+other]\ncmp     eax, [rcx+20h]\njnb     loc_1563",
+   "loc_152C": "mov     rax, [rbp+other]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+i]\ncmp     qword ptr [rax+rcx*8], 0\njz      loc_1563",
+   "loc_1542": "mov     rax, [rbp+other]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+i]\nmov     rcx, [rax+rcx*8]\nmovsxd  rax, [rbp+num_vals]\nmov     [rbp+rax*8+vals], rcx\nmov     eax, [rbp+num_vals]\nadd     eax, 1\nmov     [rbp+num_vals], eax",
+   "loc_1563": "cmp     [rbp+carry], 0\njz      loc_1584",
+   "loc_156E": "mov     rcx, [rbp+carry]\nmovsxd  rax, [rbp+num_vals]\nmov     [rbp+rax*8+vals], rcx\nmov     eax, [rbp+num_vals]\nadd     eax, 1\nmov     [rbp+num_vals], eax",
+   "loc_1584": "mov     eax, [rbp+num_vals]\nand     eax, 1\ncmp     eax, 0\njz      loc_15C9",
+   "loc_1593": "mov     eax, [rbp+num_vals]\nsub     eax, 1\ncdqe\nmov     rdx, [rbp+rax*8+vals]\nmov     rax, [rbp+new_roots]\nmov     ecx, [rbp+i]\nmov     [rax+rcx*8], rdx\nmov     rax, [rbp+new_roots]\nmov     ecx, [rbp+i]\nmov     rdi, [rax+rcx*8]; tree\ncall    binomial_tree_ref\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+new_roots_length], eax\njmp     loc_15D8",
+   "loc_15C9": "mov     rax, [rbp+new_roots]\nmov     ecx, [rbp+i]\nmov     qword ptr [rax+rcx*8], 0",
+   "loc_15D8": "mov     eax, [rbp+num_vals]\nand     eax, 2\ncmp     eax, 0\njz      loc_162D",
+   "loc_15E7": "mov     rdi, [rbp+heap]; heap\nmov     rsi, [rbp+vals]; tree1\nmov     rdx, [rbp+vals+8]; tree2\ncall    binomial_tree_merge\nmov     [rbp+new_carry], rax\ncmp     [rbp+new_carry], 0\njnz     loc_1628",
+   "loc_1607": "mov     rdi, [rbp+new_roots]; new_roots\nmov     esi, [rbp+i]; count\ncall    binomial_heap_merge_undo\nmov     rdi, [rbp+carry]; tree\ncall    binomial_tree_unref\nmov     [rbp+var_4], 0\njmp     loc_16DB",
+   "loc_1628": "jmp     loc_1635",
+   "loc_162D": "mov     [rbp+new_carry], 0",
+   "loc_1635": "mov     rdi, [rbp+carry]; tree\ncall    binomial_tree_unref\nmov     rax, [rbp+new_carry]\nmov     [rbp+carry], rax\nmov     rdi, [rbp+carry]; tree\ncall    binomial_tree_ref\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_14C2",
+   "loc_165D": "mov     [rbp+i], 0",
+   "loc_1664": "mov     eax, [rbp+i]\nmov     rcx, [rbp+heap]\ncmp     eax, [rcx+20h]\njnb     loc_16B1",
+   "loc_1674": "mov     rax, [rbp+heap]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+i]\ncmp     qword ptr [rax+rcx*8], 0\njz      loc_169E",
+   "loc_168A": "mov     rax, [rbp+heap]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+i]\nmov     rdi, [rax+rcx*8]; tree\ncall    binomial_tree_unref",
+   "loc_169E": "jmp     $+5",
+   "loc_16A3": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1664",
+   "loc_16B1": "mov     rax, [rbp+heap]\nmov     rdi, [rax+18h]; ptr\ncall    free\nmov     rcx, [rbp+new_roots]\nmov     rax, [rbp+heap]\nmov     [rax+18h], rcx\nmov     ecx, [rbp+new_roots_length]\nmov     rax, [rbp+heap]\nmov     [rax+20h], ecx\nmov     [rbp+var_4], 1",
+   "loc_16DB": "mov     eax, [rbp+var_4]\nadd     rsp, 60h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "i": "dword ptr -60h",
+   "max": "dword ptr -5Ch",
+   "new_carry": "qword ptr -58h",
+   "carry": "qword ptr -50h",
+   "num_vals": "dword ptr -44h",
+   "vals": "qword ptr -40h",
+   "new_roots_length": "dword ptr -24h",
+   "new_roots": "qword ptr -20h",
+   "other": "qword ptr -18h",
+   "heap": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5184,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872655
+ }
+}

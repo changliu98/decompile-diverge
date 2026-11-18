@@ -1,0 +1,1 @@
+void iw_restrict_to_range(int i, int v, int *range) { if(i > *range) { *range = i; } else if(v < *range) { *range = v; } }

@@ -1,0 +1,1 @@
+int qcom_nandc_calc_ecc_bytes(int function, int this_val) { return (this_val == 4) ? 12 : 16; }

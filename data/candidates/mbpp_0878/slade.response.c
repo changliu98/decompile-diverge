@@ -1,0 +1,1 @@
+int func0(int *arr1, int size1, int *arr2, int size2) { for (int i = 0; i < size1; i++) { unsigned char flag = 0; for (int j = 0; j < size2; j++) { if (arr1[i] == arr2[j]) { flag = 1; break; } } if (flag ^ 1) { return 0; } } return 1; }

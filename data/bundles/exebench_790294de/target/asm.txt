@@ -1,0 +1,26 @@
+00000000000014a0 <atomic_or>:
+    14a0:	push   %rbp
+    14a1:	mov    %rsp,%rbp
+    14a4:	mov    %rdi,-0x8(%rbp)
+    14a8:	mov    %rsi,-0x10(%rbp)
+    14ac:	mov    -0x8(%rbp),%rax
+    14b0:	mov    %rax,-0x28(%rbp)
+    14b4:	mov    -0x10(%rbp),%rcx
+    14b8:	mov    %rcx,-0x20(%rbp)
+    14bc:	mov    (%rax),%rax
+    14bf:	mov    %rax,-0x18(%rbp)
+    14c3:	mov    -0x18(%rbp),%rax
+    14c7:	mov    -0x28(%rbp),%rcx
+    14cb:	mov    -0x20(%rbp),%rsi
+    14cf:	mov    %rax,%rdx
+    14d2:	or     %rsi,%rdx
+    14d5:	lock cmpxchg %rdx,(%rcx)
+    14da:	sete   %cl
+    14dd:	test   $0x1,%cl
+    14e0:	mov    %rax,-0x18(%rbp)
+    14e4:	jne    14ef <atomic_or+0x4f>
+    14ea:	jmp    14c3 <atomic_or+0x23>
+    14ef:	pop    %rbp
+    14f0:	ret
+
+Disassembly of section .fini:

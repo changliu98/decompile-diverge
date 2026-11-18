@@ -1,0 +1,1 @@
+void lib3ds_vector_copy(float c[3], float a[3]) { int i; for (i = 0; i < 3; i++) c[i] = a[i]; }

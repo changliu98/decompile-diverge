@@ -1,0 +1,1 @@
+void peneira(int n, int a[]){ int j=1; int i=2; int aux=a[1]; for(;i<=n;i=2*j){ if(i<n && a[i]<a[i+1]) i++; if(a[i]>aux) break; a[j]=a[i]; j=i; } a[j]=aux; }

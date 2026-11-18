@@ -1,0 +1,1 @@
+size_t func0(int n) { size_t ret = 0; for (int i = 1; i <= n; i++) { int j = i * 2; ret += j * j * j * j * j; } return ret; }

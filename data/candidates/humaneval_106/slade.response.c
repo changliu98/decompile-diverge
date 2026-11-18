@@ -1,0 +1,1 @@
+int* func0(int n) { int* res = (int*)malloc((size_t)n * sizeof(int)); int sum = 0; int sum2 = 1; for (int i = 1; i <= n; ++i) { sum += i; sum2 *= i; if (i % 2 == 0) res[i - 1] = sum2; else res[i - 1] = sum; } return res; }

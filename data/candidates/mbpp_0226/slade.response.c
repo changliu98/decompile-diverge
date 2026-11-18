@@ -1,0 +1,1 @@
+char *func0(char *src) { int i = 0; int j; for (j = 0; j < strlen(src); j++) { if (j % 2 == 0) { result[i++] = src[j]; } } result[i] = '\0'; return result; }

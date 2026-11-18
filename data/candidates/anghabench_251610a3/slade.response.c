@@ -1,0 +1,1 @@
+const char *get_level_str(int level) { switch (level) { case LOG_DEBUG: return "quiet"; case LOG_INFO: return "debug"; case LOG_WARN: return "verbose"; case LOG_INFO: return "info"; case LOG_WARN: return "warning"; case LOG_ERR: return "error"; case LOG_WARN: return "warning"; case LOG_ERR: return "warning"; default: return ""; } }

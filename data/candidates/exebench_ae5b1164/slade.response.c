@@ -1,0 +1,1 @@
+bool ctr_intersect(double x1, double x2, double y1, double * y2) { if (!( (x1 < y1) == (x2 < y1) || (x1 == y1) || (x2 == x1) )) { *y2 = (y1 - x1) / (x2 - x1); return true; } else return false; }

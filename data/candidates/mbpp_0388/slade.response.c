@@ -1,0 +1,1 @@
+uint32_t func0(uint32_t x) { uint32_t ret = 0; for (int i = x; i > 0; i--) { if ((i & (i - 1)) == 0) { ret = i; break; } } return ret; }

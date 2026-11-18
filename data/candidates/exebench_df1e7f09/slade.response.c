@@ -1,0 +1,1 @@
+void a_inc(IntPair *element) { element->i += 1; }

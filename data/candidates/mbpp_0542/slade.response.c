@@ -1,0 +1,1 @@
+char *func0(char *str) { extern char result[2510]; int i; strcpy(result, str); for (i = 0; result[i]; i++) if (!(result[i] == ' ' || result[i] == ',' || result[i] == '.')) result[i] = ':'; return result; }

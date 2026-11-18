@@ -1,0 +1,1 @@
+void computeRates(const double r, const double* par, double* fr, double* fc) { fr[0] = -par[1]; fr[1] = par[0]; }

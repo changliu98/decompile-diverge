@@ -1,0 +1,1 @@
+atmc_int atmc_fetch_and_add(atmc_reg_t *atmc, atmc_int add) { atmc_int ret; ret = add; __asm__ __volatile__( "lock ; xaddl %0, %1" : "=r" (add), "+m" (*atmc) : : "memory"); return ret + add; }

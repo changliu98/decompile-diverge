@@ -1,0 +1,1 @@
+double icvDotProduct_32f( const float* p1, const float* p2, int len ) { int i; double result = 0; for ( i = 0; i < len; i++ ) { result += p1[i] * p2[i]; } return result; }

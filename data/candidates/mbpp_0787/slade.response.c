@@ -1,0 +1,1 @@
+char* func0(char *s) { char *regex_str = "ab{3}"; regex_t regex_re; int reti; reti = regcomp(&regex_re, regex_str, 1); if (reti) { fputs("Could not compile regex\n", stderr); return "Regex compilation error"; } reti = regexec(&regex_re, s, 0, NULL, 0); regfree(&regex_re); if (!reti) { return "Found a match!"; } else { return "Not matched!"; } }

@@ -1,0 +1,27 @@
+00000000000011e0 <clamp>:
+    11e0:	push   %rbp
+    11e1:	mov    %rsp,%rbp
+    11e4:	mov    %rdi,-0x8(%rbp)
+    11e8:	movsd  %xmm0,-0x10(%rbp)
+    11ed:	movsd  %xmm1,-0x18(%rbp)
+    11f2:	mov    -0x8(%rbp),%rax
+    11f6:	movsd  (%rax),%xmm1
+    11fa:	movsd  -0x10(%rbp),%xmm0
+    11ff:	ucomisd %xmm1,%xmm0
+    1203:	jbe    121b <clamp+0x3b>
+    1209:	movsd  -0x10(%rbp),%xmm0
+    120e:	mov    -0x8(%rbp),%rax
+    1212:	movsd  %xmm0,(%rax)
+    1216:	jmp    1240 <clamp+0x60>
+    121b:	mov    -0x8(%rbp),%rax
+    121f:	movsd  (%rax),%xmm0
+    1223:	ucomisd -0x18(%rbp),%xmm0
+    1228:	jbe    123b <clamp+0x5b>
+    122e:	movsd  -0x18(%rbp),%xmm0
+    1233:	mov    -0x8(%rbp),%rax
+    1237:	movsd  %xmm0,(%rax)
+    123b:	jmp    1240 <clamp+0x60>
+    1240:	pop    %rbp
+    1241:	ret
+
+Disassembly of section .fini:

@@ -1,0 +1,1 @@
+void toUpperCase(char str[]) { for(int i = 0; str[i] != '\0'; i++) { for(char j = 'a'; j <= 'z'; j++) { if(str[i] == j) { str[i] -= 'a' - 'A'; } } } }

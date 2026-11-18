@@ -1,0 +1,1 @@
+float sp(vec p, vec q){ float r; r = p[0]*q[0] + p[1]*q[1] + p[2]*q[2]; return r; }

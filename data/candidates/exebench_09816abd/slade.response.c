@@ -1,0 +1,1 @@
+void norme_init(char **data, size_t *size) { *data = NULL; *size = 0; }

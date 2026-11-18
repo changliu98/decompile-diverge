@@ -1,0 +1,558 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0A0h\nmov     [rbp+tnp], rdi\nmov     [rbp+first], esi\nmov     [rbp+buf], rdx\nmov     [rbp+fname], 0\ncmp     [rbp+first], 0\njz      loc_1578\nmov     rdi, [rbp+tnp]; s\nxor     esi, esi; c\nmov     edx, 20h ; ' '; n\ncall    memset\nmov     rax, cs:curbuf\ncmp     dword ptr [rax], 0\njz      loc_16E5\ncmp     [rbp+first], 0\njz      loc_15D0\nlea     rdi, tag_fnames; gap\ncall    ga_clear_strings\nlea     rdi, tag_fnames; gap\nmov     esi, 8; itemsize\nmov     edx, 0Ah; growsize\ncall    ga_init2\nlea     rdi, name; \"doc/tags\"\nmov     esi, 1; flags\nlea     rdx, found_tagfile_cb; callback\nxor     eax, eax\nmov     ecx, eax; cookie\ncall    do_in_runtimepath\nmov     rax, [rbp+tnp]\nmov     eax, [rax+14h]\ncmp     eax, cs:tag_fnames.ga_len\njl      loc_16AE\nmov     rax, [rbp+tnp]\nmov     eax, [rax+14h]\ncmp     eax, cs:tag_fnames.ga_len\njg      loc_1609\nmov     rax, cs:p_hf\nmovzx   eax, byte ptr [rax]\ncmp     eax, 0\njnz     loc_1615\nmov     [rbp+var_4], 0\njmp     loc_195D\nmov     rax, [rbp+tnp]\nmov     ecx, [rax+14h]\nadd     ecx, 1\nmov     [rax+14h], ecx\nmov     rdi, [rbp+buf]; dest\nmov     rsi, cs:p_hf; src\ncall    strcpy\nmov     rdi, [rbp+buf]; fname\ncall    gettail\nmov     rdi, rax; dest\nlea     rsi, name+4; src\ncall    strcpy\nmov     rdi, [rbp+buf]; filename\ncall    simplify_filename\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, cs:tag_fnames.ga_len\njge     loc_16A9\nmov     rdi, [rbp+buf]; s1\nmov     rax, cs:tag_fnames.ga_data\nmovsxd  rcx, [rbp+i]\nmov     rsi, [rax+rcx*8]; s2\ncall    strcmp\ncmp     eax, 0\njnz     loc_1696\nmov     [rbp+var_4], 0\njmp     loc_195D\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_165A\njmp     loc_16D9\nmov     rdi, [rbp+buf]; to\nmov     rax, cs:tag_fnames.ga_data\nmov     rdx, [rbp+tnp]\nmov     ecx, [rdx+14h]\nmov     esi, ecx\nadd     esi, 1\nmov     [rdx+14h], esi\nmovsxd  rcx, ecx\nmov     rsi, [rax+rcx*8]; from\nmov     edx, 0FFFh; len\ncall    vim_strncpy\nmov     [rbp+var_4], 1\njmp     loc_195D\ncmp     [rbp+first], 0\njz      loc_1761\nmov     rax, cs:curbuf\nmov     rax, [rax+8]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 0\njz      loc_171A\nmov     rax, cs:curbuf\nmov     rax, [rax+8]\nmov     [rbp+string], rax\njmp     loc_1725\nmov     rax, cs:p_tags\nmov     [rbp+string], rax\nmov     rdi, [rbp+string]; string\ncall    vim_strsave\nmov     rcx, rax\nmov     rax, [rbp+tnp]\nmov     [rax], rcx\nmov     rax, [rbp+tnp]\ncmp     qword ptr [rax], 0\njnz     loc_1752\nmov     [rbp+var_4], 0\njmp     loc_195D\nmov     rax, [rbp+tnp]\nmov     rcx, [rax]\nmov     rax, [rbp+tnp]\nmov     [rax+8], rcx\njmp     $+5\nmov     rax, [rbp+tnp]\ncmp     dword ptr [rax+10h], 0\njz      loc_17A5\nmov     rax, [rbp+tnp]\nmov     rdi, [rax+18h]; search_ctx_arg\ncall    vim_findfile\nmov     [rbp+fname], rax\ncmp     [rbp+fname], 0\njz      loc_1795\njmp     loc_1940\nmov     rax, [rbp+tnp]\nmov     dword ptr [rax+10h], 0\njmp     loc_193B\nmov     [rbp+filename], 0\nmov     rax, [rbp+tnp]\nmov     rax, [rax+8]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 0\njnz     loc_17E6\nmov     rax, [rbp+tnp]\nmov     rdi, [rax+18h]; ctx\ncall    vim_findfile_cleanup\nmov     rax, [rbp+tnp]\nmov     qword ptr [rax+18h], 0\nmov     [rbp+var_4], 0\njmp     loc_195D\nmov     rax, [rbp+buf]\nmov     byte ptr [rax], 0\nmov     rdi, [rbp+tnp]\nadd     rdi, 8; option\nmov     rsi, [rbp+buf]; buf\nmov     edx, 0FFFh; maxlen\nlea     rcx, sep_chars; \" ,\"\ncall    copy_option_part\nmov     rdi, [rbp+buf]; buf\ncall    vim_findfile_stopdir\nmov     [rbp+r_ptr], rax\nmov     rdi, [rbp+buf]; fname\ncall    gettail\nmov     [rbp+filename], rax\ncmp     [rbp+r_ptr], 0\njz      loc_186C\nmov     rax, [rbp+r_ptr]\nadd     rax, 1\nmov     [rbp+dest], rax\nmov     rax, [rbp+r_ptr]\nmov     [rbp+src], rax\nmov     rdi, [rbp+r_ptr]; s\ncall    strlen\nmov     rdi, [rbp+dest]; dest\nmov     rsi, [rbp+src]; src\nmov     rdx, rax\nadd     rdx, 1; n\ncall    memmove\nmov     rax, [rbp+r_ptr]\nadd     rax, 1\nmov     [rbp+r_ptr], rax\nmov     rax, [rbp+filename]\nadd     rax, 1\nmov     [rbp+var_78], rax\nmov     rax, [rbp+filename]\nmov     [rbp+var_70], rax\nmov     rdi, [rbp+filename]; s\ncall    strlen\nmov     rdi, [rbp+var_78]; dest\nmov     rsi, [rbp+var_70]; src\nmov     rdx, rax\nadd     rdx, 1; n\ncall    memmove\nmov     rax, [rbp+filename]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+filename], rcx\nmov     byte ptr [rax], 0\nmov     rax, [rbp+buf]\nmov     [rbp+path], rax\nmov     rax, [rbp+filename]\nmov     [rbp+var_60], rax\nmov     rdi, [rbp+filename]; s\ncall    strlen\nmov     rdi, [rbp+path]; path\nmov     rsi, [rbp+var_60]; filename\nmov     rdx, rax; filenamelen\nmov     rcx, [rbp+r_ptr]; stopdirs\nmov     rax, [rbp+tnp]\nmov     r10, [rax+18h]\nmov     rax, cs:curbuf\nmov     rax, [rax+10h]\nmov     r8d, 64h ; 'd'; level\nxor     r9d, r9d; free_visited\nmov     [rsp+0A0h+find_what], 0; find_what\nmov     [rsp+0A0h+search_ctx_arg], r10; search_ctx_arg\nmov     [rsp+0A0h+tagfile], 1; tagfile\nmov     [rsp+0A0h+rel_fname], rax; rel_fname\ncall    vim_findfile_init\nmov     rcx, rax\nmov     rax, [rbp+tnp]\nmov     [rax+18h], rcx\nmov     rax, [rbp+tnp]\ncmp     qword ptr [rax+18h], 0\njz      loc_1936\nmov     rax, [rbp+tnp]\nmov     dword ptr [rax+10h], 1\njmp     $+5\njmp     loc_1766\nmov     rdi, [rbp+buf]; dest\nmov     rsi, [rbp+fname]; src\ncall    strcpy\nmov     rdi, [rbp+fname]; x\ncall    vim_free\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 0A0h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 40,
+  "edges": [
+   [
+    "start",
+    "loc_1568"
+   ],
+   [
+    "start",
+    "loc_1578"
+   ],
+   [
+    "loc_1568",
+    "loc_1578"
+   ],
+   [
+    "loc_1578",
+    "loc_1588"
+   ],
+   [
+    "loc_1578",
+    "loc_16E5"
+   ],
+   [
+    "loc_1588",
+    "loc_1592"
+   ],
+   [
+    "loc_1588",
+    "loc_15D0"
+   ],
+   [
+    "loc_1592",
+    "loc_15D0"
+   ],
+   [
+    "loc_15D0",
+    "loc_15E3"
+   ],
+   [
+    "loc_15D0",
+    "loc_16AE"
+   ],
+   [
+    "loc_15E3",
+    "loc_15F6"
+   ],
+   [
+    "loc_15E3",
+    "loc_1609"
+   ],
+   [
+    "loc_15F6",
+    "loc_1609"
+   ],
+   [
+    "loc_15F6",
+    "loc_1615"
+   ],
+   [
+    "loc_1609",
+    "loc_195D"
+   ],
+   [
+    "loc_1615",
+    "loc_165A"
+   ],
+   [
+    "loc_165A",
+    "loc_1669"
+   ],
+   [
+    "loc_165A",
+    "loc_16A9"
+   ],
+   [
+    "loc_1669",
+    "loc_168A"
+   ],
+   [
+    "loc_1669",
+    "loc_1696"
+   ],
+   [
+    "loc_168A",
+    "loc_195D"
+   ],
+   [
+    "loc_1696",
+    "loc_169B"
+   ],
+   [
+    "loc_169B",
+    "loc_165A"
+   ],
+   [
+    "loc_16A9",
+    "loc_16D9"
+   ],
+   [
+    "loc_16AE",
+    "loc_16D9"
+   ],
+   [
+    "loc_16D9",
+    "loc_195D"
+   ],
+   [
+    "loc_16E5",
+    "loc_16EF"
+   ],
+   [
+    "loc_16E5",
+    "loc_1761"
+   ],
+   [
+    "loc_16EF",
+    "loc_1706"
+   ],
+   [
+    "loc_16EF",
+    "loc_171A"
+   ],
+   [
+    "loc_1706",
+    "loc_1725"
+   ],
+   [
+    "loc_171A",
+    "loc_1725"
+   ],
+   [
+    "loc_1725",
+    "loc_1746"
+   ],
+   [
+    "loc_1725",
+    "loc_1752"
+   ],
+   [
+    "loc_1746",
+    "loc_195D"
+   ],
+   [
+    "loc_1752",
+    "loc_1761"
+   ],
+   [
+    "loc_1761",
+    "loc_1766"
+   ],
+   [
+    "loc_1766",
+    "loc_1774"
+   ],
+   [
+    "loc_1766",
+    "loc_17A5"
+   ],
+   [
+    "loc_1774",
+    "loc_1790"
+   ],
+   [
+    "loc_1774",
+    "loc_1795"
+   ],
+   [
+    "loc_1790",
+    "loc_1940"
+   ],
+   [
+    "loc_1795",
+    "loc_193B"
+   ],
+   [
+    "loc_17A5",
+    "loc_17C1"
+   ],
+   [
+    "loc_17A5",
+    "loc_17E6"
+   ],
+   [
+    "loc_17C1",
+    "loc_195D"
+   ],
+   [
+    "loc_17E6",
+    "loc_182F"
+   ],
+   [
+    "loc_17E6",
+    "loc_186C"
+   ],
+   [
+    "loc_182F",
+    "loc_186C"
+   ],
+   [
+    "loc_186C",
+    "loc_192B"
+   ],
+   [
+    "loc_186C",
+    "loc_1936"
+   ],
+   [
+    "loc_192B",
+    "loc_1936"
+   ],
+   [
+    "loc_1936",
+    "loc_193B"
+   ],
+   [
+    "loc_193B",
+    "loc_1766"
+   ],
+   [
+    "loc_1940",
+    "loc_195D"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0A0h\nmov     [rbp+tnp], rdi\nmov     [rbp+first], esi\nmov     [rbp+buf], rdx\nmov     [rbp+fname], 0\ncmp     [rbp+first], 0\njz      loc_1578",
+   "loc_1568": "mov     rdi, [rbp+tnp]; s\nxor     esi, esi; c\nmov     edx, 20h ; ' '; n\ncall    memset",
+   "loc_1578": "mov     rax, cs:curbuf\ncmp     dword ptr [rax], 0\njz      loc_16E5",
+   "loc_1588": "cmp     [rbp+first], 0\njz      loc_15D0",
+   "loc_1592": "lea     rdi, tag_fnames; gap\ncall    ga_clear_strings\nlea     rdi, tag_fnames; gap\nmov     esi, 8; itemsize\nmov     edx, 0Ah; growsize\ncall    ga_init2\nlea     rdi, name; \"doc/tags\"\nmov     esi, 1; flags\nlea     rdx, found_tagfile_cb; callback\nxor     eax, eax\nmov     ecx, eax; cookie\ncall    do_in_runtimepath",
+   "loc_15D0": "mov     rax, [rbp+tnp]\nmov     eax, [rax+14h]\ncmp     eax, cs:tag_fnames.ga_len\njl      loc_16AE",
+   "loc_15E3": "mov     rax, [rbp+tnp]\nmov     eax, [rax+14h]\ncmp     eax, cs:tag_fnames.ga_len\njg      loc_1609",
+   "loc_15F6": "mov     rax, cs:p_hf\nmovzx   eax, byte ptr [rax]\ncmp     eax, 0\njnz     loc_1615",
+   "loc_1609": "mov     [rbp+var_4], 0\njmp     loc_195D",
+   "loc_1615": "mov     rax, [rbp+tnp]\nmov     ecx, [rax+14h]\nadd     ecx, 1\nmov     [rax+14h], ecx\nmov     rdi, [rbp+buf]; dest\nmov     rsi, cs:p_hf; src\ncall    strcpy\nmov     rdi, [rbp+buf]; fname\ncall    gettail\nmov     rdi, rax; dest\nlea     rsi, name+4; src\ncall    strcpy\nmov     rdi, [rbp+buf]; filename\ncall    simplify_filename\nmov     [rbp+i], 0",
+   "loc_165A": "mov     eax, [rbp+i]\ncmp     eax, cs:tag_fnames.ga_len\njge     loc_16A9",
+   "loc_1669": "mov     rdi, [rbp+buf]; s1\nmov     rax, cs:tag_fnames.ga_data\nmovsxd  rcx, [rbp+i]\nmov     rsi, [rax+rcx*8]; s2\ncall    strcmp\ncmp     eax, 0\njnz     loc_1696",
+   "loc_168A": "mov     [rbp+var_4], 0\njmp     loc_195D",
+   "loc_1696": "jmp     $+5",
+   "loc_169B": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_165A",
+   "loc_16A9": "jmp     loc_16D9",
+   "loc_16AE": "mov     rdi, [rbp+buf]; to\nmov     rax, cs:tag_fnames.ga_data\nmov     rdx, [rbp+tnp]\nmov     ecx, [rdx+14h]\nmov     esi, ecx\nadd     esi, 1\nmov     [rdx+14h], esi\nmovsxd  rcx, ecx\nmov     rsi, [rax+rcx*8]; from\nmov     edx, 0FFFh; len\ncall    vim_strncpy",
+   "loc_16D9": "mov     [rbp+var_4], 1\njmp     loc_195D",
+   "loc_16E5": "cmp     [rbp+first], 0\njz      loc_1761",
+   "loc_16EF": "mov     rax, cs:curbuf\nmov     rax, [rax+8]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 0\njz      loc_171A",
+   "loc_1706": "mov     rax, cs:curbuf\nmov     rax, [rax+8]\nmov     [rbp+string], rax\njmp     loc_1725",
+   "loc_171A": "mov     rax, cs:p_tags\nmov     [rbp+string], rax",
+   "loc_1725": "mov     rdi, [rbp+string]; string\ncall    vim_strsave\nmov     rcx, rax\nmov     rax, [rbp+tnp]\nmov     [rax], rcx\nmov     rax, [rbp+tnp]\ncmp     qword ptr [rax], 0\njnz     loc_1752",
+   "loc_1746": "mov     [rbp+var_4], 0\njmp     loc_195D",
+   "loc_1752": "mov     rax, [rbp+tnp]\nmov     rcx, [rax]\nmov     rax, [rbp+tnp]\nmov     [rax+8], rcx",
+   "loc_1761": "jmp     $+5",
+   "loc_1766": "mov     rax, [rbp+tnp]\ncmp     dword ptr [rax+10h], 0\njz      loc_17A5",
+   "loc_1774": "mov     rax, [rbp+tnp]\nmov     rdi, [rax+18h]; search_ctx_arg\ncall    vim_findfile\nmov     [rbp+fname], rax\ncmp     [rbp+fname], 0\njz      loc_1795",
+   "loc_1790": "jmp     loc_1940",
+   "loc_1795": "mov     rax, [rbp+tnp]\nmov     dword ptr [rax+10h], 0\njmp     loc_193B",
+   "loc_17A5": "mov     [rbp+filename], 0\nmov     rax, [rbp+tnp]\nmov     rax, [rax+8]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 0\njnz     loc_17E6",
+   "loc_17C1": "mov     rax, [rbp+tnp]\nmov     rdi, [rax+18h]; ctx\ncall    vim_findfile_cleanup\nmov     rax, [rbp+tnp]\nmov     qword ptr [rax+18h], 0\nmov     [rbp+var_4], 0\njmp     loc_195D",
+   "loc_17E6": "mov     rax, [rbp+buf]\nmov     byte ptr [rax], 0\nmov     rdi, [rbp+tnp]\nadd     rdi, 8; option\nmov     rsi, [rbp+buf]; buf\nmov     edx, 0FFFh; maxlen\nlea     rcx, sep_chars; \" ,\"\ncall    copy_option_part\nmov     rdi, [rbp+buf]; buf\ncall    vim_findfile_stopdir\nmov     [rbp+r_ptr], rax\nmov     rdi, [rbp+buf]; fname\ncall    gettail\nmov     [rbp+filename], rax\ncmp     [rbp+r_ptr], 0\njz      loc_186C",
+   "loc_182F": "mov     rax, [rbp+r_ptr]\nadd     rax, 1\nmov     [rbp+dest], rax\nmov     rax, [rbp+r_ptr]\nmov     [rbp+src], rax\nmov     rdi, [rbp+r_ptr]; s\ncall    strlen\nmov     rdi, [rbp+dest]; dest\nmov     rsi, [rbp+src]; src\nmov     rdx, rax\nadd     rdx, 1; n\ncall    memmove\nmov     rax, [rbp+r_ptr]\nadd     rax, 1\nmov     [rbp+r_ptr], rax",
+   "loc_186C": "mov     rax, [rbp+filename]\nadd     rax, 1\nmov     [rbp+var_78], rax\nmov     rax, [rbp+filename]\nmov     [rbp+var_70], rax\nmov     rdi, [rbp+filename]; s\ncall    strlen\nmov     rdi, [rbp+var_78]; dest\nmov     rsi, [rbp+var_70]; src\nmov     rdx, rax\nadd     rdx, 1; n\ncall    memmove\nmov     rax, [rbp+filename]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+filename], rcx\nmov     byte ptr [rax], 0\nmov     rax, [rbp+buf]\nmov     [rbp+path], rax\nmov     rax, [rbp+filename]\nmov     [rbp+var_60], rax\nmov     rdi, [rbp+filename]; s\ncall    strlen\nmov     rdi, [rbp+path]; path\nmov     rsi, [rbp+var_60]; filename\nmov     rdx, rax; filenamelen\nmov     rcx, [rbp+r_ptr]; stopdirs\nmov     rax, [rbp+tnp]\nmov     r10, [rax+18h]\nmov     rax, cs:curbuf\nmov     rax, [rax+10h]\nmov     r8d, 64h ; 'd'; level\nxor     r9d, r9d; free_visited\nmov     [rsp+0A0h+find_what], 0; find_what\nmov     [rsp+0A0h+search_ctx_arg], r10; search_ctx_arg\nmov     [rsp+0A0h+tagfile], 1; tagfile\nmov     [rsp+0A0h+rel_fname], rax; rel_fname\ncall    vim_findfile_init\nmov     rcx, rax\nmov     rax, [rbp+tnp]\nmov     [rax+18h], rcx\nmov     rax, [rbp+tnp]\ncmp     qword ptr [rax+18h], 0\njz      loc_1936",
+   "loc_192B": "mov     rax, [rbp+tnp]\nmov     dword ptr [rax+10h], 1",
+   "loc_1936": "jmp     $+5",
+   "loc_193B": "jmp     loc_1766",
+   "loc_1940": "mov     rdi, [rbp+buf]; dest\nmov     rsi, [rbp+fname]; src\ncall    strcpy\nmov     rdi, [rbp+fname]; x\ncall    vim_free\nmov     [rbp+var_4], 1",
+   "loc_195D": "mov     eax, [rbp+var_4]\nadd     rsp, 0A0h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "find_what": "dword ptr -0A0h",
+   "search_ctx_arg": "qword ptr -98h",
+   "tagfile": "dword ptr -90h",
+   "rel_fname": "qword ptr -88h",
+   "var_78": "qword ptr -78h",
+   "var_70": "qword ptr -70h",
+   "path": "qword ptr -68h",
+   "var_60": "qword ptr -60h",
+   "dest": "qword ptr -58h",
+   "src": "qword ptr -50h",
+   "string": "qword ptr -48h",
+   "filename": "qword ptr -40h",
+   "i": "dword ptr -34h",
+   "r_ptr": "qword ptr -30h",
+   "fname": "qword ptr -28h",
+   "buf": "qword ptr -20h",
+   "first": "dword ptr -14h",
+   "tnp": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "name": "byte 'doc/tags',0",
+   "unk_2008": "byte 'doc/tags',0",
+   "sep_chars": "byte ' ,',0"
+  },
+  ".data": {},
+  ".bss": {
+   "curbuf": "[]",
+   "tag_fnames": "[]",
+   "p_hf": "[]",
+   "unk_40D8": "[]",
+   "p_tags": "[]"
+  }
+ },
+ "func_ea": 5440,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".strncpy": "strncpy",
+  "_strncpy": "strncpy",
+  ".strcpy": "strcpy",
+  "_strcpy": "strcpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".strncpy",
+   ".plt",
+   true,
+   "strncpy"
+  ],
+  [
+   ".strcpy",
+   ".plt",
+   true,
+   "strcpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memmove",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868462
+ }
+}

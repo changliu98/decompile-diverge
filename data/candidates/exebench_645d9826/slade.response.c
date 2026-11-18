@@ -1,0 +1,1 @@
+char *byte2bin(char byte, char *value) { for (int i = 0; i < 8; i++) value[i] = (byte & (1 << (7 - i))) ? '0' : '1'; value[8] = '\0'; return value; }

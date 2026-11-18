@@ -1,0 +1,111 @@
+00000000000011f0 <parse_uuid>:
+    11f0:	push   %rbp
+    11f1:	mov    %rsp,%rbp
+    11f4:	sub    $0x40,%rsp
+    11f8:	mov    %rdi,-0x10(%rbp)
+    11fc:	mov    %rsi,-0x18(%rbp)
+    1200:	movl   $0x0,-0x1c(%rbp)
+    1207:	movl   $0x0,-0x20(%rbp)
+    120e:	cmpl   $0x4,-0x20(%rbp)
+    1212:	jge    1235 <parse_uuid+0x45>
+    1218:	mov    -0x18(%rbp),%rax
+    121c:	movslq -0x20(%rbp),%rcx
+    1220:	movl   $0x0,(%rax,%rcx,4)
+    1227:	mov    -0x20(%rbp),%eax
+    122a:	add    $0x1,%eax
+    122d:	mov    %eax,-0x20(%rbp)
+    1230:	jmp    120e <parse_uuid+0x1e>
+    1235:	jmp    123a <parse_uuid+0x4a>
+    123a:	mov    -0x10(%rbp),%rax
+    123e:	mov    %rax,%rcx
+    1241:	add    $0x1,%rcx
+    1245:	mov    %rcx,-0x10(%rbp)
+    1249:	mov    (%rax),%al
+    124b:	mov    %al,-0x21(%rbp)
+    124e:	cmp    $0x0,%al
+    1250:	je     1374 <parse_uuid+0x184>
+    1256:	movsbl -0x21(%rbp),%eax
+    125a:	cmp    $0x30,%eax
+    125d:	jl     127f <parse_uuid+0x8f>
+    1263:	movsbl -0x21(%rbp),%eax
+    1267:	cmp    $0x39,%eax
+    126a:	jg     127f <parse_uuid+0x8f>
+    1270:	movsbl -0x21(%rbp),%eax
+    1274:	sub    $0x30,%eax
+    1277:	mov    %eax,-0x28(%rbp)
+    127a:	jmp    130c <parse_uuid+0x11c>
+    127f:	movsbl -0x21(%rbp),%eax
+    1283:	cmp    $0x61,%eax
+    1286:	jl     12ab <parse_uuid+0xbb>
+    128c:	movsbl -0x21(%rbp),%eax
+    1290:	cmp    $0x66,%eax
+    1293:	jg     12ab <parse_uuid+0xbb>
+    1299:	movsbl -0x21(%rbp),%eax
+    129d:	add    $0xa,%eax
+    12a0:	sub    $0x61,%eax
+    12a3:	mov    %eax,-0x28(%rbp)
+    12a6:	jmp    1307 <parse_uuid+0x117>
+    12ab:	movsbl -0x21(%rbp),%eax
+    12af:	cmp    $0x41,%eax
+    12b2:	jl     12d7 <parse_uuid+0xe7>
+    12b8:	movsbl -0x21(%rbp),%eax
+    12bc:	cmp    $0x46,%eax
+    12bf:	jg     12d7 <parse_uuid+0xe7>
+    12c5:	movsbl -0x21(%rbp),%eax
+    12c9:	add    $0xa,%eax
+    12cc:	sub    $0x41,%eax
+    12cf:	mov    %eax,-0x28(%rbp)
+    12d2:	jmp    1302 <parse_uuid+0x112>
+    12d7:	movsbl -0x21(%rbp),%esi
+    12db:	lea    0xd22(%rip),%rdi        # 2004 <_IO_stdin_used+0x4>
+    12e2:	call   1060 <strchr@plt>
+    12e7:	cmp    $0x0,%rax
+    12eb:	je     12f6 <parse_uuid+0x106>
+    12f1:	jmp    123a <parse_uuid+0x4a>
+    12f6:	movl   $0x0,-0x4(%rbp)
+    12fd:	jmp    1391 <parse_uuid+0x1a1>
+    1302:	jmp    1307 <parse_uuid+0x117>
+    1307:	jmp    130c <parse_uuid+0x11c>
+    130c:	cmpl   $0x20,-0x1c(%rbp)
+    1310:	jge    1366 <parse_uuid+0x176>
+    1316:	mov    -0x18(%rbp),%rax
+    131a:	mov    %rax,-0x40(%rbp)
+    131e:	mov    -0x1c(%rbp),%eax
+    1321:	mov    $0x8,%ecx
+    1326:	cltd
+    1327:	idiv   %ecx
+    1329:	mov    %eax,%ecx
+    132b:	mov    -0x40(%rbp),%rax
+    132f:	movslq %ecx,%rcx
+    1332:	mov    (%rax,%rcx,4),%edx
+    1335:	shl    $0x4,%edx
+    1338:	mov    %edx,(%rax,%rcx,4)
+    133b:	mov    -0x28(%rbp),%eax
+    133e:	mov    %eax,-0x34(%rbp)
+    1341:	mov    -0x18(%rbp),%rax
+    1345:	mov    %rax,-0x30(%rbp)
+    1349:	mov    -0x1c(%rbp),%eax
+    134c:	mov    $0x8,%ecx
+    1351:	cltd
+    1352:	idiv   %ecx
+    1354:	mov    -0x34(%rbp),%edx
+    1357:	mov    %eax,%ecx
+    1359:	mov    -0x30(%rbp),%rax
+    135d:	movslq %ecx,%rcx
+    1360:	add    (%rax,%rcx,4),%edx
+    1363:	mov    %edx,(%rax,%rcx,4)
+    1366:	mov    -0x1c(%rbp),%eax
+    1369:	add    $0x1,%eax
+    136c:	mov    %eax,-0x1c(%rbp)
+    136f:	jmp    123a <parse_uuid+0x4a>
+    1374:	cmpl   $0x20,-0x1c(%rbp)
+    1378:	jne    138a <parse_uuid+0x19a>
+    137e:	movl   $0x1,-0x4(%rbp)
+    1385:	jmp    1391 <parse_uuid+0x1a1>
+    138a:	movl   $0x0,-0x4(%rbp)
+    1391:	mov    -0x4(%rbp),%eax
+    1394:	add    $0x40,%rsp
+    1398:	pop    %rbp
+    1399:	ret
+
+Disassembly of section .fini:

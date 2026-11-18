@@ -1,0 +1,279 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nmov     [rbp+x], rdi\nmov     [rbp+y], rsi\nmov     [rbp+count], edx\nmov     [rbp+a], rcx\nmov     [rbp+b], r8\nxorps   xmm0, xmm0\nmovsd   [rbp+sumx2], xmm0\nxorps   xmm0, xmm0\nmovsd   [rbp+sumxy], xmm0\nxorps   xmm0, xmm0\nmovsd   [rbp+sumy], xmm0\nxorps   xmm0, xmm0\nmovsd   [rbp+sumx], xmm0\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+count]\njge     loc_12BE\nmov     rax, [rbp+x]\nmovsxd  rcx, [rbp+i]\nmovsd   xmm0, qword ptr [rax+rcx*8]\naddsd   xmm0, [rbp+sumx]\nmovsd   [rbp+sumx], xmm0\nmov     rax, [rbp+x]\nmovsxd  rcx, [rbp+i]\nmovsd   xmm0, qword ptr [rax+rcx*8]\nmov     rax, [rbp+x]\nmovsxd  rcx, [rbp+i]\nmovsd   xmm2, qword ptr [rax+rcx*8]\nmovsd   xmm1, [rbp+sumx2]\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmovsd   [rbp+sumx2], xmm0\nmov     rax, [rbp+y]\nmovsxd  rcx, [rbp+i]\nmovsd   xmm0, qword ptr [rax+rcx*8]\naddsd   xmm0, [rbp+sumy]\nmovsd   [rbp+sumy], xmm0\nmov     rax, [rbp+x]\nmovsxd  rcx, [rbp+i]\nmovsd   xmm0, qword ptr [rax+rcx*8]\nmov     rax, [rbp+y]\nmovsxd  rcx, [rbp+i]\nmovsd   xmm2, qword ptr [rax+rcx*8]\nmovsd   xmm1, [rbp+sumxy]\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmovsd   [rbp+sumxy], xmm0\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_121E\ncvtsi2sd xmm0, [rbp+count]\nmovsd   xmm2, [rbp+sumx2]\nmovsd   xmm1, [rbp+sumx]\nmulsd   xmm1, [rbp+sumx]\nmovq    rax, xmm1\nmov     rcx, 8000000000000000h\nxor     rax, rcx\nmovq    xmm1, rax\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmovsd   [rbp+denom], xmm0\nmovsd   xmm0, [rbp+denom]\nxorps   xmm1, xmm1\nucomisd xmm0, xmm1\njnz     loc_131A\njp      loc_131A\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_13A1\nmovsd   xmm0, [rbp+sumy]\nmovsd   xmm2, [rbp+sumx2]\nmovsd   xmm1, [rbp+sumx]\nmulsd   xmm1, [rbp+sumxy]\nmovq    rax, xmm1\nmov     rcx, 8000000000000000h\nxor     rax, rcx\nmovq    xmm1, rax\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\ndivsd   xmm0, [rbp+denom]\nmov     rax, [rbp+a]\nmovsd   qword ptr [rax], xmm0\ncvtsi2sd xmm0, [rbp+count]\nmovsd   xmm2, [rbp+sumxy]\nmovsd   xmm1, [rbp+sumx]\nmulsd   xmm1, [rbp+sumy]\nmovq    rax, xmm1\nmov     rcx, 8000000000000000h\nxor     rax, rcx\nmovq    xmm1, rax\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\ndivsd   xmm0, [rbp+denom]\nmov     rax, [rbp+b]\nmovsd   qword ptr [rax], xmm0\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 8,
+  "edges": [
+   [
+    "start",
+    "loc_121E"
+   ],
+   [
+    "loc_121E",
+    "loc_122A"
+   ],
+   [
+    "loc_121E",
+    "loc_12BE"
+   ],
+   [
+    "loc_122A",
+    "loc_121E"
+   ],
+   [
+    "loc_12BE",
+    "loc_1308"
+   ],
+   [
+    "loc_12BE",
+    "loc_131A"
+   ],
+   [
+    "loc_1308",
+    "loc_130E"
+   ],
+   [
+    "loc_1308",
+    "loc_131A"
+   ],
+   [
+    "loc_130E",
+    "loc_13A1"
+   ],
+   [
+    "loc_131A",
+    "loc_13A1"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nmov     [rbp+x], rdi\nmov     [rbp+y], rsi\nmov     [rbp+count], edx\nmov     [rbp+a], rcx\nmov     [rbp+b], r8\nxorps   xmm0, xmm0\nmovsd   [rbp+sumx2], xmm0\nxorps   xmm0, xmm0\nmovsd   [rbp+sumxy], xmm0\nxorps   xmm0, xmm0\nmovsd   [rbp+sumy], xmm0\nxorps   xmm0, xmm0\nmovsd   [rbp+sumx], xmm0\nmov     [rbp+i], 0",
+   "loc_121E": "mov     eax, [rbp+i]\ncmp     eax, [rbp+count]\njge     loc_12BE",
+   "loc_122A": "mov     rax, [rbp+x]\nmovsxd  rcx, [rbp+i]\nmovsd   xmm0, qword ptr [rax+rcx*8]\naddsd   xmm0, [rbp+sumx]\nmovsd   [rbp+sumx], xmm0\nmov     rax, [rbp+x]\nmovsxd  rcx, [rbp+i]\nmovsd   xmm0, qword ptr [rax+rcx*8]\nmov     rax, [rbp+x]\nmovsxd  rcx, [rbp+i]\nmovsd   xmm2, qword ptr [rax+rcx*8]\nmovsd   xmm1, [rbp+sumx2]\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmovsd   [rbp+sumx2], xmm0\nmov     rax, [rbp+y]\nmovsxd  rcx, [rbp+i]\nmovsd   xmm0, qword ptr [rax+rcx*8]\naddsd   xmm0, [rbp+sumy]\nmovsd   [rbp+sumy], xmm0\nmov     rax, [rbp+x]\nmovsxd  rcx, [rbp+i]\nmovsd   xmm0, qword ptr [rax+rcx*8]\nmov     rax, [rbp+y]\nmovsxd  rcx, [rbp+i]\nmovsd   xmm2, qword ptr [rax+rcx*8]\nmovsd   xmm1, [rbp+sumxy]\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmovsd   [rbp+sumxy], xmm0\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_121E",
+   "loc_12BE": "cvtsi2sd xmm0, [rbp+count]\nmovsd   xmm2, [rbp+sumx2]\nmovsd   xmm1, [rbp+sumx]\nmulsd   xmm1, [rbp+sumx]\nmovq    rax, xmm1\nmov     rcx, 8000000000000000h\nxor     rax, rcx\nmovq    xmm1, rax\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmovsd   [rbp+denom], xmm0\nmovsd   xmm0, [rbp+denom]\nxorps   xmm1, xmm1\nucomisd xmm0, xmm1\njnz     loc_131A",
+   "loc_1308": "jp      loc_131A",
+   "loc_130E": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_13A1",
+   "loc_131A": "movsd   xmm0, [rbp+sumy]\nmovsd   xmm2, [rbp+sumx2]\nmovsd   xmm1, [rbp+sumx]\nmulsd   xmm1, [rbp+sumxy]\nmovq    rax, xmm1\nmov     rcx, 8000000000000000h\nxor     rax, rcx\nmovq    xmm1, rax\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\ndivsd   xmm0, [rbp+denom]\nmov     rax, [rbp+a]\nmovsd   qword ptr [rax], xmm0\ncvtsi2sd xmm0, [rbp+count]\nmovsd   xmm2, [rbp+sumxy]\nmovsd   xmm1, [rbp+sumx]\nmulsd   xmm1, [rbp+sumy]\nmovq    rax, xmm1\nmov     rcx, 8000000000000000h\nxor     rax, rcx\nmovq    xmm1, rax\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\ndivsd   xmm0, [rbp+denom]\nmov     rax, [rbp+b]\nmovsd   qword ptr [rax], xmm0\nmov     [rbp+var_4], 0",
+   "loc_13A1": "mov     eax, [rbp+var_4]\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "i": "dword ptr -5Ch",
+   "denom": "qword ptr -58h",
+   "sumx2": "qword ptr -50h",
+   "sumxy": "qword ptr -48h",
+   "sumy": "qword ptr -40h",
+   "sumx": "qword ptr -38h",
+   "b": "qword ptr -30h",
+   "a": "qword ptr -28h",
+   "count": "dword ptr -1Ch",
+   "y": "qword ptr -18h",
+   "x": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4576,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".llround": "llround",
+  "_llround": "llround",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".llround",
+   ".plt",
+   true,
+   "llround"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "llround",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868240
+ }
+}

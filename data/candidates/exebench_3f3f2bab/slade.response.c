@@ -1,0 +1,1 @@
+int sboxCHECK(float *sx, float *sy, int n) { register int i; if (sx == NULL || sy == NULL) return 1; for (i = 0; i < n; i++) { if (sx[i] > sy[i]) return 0; } return 1; }

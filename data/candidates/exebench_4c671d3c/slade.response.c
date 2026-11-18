@@ -1,0 +1,1 @@
+void standardize(int n, TYPE *x, TYPE *y, TYPE *z, TYPE *xt, TYPE *yt, TYPE *zt) { TYPE i; for (i = 0; i < 3; i++) { if (i < n) { x[i] = xt[i]; y[i] = yt[i]; z[i] = zt[i]; } else { x[i] = 0; y[i] = 1; z[i] = 1; } } }

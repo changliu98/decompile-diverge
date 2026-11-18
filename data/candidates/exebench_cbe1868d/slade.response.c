@@ -1,0 +1,1 @@
+float vectorDotProduct(int size, float *a, float *b) { float sum = 0; for (int i = 0; i < size; i++) sum += a[i] * b[i]; return sum; }

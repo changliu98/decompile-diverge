@@ -1,0 +1,1 @@
+int writejpeg(grib_accessor* a,int start,int len,grib_file*f) { return 2; }

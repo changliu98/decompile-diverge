@@ -1,0 +1,662 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0C0h\nmov     [rbp+GifFile], rdi\nmov     [rbp+sp_0], 0\nlea     rdi, [rbp+noext]; s\nxor     esi, esi; c\nmov     edx, 40h ; '@'; n\ncall    memset\nmov     [rbp+noext.delay], 0\nmov     [rbp+noext.dispose], 0\nmov     [rbp+noext.iter], 1\nmov     [rbp+noext.transp], 0FFFFh\nmov     [rbp+noext.ExtensionBlocks], 0\nmov     [rbp+noext.ExtensionBlockCount], 0\nlea     rdi, [rbp+ext]; dest\nlea     rsi, [rbp+noext]; src\nmov     edx, 40h ; '@'; n\ncall    memcpy\nmov     rax, [rbp+GifFile]\nmov     qword ptr [rax+20h], 0\nmov     rdi, [rbp+GifFile]; GifFile\nlea     rsi, [rbp+RecordType]; Type\ncall    DGifGetRecordType\ncmp     eax, 0\njnz     loc_1C72\nmov     [rbp+var_4], 0\njmp     loc_20A8\nmov     eax, [rbp+RecordType]\nmov     [rbp+var_BC], eax\nsub     eax, 2\njz      loc_1CB1\njmp     $+5\nmov     eax, [rbp+var_BC]\nsub     eax, 3\njz      loc_1EA8\njmp     $+5\nmov     eax, [rbp+var_BC]\nsub     eax, 4\njz      loc_2088\njmp     loc_208D\nmov     rdi, [rbp+GifFile]; GifFile\ncall    DGifGetImageDesc\ncmp     eax, 0\njnz     loc_1CCF\nmov     [rbp+var_4], 0\njmp     loc_20A8\nmov     rax, [rbp+GifFile]\nmov     rax, [rax+20h]\nmov     rcx, [rbp+GifFile]\nmov     ecx, [rcx+18h]\nsub     ecx, 1\nmovsxd  rcx, ecx\nshl     rcx, 6\nadd     rax, rcx\nmov     [rbp+sp_0], rax\nmov     rax, [rbp+sp_0]\nmov     rax, [rax+20h]\nmov     [rbp+ext.RasterBits], rax\nmov     rax, [rbp+sp_0]\nmov     rcx, [rax]\nmov     qword ptr [rbp+ext.ImageDesc.Left], rcx\nmov     rcx, [rax+8]\nmov     qword ptr [rbp+ext.ImageDesc.Width], rcx\nmov     rcx, [rax+10h]\nmov     qword ptr [rbp+ext.ImageDesc.Interlace], rcx\nmov     rax, [rax+18h]\nmov     [rbp+ext.ImageDesc.ColorMap], rax\nmov     rdi, [rbp+sp_0]; dest\nlea     rsi, [rbp+ext]; src\nmov     edx, 40h ; '@'; n\ncall    memcpy\nlea     rdi, [rbp+ext]; dest\nlea     rsi, [rbp+noext]; src\nmov     edx, 40h ; '@'; n\ncall    memcpy\nmov     rax, [rbp+sp_0]\nmovsxd  rdi, dword ptr [rax+8]\nadd     rdi, 0\nmov     rax, [rbp+sp_0]\nmovsxd  rax, dword ptr [rax+0Ch]\nimul    rdi, rax\nshl     rdi, 0; size\ncall    xmalloc\nmov     rcx, rax\nmov     rax, [rbp+sp_0]\nmov     [rax+20h], rcx\nmov     rax, [rbp+sp_0]\ncmp     dword ptr [rax+10h], 0\njz      loc_1E5E\nmov     rax, [rbp+sp_0]\nmov     eax, [rax+0Ch]\nmov     [rbp+Height], eax\nmov     rax, [rbp+sp_0]\nmov     eax, [rax+8]\nmov     [rbp+Width], eax\nmov     [rbp+i], 0\ncmp     [rbp+i], 4\njnb     loc_1E59\nmov     eax, [rbp+i]\nmov     ecx, eax\nlea     rax, DGifSlurp_InterlacedOffset\nmov     eax, [rax+rcx*4]\nmov     [rbp+j], eax\nmov     eax, [rbp+j]\ncmp     eax, [rbp+Height]\njnb     loc_1E40\nmov     rdi, [rbp+GifFile]; GifFile\nmov     rax, [rbp+sp_0]\nmov     rsi, [rax+20h]\nmov     eax, [rbp+Width]\nimul    eax, [rbp+j]\nmov     eax, eax\nadd     rsi, rax; Line\nmov     edx, [rbp+Width]; LineLen\ncall    DGifGetLine\ncmp     eax, 1\njz      loc_1E18\nmov     [rbp+var_4], 0\njmp     loc_20A8\njmp     $+5\nmov     eax, [rbp+i]\nmov     ecx, eax\nlea     rax, DGifSlurp_InterlacedJumps\nmov     eax, [rax+rcx*4]\nadd     eax, [rbp+j]\nmov     [rbp+j], eax\njmp     loc_1DC8\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1DA3\njmp     loc_1EA3\nmov     rdi, [rbp+GifFile]; GifFile\nmov     rax, [rbp+sp_0]\nmov     rsi, [rax+20h]; Line\nmov     rax, [rbp+sp_0]\nmovsxd  rax, dword ptr [rax+8]\nadd     rax, 0\nmov     rcx, [rbp+sp_0]\nmovsxd  rcx, dword ptr [rcx+0Ch]\nimul    rax, rcx\nmov     edx, eax; LineLen\ncall    DGifGetLine\ncmp     eax, 0\njnz     loc_1E9E\nmov     [rbp+var_4], 0\njmp     loc_20A8\njmp     $+5\njmp     loc_2092\nmov     rdi, [rbp+GifFile]; GifFile\nlea     rsi, [rbp+ext_code]; ExtCode\nlea     rdx, [rbp+ExtData]; Extension\ncall    DGifGetExtension\ncmp     eax, 0\njnz     loc_1ED1\nmov     [rbp+var_4], 0\njmp     loc_20A8\ncmp     [rbp+ExtData], 0\njz      loc_2083\nmov     eax, [rbp+ext_code]\nmovzx   ecx, al\nmov     eax, 0F9h\ncmp     eax, ecx\njnz     loc_1F93\nmov     rax, [rbp+ExtData]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 4\njge     loc_1F20\njmp     $+5\nmov     cs:_GifError, 72h ; 'r'\nmov     [rbp+var_4], 0\njmp     loc_20A8\nmov     rax, [rbp+ExtData]\nmovzx   eax, byte ptr [rax+1]\nsar     eax, 2\nmov     [rbp+ext.dispose], al\nmov     rax, [rbp+ExtData]\nmovzx   eax, byte ptr [rax+3]\nshl     eax, 8\nmov     rcx, [rbp+ExtData]\nmovzx   ecx, byte ptr [rcx+2]\nor      eax, ecx\nmov     [rbp+ext.delay], ax\nmov     rax, [rbp+ExtData]\nmovzx   eax, byte ptr [rax+1]\nand     eax, 1\ncmp     eax, 1\njnz     loc_1F8E\nmov     rax, [rbp+ExtData]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 5\njge     loc_1F7F\njmp     ext_too_short\nmov     rax, [rbp+ExtData]\nmovzx   eax, byte ptr [rax+4]\nmov     [rbp+ext.transp], ax\njmp     loc_201E\nmov     eax, [rbp+ext_code]\nmovzx   ecx, al\nmov     eax, 0FFh\ncmp     eax, ecx\njnz     loc_1FE2\nmov     rax, [rbp+ExtData]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 4\njge     loc_1FBE\njmp     ext_too_short\nmov     rax, [rbp+ExtData]\nmovzx   eax, byte ptr [rax+3]\nshl     eax, 8\nmov     rcx, [rbp+ExtData]\nmovzx   ecx, byte ptr [rcx+2]\nor      eax, ecx\nmov     [rbp+ext.iter], ax\njmp     loc_2019\nmov     rax, [rbp+ExtData]\nmovzx   esi, byte ptr [rax]; Len\nmov     rdx, [rbp+ExtData]\nadd     rdx, 1; ExtData\nlea     rdi, [rbp+ext]; New\ncall    AddExtensionBlock\nmov     ecx, [rbp+ext_code]\nmov     rax, [rbp+ext.ExtensionBlocks]\nmov     edx, [rbp+ext.ExtensionBlockCount]\nsub     edx, 1\nmovsxd  rdx, edx\nshl     rdx, 4\nadd     rax, rdx\nmov     [rax], ecx\njmp     $+5\njmp     $+5\nmov     rdi, [rbp+GifFile]; GifFile\nlea     rsi, [rbp+ExtData]; Extension\ncall    DGifGetExtensionNext\ncmp     eax, 0\njnz     loc_2048\nmov     [rbp+var_4], 0\njmp     loc_20A8\ncmp     [rbp+ExtData], 0\njnz     loc_205B\njmp     loc_207E\nmov     rdi, [rbp+sp_0]; New\nmov     rax, [rbp+ExtData]\nmovzx   esi, byte ptr [rax]; Len\nmov     rdx, [rbp+ExtData]\nadd     rdx, 1; ExtData\ncall    AddExtensionBlock\njmp     loc_2023\njmp     $+5\njmp     loc_2092\njmp     loc_2092\njmp     $+5\njmp     $+5\ncmp     [rbp+RecordType], 4\njnz     loc_1C50\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 0C0h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 59,
+  "edges": [
+   [
+    "start",
+    "loc_1C50"
+   ],
+   [
+    "loc_1C50",
+    "loc_1C66"
+   ],
+   [
+    "loc_1C50",
+    "loc_1C72"
+   ],
+   [
+    "loc_1C66",
+    "loc_20A8"
+   ],
+   [
+    "loc_1C72",
+    "loc_1C84"
+   ],
+   [
+    "loc_1C72",
+    "loc_1CB1"
+   ],
+   [
+    "loc_1C84",
+    "loc_1C89"
+   ],
+   [
+    "loc_1C89",
+    "loc_1C98"
+   ],
+   [
+    "loc_1C89",
+    "loc_1EA8"
+   ],
+   [
+    "loc_1C98",
+    "loc_1C9D"
+   ],
+   [
+    "loc_1C9D",
+    "loc_1CAC"
+   ],
+   [
+    "loc_1C9D",
+    "loc_2088"
+   ],
+   [
+    "loc_1CAC",
+    "loc_208D"
+   ],
+   [
+    "loc_1CB1",
+    "loc_1CC3"
+   ],
+   [
+    "loc_1CB1",
+    "loc_1CCF"
+   ],
+   [
+    "loc_1CC3",
+    "loc_20A8"
+   ],
+   [
+    "loc_1CCF",
+    "loc_1D7F"
+   ],
+   [
+    "loc_1CCF",
+    "loc_1E5E"
+   ],
+   [
+    "loc_1D7F",
+    "loc_1DA3"
+   ],
+   [
+    "loc_1DA3",
+    "loc_1DB0"
+   ],
+   [
+    "loc_1DA3",
+    "loc_1E59"
+   ],
+   [
+    "loc_1DB0",
+    "loc_1DC8"
+   ],
+   [
+    "loc_1DC8",
+    "loc_1DDA"
+   ],
+   [
+    "loc_1DC8",
+    "loc_1E40"
+   ],
+   [
+    "loc_1DDA",
+    "loc_1E0C"
+   ],
+   [
+    "loc_1DDA",
+    "loc_1E18"
+   ],
+   [
+    "loc_1E0C",
+    "loc_20A8"
+   ],
+   [
+    "loc_1E18",
+    "loc_1E1D"
+   ],
+   [
+    "loc_1E1D",
+    "loc_1DC8"
+   ],
+   [
+    "loc_1E40",
+    "loc_1E45"
+   ],
+   [
+    "loc_1E45",
+    "loc_1DA3"
+   ],
+   [
+    "loc_1E59",
+    "loc_1EA3"
+   ],
+   [
+    "loc_1E5E",
+    "loc_1E92"
+   ],
+   [
+    "loc_1E5E",
+    "loc_1E9E"
+   ],
+   [
+    "loc_1E92",
+    "loc_20A8"
+   ],
+   [
+    "loc_1E9E",
+    "loc_1EA3"
+   ],
+   [
+    "loc_1EA3",
+    "loc_2092"
+   ],
+   [
+    "loc_1EA8",
+    "loc_1EC5"
+   ],
+   [
+    "loc_1EA8",
+    "loc_1ED1"
+   ],
+   [
+    "loc_1EC5",
+    "loc_20A8"
+   ],
+   [
+    "loc_1ED1",
+    "loc_1EDF"
+   ],
+   [
+    "loc_1ED1",
+    "loc_2083"
+   ],
+   [
+    "loc_1EDF",
+    "loc_1EF2"
+   ],
+   [
+    "loc_1EDF",
+    "loc_1F93"
+   ],
+   [
+    "loc_1EF2",
+    "loc_1F05"
+   ],
+   [
+    "loc_1EF2",
+    "loc_1F20"
+   ],
+   [
+    "loc_1F05",
+    "loc_1F0A"
+   ],
+   [
+    "loc_1F0A",
+    "loc_20A8"
+   ],
+   [
+    "loc_1F20",
+    "loc_1F67"
+   ],
+   [
+    "loc_1F20",
+    "loc_1F8E"
+   ],
+   [
+    "loc_1F67",
+    "loc_1F7A"
+   ],
+   [
+    "loc_1F67",
+    "loc_1F7F"
+   ],
+   [
+    "loc_1F7A",
+    "loc_1F0A"
+   ],
+   [
+    "loc_1F7F",
+    "loc_1F8E"
+   ],
+   [
+    "loc_1F8E",
+    "loc_201E"
+   ],
+   [
+    "loc_1F93",
+    "loc_1FA6"
+   ],
+   [
+    "loc_1F93",
+    "loc_1FE2"
+   ],
+   [
+    "loc_1FA6",
+    "loc_1FB9"
+   ],
+   [
+    "loc_1FA6",
+    "loc_1FBE"
+   ],
+   [
+    "loc_1FB9",
+    "loc_1F0A"
+   ],
+   [
+    "loc_1FBE",
+    "loc_2019"
+   ],
+   [
+    "loc_1FE2",
+    "loc_2019"
+   ],
+   [
+    "loc_2019",
+    "loc_201E"
+   ],
+   [
+    "loc_201E",
+    "loc_2023"
+   ],
+   [
+    "loc_2023",
+    "loc_203C"
+   ],
+   [
+    "loc_2023",
+    "loc_2048"
+   ],
+   [
+    "loc_203C",
+    "loc_20A8"
+   ],
+   [
+    "loc_2048",
+    "loc_2056"
+   ],
+   [
+    "loc_2048",
+    "loc_205B"
+   ],
+   [
+    "loc_2056",
+    "loc_207E"
+   ],
+   [
+    "loc_205B",
+    "loc_2023"
+   ],
+   [
+    "loc_207E",
+    "loc_2083"
+   ],
+   [
+    "loc_2083",
+    "loc_2092"
+   ],
+   [
+    "loc_2088",
+    "loc_2092"
+   ],
+   [
+    "loc_208D",
+    "loc_2092"
+   ],
+   [
+    "loc_2092",
+    "loc_2097"
+   ],
+   [
+    "loc_2097",
+    "loc_1C50"
+   ],
+   [
+    "loc_2097",
+    "loc_20A1"
+   ],
+   [
+    "loc_20A1",
+    "loc_20A8"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0C0h\nmov     [rbp+GifFile], rdi\nmov     [rbp+sp_0], 0\nlea     rdi, [rbp+noext]; s\nxor     esi, esi; c\nmov     edx, 40h ; '@'; n\ncall    memset\nmov     [rbp+noext.delay], 0\nmov     [rbp+noext.dispose], 0\nmov     [rbp+noext.iter], 1\nmov     [rbp+noext.transp], 0FFFFh\nmov     [rbp+noext.ExtensionBlocks], 0\nmov     [rbp+noext.ExtensionBlockCount], 0\nlea     rdi, [rbp+ext]; dest\nlea     rsi, [rbp+noext]; src\nmov     edx, 40h ; '@'; n\ncall    memcpy\nmov     rax, [rbp+GifFile]\nmov     qword ptr [rax+20h], 0",
+   "loc_1C50": "mov     rdi, [rbp+GifFile]; GifFile\nlea     rsi, [rbp+RecordType]; Type\ncall    DGifGetRecordType\ncmp     eax, 0\njnz     loc_1C72",
+   "loc_1C66": "mov     [rbp+var_4], 0\njmp     loc_20A8",
+   "loc_1C72": "mov     eax, [rbp+RecordType]\nmov     [rbp+var_BC], eax\nsub     eax, 2\njz      loc_1CB1",
+   "loc_1C84": "jmp     $+5",
+   "loc_1C89": "mov     eax, [rbp+var_BC]\nsub     eax, 3\njz      loc_1EA8",
+   "loc_1C98": "jmp     $+5",
+   "loc_1C9D": "mov     eax, [rbp+var_BC]\nsub     eax, 4\njz      loc_2088",
+   "loc_1CAC": "jmp     loc_208D",
+   "loc_1CB1": "mov     rdi, [rbp+GifFile]; GifFile\ncall    DGifGetImageDesc\ncmp     eax, 0\njnz     loc_1CCF",
+   "loc_1CC3": "mov     [rbp+var_4], 0\njmp     loc_20A8",
+   "loc_1CCF": "mov     rax, [rbp+GifFile]\nmov     rax, [rax+20h]\nmov     rcx, [rbp+GifFile]\nmov     ecx, [rcx+18h]\nsub     ecx, 1\nmovsxd  rcx, ecx\nshl     rcx, 6\nadd     rax, rcx\nmov     [rbp+sp_0], rax\nmov     rax, [rbp+sp_0]\nmov     rax, [rax+20h]\nmov     [rbp+ext.RasterBits], rax\nmov     rax, [rbp+sp_0]\nmov     rcx, [rax]\nmov     qword ptr [rbp+ext.ImageDesc.Left], rcx\nmov     rcx, [rax+8]\nmov     qword ptr [rbp+ext.ImageDesc.Width], rcx\nmov     rcx, [rax+10h]\nmov     qword ptr [rbp+ext.ImageDesc.Interlace], rcx\nmov     rax, [rax+18h]\nmov     [rbp+ext.ImageDesc.ColorMap], rax\nmov     rdi, [rbp+sp_0]; dest\nlea     rsi, [rbp+ext]; src\nmov     edx, 40h ; '@'; n\ncall    memcpy\nlea     rdi, [rbp+ext]; dest\nlea     rsi, [rbp+noext]; src\nmov     edx, 40h ; '@'; n\ncall    memcpy\nmov     rax, [rbp+sp_0]\nmovsxd  rdi, dword ptr [rax+8]\nadd     rdi, 0\nmov     rax, [rbp+sp_0]\nmovsxd  rax, dword ptr [rax+0Ch]\nimul    rdi, rax\nshl     rdi, 0; size\ncall    xmalloc\nmov     rcx, rax\nmov     rax, [rbp+sp_0]\nmov     [rax+20h], rcx\nmov     rax, [rbp+sp_0]\ncmp     dword ptr [rax+10h], 0\njz      loc_1E5E",
+   "loc_1D7F": "mov     rax, [rbp+sp_0]\nmov     eax, [rax+0Ch]\nmov     [rbp+Height], eax\nmov     rax, [rbp+sp_0]\nmov     eax, [rax+8]\nmov     [rbp+Width], eax\nmov     [rbp+i], 0",
+   "loc_1DA3": "cmp     [rbp+i], 4\njnb     loc_1E59",
+   "loc_1DB0": "mov     eax, [rbp+i]\nmov     ecx, eax\nlea     rax, DGifSlurp_InterlacedOffset\nmov     eax, [rax+rcx*4]\nmov     [rbp+j], eax",
+   "loc_1DC8": "mov     eax, [rbp+j]\ncmp     eax, [rbp+Height]\njnb     loc_1E40",
+   "loc_1DDA": "mov     rdi, [rbp+GifFile]; GifFile\nmov     rax, [rbp+sp_0]\nmov     rsi, [rax+20h]\nmov     eax, [rbp+Width]\nimul    eax, [rbp+j]\nmov     eax, eax\nadd     rsi, rax; Line\nmov     edx, [rbp+Width]; LineLen\ncall    DGifGetLine\ncmp     eax, 1\njz      loc_1E18",
+   "loc_1E0C": "mov     [rbp+var_4], 0\njmp     loc_20A8",
+   "loc_1E18": "jmp     $+5",
+   "loc_1E1D": "mov     eax, [rbp+i]\nmov     ecx, eax\nlea     rax, DGifSlurp_InterlacedJumps\nmov     eax, [rax+rcx*4]\nadd     eax, [rbp+j]\nmov     [rbp+j], eax\njmp     loc_1DC8",
+   "loc_1E40": "jmp     $+5",
+   "loc_1E45": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1DA3",
+   "loc_1E59": "jmp     loc_1EA3",
+   "loc_1E5E": "mov     rdi, [rbp+GifFile]; GifFile\nmov     rax, [rbp+sp_0]\nmov     rsi, [rax+20h]; Line\nmov     rax, [rbp+sp_0]\nmovsxd  rax, dword ptr [rax+8]\nadd     rax, 0\nmov     rcx, [rbp+sp_0]\nmovsxd  rcx, dword ptr [rcx+0Ch]\nimul    rax, rcx\nmov     edx, eax; LineLen\ncall    DGifGetLine\ncmp     eax, 0\njnz     loc_1E9E",
+   "loc_1E92": "mov     [rbp+var_4], 0\njmp     loc_20A8",
+   "loc_1E9E": "jmp     $+5",
+   "loc_1EA3": "jmp     loc_2092",
+   "loc_1EA8": "mov     rdi, [rbp+GifFile]; GifFile\nlea     rsi, [rbp+ext_code]; ExtCode\nlea     rdx, [rbp+ExtData]; Extension\ncall    DGifGetExtension\ncmp     eax, 0\njnz     loc_1ED1",
+   "loc_1EC5": "mov     [rbp+var_4], 0\njmp     loc_20A8",
+   "loc_1ED1": "cmp     [rbp+ExtData], 0\njz      loc_2083",
+   "loc_1EDF": "mov     eax, [rbp+ext_code]\nmovzx   ecx, al\nmov     eax, 0F9h\ncmp     eax, ecx\njnz     loc_1F93",
+   "loc_1EF2": "mov     rax, [rbp+ExtData]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 4\njge     loc_1F20",
+   "loc_1F05": "jmp     $+5",
+   "loc_1F0A": "mov     cs:_GifError, 72h ; 'r'\nmov     [rbp+var_4], 0\njmp     loc_20A8",
+   "loc_1F20": "mov     rax, [rbp+ExtData]\nmovzx   eax, byte ptr [rax+1]\nsar     eax, 2\nmov     [rbp+ext.dispose], al\nmov     rax, [rbp+ExtData]\nmovzx   eax, byte ptr [rax+3]\nshl     eax, 8\nmov     rcx, [rbp+ExtData]\nmovzx   ecx, byte ptr [rcx+2]\nor      eax, ecx\nmov     [rbp+ext.delay], ax\nmov     rax, [rbp+ExtData]\nmovzx   eax, byte ptr [rax+1]\nand     eax, 1\ncmp     eax, 1\njnz     loc_1F8E",
+   "loc_1F67": "mov     rax, [rbp+ExtData]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 5\njge     loc_1F7F",
+   "loc_1F7A": "jmp     ext_too_short",
+   "loc_1F7F": "mov     rax, [rbp+ExtData]\nmovzx   eax, byte ptr [rax+4]\nmov     [rbp+ext.transp], ax",
+   "loc_1F8E": "jmp     loc_201E",
+   "loc_1F93": "mov     eax, [rbp+ext_code]\nmovzx   ecx, al\nmov     eax, 0FFh\ncmp     eax, ecx\njnz     loc_1FE2",
+   "loc_1FA6": "mov     rax, [rbp+ExtData]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 4\njge     loc_1FBE",
+   "loc_1FB9": "jmp     ext_too_short",
+   "loc_1FBE": "mov     rax, [rbp+ExtData]\nmovzx   eax, byte ptr [rax+3]\nshl     eax, 8\nmov     rcx, [rbp+ExtData]\nmovzx   ecx, byte ptr [rcx+2]\nor      eax, ecx\nmov     [rbp+ext.iter], ax\njmp     loc_2019",
+   "loc_1FE2": "mov     rax, [rbp+ExtData]\nmovzx   esi, byte ptr [rax]; Len\nmov     rdx, [rbp+ExtData]\nadd     rdx, 1; ExtData\nlea     rdi, [rbp+ext]; New\ncall    AddExtensionBlock\nmov     ecx, [rbp+ext_code]\nmov     rax, [rbp+ext.ExtensionBlocks]\nmov     edx, [rbp+ext.ExtensionBlockCount]\nsub     edx, 1\nmovsxd  rdx, edx\nshl     rdx, 4\nadd     rax, rdx\nmov     [rax], ecx",
+   "loc_2019": "jmp     $+5",
+   "loc_201E": "jmp     $+5",
+   "loc_2023": "mov     rdi, [rbp+GifFile]; GifFile\nlea     rsi, [rbp+ExtData]; Extension\ncall    DGifGetExtensionNext\ncmp     eax, 0\njnz     loc_2048",
+   "loc_203C": "mov     [rbp+var_4], 0\njmp     loc_20A8",
+   "loc_2048": "cmp     [rbp+ExtData], 0\njnz     loc_205B",
+   "loc_2056": "jmp     loc_207E",
+   "loc_205B": "mov     rdi, [rbp+sp_0]; New\nmov     rax, [rbp+ExtData]\nmovzx   esi, byte ptr [rax]; Len\nmov     rdx, [rbp+ExtData]\nadd     rdx, 1; ExtData\ncall    AddExtensionBlock\njmp     loc_2023",
+   "loc_207E": "jmp     $+5",
+   "loc_2083": "jmp     loc_2092",
+   "loc_2088": "jmp     loc_2092",
+   "loc_208D": "jmp     $+5",
+   "loc_2092": "jmp     $+5",
+   "loc_2097": "cmp     [rbp+RecordType], 4\njnz     loc_1C50",
+   "loc_20A1": "mov     [rbp+var_4], 1",
+   "loc_20A8": "mov     eax, [rbp+var_4]\nadd     rsp, 0C0h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_BC": "dword ptr -0BCh",
+   "Width": "dword ptr -0B8h",
+   "Height": "dword ptr -0B4h",
+   "j": "dword ptr -0B0h",
+   "i": "dword ptr -0ACh",
+   "ExtData": "qword ptr -0A8h",
+   "noext": "SavedImage ptr -0A0h",
+   "ext": "SavedImage ptr -60h",
+   "sp_0": "qword ptr -20h",
+   "RecordType": "dword ptr -18h",
+   "ext_code": "dword ptr -14h",
+   "GifFile": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {
+   "DGifSlurp.InterlacedOffset": "byte 0",
+   "DGifSlurp.InterlacedJumps": "byte 8"
+  },
+  ".bss": {
+   "_GifError": "[]"
+  }
+ },
+ "func_ea": 7136,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".abort": "abort",
+  "_abort": "abort",
+  ".strncmp": "strncmp",
+  "_strncmp": "strncmp",
+  ".fmemopen": "fmemopen",
+  "_fmemopen": "fmemopen",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".abort",
+   ".plt",
+   true,
+   "abort"
+  ],
+  [
+   ".strncmp",
+   ".plt",
+   true,
+   "strncmp"
+  ],
+  [
+   ".fmemopen",
+   ".plt",
+   true,
+   "fmemopen"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "abort",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fmemopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868491
+ }
+}

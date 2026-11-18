@@ -1,0 +1,1 @@
+int bnode_link_set_leaf(struct bnode *bnode) { bnode->data = ((long)bnode->data & 1); return ((int)bnode->data); }

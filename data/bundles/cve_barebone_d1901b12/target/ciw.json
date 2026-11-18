@@ -1,0 +1,475 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     rax, [rbp+flags]\nmov     rax, [rbp+doff]\nmov     rax, [rbp+noff]\nmov     [rbp+ms], rdi\nmov     [rbp+nbuf], rsi\nmov     [rbp+type], edx\nmov     [rbp+swap], ecx\nmov     [rbp+namesz], r8d\nmov     [rbp+descsz], r9d\ncmp     [rbp+namesz], 4\njnz     loc_166D\nmov     rdi, [rbp+nbuf]\nadd     rdi, [rbp+noff]; s1\nlea     rsi, s2; s2\ncall    strcmp\ncmp     eax, 0\njnz     loc_166D\ncmp     [rbp+type], 3\njnz     loc_166D\ncmp     [rbp+descsz], 4\njnb     loc_154F\ncmp     [rbp+descsz], 14h\nja      loc_166D\nmov     rax, [rbp+flags]\nmov     ecx, [rax]\nor      ecx, 10h\nmov     [rax], ecx\nmov     eax, [rbp+descsz]\nmov     [rbp+var_50], eax\nsub     eax, 8\njz      loc_1590\njmp     $+5\nmov     eax, [rbp+var_50]\nsub     eax, 10h\njz      loc_15A0\njmp     $+5\nmov     eax, [rbp+var_50]\nsub     eax, 14h\njz      loc_15B0\njmp     loc_15C0\nlea     rax, aXxhash; \"xxHash\"\nmov     [rbp+btype], rax\njmp     loc_15CB\nlea     rax, aMd5Uuid; \"md5/uuid\"\nmov     [rbp+btype], rax\njmp     loc_15CB\nlea     rax, aSha1; \"sha1\"\nmov     [rbp+btype], rax\njmp     loc_15CB\nlea     rax, aUnknown; \"unknown\"\nmov     [rbp+btype], rax\nmov     rdi, [rbp+ms]; ms\nmov     rdx, [rbp+btype]\nlea     rsi, fmt; \", BuildID[%s]=\"\nmov     al, 0\ncall    file_printf\ncmp     eax, 0FFFFFFFFh\njnz     loc_15F6\nmov     [rbp+var_4], 1\njmp     loc_1674\nlea     rdi, [rbp+desc]; dest\nmov     rsi, [rbp+nbuf]\nadd     rsi, [rbp+doff]; src\nmov     eax, [rbp+descsz]\nmov     edx, eax; n\ncall    memcpy\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+descsz]\njnb     loc_1661\nmov     rdi, [rbp+ms]; ms\nmov     eax, [rbp+i]\nmovzx   edx, [rbp+rax+desc]\nlea     rsi, a02x; \"%02x\"\nmov     al, 0\ncall    file_printf\ncmp     eax, 0FFFFFFFFh\njnz     loc_164E\nmov     [rbp+var_4], 1\njmp     loc_1674\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1613\nmov     [rbp+var_4], 1\njmp     loc_1674\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 26,
+  "edges": [
+   [
+    "start",
+    "loc_1514"
+   ],
+   [
+    "start",
+    "loc_166D"
+   ],
+   [
+    "loc_1514",
+    "loc_1531"
+   ],
+   [
+    "loc_1514",
+    "loc_166D"
+   ],
+   [
+    "loc_1531",
+    "loc_153B"
+   ],
+   [
+    "loc_1531",
+    "loc_166D"
+   ],
+   [
+    "loc_153B",
+    "loc_1545"
+   ],
+   [
+    "loc_153B",
+    "loc_154F"
+   ],
+   [
+    "loc_1545",
+    "loc_154F"
+   ],
+   [
+    "loc_1545",
+    "loc_166D"
+   ],
+   [
+    "loc_154F",
+    "loc_1569"
+   ],
+   [
+    "loc_154F",
+    "loc_1590"
+   ],
+   [
+    "loc_1569",
+    "loc_156E"
+   ],
+   [
+    "loc_156E",
+    "loc_157A"
+   ],
+   [
+    "loc_156E",
+    "loc_15A0"
+   ],
+   [
+    "loc_157A",
+    "loc_157F"
+   ],
+   [
+    "loc_157F",
+    "loc_158B"
+   ],
+   [
+    "loc_157F",
+    "loc_15B0"
+   ],
+   [
+    "loc_158B",
+    "loc_15C0"
+   ],
+   [
+    "loc_1590",
+    "loc_15CB"
+   ],
+   [
+    "loc_15A0",
+    "loc_15CB"
+   ],
+   [
+    "loc_15B0",
+    "loc_15CB"
+   ],
+   [
+    "loc_15C0",
+    "loc_15CB"
+   ],
+   [
+    "loc_15CB",
+    "loc_15EA"
+   ],
+   [
+    "loc_15CB",
+    "loc_15F6"
+   ],
+   [
+    "loc_15EA",
+    "loc_1674"
+   ],
+   [
+    "loc_15F6",
+    "loc_1613"
+   ],
+   [
+    "loc_1613",
+    "loc_161F"
+   ],
+   [
+    "loc_1613",
+    "loc_1661"
+   ],
+   [
+    "loc_161F",
+    "loc_1642"
+   ],
+   [
+    "loc_161F",
+    "loc_164E"
+   ],
+   [
+    "loc_1642",
+    "loc_1674"
+   ],
+   [
+    "loc_164E",
+    "loc_1653"
+   ],
+   [
+    "loc_1653",
+    "loc_1613"
+   ],
+   [
+    "loc_1661",
+    "loc_1674"
+   ],
+   [
+    "loc_166D",
+    "loc_1674"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     rax, [rbp+flags]\nmov     rax, [rbp+doff]\nmov     rax, [rbp+noff]\nmov     [rbp+ms], rdi\nmov     [rbp+nbuf], rsi\nmov     [rbp+type], edx\nmov     [rbp+swap], ecx\nmov     [rbp+namesz], r8d\nmov     [rbp+descsz], r9d\ncmp     [rbp+namesz], 4\njnz     loc_166D",
+   "loc_1514": "mov     rdi, [rbp+nbuf]\nadd     rdi, [rbp+noff]; s1\nlea     rsi, s2; s2\ncall    strcmp\ncmp     eax, 0\njnz     loc_166D",
+   "loc_1531": "cmp     [rbp+type], 3\njnz     loc_166D",
+   "loc_153B": "cmp     [rbp+descsz], 4\njnb     loc_154F",
+   "loc_1545": "cmp     [rbp+descsz], 14h\nja      loc_166D",
+   "loc_154F": "mov     rax, [rbp+flags]\nmov     ecx, [rax]\nor      ecx, 10h\nmov     [rax], ecx\nmov     eax, [rbp+descsz]\nmov     [rbp+var_50], eax\nsub     eax, 8\njz      loc_1590",
+   "loc_1569": "jmp     $+5",
+   "loc_156E": "mov     eax, [rbp+var_50]\nsub     eax, 10h\njz      loc_15A0",
+   "loc_157A": "jmp     $+5",
+   "loc_157F": "mov     eax, [rbp+var_50]\nsub     eax, 14h\njz      loc_15B0",
+   "loc_158B": "jmp     loc_15C0",
+   "loc_1590": "lea     rax, aXxhash; \"xxHash\"\nmov     [rbp+btype], rax\njmp     loc_15CB",
+   "loc_15A0": "lea     rax, aMd5Uuid; \"md5/uuid\"\nmov     [rbp+btype], rax\njmp     loc_15CB",
+   "loc_15B0": "lea     rax, aSha1; \"sha1\"\nmov     [rbp+btype], rax\njmp     loc_15CB",
+   "loc_15C0": "lea     rax, aUnknown; \"unknown\"\nmov     [rbp+btype], rax",
+   "loc_15CB": "mov     rdi, [rbp+ms]; ms\nmov     rdx, [rbp+btype]\nlea     rsi, fmt; \", BuildID[%s]=\"\nmov     al, 0\ncall    file_printf\ncmp     eax, 0FFFFFFFFh\njnz     loc_15F6",
+   "loc_15EA": "mov     [rbp+var_4], 1\njmp     loc_1674",
+   "loc_15F6": "lea     rdi, [rbp+desc]; dest\nmov     rsi, [rbp+nbuf]\nadd     rsi, [rbp+doff]; src\nmov     eax, [rbp+descsz]\nmov     edx, eax; n\ncall    memcpy\nmov     [rbp+i], 0",
+   "loc_1613": "mov     eax, [rbp+i]\ncmp     eax, [rbp+descsz]\njnb     loc_1661",
+   "loc_161F": "mov     rdi, [rbp+ms]; ms\nmov     eax, [rbp+i]\nmovzx   edx, [rbp+rax+desc]\nlea     rsi, a02x; \"%02x\"\nmov     al, 0\ncall    file_printf\ncmp     eax, 0FFFFFFFFh\njnz     loc_164E",
+   "loc_1642": "mov     [rbp+var_4], 1\njmp     loc_1674",
+   "loc_164E": "jmp     $+5",
+   "loc_1653": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1613",
+   "loc_1661": "mov     [rbp+var_4], 1\njmp     loc_1674",
+   "loc_166D": "mov     [rbp+var_4], 0",
+   "loc_1674": "mov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_50": "dword ptr -50h",
+   "i": "dword ptr -4Ch",
+   "btype": "qword ptr -48h",
+   "desc": "byte ptr -40h",
+   "descsz": "dword ptr -28h",
+   "namesz": "dword ptr -24h",
+   "swap": "dword ptr -20h",
+   "type": "dword ptr -1Ch",
+   "nbuf": "qword ptr -18h",
+   "ms": "qword ptr -10h",
+   "var_4": "dword ptr -4",
+   "noff": "qword ptr 10h",
+   "doff": "qword ptr 18h",
+   "flags": "qword ptr 20h"
+  },
+  ".rodata": {
+   "s2": "word 4E47h",
+   "aXxhash": "byte 'xxHash',0",
+   "aMd5Uuid": "byte 'md5/uuid',0",
+   "aSha1": "byte 'sha1',0",
+   "aUnknown": "byte 'unknown',0",
+   "fmt": "byte ', BuildID[%s]=',0",
+   "a02x": "byte '%02x',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5344,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".rewind": "rewind",
+  "_rewind": "rewind",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fputc": "fputc",
+  "_fputc": "fputc",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".vfprintf": "vfprintf",
+  "_vfprintf": "vfprintf"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".rewind",
+   ".plt",
+   true,
+   "rewind"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fputc",
+   ".plt",
+   true,
+   "fputc"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".vfprintf",
+   ".plt",
+   true,
+   "vfprintf"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "printf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "rewind",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fputc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "vfprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868491
+ }
+}

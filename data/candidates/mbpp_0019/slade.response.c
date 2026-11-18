@@ -1,0 +1,1 @@
+char func0(int* arr, int size) { char found = 0; for (int i = 0; i < size; ++i) { for (int j = i + 1; j < size; ++j) { if (arr[i] == arr[j]) { found = 1; break; } } if (found) break; } return found; }

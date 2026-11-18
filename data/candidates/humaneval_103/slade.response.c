@@ -1,0 +1,1 @@
+char *func0(int a, int b) { if (a > b) { return "-1"; } int mid = (b + a) / 2; char *str = malloc(sizeof(char) * 33); str[0] = '\0'; int i = 32; str[i--] = '\0'; do { str[i--] = '0' + mid % 2; mid /= 2; } while (mid > 0); return str + i + 1; }

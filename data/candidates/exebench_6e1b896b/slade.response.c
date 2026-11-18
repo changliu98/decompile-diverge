@@ -1,0 +1,1 @@
+void break_at(char *p, char ch) { char *q = strchr(p, ch); if (q != NULL) *q = '\0'; }

@@ -1,0 +1,1 @@
+void ifft2pt(float *p,float f) { float a,b,c,d,e; a=p[0]; b=p[1]; c=p[2]; d=p[3]; e=a+c; d=b+d; c=a-c; d=b-d; p[0]=f*e; p[1]=f*d; p[2]=f*c; p[3]=f*d; }

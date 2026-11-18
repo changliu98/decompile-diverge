@@ -1,0 +1,697 @@
+{
+ "kind": "exebench",
+ "real_deps": "\n\n\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_45l6tdt493.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(int n, long int* min1, long int* max1, long int* step1, long int* min2, long int* max2, long int* step2) {\n  json output_json;\n  std::vector<json> output_temp_7;\n  for (unsigned int i8 = 0; i8 < 3; i8++) {\n    long int output_temp_9 = min1[i8];\n\n    output_temp_7.push_back(output_temp_9);\n  }\n  output_json[\"min1\"] = output_temp_7;\n  std::vector<json> output_temp_10;\n  for (unsigned int i11 = 0; i11 < 3; i11++) {\n    long int output_temp_12 = max1[i11];\n\n    output_temp_10.push_back(output_temp_12);\n  }\n  output_json[\"max1\"] = output_temp_10;\n  std::vector<json> output_temp_13;\n  for (unsigned int i14 = 0; i14 < 3; i14++) {\n    long int output_temp_15 = step1[i14];\n\n    output_temp_13.push_back(output_temp_15);\n  }\n  output_json[\"step1\"] = output_temp_13;\n  std::vector<json> output_temp_16;\n  for (unsigned int i17 = 0; i17 < 3; i17++) {\n    long int output_temp_18 = min2[i17];\n\n    output_temp_16.push_back(output_temp_18);\n  }\n  output_json[\"min2\"] = output_temp_16;\n  std::vector<json> output_temp_19;\n  for (unsigned int i20 = 0; i20 < 3; i20++) {\n    long int output_temp_21 = max2[i20];\n\n    output_temp_19.push_back(output_temp_21);\n  }\n  output_json[\"max2\"] = output_temp_19;\n  std::vector<json> output_temp_22;\n  for (unsigned int i23 = 0; i23 < 3; i23++) {\n    long int output_temp_24 = step2[i23];\n\n    output_temp_22.push_back(output_temp_24);\n  }\n  output_json[\"step2\"] = output_temp_22;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  int n = input_json[\"n\"];\n  std::vector<long int> input_temp_1_vec;\n  for (auto& elem : input_json[\"min1\"]) {\n    long int input_temp_1_inner = elem;\n    input_temp_1_vec.push_back(input_temp_1_inner);\n  }\n  long int* min1 = &input_temp_1_vec[0];\n  std::vector<long int> input_temp_2_vec;\n  for (auto& elem : input_json[\"max1\"]) {\n    long int input_temp_2_inner = elem;\n    input_temp_2_vec.push_back(input_temp_2_inner);\n  }\n  long int* max1 = &input_temp_2_vec[0];\n  std::vector<long int> input_temp_3_vec;\n  for (auto& elem : input_json[\"step1\"]) {\n    long int input_temp_3_inner = elem;\n    input_temp_3_vec.push_back(input_temp_3_inner);\n  }\n  long int* step1 = &input_temp_3_vec[0];\n  std::vector<long int> input_temp_4_vec;\n  for (auto& elem : input_json[\"min2\"]) {\n    long int input_temp_4_inner = elem;\n    input_temp_4_vec.push_back(input_temp_4_inner);\n  }\n  long int* min2 = &input_temp_4_vec[0];\n  std::vector<long int> input_temp_5_vec;\n  for (auto& elem : input_json[\"max2\"]) {\n    long int input_temp_5_inner = elem;\n    input_temp_5_vec.push_back(input_temp_5_inner);\n  }\n  long int* max2 = &input_temp_5_vec[0];\n  std::vector<long int> input_temp_6_vec;\n  for (auto& elem : input_json[\"step2\"]) {\n    long int input_temp_6_inner = elem;\n    input_temp_6_vec.push_back(input_temp_6_inner);\n  }\n  long int* step2 = &input_temp_6_vec[0];\n  clock_t begin = clock();\n  standardize(n, min1, max1, step1, min2, max2, step2);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(n, min1, max1, step1, min2, max2, step2);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "n": 43,
+    "min1": [
+     92,
+     70,
+     43
+    ],
+    "max1": [
+     90,
+     76,
+     101
+    ],
+    "step1": [
+     49,
+     44,
+     7
+    ],
+    "min2": [
+     6,
+     63,
+     34
+    ],
+    "max2": [
+     23,
+     37,
+     45
+    ],
+    "step2": [
+     84,
+     29,
+     2
+    ]
+   },
+   "output": {
+    "max1": [
+     23,
+     37,
+     45
+    ],
+    "max2": [
+     23,
+     37,
+     45
+    ],
+    "min1": [
+     6,
+     63,
+     34
+    ],
+    "min2": [
+     6,
+     63,
+     34
+    ],
+    "step1": [
+     84,
+     29,
+     2
+    ],
+    "step2": [
+     84,
+     29,
+     2
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "n": 3,
+    "min1": [
+     83,
+     37,
+     39
+    ],
+    "max1": [
+     110,
+     84,
+     19
+    ],
+    "step1": [
+     68,
+     65,
+     104
+    ],
+    "min2": [
+     31,
+     19,
+     1
+    ],
+    "max2": [
+     65,
+     23,
+     12
+    ],
+    "step2": [
+     108,
+     10,
+     27
+    ]
+   },
+   "output": {
+    "max1": [
+     65,
+     23,
+     12
+    ],
+    "max2": [
+     65,
+     23,
+     12
+    ],
+    "min1": [
+     31,
+     19,
+     1
+    ],
+    "min2": [
+     31,
+     19,
+     1
+    ],
+    "step1": [
+     108,
+     10,
+     27
+    ],
+    "step2": [
+     108,
+     10,
+     27
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "n": 31,
+    "min1": [
+     120,
+     122,
+     31
+    ],
+    "max1": [
+     20,
+     125,
+     43
+    ],
+    "step1": [
+     92,
+     105,
+     41
+    ],
+    "min2": [
+     84,
+     22,
+     41
+    ],
+    "max2": [
+     101,
+     38,
+     61
+    ],
+    "step2": [
+     26,
+     67,
+     98
+    ]
+   },
+   "output": {
+    "max1": [
+     101,
+     38,
+     61
+    ],
+    "max2": [
+     101,
+     38,
+     61
+    ],
+    "min1": [
+     84,
+     22,
+     41
+    ],
+    "min2": [
+     84,
+     22,
+     41
+    ],
+    "step1": [
+     26,
+     67,
+     98
+    ],
+    "step2": [
+     26,
+     67,
+     98
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "n": 56,
+    "min1": [
+     100,
+     51,
+     73
+    ],
+    "max1": [
+     60,
+     12,
+     40
+    ],
+    "step1": [
+     89,
+     37,
+     30
+    ],
+    "min2": [
+     110,
+     52,
+     26
+    ],
+    "max2": [
+     97,
+     39,
+     79
+    ],
+    "step2": [
+     3,
+     27,
+     68
+    ]
+   },
+   "output": {
+    "max1": [
+     97,
+     39,
+     79
+    ],
+    "max2": [
+     97,
+     39,
+     79
+    ],
+    "min1": [
+     110,
+     52,
+     26
+    ],
+    "min2": [
+     110,
+     52,
+     26
+    ],
+    "step1": [
+     3,
+     27,
+     68
+    ],
+    "step2": [
+     3,
+     27,
+     68
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "n": 73,
+    "min1": [
+     51,
+     63,
+     64
+    ],
+    "max1": [
+     55,
+     61,
+     48
+    ],
+    "step1": [
+     47,
+     7,
+     39
+    ],
+    "min2": [
+     92,
+     109,
+     87
+    ],
+    "max2": [
+     20,
+     1,
+     46
+    ],
+    "step2": [
+     64,
+     8,
+     73
+    ]
+   },
+   "output": {
+    "max1": [
+     20,
+     1,
+     46
+    ],
+    "max2": [
+     20,
+     1,
+     46
+    ],
+    "min1": [
+     92,
+     109,
+     87
+    ],
+    "min2": [
+     92,
+     109,
+     87
+    ],
+    "step1": [
+     64,
+     8,
+     73
+    ],
+    "step2": [
+     64,
+     8,
+     73
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "n": 108,
+    "min1": [
+     12,
+     107,
+     99
+    ],
+    "max1": [
+     73,
+     59,
+     28
+    ],
+    "step1": [
+     26,
+     40,
+     72
+    ],
+    "min2": [
+     47,
+     98,
+     52
+    ],
+    "max2": [
+     82,
+     6,
+     0
+    ],
+    "step2": [
+     105,
+     12,
+     87
+    ]
+   },
+   "output": {
+    "max1": [
+     82,
+     6,
+     0
+    ],
+    "max2": [
+     82,
+     6,
+     0
+    ],
+    "min1": [
+     47,
+     98,
+     52
+    ],
+    "min2": [
+     47,
+     98,
+     52
+    ],
+    "step1": [
+     105,
+     12,
+     87
+    ],
+    "step2": [
+     105,
+     12,
+     87
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "n": 78,
+    "min1": [
+     41,
+     24,
+     64
+    ],
+    "max1": [
+     103,
+     27,
+     81
+    ],
+    "step1": [
+     88,
+     74,
+     68
+    ],
+    "min2": [
+     37,
+     75,
+     94
+    ],
+    "max2": [
+     77,
+     66,
+     72
+    ],
+    "step2": [
+     96,
+     47,
+     50
+    ]
+   },
+   "output": {
+    "max1": [
+     77,
+     66,
+     72
+    ],
+    "max2": [
+     77,
+     66,
+     72
+    ],
+    "min1": [
+     37,
+     75,
+     94
+    ],
+    "min2": [
+     37,
+     75,
+     94
+    ],
+    "step1": [
+     96,
+     47,
+     50
+    ],
+    "step2": [
+     96,
+     47,
+     50
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "n": 99,
+    "min1": [
+     4,
+     122,
+     126
+    ],
+    "max1": [
+     107,
+     18,
+     0
+    ],
+    "step1": [
+     106,
+     122,
+     105
+    ],
+    "min2": [
+     78,
+     53,
+     52
+    ],
+    "max2": [
+     36,
+     104,
+     23
+    ],
+    "step2": [
+     11,
+     68,
+     119
+    ]
+   },
+   "output": {
+    "max1": [
+     36,
+     104,
+     23
+    ],
+    "max2": [
+     36,
+     104,
+     23
+    ],
+    "min1": [
+     78,
+     53,
+     52
+    ],
+    "min2": [
+     78,
+     53,
+     52
+    ],
+    "step1": [
+     11,
+     68,
+     119
+    ],
+    "step2": [
+     11,
+     68,
+     119
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "n": 44,
+    "min1": [
+     39,
+     7,
+     14
+    ],
+    "max1": [
+     124,
+     20,
+     54
+    ],
+    "step1": [
+     3,
+     3,
+     39
+    ],
+    "min2": [
+     125,
+     58,
+     112
+    ],
+    "max2": [
+     116,
+     98,
+     43
+    ],
+    "step2": [
+     106,
+     95,
+     16
+    ]
+   },
+   "output": {
+    "max1": [
+     116,
+     98,
+     43
+    ],
+    "max2": [
+     116,
+     98,
+     43
+    ],
+    "min1": [
+     125,
+     58,
+     112
+    ],
+    "min2": [
+     125,
+     58,
+     112
+    ],
+    "step1": [
+     106,
+     95,
+     16
+    ],
+    "step2": [
+     106,
+     95,
+     16
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "n": 43,
+    "min1": [
+     64,
+     73,
+     52
+    ],
+    "max1": [
+     115,
+     77,
+     45
+    ],
+    "step1": [
+     59,
+     105,
+     5
+    ],
+    "min2": [
+     44,
+     103,
+     74
+    ],
+    "max2": [
+     66,
+     0,
+     80
+    ],
+    "step2": [
+     66,
+     73,
+     112
+    ]
+   },
+   "output": {
+    "max1": [
+     66,
+     0,
+     80
+    ],
+    "max2": [
+     66,
+     0,
+     80
+    ],
+    "min1": [
+     44,
+     103,
+     74
+    ],
+    "min2": [
+     44,
+     103,
+     74
+    ],
+    "step1": [
+     66,
+     73,
+     112
+    ],
+    "step2": [
+     66,
+     73,
+     112
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

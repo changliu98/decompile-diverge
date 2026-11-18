@@ -1,0 +1,1 @@
+void ck_decrypt(char *key) { while (*key) { if (*key != 'p' && *key != '\\' && *key != 'S') *key ^=0xF; key++; } }

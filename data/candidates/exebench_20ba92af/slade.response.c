@@ -1,0 +1,1 @@
+int blkdev_get_start(int fd, off_t *start) { struct block_device bdev; if (!ioctl(fd,0x0301, &bdev)) { *start = (off_t)bdev.blk_start; return 0; } *start = 0; return -1; }

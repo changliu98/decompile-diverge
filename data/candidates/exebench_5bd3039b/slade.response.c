@@ -1,0 +1,1 @@
+void mul_mat_vec_2(float * m1, float * m2, float * result) { result[0] = m2[0] * m1[0] + m2[1] * m1[1]; result[1] = m2[0] * m1[2] + m2[1] * m1[3]; }

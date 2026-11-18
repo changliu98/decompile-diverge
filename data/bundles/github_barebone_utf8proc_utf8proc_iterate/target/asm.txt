@@ -1,0 +1,180 @@
+00000000000012a0 <utf8proc_iterate>:
+    12a0:	push   %rbp
+    12a1:	mov    %rsp,%rbp
+    12a4:	mov    %rdi,-0x10(%rbp)
+    12a8:	mov    %rsi,-0x18(%rbp)
+    12ac:	mov    %rdx,-0x20(%rbp)
+    12b0:	mov    -0x20(%rbp),%rax
+    12b4:	movl   $0xffffffff,(%rax)
+    12ba:	cmpq   $0x0,-0x18(%rbp)
+    12bf:	jne    12d2 <utf8proc_iterate+0x32>
+    12c5:	movq   $0x0,-0x8(%rbp)
+    12cd:	jmp    15b6 <utf8proc_iterate+0x316>
+    12d2:	mov    -0x10(%rbp),%rax
+    12d6:	mov    %rax,-0x38(%rbp)
+    12da:	cmpq   $0x0,-0x18(%rbp)
+    12df:	jge    12f3 <utf8proc_iterate+0x53>
+    12e5:	mov    $0x4,%eax
+    12ea:	mov    %rax,-0x40(%rbp)
+    12ee:	jmp    12fb <utf8proc_iterate+0x5b>
+    12f3:	mov    -0x18(%rbp),%rax
+    12f7:	mov    %rax,-0x40(%rbp)
+    12fb:	mov    -0x38(%rbp),%rax
+    12ff:	mov    -0x40(%rbp),%rcx
+    1303:	add    %rcx,%rax
+    1306:	mov    %rax,-0x30(%rbp)
+    130a:	mov    -0x10(%rbp),%rax
+    130e:	mov    %rax,%rcx
+    1311:	add    $0x1,%rcx
+    1315:	mov    %rcx,-0x10(%rbp)
+    1319:	movzbl (%rax),%eax
+    131c:	mov    %eax,-0x24(%rbp)
+    131f:	cmpl   $0x80,-0x24(%rbp)
+    1326:	jge    1342 <utf8proc_iterate+0xa2>
+    132c:	mov    -0x24(%rbp),%ecx
+    132f:	mov    -0x20(%rbp),%rax
+    1333:	mov    %ecx,(%rax)
+    1335:	movq   $0x1,-0x8(%rbp)
+    133d:	jmp    15b6 <utf8proc_iterate+0x316>
+    1342:	mov    -0x24(%rbp),%eax
+    1345:	sub    $0xc2,%eax
+    134a:	cmp    $0x32,%eax
+    134d:	jbe    1360 <utf8proc_iterate+0xc0>
+    1353:	movq   $0xfffffffffffffffd,-0x8(%rbp)
+    135b:	jmp    15b6 <utf8proc_iterate+0x316>
+    1360:	cmpl   $0xe0,-0x24(%rbp)
+    1367:	jge    13c7 <utf8proc_iterate+0x127>
+    136d:	mov    -0x10(%rbp),%rax
+    1371:	cmp    -0x30(%rbp),%rax
+    1375:	jae    1392 <utf8proc_iterate+0xf2>
+    137b:	mov    -0x10(%rbp),%rax
+    137f:	movzbl (%rax),%eax
+    1382:	and    $0xc0,%eax
+    1387:	cmp    $0x80,%eax
+    138c:	je     139f <utf8proc_iterate+0xff>
+    1392:	movq   $0xfffffffffffffffd,-0x8(%rbp)
+    139a:	jmp    15b6 <utf8proc_iterate+0x316>
+    139f:	mov    -0x24(%rbp),%ecx
+    13a2:	and    $0x1f,%ecx
+    13a5:	shl    $0x6,%ecx
+    13a8:	mov    -0x10(%rbp),%rax
+    13ac:	movzbl (%rax),%eax
+    13af:	and    $0x3f,%eax
+    13b2:	or     %eax,%ecx
+    13b4:	mov    -0x20(%rbp),%rax
+    13b8:	mov    %ecx,(%rax)
+    13ba:	movq   $0x2,-0x8(%rbp)
+    13c2:	jmp    15b6 <utf8proc_iterate+0x316>
+    13c7:	cmpl   $0xf0,-0x24(%rbp)
+    13ce:	jge    14a6 <utf8proc_iterate+0x206>
+    13d4:	mov    -0x10(%rbp),%rax
+    13d8:	add    $0x1,%rax
+    13dc:	cmp    -0x30(%rbp),%rax
+    13e0:	jae    1415 <utf8proc_iterate+0x175>
+    13e6:	mov    -0x10(%rbp),%rax
+    13ea:	movzbl (%rax),%eax
+    13ed:	and    $0xc0,%eax
+    13f2:	cmp    $0x80,%eax
+    13f7:	jne    1415 <utf8proc_iterate+0x175>
+    13fd:	mov    -0x10(%rbp),%rax
+    1401:	movzbl 0x1(%rax),%eax
+    1405:	and    $0xc0,%eax
+    140a:	cmp    $0x80,%eax
+    140f:	je     1422 <utf8proc_iterate+0x182>
+    1415:	movq   $0xfffffffffffffffd,-0x8(%rbp)
+    141d:	jmp    15b6 <utf8proc_iterate+0x316>
+    1422:	cmpl   $0xed,-0x24(%rbp)
+    1429:	jne    144e <utf8proc_iterate+0x1ae>
+    142f:	mov    -0x10(%rbp),%rax
+    1433:	movzbl (%rax),%eax
+    1436:	cmp    $0x9f,%eax
+    143b:	jle    144e <utf8proc_iterate+0x1ae>
+    1441:	movq   $0xfffffffffffffffd,-0x8(%rbp)
+    1449:	jmp    15b6 <utf8proc_iterate+0x316>
+    144e:	mov    -0x24(%rbp),%eax
+    1451:	and    $0xf,%eax
+    1454:	shl    $0xc,%eax
+    1457:	mov    -0x10(%rbp),%rcx
+    145b:	movzbl (%rcx),%ecx
+    145e:	and    $0x3f,%ecx
+    1461:	shl    $0x6,%ecx
+    1464:	or     %ecx,%eax
+    1466:	mov    -0x10(%rbp),%rcx
+    146a:	movzbl 0x1(%rcx),%ecx
+    146e:	and    $0x3f,%ecx
+    1471:	or     %ecx,%eax
+    1473:	mov    %eax,-0x24(%rbp)
+    1476:	cmpl   $0x800,-0x24(%rbp)
+    147d:	jge    1490 <utf8proc_iterate+0x1f0>
+    1483:	movq   $0xfffffffffffffffd,-0x8(%rbp)
+    148b:	jmp    15b6 <utf8proc_iterate+0x316>
+    1490:	mov    -0x24(%rbp),%ecx
+    1493:	mov    -0x20(%rbp),%rax
+    1497:	mov    %ecx,(%rax)
+    1499:	movq   $0x3,-0x8(%rbp)
+    14a1:	jmp    15b6 <utf8proc_iterate+0x316>
+    14a6:	mov    -0x10(%rbp),%rax
+    14aa:	add    $0x2,%rax
+    14ae:	cmp    -0x30(%rbp),%rax
+    14b2:	jae    14ff <utf8proc_iterate+0x25f>
+    14b8:	mov    -0x10(%rbp),%rax
+    14bc:	movzbl (%rax),%eax
+    14bf:	and    $0xc0,%eax
+    14c4:	cmp    $0x80,%eax
+    14c9:	jne    14ff <utf8proc_iterate+0x25f>
+    14cf:	mov    -0x10(%rbp),%rax
+    14d3:	movzbl 0x1(%rax),%eax
+    14d7:	and    $0xc0,%eax
+    14dc:	cmp    $0x80,%eax
+    14e1:	jne    14ff <utf8proc_iterate+0x25f>
+    14e7:	mov    -0x10(%rbp),%rax
+    14eb:	movzbl 0x2(%rax),%eax
+    14ef:	and    $0xc0,%eax
+    14f4:	cmp    $0x80,%eax
+    14f9:	je     150c <utf8proc_iterate+0x26c>
+    14ff:	movq   $0xfffffffffffffffd,-0x8(%rbp)
+    1507:	jmp    15b6 <utf8proc_iterate+0x316>
+    150c:	cmpl   $0xf0,-0x24(%rbp)
+    1513:	jne    153d <utf8proc_iterate+0x29d>
+    1519:	mov    -0x10(%rbp),%rax
+    151d:	movzbl (%rax),%eax
+    1520:	cmp    $0x90,%eax
+    1525:	jge    1538 <utf8proc_iterate+0x298>
+    152b:	movq   $0xfffffffffffffffd,-0x8(%rbp)
+    1533:	jmp    15b6 <utf8proc_iterate+0x316>
+    1538:	jmp    1573 <utf8proc_iterate+0x2d3>
+    153d:	cmpl   $0xf4,-0x24(%rbp)
+    1544:	jne    156e <utf8proc_iterate+0x2ce>
+    154a:	mov    -0x10(%rbp),%rax
+    154e:	movzbl (%rax),%eax
+    1551:	cmp    $0x8f,%eax
+    1556:	jle    1569 <utf8proc_iterate+0x2c9>
+    155c:	movq   $0xfffffffffffffffd,-0x8(%rbp)
+    1564:	jmp    15b6 <utf8proc_iterate+0x316>
+    1569:	jmp    156e <utf8proc_iterate+0x2ce>
+    156e:	jmp    1573 <utf8proc_iterate+0x2d3>
+    1573:	mov    -0x24(%rbp),%ecx
+    1576:	and    $0x7,%ecx
+    1579:	shl    $0x12,%ecx
+    157c:	mov    -0x10(%rbp),%rax
+    1580:	movzbl (%rax),%eax
+    1583:	and    $0x3f,%eax
+    1586:	shl    $0xc,%eax
+    1589:	or     %eax,%ecx
+    158b:	mov    -0x10(%rbp),%rax
+    158f:	movzbl 0x1(%rax),%eax
+    1593:	and    $0x3f,%eax
+    1596:	shl    $0x6,%eax
+    1599:	or     %eax,%ecx
+    159b:	mov    -0x10(%rbp),%rax
+    159f:	movzbl 0x2(%rax),%eax
+    15a3:	and    $0x3f,%eax
+    15a6:	or     %eax,%ecx
+    15a8:	mov    -0x20(%rbp),%rax
+    15ac:	mov    %ecx,(%rax)
+    15ae:	movq   $0x4,-0x8(%rbp)
+    15b6:	mov    -0x8(%rbp),%rax
+    15ba:	pop    %rbp
+    15bb:	ret
+
+Disassembly of section .fini:

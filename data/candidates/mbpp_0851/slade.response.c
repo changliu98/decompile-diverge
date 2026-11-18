@@ -1,0 +1,1 @@
+double func0(int size, int a) { double p = (double)a / (double)size; return round(p * 100.0) / 100.0; }

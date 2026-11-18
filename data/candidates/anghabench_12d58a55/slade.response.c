@@ -1,0 +1,1 @@
+char *ikcp_encode8u(char *p, unsigned char c) { *(unsigned char*)p++ = c; return p; }

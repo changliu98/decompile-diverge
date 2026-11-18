@@ -1,0 +1,1 @@
+void reverse(char s[]) { size_t i, j, k; char c; for (i = 0; s[i] != '\0'; i++); if (i > 0) { for (j = 0, k = i - 1; j < k; j++, k--) { c = s[j], s[j] = s[k], s[k] = c; } } }

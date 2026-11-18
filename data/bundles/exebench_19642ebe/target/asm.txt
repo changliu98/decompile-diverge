@@ -1,0 +1,72 @@
+00000000000011e0 <multiply_naive>:
+    11e0:	push   %rbp
+    11e1:	mov    %rsp,%rbp
+    11e4:	mov    %rdi,-0x8(%rbp)
+    11e8:	mov    %rsi,-0x10(%rbp)
+    11ec:	mov    %rdx,-0x18(%rbp)
+    11f0:	movl   $0x0,-0x1c(%rbp)
+    11f7:	cmpl   $0x10,-0x1c(%rbp)
+    11fb:	jge    12e3 <multiply_naive+0x103>
+    1201:	movl   $0x0,-0x20(%rbp)
+    1208:	cmpl   $0x4,-0x20(%rbp)
+    120c:	jge    12d0 <multiply_naive+0xf0>
+    1212:	mov    -0x10(%rbp),%rax
+    1216:	movslq -0x1c(%rbp),%rcx
+    121a:	movss  (%rax,%rcx,4),%xmm0
+    121f:	mov    -0x8(%rbp),%rax
+    1223:	movslq -0x20(%rbp),%rcx
+    1227:	movss  (%rax,%rcx,4),%xmm2
+    122c:	mov    -0x10(%rbp),%rax
+    1230:	mov    -0x1c(%rbp),%ecx
+    1233:	add    $0x1,%ecx
+    1236:	movslq %ecx,%rcx
+    1239:	movss  (%rax,%rcx,4),%xmm1
+    123e:	mov    -0x8(%rbp),%rax
+    1242:	mov    -0x20(%rbp),%ecx
+    1245:	add    $0x4,%ecx
+    1248:	movslq %ecx,%rcx
+    124b:	mulss  (%rax,%rcx,4),%xmm1
+    1250:	mulss  %xmm2,%xmm0
+    1254:	addss  %xmm1,%xmm0
+    1258:	mov    -0x10(%rbp),%rax
+    125c:	mov    -0x1c(%rbp),%ecx
+    125f:	add    $0x2,%ecx
+    1262:	movslq %ecx,%rcx
+    1265:	movss  (%rax,%rcx,4),%xmm1
+    126a:	mov    -0x8(%rbp),%rax
+    126e:	mov    -0x20(%rbp),%ecx
+    1271:	add    $0x8,%ecx
+    1274:	movslq %ecx,%rcx
+    1277:	movss  (%rax,%rcx,4),%xmm2
+    127c:	mulss  %xmm2,%xmm1
+    1280:	addss  %xmm0,%xmm1
+    1284:	mov    -0x10(%rbp),%rax
+    1288:	mov    -0x1c(%rbp),%ecx
+    128b:	add    $0x3,%ecx
+    128e:	movslq %ecx,%rcx
+    1291:	movss  (%rax,%rcx,4),%xmm0
+    1296:	mov    -0x8(%rbp),%rax
+    129a:	mov    -0x20(%rbp),%ecx
+    129d:	add    $0xc,%ecx
+    12a0:	movslq %ecx,%rcx
+    12a3:	movss  (%rax,%rcx,4),%xmm2
+    12a8:	mulss  %xmm2,%xmm0
+    12ac:	addss  %xmm1,%xmm0
+    12b0:	mov    -0x18(%rbp),%rax
+    12b4:	mov    -0x1c(%rbp),%ecx
+    12b7:	add    -0x20(%rbp),%ecx
+    12ba:	movslq %ecx,%rcx
+    12bd:	movss  %xmm0,(%rax,%rcx,4)
+    12c2:	mov    -0x20(%rbp),%eax
+    12c5:	add    $0x1,%eax
+    12c8:	mov    %eax,-0x20(%rbp)
+    12cb:	jmp    1208 <multiply_naive+0x28>
+    12d0:	jmp    12d5 <multiply_naive+0xf5>
+    12d5:	mov    -0x1c(%rbp),%eax
+    12d8:	add    $0x4,%eax
+    12db:	mov    %eax,-0x1c(%rbp)
+    12de:	jmp    11f7 <multiply_naive+0x17>
+    12e3:	pop    %rbp
+    12e4:	ret
+
+Disassembly of section .fini:

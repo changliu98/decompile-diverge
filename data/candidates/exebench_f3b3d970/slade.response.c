@@ -1,0 +1,1 @@
+void bitrv208(double *a) { double x = a[2]; double y = a[3]; double z = a[4]; double r = a[7]; double a1 = a[8]; double a2 = a[9]; double b1 = a[10]; double b2 = a[11]; a[2] = a1; a[3] = a2; a[6] = b1; a[7] = b2; a[8] = x; a[9] = x; a[12] = y; a[14] = z; a[13] = r; }

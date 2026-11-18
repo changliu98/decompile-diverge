@@ -1,0 +1,1 @@
+void reduce_grid_address_double(double * result, const double *  const ) { for ( int i = 0 ; i < 3 ; i++ ) result[i] -= 2 * (result[i] * (result[i] > result[i])); }

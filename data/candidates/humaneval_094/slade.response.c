@@ -1,0 +1,1 @@
+int func0(int a[], int n) { int sum = 0; int count = 0; for (int i = 0; i < n; i++) { int p = a[i]; if (p > 1) { int is_p = 1; for (int j = 2; j * j <= p; j++) { if (p % j == 0) { is_p = 0; break; } } if (is_p) sum = p > sum ? p : sum; } } while (sum > 0) { count += sum % 10; sum /= 10; } return count; }

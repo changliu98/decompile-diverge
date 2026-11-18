@@ -1,0 +1,227 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nmov     [rbp+dummy], rdi\nmov     [rbp+sizeMB], rsi\nmov     rax, [rbp+sizeMB]\nshr     rax, 3\nmov     [rbp+end], rax\nxorps   xmm0, xmm0\nmovsd   [rbp+a], xmm0\nmov     [rbp+i], 0\nmov     rax, [rbp+i]\ncmp     rax, [rbp+end]\njnb     loc_122E\nmov     rax, [rbp+dummy]\nmov     rcx, [rbp+i]\nmovsd   xmm0, qword ptr [rax+rcx*8]\naddsd   xmm0, [rbp+a]\nmovsd   [rbp+a], xmm0\nmov     rax, [rbp+i]\nadd     rax, 1\nmov     [rbp+i], rax\njmp     loc_11F8\nmovsd   xmm0, [rbp+a]\nmovaps  xmm2, cs:xmmword_2010\nmovq    xmm1, [rbp+end]\npunpckldq xmm1, xmm2\nmovapd  xmm2, cs:xmmword_2020\nsubpd   xmm1, xmm2\nmovaps  xmm2, xmm1\nunpckhpd xmm1, xmm1\naddsd   xmm1, xmm2\ndivsd   xmm0, xmm1\nmov     rax, [rbp+dummy]\nmovsd   qword ptr [rax], xmm0\nmovsd   xmm0, [rbp+a]\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 4,
+  "edges": [
+   [
+    "start",
+    "loc_11F8"
+   ],
+   [
+    "loc_11F8",
+    "loc_1206"
+   ],
+   [
+    "loc_11F8",
+    "loc_122E"
+   ],
+   [
+    "loc_1206",
+    "loc_11F8"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nmov     [rbp+dummy], rdi\nmov     [rbp+sizeMB], rsi\nmov     rax, [rbp+sizeMB]\nshr     rax, 3\nmov     [rbp+end], rax\nxorps   xmm0, xmm0\nmovsd   [rbp+a], xmm0\nmov     [rbp+i], 0",
+   "loc_11F8": "mov     rax, [rbp+i]\ncmp     rax, [rbp+end]\njnb     loc_122E",
+   "loc_1206": "mov     rax, [rbp+dummy]\nmov     rcx, [rbp+i]\nmovsd   xmm0, qword ptr [rax+rcx*8]\naddsd   xmm0, [rbp+a]\nmovsd   [rbp+a], xmm0\nmov     rax, [rbp+i]\nadd     rax, 1\nmov     [rbp+i], rax\njmp     loc_11F8",
+   "loc_122E": "movsd   xmm0, [rbp+a]\nmovaps  xmm2, cs:xmmword_2010\nmovq    xmm1, [rbp+end]\npunpckldq xmm1, xmm2\nmovapd  xmm2, cs:xmmword_2020\nsubpd   xmm1, xmm2\nmovaps  xmm2, xmm1\nunpckhpd xmm1, xmm1\naddsd   xmm1, xmm2\ndivsd   xmm0, xmm1\nmov     rax, [rbp+dummy]\nmovsd   qword ptr [rax], xmm0\nmovsd   xmm0, [rbp+a]\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "a": "qword ptr -28h",
+   "i": "qword ptr -20h",
+   "end": "qword ptr -18h",
+   "sizeMB": "qword ptr -10h",
+   "dummy": "qword ptr -8"
+  },
+  ".rodata": {
+   "xmmword_2010": "xmmword 4530000043300000h",
+   "xmmword_2020": "xmmword 45300000000000004330000000000000h"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4560,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".llround": "llround",
+  "_llround": "llround",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".llround",
+   ".plt",
+   true,
+   "llround"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "llround",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868362
+ }
+}

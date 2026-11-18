@@ -1,0 +1,1 @@
+void babl_matrix_to_float (const BablMatrix a, float *result) { int i; for (i=0; i<9; i++) result[i] = (float) a[i]; }

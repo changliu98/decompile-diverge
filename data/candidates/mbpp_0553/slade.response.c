@@ -1,0 +1,1 @@
+float func0(int x, int y) { int i=0; int z=y; if (z==0) { i=1; while (z) { i++; z/=10; } } return (x+(double)x/pow(2.0,(double)i)/pow(2.0,(double)i)); }

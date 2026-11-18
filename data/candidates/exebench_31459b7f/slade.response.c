@@ -1,0 +1,1 @@
+void f (struct s *s) { s->b = 3; }

@@ -1,0 +1,52 @@
+{
+ "schema_version": 1,
+ "localId": "github_barebone_wyhash_wyhash",
+ "backend": "github",
+ "project": "wyhash",
+ "pname": "wyhash",
+ "language": "c",
+ "fuzz_target": "prog.bin",
+ "sanitizer": "asan_ubsan",
+ "oracle": "exit_memstate",
+ "n_inputs": 50,
+ "n_safe": 50,
+ "n_triggering": 0,
+ "signature": "static inline uint64_t wyhash(const void *key, size_t len, uint64_t seed, const uint64_t *secret)",
+ "harness": "custom",
+ "memstate_masked": true,
+ "memstate_symcanon": true,
+ "baseline": {
+  "crashed": false,
+  "status": "PASS",
+  "n_pass": 50,
+  "memstate": "data_bss_symbol_canonical_relocmasked",
+  "memstate_masked": true,
+  "memstate_symcanon": true
+ },
+ "target": {
+  "name": "wyhash",
+  "repo_relpath": "func.c",
+  "start_byte": 4554,
+  "end_byte": 5558,
+  "start_line": 118,
+  "end_line": 142,
+  "return_type": "uint64_t",
+  "signature": "static inline uint64_t wyhash(const void *key, size_t len, uint64_t seed, const uint64_t *secret)"
+ },
+ "provenance": {
+  "source": "github",
+  "repo": "https://github.com/wangyi-fudan/wyhash",
+  "commit": "e4764a0b637d34d3421a7760affada9288b625a8",
+  "path": "wyhash.h",
+  "func": "wyhash",
+  "commit_verified": "exact"
+ },
+ "decompiler_input": [
+  "asm",
+  "ghidra",
+  "ida"
+ ],
+ "extra_cflags": "-I.",
+ "group": "github_barebone",
+ "category": "functional"
+}

@@ -1,0 +1,1 @@
+void lin_solve_2(double *u, double *v, double *r) { double x = 1.0 / (v[0]*v[3] - v[1]*v[2]); u[0] = x * (v[3]*r[0] - v[1]*r[1]); u[1] = x * (v[0]*r[1] - v[2]*r[0]); }

@@ -1,0 +1,1 @@
+int func0(int *ptr, int N) { if (N == 0) return -32768; int sum = 0; int sign = 1; for (int i = 0; i < N; ++i) { sum += abs(ptr[i]); if (ptr[i] == 0) sign = 0; if (ptr[i] < 0) sign = -sign; } return sum * sign; }

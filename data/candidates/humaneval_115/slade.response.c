@@ -1,0 +1,1 @@
+int func0(int **x, int m, int n, int pp) { int sum = 0; for (int i = 0; i < m; ++i) { int t = 0; for (int j = 0; j < n; ++j) t += x[i][j]; if (t > 0) sum += (t + pp - 1) / pp; } return sum; }

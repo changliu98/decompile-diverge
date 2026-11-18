@@ -1,0 +1,1 @@
+float area_of_circle( float * c ) { float result = c[0] * c[0] * (3.14); return result; }

@@ -1,0 +1,1 @@
+int read_data(int fd, void *buf, int size) { int count = 0; while (count != size) { int ret = read(fd, buf + count, (size - count)); if (ret <= 0) return -1; count += ret; } return 0; }

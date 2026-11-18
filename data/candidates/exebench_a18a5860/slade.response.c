@@ -1,0 +1,1 @@
+void jsonny_clear(char *buf, size_t *lenp) { *lenp = 0; buf[0] = '\0'; }

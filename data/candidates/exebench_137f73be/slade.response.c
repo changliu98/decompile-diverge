@@ -1,0 +1,1 @@
+long I2CSensor_Read(I2CSensor *dev, unsigned char i2c_addr, unsigned char i2c_data, unsigned char *buf, int len) { if (ioctl(dev->fd,0x0703, i2c_addr) < 0) return 0x0003; if (write(dev->fd, &i2c_data, 1) != 1) return 0x0003; if (read(dev->fd, buf, (long)len) != (long)len) return 0x0003; return 0; }

@@ -1,0 +1,1 @@
+static void initializeStatesAndConstants(double *p, double t) { *p = 1.0; }

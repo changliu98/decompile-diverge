@@ -1,0 +1,467 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+jb], rdi\nmov     [rbp+p], rsi\nmov     rdi, [rbp+jb]; js\nlea     rsi, key; \"verdict\"\ncall    SCJbOpenObject\nmov     rdi, [rbp+p]; p\nmov     esi, 1Ch; a\ncall    PacketCheckAction\ntest    al, 1\njnz     loc_134B\njmp     loc_14A1\ncall    EngineModeIsIPS\ncmp     eax, 0\njz      loc_136E\nmov     rdi, [rbp+jb]; js\nlea     rsi, formatted; \"\\\"action\\\":\\\"drop\\\"\"\ncall    SCJbSetFormatted\njmp     loc_137E\nmov     rdi, [rbp+jb]; js\nlea     rsi, aActionAlert; \"\\\"action\\\":\\\"alert\\\"\"\ncall    SCJbSetFormatted\nmov     rdi, [rbp+p]; p\nmov     esi, 4; a\ncall    PacketCheckAction\ntest    al, 1\njnz     loc_1399\njmp     loc_13AE\nmov     rdi, [rbp+jb]; js\nlea     rsi, aRejectTargetTo; \"\\\"reject-target\\\":\\\"to_client\\\"\"\ncall    SCJbSetFormatted\njmp     loc_1413\nmov     rdi, [rbp+p]; p\nmov     esi, 8; a\ncall    PacketCheckAction\ntest    al, 1\njnz     loc_13C9\njmp     loc_13DE\nmov     rdi, [rbp+jb]; js\nlea     rsi, aRejectTargetTo_0; \"\\\"reject-target\\\":\\\"to_server\\\"\"\ncall    SCJbSetFormatted\njmp     loc_140E\nmov     rdi, [rbp+p]; p\nmov     esi, 10h; a\ncall    PacketCheckAction\ntest    al, 1\njnz     loc_13F9\njmp     loc_1409\nmov     rdi, [rbp+jb]; js\nlea     rsi, aRejectTargetBo; \"\\\"reject-target\\\":\\\"both\\\"\"\ncall    SCJbSetFormatted\njmp     $+5\njmp     $+5\nmov     rdi, [rbp+jb]; js\nlea     rsi, aReject; \"reject\"\ncall    SCJbOpenArray\nmov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax]\nmov     [rbp+var_14], eax\nsub     eax, 1\njz      loc_146E\njmp     $+5\nmov     eax, [rbp+var_14]\nsub     eax, 6\njz      loc_1483\njmp     $+5\nmov     eax, [rbp+var_14]\nsub     eax, 11h\njz      loc_146E\njmp     $+5\nmov     eax, [rbp+var_14]\nsub     eax, 3Ah ; ':'\njnz     loc_1493\njmp     $+5\nmov     rdi, [rbp+jb]; js\nlea     rsi, val; \"icmp-prohib\"\ncall    SCJbAppendString\njmp     loc_1493\nmov     rdi, [rbp+jb]; js\nlea     rsi, aTcpReset; \"tcp-reset\"\ncall    SCJbAppendString\nmov     rdi, [rbp+jb]; js\ncall    SCJbClose\njmp     loc_156A\nmov     rdi, [rbp+p]; p\nmov     esi, 2; a\ncall    PacketCheckAction\ntest    al, 1\njnz     loc_14BC\njmp     loc_14DF\ncall    EngineModeIsIPS\ncmp     eax, 0\njz      loc_14DF\nmov     rdi, [rbp+jb]; js\nlea     rsi, formatted; \"\\\"action\\\":\\\"drop\\\"\"\ncall    SCJbSetFormatted\njmp     loc_1565\nmov     rdi, [rbp+p]; p\nmov     esi, 80h; a\ncall    PacketCheckAction\ntest    al, 1\njnz     loc_14FA\njmp     loc_150F\nmov     rdi, [rbp+jb]; js\nlea     rsi, aActionAccept; \"\\\"action\\\":\\\"accept\\\"\"\ncall    SCJbSetFormatted\njmp     loc_1560\nmov     rax, [rbp+p]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+p]\nmovzx   ecx, word ptr [rcx+8]\nimul    rcx, 28h ; '('\nadd     rax, rcx\nmovzx   eax, byte ptr [rax+4]\nand     eax, 20h\ncmp     eax, 0\njz      loc_154B\nmov     rdi, [rbp+jb]; js\nlea     rsi, aActionPass; \"\\\"action\\\":\\\"pass\\\"\"\ncall    SCJbSetFormatted\njmp     loc_155B\nmov     rdi, [rbp+jb]; js\nlea     rsi, aActionAlert; \"\\\"action\\\":\\\"alert\\\"\"\ncall    SCJbSetFormatted\njmp     $+5\njmp     $+5\njmp     $+5\nmov     rdi, [rbp+jb]; js\ncall    SCJbClose\nadd     rsp, 20h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 41,
+  "edges": [
+   [
+    "start",
+    "loc_1346"
+   ],
+   [
+    "start",
+    "loc_134B"
+   ],
+   [
+    "loc_1346",
+    "loc_14A1"
+   ],
+   [
+    "loc_134B",
+    "loc_1359"
+   ],
+   [
+    "loc_134B",
+    "loc_136E"
+   ],
+   [
+    "loc_1359",
+    "loc_137E"
+   ],
+   [
+    "loc_136E",
+    "loc_137E"
+   ],
+   [
+    "loc_137E",
+    "loc_1394"
+   ],
+   [
+    "loc_137E",
+    "loc_1399"
+   ],
+   [
+    "loc_1394",
+    "loc_13AE"
+   ],
+   [
+    "loc_1399",
+    "loc_1413"
+   ],
+   [
+    "loc_13AE",
+    "loc_13C4"
+   ],
+   [
+    "loc_13AE",
+    "loc_13C9"
+   ],
+   [
+    "loc_13C4",
+    "loc_13DE"
+   ],
+   [
+    "loc_13C9",
+    "loc_140E"
+   ],
+   [
+    "loc_13DE",
+    "loc_13F4"
+   ],
+   [
+    "loc_13DE",
+    "loc_13F9"
+   ],
+   [
+    "loc_13F4",
+    "loc_1409"
+   ],
+   [
+    "loc_13F9",
+    "loc_1409"
+   ],
+   [
+    "loc_1409",
+    "loc_140E"
+   ],
+   [
+    "loc_140E",
+    "loc_1413"
+   ],
+   [
+    "loc_1413",
+    "loc_1436"
+   ],
+   [
+    "loc_1413",
+    "loc_146E"
+   ],
+   [
+    "loc_1436",
+    "loc_143B"
+   ],
+   [
+    "loc_143B",
+    "loc_1447"
+   ],
+   [
+    "loc_143B",
+    "loc_1483"
+   ],
+   [
+    "loc_1447",
+    "loc_144C"
+   ],
+   [
+    "loc_144C",
+    "loc_1458"
+   ],
+   [
+    "loc_144C",
+    "loc_146E"
+   ],
+   [
+    "loc_1458",
+    "loc_145D"
+   ],
+   [
+    "loc_145D",
+    "loc_1469"
+   ],
+   [
+    "loc_145D",
+    "loc_1493"
+   ],
+   [
+    "loc_1469",
+    "loc_146E"
+   ],
+   [
+    "loc_146E",
+    "loc_1493"
+   ],
+   [
+    "loc_1483",
+    "loc_1493"
+   ],
+   [
+    "loc_1493",
+    "loc_156A"
+   ],
+   [
+    "loc_14A1",
+    "loc_14B7"
+   ],
+   [
+    "loc_14A1",
+    "loc_14BC"
+   ],
+   [
+    "loc_14B7",
+    "loc_14DF"
+   ],
+   [
+    "loc_14BC",
+    "loc_14CA"
+   ],
+   [
+    "loc_14BC",
+    "loc_14DF"
+   ],
+   [
+    "loc_14CA",
+    "loc_1565"
+   ],
+   [
+    "loc_14DF",
+    "loc_14F5"
+   ],
+   [
+    "loc_14DF",
+    "loc_14FA"
+   ],
+   [
+    "loc_14F5",
+    "loc_150F"
+   ],
+   [
+    "loc_14FA",
+    "loc_1560"
+   ],
+   [
+    "loc_150F",
+    "loc_1536"
+   ],
+   [
+    "loc_150F",
+    "loc_154B"
+   ],
+   [
+    "loc_1536",
+    "loc_155B"
+   ],
+   [
+    "loc_154B",
+    "loc_155B"
+   ],
+   [
+    "loc_155B",
+    "loc_1560"
+   ],
+   [
+    "loc_1560",
+    "loc_1565"
+   ],
+   [
+    "loc_1565",
+    "loc_156A"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+jb], rdi\nmov     [rbp+p], rsi\nmov     rdi, [rbp+jb]; js\nlea     rsi, key; \"verdict\"\ncall    SCJbOpenObject\nmov     rdi, [rbp+p]; p\nmov     esi, 1Ch; a\ncall    PacketCheckAction\ntest    al, 1\njnz     loc_134B",
+   "loc_1346": "jmp     loc_14A1",
+   "loc_134B": "call    EngineModeIsIPS\ncmp     eax, 0\njz      loc_136E",
+   "loc_1359": "mov     rdi, [rbp+jb]; js\nlea     rsi, formatted; \"\\\"action\\\":\\\"drop\\\"\"\ncall    SCJbSetFormatted\njmp     loc_137E",
+   "loc_136E": "mov     rdi, [rbp+jb]; js\nlea     rsi, aActionAlert; \"\\\"action\\\":\\\"alert\\\"\"\ncall    SCJbSetFormatted",
+   "loc_137E": "mov     rdi, [rbp+p]; p\nmov     esi, 4; a\ncall    PacketCheckAction\ntest    al, 1\njnz     loc_1399",
+   "loc_1394": "jmp     loc_13AE",
+   "loc_1399": "mov     rdi, [rbp+jb]; js\nlea     rsi, aRejectTargetTo; \"\\\"reject-target\\\":\\\"to_client\\\"\"\ncall    SCJbSetFormatted\njmp     loc_1413",
+   "loc_13AE": "mov     rdi, [rbp+p]; p\nmov     esi, 8; a\ncall    PacketCheckAction\ntest    al, 1\njnz     loc_13C9",
+   "loc_13C4": "jmp     loc_13DE",
+   "loc_13C9": "mov     rdi, [rbp+jb]; js\nlea     rsi, aRejectTargetTo_0; \"\\\"reject-target\\\":\\\"to_server\\\"\"\ncall    SCJbSetFormatted\njmp     loc_140E",
+   "loc_13DE": "mov     rdi, [rbp+p]; p\nmov     esi, 10h; a\ncall    PacketCheckAction\ntest    al, 1\njnz     loc_13F9",
+   "loc_13F4": "jmp     loc_1409",
+   "loc_13F9": "mov     rdi, [rbp+jb]; js\nlea     rsi, aRejectTargetBo; \"\\\"reject-target\\\":\\\"both\\\"\"\ncall    SCJbSetFormatted",
+   "loc_1409": "jmp     $+5",
+   "loc_140E": "jmp     $+5",
+   "loc_1413": "mov     rdi, [rbp+jb]; js\nlea     rsi, aReject; \"reject\"\ncall    SCJbOpenArray\nmov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax]\nmov     [rbp+var_14], eax\nsub     eax, 1\njz      loc_146E",
+   "loc_1436": "jmp     $+5",
+   "loc_143B": "mov     eax, [rbp+var_14]\nsub     eax, 6\njz      loc_1483",
+   "loc_1447": "jmp     $+5",
+   "loc_144C": "mov     eax, [rbp+var_14]\nsub     eax, 11h\njz      loc_146E",
+   "loc_1458": "jmp     $+5",
+   "loc_145D": "mov     eax, [rbp+var_14]\nsub     eax, 3Ah ; ':'\njnz     loc_1493",
+   "loc_1469": "jmp     $+5",
+   "loc_146E": "mov     rdi, [rbp+jb]; js\nlea     rsi, val; \"icmp-prohib\"\ncall    SCJbAppendString\njmp     loc_1493",
+   "loc_1483": "mov     rdi, [rbp+jb]; js\nlea     rsi, aTcpReset; \"tcp-reset\"\ncall    SCJbAppendString",
+   "loc_1493": "mov     rdi, [rbp+jb]; js\ncall    SCJbClose\njmp     loc_156A",
+   "loc_14A1": "mov     rdi, [rbp+p]; p\nmov     esi, 2; a\ncall    PacketCheckAction\ntest    al, 1\njnz     loc_14BC",
+   "loc_14B7": "jmp     loc_14DF",
+   "loc_14BC": "call    EngineModeIsIPS\ncmp     eax, 0\njz      loc_14DF",
+   "loc_14CA": "mov     rdi, [rbp+jb]; js\nlea     rsi, formatted; \"\\\"action\\\":\\\"drop\\\"\"\ncall    SCJbSetFormatted\njmp     loc_1565",
+   "loc_14DF": "mov     rdi, [rbp+p]; p\nmov     esi, 80h; a\ncall    PacketCheckAction\ntest    al, 1\njnz     loc_14FA",
+   "loc_14F5": "jmp     loc_150F",
+   "loc_14FA": "mov     rdi, [rbp+jb]; js\nlea     rsi, aActionAccept; \"\\\"action\\\":\\\"accept\\\"\"\ncall    SCJbSetFormatted\njmp     loc_1560",
+   "loc_150F": "mov     rax, [rbp+p]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+p]\nmovzx   ecx, word ptr [rcx+8]\nimul    rcx, 28h ; '('\nadd     rax, rcx\nmovzx   eax, byte ptr [rax+4]\nand     eax, 20h\ncmp     eax, 0\njz      loc_154B",
+   "loc_1536": "mov     rdi, [rbp+jb]; js\nlea     rsi, aActionPass; \"\\\"action\\\":\\\"pass\\\"\"\ncall    SCJbSetFormatted\njmp     loc_155B",
+   "loc_154B": "mov     rdi, [rbp+jb]; js\nlea     rsi, aActionAlert; \"\\\"action\\\":\\\"alert\\\"\"\ncall    SCJbSetFormatted",
+   "loc_155B": "jmp     $+5",
+   "loc_1560": "jmp     $+5",
+   "loc_1565": "jmp     $+5",
+   "loc_156A": "mov     rdi, [rbp+jb]; js\ncall    SCJbClose\nadd     rsp, 20h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_14": "dword ptr -14h",
+   "p": "qword ptr -10h",
+   "jb": "qword ptr -8"
+  },
+  ".rodata": {
+   "key": "byte 'verdict',0",
+   "formatted": "byte '\"action\":\"drop\"',0",
+   "aActionAlert": "byte '\"action\":\"alert\"',0",
+   "aRejectTargetTo": "byte '\"reject-target\":\"to_client\"',0",
+   "aRejectTargetTo_0": "byte '\"reject-target\":\"to_server\"',0",
+   "aRejectTargetBo": "byte '\"reject-target\":\"both\"',0",
+   "aReject": "byte 'reject',0",
+   "val": "byte 'icmp-prohib',0",
+   "aTcpReset": "byte 'tcp-reset',0",
+   "aActionAccept": "byte '\"action\":\"accept\"',0",
+   "aActionPass": "byte '\"action\":\"pass\"',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4880,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868455
+ }
+}

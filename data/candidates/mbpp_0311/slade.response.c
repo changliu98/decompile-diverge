@@ -1,0 +1,1 @@
+uint64_t func0(uint64_t x) { if ((x & (x + 1)) == 0) return x; uint64_t n = 0; uint64_t m = x; int i = 0; while (m) { if ((m & 1) == 0) n = i; ++i; m >>= 1; } return x | (1 << n); }

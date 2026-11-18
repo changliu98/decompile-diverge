@@ -1,0 +1,1 @@
+int foo (int *p) { int i, j = 0; for (i = 0; i < 10; i++) p[i] = j++; return i + j; }

@@ -1,0 +1,1 @@
+double func0(double *x, int N) { if (N < 2) { return 0; } double s = avg_calc(x, N); double sum = 0; for (int i = 0; i < N; i++) { sum += (x[i] - s) * (x[i] - s); } sum = sqrt(sum / (N - 1)); return sum; }

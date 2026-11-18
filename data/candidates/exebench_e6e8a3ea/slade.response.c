@@ -1,0 +1,1 @@
+int last_slash(const char *path, int *slash_ptr, int *slash_ptr_len) { int i; int slash_pos = 0; int slash_len = 0; for (i = 0; path[i] != 0 && i < 256; i++) { if (path[i] == '/') { slash_pos++; slash_len = i; } } *slash_ptr = slash_pos; *slash_ptr_len = i; return slash_len; }

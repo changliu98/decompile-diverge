@@ -1,0 +1,1 @@
+void SetShort(u_char *wk) { *wk = (short) 'a'; }

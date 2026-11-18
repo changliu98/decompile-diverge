@@ -1,0 +1,1 @@
+void Vec3Cross( vec3_t in, vec3_t out, vec3_t outout ) { out[0] = in[1]*out[2] - out[1]*in[2]; out[1] = - in[0]*out[2] - out[0]*in[2]; outout[2] = in[0]*out[1] - out[0]*in[1]; }

@@ -1,0 +1,1 @@
+int func0(int a, int b) { int x; if (b > a) { x = b - a; return x; } return 0; }

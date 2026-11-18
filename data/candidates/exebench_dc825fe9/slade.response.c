@@ -1,0 +1,1 @@
+void summary(int * nums, int numsSize, double * cp, double * cp2, double * cp3){ int cp = 0; int cp2 = 0; int cp3 = 0; for(int i = 0; i < numsSize; i++){ if(nums[i] > 0){ cp++; } else if(nums[i] < 0){ cp2++; } else{ cp3++; } } *cp = (double)cp/numsSize; *cp2 = (double)cp2/numsSize; *cp3 = (double)cp3/numsSize; }

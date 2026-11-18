@@ -1,0 +1,83 @@
+0000000000001a80 <cgi_execute_child>:
+    1a80:	push   %rbp
+    1a81:	mov    %rsp,%rbp
+    1a84:	sub    $0x40,%rsp
+    1a88:	mov    %rdi,-0x8(%rbp)
+    1a8c:	mov    %rsi,-0x10(%rbp)
+    1a90:	mov    %rdx,-0x18(%rbp)
+    1a94:	mov    %rcx,-0x20(%rbp)
+    1a98:	mov    %r8,-0x28(%rbp)
+    1a9c:	mov    %r9,-0x30(%rbp)
+    1aa0:	movq   $0x0,-0x38(%rbp)
+    1aa8:	mov    -0x28(%rbp),%rax
+    1aac:	mov    (%rax),%edi
+    1aae:	call   10f0 <close@plt>
+    1ab3:	mov    $0x1,%edi
+    1ab8:	call   10f0 <close@plt>
+    1abd:	mov    -0x28(%rbp),%rax
+    1ac1:	mov    0x4(%rax),%edi
+    1ac4:	call   10c0 <dup@plt>
+    1ac9:	cmp    $0xffffffff,%eax
+    1acc:	jne    1ae2 <cgi_execute_child+0x62>
+    1ad2:	lea    0x155b(%rip),%rax        # 3034 <_IO_stdin_used+0x34>
+    1ad9:	mov    %rax,-0x38(%rbp)
+    1add:	jmp    1bcf <cgi_execute_child+0x14f>
+    1ae2:	mov    -0x10(%rbp),%rax
+    1ae6:	cmpq   $0x0,0x8(%rax)
+    1aeb:	je     1b21 <cgi_execute_child+0xa1>
+    1af1:	xor    %edi,%edi
+    1af3:	call   10f0 <close@plt>
+    1af8:	mov    -0x30(%rbp),%rax
+    1afc:	mov    (%rax),%edi
+    1afe:	call   10c0 <dup@plt>
+    1b03:	cmp    $0xffffffff,%eax
+    1b06:	jne    1b1c <cgi_execute_child+0x9c>
+    1b0c:	lea    0x1521(%rip),%rax        # 3034 <_IO_stdin_used+0x34>
+    1b13:	mov    %rax,-0x38(%rbp)
+    1b17:	jmp    1bcf <cgi_execute_child+0x14f>
+    1b1c:	jmp    1b21 <cgi_execute_child+0xa1>
+    1b21:	mov    0x34c0(%rip),%rax        # 4fe8 <environ@GLIBC_2.2.5>
+    1b28:	movq   $0x0,(%rax)
+    1b2f:	mov    -0x18(%rbp),%rdi
+    1b33:	call   10a0 <strlen@plt>
+    1b38:	cmp    $0x0,%rax
+    1b3c:	jne    1b70 <cgi_execute_child+0xf0>
+    1b42:	mov    -0x8(%rbp),%rax
+    1b46:	mov    0x50(%rax),%rdi
+    1b4a:	add    $0x1,%rdi
+    1b4e:	call   1130 <malloc@plt>
+    1b53:	mov    %rax,-0x18(%rbp)
+    1b57:	mov    -0x18(%rbp),%rdi
+    1b5b:	mov    -0x8(%rbp),%rax
+    1b5f:	mov    0x48(%rax),%rsi
+    1b63:	mov    -0x8(%rbp),%rax
+    1b67:	mov    0x50(%rax),%rdx
+    1b6b:	call   1050 <strncpy@plt>
+    1b70:	mov    -0x8(%rbp),%rax
+    1b74:	mov    0x28(%rax),%rdi
+    1b78:	call   1be0 <cgi_set_http_env_vars>
+    1b7d:	mov    -0x8(%rbp),%rax
+    1b81:	mov    (%rax),%edi
+    1b83:	call   1de0 <myio_getfd>
+    1b88:	mov    %eax,%edi
+    1b8a:	call   1d70 <cgi_set_SERVER_ADDR_PORT>
+    1b8f:	mov    -0x8(%rbp),%rdi
+    1b93:	mov    -0x20(%rbp),%rsi
+    1b97:	call   1df0 <cgi_set_env_vars>
+    1b9c:	call   2010 <cgi_set_env_content_length>
+    1ba1:	mov    -0x8(%rbp),%rdi
+    1ba5:	call   1fc0 <cgi_child_chdir>
+    1baa:	mov    %rax,-0x40(%rbp)
+    1bae:	mov    $0x1e,%edi
+    1bb3:	call   10e0 <alarm@plt>
+    1bb8:	mov    -0x18(%rbp),%rdi
+    1bbc:	mov    -0x18(%rbp),%rsi
+    1bc0:	mov    -0x40(%rbp),%rdx
+    1bc4:	xor    %eax,%eax
+    1bc6:	mov    %eax,%ecx
+    1bc8:	mov    $0x0,%al
+    1bca:	call   11b0 <execl@plt>
+    1bcf:	mov    $0x1,%edi
+    1bd4:	call   1190 <exit@plt>
+
+Disassembly of section .fini:

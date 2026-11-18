@@ -1,0 +1,1 @@
+int func0(int n) { int ret = 0; for (int i = 0; i < n; ++i) { if (i <= 1) continue; int is_prime = 1; for (int j = 2; j < i; ++j) { if (i % j == 0) { is_prime = 0; break; } } if (is_prime) { ++ret; } } return ret; }

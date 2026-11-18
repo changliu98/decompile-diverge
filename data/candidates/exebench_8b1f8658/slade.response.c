@@ -1,0 +1,1 @@
+void modify_uint_refs_new_syntax(void *ptr, void *refs){ (*((unsigned int *) ptr))++; (*((unsigned int *) refs))--; }

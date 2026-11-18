@@ -1,0 +1,1 @@
+int ff_norm_qscale(int qscale, int type) { switch (type) { case FF_QS_8: return qscale; case FF_QS_16: return qscale >> 1; case FF_QS_32: return qscale >> 2; case FF_QS_64: return 64 - qscale >> 2; default: return qscale; } }

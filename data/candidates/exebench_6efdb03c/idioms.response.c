@@ -1,0 +1,15 @@
+void rev(char *str)
+{
+  int len = 0;
+  int i = 0;
+  char temp = 0;
+  for (len = 0; str[len] != '\0'; len++)
+    ;
+  for (i = 0; i < len / 2; i++)
+  {
+    temp = str[i];
+    str[i] = str[len - i - 1];
+    str[len - i - 1] = temp;
+  }
+  return;
+}

@@ -1,0 +1,1 @@
+void Change(Position p, Position q) { Position temp = p->next; p->next = q->next; q->next = temp; }

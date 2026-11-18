@@ -1,0 +1,1 @@
+void clamp(double *a, double min, double max) { if (*a < min) *a = min; else if (*a > max) *a = max; }

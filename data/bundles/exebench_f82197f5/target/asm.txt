@@ -1,0 +1,36 @@
+00000000000011e0 <UNLOCK>:
+    11e0:	push   %rbp
+    11e1:	mov    %rsp,%rbp
+    11e4:	sub    $0x10,%rsp
+    11e8:	mov    %rdi,-0x8(%rbp)
+    11ec:	mov    -0x8(%rbp),%rcx
+    11f0:	mov    $0xffffffff,%eax
+    11f5:	lock xadd %eax,(%rcx)
+    11f9:	mov    %eax,-0xc(%rbp)
+    11fc:	mov    -0xc(%rbp),%eax
+    11ff:	mov    %eax,-0x10(%rbp)
+    1202:	sub    $0x1,%eax
+    1205:	je     1221 <UNLOCK+0x41>
+    120b:	jmp    1210 <UNLOCK+0x30>
+    1210:	mov    -0x10(%rbp),%eax
+    1213:	sub    $0x2,%eax
+    1216:	je     1226 <UNLOCK+0x46>
+    121c:	jmp    124d <UNLOCK+0x6d>
+    1221:	jmp    1252 <UNLOCK+0x72>
+    1226:	mov    -0x8(%rbp),%rcx
+    122a:	xor    %eax,%eax
+    122c:	xchg   %eax,(%rcx)
+    122e:	mov    %eax,-0xc(%rbp)
+    1231:	mov    -0x8(%rbp),%rsi
+    1235:	mov    $0xca,%edi
+    123a:	mov    $0x1,%ecx
+    123f:	mov    %ecx,%edx
+    1241:	mov    $0x0,%al
+    1243:	call   1070 <syscall@plt>
+    1248:	jmp    1252 <UNLOCK+0x72>
+    124d:	jmp    1252 <UNLOCK+0x72>
+    1252:	add    $0x10,%rsp
+    1256:	pop    %rbp
+    1257:	ret
+
+Disassembly of section .fini:

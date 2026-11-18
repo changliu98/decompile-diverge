@@ -1,0 +1,1 @@
+void func0(__m128 *x, __m128 *y) { __m128 tmp = *x; *x = *y; *y = tmp; }

@@ -1,0 +1,9 @@
+bool sunxi_mc_smp_cluster_is_down(unsigned int cluster)
+{
+	int i;
+
+	for (i = 0; i < SUNXI_CPUS_PER_CLUSTER; i++)
+		if (sunxi_mc_smp_cpu_table[cluster][i])
+			return false;
+	return true;
+}

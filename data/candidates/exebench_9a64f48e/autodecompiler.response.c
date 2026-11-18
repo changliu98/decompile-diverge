@@ -1,0 +1,23 @@
+int vis5d_color_table_set_alpha(float *x,float y)
+{
+ x[3]=y;
+ if(y<0)
+ {
+  x[5]=0;
+  x[6]=255;
+  if(y==-2)
+  {
+   x[2]=0;
+   x[3]=-1;
+  }
+  else
+   x[2]=2;
+ }
+ else
+ {
+  x[5]=y;
+  x[6]=y;
+  x[3]=y;
+ }
+ return(0);
+}

@@ -1,0 +1,1 @@
+int RGB565toI420(unsigned char *r, int g, int b, int a, int x, int y, int width, int height) { return -1; }

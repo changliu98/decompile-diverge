@@ -1,0 +1,1 @@
+int hexagon_v6_op(RAsm *a, RAsmOp *op, ut64 addr, const ut8 *buf, int len, int hlen) { ut32 data = 0; int ret; ut32 opr = 0; ut32 laddr = r_read_le32 (buf); ret = hexagon_disasm_instruction (opr, &data, (ut32)addr); op->dst = ret; if (ret <= 0) { return ret; } op->address = addr; return hexagon_anal_instruction (&data, op); }

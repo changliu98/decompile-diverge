@@ -1,0 +1,1 @@
+int func0(intptr_t a, intptr_t b) { intptr_t sum = a + b; int count = 0; while (sum > 0) { sum /= 10; count++; } return count; }

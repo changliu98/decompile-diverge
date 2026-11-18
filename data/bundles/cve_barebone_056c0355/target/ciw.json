@@ -1,0 +1,418 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+outbuffer], rdi\nmov     [rbp+s1], rsi\ncall    mowgli_string_create\nmov     [rbp+s], rax\nmov     [rbp+buf2], 0\nmov     rax, [rbp+outbuffer]\nmov     byte ptr [rax], 0\ncmp     [rbp+s1], 0\njz      loc_168F\nmov     rax, [rbp+s1]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 0\njnz     loc_1694\njmp     loc_1823\nmov     [rbp+i], 0\nmov     rax, [rbp+s1]\nmov     rcx, [rbp+i]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 0\njz      loc_180E\nmov     rax, [rbp+s1]\nmov     rcx, [rbp+i]\nmov     al, [rax+rcx]\nmov     [rbp+c], al\nmovzx   eax, [rbp+c]\ncmp     eax, 7Fh\njle     loc_1722\nlea     rdi, [rbp+buf2]; s\nmovzx   ecx, [rbp+c]\nmov     esi, 0Fh; maxlen\nlea     rdx, format; \"&#%d;\"\nmov     al, 0\ncall    snprintf\nmov     rax, [rbp+s]\nmov     rax, [rax+20h]\nmov     [rbp+var_38], rax\nmov     rax, [rbp+s]\nmov     [rbp+var_48], rax\nlea     rax, [rbp+buf2]\nmov     [rbp+var_40], rax\nlea     rdi, [rbp+buf2]; s\ncall    strlen\nmov     rdi, [rbp+var_48]\nmov     rsi, [rbp+var_40]\nmov     rdx, rax\nmov     rax, [rbp+var_38]\ncall    rax\njmp     loc_17F8\nmovzx   eax, [rbp+c]\ncmp     eax, 26h ; '&'\njnz     loc_174E\nmov     rax, [rbp+s]\nmov     rax, [rax+20h]\nmov     rdi, [rbp+s]\nlea     rsi, aAmp; \"&amp;\"\nmov     edx, 5\ncall    rax\njmp     loc_17F3\nmovzx   eax, [rbp+c]\ncmp     eax, 3Ch ; '<'\njnz     loc_177A\nmov     rax, [rbp+s]\nmov     rax, [rax+20h]\nmov     rdi, [rbp+s]\nlea     rsi, aLt; \"&lt;\"\nmov     edx, 4\ncall    rax\njmp     loc_17EE\nmovzx   eax, [rbp+c]\ncmp     eax, 3Eh ; '>'\njnz     loc_17A6\nmov     rax, [rbp+s]\nmov     rax, [rax+20h]\nmov     rdi, [rbp+s]\nlea     rsi, aGt; \"&gt;\"\nmov     edx, 4\ncall    rax\njmp     loc_17E9\nmovzx   eax, [rbp+c]\ncmp     eax, 22h ; '\"'\njnz     loc_17D2\nmov     rax, [rbp+s]\nmov     rax, [rax+20h]\nmov     rdi, [rbp+s]\nlea     rsi, aQuot; \"&quot;\"\nmov     edx, 6\ncall    rax\njmp     loc_17E4\nmov     rax, [rbp+s]\nmov     rax, [rax+28h]\nmov     rdi, [rbp+s]\nmovsx   esi, [rbp+c]\ncall    rax\njmp     $+5\njmp     $+5\njmp     $+5\njmp     $+5\njmp     $+5\nmov     rax, [rbp+i]\nadd     rax, 1\nmov     [rbp+i], rax\njmp     loc_169C\nmov     rdi, [rbp+outbuffer]; dest\nmov     rax, [rbp+s]\nmov     rsi, [rax]; src\nmov     edx, 1000h; n\ncall    memcpy\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 24,
+  "edges": [
+   [
+    "start",
+    "loc_167F"
+   ],
+   [
+    "start",
+    "loc_168F"
+   ],
+   [
+    "loc_167F",
+    "loc_168F"
+   ],
+   [
+    "loc_167F",
+    "loc_1694"
+   ],
+   [
+    "loc_168F",
+    "loc_1823"
+   ],
+   [
+    "loc_1694",
+    "loc_169C"
+   ],
+   [
+    "loc_169C",
+    "loc_16B1"
+   ],
+   [
+    "loc_169C",
+    "loc_180E"
+   ],
+   [
+    "loc_16B1",
+    "loc_16CC"
+   ],
+   [
+    "loc_16B1",
+    "loc_1722"
+   ],
+   [
+    "loc_16CC",
+    "loc_17F8"
+   ],
+   [
+    "loc_1722",
+    "loc_172F"
+   ],
+   [
+    "loc_1722",
+    "loc_174E"
+   ],
+   [
+    "loc_172F",
+    "loc_17F3"
+   ],
+   [
+    "loc_174E",
+    "loc_175B"
+   ],
+   [
+    "loc_174E",
+    "loc_177A"
+   ],
+   [
+    "loc_175B",
+    "loc_17EE"
+   ],
+   [
+    "loc_177A",
+    "loc_1787"
+   ],
+   [
+    "loc_177A",
+    "loc_17A6"
+   ],
+   [
+    "loc_1787",
+    "loc_17E9"
+   ],
+   [
+    "loc_17A6",
+    "loc_17B3"
+   ],
+   [
+    "loc_17A6",
+    "loc_17D2"
+   ],
+   [
+    "loc_17B3",
+    "loc_17E4"
+   ],
+   [
+    "loc_17D2",
+    "loc_17E4"
+   ],
+   [
+    "loc_17E4",
+    "loc_17E9"
+   ],
+   [
+    "loc_17E9",
+    "loc_17EE"
+   ],
+   [
+    "loc_17EE",
+    "loc_17F3"
+   ],
+   [
+    "loc_17F3",
+    "loc_17F8"
+   ],
+   [
+    "loc_17F8",
+    "loc_17FD"
+   ],
+   [
+    "loc_17FD",
+    "loc_169C"
+   ],
+   [
+    "loc_180E",
+    "loc_1823"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+outbuffer], rdi\nmov     [rbp+s1], rsi\ncall    mowgli_string_create\nmov     [rbp+s], rax\nmov     [rbp+buf2], 0\nmov     rax, [rbp+outbuffer]\nmov     byte ptr [rax], 0\ncmp     [rbp+s1], 0\njz      loc_168F",
+   "loc_167F": "mov     rax, [rbp+s1]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 0\njnz     loc_1694",
+   "loc_168F": "jmp     loc_1823",
+   "loc_1694": "mov     [rbp+i], 0",
+   "loc_169C": "mov     rax, [rbp+s1]\nmov     rcx, [rbp+i]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 0\njz      loc_180E",
+   "loc_16B1": "mov     rax, [rbp+s1]\nmov     rcx, [rbp+i]\nmov     al, [rax+rcx]\nmov     [rbp+c], al\nmovzx   eax, [rbp+c]\ncmp     eax, 7Fh\njle     loc_1722",
+   "loc_16CC": "lea     rdi, [rbp+buf2]; s\nmovzx   ecx, [rbp+c]\nmov     esi, 0Fh; maxlen\nlea     rdx, format; \"&#%d;\"\nmov     al, 0\ncall    snprintf\nmov     rax, [rbp+s]\nmov     rax, [rax+20h]\nmov     [rbp+var_38], rax\nmov     rax, [rbp+s]\nmov     [rbp+var_48], rax\nlea     rax, [rbp+buf2]\nmov     [rbp+var_40], rax\nlea     rdi, [rbp+buf2]; s\ncall    strlen\nmov     rdi, [rbp+var_48]\nmov     rsi, [rbp+var_40]\nmov     rdx, rax\nmov     rax, [rbp+var_38]\ncall    rax\njmp     loc_17F8",
+   "loc_1722": "movzx   eax, [rbp+c]\ncmp     eax, 26h ; '&'\njnz     loc_174E",
+   "loc_172F": "mov     rax, [rbp+s]\nmov     rax, [rax+20h]\nmov     rdi, [rbp+s]\nlea     rsi, aAmp; \"&amp;\"\nmov     edx, 5\ncall    rax\njmp     loc_17F3",
+   "loc_174E": "movzx   eax, [rbp+c]\ncmp     eax, 3Ch ; '<'\njnz     loc_177A",
+   "loc_175B": "mov     rax, [rbp+s]\nmov     rax, [rax+20h]\nmov     rdi, [rbp+s]\nlea     rsi, aLt; \"&lt;\"\nmov     edx, 4\ncall    rax\njmp     loc_17EE",
+   "loc_177A": "movzx   eax, [rbp+c]\ncmp     eax, 3Eh ; '>'\njnz     loc_17A6",
+   "loc_1787": "mov     rax, [rbp+s]\nmov     rax, [rax+20h]\nmov     rdi, [rbp+s]\nlea     rsi, aGt; \"&gt;\"\nmov     edx, 4\ncall    rax\njmp     loc_17E9",
+   "loc_17A6": "movzx   eax, [rbp+c]\ncmp     eax, 22h ; '\"'\njnz     loc_17D2",
+   "loc_17B3": "mov     rax, [rbp+s]\nmov     rax, [rax+20h]\nmov     rdi, [rbp+s]\nlea     rsi, aQuot; \"&quot;\"\nmov     edx, 6\ncall    rax\njmp     loc_17E4",
+   "loc_17D2": "mov     rax, [rbp+s]\nmov     rax, [rax+28h]\nmov     rdi, [rbp+s]\nmovsx   esi, [rbp+c]\ncall    rax",
+   "loc_17E4": "jmp     $+5",
+   "loc_17E9": "jmp     $+5",
+   "loc_17EE": "jmp     $+5",
+   "loc_17F3": "jmp     $+5",
+   "loc_17F8": "jmp     $+5",
+   "loc_17FD": "mov     rax, [rbp+i]\nadd     rax, 1\nmov     [rbp+i], rax\njmp     loc_169C",
+   "loc_180E": "mov     rdi, [rbp+outbuffer]; dest\nmov     rax, [rbp+s]\nmov     rsi, [rax]; src\nmov     edx, 1000h; n\ncall    memcpy",
+   "loc_1823": "add     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_48": "qword ptr -48h",
+   "var_40": "qword ptr -40h",
+   "var_38": "qword ptr -38h",
+   "s": "qword ptr -30h",
+   "buf2": "byte ptr -28h",
+   "c": "byte ptr -19h",
+   "i": "qword ptr -18h",
+   "s1": "qword ptr -10h",
+   "outbuffer": "qword ptr -8"
+  },
+  ".rodata": {
+   "format": "byte '&#%d",
+   "aAmp": "byte '&amp",
+   "aLt": "byte '&lt",
+   "aGt": "byte '&gt",
+   "aQuot": "byte '&quot"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5712,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".rewind": "rewind",
+  "_rewind": "rewind",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".rewind",
+   ".plt",
+   true,
+   "rewind"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "printf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "rewind",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "snprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868445
+ }
+}

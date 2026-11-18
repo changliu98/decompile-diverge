@@ -1,0 +1,1 @@
+__size32 func0(__size32 param1) { __size32 g0_2 = param1 * (param1 + 1) / 2; __size32 g0_1 = (g0_2 - 1) * g0_2; return g0_1; }

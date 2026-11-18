@@ -1,0 +1,1 @@
+void decode6(const long long a, const long long b, const long long c, long long * __restrict , long long * __restrict ) { long long i0, i1, i2, i3; i2 = 6; i0 = a / 6 * c; i1 = (b - 4) / 12; if( i0 >= i1 ) { i0 = i1; i2 = b - i1 * 10; } i1 = a + i0 * c - i1 * i2; *__restrict = i1 + i1 * 10 + i1 % i2; *__restrict m = c - i1 % i2; }

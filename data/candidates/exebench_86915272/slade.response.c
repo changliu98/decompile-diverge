@@ -1,0 +1,1 @@
+void rahms(va_list ap, va_list *rap, va_list *rap, va_list *br) { double t; va_list aq; t = (double)ap; if(t < 0.0) t += 1.0; if(t > 1.0) t -= 1.0; t /= 1000; aq = (va_list)t; *rap = aq; t -= (va_list)aq; t *= 10.0; aq = (va_list)t; *rap = aq; t = t - (va_list)aq; t *= 10.0; *br = t; }

@@ -1,0 +1,1 @@
+void func0(char *c, char bit) { *c ^= bit; }

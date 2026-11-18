@@ -1,0 +1,678 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 70h\nmov     [rbp+ndo], rdi\nmov     [rbp+h], rsi\nmov     [rbp+p], rdx\nmov     rax, [rbp+h]\nmov     eax, [rax+10h]\nmov     [rbp+caplen], eax\nmov     [rbp+panid], 0\ncmp     [rbp+caplen], 3\njnb     loc_1240\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, a802154; \"[|802.15.4]\"\nmov     al, 0\ncall    rcx\nmov     eax, [rbp+caplen]\nmov     [rbp+var_4], eax\njmp     loc_1891\nmov     [rbp+hdrlen], 3\nmov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+1]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+p]\nmovzx   ecx, byte ptr [rcx]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmov     [rbp+fc], ax\nmov     rax, [rbp+p]\nmov     al, [rax+2]\nmov     [rbp+seq], al\nmov     rax, [rbp+p]\nadd     rax, 3\nmov     [rbp+p], rax\nmov     eax, [rbp+caplen]\nsub     eax, 3\nmov     [rbp+caplen], eax\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nmovzx   eax, [rbp+fc]\nand     eax, 7\nmovsxd  rdx, eax\nlea     rax, ftypes\nmov     rdx, [rax+rdx*8]\nlea     rsi, aIeee802154SPac; \"IEEE 802.15.4 %s packet \"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 0\njz      loc_12DB\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nmovzx   edx, [rbp+seq]\nlea     rsi, aSeq02x; \"seq %02x \"\nmov     al, 0\ncall    rcx\nmovzx   eax, [rbp+fc]\nshr     eax, 0Ah\nand     eax, 3\nmov     ecx, eax\nmov     [rbp+var_38], rcx\nsub     eax, 3; switch 4 cases\nja      def_1306; jumptable 0000000000001306 default case\nmov     rax, [rbp+var_38]\nlea     rcx, jpt_1306\nmovsxd  rax, ds:(jpt_1306 - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nmovzx   eax, [rbp+fc]; jumptable 0000000000001306 case 0\nand     eax, 40h\ncmp     eax, 0\njz      loc_133A\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, a802154; \"[|802.15.4]\"\nmov     al, 0\ncall    rcx\nmov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax\njmp     loc_1891\nmov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 0\njz      loc_135E\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aNone; \"none \"\nmov     al, 0\ncall    rcx\njmp     def_1306; jumptable 0000000000001306 default case\nmov     rax, [rbp+ndo]; jumptable 0000000000001306 case 1\ncmp     dword ptr [rax], 0\njz      loc_1387\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aReservedDestin; \"reserved destination addressing mode\"\nmov     al, 0\ncall    rcx\nmov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax\njmp     loc_1891\ncmp     [rbp+caplen], 2; jumptable 0000000000001306 case 2\njnb     loc_13BE\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, a802154; \"[|802.15.4]\"\nmov     al, 0\ncall    rcx\nmov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax\njmp     loc_1891\nmov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+1]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+p]\nmovzx   ecx, byte ptr [rcx]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmov     [rbp+panid], ax\nmov     rax, [rbp+p]\nadd     rax, 2\nmov     [rbp+p], rax\nmov     eax, [rbp+caplen]\nsub     eax, 2\nmov     [rbp+caplen], eax\nmov     eax, [rbp+hdrlen]\nadd     eax, 2\nmov     [rbp+hdrlen], eax\ncmp     [rbp+caplen], 2\njnb     loc_1429\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, a802154; \"[|802.15.4]\"\nmov     al, 0\ncall    rcx\nmov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax\njmp     loc_1891\nmov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 0\njz      loc_1473\nmov     rax, [rbp+ndo]\nmov     r8, [rax+10h]\nmov     rdi, [rbp+ndo]\nmovzx   edx, [rbp+panid]\nmov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+3]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+p]\nmovzx   ecx, byte ptr [rcx+2]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmovzx   ecx, ax\nlea     rsi, a04x04x; \"%04x:%04x \"\nmov     al, 0\ncall    r8\nmov     rax, [rbp+p]\nadd     rax, 2\nmov     [rbp+p], rax\nmov     eax, [rbp+caplen]\nsub     eax, 2\nmov     [rbp+caplen], eax\nmov     eax, [rbp+hdrlen]\nadd     eax, 2\nmov     [rbp+hdrlen], eax\njmp     def_1306; jumptable 0000000000001306 default case\ncmp     [rbp+caplen], 2; jumptable 0000000000001306 case 3\njnb     loc_14C2\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, a802154; \"[|802.15.4]\"\nmov     al, 0\ncall    rcx\nmov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax\njmp     loc_1891\nmov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+1]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+p]\nmovzx   ecx, byte ptr [rcx]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmov     [rbp+panid], ax\nmov     rax, [rbp+p]\nadd     rax, 2\nmov     [rbp+p], rax\nmov     eax, [rbp+caplen]\nsub     eax, 2\nmov     [rbp+caplen], eax\nmov     eax, [rbp+hdrlen]\nadd     eax, 2\nmov     [rbp+hdrlen], eax\ncmp     [rbp+caplen], 8\njnb     loc_152D\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, a802154; \"[|802.15.4]\"\nmov     al, 0\ncall    rcx\nmov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax\njmp     loc_1891\nmov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 0\njz      loc_157C\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_40], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_50], rax\nmovzx   eax, [rbp+panid]\nmov     [rbp+var_44], eax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; ep\ncall    le64addr_string\nmov     rdi, [rbp+var_50]\nmov     edx, [rbp+var_44]\nmov     r8, [rbp+var_40]\nmov     rcx, rax\nlea     rsi, a04xS; \"%04x:%s \"\nmov     al, 0\ncall    r8\nmov     rax, [rbp+p]\nadd     rax, 8\nmov     [rbp+p], rax\nmov     eax, [rbp+caplen]\nsub     eax, 8\nmov     [rbp+caplen], eax\nmov     eax, [rbp+hdrlen]\nadd     eax, 8\nmov     [rbp+hdrlen], eax\nmov     rax, [rbp+ndo]; jumptable 0000000000001306 default case\ncmp     dword ptr [rax], 0\njz      loc_15BE\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, asc_2092; \"< \"\nmov     al, 0\ncall    rcx\nmovzx   eax, [rbp+fc]\nshr     eax, 0Eh\nmov     ecx, eax\nmov     [rbp+var_58], rcx\nsub     eax, 3; switch 4 cases\nja      def_15E6; jumptable 00000000000015E6 default case\nmov     rax, [rbp+var_58]\nlea     rcx, jpt_15E6\nmovsxd  rax, ds:(jpt_15E6 - 2014h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nmov     rax, [rbp+ndo]; jumptable 00000000000015E6 case 0\ncmp     dword ptr [rax], 0\njz      loc_160C\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aNone; \"none \"\nmov     al, 0\ncall    rcx\njmp     def_15E6; jumptable 00000000000015E6 default case\nmov     rax, [rbp+ndo]; jumptable 00000000000015E6 case 1\ncmp     dword ptr [rax], 0\njz      loc_1635\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aReservedSource; \"reserved source addressing mode\"\nmov     al, 0\ncall    rcx\nmov     [rbp+var_4], 0\njmp     loc_1891\nmovzx   eax, [rbp+fc]; jumptable 00000000000015E6 case 2\nand     eax, 40h\ncmp     eax, 0\njnz     loc_16BC\ncmp     [rbp+caplen], 2\njnb     loc_167D\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, a802154; \"[|802.15.4]\"\nmov     al, 0\ncall    rcx\nmov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax\njmp     loc_1891\nmov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+1]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+p]\nmovzx   ecx, byte ptr [rcx]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmov     [rbp+panid], ax\nmov     rax, [rbp+p]\nadd     rax, 2\nmov     [rbp+p], rax\nmov     eax, [rbp+caplen]\nsub     eax, 2\nmov     [rbp+caplen], eax\nmov     eax, [rbp+hdrlen]\nadd     eax, 2\nmov     [rbp+hdrlen], eax\ncmp     [rbp+caplen], 2\njnb     loc_16E8\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, a802154; \"[|802.15.4]\"\nmov     al, 0\ncall    rcx\nmov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax\njmp     loc_1891\nmov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 0\njz      loc_1731\nmov     rax, [rbp+ndo]\nmov     r8, [rax+10h]\nmov     rdi, [rbp+ndo]\nmovzx   edx, [rbp+panid]\nmov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+1]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+p]\nmovzx   ecx, byte ptr [rcx]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmovzx   ecx, ax\nlea     rsi, a04x04x; \"%04x:%04x \"\nmov     al, 0\ncall    r8\nmov     rax, [rbp+p]\nadd     rax, 2\nmov     [rbp+p], rax\nmov     eax, [rbp+caplen]\nsub     eax, 2\nmov     [rbp+caplen], eax\nmov     eax, [rbp+hdrlen]\nadd     eax, 2\nmov     [rbp+hdrlen], eax\njmp     def_15E6; jumptable 00000000000015E6 default case\nmovzx   eax, [rbp+fc]; jumptable 00000000000015E6 case 3\nand     eax, 40h\ncmp     eax, 0\njnz     loc_17CF\ncmp     [rbp+caplen], 2\njnb     loc_1790\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, a802154; \"[|802.15.4]\"\nmov     al, 0\ncall    rcx\nmov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax\njmp     loc_1891\nmov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+1]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+p]\nmovzx   ecx, byte ptr [rcx]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmov     [rbp+panid], ax\nmov     rax, [rbp+p]\nadd     rax, 2\nmov     [rbp+p], rax\nmov     eax, [rbp+caplen]\nsub     eax, 2\nmov     [rbp+caplen], eax\nmov     eax, [rbp+hdrlen]\nadd     eax, 2\nmov     [rbp+hdrlen], eax\ncmp     [rbp+caplen], 8\njnb     loc_17FB\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, a802154; \"[|802.15.4]\"\nmov     al, 0\ncall    rcx\nmov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax\njmp     loc_1891\nmov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 0\njz      loc_184A\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_60], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_70], rax\nmovzx   eax, [rbp+panid]\nmov     [rbp+var_64], eax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; ep\ncall    le64addr_string\nmov     rdi, [rbp+var_70]\nmov     edx, [rbp+var_64]\nmov     r8, [rbp+var_60]\nmov     rcx, rax\nlea     rsi, a04xS; \"%04x:%s \"\nmov     al, 0\ncall    r8\nmov     rax, [rbp+p]\nadd     rax, 8\nmov     [rbp+p], rax\nmov     eax, [rbp+caplen]\nsub     eax, 8\nmov     [rbp+caplen], eax\nmov     eax, [rbp+hdrlen]\nadd     eax, 8\nmov     [rbp+hdrlen], eax\nmov     rax, [rbp+ndo]; jumptable 00000000000015E6 default case\ncmp     dword ptr [rax+4], 0\njnz     loc_188B\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nmov     rdi, [rbp+ndo]\nmov     rsi, [rbp+p]\nmov     edx, [rbp+caplen]\ncall    rax\nmov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\nadd     rsp, 70h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 60,
+  "edges": [
+   [
+    "start",
+    "loc_121E"
+   ],
+   [
+    "start",
+    "loc_1240"
+   ],
+   [
+    "loc_121E",
+    "loc_1891"
+   ],
+   [
+    "loc_1240",
+    "loc_12C0"
+   ],
+   [
+    "loc_1240",
+    "loc_12DB"
+   ],
+   [
+    "loc_12C0",
+    "loc_12DB"
+   ],
+   [
+    "loc_12DB",
+    "loc_12F4"
+   ],
+   [
+    "loc_12DB",
+    "loc_159A"
+   ],
+   [
+    "loc_12F4",
+    "loc_1308"
+   ],
+   [
+    "loc_12F4",
+    "loc_1363"
+   ],
+   [
+    "loc_12F4",
+    "loc_1392"
+   ],
+   [
+    "loc_12F4",
+    "loc_1496"
+   ],
+   [
+    "loc_1308",
+    "loc_1318"
+   ],
+   [
+    "loc_1308",
+    "loc_133A"
+   ],
+   [
+    "loc_1318",
+    "loc_1891"
+   ],
+   [
+    "loc_133A",
+    "loc_1347"
+   ],
+   [
+    "loc_133A",
+    "loc_135E"
+   ],
+   [
+    "loc_1347",
+    "loc_135E"
+   ],
+   [
+    "loc_135E",
+    "loc_159A"
+   ],
+   [
+    "loc_1363",
+    "loc_1370"
+   ],
+   [
+    "loc_1363",
+    "loc_1387"
+   ],
+   [
+    "loc_1370",
+    "loc_1387"
+   ],
+   [
+    "loc_1387",
+    "loc_1891"
+   ],
+   [
+    "loc_1392",
+    "loc_139C"
+   ],
+   [
+    "loc_1392",
+    "loc_13BE"
+   ],
+   [
+    "loc_139C",
+    "loc_1891"
+   ],
+   [
+    "loc_13BE",
+    "loc_1407"
+   ],
+   [
+    "loc_13BE",
+    "loc_1429"
+   ],
+   [
+    "loc_1407",
+    "loc_1891"
+   ],
+   [
+    "loc_1429",
+    "loc_1436"
+   ],
+   [
+    "loc_1429",
+    "loc_1473"
+   ],
+   [
+    "loc_1436",
+    "loc_1473"
+   ],
+   [
+    "loc_1473",
+    "loc_159A"
+   ],
+   [
+    "loc_1496",
+    "loc_14A0"
+   ],
+   [
+    "loc_1496",
+    "loc_14C2"
+   ],
+   [
+    "loc_14A0",
+    "loc_1891"
+   ],
+   [
+    "loc_14C2",
+    "loc_150B"
+   ],
+   [
+    "loc_14C2",
+    "loc_152D"
+   ],
+   [
+    "loc_150B",
+    "loc_1891"
+   ],
+   [
+    "loc_152D",
+    "loc_153A"
+   ],
+   [
+    "loc_152D",
+    "loc_157C"
+   ],
+   [
+    "loc_153A",
+    "loc_157C"
+   ],
+   [
+    "loc_157C",
+    "loc_159A"
+   ],
+   [
+    "loc_159A",
+    "loc_15A7"
+   ],
+   [
+    "loc_159A",
+    "loc_15BE"
+   ],
+   [
+    "loc_15A7",
+    "loc_15BE"
+   ],
+   [
+    "loc_15BE",
+    "loc_15D4"
+   ],
+   [
+    "loc_15BE",
+    "loc_1868"
+   ],
+   [
+    "loc_15D4",
+    "loc_15E8"
+   ],
+   [
+    "loc_15D4",
+    "loc_1611"
+   ],
+   [
+    "loc_15D4",
+    "loc_1641"
+   ],
+   [
+    "loc_15D4",
+    "loc_1754"
+   ],
+   [
+    "loc_15E8",
+    "loc_15F5"
+   ],
+   [
+    "loc_15E8",
+    "loc_160C"
+   ],
+   [
+    "loc_15F5",
+    "loc_160C"
+   ],
+   [
+    "loc_160C",
+    "loc_1868"
+   ],
+   [
+    "loc_1611",
+    "loc_161E"
+   ],
+   [
+    "loc_1611",
+    "loc_1635"
+   ],
+   [
+    "loc_161E",
+    "loc_1635"
+   ],
+   [
+    "loc_1635",
+    "loc_1891"
+   ],
+   [
+    "loc_1641",
+    "loc_1651"
+   ],
+   [
+    "loc_1641",
+    "loc_16BC"
+   ],
+   [
+    "loc_1651",
+    "loc_165B"
+   ],
+   [
+    "loc_1651",
+    "loc_167D"
+   ],
+   [
+    "loc_165B",
+    "loc_1891"
+   ],
+   [
+    "loc_167D",
+    "loc_16BC"
+   ],
+   [
+    "loc_16BC",
+    "loc_16C6"
+   ],
+   [
+    "loc_16BC",
+    "loc_16E8"
+   ],
+   [
+    "loc_16C6",
+    "loc_1891"
+   ],
+   [
+    "loc_16E8",
+    "loc_16F5"
+   ],
+   [
+    "loc_16E8",
+    "loc_1731"
+   ],
+   [
+    "loc_16F5",
+    "loc_1731"
+   ],
+   [
+    "loc_1731",
+    "loc_1868"
+   ],
+   [
+    "loc_1754",
+    "loc_1764"
+   ],
+   [
+    "loc_1754",
+    "loc_17CF"
+   ],
+   [
+    "loc_1764",
+    "loc_176E"
+   ],
+   [
+    "loc_1764",
+    "loc_1790"
+   ],
+   [
+    "loc_176E",
+    "loc_1891"
+   ],
+   [
+    "loc_1790",
+    "loc_17CF"
+   ],
+   [
+    "loc_17CF",
+    "loc_17D9"
+   ],
+   [
+    "loc_17CF",
+    "loc_17FB"
+   ],
+   [
+    "loc_17D9",
+    "loc_1891"
+   ],
+   [
+    "loc_17FB",
+    "loc_1808"
+   ],
+   [
+    "loc_17FB",
+    "loc_184A"
+   ],
+   [
+    "loc_1808",
+    "loc_184A"
+   ],
+   [
+    "loc_184A",
+    "loc_1868"
+   ],
+   [
+    "loc_1868",
+    "loc_1876"
+   ],
+   [
+    "loc_1868",
+    "loc_188B"
+   ],
+   [
+    "loc_1876",
+    "loc_188B"
+   ],
+   [
+    "loc_188B",
+    "loc_1891"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 70h\nmov     [rbp+ndo], rdi\nmov     [rbp+h], rsi\nmov     [rbp+p], rdx\nmov     rax, [rbp+h]\nmov     eax, [rax+10h]\nmov     [rbp+caplen], eax\nmov     [rbp+panid], 0\ncmp     [rbp+caplen], 3\njnb     loc_1240",
+   "loc_121E": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, a802154; \"[|802.15.4]\"\nmov     al, 0\ncall    rcx\nmov     eax, [rbp+caplen]\nmov     [rbp+var_4], eax\njmp     loc_1891",
+   "loc_1240": "mov     [rbp+hdrlen], 3\nmov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+1]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+p]\nmovzx   ecx, byte ptr [rcx]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmov     [rbp+fc], ax\nmov     rax, [rbp+p]\nmov     al, [rax+2]\nmov     [rbp+seq], al\nmov     rax, [rbp+p]\nadd     rax, 3\nmov     [rbp+p], rax\nmov     eax, [rbp+caplen]\nsub     eax, 3\nmov     [rbp+caplen], eax\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nmovzx   eax, [rbp+fc]\nand     eax, 7\nmovsxd  rdx, eax\nlea     rax, ftypes\nmov     rdx, [rax+rdx*8]\nlea     rsi, aIeee802154SPac; \"IEEE 802.15.4 %s packet \"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 0\njz      loc_12DB",
+   "loc_12C0": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nmovzx   edx, [rbp+seq]\nlea     rsi, aSeq02x; \"seq %02x \"\nmov     al, 0\ncall    rcx",
+   "loc_12DB": "movzx   eax, [rbp+fc]\nshr     eax, 0Ah\nand     eax, 3\nmov     ecx, eax\nmov     [rbp+var_38], rcx\nsub     eax, 3; switch 4 cases\nja      def_1306; jumptable 0000000000001306 default case",
+   "loc_12F4": "mov     rax, [rbp+var_38]\nlea     rcx, jpt_1306\nmovsxd  rax, ds:(jpt_1306 - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_1308": "movzx   eax, [rbp+fc]; jumptable 0000000000001306 case 0\nand     eax, 40h\ncmp     eax, 0\njz      loc_133A",
+   "loc_1318": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, a802154; \"[|802.15.4]\"\nmov     al, 0\ncall    rcx\nmov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax\njmp     loc_1891",
+   "loc_133A": "mov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 0\njz      loc_135E",
+   "loc_1347": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aNone; \"none \"\nmov     al, 0\ncall    rcx",
+   "loc_135E": "jmp     def_1306; jumptable 0000000000001306 default case",
+   "loc_1363": "mov     rax, [rbp+ndo]; jumptable 0000000000001306 case 1\ncmp     dword ptr [rax], 0\njz      loc_1387",
+   "loc_1370": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aReservedDestin; \"reserved destination addressing mode\"\nmov     al, 0\ncall    rcx",
+   "loc_1387": "mov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax\njmp     loc_1891",
+   "loc_1392": "cmp     [rbp+caplen], 2; jumptable 0000000000001306 case 2\njnb     loc_13BE",
+   "loc_139C": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, a802154; \"[|802.15.4]\"\nmov     al, 0\ncall    rcx\nmov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax\njmp     loc_1891",
+   "loc_13BE": "mov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+1]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+p]\nmovzx   ecx, byte ptr [rcx]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmov     [rbp+panid], ax\nmov     rax, [rbp+p]\nadd     rax, 2\nmov     [rbp+p], rax\nmov     eax, [rbp+caplen]\nsub     eax, 2\nmov     [rbp+caplen], eax\nmov     eax, [rbp+hdrlen]\nadd     eax, 2\nmov     [rbp+hdrlen], eax\ncmp     [rbp+caplen], 2\njnb     loc_1429",
+   "loc_1407": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, a802154; \"[|802.15.4]\"\nmov     al, 0\ncall    rcx\nmov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax\njmp     loc_1891",
+   "loc_1429": "mov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 0\njz      loc_1473",
+   "loc_1436": "mov     rax, [rbp+ndo]\nmov     r8, [rax+10h]\nmov     rdi, [rbp+ndo]\nmovzx   edx, [rbp+panid]\nmov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+3]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+p]\nmovzx   ecx, byte ptr [rcx+2]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmovzx   ecx, ax\nlea     rsi, a04x04x; \"%04x:%04x \"\nmov     al, 0\ncall    r8",
+   "loc_1473": "mov     rax, [rbp+p]\nadd     rax, 2\nmov     [rbp+p], rax\nmov     eax, [rbp+caplen]\nsub     eax, 2\nmov     [rbp+caplen], eax\nmov     eax, [rbp+hdrlen]\nadd     eax, 2\nmov     [rbp+hdrlen], eax\njmp     def_1306; jumptable 0000000000001306 default case",
+   "loc_1496": "cmp     [rbp+caplen], 2; jumptable 0000000000001306 case 3\njnb     loc_14C2",
+   "loc_14A0": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, a802154; \"[|802.15.4]\"\nmov     al, 0\ncall    rcx\nmov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax\njmp     loc_1891",
+   "loc_14C2": "mov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+1]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+p]\nmovzx   ecx, byte ptr [rcx]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmov     [rbp+panid], ax\nmov     rax, [rbp+p]\nadd     rax, 2\nmov     [rbp+p], rax\nmov     eax, [rbp+caplen]\nsub     eax, 2\nmov     [rbp+caplen], eax\nmov     eax, [rbp+hdrlen]\nadd     eax, 2\nmov     [rbp+hdrlen], eax\ncmp     [rbp+caplen], 8\njnb     loc_152D",
+   "loc_150B": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, a802154; \"[|802.15.4]\"\nmov     al, 0\ncall    rcx\nmov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax\njmp     loc_1891",
+   "loc_152D": "mov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 0\njz      loc_157C",
+   "loc_153A": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_40], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_50], rax\nmovzx   eax, [rbp+panid]\nmov     [rbp+var_44], eax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; ep\ncall    le64addr_string\nmov     rdi, [rbp+var_50]\nmov     edx, [rbp+var_44]\nmov     r8, [rbp+var_40]\nmov     rcx, rax\nlea     rsi, a04xS; \"%04x:%s \"\nmov     al, 0\ncall    r8",
+   "loc_157C": "mov     rax, [rbp+p]\nadd     rax, 8\nmov     [rbp+p], rax\nmov     eax, [rbp+caplen]\nsub     eax, 8\nmov     [rbp+caplen], eax\nmov     eax, [rbp+hdrlen]\nadd     eax, 8\nmov     [rbp+hdrlen], eax",
+   "loc_159A": "mov     rax, [rbp+ndo]; jumptable 0000000000001306 default case\ncmp     dword ptr [rax], 0\njz      loc_15BE",
+   "loc_15A7": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, asc_2092; \"< \"\nmov     al, 0\ncall    rcx",
+   "loc_15BE": "movzx   eax, [rbp+fc]\nshr     eax, 0Eh\nmov     ecx, eax\nmov     [rbp+var_58], rcx\nsub     eax, 3; switch 4 cases\nja      def_15E6; jumptable 00000000000015E6 default case",
+   "loc_15D4": "mov     rax, [rbp+var_58]\nlea     rcx, jpt_15E6\nmovsxd  rax, ds:(jpt_15E6 - 2014h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_15E8": "mov     rax, [rbp+ndo]; jumptable 00000000000015E6 case 0\ncmp     dword ptr [rax], 0\njz      loc_160C",
+   "loc_15F5": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aNone; \"none \"\nmov     al, 0\ncall    rcx",
+   "loc_160C": "jmp     def_15E6; jumptable 00000000000015E6 default case",
+   "loc_1611": "mov     rax, [rbp+ndo]; jumptable 00000000000015E6 case 1\ncmp     dword ptr [rax], 0\njz      loc_1635",
+   "loc_161E": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aReservedSource; \"reserved source addressing mode\"\nmov     al, 0\ncall    rcx",
+   "loc_1635": "mov     [rbp+var_4], 0\njmp     loc_1891",
+   "loc_1641": "movzx   eax, [rbp+fc]; jumptable 00000000000015E6 case 2\nand     eax, 40h\ncmp     eax, 0\njnz     loc_16BC",
+   "loc_1651": "cmp     [rbp+caplen], 2\njnb     loc_167D",
+   "loc_165B": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, a802154; \"[|802.15.4]\"\nmov     al, 0\ncall    rcx\nmov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax\njmp     loc_1891",
+   "loc_167D": "mov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+1]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+p]\nmovzx   ecx, byte ptr [rcx]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmov     [rbp+panid], ax\nmov     rax, [rbp+p]\nadd     rax, 2\nmov     [rbp+p], rax\nmov     eax, [rbp+caplen]\nsub     eax, 2\nmov     [rbp+caplen], eax\nmov     eax, [rbp+hdrlen]\nadd     eax, 2\nmov     [rbp+hdrlen], eax",
+   "loc_16BC": "cmp     [rbp+caplen], 2\njnb     loc_16E8",
+   "loc_16C6": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, a802154; \"[|802.15.4]\"\nmov     al, 0\ncall    rcx\nmov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax\njmp     loc_1891",
+   "loc_16E8": "mov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 0\njz      loc_1731",
+   "loc_16F5": "mov     rax, [rbp+ndo]\nmov     r8, [rax+10h]\nmov     rdi, [rbp+ndo]\nmovzx   edx, [rbp+panid]\nmov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+1]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+p]\nmovzx   ecx, byte ptr [rcx]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmovzx   ecx, ax\nlea     rsi, a04x04x; \"%04x:%04x \"\nmov     al, 0\ncall    r8",
+   "loc_1731": "mov     rax, [rbp+p]\nadd     rax, 2\nmov     [rbp+p], rax\nmov     eax, [rbp+caplen]\nsub     eax, 2\nmov     [rbp+caplen], eax\nmov     eax, [rbp+hdrlen]\nadd     eax, 2\nmov     [rbp+hdrlen], eax\njmp     def_15E6; jumptable 00000000000015E6 default case",
+   "loc_1754": "movzx   eax, [rbp+fc]; jumptable 00000000000015E6 case 3\nand     eax, 40h\ncmp     eax, 0\njnz     loc_17CF",
+   "loc_1764": "cmp     [rbp+caplen], 2\njnb     loc_1790",
+   "loc_176E": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, a802154; \"[|802.15.4]\"\nmov     al, 0\ncall    rcx\nmov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax\njmp     loc_1891",
+   "loc_1790": "mov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+1]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+p]\nmovzx   ecx, byte ptr [rcx]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmov     [rbp+panid], ax\nmov     rax, [rbp+p]\nadd     rax, 2\nmov     [rbp+p], rax\nmov     eax, [rbp+caplen]\nsub     eax, 2\nmov     [rbp+caplen], eax\nmov     eax, [rbp+hdrlen]\nadd     eax, 2\nmov     [rbp+hdrlen], eax",
+   "loc_17CF": "cmp     [rbp+caplen], 8\njnb     loc_17FB",
+   "loc_17D9": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, a802154; \"[|802.15.4]\"\nmov     al, 0\ncall    rcx\nmov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax\njmp     loc_1891",
+   "loc_17FB": "mov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 0\njz      loc_184A",
+   "loc_1808": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_60], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_70], rax\nmovzx   eax, [rbp+panid]\nmov     [rbp+var_64], eax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; ep\ncall    le64addr_string\nmov     rdi, [rbp+var_70]\nmov     edx, [rbp+var_64]\nmov     r8, [rbp+var_60]\nmov     rcx, rax\nlea     rsi, a04xS; \"%04x:%s \"\nmov     al, 0\ncall    r8",
+   "loc_184A": "mov     rax, [rbp+p]\nadd     rax, 8\nmov     [rbp+p], rax\nmov     eax, [rbp+caplen]\nsub     eax, 8\nmov     [rbp+caplen], eax\nmov     eax, [rbp+hdrlen]\nadd     eax, 8\nmov     [rbp+hdrlen], eax",
+   "loc_1868": "mov     rax, [rbp+ndo]; jumptable 00000000000015E6 default case\ncmp     dword ptr [rax+4], 0\njnz     loc_188B",
+   "loc_1876": "mov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nmov     rdi, [rbp+ndo]\nmov     rsi, [rbp+p]\nmov     edx, [rbp+caplen]\ncall    rax",
+   "loc_188B": "mov     eax, [rbp+hdrlen]\nmov     [rbp+var_4], eax",
+   "loc_1891": "mov     eax, [rbp+var_4]\nadd     rsp, 70h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_70": "qword ptr -70h",
+   "var_64": "dword ptr -64h",
+   "var_60": "qword ptr -60h",
+   "var_58": "qword ptr -58h",
+   "var_50": "qword ptr -50h",
+   "var_44": "dword ptr -44h",
+   "var_40": "qword ptr -40h",
+   "var_38": "qword ptr -38h",
+   "panid": "word ptr -2Eh",
+   "seq": "byte ptr -2Bh",
+   "fc": "word ptr -2Ah",
+   "hdrlen": "dword ptr -28h",
+   "caplen": "dword ptr -24h",
+   "p": "qword ptr -20h",
+   "h": "qword ptr -18h",
+   "ndo": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "a802154": "byte '[|802.15.4]',0",
+   "aIeee802154SPac": "byte 'IEEE 802.15.4 %s packet ',0",
+   "aSeq02x": "byte 'seq %02x ',0",
+   "jpt_1306": "dword offset loc_1308 - 2004h; jump table for switch statement",
+   "aNone": "byte 'none ',0",
+   "aReservedDestin": "byte 'reserved destination addressing mode',0",
+   "a04x04x": "byte '%04x:%04x ',0",
+   "a04xS": "byte '%04x:%s ',0",
+   "asc_2092": "byte '< ',0",
+   "jpt_15E6": "dword offset loc_15E8 - 2014h; jump table for switch statement",
+   "aReservedSource": "byte 'reserved source addressing mode',0"
+  },
+  ".data": {
+   "ftypes": "qword offset aBeacon"
+  },
+  ".bss": {}
+ },
+ "func_ea": 4592,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".vprintf": "vprintf",
+  "_vprintf": "vprintf",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".vprintf",
+   ".plt",
+   true,
+   "vprintf"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "printf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "snprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "vprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868466
+ }
+}

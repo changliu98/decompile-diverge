@@ -1,0 +1,1 @@
+static inline int txq2vq(int txq) { return 2 * txq + 1; }

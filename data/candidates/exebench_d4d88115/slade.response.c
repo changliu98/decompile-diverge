@@ -1,0 +1,1 @@
+void gsdate(int year, int month, int day, int *yearp) { int y; day += 100; if (month > 2) month -= 3; else { month += 9; day -= 1; } day *= 1461; day /= 4; month *= 153; month += 2; month /= 10; y = day + month + year; y -= 36466; if (y > 59) y--; *yearp = y; }

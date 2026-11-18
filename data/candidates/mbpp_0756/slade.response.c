@@ -1,0 +1,1 @@
+char *func0(char *s) { regex_t reg; int r; r = regcomp(&reg, "ab?", 1); if (r != 0) return "Not matched!"; r = regexec(&reg, s, 0, NULL, 0); char *re; if (r == 0) re = "Found a match!"; else re = "Not matched!"; regfree(&reg); return re; }

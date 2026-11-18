@@ -1,0 +1,1 @@
+int func0(int *x, int N) { int m = x[0]; for (int i = 0; i < N; ++i) if (x[i] > m) m = x[i]; return m; }

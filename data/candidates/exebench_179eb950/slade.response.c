@@ -1,0 +1,1 @@
+void swap_int(uint32_t *a, uint32_t *b) { *b = *a ^ *b; *a = *b ^ *a; *b = *a ^ *b; }

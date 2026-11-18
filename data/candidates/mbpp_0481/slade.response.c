@@ -1,0 +1,1 @@
+int func0(int *x, int N, int M) { if (M == 0) return 1; if (N == 0) return 0; if (x[N-1] > M) return func0(x, N-1, M); return func0(x, N-1, M) || func0(x, N-1, M-x[N-1]) ? 1 : 0; }

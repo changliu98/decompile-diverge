@@ -1,0 +1,1 @@
+char MACH0_ (char *stream, int length, int id) { char __res; __res = parse_chained_fixups (stream, length, id); g_no_tailcall_sink++; return __res; }

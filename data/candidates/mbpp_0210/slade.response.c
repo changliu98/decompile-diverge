@@ -1,0 +1,1 @@
+char func0(const char *s) { char buf[64]; regcomp(buf, "[^a-zA-Z0-9.]", 1); int r = regexec(buf, s, 0, NULL, 0); regfree(buf); return r == 1 ? 1 : 0; }

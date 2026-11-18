@@ -1,0 +1,1 @@
+void max1D_double(double *input, const int length, double *output) { int i; output[0] = 1; output[1] = -1; for (i = 0; i < length; i++) { if (input[i] > output[1]) { output[1] = input[i]; output[0] = (double)i; } } }

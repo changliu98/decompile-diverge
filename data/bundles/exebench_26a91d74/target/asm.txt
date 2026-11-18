@@ -1,0 +1,33 @@
+00000000000011d0 <cpuid_detect>:
+    11d0:	push   %rbp
+    11d1:	mov    %rsp,%rbp
+    11d4:	mov    %rdi,-0x8(%rbp)
+    11d8:	mov    %rsi,-0x10(%rbp)
+    11dc:	mov    $0x1,%eax
+    11e1:	xchg   %esi,%ebx
+    11e3:	cpuid
+    11e5:	xchg   %esi,%ebx
+    11e7:	mov    %esi,-0x24(%rbp)
+    11ea:	mov    %eax,%esi
+    11ec:	mov    -0x24(%rbp),%eax
+    11ef:	mov    %esi,-0x14(%rbp)
+    11f2:	mov    %eax,-0x18(%rbp)
+    11f5:	mov    %ecx,-0x1c(%rbp)
+    11f8:	mov    %edx,-0x20(%rbp)
+    11fb:	cmpq   $0x0,-0x8(%rbp)
+    1200:	je     1215 <cpuid_detect+0x45>
+    1206:	mov    -0x20(%rbp),%ecx
+    1209:	sar    $0x1a,%ecx
+    120c:	and    $0x1,%ecx
+    120f:	mov    -0x8(%rbp),%rax
+    1213:	mov    %ecx,(%rax)
+    1215:	cmpq   $0x0,-0x10(%rbp)
+    121a:	je     122c <cpuid_detect+0x5c>
+    1220:	mov    -0x1c(%rbp),%ecx
+    1223:	and    $0x1,%ecx
+    1226:	mov    -0x10(%rbp),%rax
+    122a:	mov    %ecx,(%rax)
+    122c:	pop    %rbp
+    122d:	ret
+
+Disassembly of section .fini:

@@ -1,0 +1,1 @@
+void mov_s(float *source,float *target) { *target = *source; }

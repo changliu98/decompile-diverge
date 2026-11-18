@@ -1,0 +1,1 @@
+void swap_dval (dval *a, dval *b) { dval t; t = *a; *a = *b; *b = t; }

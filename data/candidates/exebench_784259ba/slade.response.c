@@ -1,0 +1,1 @@
+int inet_close(struct sock *sk) { close(sk->sk_socket); sk->sk_socket = 0; return sk->sk_socket; }

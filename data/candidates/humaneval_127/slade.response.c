@@ -1,0 +1,1 @@
+const char *func0(int a, int b, int c, int d) { int v1 = (a > c) ? a : c; int v2 = (b < d) ? b : d; int diff = v2 - v1; int i; if (diff < 2) return "NO"; for (i = 2; i * i <= diff; i++) if (diff % i == 0) return "NO"; return "YES"; }

@@ -1,0 +1,232 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+c], rdi\nmov     [rbp+f], rsi\nmov     [rbp+bi], rdx\nmov     [rbp+pos], rcx\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+pos]\nmov     edx, eax\nlea     rsi, fmt; \"additional PixMap header fields, at %d\"\nmov     al, 0\ncall    de_dbg\nmov     rdi, [rbp+c]; c\nmov     esi, 1; n\ncall    de_dbg_indent\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 0; pos\ncall    dbuf_getu16be\nmov     [rbp+pixmap_version], rax\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+pixmap_version]\nmov     edx, eax\nlea     rsi, aPixmapVersionD; \"pixmap version: %d\"\nmov     al, 0\ncall    de_dbg\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 2; pos\ncall    dbuf_getu16be\nmov     rcx, rax\nmov     rax, [rbp+bi]\nmov     [rax+30h], rcx\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+bi]\nmov     rax, [rax+30h]\nmov     edx, eax\nlea     rsi, aPackingTypeD; \"packing type: %d\"\nmov     al, 0\ncall    de_dbg\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 4; pos\ncall    dbuf_getu32be\nmov     [rbp+pack_size], rax\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+pack_size]\nmov     edx, eax\nlea     rsi, aPixelDataLengt; \"pixel data length: %d\"\nmov     al, 0\ncall    de_dbg\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 8; pos\ncall    pict_read_fixed\nmov     rax, [rbp+bi]\nmovsd   qword ptr [rax+58h], xmm0\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 0Ch; pos\ncall    pict_read_fixed\nmov     rax, [rbp+bi]\nmovsd   qword ptr [rax+60h], xmm0\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+bi]\nmovsd   xmm0, qword ptr [rax+58h]\nmov     rax, [rbp+bi]\nmovsd   xmm1, qword ptr [rax+60h]\nlea     rsi, aDpi2f; \"dpi: %.2f\"\nmov     al, 2\ncall    de_dbg\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 10h; pos\ncall    dbuf_getu16be\nmov     rcx, rax\nmov     rax, [rbp+bi]\nmov     [rax+38h], rcx\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 12h; pos\ncall    dbuf_getu16be\nmov     rcx, rax\nmov     rax, [rbp+bi]\nmov     [rax+40h], rcx\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 14h; pos\ncall    dbuf_getu16be\nmov     rcx, rax\nmov     rax, [rbp+bi]\nmov     [rax+48h], rcx\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 16h; pos\ncall    dbuf_getu16be\nmov     rcx, rax\nmov     rax, [rbp+bi]\nmov     [rax+50h], rcx\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+bi]\nmov     rax, [rax+38h]\nmov     edx, eax\nmov     rax, [rbp+bi]\nmov     rax, [rax+40h]\nmov     ecx, eax\nmov     rax, [rbp+bi]\nmov     rax, [rax+48h]\nmov     r8d, eax\nmov     rax, [rbp+bi]\nmov     rax, [rax+50h]\nmov     r9d, eax\nlea     rsi, aPixelTypeDBits; \"pixel type=%d, bits/pixel=%d, component\"...\nmov     al, 0\ncall    de_dbg\nmov     rax, [rbp+bi]\nmov     rax, [rax]\nshl     rax, 3\nmov     rcx, [rbp+bi]\ncqo\nidiv    qword ptr [rcx+40h]\nmov     rcx, rax\nmov     rax, [rbp+bi]\nmov     [rax+18h], rcx\nmov     rax, [rbp+bi]\nmov     rax, [rax+18h]\nmov     rcx, [rbp+bi]\ncmp     rax, [rcx+10h]\njge     loc_13EA\nmov     rax, [rbp+bi]\nmov     rcx, [rax+10h]\nmov     rax, [rbp+bi]\nmov     [rax+18h], rcx\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 18h; pos\ncall    dbuf_getu32be\nmov     [rbp+plane_bytes], rax\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+plane_bytes]\nmov     edx, eax\nlea     rsi, aPlaneBytesD; \"plane bytes: %d\"\nmov     al, 0\ncall    de_dbg\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 1Ch; pos\ncall    dbuf_getu32be\nmov     ecx, eax\nmov     rax, [rbp+bi]\nmov     [rax+68h], ecx\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+bi]\nmov     edx, [rax+68h]\nlea     rsi, aPmtable0x08x; \"pmTable: 0x%08x\"\nmov     al, 0\ncall    de_dbg\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 20h ; ' '; pos\ncall    dbuf_getu32be\nmov     [rbp+n], rax\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+n]\nmov     edx, eax\nlea     rsi, aPmreserved0x08; \"pmReserved: 0x%08x\"\nmov     al, 0\ncall    de_dbg\nmov     rdi, [rbp+c]; c\nmov     esi, 0FFFFFFFFh; n\ncall    de_dbg_indent\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 3,
+  "edges": [
+   [
+    "start",
+    "loc_13DA"
+   ],
+   [
+    "start",
+    "loc_13EA"
+   ],
+   [
+    "loc_13DA",
+    "loc_13EA"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+c], rdi\nmov     [rbp+f], rsi\nmov     [rbp+bi], rdx\nmov     [rbp+pos], rcx\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+pos]\nmov     edx, eax\nlea     rsi, fmt; \"additional PixMap header fields, at %d\"\nmov     al, 0\ncall    de_dbg\nmov     rdi, [rbp+c]; c\nmov     esi, 1; n\ncall    de_dbg_indent\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 0; pos\ncall    dbuf_getu16be\nmov     [rbp+pixmap_version], rax\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+pixmap_version]\nmov     edx, eax\nlea     rsi, aPixmapVersionD; \"pixmap version: %d\"\nmov     al, 0\ncall    de_dbg\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 2; pos\ncall    dbuf_getu16be\nmov     rcx, rax\nmov     rax, [rbp+bi]\nmov     [rax+30h], rcx\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+bi]\nmov     rax, [rax+30h]\nmov     edx, eax\nlea     rsi, aPackingTypeD; \"packing type: %d\"\nmov     al, 0\ncall    de_dbg\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 4; pos\ncall    dbuf_getu32be\nmov     [rbp+pack_size], rax\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+pack_size]\nmov     edx, eax\nlea     rsi, aPixelDataLengt; \"pixel data length: %d\"\nmov     al, 0\ncall    de_dbg\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 8; pos\ncall    pict_read_fixed\nmov     rax, [rbp+bi]\nmovsd   qword ptr [rax+58h], xmm0\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 0Ch; pos\ncall    pict_read_fixed\nmov     rax, [rbp+bi]\nmovsd   qword ptr [rax+60h], xmm0\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+bi]\nmovsd   xmm0, qword ptr [rax+58h]\nmov     rax, [rbp+bi]\nmovsd   xmm1, qword ptr [rax+60h]\nlea     rsi, aDpi2f; \"dpi: %.2f\"\nmov     al, 2\ncall    de_dbg\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 10h; pos\ncall    dbuf_getu16be\nmov     rcx, rax\nmov     rax, [rbp+bi]\nmov     [rax+38h], rcx\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 12h; pos\ncall    dbuf_getu16be\nmov     rcx, rax\nmov     rax, [rbp+bi]\nmov     [rax+40h], rcx\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 14h; pos\ncall    dbuf_getu16be\nmov     rcx, rax\nmov     rax, [rbp+bi]\nmov     [rax+48h], rcx\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 16h; pos\ncall    dbuf_getu16be\nmov     rcx, rax\nmov     rax, [rbp+bi]\nmov     [rax+50h], rcx\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+bi]\nmov     rax, [rax+38h]\nmov     edx, eax\nmov     rax, [rbp+bi]\nmov     rax, [rax+40h]\nmov     ecx, eax\nmov     rax, [rbp+bi]\nmov     rax, [rax+48h]\nmov     r8d, eax\nmov     rax, [rbp+bi]\nmov     rax, [rax+50h]\nmov     r9d, eax\nlea     rsi, aPixelTypeDBits; \"pixel type=%d, bits/pixel=%d, component\"...\nmov     al, 0\ncall    de_dbg\nmov     rax, [rbp+bi]\nmov     rax, [rax]\nshl     rax, 3\nmov     rcx, [rbp+bi]\ncqo\nidiv    qword ptr [rcx+40h]\nmov     rcx, rax\nmov     rax, [rbp+bi]\nmov     [rax+18h], rcx\nmov     rax, [rbp+bi]\nmov     rax, [rax+18h]\nmov     rcx, [rbp+bi]\ncmp     rax, [rcx+10h]\njge     loc_13EA",
+   "loc_13DA": "mov     rax, [rbp+bi]\nmov     rcx, [rax+10h]\nmov     rax, [rbp+bi]\nmov     [rax+18h], rcx",
+   "loc_13EA": "mov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 18h; pos\ncall    dbuf_getu32be\nmov     [rbp+plane_bytes], rax\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+plane_bytes]\nmov     edx, eax\nlea     rsi, aPlaneBytesD; \"plane bytes: %d\"\nmov     al, 0\ncall    de_dbg\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 1Ch; pos\ncall    dbuf_getu32be\nmov     ecx, eax\nmov     rax, [rbp+bi]\nmov     [rax+68h], ecx\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+bi]\nmov     edx, [rax+68h]\nlea     rsi, aPmtable0x08x; \"pmTable: 0x%08x\"\nmov     al, 0\ncall    de_dbg\nmov     rdi, [rbp+f]; f\nmov     rsi, [rbp+pos]\nadd     rsi, 20h ; ' '; pos\ncall    dbuf_getu32be\nmov     [rbp+n], rax\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+n]\nmov     edx, eax\nlea     rsi, aPmreserved0x08; \"pmReserved: 0x%08x\"\nmov     al, 0\ncall    de_dbg\nmov     rdi, [rbp+c]; c\nmov     esi, 0FFFFFFFFh; n\ncall    de_dbg_indent\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "n": "qword ptr -40h",
+   "plane_bytes": "qword ptr -38h",
+   "pack_size": "qword ptr -30h",
+   "pixmap_version": "qword ptr -28h",
+   "pos": "qword ptr -20h",
+   "bi": "qword ptr -18h",
+   "f": "qword ptr -10h",
+   "c": "qword ptr -8"
+  },
+  ".rodata": {
+   "fmt": "byte 'additional PixMap header fields, at %d',0",
+   "aPixmapVersionD": "byte 'pixmap version: %d',0",
+   "aPackingTypeD": "byte 'packing type: %d',0",
+   "aPixelDataLengt": "byte 'pixel data length: %d',0",
+   "aDpi2f": "byte 'dpi: %.2f'",
+   "aPixelTypeDBits": "byte 'pixel type=%d, bits/pixel=%d, components/pixel=%d, bits/comp=%d',0",
+   "aPlaneBytesD": "byte 'plane bytes: %d',0",
+   "aPmtable0x08x": "byte 'pmTable: 0x%08x',0",
+   "aPmreserved0x08": "byte 'pmReserved: 0x%08x',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4560,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868485
+ }
+}

@@ -1,0 +1,14 @@
+const char *get_priority_string(int prio)
+{
+    switch(prio){
+    case Priority_Unavailable:
+        return "Unavailable";
+    case Priority_Low:
+        return "Low";
+    case Priority_Neutral:
+        return "Neutral";
+    case Priority_Preferred:
+        return "Preferred";
+    }
+    return "Invalid";
+}

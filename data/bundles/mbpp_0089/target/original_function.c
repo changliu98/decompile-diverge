@@ -1,0 +1,1 @@
+int func0(int N) { return N - 1; }

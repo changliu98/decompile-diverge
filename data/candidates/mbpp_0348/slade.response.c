@@ -1,0 +1,1 @@
+Word func0(Word x) { Word y; Word k; Word t; y = x / 2; t = bin_coff(y * 2, y); y = t / (y + 1); return y; }

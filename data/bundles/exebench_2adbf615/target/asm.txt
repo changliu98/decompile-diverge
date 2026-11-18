@@ -1,0 +1,53 @@
+00000000000011e0 <daxpy>:
+    11e0:	push   %rbp
+    11e1:	mov    %rsp,%rbp
+    11e4:	mov    %edi,-0x4(%rbp)
+    11e7:	movsd  %xmm0,-0x10(%rbp)
+    11ec:	mov    %rsi,-0x18(%rbp)
+    11f0:	mov    %rdx,-0x20(%rbp)
+    11f4:	movsd  -0x10(%rbp),%xmm0
+    11f9:	xorps  %xmm1,%xmm1
+    11fc:	ucomisd %xmm1,%xmm0
+    1200:	jne    1211 <daxpy+0x31>
+    1206:	jp     1211 <daxpy+0x31>
+    120c:	jmp    12af <daxpy+0xcf>
+    1211:	movsd  -0x10(%rbp),%xmm0
+    1216:	movsd  0xdea(%rip),%xmm1        # 2008 <_IO_stdin_used+0x8>
+    121e:	ucomisd %xmm1,%xmm0
+    1222:	jne    1268 <daxpy+0x88>
+    1228:	jp     1268 <daxpy+0x88>
+    122e:	jmp    1233 <daxpy+0x53>
+    1233:	mov    -0x4(%rbp),%eax
+    1236:	add    $0xffffffff,%eax
+    1239:	mov    %eax,-0x4(%rbp)
+    123c:	mov    -0x18(%rbp),%rax
+    1240:	mov    -0x4(%rbp),%ecx
+    1243:	movsd  (%rax,%rcx,8),%xmm0
+    1248:	mov    -0x20(%rbp),%rax
+    124c:	mov    -0x4(%rbp),%ecx
+    124f:	addsd  (%rax,%rcx,8),%xmm0
+    1254:	movsd  %xmm0,(%rax,%rcx,8)
+    1259:	cmpl   $0x0,-0x4(%rbp)
+    125d:	jne    1233 <daxpy+0x53>
+    1263:	jmp    12af <daxpy+0xcf>
+    1268:	jmp    126d <daxpy+0x8d>
+    126d:	mov    -0x4(%rbp),%eax
+    1270:	add    $0xffffffff,%eax
+    1273:	mov    %eax,-0x4(%rbp)
+    1276:	movsd  -0x10(%rbp),%xmm0
+    127b:	mov    -0x18(%rbp),%rax
+    127f:	mov    -0x4(%rbp),%ecx
+    1282:	movsd  (%rax,%rcx,8),%xmm2
+    1287:	mov    -0x20(%rbp),%rax
+    128b:	mov    -0x4(%rbp),%ecx
+    128e:	movsd  (%rax,%rcx,8),%xmm1
+    1293:	mulsd  %xmm2,%xmm0
+    1297:	addsd  %xmm1,%xmm0
+    129b:	movsd  %xmm0,(%rax,%rcx,8)
+    12a0:	cmpl   $0x0,-0x4(%rbp)
+    12a4:	jne    126d <daxpy+0x8d>
+    12aa:	jmp    12af <daxpy+0xcf>
+    12af:	pop    %rbp
+    12b0:	ret
+
+Disassembly of section .fini:

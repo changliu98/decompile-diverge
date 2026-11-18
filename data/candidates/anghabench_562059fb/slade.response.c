@@ -1,0 +1,1 @@
+const char *selectOpName(int opcode) { const char *opcodeName; switch(opcode) { case UNISECT_ALL: opcodeName = "UNION ALL"; break; case UNISECT_UNISECT: opcodeName = "UNISECT"; break; case EXCEPT_UNISECT: opcodeName = "EXCEPT"; break; default: opcodeName = "UNION"; break; } return opcodeName; }

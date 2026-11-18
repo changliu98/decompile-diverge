@@ -1,0 +1,306 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nmov     [rbp+pOut], rdi\nmov     [rbp+pIn], rsi\nmov     [rbp+sampleCount], rdx\ncmp     [rbp+pOut], 0\njz      loc_B436\ncmp     [rbp+pIn], 0\njnz     loc_B43B\njmp     loc_B4A4\nmov     [rbp+i], 0\nmov     rax, [rbp+i]\ncmp     rax, [rbp+sampleCount]\njnb     loc_B4A4\nmov     rax, [rbp+pIn]\nmov     rcx, [rbp+i]\nmov     al, [rax+rcx]\nmov     [rbp+var_1], al\nmovzx   eax, [rbp+var_1]\nmov     ecx, eax\nlea     rax, g_drwavMulawTable\nmovsx   eax, word ptr [rax+rcx*2]\ncvtsi2ss xmm0, eax\nmovss   xmm1, cs:dword_14094\ndivss   xmm0, xmm1\nmov     rax, [rbp+pOut]\nmov     rcx, rax\nadd     rcx, 4\nmov     [rbp+pOut], rcx\nmovss   dword ptr [rax], xmm0\nmov     rax, [rbp+i]\nadd     rax, 1\nmov     [rbp+i], rax\njmp     loc_B443\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 7,
+  "edges": [
+   [
+    "start",
+    "loc_B42B"
+   ],
+   [
+    "start",
+    "loc_B436"
+   ],
+   [
+    "loc_B42B",
+    "loc_B436"
+   ],
+   [
+    "loc_B42B",
+    "loc_B43B"
+   ],
+   [
+    "loc_B436",
+    "loc_B4A4"
+   ],
+   [
+    "loc_B43B",
+    "loc_B443"
+   ],
+   [
+    "loc_B443",
+    "loc_B451"
+   ],
+   [
+    "loc_B443",
+    "loc_B4A4"
+   ],
+   [
+    "loc_B451",
+    "loc_B443"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nmov     [rbp+pOut], rdi\nmov     [rbp+pIn], rsi\nmov     [rbp+sampleCount], rdx\ncmp     [rbp+pOut], 0\njz      loc_B436",
+   "loc_B42B": "cmp     [rbp+pIn], 0\njnz     loc_B43B",
+   "loc_B436": "jmp     loc_B4A4",
+   "loc_B43B": "mov     [rbp+i], 0",
+   "loc_B443": "mov     rax, [rbp+i]\ncmp     rax, [rbp+sampleCount]\njnb     loc_B4A4",
+   "loc_B451": "mov     rax, [rbp+pIn]\nmov     rcx, [rbp+i]\nmov     al, [rax+rcx]\nmov     [rbp+var_1], al\nmovzx   eax, [rbp+var_1]\nmov     ecx, eax\nlea     rax, g_drwavMulawTable\nmovsx   eax, word ptr [rax+rcx*2]\ncvtsi2ss xmm0, eax\nmovss   xmm1, cs:dword_14094\ndivss   xmm0, xmm1\nmov     rax, [rbp+pOut]\nmov     rcx, rax\nadd     rcx, 4\nmov     [rbp+pOut], rcx\nmovss   dword ptr [rax], xmm0\nmov     rax, [rbp+i]\nadd     rax, 1\nmov     [rbp+i], rax\njmp     loc_B443",
+   "loc_B4A4": "pop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "i": "qword ptr -28h",
+   "sampleCount": "qword ptr -20h",
+   "pIn": "qword ptr -18h",
+   "pOut": "qword ptr -10h",
+   "var_1": "byte ptr -1"
+  },
+  ".rodata": {
+   "g_drwavMulawTable": "byte 84h",
+   "dword_14094": "dword 47000000h"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 46096,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868517
+ }
+}

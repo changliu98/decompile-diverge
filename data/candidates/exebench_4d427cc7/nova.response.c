@@ -1,0 +1,1 @@
+void setIRQflag(char *s) { s[5] = 1 + '0'; }

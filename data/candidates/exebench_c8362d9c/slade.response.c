@@ -1,0 +1,1 @@
+const char *parse_fmt(const char *fmt, int *ret, int *ret_len) { const char *orig_fmt = fmt; do { while (*fmt && *fmt != '%') fmt++; if (*fmt == '%') { switch (fmt[1]) { case 'v': *ret = 15; *ret_len = fmt - orig_fmt; return fmt + 2; case '%': *ret_len = fmt - orig_fmt + 1; *ret = -1; return fmt + 2; } } } while (*fmt); *ret = -1; *ret_len = fmt - orig_fmt; return fmt; }

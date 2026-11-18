@@ -1,0 +1,92 @@
+00000000000011f0 <determinant_3x3>:
+    11f0:	push   %rbp
+    11f1:	mov    %rsp,%rbp
+    11f4:	sub    $0x60,%rsp
+    11f8:	mov    %rdi,-0x8(%rbp)
+    11fc:	xorps  %xmm0,%xmm0
+    11ff:	movsd  %xmm0,-0x18(%rbp)
+    1204:	lea    -0x60(%rbp),%rdi
+    1208:	xor    %esi,%esi
+    120a:	mov    $0x48,%edx
+    120f:	call   1050 <memset@plt>
+    1214:	movl   $0x0,-0xc(%rbp)
+    121b:	cmpl   $0x3,-0xc(%rbp)
+    121f:	jge    1288 <determinant_3x3+0x98>
+    1225:	movl   $0x0,-0x10(%rbp)
+    122c:	cmpl   $0x3,-0x10(%rbp)
+    1230:	jge    1275 <determinant_3x3+0x85>
+    1236:	mov    -0x8(%rbp),%rax
+    123a:	mov    -0xc(%rbp),%ecx
+    123d:	imul   $0x3,-0x10(%rbp),%edx
+    1241:	add    %edx,%ecx
+    1243:	movslq %ecx,%rcx
+    1246:	movss  (%rax,%rcx,4),%xmm0
+    124b:	cvtss2sd %xmm0,%xmm0
+    124f:	movslq -0xc(%rbp),%rcx
+    1253:	lea    -0x60(%rbp),%rax
+    1257:	imul   $0x18,%rcx,%rcx
+    125b:	add    %rcx,%rax
+    125e:	movslq -0x10(%rbp),%rcx
+    1262:	movsd  %xmm0,(%rax,%rcx,8)
+    1267:	mov    -0x10(%rbp),%eax
+    126a:	add    $0x1,%eax
+    126d:	mov    %eax,-0x10(%rbp)
+    1270:	jmp    122c <determinant_3x3+0x3c>
+    1275:	jmp    127a <determinant_3x3+0x8a>
+    127a:	mov    -0xc(%rbp),%eax
+    127d:	add    $0x1,%eax
+    1280:	mov    %eax,-0xc(%rbp)
+    1283:	jmp    121b <determinant_3x3+0x2b>
+    1288:	movsd  -0x60(%rbp),%xmm0
+    128d:	movsd  -0x40(%rbp),%xmm1
+    1292:	movsd  -0x20(%rbp),%xmm3
+    1297:	movsd  -0x38(%rbp),%xmm2
+    129c:	mulsd  -0x28(%rbp),%xmm2
+    12a1:	movq   %xmm2,%rax
+    12a6:	movabs $0x8000000000000000,%rcx
+    12b0:	xor    %rcx,%rax
+    12b3:	movq   %rax,%xmm2
+    12b8:	mulsd  %xmm3,%xmm1
+    12bc:	addsd  %xmm2,%xmm1
+    12c0:	mulsd  %xmm1,%xmm0
+    12c4:	movsd  %xmm0,-0x18(%rbp)
+    12c9:	movsd  -0x58(%rbp),%xmm0
+    12ce:	movq   %xmm0,%rax
+    12d3:	movabs $0x8000000000000000,%rcx
+    12dd:	xor    %rcx,%rax
+    12e0:	movq   %rax,%xmm0
+    12e5:	movsd  -0x48(%rbp),%xmm2
+    12ea:	movsd  -0x20(%rbp),%xmm3
+    12ef:	movsd  -0x38(%rbp),%xmm1
+    12f4:	mulsd  -0x30(%rbp),%xmm1
+    12f9:	movq   %xmm1,%rax
+    12fe:	movabs $0x8000000000000000,%rcx
+    1308:	xor    %rcx,%rax
+    130b:	movq   %rax,%xmm1
+    1310:	mulsd  %xmm3,%xmm2
+    1314:	addsd  %xmm1,%xmm2
+    1318:	movsd  -0x18(%rbp),%xmm1
+    131d:	mulsd  %xmm2,%xmm0
+    1321:	addsd  %xmm1,%xmm0
+    1325:	movsd  %xmm0,-0x18(%rbp)
+    132a:	movsd  -0x50(%rbp),%xmm0
+    132f:	movsd  -0x48(%rbp),%xmm2
+    1334:	movsd  -0x28(%rbp),%xmm3
+    1339:	movsd  -0x40(%rbp),%xmm1
+    133e:	mulsd  -0x30(%rbp),%xmm1
+    1343:	movq   %xmm1,%rax
+    1348:	movabs $0x8000000000000000,%rcx
+    1352:	xor    %rcx,%rax
+    1355:	movq   %rax,%xmm1
+    135a:	mulsd  %xmm3,%xmm2
+    135e:	addsd  %xmm1,%xmm2
+    1362:	movsd  -0x18(%rbp),%xmm1
+    1367:	mulsd  %xmm2,%xmm0
+    136b:	addsd  %xmm1,%xmm0
+    136f:	movsd  %xmm0,-0x18(%rbp)
+    1374:	movsd  -0x18(%rbp),%xmm0
+    1379:	add    $0x60,%rsp
+    137d:	pop    %rbp
+    137e:	ret
+
+Disassembly of section .fini:

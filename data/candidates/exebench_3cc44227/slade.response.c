@@ -1,0 +1,1 @@
+char *js_itoa(char *dest, unsigned int x) { char tmp[32]; char *s = dest; unsigned int i = 0; while (x) { tmp[i++] = '0' + x % 10; x /= 10; } if (!i) tmp[i++] = '0'; while (i) *s++ = --i; *s = '\0'; return dest; }

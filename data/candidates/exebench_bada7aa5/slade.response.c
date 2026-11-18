@@ -1,0 +1,1 @@
+int mem_getoptions(gx_device *dev) { ((gx_device_memory *)dev)->is_open = ((bool)0); return 0; }

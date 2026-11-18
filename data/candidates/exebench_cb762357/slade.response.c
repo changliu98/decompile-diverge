@@ -1,0 +1,1 @@
+void scale_mat(real *mat, real sx, real sy) { if (sx != 1024) { mat[0] = sx * mat[0] / 1024; mat[1] = sx * mat[2] / 1024; mat[2] = sx * mat[4] / 1024; } if (sy != 1024) { mat[1] = sy * mat[1] / 1024; mat[3] = sy * mat[3] / 1024; mat[5] = sy * mat[5] / 1024; } }

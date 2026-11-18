@@ -1,0 +1,1 @@
+ssize_t writen(int fd, const void *ptr, size_t nbytes) { size_t nleft; ssize_t nwritten; nleft = nbytes; while (nleft > 0) { if ((nwritten = write(fd, ptr, nleft)) <= 0) return (nwritten); nleft -= nwritten; ptr += nwritten; } return (nbytes - nleft); }

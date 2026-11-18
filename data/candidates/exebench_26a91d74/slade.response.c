@@ -1,0 +1,1 @@
+void cpuid_detect(uint32_t *eax, uint32_t *ecx, uint32_t edx, uint32_t edx_mask) { uint32_t old_ebx, old_ecx, old_edx; __asm__ __volatile__ ("chgl %%ebx %%ebx, %0" : "=a" (old_ebx), "=d" (ecx), "=c" (old_ecx), "=d" (edx) : "a" (ecx), "c" (edx), "d" (ecx)); if (eax != NULL) { *eax = (ecx >> 26) & 1; } if (ecx != NULL) { *ecx = old_ecx & 1; } }

@@ -1,0 +1,1 @@
+void geom_matvec2f(float m[2], float c[2], float r[2]) { r[0] = m[0]*c[0] + m[2]*c[1]; r[1] = m[1]*c[0] + m[3]*c[1]; }

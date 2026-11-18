@@ -1,0 +1,42 @@
+0000000000009e60 <drwav_s24_to_s16>:
+    9e60:	push   %rbp
+    9e61:	mov    %rsp,%rbp
+    9e64:	mov    %rdi,-0x8(%rbp)
+    9e68:	mov    %rsi,-0x10(%rbp)
+    9e6c:	mov    %rdx,-0x18(%rbp)
+    9e70:	movq   $0x0,-0x28(%rbp)
+    9e78:	mov    -0x28(%rbp),%rax
+    9e7c:	cmp    -0x18(%rbp),%rax
+    9e80:	jae    9eee <drwav_s24_to_s16+0x8e>
+    9e86:	mov    -0x10(%rbp),%rax
+    9e8a:	imul   $0x3,-0x28(%rbp),%rcx
+    9e8f:	movzbl (%rax,%rcx,1),%eax
+    9e93:	shl    $0x8,%eax
+    9e96:	mov    -0x10(%rbp),%rcx
+    9e9a:	imul   $0x3,-0x28(%rbp),%rdx
+    9e9f:	movzbl 0x1(%rcx,%rdx,1),%ecx
+    9ea4:	shl    $0x10,%ecx
+    9ea7:	or     %ecx,%eax
+    9ea9:	mov    -0x10(%rbp),%rcx
+    9ead:	imul   $0x3,-0x28(%rbp),%rdx
+    9eb2:	movzbl 0x2(%rcx,%rdx,1),%ecx
+    9eb7:	shl    $0x18,%ecx
+    9eba:	or     %ecx,%eax
+    9ebc:	sar    $0x8,%eax
+    9ebf:	mov    %eax,-0x2c(%rbp)
+    9ec2:	mov    -0x2c(%rbp),%eax
+    9ec5:	sar    $0x8,%eax
+    9ec8:	mov    %eax,-0x1c(%rbp)
+    9ecb:	mov    -0x1c(%rbp),%eax
+    9ece:	mov    %ax,%dx
+    9ed1:	mov    -0x8(%rbp),%rax
+    9ed5:	mov    -0x28(%rbp),%rcx
+    9ed9:	mov    %dx,(%rax,%rcx,2)
+    9edd:	mov    -0x28(%rbp),%rax
+    9ee1:	add    $0x1,%rax
+    9ee5:	mov    %rax,-0x28(%rbp)
+    9ee9:	jmp    9e78 <drwav_s24_to_s16+0x18>
+    9eee:	pop    %rbp
+    9eef:	ret
+
+Disassembly of section .fini:

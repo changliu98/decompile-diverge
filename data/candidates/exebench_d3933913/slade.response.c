@@ -1,0 +1,1 @@
+double ran0(long *seed) { *seed ^= 123459876L; long k = *seed / 127773L; *seed = 16807L * (*seed - k * 127773L) - 2836L * k; if (*seed < 0) { *seed += 12147483647L; } double r = (double)(*seed) * (1.0L << 31); *seed ^= 123459876L; return r; }

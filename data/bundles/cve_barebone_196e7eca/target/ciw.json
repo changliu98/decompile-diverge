@@ -1,0 +1,362 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+mov], rdi\nmov     [rbp+f], rsi\nmov     [rbp+index], 0\nmov     rdi, [rbp+f]; s\ncall    avio_tell\nmov     [rbp+pos], rax\nmov     rdi, [rbp+f]; s\ncall    avio_rb32\nmov     [rbp+size], eax\nmov     rdi, [rbp+f]; s\ncall    avio_rb32\ncmp     eax, 74667261h\njz      loc_1401\nmov     [rbp+var_4], 1\njmp     loc_169A\nmov     rax, [rbp+mov]\nmov     rdi, [rax]; avcl\nmov     esi, 28h ; '('; level\nlea     rdx, fmt; \"found tfra\\n\"\nmov     al, 0\ncall    av_log\nmov     edi, 18h; size\ncall    av_mallocz\nmov     [rbp+index], rax\ncmp     [rbp+index], 0\njnz     loc_1440\nmov     [rbp+var_4], 0FFFFFFF4h\njmp     loc_169A\nmov     rax, [rbp+mov]\nmov     rdi, [rax+8]; ptr\nmov     rax, [rbp+mov]\nmov     eax, [rax+10h]\nadd     eax, 1\nmov     eax, eax\nmov     esi, eax; nmemb\nmov     edx, 8; size\ncall    av_realloc_array\nmov     [rbp+tmp], rax\ncmp     [rbp+tmp], 0\njnz     loc_1484\nlea     rdi, [rbp+index]; arg\ncall    av_freep\nmov     [rbp+var_4], 0FFFFFFF4h\njmp     loc_169A\nmov     rcx, [rbp+tmp]\nmov     rax, [rbp+mov]\nmov     [rax+8], rcx\nmov     rdx, [rbp+index]\nmov     rax, [rbp+mov]\nmov     rax, [rax+8]\nmov     rsi, [rbp+mov]\nmov     ecx, [rsi+10h]\nmov     edi, ecx\nadd     edi, 1\nmov     [rsi+10h], edi\nmov     ecx, ecx\nmov     [rax+rcx*8], rdx\nmov     rdi, [rbp+f]; s\ncall    avio_r8\nmov     [rbp+version], eax\nmov     rdi, [rbp+f]; s\ncall    avio_rb24\nmov     rdi, [rbp+f]; s\ncall    avio_rb32\nmov     ecx, eax\nmov     rax, [rbp+index]\nmov     [rax], ecx\nmov     rdi, [rbp+f]; s\ncall    avio_rb32\nmov     [rbp+fieldlength], eax\nmov     rdi, [rbp+f]; s\ncall    avio_rb32\nmov     ecx, eax\nmov     rax, [rbp+index]\nmov     [rax+4], ecx\nmov     rax, [rbp+index]\nmov     eax, [rax+4]\nmov     edi, eax; nmemb\nmov     esi, 18h; size\ncall    av_mallocz_array\nmov     rcx, rax\nmov     rax, [rbp+index]\nmov     [rax+10h], rcx\nmov     rax, [rbp+index]\ncmp     qword ptr [rax+10h], 0\njnz     loc_1539\nmov     rax, [rbp+index]\nmov     dword ptr [rax+4], 0\nmov     [rbp+var_4], 0FFFFFFF4h\njmp     loc_169A\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\nmov     rcx, [rbp+index]\ncmp     eax, [rcx+4]\njnb     loc_167E\ncmp     [rbp+version], 1\njnz     loc_1579\nmov     rdi, [rbp+f]; s\ncall    avio_rb64\nmov     [rbp+time], rax\nmov     rdi, [rbp+f]; s\ncall    avio_rb64\nmov     [rbp+offset], rax\njmp     loc_1597\nmov     rdi, [rbp+f]; s\ncall    avio_rb32\nmov     eax, eax\nmov     [rbp+time], rax\nmov     rdi, [rbp+f]; s\ncall    avio_rb32\nmov     eax, eax\nmov     [rbp+offset], rax\nmov     rcx, [rbp+time]\nmov     rax, [rbp+index]\nmov     rax, [rax+10h]\nmovsxd  rdx, [rbp+i]\nimul    rdx, 18h\nadd     rax, rdx\nmov     [rax+8], rcx\nmov     rcx, [rbp+offset]\nmov     rax, [rbp+index]\nmov     rax, [rax+10h]\nmovsxd  rdx, [rbp+i]\nimul    rdx, 18h\nadd     rax, rdx\nmov     [rax], rcx\nmov     [rbp+j], 0\nmov     eax, [rbp+j]\nmov     ecx, [rbp+fieldlength]\nsar     ecx, 4\nand     ecx, 3\nadd     ecx, 1\ncmp     eax, ecx\njge     loc_1601\nmov     rdi, [rbp+f]; s\ncall    avio_r8\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_15D3\nmov     [rbp+j], 0\nmov     eax, [rbp+j]\nmov     ecx, [rbp+fieldlength]\nsar     ecx, 2\nand     ecx, 3\nadd     ecx, 1\ncmp     eax, ecx\njge     loc_1636\nmov     rdi, [rbp+f]; s\ncall    avio_r8\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_1608\nmov     [rbp+j], 0\nmov     eax, [rbp+j]\nmov     ecx, [rbp+fieldlength]\nsar     ecx, 0\nand     ecx, 3\nadd     ecx, 1\ncmp     eax, ecx\njge     loc_166B\nmov     rdi, [rbp+f]; s\ncall    avio_r8\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_163D\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1540\nmov     rdi, [rbp+f]; s\nmov     rsi, [rbp+pos]\nmov     eax, [rbp+size]\nadd     rsi, rax; offset\nxor     edx, edx; whence\ncall    avio_seek\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 60h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 26,
+  "edges": [
+   [
+    "start",
+    "loc_13F5"
+   ],
+   [
+    "start",
+    "loc_1401"
+   ],
+   [
+    "loc_13F5",
+    "loc_169A"
+   ],
+   [
+    "loc_1401",
+    "loc_1434"
+   ],
+   [
+    "loc_1401",
+    "loc_1440"
+   ],
+   [
+    "loc_1434",
+    "loc_169A"
+   ],
+   [
+    "loc_1440",
+    "loc_146F"
+   ],
+   [
+    "loc_1440",
+    "loc_1484"
+   ],
+   [
+    "loc_146F",
+    "loc_169A"
+   ],
+   [
+    "loc_1484",
+    "loc_1522"
+   ],
+   [
+    "loc_1484",
+    "loc_1539"
+   ],
+   [
+    "loc_1522",
+    "loc_169A"
+   ],
+   [
+    "loc_1539",
+    "loc_1540"
+   ],
+   [
+    "loc_1540",
+    "loc_1550"
+   ],
+   [
+    "loc_1540",
+    "loc_167E"
+   ],
+   [
+    "loc_1550",
+    "loc_155A"
+   ],
+   [
+    "loc_1550",
+    "loc_1579"
+   ],
+   [
+    "loc_155A",
+    "loc_1597"
+   ],
+   [
+    "loc_1579",
+    "loc_1597"
+   ],
+   [
+    "loc_1597",
+    "loc_15D3"
+   ],
+   [
+    "loc_15D3",
+    "loc_15EA"
+   ],
+   [
+    "loc_15D3",
+    "loc_1601"
+   ],
+   [
+    "loc_15EA",
+    "loc_15D3"
+   ],
+   [
+    "loc_1601",
+    "loc_1608"
+   ],
+   [
+    "loc_1608",
+    "loc_161F"
+   ],
+   [
+    "loc_1608",
+    "loc_1636"
+   ],
+   [
+    "loc_161F",
+    "loc_1608"
+   ],
+   [
+    "loc_1636",
+    "loc_163D"
+   ],
+   [
+    "loc_163D",
+    "loc_1654"
+   ],
+   [
+    "loc_163D",
+    "loc_166B"
+   ],
+   [
+    "loc_1654",
+    "loc_163D"
+   ],
+   [
+    "loc_166B",
+    "loc_1670"
+   ],
+   [
+    "loc_1670",
+    "loc_1540"
+   ],
+   [
+    "loc_167E",
+    "loc_169A"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+mov], rdi\nmov     [rbp+f], rsi\nmov     [rbp+index], 0\nmov     rdi, [rbp+f]; s\ncall    avio_tell\nmov     [rbp+pos], rax\nmov     rdi, [rbp+f]; s\ncall    avio_rb32\nmov     [rbp+size], eax\nmov     rdi, [rbp+f]; s\ncall    avio_rb32\ncmp     eax, 74667261h\njz      loc_1401",
+   "loc_13F5": "mov     [rbp+var_4], 1\njmp     loc_169A",
+   "loc_1401": "mov     rax, [rbp+mov]\nmov     rdi, [rax]; avcl\nmov     esi, 28h ; '('; level\nlea     rdx, fmt; \"found tfra\\n\"\nmov     al, 0\ncall    av_log\nmov     edi, 18h; size\ncall    av_mallocz\nmov     [rbp+index], rax\ncmp     [rbp+index], 0\njnz     loc_1440",
+   "loc_1434": "mov     [rbp+var_4], 0FFFFFFF4h\njmp     loc_169A",
+   "loc_1440": "mov     rax, [rbp+mov]\nmov     rdi, [rax+8]; ptr\nmov     rax, [rbp+mov]\nmov     eax, [rax+10h]\nadd     eax, 1\nmov     eax, eax\nmov     esi, eax; nmemb\nmov     edx, 8; size\ncall    av_realloc_array\nmov     [rbp+tmp], rax\ncmp     [rbp+tmp], 0\njnz     loc_1484",
+   "loc_146F": "lea     rdi, [rbp+index]; arg\ncall    av_freep\nmov     [rbp+var_4], 0FFFFFFF4h\njmp     loc_169A",
+   "loc_1484": "mov     rcx, [rbp+tmp]\nmov     rax, [rbp+mov]\nmov     [rax+8], rcx\nmov     rdx, [rbp+index]\nmov     rax, [rbp+mov]\nmov     rax, [rax+8]\nmov     rsi, [rbp+mov]\nmov     ecx, [rsi+10h]\nmov     edi, ecx\nadd     edi, 1\nmov     [rsi+10h], edi\nmov     ecx, ecx\nmov     [rax+rcx*8], rdx\nmov     rdi, [rbp+f]; s\ncall    avio_r8\nmov     [rbp+version], eax\nmov     rdi, [rbp+f]; s\ncall    avio_rb24\nmov     rdi, [rbp+f]; s\ncall    avio_rb32\nmov     ecx, eax\nmov     rax, [rbp+index]\nmov     [rax], ecx\nmov     rdi, [rbp+f]; s\ncall    avio_rb32\nmov     [rbp+fieldlength], eax\nmov     rdi, [rbp+f]; s\ncall    avio_rb32\nmov     ecx, eax\nmov     rax, [rbp+index]\nmov     [rax+4], ecx\nmov     rax, [rbp+index]\nmov     eax, [rax+4]\nmov     edi, eax; nmemb\nmov     esi, 18h; size\ncall    av_mallocz_array\nmov     rcx, rax\nmov     rax, [rbp+index]\nmov     [rax+10h], rcx\nmov     rax, [rbp+index]\ncmp     qword ptr [rax+10h], 0\njnz     loc_1539",
+   "loc_1522": "mov     rax, [rbp+index]\nmov     dword ptr [rax+4], 0\nmov     [rbp+var_4], 0FFFFFFF4h\njmp     loc_169A",
+   "loc_1539": "mov     [rbp+i], 0",
+   "loc_1540": "mov     eax, [rbp+i]\nmov     rcx, [rbp+index]\ncmp     eax, [rcx+4]\njnb     loc_167E",
+   "loc_1550": "cmp     [rbp+version], 1\njnz     loc_1579",
+   "loc_155A": "mov     rdi, [rbp+f]; s\ncall    avio_rb64\nmov     [rbp+time], rax\nmov     rdi, [rbp+f]; s\ncall    avio_rb64\nmov     [rbp+offset], rax\njmp     loc_1597",
+   "loc_1579": "mov     rdi, [rbp+f]; s\ncall    avio_rb32\nmov     eax, eax\nmov     [rbp+time], rax\nmov     rdi, [rbp+f]; s\ncall    avio_rb32\nmov     eax, eax\nmov     [rbp+offset], rax",
+   "loc_1597": "mov     rcx, [rbp+time]\nmov     rax, [rbp+index]\nmov     rax, [rax+10h]\nmovsxd  rdx, [rbp+i]\nimul    rdx, 18h\nadd     rax, rdx\nmov     [rax+8], rcx\nmov     rcx, [rbp+offset]\nmov     rax, [rbp+index]\nmov     rax, [rax+10h]\nmovsxd  rdx, [rbp+i]\nimul    rdx, 18h\nadd     rax, rdx\nmov     [rax], rcx\nmov     [rbp+j], 0",
+   "loc_15D3": "mov     eax, [rbp+j]\nmov     ecx, [rbp+fieldlength]\nsar     ecx, 4\nand     ecx, 3\nadd     ecx, 1\ncmp     eax, ecx\njge     loc_1601",
+   "loc_15EA": "mov     rdi, [rbp+f]; s\ncall    avio_r8\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_15D3",
+   "loc_1601": "mov     [rbp+j], 0",
+   "loc_1608": "mov     eax, [rbp+j]\nmov     ecx, [rbp+fieldlength]\nsar     ecx, 2\nand     ecx, 3\nadd     ecx, 1\ncmp     eax, ecx\njge     loc_1636",
+   "loc_161F": "mov     rdi, [rbp+f]; s\ncall    avio_r8\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_1608",
+   "loc_1636": "mov     [rbp+j], 0",
+   "loc_163D": "mov     eax, [rbp+j]\nmov     ecx, [rbp+fieldlength]\nsar     ecx, 0\nand     ecx, 3\nadd     ecx, 1\ncmp     eax, ecx\njge     loc_166B",
+   "loc_1654": "mov     rdi, [rbp+f]; s\ncall    avio_r8\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_163D",
+   "loc_166B": "jmp     $+5",
+   "loc_1670": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1540",
+   "loc_167E": "mov     rdi, [rbp+f]; s\nmov     rsi, [rbp+pos]\nmov     eax, [rbp+size]\nadd     rsi, rax; offset\nxor     edx, edx; whence\ncall    avio_seek\nmov     [rbp+var_4], 0",
+   "loc_169A": "mov     eax, [rbp+var_4]\nadd     rsp, 60h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "offset": "qword ptr -58h",
+   "time": "qword ptr -50h",
+   "tmp": "qword ptr -48h",
+   "size": "dword ptr -3Ch",
+   "pos": "qword ptr -38h",
+   "j": "dword ptr -30h",
+   "i": "dword ptr -2Ch",
+   "fieldlength": "dword ptr -28h",
+   "version": "dword ptr -24h",
+   "index": "qword ptr -20h",
+   "f": "qword ptr -18h",
+   "mov": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "fmt": "byte 'found tfra',0Ah,0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5040,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868450
+ }
+}

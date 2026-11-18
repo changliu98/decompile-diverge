@@ -1,0 +1,1 @@
+char* intToString(char* buffer, unsigned int value) { int i; buffer[9] = '\0'; for (i = 8; i >= 0; i--) { buffer[i] = '0' + (value % 10); value /= 10; if (value == 0) break; } return buffer + i; }

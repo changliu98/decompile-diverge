@@ -1,0 +1,4 @@
+unsigned int ice_txd_use_count(unsigned int size)
+{
+	return ((size * 85) >> 20) + 1;
+}

@@ -1,0 +1,1 @@
+int func0(int *arr, int size) { qsort(arr, (size_t) size, sizeof(int), &compare); int sum = arr[0]; for (int i = 0; i < size - 1; i++) { if (arr[i] != arr[i+1]) sum += arr[i+1]; } return sum; }

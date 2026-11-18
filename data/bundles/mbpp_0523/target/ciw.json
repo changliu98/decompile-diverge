@@ -1,0 +1,460 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+str1], rdi\nmov     [rbp+has_upper], 0\nmov     [rbp+has_lower], 0\nmov     [rbp+has_digit], 0\nmov     [rbp+is_valid], 1\nmov     rdi, [rbp+str1]; s\ncall    strlen\nmov     [rbp+length], eax\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+length]\njge     loc_12FA\ncall    ___ctype_b_loc\nmov     rax, [rax]\nmov     rcx, [rbp+str1]\nmovsxd  rdx, [rbp+i]\nmovsx   ecx, byte ptr [rcx+rdx]\nmovsxd  rcx, ecx\nmovzx   eax, word ptr [rax+rcx*2]\nand     eax, 100h\ncmp     eax, 0\njz      loc_1287\nmov     [rbp+has_upper], 1\ncall    ___ctype_b_loc\nmov     rax, [rax]\nmov     rcx, [rbp+str1]\nmovsxd  rdx, [rbp+i]\nmovsx   ecx, byte ptr [rcx+rdx]\nmovsxd  rcx, ecx\nmovzx   eax, word ptr [rax+rcx*2]\nand     eax, 200h\ncmp     eax, 0\njz      loc_12B7\nmov     [rbp+has_lower], 1\ncall    ___ctype_b_loc\nmov     rax, [rax]\nmov     rcx, [rbp+str1]\nmovsxd  rdx, [rbp+i]\nmovsx   ecx, byte ptr [rcx+rdx]\nmovsxd  rcx, ecx\nmovzx   eax, word ptr [rax+rcx*2]\nand     eax, 800h\ncmp     eax, 0\njz      loc_12E7\nmov     [rbp+has_digit], 1\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_124B\nmov     cs:func0_result, 0\ncmp     [rbp+has_upper], 0\njnz     loc_131E\nlea     rdi, func0_result; dest\nlea     rsi, src; \"String must have 1 upper case character\"...\ncall    strcat\ncmp     [rbp+has_lower], 0\njnz     loc_133B\nlea     rdi, func0_result; dest\nlea     rsi, aStringMustHave_0; \"String must have 1 lower case character\"...\ncall    strcat\ncmp     [rbp+has_digit], 0\njnz     loc_1358\nlea     rdi, func0_result; dest\nlea     rsi, aStringMustHave_1; \"String must have 1 number,\"\ncall    strcat\ncmp     [rbp+length], 8\njge     loc_1375\nlea     rdi, func0_result; dest\nlea     rsi, aStringLengthSh; \"String length should be atleast 8,\"\ncall    strcat\ncmp     [rbp+has_upper], 0\njz      loc_13B5\ncmp     [rbp+has_lower], 0\njz      loc_13B5\ncmp     [rbp+has_digit], 0\njz      loc_13B5\ncmp     [rbp+length], 8\njl      loc_13B5\nlea     rdi, func0_result; dest\nlea     rsi, aValidString; \"Valid string.\"\ncall    strcpy\njmp     loc_13F4\nlea     rdi, func0_result; s\ncall    strlen\nsub     rax, 1\nmov     [rbp+lastIdx], eax\nmovsxd  rcx, [rbp+lastIdx]\nlea     rax, func0_result\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 2Ch ; ','\njnz     loc_13EF\nmovsxd  rcx, [rbp+lastIdx]\nlea     rax, func0_result\nmov     byte ptr [rax+rcx], 0\njmp     $+5\nlea     rax, func0_result\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 27,
+  "edges": [
+   [
+    "start",
+    "loc_124B"
+   ],
+   [
+    "loc_124B",
+    "loc_1257"
+   ],
+   [
+    "loc_124B",
+    "loc_12FA"
+   ],
+   [
+    "loc_1257",
+    "loc_1280"
+   ],
+   [
+    "loc_1257",
+    "loc_1287"
+   ],
+   [
+    "loc_1280",
+    "loc_1287"
+   ],
+   [
+    "loc_1287",
+    "loc_12B0"
+   ],
+   [
+    "loc_1287",
+    "loc_12B7"
+   ],
+   [
+    "loc_12B0",
+    "loc_12B7"
+   ],
+   [
+    "loc_12B7",
+    "loc_12E0"
+   ],
+   [
+    "loc_12B7",
+    "loc_12E7"
+   ],
+   [
+    "loc_12E0",
+    "loc_12E7"
+   ],
+   [
+    "loc_12E7",
+    "loc_12EC"
+   ],
+   [
+    "loc_12EC",
+    "loc_124B"
+   ],
+   [
+    "loc_12FA",
+    "loc_130B"
+   ],
+   [
+    "loc_12FA",
+    "loc_131E"
+   ],
+   [
+    "loc_130B",
+    "loc_131E"
+   ],
+   [
+    "loc_131E",
+    "loc_1328"
+   ],
+   [
+    "loc_131E",
+    "loc_133B"
+   ],
+   [
+    "loc_1328",
+    "loc_133B"
+   ],
+   [
+    "loc_133B",
+    "loc_1345"
+   ],
+   [
+    "loc_133B",
+    "loc_1358"
+   ],
+   [
+    "loc_1345",
+    "loc_1358"
+   ],
+   [
+    "loc_1358",
+    "loc_1362"
+   ],
+   [
+    "loc_1358",
+    "loc_1375"
+   ],
+   [
+    "loc_1362",
+    "loc_1375"
+   ],
+   [
+    "loc_1375",
+    "loc_137F"
+   ],
+   [
+    "loc_1375",
+    "loc_13B5"
+   ],
+   [
+    "loc_137F",
+    "loc_1389"
+   ],
+   [
+    "loc_137F",
+    "loc_13B5"
+   ],
+   [
+    "loc_1389",
+    "loc_1393"
+   ],
+   [
+    "loc_1389",
+    "loc_13B5"
+   ],
+   [
+    "loc_1393",
+    "loc_139D"
+   ],
+   [
+    "loc_1393",
+    "loc_13B5"
+   ],
+   [
+    "loc_139D",
+    "loc_13F4"
+   ],
+   [
+    "loc_13B5",
+    "loc_13E0"
+   ],
+   [
+    "loc_13B5",
+    "loc_13EF"
+   ],
+   [
+    "loc_13E0",
+    "loc_13EF"
+   ],
+   [
+    "loc_13EF",
+    "loc_13F4"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+str1], rdi\nmov     [rbp+has_upper], 0\nmov     [rbp+has_lower], 0\nmov     [rbp+has_digit], 0\nmov     [rbp+is_valid], 1\nmov     rdi, [rbp+str1]; s\ncall    strlen\nmov     [rbp+length], eax\nmov     [rbp+i], 0",
+   "loc_124B": "mov     eax, [rbp+i]\ncmp     eax, [rbp+length]\njge     loc_12FA",
+   "loc_1257": "call    ___ctype_b_loc\nmov     rax, [rax]\nmov     rcx, [rbp+str1]\nmovsxd  rdx, [rbp+i]\nmovsx   ecx, byte ptr [rcx+rdx]\nmovsxd  rcx, ecx\nmovzx   eax, word ptr [rax+rcx*2]\nand     eax, 100h\ncmp     eax, 0\njz      loc_1287",
+   "loc_1280": "mov     [rbp+has_upper], 1",
+   "loc_1287": "call    ___ctype_b_loc\nmov     rax, [rax]\nmov     rcx, [rbp+str1]\nmovsxd  rdx, [rbp+i]\nmovsx   ecx, byte ptr [rcx+rdx]\nmovsxd  rcx, ecx\nmovzx   eax, word ptr [rax+rcx*2]\nand     eax, 200h\ncmp     eax, 0\njz      loc_12B7",
+   "loc_12B0": "mov     [rbp+has_lower], 1",
+   "loc_12B7": "call    ___ctype_b_loc\nmov     rax, [rax]\nmov     rcx, [rbp+str1]\nmovsxd  rdx, [rbp+i]\nmovsx   ecx, byte ptr [rcx+rdx]\nmovsxd  rcx, ecx\nmovzx   eax, word ptr [rax+rcx*2]\nand     eax, 800h\ncmp     eax, 0\njz      loc_12E7",
+   "loc_12E0": "mov     [rbp+has_digit], 1",
+   "loc_12E7": "jmp     $+5",
+   "loc_12EC": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_124B",
+   "loc_12FA": "mov     cs:func0_result, 0\ncmp     [rbp+has_upper], 0\njnz     loc_131E",
+   "loc_130B": "lea     rdi, func0_result; dest\nlea     rsi, src; \"String must have 1 upper case character\"...\ncall    strcat",
+   "loc_131E": "cmp     [rbp+has_lower], 0\njnz     loc_133B",
+   "loc_1328": "lea     rdi, func0_result; dest\nlea     rsi, aStringMustHave_0; \"String must have 1 lower case character\"...\ncall    strcat",
+   "loc_133B": "cmp     [rbp+has_digit], 0\njnz     loc_1358",
+   "loc_1345": "lea     rdi, func0_result; dest\nlea     rsi, aStringMustHave_1; \"String must have 1 number,\"\ncall    strcat",
+   "loc_1358": "cmp     [rbp+length], 8\njge     loc_1375",
+   "loc_1362": "lea     rdi, func0_result; dest\nlea     rsi, aStringLengthSh; \"String length should be atleast 8,\"\ncall    strcat",
+   "loc_1375": "cmp     [rbp+has_upper], 0\njz      loc_13B5",
+   "loc_137F": "cmp     [rbp+has_lower], 0\njz      loc_13B5",
+   "loc_1389": "cmp     [rbp+has_digit], 0\njz      loc_13B5",
+   "loc_1393": "cmp     [rbp+length], 8\njl      loc_13B5",
+   "loc_139D": "lea     rdi, func0_result; dest\nlea     rsi, aValidString; \"Valid string.\"\ncall    strcpy\njmp     loc_13F4",
+   "loc_13B5": "lea     rdi, func0_result; s\ncall    strlen\nsub     rax, 1\nmov     [rbp+lastIdx], eax\nmovsxd  rcx, [rbp+lastIdx]\nlea     rax, func0_result\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 2Ch ; ','\njnz     loc_13EF",
+   "loc_13E0": "movsxd  rcx, [rbp+lastIdx]\nlea     rax, func0_result\nmov     byte ptr [rax+rcx], 0",
+   "loc_13EF": "jmp     $+5",
+   "loc_13F4": "lea     rax, func0_result\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "lastIdx": "dword ptr -24h",
+   "i": "dword ptr -20h",
+   "length": "dword ptr -1Ch",
+   "is_valid": "dword ptr -18h",
+   "has_digit": "dword ptr -14h",
+   "has_lower": "dword ptr -10h",
+   "has_upper": "dword ptr -0Ch",
+   "str1": "qword ptr -8"
+  },
+  ".rodata": {
+   "src": "byte 'String must have 1 upper case character,',0",
+   "aStringMustHave_0": "byte 'String must have 1 lower case character,',0",
+   "aStringMustHave_1": "byte 'String must have 1 number,',0",
+   "aStringLengthSh": "byte 'String length should be atleast 8,',0",
+   "aValidString": "byte 'Valid string.',0"
+  },
+  ".data": {},
+  ".bss": {
+   "func0.result": "[]"
+  }
+ },
+ "func_ea": 4624,
+ "thunk_map": {
+  ".strcpy": "strcpy",
+  "_strcpy": "strcpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".strcat": "strcat",
+  "_strcat": "strcat",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".__ctype_b_loc": "__ctype_b_loc",
+  "_ctype_b_loc": "__ctype_b_loc"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".strcpy",
+   ".plt",
+   true,
+   "strcpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".strcat",
+   ".plt",
+   true,
+   "strcat"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   ".__ctype_b_loc",
+   ".plt",
+   true,
+   "__ctype_b_loc"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcat",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__ctype_b_loc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868016
+ }
+}

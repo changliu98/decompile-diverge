@@ -1,0 +1,1 @@
+void dstsub4(dvec4 dst, float * buf) { float scale = 1.f; int word = dst >> 1; if (word == 2) { float v1 = scale * 0.01f; float v2 = scale * 0.02f; float v3 = v2 * buf[3] - v1 * buf[1]; buf[3] = v1 * buf[3] + v2 * buf[1]; buf[1] = v3; } buf[word] = scale * buf[word]; }

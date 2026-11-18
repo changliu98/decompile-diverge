@@ -1,0 +1,1 @@
+void change_bit(int n, uint64_t *b) { b[n/64] ^= 1UL<<(n%64); }

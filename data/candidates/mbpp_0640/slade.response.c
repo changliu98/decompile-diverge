@@ -1,0 +1,1 @@
+char* func0(char* s) { char* p = malloc(strlen(s) + 1); strcpy(p, s); regex_t re; if (!regcomp(&re, " ?\\([^)]+\\)", 1) { while (!regexec(&re, p, 2, &re, 0)) { int i = re.re1, j = re.re2; memmove(p + re.re1, p + j, strlen(p) - j + 1); } regfree(&re); } return p; }

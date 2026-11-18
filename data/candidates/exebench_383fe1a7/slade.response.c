@@ -1,0 +1,1 @@
+float foo (float *p) { p[9] = 45; return p[9]; }

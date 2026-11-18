@@ -1,0 +1,1 @@
+void dpaa_set_bits(unsigned long val, unsigned long *addr) { *addr |= val; }

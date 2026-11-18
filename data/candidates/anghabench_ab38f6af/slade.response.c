@@ -1,0 +1,1 @@
+unsigned int ad7192_get_temp_scale(int sensor) { return sensor ? (5630) : (2815); }

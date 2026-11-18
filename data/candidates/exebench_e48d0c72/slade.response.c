@@ -1,0 +1,1 @@
+int setLoopIters(const double p, const double k, const unsigned n, unsigned *iter) { double pp = p * k * (*iter); if (pp > n) { *iter = (*iter) * n / pp; if (*iter < 2) { *iter = 2; } } return 0; }

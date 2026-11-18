@@ -1,0 +1,1 @@
+void BGBBTJ_BC7_EncodeBlock_VecSwapB(byte *block, byte *rgba) { byte p0; p0=block[2]; block[2]=rgba[2]; rgba[2]=p0; }

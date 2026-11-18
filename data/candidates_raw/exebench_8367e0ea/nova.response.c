@@ -1,0 +1,1 @@
+void func0(double *x, double *y) { *x = 0.0; }

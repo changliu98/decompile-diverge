@@ -1,0 +1,203 @@
+00000000000015b0 <BS_ReadByte>:
+    15b0:	push   %rbp
+    15b1:	mov    %rsp,%rbp
+    15b4:	sub    $0x20,%rsp
+    15b8:	mov    %rdi,-0x10(%rbp)
+    15bc:	mov    -0x10(%rbp),%rax
+    15c0:	cmpl   $0x0,0x28(%rax)
+    15c4:	jne    1709 <BS_ReadByte+0x159>
+    15ca:	mov    -0x10(%rbp),%rax
+    15ce:	mov    0x18(%rax),%rax
+    15d2:	mov    -0x10(%rbp),%rcx
+    15d6:	cmp    0x10(%rcx),%rax
+    15da:	jb     1629 <BS_ReadByte+0x79>
+    15e0:	mov    -0x10(%rbp),%rax
+    15e4:	cmpq   $0x0,0x30(%rax)
+    15e9:	je     1601 <BS_ReadByte+0x51>
+    15ef:	mov    -0x10(%rbp),%rax
+    15f3:	mov    0x30(%rax),%rax
+    15f7:	mov    -0x10(%rbp),%rcx
+    15fb:	mov    0x38(%rcx),%rdi
+    15ff:	call   *%rax
+    1601:	mov    -0x10(%rbp),%rax
+    1605:	cmpl   $0x0,0xac(%rax)
+    160c:	jne    1620 <BS_ReadByte+0x70>
+    1612:	mov    -0x10(%rbp),%rax
+    1616:	movl   $0x1,0xac(%rax)
+    1620:	movb   $0x0,-0x1(%rbp)
+    1624:	jmp    191f <BS_ReadByte+0x36f>
+    1629:	mov    -0x10(%rbp),%rax
+    162d:	mov    0x8(%rax),%rax
+    1631:	mov    -0x10(%rbp),%rdx
+    1635:	mov    0x18(%rdx),%rcx
+    1639:	mov    %rcx,%rsi
+    163c:	add    $0x1,%rsi
+    1640:	mov    %rsi,0x18(%rdx)
+    1644:	mov    (%rax,%rcx,1),%al
+    1647:	mov    %al,-0x15(%rbp)
+    164a:	mov    -0x10(%rbp),%rax
+    164e:	cmpl   $0x0,0x50(%rax)
+    1652:	je     16fe <BS_ReadByte+0x14e>
+    1658:	mov    -0x10(%rbp),%rax
+    165c:	cmpl   $0x2,0x54(%rax)
+    1660:	jne    16d2 <BS_ReadByte+0x122>
+    1666:	movzbl -0x15(%rbp),%eax
+    166a:	cmp    $0x3,%eax
+    166d:	jne    16d2 <BS_ReadByte+0x122>
+    1673:	mov    -0x10(%rbp),%rax
+    1677:	mov    0x18(%rax),%rax
+    167b:	mov    -0x10(%rbp),%rcx
+    167f:	cmp    0x10(%rcx),%rax
+    1683:	jae    16d2 <BS_ReadByte+0x122>
+    1689:	mov    -0x10(%rbp),%rax
+    168d:	mov    0x8(%rax),%rax
+    1691:	mov    -0x10(%rbp),%rcx
+    1695:	mov    0x18(%rcx),%rcx
+    1699:	movsbl (%rax,%rcx,1),%eax
+    169d:	cmp    $0x4,%eax
+    16a0:	jge    16d2 <BS_ReadByte+0x122>
+    16a6:	mov    -0x10(%rbp),%rax
+    16aa:	movl   $0x0,0x54(%rax)
+    16b1:	mov    -0x10(%rbp),%rax
+    16b5:	mov    0x8(%rax),%rax
+    16b9:	mov    -0x10(%rbp),%rdx
+    16bd:	mov    0x18(%rdx),%rcx
+    16c1:	mov    %rcx,%rsi
+    16c4:	add    $0x1,%rsi
+    16c8:	mov    %rsi,0x18(%rdx)
+    16cc:	mov    (%rax,%rcx,1),%al
+    16cf:	mov    %al,-0x15(%rbp)
+    16d2:	cmpb   $0x0,-0x15(%rbp)
+    16d6:	jne    16ee <BS_ReadByte+0x13e>
+    16dc:	mov    -0x10(%rbp),%rax
+    16e0:	mov    0x54(%rax),%ecx
+    16e3:	add    $0x1,%ecx
+    16e6:	mov    %ecx,0x54(%rax)
+    16e9:	jmp    16f9 <BS_ReadByte+0x149>
+    16ee:	mov    -0x10(%rbp),%rax
+    16f2:	movl   $0x0,0x54(%rax)
+    16f9:	jmp    16fe <BS_ReadByte+0x14e>
+    16fe:	mov    -0x15(%rbp),%al
+    1701:	mov    %al,-0x1(%rbp)
+    1704:	jmp    191f <BS_ReadByte+0x36f>
+    1709:	mov    -0x10(%rbp),%rax
+    170d:	cmpq   $0x0,0x40(%rax)
+    1712:	je     1721 <BS_ReadByte+0x171>
+    1718:	mov    -0x10(%rbp),%rdi
+    171c:	call   1930 <bs_flush_write_cache>
+    1721:	mov    -0x10(%rbp),%rax
+    1725:	mov    (%rax),%rdi
+    1728:	call   1940 <gf_feof>
+    172d:	mov    %eax,-0x14(%rbp)
+    1730:	cmpl   $0x0,-0x14(%rbp)
+    1734:	je     174c <BS_ReadByte+0x19c>
+    173a:	mov    -0x10(%rbp),%rax
+    173e:	cmpq   $0x0,0x80(%rax)
+    1746:	je     188b <BS_ReadByte+0x2db>
+    174c:	movl   $0x0,-0x1c(%rbp)
+    1753:	mov    -0x10(%rbp),%rax
+    1757:	mov    0x18(%rax),%rax
+    175b:	mov    -0x10(%rbp),%rcx
+    175f:	cmp    0x10(%rcx),%rax
+    1763:	ja     176e <BS_ReadByte+0x1be>
+    1769:	jmp    178d <BS_ReadByte+0x1dd>
+    176e:	lea    0x892(%rip),%rdi        # 2007 <_IO_stdin_used+0x7>
+    1775:	lea    0x8a2(%rip),%rsi        # 201e <_IO_stdin_used+0x1e>
+    177c:	mov    $0xb6,%edx
+    1781:	lea    0x8a6(%rip),%rcx        # 202e <_IO_stdin_used+0x2e>
+    1788:	call   1070 <__assert_fail@plt>
+    178d:	mov    -0x10(%rbp),%rax
+    1791:	mov    0x18(%rax),%rcx
+    1795:	add    $0x1,%rcx
+    1799:	mov    %rcx,0x18(%rax)
+    179d:	mov    -0x10(%rbp),%rdi
+    17a1:	lea    -0x1c(%rbp),%rsi
+    17a5:	call   1960 <gf_bs_load_byte>
+    17aa:	mov    %al,-0x16(%rbp)
+    17ad:	cmpl   $0x0,-0x1c(%rbp)
+    17b1:	je     17bc <BS_ReadByte+0x20c>
+    17b7:	jmp    1890 <BS_ReadByte+0x2e0>
+    17bc:	mov    -0x10(%rbp),%rax
+    17c0:	cmpl   $0x0,0x50(%rax)
+    17c4:	je     1880 <BS_ReadByte+0x2d0>
+    17ca:	mov    -0x10(%rbp),%rax
+    17ce:	cmpl   $0x2,0x54(%rax)
+    17d2:	jne    1854 <BS_ReadByte+0x2a4>
+    17d8:	movzbl -0x16(%rbp),%eax
+    17dc:	cmp    $0x3,%eax
+    17df:	jne    1854 <BS_ReadByte+0x2a4>
+    17e5:	mov    -0x10(%rbp),%rax
+    17e9:	mov    0x18(%rax),%rax
+    17ed:	mov    -0x10(%rbp),%rcx
+    17f1:	cmp    0x10(%rcx),%rax
+    17f5:	jae    1854 <BS_ReadByte+0x2a4>
+    17fb:	mov    -0x10(%rbp),%rdi
+    17ff:	lea    -0x1c(%rbp),%rsi
+    1803:	call   1960 <gf_bs_load_byte>
+    1808:	mov    %al,-0x1d(%rbp)
+    180b:	movzbl -0x1d(%rbp),%eax
+    180f:	cmp    $0x4,%eax
+    1812:	jge    183e <BS_ReadByte+0x28e>
+    1818:	mov    -0x10(%rbp),%rax
+    181c:	movl   $0x0,0x54(%rax)
+    1823:	mov    -0x1d(%rbp),%al
+    1826:	mov    %al,-0x16(%rbp)
+    1829:	mov    -0x10(%rbp),%rax
+    182d:	mov    0x18(%rax),%rcx
+    1831:	add    $0x1,%rcx
+    1835:	mov    %rcx,0x18(%rax)
+    1839:	jmp    184f <BS_ReadByte+0x29f>
+    183e:	mov    -0x10(%rbp),%rdi
+    1842:	mov    -0x10(%rbp),%rax
+    1846:	mov    0x18(%rax),%rsi
+    184a:	call   1a60 <gf_bs_seek>
+    184f:	jmp    1854 <BS_ReadByte+0x2a4>
+    1854:	cmpb   $0x0,-0x16(%rbp)
+    1858:	jne    1870 <BS_ReadByte+0x2c0>
+    185e:	mov    -0x10(%rbp),%rax
+    1862:	mov    0x54(%rax),%ecx
+    1865:	add    $0x1,%ecx
+    1868:	mov    %ecx,0x54(%rax)
+    186b:	jmp    187b <BS_ReadByte+0x2cb>
+    1870:	mov    -0x10(%rbp),%rax
+    1874:	movl   $0x0,0x54(%rax)
+    187b:	jmp    1880 <BS_ReadByte+0x2d0>
+    1880:	mov    -0x16(%rbp),%al
+    1883:	mov    %al,-0x1(%rbp)
+    1886:	jmp    191f <BS_ReadByte+0x36f>
+    188b:	jmp    1890 <BS_ReadByte+0x2e0>
+    1890:	mov    -0x10(%rbp),%rax
+    1894:	cmpq   $0x0,0x30(%rax)
+    1899:	je     18d5 <BS_ReadByte+0x325>
+    189f:	mov    -0x10(%rbp),%rax
+    18a3:	mov    0x30(%rax),%rax
+    18a7:	mov    -0x10(%rbp),%rcx
+    18ab:	mov    0x38(%rcx),%rdi
+    18af:	call   *%rax
+    18b1:	mov    -0x10(%rbp),%rax
+    18b5:	cmpl   $0x0,0xac(%rax)
+    18bc:	jne    18d0 <BS_ReadByte+0x320>
+    18c2:	mov    -0x10(%rbp),%rax
+    18c6:	movl   $0x1,0xac(%rax)
+    18d0:	jmp    18da <BS_ReadByte+0x32a>
+    18d5:	jmp    18da <BS_ReadByte+0x32a>
+    18da:	mov    -0x10(%rbp),%rax
+    18de:	mov    0x18(%rax),%rax
+    18e2:	mov    -0x10(%rbp),%rcx
+    18e6:	mov    0x10(%rcx),%rcx
+    18ea:	add    $0x1,%rcx
+    18ee:	cmp    %rcx,%rax
+    18f1:	ja     18fc <BS_ReadByte+0x34c>
+    18f7:	jmp    191b <BS_ReadByte+0x36b>
+    18fc:	lea    0x74a(%rip),%rdi        # 204d <_IO_stdin_used+0x4d>
+    1903:	lea    0x714(%rip),%rsi        # 201e <_IO_stdin_used+0x1e>
+    190a:	mov    $0xd4,%edx
+    190f:	lea    0x718(%rip),%rcx        # 202e <_IO_stdin_used+0x2e>
+    1916:	call   1070 <__assert_fail@plt>
+    191b:	movb   $0x0,-0x1(%rbp)
+    191f:	movzbl -0x1(%rbp),%eax
+    1923:	add    $0x20,%rsp
+    1927:	pop    %rbp
+    1928:	ret
+
+Disassembly of section .fini:

@@ -1,0 +1,1 @@
+void Calc_Sum_Mean(double *X, double *mean, double *Mp) { int i; *mean = 0; for (i = 0; i < 100; i++) *mean += X[i]; *Mp = *mean/100; }

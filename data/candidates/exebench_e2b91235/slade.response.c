@@ -1,0 +1,1 @@
+int num_to_array(int *nums, int size) { int i = 0; while (size > 0) { int digit = size % 10; nums[i++] = digit; size /= 10; } return i; }

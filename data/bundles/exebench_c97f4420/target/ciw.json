@@ -1,0 +1,314 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+row], edi\nmov     [rbp+year], esi\nmov     [rbp+month], rdx\nmov     [rbp+day], rcx\nlea     rdi, [rbp+days_in_month]; dest\nlea     rsi, unk_2040; src\nmov     edx, 30h ; '0'; n\ncall    memcpy\nmov     rax, [rbp+day]\nmov     dword ptr [rax], 0\nmov     rax, [rbp+month]\nmov     dword ptr [rax], 0\nmov     [rbp+monthdays], 0\nmov     eax, [rbp+year]\nmov     ecx, 4\ncdq\nidiv    ecx\ncmp     edx, 0\njnz     loc_1853\nmov     eax, [rbp+year]\nmov     ecx, 64h ; 'd'\ncdq\nidiv    ecx\nmov     al, 1\ncmp     edx, 0\nmov     [rbp+var_51], al\njnz     loc_1867\nmov     eax, [rbp+year]\nmov     ecx, 190h\ncdq\nidiv    ecx\ncmp     edx, 0\nsetz    al\nmov     [rbp+var_51], al\nmov     al, [rbp+var_51]\nand     al, 1\nmovzx   eax, al\nmov     [rbp+is_leap], eax\ncmp     [rbp+row], 0\njle     loc_1890\nmov     eax, [rbp+row]\nmov     ecx, [rbp+is_leap]\nadd     ecx, 16Dh\ncmp     eax, ecx\njle     loc_1895\njmp     loc_18F2\ncmp     [rbp+is_leap], 0\njz      loc_18A8\nmov     eax, [rbp+days_in_month+4]\nadd     eax, 1\nmov     [rbp+days_in_month+4], eax\njmp     $+5\nmov     eax, [rbp+row]\ncmp     eax, [rbp+monthdays]\njle     loc_18D7\nmov     rcx, [rbp+month]\nmov     eax, [rcx]\nmov     edx, eax\nadd     edx, 1\nmov     [rcx], edx\ncdqe\nmov     eax, [rbp+rax*4+days_in_month]\nadd     eax, [rbp+monthdays]\nmov     [rbp+monthdays], eax\njmp     loc_18AD\nmov     ecx, [rbp+row]\nsub     ecx, [rbp+monthdays]\nmov     rax, [rbp+month]\nmov     eax, [rax]\nsub     eax, 1\ncdqe\nadd     ecx, [rbp+rax*4+days_in_month]\nmov     rax, [rbp+day]\nmov     [rax], ecx\nadd     rsp, 60h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 13,
+  "edges": [
+   [
+    "start",
+    "loc_183A"
+   ],
+   [
+    "start",
+    "loc_1853"
+   ],
+   [
+    "loc_183A",
+    "loc_1853"
+   ],
+   [
+    "loc_183A",
+    "loc_1867"
+   ],
+   [
+    "loc_1853",
+    "loc_1867"
+   ],
+   [
+    "loc_1867",
+    "loc_187C"
+   ],
+   [
+    "loc_1867",
+    "loc_1890"
+   ],
+   [
+    "loc_187C",
+    "loc_1890"
+   ],
+   [
+    "loc_187C",
+    "loc_1895"
+   ],
+   [
+    "loc_1890",
+    "loc_18F2"
+   ],
+   [
+    "loc_1895",
+    "loc_189F"
+   ],
+   [
+    "loc_1895",
+    "loc_18A8"
+   ],
+   [
+    "loc_189F",
+    "loc_18A8"
+   ],
+   [
+    "loc_18A8",
+    "loc_18AD"
+   ],
+   [
+    "loc_18AD",
+    "loc_18B9"
+   ],
+   [
+    "loc_18AD",
+    "loc_18D7"
+   ],
+   [
+    "loc_18B9",
+    "loc_18AD"
+   ],
+   [
+    "loc_18D7",
+    "loc_18F2"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+row], edi\nmov     [rbp+year], esi\nmov     [rbp+month], rdx\nmov     [rbp+day], rcx\nlea     rdi, [rbp+days_in_month]; dest\nlea     rsi, unk_2040; src\nmov     edx, 30h ; '0'; n\ncall    memcpy\nmov     rax, [rbp+day]\nmov     dword ptr [rax], 0\nmov     rax, [rbp+month]\nmov     dword ptr [rax], 0\nmov     [rbp+monthdays], 0\nmov     eax, [rbp+year]\nmov     ecx, 4\ncdq\nidiv    ecx\ncmp     edx, 0\njnz     loc_1853",
+   "loc_183A": "mov     eax, [rbp+year]\nmov     ecx, 64h ; 'd'\ncdq\nidiv    ecx\nmov     al, 1\ncmp     edx, 0\nmov     [rbp+var_51], al\njnz     loc_1867",
+   "loc_1853": "mov     eax, [rbp+year]\nmov     ecx, 190h\ncdq\nidiv    ecx\ncmp     edx, 0\nsetz    al\nmov     [rbp+var_51], al",
+   "loc_1867": "mov     al, [rbp+var_51]\nand     al, 1\nmovzx   eax, al\nmov     [rbp+is_leap], eax\ncmp     [rbp+row], 0\njle     loc_1890",
+   "loc_187C": "mov     eax, [rbp+row]\nmov     ecx, [rbp+is_leap]\nadd     ecx, 16Dh\ncmp     eax, ecx\njle     loc_1895",
+   "loc_1890": "jmp     loc_18F2",
+   "loc_1895": "cmp     [rbp+is_leap], 0\njz      loc_18A8",
+   "loc_189F": "mov     eax, [rbp+days_in_month+4]\nadd     eax, 1\nmov     [rbp+days_in_month+4], eax",
+   "loc_18A8": "jmp     $+5",
+   "loc_18AD": "mov     eax, [rbp+row]\ncmp     eax, [rbp+monthdays]\njle     loc_18D7",
+   "loc_18B9": "mov     rcx, [rbp+month]\nmov     eax, [rcx]\nmov     edx, eax\nadd     edx, 1\nmov     [rcx], edx\ncdqe\nmov     eax, [rbp+rax*4+days_in_month]\nadd     eax, [rbp+monthdays]\nmov     [rbp+monthdays], eax\njmp     loc_18AD",
+   "loc_18D7": "mov     ecx, [rbp+row]\nsub     ecx, [rbp+monthdays]\nmov     rax, [rbp+month]\nmov     eax, [rax]\nsub     eax, 1\ncdqe\nadd     ecx, [rbp+rax*4+days_in_month]\nmov     rax, [rbp+day]\nmov     [rax], ecx",
+   "loc_18F2": "add     rsp, 60h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_51": "byte ptr -51h",
+   "days_in_month": "dword ptr -50h",
+   "is_leap": "dword ptr -20h",
+   "monthdays": "dword ptr -1Ch",
+   "day": "qword ptr -18h",
+   "month": "qword ptr -10h",
+   "year": "dword ptr -8",
+   "row": "dword ptr -4"
+  },
+  ".rodata": {
+   "unk_2040": "byte 1Fh"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6112,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868376
+ }
+}

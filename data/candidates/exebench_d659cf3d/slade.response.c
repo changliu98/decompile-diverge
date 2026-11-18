@@ -1,0 +1,1 @@
+int tt_unesc(char *str, char t) { char *p = str; char *q = NULL; int n = 0; while(*p != t) { if(*p == '\0') return 0; p++; } q = p; while(*p != '\0') { if(*p == t) { p++; n++; } *q = *p; q++; p++; } return n; }

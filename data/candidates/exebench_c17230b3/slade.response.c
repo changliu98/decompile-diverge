@@ -1,0 +1,1 @@
+void cgi_network_get_action(int *d) { d[1] = 2; d[2] = 1; }

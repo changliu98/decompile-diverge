@@ -1,0 +1,1 @@
+void factorial(double * x) { int i; x[0] = 1; for (i = 0; i < 20; i++) { x[i+1] = (double)(i+1) * x[i]; } return ; }

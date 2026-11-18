@@ -1,0 +1,1 @@
+__attribute__((no)) void yxyDES2_Int2Bits(unsigned int input, char* output) { unsigned int i = 0; for (i = 0; i < 4; i++) output[i] = (input << i) &0x01; }

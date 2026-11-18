@@ -1,0 +1,287 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <stdio.h>\n\n#include <stdlib.h>\n\n#include <string.h>\n\n#include <math.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_379t5jkoia.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(int* pacman, int* dir, int x, int y) {\n  json output_json;\n  std::vector<json> output_temp_3;\n  for (unsigned int i4 = 0; i4 < 3; i4++) {\n    int output_temp_5 = pacman[i4];\n\n    output_temp_3.push_back(output_temp_5);\n  }\n  output_json[\"pacman\"] = output_temp_3;\n  std::vector<json> output_temp_6;\n  for (unsigned int i7 = 0; i7 < 2; i7++) {\n    int output_temp_8 = dir[i7];\n\n    output_temp_6.push_back(output_temp_8);\n  }\n  output_json[\"dir\"] = output_temp_6;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  std::vector<int> input_temp_1_vec;\n  for (auto& elem : input_json[\"pacman\"]) {\n    int input_temp_1_inner = elem;\n    input_temp_1_vec.push_back(input_temp_1_inner);\n  }\n  int* pacman = &input_temp_1_vec[0];\n  std::vector<int> input_temp_2_vec;\n  for (auto& elem : input_json[\"dir\"]) {\n    int input_temp_2_inner = elem;\n    input_temp_2_vec.push_back(input_temp_2_inner);\n  }\n  int* dir = &input_temp_2_vec[0];\n  int x = input_json[\"x\"];\n  int y = input_json[\"y\"];\n  clock_t begin = clock();\n  operacao_dist(pacman, dir, x, y);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(pacman, dir, x, y);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "pacman": [
+     119,
+     1,
+     53
+    ],
+    "dir": [
+     28,
+     119
+    ],
+    "x": 108,
+    "y": 109
+   },
+   "output": {
+    "dir": [
+     227,
+     110
+    ],
+    "pacman": [
+     119,
+     1,
+     53
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "pacman": [
+     75,
+     62,
+     78
+    ],
+    "dir": [
+     87,
+     118
+    ],
+    "x": 97,
+    "y": 11
+   },
+   "output": {
+    "dir": [
+     172,
+     73
+    ],
+    "pacman": [
+     75,
+     62,
+     78
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "pacman": [
+     0,
+     2,
+     27
+    ],
+    "dir": [
+     69,
+     52
+    ],
+    "x": 74,
+    "y": 100
+   },
+   "output": {
+    "dir": [
+     74,
+     102
+    ],
+    "pacman": [
+     0,
+     2,
+     27
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "pacman": [
+     124,
+     42,
+     73
+    ],
+    "dir": [
+     1,
+     80
+    ],
+    "x": 53,
+    "y": 72
+   },
+   "output": {
+    "dir": [
+     177,
+     114
+    ],
+    "pacman": [
+     124,
+     42,
+     73
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "pacman": [
+     23,
+     75,
+     104
+    ],
+    "dir": [
+     112,
+     92
+    ],
+    "x": 5,
+    "y": 56
+   },
+   "output": {
+    "dir": [
+     28,
+     131
+    ],
+    "pacman": [
+     23,
+     75,
+     104
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "pacman": [
+     65,
+     111,
+     45
+    ],
+    "dir": [
+     97,
+     105
+    ],
+    "x": 119,
+    "y": 15
+   },
+   "output": {
+    "dir": [
+     184,
+     126
+    ],
+    "pacman": [
+     65,
+     111,
+     45
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "pacman": [
+     85,
+     104,
+     56
+    ],
+    "dir": [
+     40,
+     59
+    ],
+    "x": 88,
+    "y": 58
+   },
+   "output": {
+    "dir": [
+     173,
+     162
+    ],
+    "pacman": [
+     85,
+     104,
+     56
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "pacman": [
+     86,
+     122,
+     102
+    ],
+    "dir": [
+     9,
+     73
+    ],
+    "x": 50,
+    "y": 64
+   },
+   "output": {
+    "dir": [
+     136,
+     186
+    ],
+    "pacman": [
+     86,
+     122,
+     102
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "pacman": [
+     26,
+     12,
+     114
+    ],
+    "dir": [
+     126,
+     87
+    ],
+    "x": 55,
+    "y": 83
+   },
+   "output": {
+    "dir": [
+     81,
+     95
+    ],
+    "pacman": [
+     26,
+     12,
+     114
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "pacman": [
+     74,
+     77,
+     61
+    ],
+    "dir": [
+     120,
+     91
+    ],
+    "x": 4,
+    "y": 64
+   },
+   "output": {
+    "dir": [
+     78,
+     141
+    ],
+    "pacman": [
+     74,
+     77,
+     61
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

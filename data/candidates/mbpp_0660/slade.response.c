@@ -1,0 +1,1 @@
+int func0(int a, int b, int c, int d, int *x, int *y) { *x = (a == c) ? -1 : ((a > b) ? b : a); *y = (b == d) ? -1 : ((b > c) ? b : c); return 0; }

@@ -1,0 +1,62 @@
+0000000000001a40 <daemon_AuthUserPwd>:
+    1a40:	push   %rbp
+    1a41:	mov    %rsp,%rbp
+    1a44:	sub    $0x40,%rsp
+    1a48:	mov    %rdi,-0x10(%rbp)
+    1a4c:	mov    %rsi,-0x18(%rbp)
+    1a50:	mov    %rdx,-0x20(%rbp)
+    1a54:	mov    -0x10(%rbp),%rdi
+    1a58:	call   1200 <getpwnam>
+    1a5d:	mov    %rax,-0x28(%rbp)
+    1a61:	cmp    $0x0,%rax
+    1a65:	jne    1a8e <daemon_AuthUserPwd+0x4e>
+    1a6b:	mov    -0x20(%rbp),%rdi
+    1a6f:	mov    $0x100,%esi
+    1a74:	lea    0x605(%rip),%rdx        # 2080 <_IO_stdin_used+0x80>
+    1a7b:	mov    $0x0,%al
+    1a7d:	call   1090 <snprintf@plt>
+    1a82:	movl   $0xffffffff,-0x4(%rbp)
+    1a89:	jmp    1b35 <daemon_AuthUserPwd+0xf5>
+    1a8e:	mov    -0x28(%rbp),%rax
+    1a92:	mov    0x8(%rax),%rax
+    1a96:	mov    %rax,-0x30(%rbp)
+    1a9a:	mov    -0x30(%rbp),%rax
+    1a9e:	mov    %rax,-0x38(%rbp)
+    1aa2:	mov    -0x18(%rbp),%rdi
+    1aa6:	mov    -0x30(%rbp),%rsi
+    1aaa:	call   1300 <crypt>
+    1aaf:	mov    -0x38(%rbp),%rdi
+    1ab3:	mov    %rax,%rsi
+    1ab6:	call   10b0 <strcmp@plt>
+    1abb:	cmp    $0x0,%eax
+    1abe:	je     1ae7 <daemon_AuthUserPwd+0xa7>
+    1ac4:	mov    -0x20(%rbp),%rdi
+    1ac8:	mov    $0x100,%esi
+    1acd:	lea    0x5ac(%rip),%rdx        # 2080 <_IO_stdin_used+0x80>
+    1ad4:	mov    $0x0,%al
+    1ad6:	call   1090 <snprintf@plt>
+    1adb:	movl   $0xffffffff,-0x4(%rbp)
+    1ae2:	jmp    1b35 <daemon_AuthUserPwd+0xf5>
+    1ae7:	mov    -0x28(%rbp),%rax
+    1aeb:	mov    0x10(%rax),%edi
+    1aee:	call   1450 <setuid>
+    1af3:	cmp    $0x0,%eax
+    1af6:	je     1b2e <daemon_AuthUserPwd+0xee>
+    1afc:	mov    -0x20(%rbp),%rax
+    1b00:	mov    %rax,-0x40(%rbp)
+    1b04:	call   1040 <__errno_location@plt>
+    1b09:	mov    -0x40(%rbp),%rdi
+    1b0d:	mov    (%rax),%edx
+    1b0f:	mov    $0x100,%esi
+    1b14:	lea    0x59c(%rip),%rcx        # 20b7 <_IO_stdin_used+0xb7>
+    1b1b:	mov    $0x0,%al
+    1b1d:	call   1460 <pcap_fmt_errmsg_for_errno>
+    1b22:	movl   $0xffffffff,-0x4(%rbp)
+    1b29:	jmp    1b35 <daemon_AuthUserPwd+0xf5>
+    1b2e:	movl   $0x0,-0x4(%rbp)
+    1b35:	mov    -0x4(%rbp),%eax
+    1b38:	add    $0x40,%rsp
+    1b3c:	pop    %rbp
+    1b3d:	ret
+
+Disassembly of section .fini:

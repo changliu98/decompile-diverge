@@ -1,0 +1,1 @@
+int gcdEx(int m, int n, int *x, int *y) { if (n == 0) { *x = 1; *y = 0; return m; } else { int t = gcdEx(n, m%n, x, y); int tx = *x; *x = *y; *y = tx - (m/n)*(*y); return t; } }

@@ -1,0 +1,1 @@
+void nist_increment_block(uint32_t *block) { int i, x; for (i = 3; i >= 0; i--) { x = ntohl(block[i]) + 1; block[i] = htonl(x); if (x) return ; } }

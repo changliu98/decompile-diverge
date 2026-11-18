@@ -1,0 +1,52 @@
+{
+ "schema_version": 1,
+ "localId": "github_barebone_monocypher_crypto_eddsa_sign",
+ "backend": "github",
+ "project": "monocypher",
+ "pname": "monocypher",
+ "language": "c",
+ "fuzz_target": "prog.bin",
+ "sanitizer": "asan_ubsan",
+ "oracle": "exit_memstate",
+ "n_inputs": 50,
+ "n_safe": 50,
+ "n_triggering": 0,
+ "signature": "void crypto_eddsa_sign(u8 signature [64], const u8 secret_key[64],\n                       const u8 *message, size_t message_size)",
+ "harness": "custom",
+ "memstate_masked": true,
+ "memstate_symcanon": true,
+ "baseline": {
+  "crashed": false,
+  "status": "PASS",
+  "n_pass": 50,
+  "memstate": "data_bss_symbol_canonical_relocmasked",
+  "memstate_masked": true,
+  "memstate_symcanon": true
+ },
+ "target": {
+  "name": "crypto_eddsa_sign",
+  "repo_relpath": "func.c",
+  "start_byte": 80754,
+  "end_byte": 81458,
+  "start_line": 2335,
+  "end_line": 2353,
+  "return_type": "void",
+  "signature": "void crypto_eddsa_sign(u8 signature [64], const u8 secret_key[64],\n                       const u8 *message, size_t message_size)"
+ },
+ "provenance": {
+  "source": "github",
+  "repo": "https://github.com/LoupVaillant/Monocypher",
+  "commit": "ab2b16dd619ad5f6979a4fbe69cfa324a6fcc35f",
+  "path": "src/monocypher.c",
+  "func": "crypto_eddsa_sign",
+  "commit_verified": "exact"
+ },
+ "decompiler_input": [
+  "asm",
+  "ghidra",
+  "ida"
+ ],
+ "extra_cflags": "",
+ "group": "github_barebone",
+ "category": "functional"
+}

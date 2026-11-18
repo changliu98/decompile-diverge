@@ -1,0 +1,1 @@
+void _sjis_shift (uint32_t *op1, uint32_t *op2) { unsigned char op1l = *op1; unsigned char op2l = *op2; uint32_t _op1hi = (op2l < 160) ?0x70 : op2l; uint32_t _op2lo = (op1l < 160) ?0x70 :0xB0; uint32_t _op2hi = _op1hi ? (op2l &0x80) :0x7E :0x7E; *op1 = ((uint32_t) ((op1l - _op2lo) << 1)) - _op1hi; *op2 -= _op2hi; }

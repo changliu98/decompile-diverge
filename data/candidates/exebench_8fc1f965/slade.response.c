@@ -1,0 +1,1 @@
+void murcielagoCrypt(char* L) { char* M = "MURCIELAGOmurcielago"; char* S = "01234567890123456789"; for (int i = 0; L[i] != '\0'; i++) { for (int j = 0; M[j] != '\0'; j++) { if (L[i] == M[j]) { L[i] = S[j]; break; } } } }

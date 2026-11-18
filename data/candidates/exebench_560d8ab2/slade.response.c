@@ -1,0 +1,1 @@
+void hclib_get_avg_time (double * _c, double * _e, double * _f) { * _c = 0.0; * _e = 0.0; * _f = 0.0; }

@@ -1,0 +1,1 @@
+bool defaultPrevCharLen(void *p, const char *k, size_t klen, size_t *vlen) { if(vlen) *vlen = 1; return true; }

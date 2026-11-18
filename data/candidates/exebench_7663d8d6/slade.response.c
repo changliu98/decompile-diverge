@@ -1,0 +1,1 @@
+void treemove(double *pt, double dx, int mask) { if (mask & 1) pt[0] += dx; else pt[3] -= dx; if (mask & 2) pt[1] += dx; else pt[4] -= dx; if (mask & 4) pt[2] += dx; else pt[5] -= dx; }

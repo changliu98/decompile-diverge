@@ -1,0 +1,1 @@
+void multiply(uint32_t a, uint32_t b, uint32_t out[2]) { uint64_t a64 = (uint64_t)a * (uint64_t)b &0x7FFFFFFFU; uint64_t a0 = (uint64_t)a64; double res = (double)a * (double)b; out[0] = a0; if (a0 <0x40000000) { res = (res + 2.0) / 4294967296; } else { res = (res - 2.0) / 4294967296; } out[1] = (uint32_t)res; }

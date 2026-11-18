@@ -1,0 +1,1 @@
+unsigned int set_bit(volatile unsigned int *reg, int bit) { *reg |= (1 << bit); return *reg; }

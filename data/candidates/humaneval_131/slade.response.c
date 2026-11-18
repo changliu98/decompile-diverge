@@ -1,0 +1,1 @@
+int32_t func0(int32_t x) { int32_t y = 1; int sign = 0; while (x > 0) { int32_t y2 = x % 10; if (y2 % 2 == 1) { sign = 1; y *= y2; } x /= 10; } return sign ? y : 0; }

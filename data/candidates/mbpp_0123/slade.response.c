@@ -1,0 +1,1 @@
+int func0(int N) { if (N <= 0) { return -1; } int sum = 0; for (int i = 2; i <= N; i++) { int n = 0; for (int j = 1; j < i; j++) { if (i % j == 0) { n += j; } } int sum2 = 0; for (int j = 1; j < n; j++) { if (n % j == 0) { sum2 += j; } } if (i == sum2 && i != n) { sum += i; } } return sum; }

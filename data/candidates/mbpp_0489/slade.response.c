@@ -1,0 +1,1 @@
+int func0(int n, int a[n]) { int m = a[0]; int count = 1; for (int i = 1; i < n; ++i) { if (m < a[i]) { m = a[i]; count = 1; } else if (m == a[i]) { count++; } } return count; }

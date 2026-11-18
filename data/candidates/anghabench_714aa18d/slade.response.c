@@ -1,0 +1,1 @@
+bool is_valid_ref_char (char c) { if (c <= ' ') { return false; } switch (c) { case '*': case '`': case '[': case '&': case ']': case '&': case '+': case '-': case '.': case '*': case '/': return false; default: return true; } }

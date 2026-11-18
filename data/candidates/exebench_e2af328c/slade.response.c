@@ -1,0 +1,1 @@
+void __attribute__((always_)) bmp_iter_next (bitmap_iterator *bi, unsigned *bit_no) { bi->bits >>= 1; *bit_no += 1; }

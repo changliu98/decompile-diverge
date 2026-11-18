@@ -1,0 +1,1 @@
+bool ctr_intersect(double xa, double xb, double ya, double *val) { if ((xa - ya) * (xb - ya) < 0.0) { *val = (ya - xa) / (xb - xa); return true; } return false; }

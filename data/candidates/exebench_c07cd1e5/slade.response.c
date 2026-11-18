@@ -1,0 +1,1 @@
+void replaceChar(char *s, char old, char new) { char c; if (s == NULL) return ; while ((c = *s) != '\0') { if (c == old) *s = new; s++; } }

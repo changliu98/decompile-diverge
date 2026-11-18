@@ -1,0 +1,1 @@
+void my_add(myfloat *a, myfloat *b, myfloat *c) { *c = a->f + b->f; }

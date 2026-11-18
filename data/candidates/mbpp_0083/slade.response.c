@@ -1,0 +1,1 @@
+char func0(char str[20]) { int sum = 0; int i = 0; while (str[i] != '\0') { sum += str[i] - 'a' + 1; i++; } if (sum % 26 == 0) { return 'z'; } else { sum %= 26; return 'a' + sum; } }

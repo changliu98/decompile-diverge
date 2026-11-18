@@ -1,0 +1,1 @@
+void SetULong(int *p) { *p = 777; }

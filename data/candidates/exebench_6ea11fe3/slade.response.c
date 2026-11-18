@@ -1,0 +1,1 @@
+void sync_set_bit(unsigned int val, volatile unsigned long *addr) { __asm__ __volatile__ ( "lock; btsl %1,%2" : "+m" (*addr) : "r" (val), "m" (*addr)); }

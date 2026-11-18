@@ -1,0 +1,1 @@
+void func0(int8_t *in, int32_t in_len, int32_t step_len, int8_t *out, int32_t *pout) { int32_t out_index = 0; for (int32_t i = 0; i < in_len; i += step_len) { out[out_index++] = in[i]; } *pout = out_index; }

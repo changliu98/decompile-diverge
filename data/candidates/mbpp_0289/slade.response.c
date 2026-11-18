@@ -1,0 +1,1 @@
+uint32_t func0(uint32_t x) { uint32_t x1 = x / 100; uint32_t x2 = x / 100; uint32_t y1 = x >> 2; uint32_t y2 = x - y1; if (x1) { y2 += x1; y1 -= x1; } if (x2) { y2 -= x2; y1 += x2; } uint32_t z = y2 + (y1 << 1); uint32_t w = z % 7; return w; }

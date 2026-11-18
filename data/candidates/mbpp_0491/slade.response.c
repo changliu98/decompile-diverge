@@ -1,0 +1,1 @@
+double func0(double e, int n, double x) { double s; s = e * (1.0 - pow(x, (double)n)) / (1.0 - x); return s; }

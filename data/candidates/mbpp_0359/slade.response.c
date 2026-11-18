@@ -1,0 +1,1 @@
+char* func0(int x, int y, int z) { if (2 * y * z == 9 * x * z) return "Yes"; else return "No"; }

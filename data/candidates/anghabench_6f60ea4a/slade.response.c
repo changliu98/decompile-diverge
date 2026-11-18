@@ -1,0 +1,1 @@
+int denormal_addf1(unsigned int a, unsigned int b) { int t; int exp; if (a <0x00800000) return a + b; exp = (a >> 23) &0xff; if (exp > 32) return a; b >>= (exp - 1); if (b == 0) return a; t = (a &0x007fffff) |0x800000; t += b; if (t >0xffffff) { t >>= 1; t++; } return (exp << 23) | (t &0x7fffff); }

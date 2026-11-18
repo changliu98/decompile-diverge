@@ -1,0 +1,1 @@
+void ref_mul_double(double a, double b, double* ref) { *ref = a * b; }

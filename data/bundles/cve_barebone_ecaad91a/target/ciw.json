@@ -1,0 +1,496 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\npush    r15\npush    r14\npush    rbx\nsub     rsp, 0B8h\nmov     rax, [rbp+palette]\nmov     eax, [rbp+nDstHeight]\nmov     eax, [rbp+nDstWidth]\nmov     eax, [rbp+nYDst]\nmov     eax, [rbp+nXDst]\nmov     eax, [rbp+nDstStep]\nmov     eax, [rbp+DstFormat]\nmov     [rbp+clear], rdi\nmov     [rbp+s], rsi\nmov     [rbp+subcodecByteCount], edx\nmov     [rbp+nWidth], ecx\nmov     [rbp+nHeight], r8d\nmov     [rbp+pDstData], r9\nmov     [rbp+suboffset], 0\nmov     rsi, [rbp+s]; s\nmov     eax, [rbp+subcodecByteCount]\nmov     edx, eax; len\nlea     rdi, tag; \"codec.clear\"\ncall    Stream_CheckAndLogRequiredLength\ncmp     eax, 0\njnz     loc_152D\nmov     [rbp+var_1C], 0\njmp     loc_18DB\njmp     $+5\nmov     eax, [rbp+suboffset]\ncmp     eax, [rbp+subcodecByteCount]\njnb     loc_18D4\nmov     rsi, [rbp+s]; s\nlea     rdi, tag; \"codec.clear\"\nmov     edx, 0Dh; len\ncall    Stream_CheckAndLogRequiredLength\ncmp     eax, 0\njnz     loc_1568\nmov     [rbp+var_1C], 0\njmp     loc_18DB\nmov     rdi, [rbp+s]; _s\ncall    Stream_Get_UINT16\nmov     [rbp+xStart], ax\nmov     rdi, [rbp+s]; _s\ncall    Stream_Get_UINT16\nmov     [rbp+yStart], ax\nmov     rdi, [rbp+s]; _s\ncall    Stream_Get_UINT16\nmov     [rbp+width], ax\nmov     rdi, [rbp+s]; _s\ncall    Stream_Get_UINT16\nmov     [rbp+height], ax\nmov     rdi, [rbp+s]; _s\ncall    Stream_Get_UINT32\nmov     [rbp+bitmapDataByteCount], eax\nmov     rdi, [rbp+s]; _s\ncall    Stream_Get_UINT8\nmov     [rbp+subcodecId], al\nmov     eax, [rbp+suboffset]\nadd     eax, 0Dh\nmov     [rbp+suboffset], eax\nmov     rsi, [rbp+s]; s\nmov     eax, [rbp+bitmapDataByteCount]\nmov     edx, eax; len\nlea     rdi, tag; \"codec.clear\"\ncall    Stream_CheckAndLogRequiredLength\ncmp     eax, 0\njnz     loc_15E7\nmov     [rbp+var_1C], 0\njmp     loc_18DB\nmov     eax, [rbp+nXDst]\nmovzx   ecx, [rbp+xStart]\nadd     eax, ecx\nmov     [rbp+nXDstRel], eax\nmov     eax, [rbp+nYDst]\nmovzx   ecx, [rbp+yStart]\nadd     eax, ecx\nmov     [rbp+nYDstRel], eax\nmov     eax, [rbp+nXDstRel]\nshl     rax, 0\nmovzx   ecx, [rbp+width]\nadd     rax, rcx\nmov     ecx, [rbp+nWidth]\ncmp     rax, rcx\njbe     loc_1625\nmov     [rbp+var_1C], 0\njmp     loc_18DB\nmov     eax, [rbp+nYDstRel]\nshl     rax, 0\nmovzx   ecx, [rbp+height]\nadd     rax, rcx\nmov     ecx, [rbp+nHeight]\ncmp     rax, rcx\njbe     loc_164B\nmov     [rbp+var_1C], 0\njmp     loc_18DB\nmovzx   eax, [rbp+xStart]\nshl     rax, 0\nmovzx   ecx, [rbp+width]\nadd     rax, rcx\nmov     ecx, [rbp+nWidth]\ncmp     rax, rcx\njbe     loc_1672\nmov     [rbp+var_1C], 0\njmp     loc_18DB\nmovzx   eax, [rbp+yStart]\nshl     rax, 0\nmovzx   ecx, [rbp+height]\nadd     rax, rcx\nmov     ecx, [rbp+nHeight]\ncmp     rax, rcx\njbe     loc_1699\nmov     [rbp+var_1C], 0\njmp     loc_18DB\nmov     rdi, [rbp+clear]; clear\nmovzx   esi, [rbp+width]; width\nmovzx   edx, [rbp+height]; height\ncall    clear_resize_buffer\ncmp     eax, 0\njnz     loc_16BF\nmov     [rbp+var_1C], 0\njmp     loc_18DB\nmovzx   eax, [rbp+subcodecId]\nmov     [rbp+var_74], eax\ntest    eax, eax\njz      loc_16F5\njmp     $+5\nmov     eax, [rbp+var_74]\nsub     eax, 1\njz      loc_1802\njmp     $+5\nmov     eax, [rbp+var_74]\nsub     eax, 2\njz      loc_185C\njmp     loc_18BA\nmovzx   eax, [rbp+width]\nmov     [rbp+var_78], eax\nmov     edi, 18020888h; format\ncall    FreeRDPGetBytesPerPixel\nmov     ecx, eax\nmov     eax, [rbp+var_78]\nimul    eax, ecx\nmov     [rbp+nSrcStep], eax\nmov     eax, [rbp+nSrcStep]\nshl     rax, 0\nmovzx   ecx, [rbp+height]\nimul    rax, rcx\nmov     [rbp+nSrcSize], rax\nmov     eax, [rbp+bitmapDataByteCount]\ncmp     rax, [rbp+nSrcSize]\njz      loc_173D\nmov     [rbp+var_1C], 0\njmp     loc_18DB\nmov     rax, [rbp+pDstData]\nmov     [rbp+dst], rax\nmov     eax, [rbp+nDstStep]\nmov     [rbp+var_8C], eax\nmov     eax, [rbp+DstFormat]\nmov     [rbp+var_88], eax\nmov     eax, [rbp+nXDstRel]\nmov     [rbp+var_84], eax\nmov     eax, [rbp+nYDstRel]\nmov     [rbp+var_80], eax\nmovzx   eax, [rbp+width]\nmov     [rbp+var_7C], eax\nmovzx   r15d, [rbp+height]\nmov     rdi, [rbp+s]; _s\ncall    Stream_Pointer\nmov     rdi, [rbp+dst]; dst\nmov     esi, [rbp+var_8C]; nDstStep\nmov     edx, [rbp+var_88]; DstFormat\nmov     ecx, [rbp+var_84]; nXDst\nmov     r8d, [rbp+var_80]; nYDst\nmov     r9d, [rbp+var_7C]; nWidth\nmov     r14, rax\nmov     ebx, [rbp+nSrcStep]\nmov     r11d, [rbp+nDstWidth]\nmov     r10d, [rbp+nDstHeight]\nmov     rax, [rbp+palette]\nmov     [rsp+0D0h+var_D0], r15d; nHeight\nmov     [rsp+0D0h+src], r14; src\nmov     [rsp+0D0h+var_C0], ebx; nSrcStep\nmov     [rsp+0D0h+SrcFormat], 18020888h; SrcFormat\nmov     [rsp+0D0h+var_B0], r11d; nDstWidth\nmov     [rsp+0D0h+var_A8], r10d; nDstHeight\nmov     [rsp+0D0h+var_A0], rax; palette\ncall    convert_color\ncmp     eax, 0\njnz     loc_17EF\nmov     [rbp+var_1C], 0\njmp     loc_18DB\nmov     rdi, [rbp+s]; s\nmov     eax, [rbp+bitmapDataByteCount]\nmov     esi, eax; _offset\ncall    Stream_Seek\njmp     loc_18C6\nmov     rax, [rbp+clear]\nmov     rdi, [rax+8]; nsc\nmovzx   esi, [rbp+width]; width\nmovzx   edx, [rbp+height]; height\nmov     rcx, [rbp+s]; s\nmov     r8d, [rbp+bitmapDataByteCount]; bitmapDataByteCount\nmov     r9, [rbp+pDstData]; pDstData\nmov     ebx, [rbp+DstFormat]\nmov     r11d, [rbp+nDstStep]\nmov     r10d, [rbp+nXDstRel]\nmov     eax, [rbp+nYDstRel]\nmov     [rsp+0D0h+var_D0], ebx; DstFormat\nmov     dword ptr [rsp+0D0h+src], r11d; nDstStep\nmov     [rsp+0D0h+var_C0], r10d; nXDstRel\nmov     [rsp+0D0h+SrcFormat], eax; nYDstRel\ncall    clear_decompress_nscodec\ncmp     eax, 0\njnz     loc_1857\nmov     [rbp+var_1C], 0\njmp     loc_18DB\njmp     loc_18C6\nmov     rdi, [rbp+s]; s\nmov     esi, [rbp+bitmapDataByteCount]; bitmapDataByteCount\nmovzx   edx, [rbp+width]; width\nmovzx   ecx, [rbp+height]; height\nmov     r8, [rbp+pDstData]; pDstData\nmov     r9d, [rbp+DstFormat]; DstFormat\nmov     r14d, [rbp+nDstStep]\nmov     ebx, [rbp+nXDstRel]\nmov     r11d, [rbp+nYDstRel]\nmov     r10d, [rbp+nDstWidth]\nmov     eax, [rbp+nDstHeight]\nmov     [rsp+0D0h+var_D0], r14d; nDstStep\nmov     dword ptr [rsp+0D0h+src], ebx; nXDstRel\nmov     [rsp+0D0h+var_C0], r11d; nYDstRel\nmov     [rsp+0D0h+SrcFormat], r10d; nDstWidth\nmov     [rsp+0D0h+var_B0], eax; nDstHeight\ncall    clear_decompress_subcode_rlex\ncmp     eax, 0\njnz     loc_18B5\nmov     [rbp+var_1C], 0\njmp     loc_18DB\njmp     loc_18C6\nmov     [rbp+var_1C], 0\njmp     loc_18DB\nmov     eax, [rbp+bitmapDataByteCount]\nadd     eax, [rbp+suboffset]\nmov     [rbp+suboffset], eax\njmp     loc_1532\nmov     [rbp+var_1C], 1\nmov     eax, [rbp+var_1C]\nadd     rsp, 0B8h\npop     rbx\npop     r14\npop     r15\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 39,
+  "edges": [
+   [
+    "start",
+    "loc_1521"
+   ],
+   [
+    "start",
+    "loc_152D"
+   ],
+   [
+    "loc_1521",
+    "loc_18DB"
+   ],
+   [
+    "loc_152D",
+    "loc_1532"
+   ],
+   [
+    "loc_1532",
+    "loc_153E"
+   ],
+   [
+    "loc_1532",
+    "loc_18D4"
+   ],
+   [
+    "loc_153E",
+    "loc_155C"
+   ],
+   [
+    "loc_153E",
+    "loc_1568"
+   ],
+   [
+    "loc_155C",
+    "loc_18DB"
+   ],
+   [
+    "loc_1568",
+    "loc_15DB"
+   ],
+   [
+    "loc_1568",
+    "loc_15E7"
+   ],
+   [
+    "loc_15DB",
+    "loc_18DB"
+   ],
+   [
+    "loc_15E7",
+    "loc_1619"
+   ],
+   [
+    "loc_15E7",
+    "loc_1625"
+   ],
+   [
+    "loc_1619",
+    "loc_18DB"
+   ],
+   [
+    "loc_1625",
+    "loc_163F"
+   ],
+   [
+    "loc_1625",
+    "loc_164B"
+   ],
+   [
+    "loc_163F",
+    "loc_18DB"
+   ],
+   [
+    "loc_164B",
+    "loc_1666"
+   ],
+   [
+    "loc_164B",
+    "loc_1672"
+   ],
+   [
+    "loc_1666",
+    "loc_18DB"
+   ],
+   [
+    "loc_1672",
+    "loc_168D"
+   ],
+   [
+    "loc_1672",
+    "loc_1699"
+   ],
+   [
+    "loc_168D",
+    "loc_18DB"
+   ],
+   [
+    "loc_1699",
+    "loc_16B3"
+   ],
+   [
+    "loc_1699",
+    "loc_16BF"
+   ],
+   [
+    "loc_16B3",
+    "loc_18DB"
+   ],
+   [
+    "loc_16BF",
+    "loc_16CE"
+   ],
+   [
+    "loc_16BF",
+    "loc_16F5"
+   ],
+   [
+    "loc_16CE",
+    "loc_16D3"
+   ],
+   [
+    "loc_16D3",
+    "loc_16DF"
+   ],
+   [
+    "loc_16D3",
+    "loc_1802"
+   ],
+   [
+    "loc_16DF",
+    "loc_16E4"
+   ],
+   [
+    "loc_16E4",
+    "loc_16F0"
+   ],
+   [
+    "loc_16E4",
+    "loc_185C"
+   ],
+   [
+    "loc_16F0",
+    "loc_18BA"
+   ],
+   [
+    "loc_16F5",
+    "loc_1731"
+   ],
+   [
+    "loc_16F5",
+    "loc_173D"
+   ],
+   [
+    "loc_1731",
+    "loc_18DB"
+   ],
+   [
+    "loc_173D",
+    "loc_17E3"
+   ],
+   [
+    "loc_173D",
+    "loc_17EF"
+   ],
+   [
+    "loc_17E3",
+    "loc_18DB"
+   ],
+   [
+    "loc_17EF",
+    "loc_18C6"
+   ],
+   [
+    "loc_1802",
+    "loc_184B"
+   ],
+   [
+    "loc_1802",
+    "loc_1857"
+   ],
+   [
+    "loc_184B",
+    "loc_18DB"
+   ],
+   [
+    "loc_1857",
+    "loc_18C6"
+   ],
+   [
+    "loc_185C",
+    "loc_18A9"
+   ],
+   [
+    "loc_185C",
+    "loc_18B5"
+   ],
+   [
+    "loc_18A9",
+    "loc_18DB"
+   ],
+   [
+    "loc_18B5",
+    "loc_18C6"
+   ],
+   [
+    "loc_18BA",
+    "loc_18DB"
+   ],
+   [
+    "loc_18C6",
+    "loc_1532"
+   ],
+   [
+    "loc_18D4",
+    "loc_18DB"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\npush    r15\npush    r14\npush    rbx\nsub     rsp, 0B8h\nmov     rax, [rbp+palette]\nmov     eax, [rbp+nDstHeight]\nmov     eax, [rbp+nDstWidth]\nmov     eax, [rbp+nYDst]\nmov     eax, [rbp+nXDst]\nmov     eax, [rbp+nDstStep]\nmov     eax, [rbp+DstFormat]\nmov     [rbp+clear], rdi\nmov     [rbp+s], rsi\nmov     [rbp+subcodecByteCount], edx\nmov     [rbp+nWidth], ecx\nmov     [rbp+nHeight], r8d\nmov     [rbp+pDstData], r9\nmov     [rbp+suboffset], 0\nmov     rsi, [rbp+s]; s\nmov     eax, [rbp+subcodecByteCount]\nmov     edx, eax; len\nlea     rdi, tag; \"codec.clear\"\ncall    Stream_CheckAndLogRequiredLength\ncmp     eax, 0\njnz     loc_152D",
+   "loc_1521": "mov     [rbp+var_1C], 0\njmp     loc_18DB",
+   "loc_152D": "jmp     $+5",
+   "loc_1532": "mov     eax, [rbp+suboffset]\ncmp     eax, [rbp+subcodecByteCount]\njnb     loc_18D4",
+   "loc_153E": "mov     rsi, [rbp+s]; s\nlea     rdi, tag; \"codec.clear\"\nmov     edx, 0Dh; len\ncall    Stream_CheckAndLogRequiredLength\ncmp     eax, 0\njnz     loc_1568",
+   "loc_155C": "mov     [rbp+var_1C], 0\njmp     loc_18DB",
+   "loc_1568": "mov     rdi, [rbp+s]; _s\ncall    Stream_Get_UINT16\nmov     [rbp+xStart], ax\nmov     rdi, [rbp+s]; _s\ncall    Stream_Get_UINT16\nmov     [rbp+yStart], ax\nmov     rdi, [rbp+s]; _s\ncall    Stream_Get_UINT16\nmov     [rbp+width], ax\nmov     rdi, [rbp+s]; _s\ncall    Stream_Get_UINT16\nmov     [rbp+height], ax\nmov     rdi, [rbp+s]; _s\ncall    Stream_Get_UINT32\nmov     [rbp+bitmapDataByteCount], eax\nmov     rdi, [rbp+s]; _s\ncall    Stream_Get_UINT8\nmov     [rbp+subcodecId], al\nmov     eax, [rbp+suboffset]\nadd     eax, 0Dh\nmov     [rbp+suboffset], eax\nmov     rsi, [rbp+s]; s\nmov     eax, [rbp+bitmapDataByteCount]\nmov     edx, eax; len\nlea     rdi, tag; \"codec.clear\"\ncall    Stream_CheckAndLogRequiredLength\ncmp     eax, 0\njnz     loc_15E7",
+   "loc_15DB": "mov     [rbp+var_1C], 0\njmp     loc_18DB",
+   "loc_15E7": "mov     eax, [rbp+nXDst]\nmovzx   ecx, [rbp+xStart]\nadd     eax, ecx\nmov     [rbp+nXDstRel], eax\nmov     eax, [rbp+nYDst]\nmovzx   ecx, [rbp+yStart]\nadd     eax, ecx\nmov     [rbp+nYDstRel], eax\nmov     eax, [rbp+nXDstRel]\nshl     rax, 0\nmovzx   ecx, [rbp+width]\nadd     rax, rcx\nmov     ecx, [rbp+nWidth]\ncmp     rax, rcx\njbe     loc_1625",
+   "loc_1619": "mov     [rbp+var_1C], 0\njmp     loc_18DB",
+   "loc_1625": "mov     eax, [rbp+nYDstRel]\nshl     rax, 0\nmovzx   ecx, [rbp+height]\nadd     rax, rcx\nmov     ecx, [rbp+nHeight]\ncmp     rax, rcx\njbe     loc_164B",
+   "loc_163F": "mov     [rbp+var_1C], 0\njmp     loc_18DB",
+   "loc_164B": "movzx   eax, [rbp+xStart]\nshl     rax, 0\nmovzx   ecx, [rbp+width]\nadd     rax, rcx\nmov     ecx, [rbp+nWidth]\ncmp     rax, rcx\njbe     loc_1672",
+   "loc_1666": "mov     [rbp+var_1C], 0\njmp     loc_18DB",
+   "loc_1672": "movzx   eax, [rbp+yStart]\nshl     rax, 0\nmovzx   ecx, [rbp+height]\nadd     rax, rcx\nmov     ecx, [rbp+nHeight]\ncmp     rax, rcx\njbe     loc_1699",
+   "loc_168D": "mov     [rbp+var_1C], 0\njmp     loc_18DB",
+   "loc_1699": "mov     rdi, [rbp+clear]; clear\nmovzx   esi, [rbp+width]; width\nmovzx   edx, [rbp+height]; height\ncall    clear_resize_buffer\ncmp     eax, 0\njnz     loc_16BF",
+   "loc_16B3": "mov     [rbp+var_1C], 0\njmp     loc_18DB",
+   "loc_16BF": "movzx   eax, [rbp+subcodecId]\nmov     [rbp+var_74], eax\ntest    eax, eax\njz      loc_16F5",
+   "loc_16CE": "jmp     $+5",
+   "loc_16D3": "mov     eax, [rbp+var_74]\nsub     eax, 1\njz      loc_1802",
+   "loc_16DF": "jmp     $+5",
+   "loc_16E4": "mov     eax, [rbp+var_74]\nsub     eax, 2\njz      loc_185C",
+   "loc_16F0": "jmp     loc_18BA",
+   "loc_16F5": "movzx   eax, [rbp+width]\nmov     [rbp+var_78], eax\nmov     edi, 18020888h; format\ncall    FreeRDPGetBytesPerPixel\nmov     ecx, eax\nmov     eax, [rbp+var_78]\nimul    eax, ecx\nmov     [rbp+nSrcStep], eax\nmov     eax, [rbp+nSrcStep]\nshl     rax, 0\nmovzx   ecx, [rbp+height]\nimul    rax, rcx\nmov     [rbp+nSrcSize], rax\nmov     eax, [rbp+bitmapDataByteCount]\ncmp     rax, [rbp+nSrcSize]\njz      loc_173D",
+   "loc_1731": "mov     [rbp+var_1C], 0\njmp     loc_18DB",
+   "loc_173D": "mov     rax, [rbp+pDstData]\nmov     [rbp+dst], rax\nmov     eax, [rbp+nDstStep]\nmov     [rbp+var_8C], eax\nmov     eax, [rbp+DstFormat]\nmov     [rbp+var_88], eax\nmov     eax, [rbp+nXDstRel]\nmov     [rbp+var_84], eax\nmov     eax, [rbp+nYDstRel]\nmov     [rbp+var_80], eax\nmovzx   eax, [rbp+width]\nmov     [rbp+var_7C], eax\nmovzx   r15d, [rbp+height]\nmov     rdi, [rbp+s]; _s\ncall    Stream_Pointer\nmov     rdi, [rbp+dst]; dst\nmov     esi, [rbp+var_8C]; nDstStep\nmov     edx, [rbp+var_88]; DstFormat\nmov     ecx, [rbp+var_84]; nXDst\nmov     r8d, [rbp+var_80]; nYDst\nmov     r9d, [rbp+var_7C]; nWidth\nmov     r14, rax\nmov     ebx, [rbp+nSrcStep]\nmov     r11d, [rbp+nDstWidth]\nmov     r10d, [rbp+nDstHeight]\nmov     rax, [rbp+palette]\nmov     [rsp+0D0h+var_D0], r15d; nHeight\nmov     [rsp+0D0h+src], r14; src\nmov     [rsp+0D0h+var_C0], ebx; nSrcStep\nmov     [rsp+0D0h+SrcFormat], 18020888h; SrcFormat\nmov     [rsp+0D0h+var_B0], r11d; nDstWidth\nmov     [rsp+0D0h+var_A8], r10d; nDstHeight\nmov     [rsp+0D0h+var_A0], rax; palette\ncall    convert_color\ncmp     eax, 0\njnz     loc_17EF",
+   "loc_17E3": "mov     [rbp+var_1C], 0\njmp     loc_18DB",
+   "loc_17EF": "mov     rdi, [rbp+s]; s\nmov     eax, [rbp+bitmapDataByteCount]\nmov     esi, eax; _offset\ncall    Stream_Seek\njmp     loc_18C6",
+   "loc_1802": "mov     rax, [rbp+clear]\nmov     rdi, [rax+8]; nsc\nmovzx   esi, [rbp+width]; width\nmovzx   edx, [rbp+height]; height\nmov     rcx, [rbp+s]; s\nmov     r8d, [rbp+bitmapDataByteCount]; bitmapDataByteCount\nmov     r9, [rbp+pDstData]; pDstData\nmov     ebx, [rbp+DstFormat]\nmov     r11d, [rbp+nDstStep]\nmov     r10d, [rbp+nXDstRel]\nmov     eax, [rbp+nYDstRel]\nmov     [rsp+0D0h+var_D0], ebx; DstFormat\nmov     dword ptr [rsp+0D0h+src], r11d; nDstStep\nmov     [rsp+0D0h+var_C0], r10d; nXDstRel\nmov     [rsp+0D0h+SrcFormat], eax; nYDstRel\ncall    clear_decompress_nscodec\ncmp     eax, 0\njnz     loc_1857",
+   "loc_184B": "mov     [rbp+var_1C], 0\njmp     loc_18DB",
+   "loc_1857": "jmp     loc_18C6",
+   "loc_185C": "mov     rdi, [rbp+s]; s\nmov     esi, [rbp+bitmapDataByteCount]; bitmapDataByteCount\nmovzx   edx, [rbp+width]; width\nmovzx   ecx, [rbp+height]; height\nmov     r8, [rbp+pDstData]; pDstData\nmov     r9d, [rbp+DstFormat]; DstFormat\nmov     r14d, [rbp+nDstStep]\nmov     ebx, [rbp+nXDstRel]\nmov     r11d, [rbp+nYDstRel]\nmov     r10d, [rbp+nDstWidth]\nmov     eax, [rbp+nDstHeight]\nmov     [rsp+0D0h+var_D0], r14d; nDstStep\nmov     dword ptr [rsp+0D0h+src], ebx; nXDstRel\nmov     [rsp+0D0h+var_C0], r11d; nYDstRel\nmov     [rsp+0D0h+SrcFormat], r10d; nDstWidth\nmov     [rsp+0D0h+var_B0], eax; nDstHeight\ncall    clear_decompress_subcode_rlex\ncmp     eax, 0\njnz     loc_18B5",
+   "loc_18A9": "mov     [rbp+var_1C], 0\njmp     loc_18DB",
+   "loc_18B5": "jmp     loc_18C6",
+   "loc_18BA": "mov     [rbp+var_1C], 0\njmp     loc_18DB",
+   "loc_18C6": "mov     eax, [rbp+bitmapDataByteCount]\nadd     eax, [rbp+suboffset]\nmov     [rbp+suboffset], eax\njmp     loc_1532",
+   "loc_18D4": "mov     [rbp+var_1C], 1",
+   "loc_18DB": "mov     eax, [rbp+var_1C]\nadd     rsp, 0B8h\npop     rbx\npop     r14\npop     r15\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_D0": "dword ptr -0D0h",
+   "src": "qword ptr -0C8h",
+   "var_C0": "dword ptr -0C0h",
+   "SrcFormat": "dword ptr -0B8h",
+   "var_B0": "dword ptr -0B0h",
+   "var_A8": "dword ptr -0A8h",
+   "var_A0": "qword ptr -0A0h",
+   "dst": "qword ptr -98h",
+   "var_8C": "dword ptr -8Ch",
+   "var_88": "dword ptr -88h",
+   "var_84": "dword ptr -84h",
+   "var_80": "dword ptr -80h",
+   "var_7C": "dword ptr -7Ch",
+   "var_78": "dword ptr -78h",
+   "var_74": "dword ptr -74h",
+   "nSrcSize": "qword ptr -70h",
+   "nSrcStep": "dword ptr -68h",
+   "nYDstRel": "dword ptr -64h",
+   "nXDstRel": "dword ptr -60h",
+   "subcodecId": "byte ptr -59h",
+   "bitmapDataByteCount": "dword ptr -58h",
+   "height": "word ptr -54h",
+   "width": "word ptr -52h",
+   "yStart": "word ptr -50h",
+   "xStart": "word ptr -4Eh",
+   "suboffset": "dword ptr -4Ch",
+   "pDstData": "qword ptr -48h",
+   "nHeight": "dword ptr -3Ch",
+   "nWidth": "dword ptr -38h",
+   "subcodecByteCount": "dword ptr -34h",
+   "s": "qword ptr -30h",
+   "clear": "qword ptr -28h",
+   "var_1C": "dword ptr -1Ch",
+   "DstFormat": "dword ptr 10h",
+   "nDstStep": "dword ptr 18h",
+   "nXDst": "dword ptr 20h",
+   "nYDst": "dword ptr 28h",
+   "nDstWidth": "dword ptr 30h",
+   "nDstHeight": "dword ptr 38h",
+   "palette": "qword ptr 40h"
+  },
+  ".rodata": {
+   "tag": "byte 'codec.clear',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5312,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868498
+ }
+}

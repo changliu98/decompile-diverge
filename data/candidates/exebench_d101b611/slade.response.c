@@ -1,0 +1,1 @@
+wchar_t and_peep2_q(wchar_t in, volatile wchar_t *out) { *out = in &0xFE; return in; }

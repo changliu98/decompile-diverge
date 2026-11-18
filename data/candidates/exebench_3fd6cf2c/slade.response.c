@@ -1,0 +1,1 @@
+void od_filter_dering_direction_offsets( od_coeff *x, int dx, int dy ) { int i; int offset; if ( dx < 5 ) { offset = dx - 2; for ( i = 1; i < 4; i++ ) x[i-1] = i + dy * ( offset * i / 2 ); } else { offset = 6 - dx; for ( i = 1; i < 4; i++ ) x[i-1] = i * dy + offset * i / 2; } }

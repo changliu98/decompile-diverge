@@ -1,0 +1,1 @@
+int dummywc_mbtowc(wchar_t *pwc, const char *s, size_t n) { if (n && *s) { pwc[0] = (int)s[0]; return 1; } return 0; }

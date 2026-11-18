@@ -1,0 +1,1 @@
+int func0(int a, int b, int x) { int m = (1L << 31) - 1; for (int i = 0; i <= a; i++) { if (i % b == x && m < i) m = i; } return (m >= 0 && m <= a) ? m : -1; }

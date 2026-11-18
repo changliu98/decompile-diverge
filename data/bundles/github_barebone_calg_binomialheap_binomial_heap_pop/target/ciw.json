@@ -1,0 +1,329 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+heap], rdi\nmov     rax, [rbp+heap]\ncmp     dword ptr [rax+10h], 0\njnz     loc_1717\nmov     [rbp+var_8], 0\njmp     loc_185A\nmov     [rbp+least_index], 0FFFFFFFFh\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\nmov     rcx, [rbp+heap]\ncmp     eax, [rcx+20h]\njnb     loc_17A9\nmov     rax, [rbp+heap]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+i]\ncmp     qword ptr [rax+rcx*8], 0\njnz     loc_1750\njmp     loc_179B\ncmp     [rbp+least_index], 0FFFFFFFFh\njz      loc_1790\nmov     rdi, [rbp+heap]; heap\nmov     rax, [rbp+heap]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmov     rsi, [rax]; data1\nmov     rax, [rbp+heap]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+least_index]\nmov     rax, [rax+rcx*8]\nmov     rdx, [rax]; data2\ncall    binomial_heap_cmp\ncmp     eax, 0\njge     loc_1796\nmov     eax, [rbp+i]\nmov     [rbp+least_index], eax\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1725\nmov     rax, [rbp+heap]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+least_index]\nmov     rax, [rax+rcx*8]\nmov     [rbp+least_tree], rax\nmov     rax, [rbp+heap]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+least_index]\nmov     qword ptr [rax+rcx*8], 0\nmov     rax, [rbp+heap]\nmov     eax, [rax]\nmov     [rbp+fake_heap.heap_type], eax\nmov     rax, [rbp+heap]\nmov     rax, [rax+8]\nmov     [rbp+fake_heap.compare_func], rax\nmov     rax, [rbp+least_tree]\nmov     rax, [rax+10h]\nmov     [rbp+fake_heap.roots], rax\nmov     rax, [rbp+least_tree]\nmovzx   eax, word ptr [rax+8]\nmov     [rbp+fake_heap.roots_length], eax\nmov     rdi, [rbp+heap]; heap\nlea     rsi, [rbp+fake_heap]; other\ncall    binomial_heap_merge\ncmp     eax, 0\njz      loc_183F\nmov     rax, [rbp+least_tree]\nmov     rax, [rax]\nmov     [rbp+result], rax\nmov     rdi, [rbp+least_tree]; tree\ncall    binomial_tree_unref\nmov     rax, [rbp+heap]\nmov     ecx, [rax+10h]\nadd     ecx, 0FFFFFFFFh\nmov     [rax+10h], ecx\nmov     rax, [rbp+result]\nmov     [rbp+var_8], rax\njmp     loc_185A\nmov     rdx, [rbp+least_tree]\nmov     rax, [rbp+heap]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+least_index]\nmov     [rax+rcx*8], rdx\nmov     [rbp+var_8], 0\nmov     rax, [rbp+var_8]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 15,
+  "edges": [
+   [
+    "start",
+    "loc_170A"
+   ],
+   [
+    "start",
+    "loc_1717"
+   ],
+   [
+    "loc_170A",
+    "loc_185A"
+   ],
+   [
+    "loc_1717",
+    "loc_1725"
+   ],
+   [
+    "loc_1725",
+    "loc_1735"
+   ],
+   [
+    "loc_1725",
+    "loc_17A9"
+   ],
+   [
+    "loc_1735",
+    "loc_174B"
+   ],
+   [
+    "loc_1735",
+    "loc_1750"
+   ],
+   [
+    "loc_174B",
+    "loc_179B"
+   ],
+   [
+    "loc_1750",
+    "loc_175A"
+   ],
+   [
+    "loc_1750",
+    "loc_1790"
+   ],
+   [
+    "loc_175A",
+    "loc_1790"
+   ],
+   [
+    "loc_175A",
+    "loc_1796"
+   ],
+   [
+    "loc_1790",
+    "loc_1796"
+   ],
+   [
+    "loc_1796",
+    "loc_179B"
+   ],
+   [
+    "loc_179B",
+    "loc_1725"
+   ],
+   [
+    "loc_17A9",
+    "loc_1811"
+   ],
+   [
+    "loc_17A9",
+    "loc_183F"
+   ],
+   [
+    "loc_1811",
+    "loc_185A"
+   ],
+   [
+    "loc_183F",
+    "loc_185A"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+heap], rdi\nmov     rax, [rbp+heap]\ncmp     dword ptr [rax+10h], 0\njnz     loc_1717",
+   "loc_170A": "mov     [rbp+var_8], 0\njmp     loc_185A",
+   "loc_1717": "mov     [rbp+least_index], 0FFFFFFFFh\nmov     [rbp+i], 0",
+   "loc_1725": "mov     eax, [rbp+i]\nmov     rcx, [rbp+heap]\ncmp     eax, [rcx+20h]\njnb     loc_17A9",
+   "loc_1735": "mov     rax, [rbp+heap]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+i]\ncmp     qword ptr [rax+rcx*8], 0\njnz     loc_1750",
+   "loc_174B": "jmp     loc_179B",
+   "loc_1750": "cmp     [rbp+least_index], 0FFFFFFFFh\njz      loc_1790",
+   "loc_175A": "mov     rdi, [rbp+heap]; heap\nmov     rax, [rbp+heap]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmov     rsi, [rax]; data1\nmov     rax, [rbp+heap]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+least_index]\nmov     rax, [rax+rcx*8]\nmov     rdx, [rax]; data2\ncall    binomial_heap_cmp\ncmp     eax, 0\njge     loc_1796",
+   "loc_1790": "mov     eax, [rbp+i]\nmov     [rbp+least_index], eax",
+   "loc_1796": "jmp     $+5",
+   "loc_179B": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1725",
+   "loc_17A9": "mov     rax, [rbp+heap]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+least_index]\nmov     rax, [rax+rcx*8]\nmov     [rbp+least_tree], rax\nmov     rax, [rbp+heap]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+least_index]\nmov     qword ptr [rax+rcx*8], 0\nmov     rax, [rbp+heap]\nmov     eax, [rax]\nmov     [rbp+fake_heap.heap_type], eax\nmov     rax, [rbp+heap]\nmov     rax, [rax+8]\nmov     [rbp+fake_heap.compare_func], rax\nmov     rax, [rbp+least_tree]\nmov     rax, [rax+10h]\nmov     [rbp+fake_heap.roots], rax\nmov     rax, [rbp+least_tree]\nmovzx   eax, word ptr [rax+8]\nmov     [rbp+fake_heap.roots_length], eax\nmov     rdi, [rbp+heap]; heap\nlea     rsi, [rbp+fake_heap]; other\ncall    binomial_heap_merge\ncmp     eax, 0\njz      loc_183F",
+   "loc_1811": "mov     rax, [rbp+least_tree]\nmov     rax, [rax]\nmov     [rbp+result], rax\nmov     rdi, [rbp+least_tree]; tree\ncall    binomial_tree_unref\nmov     rax, [rbp+heap]\nmov     ecx, [rax+10h]\nadd     ecx, 0FFFFFFFFh\nmov     [rax+10h], ecx\nmov     rax, [rbp+result]\nmov     [rbp+var_8], rax\njmp     loc_185A",
+   "loc_183F": "mov     rdx, [rbp+least_tree]\nmov     rax, [rbp+heap]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+least_index]\nmov     [rax+rcx*8], rdx\nmov     [rbp+var_8], 0",
+   "loc_185A": "mov     rax, [rbp+var_8]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "least_index": "dword ptr -50h",
+   "i": "dword ptr -4Ch",
+   "result": "qword ptr -48h",
+   "fake_heap": "BinomialHeap ptr -40h",
+   "least_tree": "qword ptr -18h",
+   "heap": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5872,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872655
+ }
+}

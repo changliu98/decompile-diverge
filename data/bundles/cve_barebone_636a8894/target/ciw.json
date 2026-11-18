@@ -1,0 +1,416 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+argvars], rdi\nmov     [rbp+rettv], rsi\ncall    in_vim9script\nmov     [rbp+vim9script], eax\nmov     eax, cs:cmdmod\nmov     [rbp+save_cmod_flags], eax\nmov     rax, [rbp+rettv]\nmov     dword ptr [rax], 7\nmov     rax, [rbp+rettv]\nmov     qword ptr [rax+8], 0\ncall    in_vim9script\ncmp     eax, 0\njz      loc_16B5\nmov     rdi, [rbp+argvars]; args\nxor     esi, esi; idx\ncall    check_for_string_arg\ncmp     eax, 0\njz      loc_16B0\nmov     rdi, [rbp+argvars]; args\nmov     esi, 1; idx\ncall    check_for_opt_bool_arg\ncmp     eax, 0\njnz     loc_16B5\njmp     loc_1896\nmov     rax, [rbp+argvars]\nmov     rax, [rax+8]\nmov     [rbp+name], rax\ncmp     [rbp+name], 0\njnz     loc_16D1\njmp     loc_1896\nmov     rax, [rbp+argvars]\ncmp     dword ptr [rax+10h], 0\njz      loc_171F\nmov     rdi, [rbp+argvars]\nadd     rdi, 10h; varp\ncall    tv_get_bool\nmov     [rbp+vim9script], eax\nmov     eax, cs:cmdmod\nand     eax, 0FFFF3FFFh\nmov     cs:cmdmod, eax\nmov     edx, [rbp+vim9script]\nmov     eax, 8000h\nmov     ecx, 4000h\ncmp     edx, 0\ncmovnz  eax, ecx\nor      eax, cs:cmdmod\nmov     cs:cmdmod, eax\njmp     $+5\nmov     rax, [rbp+name]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 3Ah ; ':'\njnz     loc_1745\nmov     rax, [rbp+name]\nadd     rax, 1\nmov     [rbp+name], rax\njmp     loc_1724\nmov     rdi, [rbp+name]; cmd_start\nmov     esi, 1; skip_star\nxor     eax, eax\nmov     edx, eax; ctx\ncall    skip_range\nmov     [rbp+name], rax\nmov     rax, [rbp+name]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 32h ; '2'\njz      loc_177B\nmov     rax, [rbp+name]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 33h ; '3'\njnz     loc_178C\nmov     rax, [rbp+name]\nadd     rax, 1\nmov     [rbp+var_50], rax\njmp     loc_1794\nmov     rax, [rbp+name]\nmov     [rbp+var_50], rax\nmov     rax, [rbp+var_50]\nmov     [rbp+ea.cmd], rax\nmov     [rbp+ea.cmdidx], 0\nmov     [rbp+ea.addr_count], 0\nmov     eax, cs:emsg_silent\nadd     eax, 1\nmov     cs:emsg_silent, eax\nlea     rdi, [rbp+ea]; eap\nxor     eax, eax\nmov     ecx, eax; cctx\nmov     rsi, rcx; full\nmov     rdx, rcx; lookup\ncall    find_ex_command\nmov     [rbp+p], rax\nmov     eax, cs:emsg_silent\nadd     eax, 0FFFFFFFFh\nmov     cs:emsg_silent, eax\ncmp     [rbp+p], 0\njz      loc_17F4\ncmp     [rbp+ea.cmdidx], 0\njnz     loc_17F9\njmp     theend\ncmp     [rbp+vim9script], 0\njz      loc_1841\nmov     eax, cs:emsg_silent\nadd     eax, 1\nmov     cs:emsg_silent, eax\nlea     rdi, [rbp+ea]; eap\ncall    not_in_vim9\nmov     [rbp+res], eax\nmov     eax, cs:emsg_silent\nadd     eax, 0FFFFFFFFh\nmov     cs:emsg_silent, eax\ncmp     [rbp+res], 0\njnz     loc_183C\njmp     theend\njmp     $+5\ncmp     [rbp+ea.cmdidx], 0\njge     loc_185F\nmov     edi, [rbp+ea.useridx]; idx\nmov     esi, [rbp+ea.cmdidx]; cmdidx\ncall    get_user_command_name\nmov     [rbp+string], rax\njmp     loc_1879\nmov     eax, [rbp+ea.cmdidx]\nmov     ecx, eax\nlea     rax, cmdnames\nshl     rcx, 5\nadd     rax, rcx\nmov     rax, [rax]\nmov     [rbp+string], rax\nmov     rdi, [rbp+string]; string\ncall    vim_strsave\nmov     rcx, rax\nmov     rax, [rbp+rettv]\nmov     [rax+8], rcx\nmov     eax, [rbp+save_cmod_flags]\nmov     cs:cmdmod, eax\nadd     rsp, 60h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 28,
+  "edges": [
+   [
+    "start",
+    "loc_1685"
+   ],
+   [
+    "start",
+    "loc_16B5"
+   ],
+   [
+    "loc_1685",
+    "loc_1699"
+   ],
+   [
+    "loc_1685",
+    "loc_16B0"
+   ],
+   [
+    "loc_1699",
+    "loc_16B0"
+   ],
+   [
+    "loc_1699",
+    "loc_16B5"
+   ],
+   [
+    "loc_16B0",
+    "loc_1896"
+   ],
+   [
+    "loc_16B5",
+    "loc_16CC"
+   ],
+   [
+    "loc_16B5",
+    "loc_16D1"
+   ],
+   [
+    "loc_16CC",
+    "loc_1896"
+   ],
+   [
+    "loc_16D1",
+    "loc_16DF"
+   ],
+   [
+    "loc_16D1",
+    "loc_171F"
+   ],
+   [
+    "loc_16DF",
+    "loc_171F"
+   ],
+   [
+    "loc_171F",
+    "loc_1724"
+   ],
+   [
+    "loc_1724",
+    "loc_1734"
+   ],
+   [
+    "loc_1724",
+    "loc_1745"
+   ],
+   [
+    "loc_1734",
+    "loc_1724"
+   ],
+   [
+    "loc_1745",
+    "loc_176B"
+   ],
+   [
+    "loc_1745",
+    "loc_177B"
+   ],
+   [
+    "loc_176B",
+    "loc_177B"
+   ],
+   [
+    "loc_176B",
+    "loc_178C"
+   ],
+   [
+    "loc_177B",
+    "loc_1794"
+   ],
+   [
+    "loc_178C",
+    "loc_1794"
+   ],
+   [
+    "loc_1794",
+    "loc_17EA"
+   ],
+   [
+    "loc_1794",
+    "loc_17F4"
+   ],
+   [
+    "loc_17EA",
+    "loc_17F4"
+   ],
+   [
+    "loc_17EA",
+    "loc_17F9"
+   ],
+   [
+    "loc_17F4",
+    "loc_188D"
+   ],
+   [
+    "loc_17F9",
+    "loc_1803"
+   ],
+   [
+    "loc_17F9",
+    "loc_1841"
+   ],
+   [
+    "loc_1803",
+    "loc_1837"
+   ],
+   [
+    "loc_1803",
+    "loc_183C"
+   ],
+   [
+    "loc_1837",
+    "loc_188D"
+   ],
+   [
+    "loc_183C",
+    "loc_1841"
+   ],
+   [
+    "loc_1841",
+    "loc_184B"
+   ],
+   [
+    "loc_1841",
+    "loc_185F"
+   ],
+   [
+    "loc_184B",
+    "loc_1879"
+   ],
+   [
+    "loc_185F",
+    "loc_1879"
+   ],
+   [
+    "loc_1879",
+    "loc_188D"
+   ],
+   [
+    "loc_188D",
+    "loc_1896"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+argvars], rdi\nmov     [rbp+rettv], rsi\ncall    in_vim9script\nmov     [rbp+vim9script], eax\nmov     eax, cs:cmdmod\nmov     [rbp+save_cmod_flags], eax\nmov     rax, [rbp+rettv]\nmov     dword ptr [rax], 7\nmov     rax, [rbp+rettv]\nmov     qword ptr [rax+8], 0\ncall    in_vim9script\ncmp     eax, 0\njz      loc_16B5",
+   "loc_1685": "mov     rdi, [rbp+argvars]; args\nxor     esi, esi; idx\ncall    check_for_string_arg\ncmp     eax, 0\njz      loc_16B0",
+   "loc_1699": "mov     rdi, [rbp+argvars]; args\nmov     esi, 1; idx\ncall    check_for_opt_bool_arg\ncmp     eax, 0\njnz     loc_16B5",
+   "loc_16B0": "jmp     loc_1896",
+   "loc_16B5": "mov     rax, [rbp+argvars]\nmov     rax, [rax+8]\nmov     [rbp+name], rax\ncmp     [rbp+name], 0\njnz     loc_16D1",
+   "loc_16CC": "jmp     loc_1896",
+   "loc_16D1": "mov     rax, [rbp+argvars]\ncmp     dword ptr [rax+10h], 0\njz      loc_171F",
+   "loc_16DF": "mov     rdi, [rbp+argvars]\nadd     rdi, 10h; varp\ncall    tv_get_bool\nmov     [rbp+vim9script], eax\nmov     eax, cs:cmdmod\nand     eax, 0FFFF3FFFh\nmov     cs:cmdmod, eax\nmov     edx, [rbp+vim9script]\nmov     eax, 8000h\nmov     ecx, 4000h\ncmp     edx, 0\ncmovnz  eax, ecx\nor      eax, cs:cmdmod\nmov     cs:cmdmod, eax",
+   "loc_171F": "jmp     $+5",
+   "loc_1724": "mov     rax, [rbp+name]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 3Ah ; ':'\njnz     loc_1745",
+   "loc_1734": "mov     rax, [rbp+name]\nadd     rax, 1\nmov     [rbp+name], rax\njmp     loc_1724",
+   "loc_1745": "mov     rdi, [rbp+name]; cmd_start\nmov     esi, 1; skip_star\nxor     eax, eax\nmov     edx, eax; ctx\ncall    skip_range\nmov     [rbp+name], rax\nmov     rax, [rbp+name]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 32h ; '2'\njz      loc_177B",
+   "loc_176B": "mov     rax, [rbp+name]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 33h ; '3'\njnz     loc_178C",
+   "loc_177B": "mov     rax, [rbp+name]\nadd     rax, 1\nmov     [rbp+var_50], rax\njmp     loc_1794",
+   "loc_178C": "mov     rax, [rbp+name]\nmov     [rbp+var_50], rax",
+   "loc_1794": "mov     rax, [rbp+var_50]\nmov     [rbp+ea.cmd], rax\nmov     [rbp+ea.cmdidx], 0\nmov     [rbp+ea.addr_count], 0\nmov     eax, cs:emsg_silent\nadd     eax, 1\nmov     cs:emsg_silent, eax\nlea     rdi, [rbp+ea]; eap\nxor     eax, eax\nmov     ecx, eax; cctx\nmov     rsi, rcx; full\nmov     rdx, rcx; lookup\ncall    find_ex_command\nmov     [rbp+p], rax\nmov     eax, cs:emsg_silent\nadd     eax, 0FFFFFFFFh\nmov     cs:emsg_silent, eax\ncmp     [rbp+p], 0\njz      loc_17F4",
+   "loc_17EA": "cmp     [rbp+ea.cmdidx], 0\njnz     loc_17F9",
+   "loc_17F4": "jmp     theend",
+   "loc_17F9": "cmp     [rbp+vim9script], 0\njz      loc_1841",
+   "loc_1803": "mov     eax, cs:emsg_silent\nadd     eax, 1\nmov     cs:emsg_silent, eax\nlea     rdi, [rbp+ea]; eap\ncall    not_in_vim9\nmov     [rbp+res], eax\nmov     eax, cs:emsg_silent\nadd     eax, 0FFFFFFFFh\nmov     cs:emsg_silent, eax\ncmp     [rbp+res], 0\njnz     loc_183C",
+   "loc_1837": "jmp     theend",
+   "loc_183C": "jmp     $+5",
+   "loc_1841": "cmp     [rbp+ea.cmdidx], 0\njge     loc_185F",
+   "loc_184B": "mov     edi, [rbp+ea.useridx]; idx\nmov     esi, [rbp+ea.cmdidx]; cmdidx\ncall    get_user_command_name\nmov     [rbp+string], rax\njmp     loc_1879",
+   "loc_185F": "mov     eax, [rbp+ea.cmdidx]\nmov     ecx, eax\nlea     rax, cmdnames\nshl     rcx, 5\nadd     rax, rcx\nmov     rax, [rax]\nmov     [rbp+string], rax",
+   "loc_1879": "mov     rdi, [rbp+string]; string\ncall    vim_strsave\nmov     rcx, rax\nmov     rax, [rbp+rettv]\nmov     [rax+8], rcx",
+   "loc_188D": "mov     eax, [rbp+save_cmod_flags]\nmov     cs:cmdmod, eax",
+   "loc_1896": "add     rsp, 60h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "string": "qword ptr -58h",
+   "var_50": "qword ptr -50h",
+   "res": "dword ptr -44h",
+   "save_cmod_flags": "dword ptr -40h",
+   "vim9script": "dword ptr -3Ch",
+   "p": "qword ptr -38h",
+   "name": "qword ptr -30h",
+   "ea": "exarg_T ptr -28h",
+   "rettv": "qword ptr -10h",
+   "argvars": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {
+   "cmdnames": "qword offset format+17h"
+  },
+  ".bss": {
+   "cmdmod": "[]",
+   "emsg_silent": "[]"
+  }
+ },
+ "func_ea": 5696,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868467
+ }
+}

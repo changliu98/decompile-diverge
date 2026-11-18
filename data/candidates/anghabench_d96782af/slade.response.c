@@ -1,0 +1,1 @@
+double rapl_dram_energy_units_probe(rapl_dram_energy_units_t type, double val) { switch (type) { case RAPL_Dram_energy_units: case RAPL_Dram_energy_units: case RAPL_Dram_energy_units: case RAPL_Dram_energy_units: rapl_dram_energy_units = 1e-15; return rapl_dram_energy_units; default: return val; } }

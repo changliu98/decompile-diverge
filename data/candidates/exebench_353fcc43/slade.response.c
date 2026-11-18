@@ -1,0 +1,1 @@
+void copy_poly (poly_t * dest, poly_t * src) { int i; for (i = 0; i < 20; i++) { dest[i] = src[i]; } }

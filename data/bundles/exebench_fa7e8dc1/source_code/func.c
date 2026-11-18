@@ -1,0 +1,11 @@
+#include <stdlib.h>
+
+#include <stdio.h>
+
+#include <assert.h>
+
+void fancySwap (int* first, int* second) {
+   *first = *first ^ *second;
+   *second = *first ^ *second;
+   *first = *first ^ *second;
+}

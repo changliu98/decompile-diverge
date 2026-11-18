@@ -1,0 +1,1 @@
+void put_user_quad(volatile void *addr, struct user_quad *u) { *(volatile uint32_t *) u = (uint32_t) addr; }

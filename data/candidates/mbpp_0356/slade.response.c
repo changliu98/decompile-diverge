@@ -1,0 +1,1 @@
+int func0(int x, int y) { int z; z = 180 - (x + y); return z; }

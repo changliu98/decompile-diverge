@@ -1,0 +1,1 @@
+void clear_bit(uint32_t reg, void * bit_map) { *((volatile uint32_t *) bit_map) = reg; }

@@ -1,0 +1,43 @@
+00000000000011d0 <oct_to_word>:
+    11d0:	push   %rbp
+    11d1:	mov    %rsp,%rbp
+    11d4:	mov    %sil,%al
+    11d7:	mov    %rdi,-0x8(%rbp)
+    11db:	mov    %al,-0x9(%rbp)
+    11de:	cmpq   $0x0,-0x8(%rbp)
+    11e3:	jne    11ee <oct_to_word+0x1e>
+    11e9:	jmp    1256 <oct_to_word+0x86>
+    11ee:	movsbl -0x9(%rbp),%eax
+    11f2:	and    $0xc0,%eax
+    11f7:	sar    $0x6,%eax
+    11fa:	mov    %al,%cl
+    11fc:	mov    -0x8(%rbp),%rax
+    1200:	mov    %cl,(%rax)
+    1202:	movsbl -0x9(%rbp),%eax
+    1206:	and    $0x38,%eax
+    1209:	sar    $0x3,%eax
+    120c:	mov    %al,%cl
+    120e:	mov    -0x8(%rbp),%rax
+    1212:	mov    %cl,0x1(%rax)
+    1215:	movsbl -0x9(%rbp),%eax
+    1219:	and    $0x7,%eax
+    121c:	mov    %al,%cl
+    121e:	mov    -0x8(%rbp),%rax
+    1222:	mov    %cl,0x2(%rax)
+    1225:	movb   $0x0,-0x9(%rbp)
+    1229:	movsbl -0x9(%rbp),%eax
+    122d:	cmp    $0x3,%eax
+    1230:	jge    1256 <oct_to_word+0x86>
+    1236:	mov    -0x8(%rbp),%rax
+    123a:	movsbq -0x9(%rbp),%rcx
+    123f:	movsbl (%rax,%rcx,1),%edx
+    1243:	add    $0x30,%edx
+    1246:	mov    %dl,(%rax,%rcx,1)
+    1249:	mov    -0x9(%rbp),%al
+    124c:	add    $0x1,%al
+    124e:	mov    %al,-0x9(%rbp)
+    1251:	jmp    1229 <oct_to_word+0x59>
+    1256:	pop    %rbp
+    1257:	ret
+
+Disassembly of section .fini:

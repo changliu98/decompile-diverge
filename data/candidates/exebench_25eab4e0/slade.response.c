@@ -1,0 +1,1 @@
+int substitute(char *str, char a, char b) { char *p = NULL; p = str; while ((p = strchr(p, a)) != NULL) *p++ = b; return 1; }

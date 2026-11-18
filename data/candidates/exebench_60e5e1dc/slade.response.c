@@ -1,0 +1,1 @@
+void incr(struct S *s) { s->i += 1; }

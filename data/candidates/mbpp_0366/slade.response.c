@@ -1,0 +1,1 @@
+int func0(const int *p, size_t n) { int v = p[0] * p[1]; for (size_t i = 1; i < n - 1; i++) { int v2 = p[i] * p[i + 1]; if (v2 > v) v = v2; } return v; }

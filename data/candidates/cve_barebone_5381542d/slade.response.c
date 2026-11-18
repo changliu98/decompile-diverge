@@ -1,0 +1,1 @@
+int adjust_plines_for_skipcol(struct vc_data *vc) { int skip; if (!vc->vc_texts) return 0; while (1) { skip = vc->vc_rows - win_col_off2(vc); if (skip <= vc->vc_texts) return ((vc->vc_texts - skip) / (win_col_off2(vc) + skip)) + 1; else return 0; } }

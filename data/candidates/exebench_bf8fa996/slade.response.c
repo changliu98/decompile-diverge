@@ -1,0 +1,1 @@
+int test_and_set(int *p) { int v = *p; *p = 1; return v; }

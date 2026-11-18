@@ -1,0 +1,1 @@
+void _jis_shift(unsigned int *x, unsigned int *y) { unsigned char c1 = *x; unsigned char c2 = *y; unsigned int co = c1 < 95 ? 112 : 176; unsigned int shift = c1 % 2 ? (c2 > 95 ? 32 : 31) : 126; *x = ((c1 + 1) >> 1) + co; *y += shift; }

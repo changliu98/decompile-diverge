@@ -1,0 +1,1 @@
+int func0 (unsigned char *c) { int flag1 = 0; int flag2 = 0; for (; *c; c++) { if ((*__ctype_b_loc ((*c)[*c]) &0x0400)) flag1 = 1; if ((*__ctype_b_loc ((*c)[*c]) &0x0800)) flag2 = 1; } return (flag1 && flag2); }

@@ -1,0 +1,518 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 70h\nmov     [rbp+node], rdi\nmov     [rbp+point], rsi\nmov     [rbp+k], edx\nmov     [rbp+indices], rcx\nmov     [rbp+distances], r8\nmov     [rbp+dim], r9d\ncmp     [rbp+node], 0\njnz     loc_18DBF\njmp     loc_18FD5\nmov     rax, [rbp+node]\nmov     rdi, [rax]; a\nmov     rsi, [rbp+point]; b\nmov     edx, [rbp+dim]; dim\ncall    stb_kdtree_distance_squared\nmovsd   [rbp+dist], xmm0\nmov     [rbp+insert_pos], 0FFFFFFFFh\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+k]\njge     loc_18E41\nmov     rax, [rbp+distances]\nmovsxd  rcx, [rbp+i]\nxorps   xmm0, xmm0\nucomisd xmm0, qword ptr [rax+rcx*8]\nja      loc_18E23\nmovsd   xmm1, [rbp+dist]\nmov     rax, [rbp+distances]\nmovsxd  rcx, [rbp+i]\nmovsd   xmm0, qword ptr [rax+rcx*8]\nucomisd xmm0, xmm1\njbe     loc_18E2E\nmov     eax, [rbp+i]\nmov     [rbp+insert_pos], eax\njmp     loc_18E41\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_18DE5\ncmp     [rbp+insert_pos], 0\njl      loc_18ECC\nmov     eax, [rbp+k]\nsub     eax, 1\nmov     [rbp+i_0], eax\nmov     eax, [rbp+i_0]\ncmp     eax, [rbp+insert_pos]\njle     loc_18EA8\nmov     rax, [rbp+distances]\nmov     ecx, [rbp+i_0]\nsub     ecx, 1\nmovsxd  rcx, ecx\nmovsd   xmm0, qword ptr [rax+rcx*8]\nmov     rax, [rbp+distances]\nmovsxd  rcx, [rbp+i_0]\nmovsd   qword ptr [rax+rcx*8], xmm0\nmov     rax, [rbp+indices]\nmov     ecx, [rbp+i_0]\nsub     ecx, 1\nmovsxd  rcx, ecx\nmov     edx, [rax+rcx*4]\nmov     rax, [rbp+indices]\nmovsxd  rcx, [rbp+i_0]\nmov     [rax+rcx*4], edx\nmov     eax, [rbp+i_0]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+i_0], eax\njmp     loc_18E54\nmovsd   xmm0, [rbp+dist]\nmov     rax, [rbp+distances]\nmovsxd  rcx, [rbp+insert_pos]\nmovsd   qword ptr [rax+rcx*8], xmm0\nmov     rax, [rbp+node]\nmov     edx, [rax+8]\nmov     rax, [rbp+indices]\nmovsxd  rcx, [rbp+insert_pos]\nmov     [rax+rcx*4], edx\nmov     rax, [rbp+point]\nmov     rcx, [rbp+node]\nmovsxd  rcx, dword ptr [rcx+20h]\nmovsd   xmm0, qword ptr [rax+rcx*8]\nmov     rax, [rbp+node]\nmov     rax, [rax]\nmov     rcx, [rbp+node]\nmovsxd  rcx, dword ptr [rcx+20h]\nsubsd   xmm0, qword ptr [rax+rcx*8]\nmovsd   [rbp+diff], xmm0\nxorps   xmm0, xmm0\nucomisd xmm0, [rbp+diff]\njbe     loc_18F15\nmov     rax, [rbp+node]\nmov     rax, [rax+10h]\nmov     [rbp+var_68], rax\njmp     loc_18F21\nmov     rax, [rbp+node]\nmov     rax, [rax+18h]\nmov     [rbp+var_68], rax\nmov     rax, [rbp+var_68]\nmov     [rbp+near], rax\nxorps   xmm0, xmm0\nucomisd xmm0, [rbp+diff]\njbe     loc_18F48\nmov     rax, [rbp+node]\nmov     rax, [rax+18h]\nmov     [rbp+var_70], rax\njmp     loc_18F54\nmov     rax, [rbp+node]\nmov     rax, [rax+10h]\nmov     [rbp+var_70], rax\nmov     rax, [rbp+var_70]\nmov     [rbp+far], rax\nmov     rdi, [rbp+near]; node\nmov     rsi, [rbp+point]; point\nmov     edx, [rbp+k]; k\nmov     rcx, [rbp+indices]; indices\nmov     r8, [rbp+distances]; distances\nmov     r9d, [rbp+dim]; dim\ncall    stb_kdtree_search_knn_recursive\nmov     rax, [rbp+distances]\nmov     ecx, [rbp+k]\nsub     ecx, 1\nmovsxd  rcx, ecx\nxorps   xmm0, xmm0\nucomisd xmm0, qword ptr [rax+rcx*8]\nja      loc_18FB9\nmovsd   xmm1, [rbp+diff]\nmulsd   xmm1, [rbp+diff]\nmov     rax, [rbp+distances]\nmov     ecx, [rbp+k]\nsub     ecx, 1\nmovsxd  rcx, ecx\nmovsd   xmm0, qword ptr [rax+rcx*8]\nucomisd xmm0, xmm1\njbe     loc_18FD5\nmov     rdi, [rbp+far]; node\nmov     rsi, [rbp+point]; point\nmov     edx, [rbp+k]; k\nmov     rcx, [rbp+indices]; indices\nmov     r8, [rbp+distances]; distances\nmov     r9d, [rbp+dim]; dim\ncall    stb_kdtree_search_knn_recursive\nadd     rsp, 70h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 24,
+  "edges": [
+   [
+    "start",
+    "loc_18DBA"
+   ],
+   [
+    "start",
+    "loc_18DBF"
+   ],
+   [
+    "loc_18DBA",
+    "loc_18FD5"
+   ],
+   [
+    "loc_18DBF",
+    "loc_18DE5"
+   ],
+   [
+    "loc_18DE5",
+    "loc_18DF1"
+   ],
+   [
+    "loc_18DE5",
+    "loc_18E41"
+   ],
+   [
+    "loc_18DF1",
+    "loc_18E07"
+   ],
+   [
+    "loc_18DF1",
+    "loc_18E23"
+   ],
+   [
+    "loc_18E07",
+    "loc_18E23"
+   ],
+   [
+    "loc_18E07",
+    "loc_18E2E"
+   ],
+   [
+    "loc_18E23",
+    "loc_18E41"
+   ],
+   [
+    "loc_18E2E",
+    "loc_18E33"
+   ],
+   [
+    "loc_18E33",
+    "loc_18DE5"
+   ],
+   [
+    "loc_18E41",
+    "loc_18E4B"
+   ],
+   [
+    "loc_18E41",
+    "loc_18ECC"
+   ],
+   [
+    "loc_18E4B",
+    "loc_18E54"
+   ],
+   [
+    "loc_18E54",
+    "loc_18E60"
+   ],
+   [
+    "loc_18E54",
+    "loc_18EA8"
+   ],
+   [
+    "loc_18E60",
+    "loc_18E54"
+   ],
+   [
+    "loc_18EA8",
+    "loc_18ECC"
+   ],
+   [
+    "loc_18ECC",
+    "loc_18F04"
+   ],
+   [
+    "loc_18ECC",
+    "loc_18F15"
+   ],
+   [
+    "loc_18F04",
+    "loc_18F21"
+   ],
+   [
+    "loc_18F15",
+    "loc_18F21"
+   ],
+   [
+    "loc_18F21",
+    "loc_18F37"
+   ],
+   [
+    "loc_18F21",
+    "loc_18F48"
+   ],
+   [
+    "loc_18F37",
+    "loc_18F54"
+   ],
+   [
+    "loc_18F48",
+    "loc_18F54"
+   ],
+   [
+    "loc_18F54",
+    "loc_18F93"
+   ],
+   [
+    "loc_18F54",
+    "loc_18FB9"
+   ],
+   [
+    "loc_18F93",
+    "loc_18FB9"
+   ],
+   [
+    "loc_18F93",
+    "loc_18FD5"
+   ],
+   [
+    "loc_18FB9",
+    "loc_18FD5"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 70h\nmov     [rbp+node], rdi\nmov     [rbp+point], rsi\nmov     [rbp+k], edx\nmov     [rbp+indices], rcx\nmov     [rbp+distances], r8\nmov     [rbp+dim], r9d\ncmp     [rbp+node], 0\njnz     loc_18DBF",
+   "loc_18DBA": "jmp     loc_18FD5",
+   "loc_18DBF": "mov     rax, [rbp+node]\nmov     rdi, [rax]; a\nmov     rsi, [rbp+point]; b\nmov     edx, [rbp+dim]; dim\ncall    stb_kdtree_distance_squared\nmovsd   [rbp+dist], xmm0\nmov     [rbp+insert_pos], 0FFFFFFFFh\nmov     [rbp+i], 0",
+   "loc_18DE5": "mov     eax, [rbp+i]\ncmp     eax, [rbp+k]\njge     loc_18E41",
+   "loc_18DF1": "mov     rax, [rbp+distances]\nmovsxd  rcx, [rbp+i]\nxorps   xmm0, xmm0\nucomisd xmm0, qword ptr [rax+rcx*8]\nja      loc_18E23",
+   "loc_18E07": "movsd   xmm1, [rbp+dist]\nmov     rax, [rbp+distances]\nmovsxd  rcx, [rbp+i]\nmovsd   xmm0, qword ptr [rax+rcx*8]\nucomisd xmm0, xmm1\njbe     loc_18E2E",
+   "loc_18E23": "mov     eax, [rbp+i]\nmov     [rbp+insert_pos], eax\njmp     loc_18E41",
+   "loc_18E2E": "jmp     $+5",
+   "loc_18E33": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_18DE5",
+   "loc_18E41": "cmp     [rbp+insert_pos], 0\njl      loc_18ECC",
+   "loc_18E4B": "mov     eax, [rbp+k]\nsub     eax, 1\nmov     [rbp+i_0], eax",
+   "loc_18E54": "mov     eax, [rbp+i_0]\ncmp     eax, [rbp+insert_pos]\njle     loc_18EA8",
+   "loc_18E60": "mov     rax, [rbp+distances]\nmov     ecx, [rbp+i_0]\nsub     ecx, 1\nmovsxd  rcx, ecx\nmovsd   xmm0, qword ptr [rax+rcx*8]\nmov     rax, [rbp+distances]\nmovsxd  rcx, [rbp+i_0]\nmovsd   qword ptr [rax+rcx*8], xmm0\nmov     rax, [rbp+indices]\nmov     ecx, [rbp+i_0]\nsub     ecx, 1\nmovsxd  rcx, ecx\nmov     edx, [rax+rcx*4]\nmov     rax, [rbp+indices]\nmovsxd  rcx, [rbp+i_0]\nmov     [rax+rcx*4], edx\nmov     eax, [rbp+i_0]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+i_0], eax\njmp     loc_18E54",
+   "loc_18EA8": "movsd   xmm0, [rbp+dist]\nmov     rax, [rbp+distances]\nmovsxd  rcx, [rbp+insert_pos]\nmovsd   qword ptr [rax+rcx*8], xmm0\nmov     rax, [rbp+node]\nmov     edx, [rax+8]\nmov     rax, [rbp+indices]\nmovsxd  rcx, [rbp+insert_pos]\nmov     [rax+rcx*4], edx",
+   "loc_18ECC": "mov     rax, [rbp+point]\nmov     rcx, [rbp+node]\nmovsxd  rcx, dword ptr [rcx+20h]\nmovsd   xmm0, qword ptr [rax+rcx*8]\nmov     rax, [rbp+node]\nmov     rax, [rax]\nmov     rcx, [rbp+node]\nmovsxd  rcx, dword ptr [rcx+20h]\nsubsd   xmm0, qword ptr [rax+rcx*8]\nmovsd   [rbp+diff], xmm0\nxorps   xmm0, xmm0\nucomisd xmm0, [rbp+diff]\njbe     loc_18F15",
+   "loc_18F04": "mov     rax, [rbp+node]\nmov     rax, [rax+10h]\nmov     [rbp+var_68], rax\njmp     loc_18F21",
+   "loc_18F15": "mov     rax, [rbp+node]\nmov     rax, [rax+18h]\nmov     [rbp+var_68], rax",
+   "loc_18F21": "mov     rax, [rbp+var_68]\nmov     [rbp+near], rax\nxorps   xmm0, xmm0\nucomisd xmm0, [rbp+diff]\njbe     loc_18F48",
+   "loc_18F37": "mov     rax, [rbp+node]\nmov     rax, [rax+18h]\nmov     [rbp+var_70], rax\njmp     loc_18F54",
+   "loc_18F48": "mov     rax, [rbp+node]\nmov     rax, [rax+10h]\nmov     [rbp+var_70], rax",
+   "loc_18F54": "mov     rax, [rbp+var_70]\nmov     [rbp+far], rax\nmov     rdi, [rbp+near]; node\nmov     rsi, [rbp+point]; point\nmov     edx, [rbp+k]; k\nmov     rcx, [rbp+indices]; indices\nmov     r8, [rbp+distances]; distances\nmov     r9d, [rbp+dim]; dim\ncall    stb_kdtree_search_knn_recursive\nmov     rax, [rbp+distances]\nmov     ecx, [rbp+k]\nsub     ecx, 1\nmovsxd  rcx, ecx\nxorps   xmm0, xmm0\nucomisd xmm0, qword ptr [rax+rcx*8]\nja      loc_18FB9",
+   "loc_18F93": "movsd   xmm1, [rbp+diff]\nmulsd   xmm1, [rbp+diff]\nmov     rax, [rbp+distances]\nmov     ecx, [rbp+k]\nsub     ecx, 1\nmovsxd  rcx, ecx\nmovsd   xmm0, qword ptr [rax+rcx*8]\nucomisd xmm0, xmm1\njbe     loc_18FD5",
+   "loc_18FB9": "mov     rdi, [rbp+far]; node\nmov     rsi, [rbp+point]; point\nmov     edx, [rbp+k]; k\nmov     rcx, [rbp+indices]; indices\nmov     r8, [rbp+distances]; distances\nmov     r9d, [rbp+dim]; dim\ncall    stb_kdtree_search_knn_recursive",
+   "loc_18FD5": "add     rsp, 70h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_70": "qword ptr -70h",
+   "var_68": "qword ptr -68h",
+   "far": "qword ptr -60h",
+   "near": "qword ptr -58h",
+   "diff": "qword ptr -50h",
+   "i_0": "dword ptr -44h",
+   "i": "dword ptr -40h",
+   "insert_pos": "dword ptr -3Ch",
+   "dist": "qword ptr -38h",
+   "dim": "dword ptr -2Ch",
+   "distances": "qword ptr -28h",
+   "indices": "qword ptr -20h",
+   "k": "dword ptr -14h",
+   "point": "qword ptr -10h",
+   "node": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 101776,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".log2": "log2",
+  "_log2": "log2",
+  ".__isoc99_fscanf": "__isoc99_fscanf",
+  "_isoc99_fscanf": "__isoc99_fscanf",
+  ".qsort": "qsort",
+  "_qsort": "qsort",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".pow": "pow",
+  "_pow": "pow",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".logl": "logl",
+  "_logl": "logl",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".log1p": "log1p",
+  "_log1p": "log1p",
+  ".log": "log",
+  "_log": "log",
+  ".hypotf": "hypotf",
+  "_hypotf": "hypotf",
+  ".fgets": "fgets",
+  "_fgets": "fgets",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".feof": "feof",
+  "_feof": "feof",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".time": "time",
+  "_time": "time",
+  ".sqrtf": "sqrtf",
+  "_sqrtf": "sqrtf",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".powl": "powl",
+  "_powl": "powl",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".floor": "floor",
+  "_floor": "floor",
+  ".llround": "llround",
+  "_llround": "llround",
+  ".exit": "exit",
+  "_exit": "exit",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".sqrt": "sqrt",
+  "_sqrt": "sqrt",
+  ".strdup": "strdup",
+  "_strdup": "strdup",
+  ".ceil": "ceil",
+  "_ceil": "ceil",
+  ".expl": "expl",
+  "_expl": "expl",
+  ".exp": "exp",
+  "_exp": "exp"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".log2",
+   ".plt",
+   true,
+   "log2"
+  ],
+  [
+   ".__isoc99_fscanf",
+   ".plt",
+   true,
+   "__isoc99_fscanf"
+  ],
+  [
+   ".qsort",
+   ".plt",
+   true,
+   "qsort"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".pow",
+   ".plt",
+   true,
+   "pow"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".logl",
+   ".plt",
+   true,
+   "logl"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".log1p",
+   ".plt",
+   true,
+   "log1p"
+  ],
+  [
+   ".log",
+   ".plt",
+   true,
+   "log"
+  ],
+  [
+   ".hypotf",
+   ".plt",
+   true,
+   "hypotf"
+  ],
+  [
+   ".fgets",
+   ".plt",
+   true,
+   "fgets"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".feof",
+   ".plt",
+   true,
+   "feof"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".time",
+   ".plt",
+   true,
+   "time"
+  ],
+  [
+   ".sqrtf",
+   ".plt",
+   true,
+   "sqrtf"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".powl",
+   ".plt",
+   true,
+   "powl"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".floor",
+   ".plt",
+   true,
+   "floor"
+  ],
+  [
+   ".llround",
+   ".plt",
+   true,
+   "llround"
+  ],
+  [
+   ".exit",
+   ".plt",
+   true,
+   "exit"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   ".sqrt",
+   ".plt",
+   true,
+   "sqrt"
+  ],
+  [
+   ".strdup",
+   ".plt",
+   true,
+   "strdup"
+  ],
+  [
+   ".ceil",
+   ".plt",
+   true,
+   "ceil"
+  ],
+  [
+   ".expl",
+   ".plt",
+   true,
+   "expl"
+  ],
+  [
+   ".exp",
+   ".plt",
+   true,
+   "exp"
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868547
+ }
+}

@@ -1,0 +1,1 @@
+void sum(int x, int *y) { if (!y) { return ; } *y += x; }

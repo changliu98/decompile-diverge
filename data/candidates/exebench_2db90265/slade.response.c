@@ -1,0 +1,1 @@
+int inicializa(int a[],int n,int *p,int *q){ int i=0; if(n&1){ *p=a[0]; *q=a[0]; i=1; } else{ i=2; if(a[0]<a[1]){ *p=a[0]; *q=a[1]; } else{ *p=a[1]; *q=a[0]; } } return i; }

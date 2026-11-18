@@ -1,0 +1,1 @@
+int write_data(int fd, void *buf, int size) { int written = 0; while (written != size) { int ret = write(fd, buf + written, (size - written)); if (ret <= 0) return -1; written += ret; } return 0; }

@@ -1,0 +1,1 @@
+void zywrle_calc_size(uint32_t *size, uint32_t *width, int precision) { *size &= ~((1 << precision) - 1); *width &= ~((1 << precision) - 1); }

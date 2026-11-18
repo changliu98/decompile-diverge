@@ -1,0 +1,565 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 70h\nmov     [rbp+line], rdi\nmov     [rbp+width], rsi\nmov     [rbp+height], rdx\nmov     [rbp+scale], rcx\nmov     [rbp+offset], r8\nmov     rdi, [rbp+line]; s\nmov     esi, 0Dh; c\ncall    strchr\nmov     [rbp+p], rax\ncmp     rax, 0\njnz     loc_1764\nmov     rdi, [rbp+line]; s\nmov     esi, 0Ah; c\ncall    strchr\nmov     [rbp+p], rax\ncmp     rax, 0\njz      loc_176B\nmov     rax, [rbp+p]\nmov     byte ptr [rax], 0\nmov     [rbp+i], 0\nmov     rax, [rbp+line]\nmov     [rbp+p], rax\nmov     rdi, [rbp+p]; str\nlea     rsi, brk; \" \\t\"\ncall    vips_break_token\nmov     rcx, rax\nmov     [rbp+q], rcx\nxor     eax, eax\ncmp     rcx, 0\nmov     [rbp+var_65], al\njz      loc_17AA\ncmp     [rbp+i], 4\nsetl    al\nmov     [rbp+var_65], al\nmov     al, [rbp+var_65]\ntest    al, 1\njnz     loc_17BA\njmp     loc_181B\nmov     rdi, [rbp+p]; str\nmovsxd  rax, [rbp+i]\nlea     rsi, [rbp+header]\nshl     rax, 3\nadd     rsi, rax; out\ncall    vips_strtod\ncmp     eax, 0\njz      loc_1800\nmov     rdx, [rbp+p]\nlea     rdi, domain; \"matload\"\nlea     rsi, fmt; \"bad number \\\"%s\\\"\"\nmov     al, 0\ncall    vips_error\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_19B2\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\nmov     rax, [rbp+q]\nmov     [rbp+p], rax\njmp     loc_177A\ncmp     [rbp+i], 4\njge     loc_182D\nxorps   xmm0, xmm0\nmovsd   [rbp+header+18h], xmm0\ncmp     [rbp+i], 3\njge     loc_1844\nmovsd   xmm0, cs:qword_2008\nmovsd   [rbp+header+10h], xmm0\ncmp     [rbp+i], 2\njge     loc_1876\nlea     rdi, domain; \"matload\"\nlea     rsi, aS; \"%s\"\nlea     rdx, aNoWidthHeight; \"no width / height\"\nmov     al, 0\ncall    vips_error\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_19B2\nmovsd   xmm0, [rbp+header]; x\ncall    floor\nucomisd xmm0, [rbp+header]\njnz     loc_18B1\njp      loc_18B1\nmovsd   xmm0, [rbp+header+8]; x\ncall    floor\nucomisd xmm0, [rbp+header+8]\njnz     loc_18B1\njp      loc_18B1\njmp     loc_18D9\nlea     rdi, aMask2vips; \"mask2vips\"\nlea     rsi, aS; \"%s\"\nlea     rdx, aWidthHeightNot; \"width / height not int\"\nmov     al, 0\ncall    vips_error\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_19B2\ncvttsd2si ecx, [rbp+header]\nmov     rax, [rbp+width]\nmov     [rax], ecx\ncvttsd2si ecx, [rbp+header+8]\nmov     rax, [rbp+height]\nmov     [rax], ecx\nmov     rax, [rbp+width]\ncmp     dword ptr [rax], 0\njle     loc_1929\nmov     rax, [rbp+width]\ncmp     dword ptr [rax], 186A0h\njg      loc_1929\nmov     rax, [rbp+height]\ncmp     dword ptr [rax], 0\njle     loc_1929\nmov     rax, [rbp+height]\ncmp     dword ptr [rax], 186A0h\njle     loc_1951\nlea     rdi, aMask2vips; \"mask2vips\"\nlea     rsi, aS; \"%s\"\nlea     rdx, aWidthHeightOut; \"width / height out of range\"\nmov     al, 0\ncall    vips_error\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_19B2\nmovsd   xmm0, [rbp+header+10h]\nxorps   xmm1, xmm1\nucomisd xmm0, xmm1\njnz     loc_1991\njp      loc_1991\nlea     rdi, aMask2vips; \"mask2vips\"\nlea     rsi, aS; \"%s\"\nlea     rdx, aZeroScale; \"zero scale\"\nmov     al, 0\ncall    vips_error\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_19B2\nmovsd   xmm0, [rbp+header+10h]\nmov     rax, [rbp+scale]\nmovsd   qword ptr [rax], xmm0\nmovsd   xmm0, [rbp+header+18h]\nmov     rax, [rbp+offset]\nmovsd   qword ptr [rax], xmm0\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 70h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 34,
+  "edges": [
+   [
+    "start",
+    "loc_1748"
+   ],
+   [
+    "start",
+    "loc_1764"
+   ],
+   [
+    "loc_1748",
+    "loc_1764"
+   ],
+   [
+    "loc_1748",
+    "loc_176B"
+   ],
+   [
+    "loc_1764",
+    "loc_176B"
+   ],
+   [
+    "loc_176B",
+    "loc_177A"
+   ],
+   [
+    "loc_177A",
+    "loc_17A0"
+   ],
+   [
+    "loc_177A",
+    "loc_17AA"
+   ],
+   [
+    "loc_17A0",
+    "loc_17AA"
+   ],
+   [
+    "loc_17AA",
+    "loc_17B5"
+   ],
+   [
+    "loc_17AA",
+    "loc_17BA"
+   ],
+   [
+    "loc_17B5",
+    "loc_181B"
+   ],
+   [
+    "loc_17BA",
+    "loc_17DB"
+   ],
+   [
+    "loc_17BA",
+    "loc_1800"
+   ],
+   [
+    "loc_17DB",
+    "loc_19B2"
+   ],
+   [
+    "loc_1800",
+    "loc_1805"
+   ],
+   [
+    "loc_1805",
+    "loc_177A"
+   ],
+   [
+    "loc_181B",
+    "loc_1825"
+   ],
+   [
+    "loc_181B",
+    "loc_182D"
+   ],
+   [
+    "loc_1825",
+    "loc_182D"
+   ],
+   [
+    "loc_182D",
+    "loc_1837"
+   ],
+   [
+    "loc_182D",
+    "loc_1844"
+   ],
+   [
+    "loc_1837",
+    "loc_1844"
+   ],
+   [
+    "loc_1844",
+    "loc_184E"
+   ],
+   [
+    "loc_1844",
+    "loc_1876"
+   ],
+   [
+    "loc_184E",
+    "loc_19B2"
+   ],
+   [
+    "loc_1876",
+    "loc_188B"
+   ],
+   [
+    "loc_1876",
+    "loc_18B1"
+   ],
+   [
+    "loc_188B",
+    "loc_1891"
+   ],
+   [
+    "loc_188B",
+    "loc_18B1"
+   ],
+   [
+    "loc_1891",
+    "loc_18A6"
+   ],
+   [
+    "loc_1891",
+    "loc_18B1"
+   ],
+   [
+    "loc_18A6",
+    "loc_18AC"
+   ],
+   [
+    "loc_18A6",
+    "loc_18B1"
+   ],
+   [
+    "loc_18AC",
+    "loc_18D9"
+   ],
+   [
+    "loc_18B1",
+    "loc_19B2"
+   ],
+   [
+    "loc_18D9",
+    "loc_18FC"
+   ],
+   [
+    "loc_18D9",
+    "loc_1929"
+   ],
+   [
+    "loc_18FC",
+    "loc_190C"
+   ],
+   [
+    "loc_18FC",
+    "loc_1929"
+   ],
+   [
+    "loc_190C",
+    "loc_1919"
+   ],
+   [
+    "loc_190C",
+    "loc_1929"
+   ],
+   [
+    "loc_1919",
+    "loc_1929"
+   ],
+   [
+    "loc_1919",
+    "loc_1951"
+   ],
+   [
+    "loc_1929",
+    "loc_19B2"
+   ],
+   [
+    "loc_1951",
+    "loc_1963"
+   ],
+   [
+    "loc_1951",
+    "loc_1991"
+   ],
+   [
+    "loc_1963",
+    "loc_1969"
+   ],
+   [
+    "loc_1963",
+    "loc_1991"
+   ],
+   [
+    "loc_1969",
+    "loc_19B2"
+   ],
+   [
+    "loc_1991",
+    "loc_19B2"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 70h\nmov     [rbp+line], rdi\nmov     [rbp+width], rsi\nmov     [rbp+height], rdx\nmov     [rbp+scale], rcx\nmov     [rbp+offset], r8\nmov     rdi, [rbp+line]; s\nmov     esi, 0Dh; c\ncall    strchr\nmov     [rbp+p], rax\ncmp     rax, 0\njnz     loc_1764",
+   "loc_1748": "mov     rdi, [rbp+line]; s\nmov     esi, 0Ah; c\ncall    strchr\nmov     [rbp+p], rax\ncmp     rax, 0\njz      loc_176B",
+   "loc_1764": "mov     rax, [rbp+p]\nmov     byte ptr [rax], 0",
+   "loc_176B": "mov     [rbp+i], 0\nmov     rax, [rbp+line]\nmov     [rbp+p], rax",
+   "loc_177A": "mov     rdi, [rbp+p]; str\nlea     rsi, brk; \" \\t\"\ncall    vips_break_token\nmov     rcx, rax\nmov     [rbp+q], rcx\nxor     eax, eax\ncmp     rcx, 0\nmov     [rbp+var_65], al\njz      loc_17AA",
+   "loc_17A0": "cmp     [rbp+i], 4\nsetl    al\nmov     [rbp+var_65], al",
+   "loc_17AA": "mov     al, [rbp+var_65]\ntest    al, 1\njnz     loc_17BA",
+   "loc_17B5": "jmp     loc_181B",
+   "loc_17BA": "mov     rdi, [rbp+p]; str\nmovsxd  rax, [rbp+i]\nlea     rsi, [rbp+header]\nshl     rax, 3\nadd     rsi, rax; out\ncall    vips_strtod\ncmp     eax, 0\njz      loc_1800",
+   "loc_17DB": "mov     rdx, [rbp+p]\nlea     rdi, domain; \"matload\"\nlea     rsi, fmt; \"bad number \\\"%s\\\"\"\nmov     al, 0\ncall    vips_error\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_19B2",
+   "loc_1800": "jmp     $+5",
+   "loc_1805": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\nmov     rax, [rbp+q]\nmov     [rbp+p], rax\njmp     loc_177A",
+   "loc_181B": "cmp     [rbp+i], 4\njge     loc_182D",
+   "loc_1825": "xorps   xmm0, xmm0\nmovsd   [rbp+header+18h], xmm0",
+   "loc_182D": "cmp     [rbp+i], 3\njge     loc_1844",
+   "loc_1837": "movsd   xmm0, cs:qword_2008\nmovsd   [rbp+header+10h], xmm0",
+   "loc_1844": "cmp     [rbp+i], 2\njge     loc_1876",
+   "loc_184E": "lea     rdi, domain; \"matload\"\nlea     rsi, aS; \"%s\"\nlea     rdx, aNoWidthHeight; \"no width / height\"\nmov     al, 0\ncall    vips_error\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_19B2",
+   "loc_1876": "movsd   xmm0, [rbp+header]; x\ncall    floor\nucomisd xmm0, [rbp+header]\njnz     loc_18B1",
+   "loc_188B": "jp      loc_18B1",
+   "loc_1891": "movsd   xmm0, [rbp+header+8]; x\ncall    floor\nucomisd xmm0, [rbp+header+8]\njnz     loc_18B1",
+   "loc_18A6": "jp      loc_18B1",
+   "loc_18AC": "jmp     loc_18D9",
+   "loc_18B1": "lea     rdi, aMask2vips; \"mask2vips\"\nlea     rsi, aS; \"%s\"\nlea     rdx, aWidthHeightNot; \"width / height not int\"\nmov     al, 0\ncall    vips_error\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_19B2",
+   "loc_18D9": "cvttsd2si ecx, [rbp+header]\nmov     rax, [rbp+width]\nmov     [rax], ecx\ncvttsd2si ecx, [rbp+header+8]\nmov     rax, [rbp+height]\nmov     [rax], ecx\nmov     rax, [rbp+width]\ncmp     dword ptr [rax], 0\njle     loc_1929",
+   "loc_18FC": "mov     rax, [rbp+width]\ncmp     dword ptr [rax], 186A0h\njg      loc_1929",
+   "loc_190C": "mov     rax, [rbp+height]\ncmp     dword ptr [rax], 0\njle     loc_1929",
+   "loc_1919": "mov     rax, [rbp+height]\ncmp     dword ptr [rax], 186A0h\njle     loc_1951",
+   "loc_1929": "lea     rdi, aMask2vips; \"mask2vips\"\nlea     rsi, aS; \"%s\"\nlea     rdx, aWidthHeightOut; \"width / height out of range\"\nmov     al, 0\ncall    vips_error\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_19B2",
+   "loc_1951": "movsd   xmm0, [rbp+header+10h]\nxorps   xmm1, xmm1\nucomisd xmm0, xmm1\njnz     loc_1991",
+   "loc_1963": "jp      loc_1991",
+   "loc_1969": "lea     rdi, aMask2vips; \"mask2vips\"\nlea     rsi, aS; \"%s\"\nlea     rdx, aZeroScale; \"zero scale\"\nmov     al, 0\ncall    vips_error\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_19B2",
+   "loc_1991": "movsd   xmm0, [rbp+header+10h]\nmov     rax, [rbp+scale]\nmovsd   qword ptr [rax], xmm0\nmovsd   xmm0, [rbp+header+18h]\nmov     rax, [rbp+offset]\nmovsd   qword ptr [rax], xmm0\nmov     [rbp+var_4], 0",
+   "loc_19B2": "mov     eax, [rbp+var_4]\nadd     rsp, 70h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_65": "byte ptr -65h",
+   "i": "dword ptr -64h",
+   "q": "qword ptr -60h",
+   "p": "qword ptr -58h",
+   "header": "qword ptr -50h",
+   "offset": "qword ptr -30h",
+   "scale": "qword ptr -28h",
+   "height": "qword ptr -20h",
+   "width": "qword ptr -18h",
+   "line": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "brk": "byte ' ',9,0",
+   "domain": "byte 'matload',0",
+   "fmt": "byte 'bad number \"%s\"',0",
+   "qword_2008": "qword 3FF0000000000000h",
+   "aS": "byte '%s',0",
+   "aNoWidthHeight": "byte 'no width / height',0",
+   "aMask2vips": "byte 'mask2vips',0",
+   "aWidthHeightNot": "byte 'width / height not int',0",
+   "aWidthHeightOut": "byte 'width / height out of range',0",
+   "aZeroScale": "byte 'zero scale',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5904,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".__errno_location": "__errno_location",
+  "_errno_location": "__errno_location",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".strtod": "strtod",
+  "_strtod": "strtod",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".strchr": "strchr",
+  "_strchr": "strchr",
+  ".strspn": "strspn",
+  "_strspn": "strspn",
+  ".strcspn": "strcspn",
+  "_strcspn": "strcspn",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".floor": "floor",
+  "_floor": "floor",
+  ".__ctype_b_loc": "__ctype_b_loc",
+  "_ctype_b_loc": "__ctype_b_loc"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".__errno_location",
+   ".plt",
+   true,
+   "__errno_location"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".strtod",
+   ".plt",
+   true,
+   "strtod"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".strchr",
+   ".plt",
+   true,
+   "strchr"
+  ],
+  [
+   ".strspn",
+   ".plt",
+   true,
+   "strspn"
+  ],
+  [
+   ".strcspn",
+   ".plt",
+   true,
+   "strcspn"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".floor",
+   ".plt",
+   true,
+   "floor"
+  ],
+  [
+   ".__ctype_b_loc",
+   ".plt",
+   true,
+   "__ctype_b_loc"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__errno_location",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strtod",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strchr",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strspn",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcspn",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memmove",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "floor",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__ctype_b_loc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868489
+ }
+}

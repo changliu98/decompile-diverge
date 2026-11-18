@@ -1,0 +1,19 @@
+void invsubbytes(unsigned char (*state)[4][4])
+{
+  (*state)[0][0]=aes_invsbox[(*state)[0][0]>>4][(*state)[0][0]&0xf];
+  (*state)[0][1]=aes_invsbox[(*state)[0][1]>>4][(*state)[0][1]&0xf];
+  (*state)[0][2]=aes_invsbox[(*state)[0][2]>>4][(*state)[0][2]&0xf];
+  (*state)[0][3]=aes_invsbox[(*state)[0][3]>>4][(*state)[0][3]&0xf];
+  (*state)[1][0]=aes_invsbox[(*state)[1][0]>>4][(*state)[1][0]&0xf];
+  (*state)[1][1]=aes_invsbox[(*state)[1][1]>>4][(*state)[1][1]&0xf];
+  (*state)[1][2]=aes_invsbox[(*state)[1][2]>>4][(*state)[1][2]&0xf];
+  (*state)[1][3]=aes_invsbox[(*state)[1][3]>>4][(*state)[1][3]&0xf];
+  (*state)[2][0]=aes_invsbox[(*state)[2][0]>>4][(*state)[2][0]&0xf];
+  (*state)[2][1]=aes_invsbox[(*state)[2][1]>>4][(*state)[2][1]&0xf];
+  (*state)[2][2]=aes_invsbox[(*state)[2][2]>>4][(*state)[2][2]&0xf];
+  (*state)[2][3]=aes_invsbox[(*state)[2][3]>>4][(*state)[2][3]&0xf];
+  (*state)[3][0]=aes_invsbox[(*state)[3][0]>>4][(*state)[3][0]&0xf];
+  (*state)[3][1]=aes_invsbox[(*state)[3][1]>>4][(*state)[3][1]&0xf];
+  (*state)[3][2]=aes_invsbox[(*state)[3][2]>>4][(*state)[3][2]&0xf];
+  (*state)[3][3]=aes_invsbox[(*state)[3][3]>>4][(*state)[3][3]&0xf];
+}

@@ -1,0 +1,36 @@
+0000000000001570 <sboxCHECK>:
+    1570:	push   %rbp
+    1571:	mov    %rsp,%rbp
+    1574:	mov    %rdi,-0x10(%rbp)
+    1578:	mov    %rsi,-0x18(%rbp)
+    157c:	mov    %edx,-0x1c(%rbp)
+    157f:	cmpq   $0x0,-0x10(%rbp)
+    1584:	je     1595 <sboxCHECK+0x25>
+    158a:	cmpq   $0x0,-0x18(%rbp)
+    158f:	jne    15a1 <sboxCHECK+0x31>
+    1595:	movl   $0x1,-0x4(%rbp)
+    159c:	jmp    15f9 <sboxCHECK+0x89>
+    15a1:	movl   $0x0,-0x20(%rbp)
+    15a8:	mov    -0x20(%rbp),%eax
+    15ab:	cmp    -0x1c(%rbp),%eax
+    15ae:	jge    15f2 <sboxCHECK+0x82>
+    15b4:	mov    -0x10(%rbp),%rax
+    15b8:	movslq -0x20(%rbp),%rcx
+    15bc:	movss  (%rax,%rcx,4),%xmm0
+    15c1:	mov    -0x18(%rbp),%rax
+    15c5:	movslq -0x20(%rbp),%rcx
+    15c9:	ucomiss (%rax,%rcx,4),%xmm0
+    15cd:	jbe    15df <sboxCHECK+0x6f>
+    15d3:	movl   $0x0,-0x4(%rbp)
+    15da:	jmp    15f9 <sboxCHECK+0x89>
+    15df:	jmp    15e4 <sboxCHECK+0x74>
+    15e4:	mov    -0x20(%rbp),%eax
+    15e7:	add    $0x1,%eax
+    15ea:	mov    %eax,-0x20(%rbp)
+    15ed:	jmp    15a8 <sboxCHECK+0x38>
+    15f2:	movl   $0x1,-0x4(%rbp)
+    15f9:	mov    -0x4(%rbp),%eax
+    15fc:	pop    %rbp
+    15fd:	ret
+
+Disassembly of section .fini:

@@ -1,0 +1,1 @@
+void shr(word_t *w, int i) { if (i >= sizeof(word_t) * 8) { i -= sizeof(word_t) * 8; w[0] = w[1]; w[1] = 0; } w[0] >>= i; w[0] |= w[1] << (sizeof(word_t) * 8 - i); w[1] >>= i; }

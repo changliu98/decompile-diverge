@@ -1,0 +1,1 @@
+int getPossibleCount(int *arr, int *possibleCount) { int i; int count = 0; int sz = sizeof(arr) + 1; for (i = 0; i < sz; i++) { if (arr[i] != 0) { count++; *possibleCount = arr[i]; } } return count; }

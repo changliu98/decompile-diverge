@@ -1,0 +1,1 @@
+char *hcfs2string(int state) { switch (state) { case  usb_hcfs_RESET: return "reset"; case  usb_hcfs_SUSPEND: return "suspend"; case  usb_hcfs_SUSPEND: return "operational"; case  usb_hcfs_SUSPEND: return "?"; } return "?"; }

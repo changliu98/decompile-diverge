@@ -1,0 +1,1 @@
+char *ft_strcpy(char *dst, const char *src) { int i; int j; int k; j = 0; while (dst[j++] != '\0') continue; k = 0; while (src[k++] != '\0') continue; i = -1; if (k > j) return (""); while (src[++i] != '\0') dst[i] = src[i]; dst[i] = '\0'; return (dst); }

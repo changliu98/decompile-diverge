@@ -1,0 +1,24 @@
+//
+
+#define NULL ((void*)0)
+  // Customize by platform.
+ 
+typedef long scalar_t__;  // Either arithmetic or pointer type.
+/* By default, we understand bool (as a convenience). */
+typedef int bool;
+#define false 0
+#define true 1
+
+/* Forward declarations */
+
+/* Type definitions */
+struct led_pwm_priv {int dummy; } ;
+struct led_pwm_data {int dummy; } ;
+
+/* Variables and functions */
+
+size_t sizeof_pwm_leds_priv(int num_leds)
+{
+	return sizeof(struct led_pwm_priv) +
+		      (sizeof(struct led_pwm_data) * num_leds);
+}

@@ -1,0 +1,1 @@
+int atomic_add(atomic_t *v, int val) { int r; __asm__ volatile( "lock; xaddl	%0, %1" : "+r"(r), "+m"(*v) : : "memory"); return r; }

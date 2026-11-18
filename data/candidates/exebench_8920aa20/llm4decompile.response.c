@@ -1,0 +1,11 @@
+int medusaReceiveInternal(int socket, unsigned char *buf, int length) {
+
+
+
+
+
+
+
+  return recv(socket, buf, length, 0);
+
+}

@@ -1,0 +1,1 @@
+uint32_t func0(uint32_t *p, int n) { uint32_t sum = 0; for (int i = 0; i < n; ++i) { for (int j = i + 1; j < n; ++j) { sum += p[i] ^ p[j]; } } return sum; }

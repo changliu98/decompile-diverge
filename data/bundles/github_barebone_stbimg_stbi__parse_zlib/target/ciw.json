@@ -1,0 +1,505 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+a], rdi\nmov     [rbp+parse_header], esi\ncmp     [rbp+parse_header], 0\njz      loc_355C\nmov     rdi, [rbp+a]; a\ncall    stbi__parse_zlib_header\ncmp     eax, 0\njnz     loc_3557\nmov     [rbp+var_4], 0\njmp     loc_36B8\njmp     $+5\nmov     rax, [rbp+a]\nmov     dword ptr [rax+10h], 0\nmov     rax, [rbp+a]\nmov     dword ptr [rax+18h], 0\nmov     rax, [rbp+a]\nmov     dword ptr [rax+14h], 0\nmov     rdi, [rbp+a]; z\nmov     esi, 1; n\ncall    stbi__zreceive\nmov     [rbp+final], eax\nmov     rdi, [rbp+a]; z\nmov     esi, 2; n\ncall    stbi__zreceive\nmov     [rbp+type], eax\ncmp     [rbp+type], 0\njnz     loc_35CC\nmov     rdi, [rbp+a]; a\ncall    stbi__parse_uncompressed_block\ncmp     eax, 0\njnz     loc_35C7\nmov     [rbp+var_4], 0\njmp     loc_36B8\njmp     loc_369B\ncmp     [rbp+type], 3\njnz     loc_35E2\nmov     [rbp+var_4], 0\njmp     loc_36B8\ncmp     [rbp+type], 1\njnz     loc_3650\nmov     rdi, [rbp+a]\nadd     rdi, 3Ch ; '<'; z\nlea     rsi, stbi__zdefault_length; sizelist\nmov     edx, 120h; num\ncall    stbi__zbuild_huffman\ncmp     eax, 0\njnz     loc_361A\nmov     [rbp+var_4], 0\njmp     loc_36B8\nmov     rdi, [rbp+a]\nadd     rdi, 820h; z\nlea     rsi, stbi__zdefault_distance; sizelist\nmov     edx, 20h ; ' '; num\ncall    stbi__zbuild_huffman\ncmp     eax, 0\njnz     loc_364B\nmov     [rbp+var_4], 0\njmp     loc_36B8\njmp     loc_3673\nmov     rdi, [rbp+a]; a\ncall    stbi__compute_huffman_codes\ncmp     eax, 0\njnz     loc_366E\nmov     [rbp+var_4], 0\njmp     loc_36B8\njmp     $+5\nmov     rdi, [rbp+a]; a\ncall    stbi__parse_huffman_block\ncmp     eax, 0\njnz     loc_3691\nmov     [rbp+var_4], 0\njmp     loc_36B8\njmp     $+5\njmp     $+5\njmp     $+5\ncmp     [rbp+final], 0\nsetnz   al\nxor     al, 0FFh\ntest    al, 1\njnz     loc_357D\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 20h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 28,
+  "edges": [
+   [
+    "start",
+    "loc_3539"
+   ],
+   [
+    "start",
+    "loc_355C"
+   ],
+   [
+    "loc_3539",
+    "loc_354B"
+   ],
+   [
+    "loc_3539",
+    "loc_3557"
+   ],
+   [
+    "loc_354B",
+    "loc_36B8"
+   ],
+   [
+    "loc_3557",
+    "loc_355C"
+   ],
+   [
+    "loc_355C",
+    "loc_357D"
+   ],
+   [
+    "loc_357D",
+    "loc_35A9"
+   ],
+   [
+    "loc_357D",
+    "loc_35CC"
+   ],
+   [
+    "loc_35A9",
+    "loc_35BB"
+   ],
+   [
+    "loc_35A9",
+    "loc_35C7"
+   ],
+   [
+    "loc_35BB",
+    "loc_36B8"
+   ],
+   [
+    "loc_35C7",
+    "loc_369B"
+   ],
+   [
+    "loc_35CC",
+    "loc_35D6"
+   ],
+   [
+    "loc_35CC",
+    "loc_35E2"
+   ],
+   [
+    "loc_35D6",
+    "loc_36B8"
+   ],
+   [
+    "loc_35E2",
+    "loc_35EC"
+   ],
+   [
+    "loc_35E2",
+    "loc_3650"
+   ],
+   [
+    "loc_35EC",
+    "loc_360E"
+   ],
+   [
+    "loc_35EC",
+    "loc_361A"
+   ],
+   [
+    "loc_360E",
+    "loc_36B8"
+   ],
+   [
+    "loc_361A",
+    "loc_363F"
+   ],
+   [
+    "loc_361A",
+    "loc_364B"
+   ],
+   [
+    "loc_363F",
+    "loc_36B8"
+   ],
+   [
+    "loc_364B",
+    "loc_3673"
+   ],
+   [
+    "loc_3650",
+    "loc_3662"
+   ],
+   [
+    "loc_3650",
+    "loc_366E"
+   ],
+   [
+    "loc_3662",
+    "loc_36B8"
+   ],
+   [
+    "loc_366E",
+    "loc_3673"
+   ],
+   [
+    "loc_3673",
+    "loc_3685"
+   ],
+   [
+    "loc_3673",
+    "loc_3691"
+   ],
+   [
+    "loc_3685",
+    "loc_36B8"
+   ],
+   [
+    "loc_3691",
+    "loc_3696"
+   ],
+   [
+    "loc_3696",
+    "loc_369B"
+   ],
+   [
+    "loc_369B",
+    "loc_36A0"
+   ],
+   [
+    "loc_36A0",
+    "loc_357D"
+   ],
+   [
+    "loc_36A0",
+    "loc_36B1"
+   ],
+   [
+    "loc_36B1",
+    "loc_36B8"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+a], rdi\nmov     [rbp+parse_header], esi\ncmp     [rbp+parse_header], 0\njz      loc_355C",
+   "loc_3539": "mov     rdi, [rbp+a]; a\ncall    stbi__parse_zlib_header\ncmp     eax, 0\njnz     loc_3557",
+   "loc_354B": "mov     [rbp+var_4], 0\njmp     loc_36B8",
+   "loc_3557": "jmp     $+5",
+   "loc_355C": "mov     rax, [rbp+a]\nmov     dword ptr [rax+10h], 0\nmov     rax, [rbp+a]\nmov     dword ptr [rax+18h], 0\nmov     rax, [rbp+a]\nmov     dword ptr [rax+14h], 0",
+   "loc_357D": "mov     rdi, [rbp+a]; z\nmov     esi, 1; n\ncall    stbi__zreceive\nmov     [rbp+final], eax\nmov     rdi, [rbp+a]; z\nmov     esi, 2; n\ncall    stbi__zreceive\nmov     [rbp+type], eax\ncmp     [rbp+type], 0\njnz     loc_35CC",
+   "loc_35A9": "mov     rdi, [rbp+a]; a\ncall    stbi__parse_uncompressed_block\ncmp     eax, 0\njnz     loc_35C7",
+   "loc_35BB": "mov     [rbp+var_4], 0\njmp     loc_36B8",
+   "loc_35C7": "jmp     loc_369B",
+   "loc_35CC": "cmp     [rbp+type], 3\njnz     loc_35E2",
+   "loc_35D6": "mov     [rbp+var_4], 0\njmp     loc_36B8",
+   "loc_35E2": "cmp     [rbp+type], 1\njnz     loc_3650",
+   "loc_35EC": "mov     rdi, [rbp+a]\nadd     rdi, 3Ch ; '<'; z\nlea     rsi, stbi__zdefault_length; sizelist\nmov     edx, 120h; num\ncall    stbi__zbuild_huffman\ncmp     eax, 0\njnz     loc_361A",
+   "loc_360E": "mov     [rbp+var_4], 0\njmp     loc_36B8",
+   "loc_361A": "mov     rdi, [rbp+a]\nadd     rdi, 820h; z\nlea     rsi, stbi__zdefault_distance; sizelist\nmov     edx, 20h ; ' '; num\ncall    stbi__zbuild_huffman\ncmp     eax, 0\njnz     loc_364B",
+   "loc_363F": "mov     [rbp+var_4], 0\njmp     loc_36B8",
+   "loc_364B": "jmp     loc_3673",
+   "loc_3650": "mov     rdi, [rbp+a]; a\ncall    stbi__compute_huffman_codes\ncmp     eax, 0\njnz     loc_366E",
+   "loc_3662": "mov     [rbp+var_4], 0\njmp     loc_36B8",
+   "loc_366E": "jmp     $+5",
+   "loc_3673": "mov     rdi, [rbp+a]; a\ncall    stbi__parse_huffman_block\ncmp     eax, 0\njnz     loc_3691",
+   "loc_3685": "mov     [rbp+var_4], 0\njmp     loc_36B8",
+   "loc_3691": "jmp     $+5",
+   "loc_3696": "jmp     $+5",
+   "loc_369B": "jmp     $+5",
+   "loc_36A0": "cmp     [rbp+final], 0\nsetnz   al\nxor     al, 0FFh\ntest    al, 1\njnz     loc_357D",
+   "loc_36B1": "mov     [rbp+var_4], 1",
+   "loc_36B8": "mov     eax, [rbp+var_4]\nadd     rsp, 20h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "type": "dword ptr -1Ch",
+   "final": "dword ptr -18h",
+   "parse_header": "dword ptr -14h",
+   "a": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "stbi__zdefault_length": "byte 8",
+   "stbi__zdefault_distance": "byte 5"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 13600,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".ldexp": "ldexp",
+  "_ldexp": "ldexp",
+  ".strncmp": "strncmp",
+  "_strncmp": "strncmp",
+  ".ferror": "ferror",
+  "_ferror": "ferror",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".abs": "abs",
+  "_abs": "abs",
+  ".pow": "pow",
+  "_pow": "pow",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fgetc": "fgetc",
+  "_fgetc": "fgetc",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".feof": "feof",
+  "_feof": "feof",
+  ".strtol": "strtol",
+  "_strtol": "strtol",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".ungetc": "ungetc",
+  "_ungetc": "ungetc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".ldexp",
+   ".plt",
+   true,
+   "ldexp"
+  ],
+  [
+   ".strncmp",
+   ".plt",
+   true,
+   "strncmp"
+  ],
+  [
+   ".ferror",
+   ".plt",
+   true,
+   "ferror"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".abs",
+   ".plt",
+   true,
+   "abs"
+  ],
+  [
+   ".pow",
+   ".plt",
+   true,
+   "pow"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fgetc",
+   ".plt",
+   true,
+   "fgetc"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".feof",
+   ".plt",
+   true,
+   "feof"
+  ],
+  [
+   ".strtol",
+   ".plt",
+   true,
+   "strtol"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".ungetc",
+   ".plt",
+   true,
+   "ungetc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ldexp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ferror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "abs",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "pow",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fgetc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872684
+ }
+}

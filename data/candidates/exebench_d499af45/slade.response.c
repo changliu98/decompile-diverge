@@ -1,0 +1,1 @@
+void validate_rt_entry(uintptr_t *entry) { *(uintptr_t *)entry &= ~0x20; *(uintptr_t *)entry &= ~0xC0; *(uintptr_t *)entry |=0x03; }

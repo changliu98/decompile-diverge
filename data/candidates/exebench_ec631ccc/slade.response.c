@@ -1,0 +1,1 @@
+void lamda2x(double *a, double *x, double *y, double *z) { x[0] = y[0]*a[0] + y[5]*a[1] + y[4]*a[2] + z[0]; x[1] = y[1]*a[1] + y[3]*a[2] + z[1]; x[2] = y[2]*a[2] + z[2]; }

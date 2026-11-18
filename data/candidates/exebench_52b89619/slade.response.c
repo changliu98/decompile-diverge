@@ -1,0 +1,1 @@
+int LibErrorCorrect_ConvolutionalCode_211(int errorCode, int inputs[20]) { inputs[0] = errorCode; inputs[1] = inputM0 ^ errorCode; inputM0 = errorCode; return 0; }

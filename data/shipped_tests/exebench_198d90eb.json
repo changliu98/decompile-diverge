@@ -1,0 +1,227 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <stdio.h>\n\n#include <stdlib.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_60r93jl7u3.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(int* kpos) {\n  json output_json;\n  std::vector<json> output_temp_2;\n  for (unsigned int i3 = 0; i3 < 5; i3++) {\n    int output_temp_4 = kpos[i3];\n\n    output_temp_2.push_back(output_temp_4);\n  }\n  output_json[\"kpos\"] = output_temp_2;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  std::vector<int> input_temp_1_vec;\n  for (auto& elem : input_json[\"kpos\"]) {\n    int input_temp_1_inner = elem;\n    input_temp_1_vec.push_back(input_temp_1_inner);\n  }\n  int* kpos = &input_temp_1_vec[0];\n  clock_t begin = clock();\n  advance_kpos(kpos);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(kpos);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "kpos": [
+     107,
+     100,
+     51,
+     52,
+     77
+    ]
+   },
+   "output": {
+    "kpos": [
+     26,
+     8,
+     23,
+     1,
+     9
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "kpos": [
+     106,
+     46,
+     92,
+     75,
+     10
+    ]
+   },
+   "output": {
+    "kpos": [
+     25,
+     16,
+     6,
+     24,
+     11
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "kpos": [
+     30,
+     107,
+     98,
+     11,
+     83
+    ]
+   },
+   "output": {
+    "kpos": [
+     31,
+     15,
+     12,
+     12,
+     15
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "kpos": [
+     123,
+     17,
+     84,
+     71,
+     116
+    ]
+   },
+   "output": {
+    "kpos": [
+     1,
+     18,
+     27,
+     20,
+     2
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "kpos": [
+     15,
+     96,
+     26,
+     98,
+     120
+    ]
+   },
+   "output": {
+    "kpos": [
+     16,
+     4,
+     27,
+     21,
+     6
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "kpos": [
+     61,
+     112,
+     64,
+     35,
+     18
+    ]
+   },
+   "output": {
+    "kpos": [
+     21,
+     20,
+     7,
+     10,
+     19
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "kpos": [
+     61,
+     66,
+     72,
+     62,
+     126
+    ]
+   },
+   "output": {
+    "kpos": [
+     21,
+     5,
+     15,
+     11,
+     12
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "kpos": [
+     74,
+     71,
+     101,
+     125,
+     122
+    ]
+   },
+   "output": {
+    "kpos": [
+     34,
+     10,
+     15,
+     22,
+     8
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "kpos": [
+     123,
+     82,
+     61,
+     66,
+     58
+    ]
+   },
+   "output": {
+    "kpos": [
+     1,
+     21,
+     4,
+     15,
+     13
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "kpos": [
+     90,
+     48,
+     81,
+     15,
+     67
+    ]
+   },
+   "output": {
+    "kpos": [
+     9,
+     18,
+     24,
+     16,
+     22
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

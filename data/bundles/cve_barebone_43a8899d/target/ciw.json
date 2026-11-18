@@ -1,0 +1,372 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+object], rdi\nmov     [rbp+name], rsi\nmov     [rbp+case_sensitive], edx\nmov     [rbp+current_element], 0\ncmp     [rbp+object], 0\njz      loc_14B1\ncmp     [rbp+name], 0\njnz     loc_14BE\nmov     [rbp+var_8], 0\njmp     loc_1584\nmov     rax, [rbp+object]\nmov     rax, [rax+10h]\nmov     [rbp+current_element], rax\ncmp     [rbp+case_sensitive], 0\njz      loc_1528\njmp     $+5\nxor     eax, eax\ncmp     [rbp+current_element], 0\nmov     [rbp+var_29], al\njz      loc_1503\nmov     rdi, [rbp+name]; s1\nmov     rax, [rbp+current_element]\nmov     rsi, [rax+38h]; s2\ncall    strcmp\ncmp     eax, 0\nsetnz   al\nmov     [rbp+var_29], al\nmov     al, [rbp+var_29]\ntest    al, 1\njnz     loc_1513\njmp     loc_1523\nmov     rax, [rbp+current_element]\nmov     rax, [rax]\nmov     [rbp+current_element], rax\njmp     loc_14D9\njmp     loc_157C\njmp     $+5\nxor     eax, eax\ncmp     [rbp+current_element], 0\nmov     [rbp+var_2A], al\njz      loc_1557\nmov     rdi, [rbp+name]; string1\nmov     rax, [rbp+current_element]\nmov     rsi, [rax+38h]; string2\ncall    case_insensitive_strcmp\ncmp     eax, 0\nsetnz   al\nmov     [rbp+var_2A], al\nmov     al, [rbp+var_2A]\ntest    al, 1\njnz     loc_1567\njmp     loc_1577\nmov     rax, [rbp+current_element]\nmov     rax, [rax]\nmov     [rbp+current_element], rax\njmp     loc_152D\njmp     $+5\nmov     rax, [rbp+current_element]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 20,
+  "edges": [
+   [
+    "start",
+    "loc_14A6"
+   ],
+   [
+    "start",
+    "loc_14B1"
+   ],
+   [
+    "loc_14A6",
+    "loc_14B1"
+   ],
+   [
+    "loc_14A6",
+    "loc_14BE"
+   ],
+   [
+    "loc_14B1",
+    "loc_1584"
+   ],
+   [
+    "loc_14BE",
+    "loc_14D4"
+   ],
+   [
+    "loc_14BE",
+    "loc_1528"
+   ],
+   [
+    "loc_14D4",
+    "loc_14D9"
+   ],
+   [
+    "loc_14D9",
+    "loc_14E9"
+   ],
+   [
+    "loc_14D9",
+    "loc_1503"
+   ],
+   [
+    "loc_14E9",
+    "loc_1503"
+   ],
+   [
+    "loc_1503",
+    "loc_150E"
+   ],
+   [
+    "loc_1503",
+    "loc_1513"
+   ],
+   [
+    "loc_150E",
+    "loc_1523"
+   ],
+   [
+    "loc_1513",
+    "loc_14D9"
+   ],
+   [
+    "loc_1523",
+    "loc_157C"
+   ],
+   [
+    "loc_1528",
+    "loc_152D"
+   ],
+   [
+    "loc_152D",
+    "loc_153D"
+   ],
+   [
+    "loc_152D",
+    "loc_1557"
+   ],
+   [
+    "loc_153D",
+    "loc_1557"
+   ],
+   [
+    "loc_1557",
+    "loc_1562"
+   ],
+   [
+    "loc_1557",
+    "loc_1567"
+   ],
+   [
+    "loc_1562",
+    "loc_1577"
+   ],
+   [
+    "loc_1567",
+    "loc_152D"
+   ],
+   [
+    "loc_1577",
+    "loc_157C"
+   ],
+   [
+    "loc_157C",
+    "loc_1584"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+object], rdi\nmov     [rbp+name], rsi\nmov     [rbp+case_sensitive], edx\nmov     [rbp+current_element], 0\ncmp     [rbp+object], 0\njz      loc_14B1",
+   "loc_14A6": "cmp     [rbp+name], 0\njnz     loc_14BE",
+   "loc_14B1": "mov     [rbp+var_8], 0\njmp     loc_1584",
+   "loc_14BE": "mov     rax, [rbp+object]\nmov     rax, [rax+10h]\nmov     [rbp+current_element], rax\ncmp     [rbp+case_sensitive], 0\njz      loc_1528",
+   "loc_14D4": "jmp     $+5",
+   "loc_14D9": "xor     eax, eax\ncmp     [rbp+current_element], 0\nmov     [rbp+var_29], al\njz      loc_1503",
+   "loc_14E9": "mov     rdi, [rbp+name]; s1\nmov     rax, [rbp+current_element]\nmov     rsi, [rax+38h]; s2\ncall    strcmp\ncmp     eax, 0\nsetnz   al\nmov     [rbp+var_29], al",
+   "loc_1503": "mov     al, [rbp+var_29]\ntest    al, 1\njnz     loc_1513",
+   "loc_150E": "jmp     loc_1523",
+   "loc_1513": "mov     rax, [rbp+current_element]\nmov     rax, [rax]\nmov     [rbp+current_element], rax\njmp     loc_14D9",
+   "loc_1523": "jmp     loc_157C",
+   "loc_1528": "jmp     $+5",
+   "loc_152D": "xor     eax, eax\ncmp     [rbp+current_element], 0\nmov     [rbp+var_2A], al\njz      loc_1557",
+   "loc_153D": "mov     rdi, [rbp+name]; string1\nmov     rax, [rbp+current_element]\nmov     rsi, [rax+38h]; string2\ncall    case_insensitive_strcmp\ncmp     eax, 0\nsetnz   al\nmov     [rbp+var_2A], al",
+   "loc_1557": "mov     al, [rbp+var_2A]\ntest    al, 1\njnz     loc_1567",
+   "loc_1562": "jmp     loc_1577",
+   "loc_1567": "mov     rax, [rbp+current_element]\nmov     rax, [rax]\nmov     [rbp+current_element], rax\njmp     loc_152D",
+   "loc_1577": "jmp     $+5",
+   "loc_157C": "mov     rax, [rbp+current_element]\nmov     [rbp+var_8], rax",
+   "loc_1584": "mov     rax, [rbp+var_8]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_2A": "byte ptr -2Ah",
+   "var_29": "byte ptr -29h",
+   "current_element": "qword ptr -28h",
+   "case_sensitive": "dword ptr -1Ch",
+   "name": "qword ptr -18h",
+   "object": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5248,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".tolower": "tolower",
+  "_tolower": "tolower",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".strdup": "strdup",
+  "_strdup": "strdup"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".tolower",
+   ".plt",
+   true,
+   "tolower"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".strdup",
+   ".plt",
+   true,
+   "strdup"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "tolower",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strdup",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868460
+ }
+}

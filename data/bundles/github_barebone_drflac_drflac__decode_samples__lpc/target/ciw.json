@@ -1,0 +1,415 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0D0h\nmov     al, cl\nmov     [rbp+bs], rdi\nmov     [rbp+blockSize], esi\nmov     [rbp+bitsPerSample], edx\nmov     [rbp+lpcOrder], al\nmov     [rbp+pDecodedSamples], r8\nmov     [rbp+i], 0\nmovzx   eax, [rbp+i]\nmovzx   ecx, [rbp+lpcOrder]\ncmp     eax, ecx\njge     loc_DE28\nmov     rdi, [rbp+bs]; bs\nmov     esi, [rbp+bitsPerSample]; bitCount\nlea     rdx, [rbp+sample]; pResult\ncall    drflac__read_int32\ncmp     eax, 0\njnz     loc_DE0A\nmov     [rbp+var_4], 0\njmp     loc_DF6E\nmov     edx, [rbp+sample]\nmov     rax, [rbp+pDecodedSamples]\nmovzx   ecx, [rbp+i]\nmov     [rax+rcx*4], edx\nmov     al, [rbp+i]\nadd     al, 1\nmov     [rbp+i], al\njmp     loc_DDD2\nmov     rdi, [rbp+bs]; bs\nmov     esi, 4; bitCount\nlea     rdx, [rbp+lpcPrecision]; pResult\ncall    drflac__read_uint8\ncmp     eax, 0\njnz     loc_DE4F\nmov     [rbp+var_4], 0\njmp     loc_DF6E\nmovzx   eax, [rbp+lpcPrecision]\ncmp     eax, 0Fh\njnz     loc_DE68\nmov     [rbp+var_4], 0\njmp     loc_DF6E\nmovzx   eax, [rbp+lpcPrecision]\nadd     eax, 1\nmov     [rbp+lpcPrecision], al\nmov     rdi, [rbp+bs]; bs\nmov     esi, 5; bitCount\nlea     rdx, [rbp+lpcShift]; pResult\ncall    drflac__read_int8\ncmp     eax, 0\njnz     loc_DE99\nmov     [rbp+var_4], 0\njmp     loc_DF6E\nmovsx   eax, [rbp+lpcShift]\ncmp     eax, 0\njge     loc_DEB2\nmov     [rbp+var_4], 0\njmp     loc_DF6E\nlea     rdi, [rbp+coefficients]; s\nxor     esi, esi; c\nmov     edx, 80h; n\ncall    memset\nmov     [rbp+i], 0\nmovzx   eax, [rbp+i]\nmovzx   ecx, [rbp+lpcOrder]\ncmp     eax, ecx\njge     loc_DF21\nmov     rdi, [rbp+bs]; bs\nmovzx   esi, [rbp+lpcPrecision]; bitCount\nlea     rdx, [rbp+coefficients]\nmovzx   eax, [rbp+i]\ncdqe\nshl     rax, 2\nadd     rdx, rax; pResult\ncall    drflac__read_int32\ncmp     eax, 0\njnz     loc_DF0F\nmov     [rbp+var_4], 0\njmp     loc_DF6E\njmp     $+5\nmov     al, [rbp+i]\nadd     al, 1\nmov     [rbp+i], al\njmp     loc_DEC9\nmov     rdi, [rbp+bs]; bs\nmov     esi, [rbp+bitsPerSample]; bitsPerSample\nmov     edx, [rbp+blockSize]; blockSize\nmovzx   ecx, [rbp+lpcOrder]; lpcOrder\nmovsx   r8d, [rbp+lpcShift]; lpcShift\nmovzx   r9d, [rbp+lpcPrecision]; lpcPrecision\nlea     r10, [rbp+coefficients]\nmov     rax, [rbp+pDecodedSamples]\nmov     [rsp+0D0h+var_D0], r10; coefficients\nmov     [rsp+0D0h+var_C8], rax; pDecodedSamples\ncall    drflac__decode_samples_with_residual\ncmp     eax, 0\njnz     loc_DF67\nmov     [rbp+var_4], 0\njmp     loc_DF6E\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 0D0h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 23,
+  "edges": [
+   [
+    "start",
+    "loc_DDD2"
+   ],
+   [
+    "loc_DDD2",
+    "loc_DDE2"
+   ],
+   [
+    "loc_DDD2",
+    "loc_DE28"
+   ],
+   [
+    "loc_DDE2",
+    "loc_DDFE"
+   ],
+   [
+    "loc_DDE2",
+    "loc_DE0A"
+   ],
+   [
+    "loc_DDFE",
+    "loc_DF6E"
+   ],
+   [
+    "loc_DE0A",
+    "loc_DDD2"
+   ],
+   [
+    "loc_DE28",
+    "loc_DE43"
+   ],
+   [
+    "loc_DE28",
+    "loc_DE4F"
+   ],
+   [
+    "loc_DE43",
+    "loc_DF6E"
+   ],
+   [
+    "loc_DE4F",
+    "loc_DE5C"
+   ],
+   [
+    "loc_DE4F",
+    "loc_DE68"
+   ],
+   [
+    "loc_DE5C",
+    "loc_DF6E"
+   ],
+   [
+    "loc_DE68",
+    "loc_DE8D"
+   ],
+   [
+    "loc_DE68",
+    "loc_DE99"
+   ],
+   [
+    "loc_DE8D",
+    "loc_DF6E"
+   ],
+   [
+    "loc_DE99",
+    "loc_DEA6"
+   ],
+   [
+    "loc_DE99",
+    "loc_DEB2"
+   ],
+   [
+    "loc_DEA6",
+    "loc_DF6E"
+   ],
+   [
+    "loc_DEB2",
+    "loc_DEC9"
+   ],
+   [
+    "loc_DEC9",
+    "loc_DED9"
+   ],
+   [
+    "loc_DEC9",
+    "loc_DF21"
+   ],
+   [
+    "loc_DED9",
+    "loc_DF03"
+   ],
+   [
+    "loc_DED9",
+    "loc_DF0F"
+   ],
+   [
+    "loc_DF03",
+    "loc_DF6E"
+   ],
+   [
+    "loc_DF0F",
+    "loc_DF14"
+   ],
+   [
+    "loc_DF14",
+    "loc_DEC9"
+   ],
+   [
+    "loc_DF21",
+    "loc_DF5B"
+   ],
+   [
+    "loc_DF21",
+    "loc_DF67"
+   ],
+   [
+    "loc_DF5B",
+    "loc_DF6E"
+   ],
+   [
+    "loc_DF67",
+    "loc_DF6E"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0D0h\nmov     al, cl\nmov     [rbp+bs], rdi\nmov     [rbp+blockSize], esi\nmov     [rbp+bitsPerSample], edx\nmov     [rbp+lpcOrder], al\nmov     [rbp+pDecodedSamples], r8\nmov     [rbp+i], 0",
+   "loc_DDD2": "movzx   eax, [rbp+i]\nmovzx   ecx, [rbp+lpcOrder]\ncmp     eax, ecx\njge     loc_DE28",
+   "loc_DDE2": "mov     rdi, [rbp+bs]; bs\nmov     esi, [rbp+bitsPerSample]; bitCount\nlea     rdx, [rbp+sample]; pResult\ncall    drflac__read_int32\ncmp     eax, 0\njnz     loc_DE0A",
+   "loc_DDFE": "mov     [rbp+var_4], 0\njmp     loc_DF6E",
+   "loc_DE0A": "mov     edx, [rbp+sample]\nmov     rax, [rbp+pDecodedSamples]\nmovzx   ecx, [rbp+i]\nmov     [rax+rcx*4], edx\nmov     al, [rbp+i]\nadd     al, 1\nmov     [rbp+i], al\njmp     loc_DDD2",
+   "loc_DE28": "mov     rdi, [rbp+bs]; bs\nmov     esi, 4; bitCount\nlea     rdx, [rbp+lpcPrecision]; pResult\ncall    drflac__read_uint8\ncmp     eax, 0\njnz     loc_DE4F",
+   "loc_DE43": "mov     [rbp+var_4], 0\njmp     loc_DF6E",
+   "loc_DE4F": "movzx   eax, [rbp+lpcPrecision]\ncmp     eax, 0Fh\njnz     loc_DE68",
+   "loc_DE5C": "mov     [rbp+var_4], 0\njmp     loc_DF6E",
+   "loc_DE68": "movzx   eax, [rbp+lpcPrecision]\nadd     eax, 1\nmov     [rbp+lpcPrecision], al\nmov     rdi, [rbp+bs]; bs\nmov     esi, 5; bitCount\nlea     rdx, [rbp+lpcShift]; pResult\ncall    drflac__read_int8\ncmp     eax, 0\njnz     loc_DE99",
+   "loc_DE8D": "mov     [rbp+var_4], 0\njmp     loc_DF6E",
+   "loc_DE99": "movsx   eax, [rbp+lpcShift]\ncmp     eax, 0\njge     loc_DEB2",
+   "loc_DEA6": "mov     [rbp+var_4], 0\njmp     loc_DF6E",
+   "loc_DEB2": "lea     rdi, [rbp+coefficients]; s\nxor     esi, esi; c\nmov     edx, 80h; n\ncall    memset\nmov     [rbp+i], 0",
+   "loc_DEC9": "movzx   eax, [rbp+i]\nmovzx   ecx, [rbp+lpcOrder]\ncmp     eax, ecx\njge     loc_DF21",
+   "loc_DED9": "mov     rdi, [rbp+bs]; bs\nmovzx   esi, [rbp+lpcPrecision]; bitCount\nlea     rdx, [rbp+coefficients]\nmovzx   eax, [rbp+i]\ncdqe\nshl     rax, 2\nadd     rdx, rax; pResult\ncall    drflac__read_int32\ncmp     eax, 0\njnz     loc_DF0F",
+   "loc_DF03": "mov     [rbp+var_4], 0\njmp     loc_DF6E",
+   "loc_DF0F": "jmp     $+5",
+   "loc_DF14": "mov     al, [rbp+i]\nadd     al, 1\nmov     [rbp+i], al\njmp     loc_DEC9",
+   "loc_DF21": "mov     rdi, [rbp+bs]; bs\nmov     esi, [rbp+bitsPerSample]; bitsPerSample\nmov     edx, [rbp+blockSize]; blockSize\nmovzx   ecx, [rbp+lpcOrder]; lpcOrder\nmovsx   r8d, [rbp+lpcShift]; lpcShift\nmovzx   r9d, [rbp+lpcPrecision]; lpcPrecision\nlea     r10, [rbp+coefficients]\nmov     rax, [rbp+pDecodedSamples]\nmov     [rsp+0D0h+var_D0], r10; coefficients\nmov     [rsp+0D0h+var_C8], rax; pDecodedSamples\ncall    drflac__decode_samples_with_residual\ncmp     eax, 0\njnz     loc_DF67",
+   "loc_DF5B": "mov     [rbp+var_4], 0\njmp     loc_DF6E",
+   "loc_DF67": "mov     [rbp+var_4], 1",
+   "loc_DF6E": "mov     eax, [rbp+var_4]\nadd     rsp, 0D0h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_D0": "qword ptr -0D0h",
+   "var_C8": "qword ptr -0C8h",
+   "sample": "dword ptr -0B4h",
+   "coefficients": "dword ptr -0B0h",
+   "lpcShift": "byte ptr -2Bh",
+   "lpcPrecision": "byte ptr -2Ah",
+   "i": "byte ptr -29h",
+   "pDecodedSamples": "qword ptr -28h",
+   "lpcOrder": "byte ptr -19h",
+   "bitsPerSample": "dword ptr -18h",
+   "blockSize": "dword ptr -14h",
+   "bs": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 56752,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872662
+ }
+}

@@ -1,0 +1,1 @@
+int obdRevConvert_23(float input, byte *output, int *width, int *height, config_t *conf) { input /= 1024; *output = ((int)input) / 256; *width = ((int)input) % 256; return 2; }

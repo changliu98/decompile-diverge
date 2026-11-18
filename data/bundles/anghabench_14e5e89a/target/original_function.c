@@ -1,0 +1,1 @@
+uint32_t REG_A4XX_VSC_PIPE_DATA_ADDRESS_REG(uint32_t i0) { return 0x00000c10 + 0x1*i0; }

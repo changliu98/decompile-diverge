@@ -1,0 +1,1 @@
+void test11(float *result, float *x) { *result = *x; }

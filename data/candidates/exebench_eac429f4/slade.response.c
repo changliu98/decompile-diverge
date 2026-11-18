@@ -1,0 +1,1 @@
+void exchange(uint32_t *x, uint32_t *y) { uint32_t tmp = *x; *x = *y; *y = tmp; }

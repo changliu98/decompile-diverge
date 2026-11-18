@@ -1,0 +1,1 @@
+void makeipt(in_addr_t ip, uint8_t *ipt) { int i, j; int32_t a, b, c, d; ipt[2] = 0; ipt[3] = 16; b = 2; for (i = ip; i > 32; i >>= 2) { c = 2 * b; d = c * 8; for (j = b; j < c; j++) { a = ipt[j] * 4; ipt[b + j] = a; ipt[c + j] = a + d; } b = c; } }

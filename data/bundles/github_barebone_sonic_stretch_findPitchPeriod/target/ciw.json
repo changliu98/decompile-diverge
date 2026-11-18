@@ -1,0 +1,388 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+stream], rdi\nmov     [rbp+samples], rsi\nmov     [rbp+preferNewPeriod], edx\nmov     rax, [rbp+stream]\nmov     eax, [rax+6Ch]\nmov     [rbp+minPeriod], eax\nmov     rax, [rbp+stream]\nmov     eax, [rax+70h]\nmov     [rbp+maxPeriod], eax\nmov     rdi, [rbp+stream]; stream\nmov     rax, [rbp+stream]\nmov     esi, [rax+7Ch]; sampleRate\ncall    computeSkip\nmov     [rbp+skip], eax\nmov     rax, [rbp+stream]\ncmp     dword ptr [rax+50h], 1\njnz     loc_2BE1\ncmp     [rbp+skip], 1\njnz     loc_2BE1\nmov     rdi, [rbp+samples]; samples\nmov     esi, [rbp+minPeriod]; minPeriod\nmov     edx, [rbp+maxPeriod]; maxPeriod\nlea     rcx, [rbp+minDiff]; retMinDiff\nlea     r8, [rbp+maxDiff]; retMaxDiff\ncall    findPitchPeriodInRange\nmov     [rbp+period], eax\njmp     loc_2CE6\nmov     rdi, [rbp+stream]; stream\nmov     rsi, [rbp+samples]; samples\nmov     edx, [rbp+skip]; skip\ncall    downSampleInput\nmov     rax, [rbp+stream]\nmov     rdi, [rax+18h]; samples\nmov     eax, [rbp+minPeriod]\ncdq\nidiv    [rbp+skip]\nmov     esi, eax; minPeriod\nmov     eax, [rbp+maxPeriod]\ncdq\nidiv    [rbp+skip]\nmov     edx, eax; maxPeriod\nlea     rcx, [rbp+minDiff]; retMinDiff\nlea     r8, [rbp+maxDiff]; retMaxDiff\ncall    findPitchPeriodInRange\nmov     [rbp+period], eax\ncmp     [rbp+skip], 1\njz      loc_2CE1\nmov     eax, [rbp+skip]\nimul    eax, [rbp+period]\nmov     [rbp+period], eax\nmov     eax, [rbp+period]\nmov     ecx, [rbp+skip]\nshl     ecx, 2\nsub     eax, ecx\nmov     [rbp+minPeriod], eax\nmov     eax, [rbp+period]\nmov     ecx, [rbp+skip]\nshl     ecx, 2\nadd     eax, ecx\nmov     [rbp+maxPeriod], eax\nmov     eax, [rbp+minPeriod]\nmov     rcx, [rbp+stream]\ncmp     eax, [rcx+6Ch]\njge     loc_2C65\nmov     rax, [rbp+stream]\nmov     eax, [rax+6Ch]\nmov     [rbp+minPeriod], eax\nmov     eax, [rbp+maxPeriod]\nmov     rcx, [rbp+stream]\ncmp     eax, [rcx+70h]\njle     loc_2C7F\nmov     rax, [rbp+stream]\nmov     eax, [rax+70h]\nmov     [rbp+maxPeriod], eax\nmov     rax, [rbp+stream]\ncmp     dword ptr [rax+50h], 1\njnz     loc_2CAC\nmov     rdi, [rbp+samples]; samples\nmov     esi, [rbp+minPeriod]; minPeriod\nmov     edx, [rbp+maxPeriod]; maxPeriod\nlea     rcx, [rbp+minDiff]; retMinDiff\nlea     r8, [rbp+maxDiff]; retMaxDiff\ncall    findPitchPeriodInRange\nmov     [rbp+period], eax\njmp     loc_2CDC\nmov     rdi, [rbp+stream]; stream\nmov     rsi, [rbp+samples]; samples\nmov     edx, 1; skip\ncall    downSampleInput\nmov     rax, [rbp+stream]\nmov     rdi, [rax+18h]; samples\nmov     esi, [rbp+minPeriod]; minPeriod\nmov     edx, [rbp+maxPeriod]; maxPeriod\nlea     rcx, [rbp+minDiff]; retMinDiff\nlea     r8, [rbp+maxDiff]; retMaxDiff\ncall    findPitchPeriodInRange\nmov     [rbp+period], eax\njmp     $+5\njmp     $+5\nmov     rdi, [rbp+stream]; stream\nmov     esi, [rbp+minDiff]; minDiff\nmov     edx, [rbp+maxDiff]; maxDiff\nmov     ecx, [rbp+preferNewPeriod]; preferNewPeriod\ncall    prevPeriodBetter\ncmp     eax, 0\njz      loc_2D13\nmov     rax, [rbp+stream]\nmov     eax, [rax+80h]\nmov     [rbp+retPeriod], eax\njmp     loc_2D19\nmov     eax, [rbp+period]\nmov     [rbp+retPeriod], eax\nmov     ecx, [rbp+minDiff]\nmov     rax, [rbp+stream]\nmov     [rax+84h], ecx\nmov     ecx, [rbp+period]\nmov     rax, [rbp+stream]\nmov     [rax+80h], ecx\nmov     eax, [rbp+retPeriod]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 17,
+  "edges": [
+   [
+    "start",
+    "loc_2BB8"
+   ],
+   [
+    "start",
+    "loc_2BE1"
+   ],
+   [
+    "loc_2BB8",
+    "loc_2BC2"
+   ],
+   [
+    "loc_2BB8",
+    "loc_2BE1"
+   ],
+   [
+    "loc_2BC2",
+    "loc_2CE6"
+   ],
+   [
+    "loc_2BE1",
+    "loc_2C25"
+   ],
+   [
+    "loc_2BE1",
+    "loc_2CE1"
+   ],
+   [
+    "loc_2C25",
+    "loc_2C5B"
+   ],
+   [
+    "loc_2C25",
+    "loc_2C65"
+   ],
+   [
+    "loc_2C5B",
+    "loc_2C65"
+   ],
+   [
+    "loc_2C65",
+    "loc_2C75"
+   ],
+   [
+    "loc_2C65",
+    "loc_2C7F"
+   ],
+   [
+    "loc_2C75",
+    "loc_2C7F"
+   ],
+   [
+    "loc_2C7F",
+    "loc_2C8D"
+   ],
+   [
+    "loc_2C7F",
+    "loc_2CAC"
+   ],
+   [
+    "loc_2C8D",
+    "loc_2CDC"
+   ],
+   [
+    "loc_2CAC",
+    "loc_2CDC"
+   ],
+   [
+    "loc_2CDC",
+    "loc_2CE1"
+   ],
+   [
+    "loc_2CE1",
+    "loc_2CE6"
+   ],
+   [
+    "loc_2CE6",
+    "loc_2D01"
+   ],
+   [
+    "loc_2CE6",
+    "loc_2D13"
+   ],
+   [
+    "loc_2D01",
+    "loc_2D19"
+   ],
+   [
+    "loc_2D13",
+    "loc_2D19"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+stream], rdi\nmov     [rbp+samples], rsi\nmov     [rbp+preferNewPeriod], edx\nmov     rax, [rbp+stream]\nmov     eax, [rax+6Ch]\nmov     [rbp+minPeriod], eax\nmov     rax, [rbp+stream]\nmov     eax, [rax+70h]\nmov     [rbp+maxPeriod], eax\nmov     rdi, [rbp+stream]; stream\nmov     rax, [rbp+stream]\nmov     esi, [rax+7Ch]; sampleRate\ncall    computeSkip\nmov     [rbp+skip], eax\nmov     rax, [rbp+stream]\ncmp     dword ptr [rax+50h], 1\njnz     loc_2BE1",
+   "loc_2BB8": "cmp     [rbp+skip], 1\njnz     loc_2BE1",
+   "loc_2BC2": "mov     rdi, [rbp+samples]; samples\nmov     esi, [rbp+minPeriod]; minPeriod\nmov     edx, [rbp+maxPeriod]; maxPeriod\nlea     rcx, [rbp+minDiff]; retMinDiff\nlea     r8, [rbp+maxDiff]; retMaxDiff\ncall    findPitchPeriodInRange\nmov     [rbp+period], eax\njmp     loc_2CE6",
+   "loc_2BE1": "mov     rdi, [rbp+stream]; stream\nmov     rsi, [rbp+samples]; samples\nmov     edx, [rbp+skip]; skip\ncall    downSampleInput\nmov     rax, [rbp+stream]\nmov     rdi, [rax+18h]; samples\nmov     eax, [rbp+minPeriod]\ncdq\nidiv    [rbp+skip]\nmov     esi, eax; minPeriod\nmov     eax, [rbp+maxPeriod]\ncdq\nidiv    [rbp+skip]\nmov     edx, eax; maxPeriod\nlea     rcx, [rbp+minDiff]; retMinDiff\nlea     r8, [rbp+maxDiff]; retMaxDiff\ncall    findPitchPeriodInRange\nmov     [rbp+period], eax\ncmp     [rbp+skip], 1\njz      loc_2CE1",
+   "loc_2C25": "mov     eax, [rbp+skip]\nimul    eax, [rbp+period]\nmov     [rbp+period], eax\nmov     eax, [rbp+period]\nmov     ecx, [rbp+skip]\nshl     ecx, 2\nsub     eax, ecx\nmov     [rbp+minPeriod], eax\nmov     eax, [rbp+period]\nmov     ecx, [rbp+skip]\nshl     ecx, 2\nadd     eax, ecx\nmov     [rbp+maxPeriod], eax\nmov     eax, [rbp+minPeriod]\nmov     rcx, [rbp+stream]\ncmp     eax, [rcx+6Ch]\njge     loc_2C65",
+   "loc_2C5B": "mov     rax, [rbp+stream]\nmov     eax, [rax+6Ch]\nmov     [rbp+minPeriod], eax",
+   "loc_2C65": "mov     eax, [rbp+maxPeriod]\nmov     rcx, [rbp+stream]\ncmp     eax, [rcx+70h]\njle     loc_2C7F",
+   "loc_2C75": "mov     rax, [rbp+stream]\nmov     eax, [rax+70h]\nmov     [rbp+maxPeriod], eax",
+   "loc_2C7F": "mov     rax, [rbp+stream]\ncmp     dword ptr [rax+50h], 1\njnz     loc_2CAC",
+   "loc_2C8D": "mov     rdi, [rbp+samples]; samples\nmov     esi, [rbp+minPeriod]; minPeriod\nmov     edx, [rbp+maxPeriod]; maxPeriod\nlea     rcx, [rbp+minDiff]; retMinDiff\nlea     r8, [rbp+maxDiff]; retMaxDiff\ncall    findPitchPeriodInRange\nmov     [rbp+period], eax\njmp     loc_2CDC",
+   "loc_2CAC": "mov     rdi, [rbp+stream]; stream\nmov     rsi, [rbp+samples]; samples\nmov     edx, 1; skip\ncall    downSampleInput\nmov     rax, [rbp+stream]\nmov     rdi, [rax+18h]; samples\nmov     esi, [rbp+minPeriod]; minPeriod\nmov     edx, [rbp+maxPeriod]; maxPeriod\nlea     rcx, [rbp+minDiff]; retMinDiff\nlea     r8, [rbp+maxDiff]; retMaxDiff\ncall    findPitchPeriodInRange\nmov     [rbp+period], eax",
+   "loc_2CDC": "jmp     $+5",
+   "loc_2CE1": "jmp     $+5",
+   "loc_2CE6": "mov     rdi, [rbp+stream]; stream\nmov     esi, [rbp+minDiff]; minDiff\nmov     edx, [rbp+maxDiff]; maxDiff\nmov     ecx, [rbp+preferNewPeriod]; preferNewPeriod\ncall    prevPeriodBetter\ncmp     eax, 0\njz      loc_2D13",
+   "loc_2D01": "mov     rax, [rbp+stream]\nmov     eax, [rax+80h]\nmov     [rbp+retPeriod], eax\njmp     loc_2D19",
+   "loc_2D13": "mov     eax, [rbp+period]\nmov     [rbp+retPeriod], eax",
+   "loc_2D19": "mov     ecx, [rbp+minDiff]\nmov     rax, [rbp+stream]\nmov     [rax+84h], ecx\nmov     ecx, [rbp+period]\nmov     rax, [rbp+stream]\nmov     [rax+80h], ecx\nmov     eax, [rbp+retPeriod]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "period": "dword ptr -30h",
+   "skip": "dword ptr -2Ch",
+   "retPeriod": "dword ptr -28h",
+   "maxDiff": "dword ptr -24h",
+   "minDiff": "dword ptr -20h",
+   "maxPeriod": "dword ptr -1Ch",
+   "minPeriod": "dword ptr -18h",
+   "preferNewPeriod": "dword ptr -14h",
+   "samples": "qword ptr -10h",
+   "stream": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 11120,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memmove",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872682
+ }
+}

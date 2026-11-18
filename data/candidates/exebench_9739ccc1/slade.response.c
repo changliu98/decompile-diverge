@@ -1,0 +1,1 @@
+void set_stimulus (char *stimulus, const char *p) { while (*p) { if (*p >= '0' && *p <= '7') *stimulus &= ~(1 << (*p - '0')); p++; } }

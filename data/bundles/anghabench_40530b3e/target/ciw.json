@@ -1,0 +1,257 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nmov     [rbp+err], edi\nmov     eax, [rbp+err]\nadd     eax, 0FFFFFF80h; switch 5 cases\nmov     ecx, eax\nmov     [rbp+var_10], rcx\nsub     eax, 4\nja      def_11EE; jumptable 00000000000011EE default case\nmov     rax, [rbp+var_10]\nlea     rcx, jpt_11EE\nmovsxd  rax, ds:(jpt_11EE - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nmov     eax, cs:XEN_PCI_ERR_success; jumptable 00000000000011EE case 128\nmov     [rbp+var_4], eax\njmp     loc_123C\nmov     eax, cs:XEN_PCI_ERR_dev_not_found; jumptable 00000000000011EE case 131\nmov     [rbp+var_4], eax\njmp     loc_123C\nmov     eax, cs:XEN_PCI_ERR_invalid_offset; jumptable 00000000000011EE case 132\nmov     [rbp+var_4], eax\njmp     loc_123C\nmov     eax, cs:XEN_PCI_ERR_not_implemented; jumptable 00000000000011EE case 130\nmov     [rbp+var_4], eax\njmp     loc_123C\nmov     eax, cs:XEN_PCI_ERR_access_denied; jumptable 00000000000011EE case 129\nmov     [rbp+var_4], eax\njmp     loc_123C\nmov     eax, [rbp+err]; jumptable 00000000000011EE default case\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 9,
+  "edges": [
+   [
+    "start",
+    "loc_11DC"
+   ],
+   [
+    "start",
+    "loc_1236"
+   ],
+   [
+    "loc_11DC",
+    "loc_11F0"
+   ],
+   [
+    "loc_11DC",
+    "loc_11FE"
+   ],
+   [
+    "loc_11DC",
+    "loc_120C"
+   ],
+   [
+    "loc_11DC",
+    "loc_121A"
+   ],
+   [
+    "loc_11DC",
+    "loc_1228"
+   ],
+   [
+    "loc_11F0",
+    "loc_123C"
+   ],
+   [
+    "loc_11FE",
+    "loc_123C"
+   ],
+   [
+    "loc_120C",
+    "loc_123C"
+   ],
+   [
+    "loc_121A",
+    "loc_123C"
+   ],
+   [
+    "loc_1228",
+    "loc_123C"
+   ],
+   [
+    "loc_1236",
+    "loc_123C"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nmov     [rbp+err], edi\nmov     eax, [rbp+err]\nadd     eax, 0FFFFFF80h; switch 5 cases\nmov     ecx, eax\nmov     [rbp+var_10], rcx\nsub     eax, 4\nja      def_11EE; jumptable 00000000000011EE default case",
+   "loc_11DC": "mov     rax, [rbp+var_10]\nlea     rcx, jpt_11EE\nmovsxd  rax, ds:(jpt_11EE - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_11F0": "mov     eax, cs:XEN_PCI_ERR_success; jumptable 00000000000011EE case 128\nmov     [rbp+var_4], eax\njmp     loc_123C",
+   "loc_11FE": "mov     eax, cs:XEN_PCI_ERR_dev_not_found; jumptable 00000000000011EE case 131\nmov     [rbp+var_4], eax\njmp     loc_123C",
+   "loc_120C": "mov     eax, cs:XEN_PCI_ERR_invalid_offset; jumptable 00000000000011EE case 132\nmov     [rbp+var_4], eax\njmp     loc_123C",
+   "loc_121A": "mov     eax, cs:XEN_PCI_ERR_not_implemented; jumptable 00000000000011EE case 130\nmov     [rbp+var_4], eax\njmp     loc_123C",
+   "loc_1228": "mov     eax, cs:XEN_PCI_ERR_access_denied; jumptable 00000000000011EE case 129\nmov     [rbp+var_4], eax\njmp     loc_123C",
+   "loc_1236": "mov     eax, [rbp+err]; jumptable 00000000000011EE default case\nmov     [rbp+var_4], eax",
+   "loc_123C": "mov     eax, [rbp+var_4]\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_10": "qword ptr -10h",
+   "err": "dword ptr -8",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "jpt_11EE": "dword offset loc_11F0 - 2004h; jump table for switch statement"
+  },
+  ".data": {},
+  ".bss": {
+   "XEN_PCI_ERR_success": "[]",
+   "XEN_PCI_ERR_dev_not_found": "[]",
+   "XEN_PCI_ERR_invalid_offset": "[]",
+   "XEN_PCI_ERR_not_implemented": "[]",
+   "XEN_PCI_ERR_access_denied": "[]"
+  }
+ },
+ "func_ea": 4544,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868087
+ }
+}

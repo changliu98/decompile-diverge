@@ -1,0 +1,1 @@
+void mat_copy_vector_l3(double *dest, double *src) { dest[0] = src[0]; dest[1] = src[1]; dest[2] = src[2]; }

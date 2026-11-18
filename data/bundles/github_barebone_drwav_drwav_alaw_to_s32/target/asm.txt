@@ -1,0 +1,37 @@
+000000000000c550 <drwav_alaw_to_s32>:
+    c550:	push   %rbp
+    c551:	mov    %rsp,%rbp
+    c554:	mov    %rdi,-0x10(%rbp)
+    c558:	mov    %rsi,-0x18(%rbp)
+    c55c:	mov    %rdx,-0x20(%rbp)
+    c560:	cmpq   $0x0,-0x10(%rbp)
+    c565:	je     c576 <drwav_alaw_to_s32+0x26>
+    c56b:	cmpq   $0x0,-0x18(%rbp)
+    c570:	jne    c57b <drwav_alaw_to_s32+0x2b>
+    c576:	jmp    c5d5 <drwav_alaw_to_s32+0x85>
+    c57b:	movq   $0x0,-0x28(%rbp)
+    c583:	mov    -0x28(%rbp),%rax
+    c587:	cmp    -0x20(%rbp),%rax
+    c58b:	jae    c5d5 <drwav_alaw_to_s32+0x85>
+    c591:	mov    -0x18(%rbp),%rax
+    c595:	mov    -0x28(%rbp),%rcx
+    c599:	mov    (%rax,%rcx,1),%al
+    c59c:	mov    %al,-0x1(%rbp)
+    c59f:	movzbl -0x1(%rbp),%eax
+    c5a3:	mov    %eax,%ecx
+    c5a5:	lea    0x9654(%rip),%rax        # 15c00 <g_drwavAlawTable>
+    c5ac:	movswl (%rax,%rcx,2),%ecx
+    c5b0:	shl    $0x10,%ecx
+    c5b3:	mov    -0x10(%rbp),%rax
+    c5b7:	mov    %rax,%rdx
+    c5ba:	add    $0x4,%rdx
+    c5be:	mov    %rdx,-0x10(%rbp)
+    c5c2:	mov    %ecx,(%rax)
+    c5c4:	mov    -0x28(%rbp),%rax
+    c5c8:	add    $0x1,%rax
+    c5cc:	mov    %rax,-0x28(%rbp)
+    c5d0:	jmp    c583 <drwav_alaw_to_s32+0x33>
+    c5d5:	pop    %rbp
+    c5d6:	ret
+
+Disassembly of section .fini:

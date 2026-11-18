@@ -1,0 +1,1 @@
+unsigned long long t_add(unsigned long long x, unsigned long long y, int *ok) { unsigned long long r; *ok = 0; if (!*ok) { return 0; } *ok = (x <= (~(unsigned long long)0) - y) && (x + y <= (~(unsigned long long)0)); r = x + y; return r; }

@@ -1,0 +1,1 @@
+double func0(uint32_t a, uint32_t b, uint32_t c) { double r; r = 4.0 * (a + b) * c; return r; }

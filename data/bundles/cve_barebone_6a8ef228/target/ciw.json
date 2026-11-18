@@ -1,0 +1,503 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 280h\nmov     [rbp+sd], edi\nlea     rdi, [rbp+buf]; s\nxor     esi, esi; c\nmov     edx, 200h; n\ncall    memset\nmov     edi, [rbp+sd]; fd\nlea     rsi, [rbp+buf]; buf\nlea     rax, [rbp+sa]\nmov     [rbp+addr], rax\nmov     r8, [rbp+addr]; addr\nmov     edx, 200h; n\nmov     ecx, 40h ; '@'; flags\nlea     r9, [rbp+salen]; addr_len\ncall    recvfrom\nmov     [rbp+len], rax\ncmp     [rbp+len], 0\njle     loc_19D4\nmov     rax, [rbp+len]\nmov     [rbp+rax+buf], 0\nmovzx   eax, [rbp+sa.sa_family]\ncmp     eax, 2\njz      loc_170D\njmp     loc_19D4\nlea     rdi, [rbp+buf]; haystack\nlea     rsi, needle; \"M-SEARCH *\"\ncall    strstr\ncmp     rax, 0\njz      loc_19CF\nlea     rax, [rbp+sa]\nmov     [rbp+sin], rax\nlea     rdi, [rbp+sa]; sa\ncall    find_outbound\nmov     [rbp+ifs], rax\ncmp     [rbp+ifs], 0\njnz     loc_177D\nmov     rax, [rbp+sin]\nmov     edi, [rax+4]; in\ncall    inet_ntoa\nmov     rdx, rax\nmov     edi, 7; pri\nlea     rsi, fmt; \"No matching socket for client %s\"\nmov     al, 0\ncall    syslog\njmp     loc_19D4\nmov     rax, [rbp+sin]\nmov     edi, [rax+4]; in\ncall    inet_ntoa\nmov     rdx, rax\nmov     edi, 7; pri\nlea     rsi, aMatchingSocket; \"Matching socket for client %s\"\nmov     al, 0\ncall    syslog\nlea     rdi, [rbp+buf]; haystack\nlea     rsi, aSt; \"\\r\\nST:\"\ncall    strcasestr\nmov     [rbp+type], rax\ncmp     [rbp+type], 0\njnz     loc_1807\nmov     edi, 7; pri\nlea     rsi, aNoSearchTypeSt; \"No Search Type (ST:) found in M-SEARCH \"...\nmov     al, 0\ncall    syslog\nlea     rax, aNoSearchTypeSt+33h; \"ssdp:all\"\nmov     [rbp+type], rax\nmov     rdi, [rbp+ifs]; ifs\nmov     rsi, [rbp+type]; type\nlea     rdx, [rbp+sa]; sa\ncall    send_message\njmp     loc_19D4\nmov     rdi, [rbp+type]; s\nmov     esi, 3Ah ; ':'; c\ncall    strchr\nmov     [rbp+type], rax\ncmp     [rbp+type], 0\njnz     loc_1832\njmp     loc_19D4\nmov     rax, [rbp+type]\nadd     rax, 1\nmov     [rbp+type], rax\ncall    ___ctype_b_loc\nmov     rax, [rax]\nmov     rcx, [rbp+type]\nmovsx   ecx, byte ptr [rcx]\nmovsxd  rcx, ecx\nmovzx   eax, word ptr [rax+rcx*2]\nand     eax, 2000h\ncmp     eax, 0\njz      loc_1882\nmov     rax, [rbp+type]\nadd     rax, 1\nmov     [rbp+type], rax\njmp     loc_1844\nmov     rdi, [rbp+type]; haystack\nlea     rsi, asc_20D8; \"\\r\\n\"\ncall    strstr\nmov     [rbp+ptr], rax\ncmp     [rbp+ptr], 0\njnz     loc_18AF\njmp     loc_19D4\nmov     rax, [rbp+ptr]\nmov     byte ptr [rax], 0\nmov     [rbp+i], 0\nmov     rcx, [rbp+i]\nlea     rax, supported_types\ncmp     qword ptr [rax+rcx*8], 0\njz      loc_1995\nmov     rcx, [rbp+i]\nlea     rax, supported_types\nmov     rdi, [rax+rcx*8]; s1\nmov     rsi, [rbp+type]; s2\ncall    strcmp\ncmp     eax, 0\njnz     loc_1979\nmov     rax, [rbp+type]\nmov     [rbp+var_270], rax\nmov     rax, [rbp+sin]\nmov     edi, [rax+4]; in\ncall    inet_ntoa\nmov     [rbp+var_268], rax\nmov     rax, [rbp+sin]\nmovzx   edi, word ptr [rax+2]; netshort\ncall    ntohs\nmov     rdx, [rbp+var_270]\nmov     rcx, [rbp+var_268]\nmovzx   r8d, ax\nmov     edi, 7; pri\nlea     rsi, aMSearchStSFrom; \"M-SEARCH * ST: %s from %s port %d\"\nmov     al, 0\ncall    syslog\nmov     rdi, [rbp+ifs]; ifs\nmov     rsi, [rbp+type]; type\nlea     rdx, [rbp+sa]; sa\ncall    send_message\njmp     loc_19D4\njmp     $+5\nmov     rax, [rbp+i]\nadd     rax, 1\nmov     [rbp+i], rax\njmp     loc_18C4\nmov     rax, [rbp+type]\nmov     [rbp+var_278], rax\nmov     rax, [rbp+sin]\nmov     edi, [rax+4]; in\ncall    inet_ntoa\nmov     rdx, [rbp+var_278]\nmov     rcx, rax\nmov     edi, 7; pri\nlea     rsi, aMSearchForUnsu; \"M-SEARCH * for unsupported ST: %s from \"...\nmov     al, 0\ncall    syslog\njmp     $+5\nadd     rsp, 280h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 24,
+  "edges": [
+   [
+    "start",
+    "loc_16EF"
+   ],
+   [
+    "start",
+    "loc_19D4"
+   ],
+   [
+    "loc_16EF",
+    "loc_1708"
+   ],
+   [
+    "loc_16EF",
+    "loc_170D"
+   ],
+   [
+    "loc_1708",
+    "loc_19D4"
+   ],
+   [
+    "loc_170D",
+    "loc_172A"
+   ],
+   [
+    "loc_170D",
+    "loc_19CF"
+   ],
+   [
+    "loc_172A",
+    "loc_1753"
+   ],
+   [
+    "loc_172A",
+    "loc_177D"
+   ],
+   [
+    "loc_1753",
+    "loc_19D4"
+   ],
+   [
+    "loc_177D",
+    "loc_17CA"
+   ],
+   [
+    "loc_177D",
+    "loc_1807"
+   ],
+   [
+    "loc_17CA",
+    "loc_19D4"
+   ],
+   [
+    "loc_1807",
+    "loc_182D"
+   ],
+   [
+    "loc_1807",
+    "loc_1832"
+   ],
+   [
+    "loc_182D",
+    "loc_19D4"
+   ],
+   [
+    "loc_1832",
+    "loc_1844"
+   ],
+   [
+    "loc_1844",
+    "loc_186B"
+   ],
+   [
+    "loc_1844",
+    "loc_1882"
+   ],
+   [
+    "loc_186B",
+    "loc_1844"
+   ],
+   [
+    "loc_1882",
+    "loc_18AA"
+   ],
+   [
+    "loc_1882",
+    "loc_18AF"
+   ],
+   [
+    "loc_18AA",
+    "loc_19D4"
+   ],
+   [
+    "loc_18AF",
+    "loc_18C4"
+   ],
+   [
+    "loc_18C4",
+    "loc_18DD"
+   ],
+   [
+    "loc_18C4",
+    "loc_1995"
+   ],
+   [
+    "loc_18DD",
+    "loc_1904"
+   ],
+   [
+    "loc_18DD",
+    "loc_1979"
+   ],
+   [
+    "loc_1904",
+    "loc_19D4"
+   ],
+   [
+    "loc_1979",
+    "loc_197E"
+   ],
+   [
+    "loc_197E",
+    "loc_18C4"
+   ],
+   [
+    "loc_1995",
+    "loc_19CF"
+   ],
+   [
+    "loc_19CF",
+    "loc_19D4"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 280h\nmov     [rbp+sd], edi\nlea     rdi, [rbp+buf]; s\nxor     esi, esi; c\nmov     edx, 200h; n\ncall    memset\nmov     edi, [rbp+sd]; fd\nlea     rsi, [rbp+buf]; buf\nlea     rax, [rbp+sa]\nmov     [rbp+addr], rax\nmov     r8, [rbp+addr]; addr\nmov     edx, 200h; n\nmov     ecx, 40h ; '@'; flags\nlea     r9, [rbp+salen]; addr_len\ncall    recvfrom\nmov     [rbp+len], rax\ncmp     [rbp+len], 0\njle     loc_19D4",
+   "loc_16EF": "mov     rax, [rbp+len]\nmov     [rbp+rax+buf], 0\nmovzx   eax, [rbp+sa.sa_family]\ncmp     eax, 2\njz      loc_170D",
+   "loc_1708": "jmp     loc_19D4",
+   "loc_170D": "lea     rdi, [rbp+buf]; haystack\nlea     rsi, needle; \"M-SEARCH *\"\ncall    strstr\ncmp     rax, 0\njz      loc_19CF",
+   "loc_172A": "lea     rax, [rbp+sa]\nmov     [rbp+sin], rax\nlea     rdi, [rbp+sa]; sa\ncall    find_outbound\nmov     [rbp+ifs], rax\ncmp     [rbp+ifs], 0\njnz     loc_177D",
+   "loc_1753": "mov     rax, [rbp+sin]\nmov     edi, [rax+4]; in\ncall    inet_ntoa\nmov     rdx, rax\nmov     edi, 7; pri\nlea     rsi, fmt; \"No matching socket for client %s\"\nmov     al, 0\ncall    syslog\njmp     loc_19D4",
+   "loc_177D": "mov     rax, [rbp+sin]\nmov     edi, [rax+4]; in\ncall    inet_ntoa\nmov     rdx, rax\nmov     edi, 7; pri\nlea     rsi, aMatchingSocket; \"Matching socket for client %s\"\nmov     al, 0\ncall    syslog\nlea     rdi, [rbp+buf]; haystack\nlea     rsi, aSt; \"\\r\\nST:\"\ncall    strcasestr\nmov     [rbp+type], rax\ncmp     [rbp+type], 0\njnz     loc_1807",
+   "loc_17CA": "mov     edi, 7; pri\nlea     rsi, aNoSearchTypeSt; \"No Search Type (ST:) found in M-SEARCH \"...\nmov     al, 0\ncall    syslog\nlea     rax, aNoSearchTypeSt+33h; \"ssdp:all\"\nmov     [rbp+type], rax\nmov     rdi, [rbp+ifs]; ifs\nmov     rsi, [rbp+type]; type\nlea     rdx, [rbp+sa]; sa\ncall    send_message\njmp     loc_19D4",
+   "loc_1807": "mov     rdi, [rbp+type]; s\nmov     esi, 3Ah ; ':'; c\ncall    strchr\nmov     [rbp+type], rax\ncmp     [rbp+type], 0\njnz     loc_1832",
+   "loc_182D": "jmp     loc_19D4",
+   "loc_1832": "mov     rax, [rbp+type]\nadd     rax, 1\nmov     [rbp+type], rax",
+   "loc_1844": "call    ___ctype_b_loc\nmov     rax, [rax]\nmov     rcx, [rbp+type]\nmovsx   ecx, byte ptr [rcx]\nmovsxd  rcx, ecx\nmovzx   eax, word ptr [rax+rcx*2]\nand     eax, 2000h\ncmp     eax, 0\njz      loc_1882",
+   "loc_186B": "mov     rax, [rbp+type]\nadd     rax, 1\nmov     [rbp+type], rax\njmp     loc_1844",
+   "loc_1882": "mov     rdi, [rbp+type]; haystack\nlea     rsi, asc_20D8; \"\\r\\n\"\ncall    strstr\nmov     [rbp+ptr], rax\ncmp     [rbp+ptr], 0\njnz     loc_18AF",
+   "loc_18AA": "jmp     loc_19D4",
+   "loc_18AF": "mov     rax, [rbp+ptr]\nmov     byte ptr [rax], 0\nmov     [rbp+i], 0",
+   "loc_18C4": "mov     rcx, [rbp+i]\nlea     rax, supported_types\ncmp     qword ptr [rax+rcx*8], 0\njz      loc_1995",
+   "loc_18DD": "mov     rcx, [rbp+i]\nlea     rax, supported_types\nmov     rdi, [rax+rcx*8]; s1\nmov     rsi, [rbp+type]; s2\ncall    strcmp\ncmp     eax, 0\njnz     loc_1979",
+   "loc_1904": "mov     rax, [rbp+type]\nmov     [rbp+var_270], rax\nmov     rax, [rbp+sin]\nmov     edi, [rax+4]; in\ncall    inet_ntoa\nmov     [rbp+var_268], rax\nmov     rax, [rbp+sin]\nmovzx   edi, word ptr [rax+2]; netshort\ncall    ntohs\nmov     rdx, [rbp+var_270]\nmov     rcx, [rbp+var_268]\nmovzx   r8d, ax\nmov     edi, 7; pri\nlea     rsi, aMSearchStSFrom; \"M-SEARCH * ST: %s from %s port %d\"\nmov     al, 0\ncall    syslog\nmov     rdi, [rbp+ifs]; ifs\nmov     rsi, [rbp+type]; type\nlea     rdx, [rbp+sa]; sa\ncall    send_message\njmp     loc_19D4",
+   "loc_1979": "jmp     $+5",
+   "loc_197E": "mov     rax, [rbp+i]\nadd     rax, 1\nmov     [rbp+i], rax\njmp     loc_18C4",
+   "loc_1995": "mov     rax, [rbp+type]\nmov     [rbp+var_278], rax\nmov     rax, [rbp+sin]\nmov     edi, [rax+4]; in\ncall    inet_ntoa\nmov     rdx, [rbp+var_278]\nmov     rcx, rax\nmov     edi, 7; pri\nlea     rsi, aMSearchForUnsu; \"M-SEARCH * for unsupported ST: %s from \"...\nmov     al, 0\ncall    syslog",
+   "loc_19CF": "jmp     $+5",
+   "loc_19D4": "add     rsp, 280h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_278": "qword ptr -278h",
+   "var_270": "qword ptr -270h",
+   "var_268": "qword ptr -268h",
+   "sin": "qword ptr -260h",
+   "ifs": "qword ptr -258h",
+   "type": "qword ptr -250h",
+   "ptr": "qword ptr -248h",
+   "i": "qword ptr -240h",
+   "addr": "qword ptr -238h",
+   "buf": "byte ptr -230h",
+   "salen": "dword ptr -24h",
+   "sa": "sockaddr ptr -20h",
+   "len": "qword ptr -10h",
+   "sd": "dword ptr -4"
+  },
+  ".rodata": {
+   "needle": "byte 'M-SEARCH *',0",
+   "fmt": "byte 'No matching socket for client %s',0",
+   "aMatchingSocket": "byte 'Matching socket for client %s',0",
+   "aSt": "byte 0Dh,0Ah",
+   "aNoSearchTypeSt": "byte 'No Search Type (ST:) found in M-SEARCH *, assuming ssdp:all',0",
+   "unk_20CF": "byte 'No Search Type (ST:) found in M-SEARCH *, assuming ssdp:all',0",
+   "asc_20D8": "byte 0Dh,0Ah,0",
+   "aMSearchStSFrom": "byte 'M-SEARCH * ST: %s from %s port %d',0",
+   "aMSearchForUnsu": "byte 'M-SEARCH * for unsupported ST: %s from %s',0"
+  },
+  ".data": {
+   "supported_types": "qword offset aNoSearchTypeSt+33h"
+  },
+  ".bss": {}
+ },
+ "func_ea": 5776,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".inet_ntoa": "inet_ntoa",
+  "_inet_ntoa": "inet_ntoa",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".htons": "htons",
+  "_htons": "htons",
+  ".strchr": "strchr",
+  "_strchr": "strchr",
+  ".htonl": "htonl",
+  "_htonl": "htonl",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".sendto": "sendto",
+  "_sendto": "sendto",
+  ".close": "close",
+  "_close": "close",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".syslog": "syslog",
+  "_syslog": "syslog",
+  ".recvfrom": "recvfrom",
+  "_recvfrom": "recvfrom",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".ntohs": "ntohs",
+  "_ntohs": "ntohs",
+  ".bind": "bind",
+  "_bind": "bind",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".strcasestr": "strcasestr",
+  "_strcasestr": "strcasestr",
+  ".getsockname": "getsockname",
+  "_getsockname": "getsockname",
+  ".strstr": "strstr",
+  "_strstr": "strstr",
+  ".__ctype_b_loc": "__ctype_b_loc",
+  "_ctype_b_loc": "__ctype_b_loc",
+  ".socket": "socket",
+  "_socket": "socket"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".inet_ntoa",
+   ".plt",
+   true,
+   "inet_ntoa"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".htons",
+   ".plt",
+   true,
+   "htons"
+  ],
+  [
+   ".strchr",
+   ".plt",
+   true,
+   "strchr"
+  ],
+  [
+   ".htonl",
+   ".plt",
+   true,
+   "htonl"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".sendto",
+   ".plt",
+   true,
+   "sendto"
+  ],
+  [
+   ".close",
+   ".plt",
+   true,
+   "close"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".syslog",
+   ".plt",
+   true,
+   "syslog"
+  ],
+  [
+   ".recvfrom",
+   ".plt",
+   true,
+   "recvfrom"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".ntohs",
+   ".plt",
+   true,
+   "ntohs"
+  ],
+  [
+   ".bind",
+   ".plt",
+   true,
+   "bind"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".strcasestr",
+   ".plt",
+   true,
+   "strcasestr"
+  ],
+  [
+   ".getsockname",
+   ".plt",
+   true,
+   "getsockname"
+  ],
+  [
+   ".strstr",
+   ".plt",
+   true,
+   "strstr"
+  ],
+  [
+   ".__ctype_b_loc",
+   ".plt",
+   true,
+   "__ctype_b_loc"
+  ],
+  [
+   ".socket",
+   ".plt",
+   true,
+   "socket"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "inet_ntoa",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "htons",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strchr",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "htonl",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "sendto",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "close",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcmp",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868469
+ }
+}

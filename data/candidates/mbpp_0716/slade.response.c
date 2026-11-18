@@ -1,0 +1,1 @@
+__attribute__((no)) __attribute__((always_))  int64_t func0(int64_t x) { int64_t y = x * 4; return y; }

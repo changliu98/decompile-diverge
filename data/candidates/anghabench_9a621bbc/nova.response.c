@@ -1,0 +1,1 @@
+static inline uint32_t REG_A4XX_SP_DS_VPC_DST_REG(uint32_t i0) { return 0x0000230c + 0x1*i0; }

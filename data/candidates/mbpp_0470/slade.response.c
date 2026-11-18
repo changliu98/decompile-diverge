@@ -1,0 +1,1 @@
+void func0(int *x, int N, int *y) { for (int i = 0; i < N - 1; ++i) y[i] = x[i] + x[i + 1]; }

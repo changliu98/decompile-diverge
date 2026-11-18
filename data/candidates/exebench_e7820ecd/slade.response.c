@@ -1,0 +1,1 @@
+int read_all(int fd, void *buf, int count) { int nread; do { nread = read(fd, buf, (size_t) count); if (nread > 0) { count -= nread; buf += nread; } } while (nread > 0 && count > 0); return nread; }

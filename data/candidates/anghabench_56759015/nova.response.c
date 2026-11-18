@@ -1,0 +1,1 @@
+static inline uint32_t dac_convert_reg(uint32_t i0) { return 0x00000070 + 0x2*i0; }

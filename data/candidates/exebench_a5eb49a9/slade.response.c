@@ -1,0 +1,1 @@
+int RGB32toRGB555(gx_device *dev, int w, int h, int r, int g, int b, int a, int alpha, gx_color_index *color) { return -1; }

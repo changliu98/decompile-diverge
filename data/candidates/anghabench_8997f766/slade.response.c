@@ -1,0 +1,1 @@
+int raid6_next_disk(int disk, int raid_disks) { disk++; return (disk < raid_disks) ? disk : 0; }

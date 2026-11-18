@@ -1,0 +1,107 @@
+00000000000012c0 <update_read_bitmap_update>:
+    12c0:	push   %rbp
+    12c1:	mov    %rsp,%rbp
+    12c4:	sub    $0x40,%rsp
+    12c8:	mov    %rdi,-0x10(%rbp)
+    12cc:	mov    %rsi,-0x18(%rbp)
+    12d0:	mov    $0x1,%edi
+    12d5:	mov    $0x18,%esi
+    12da:	call   1080 <calloc@plt>
+    12df:	mov    %rax,-0x28(%rbp)
+    12e3:	cmpq   $0x0,-0x28(%rbp)
+    12e8:	jne    12f3 <update_read_bitmap_update+0x33>
+    12ee:	jmp    143a <update_read_bitmap_update+0x17a>
+    12f3:	mov    -0x18(%rbp),%rdi
+    12f7:	call   1460 <Stream_GetRemainingLength>
+    12fc:	cmp    $0x2,%rax
+    1300:	jae    130b <update_read_bitmap_update+0x4b>
+    1306:	jmp    143a <update_read_bitmap_update+0x17a>
+    130b:	jmp    1310 <update_read_bitmap_update+0x50>
+    1310:	mov    -0x18(%rbp),%rax
+    1314:	mov    0x8(%rax),%rax
+    1318:	movzbl (%rax),%eax
+    131b:	movzwl %ax,%ecx
+    131e:	mov    -0x18(%rbp),%rax
+    1322:	mov    0x8(%rax),%rax
+    1326:	movzbl 0x1(%rax),%eax
+    132a:	movzwl %ax,%eax
+    132d:	shl    $0x8,%eax
+    1330:	movzwl %ax,%eax
+    1333:	add    %eax,%ecx
+    1335:	mov    -0x28(%rbp),%rax
+    1339:	mov    %ecx,0x4(%rax)
+    133c:	mov    -0x18(%rbp),%rdi
+    1340:	mov    $0x2,%esi
+    1345:	call   1490 <Stream_Seek>
+    134a:	mov    -0x28(%rbp),%rax
+    134e:	mov    0x4(%rax),%eax
+    1351:	mov    -0x28(%rbp),%rcx
+    1355:	cmp    (%rcx),%eax
+    1357:	jbe    13d6 <update_read_bitmap_update+0x116>
+    135d:	mov    -0x28(%rbp),%rax
+    1361:	mov    0x4(%rax),%eax
+    1364:	shl    $0x1,%eax
+    1367:	mov    %ax,-0x2a(%rbp)
+    136b:	mov    -0x28(%rbp),%rax
+    136f:	mov    0x8(%rax),%rdi
+    1373:	movzwl -0x2a(%rbp),%eax
+    1377:	imul   $0x48,%rax,%rsi
+    137b:	call   10e0 <realloc@plt>
+    1380:	mov    %rax,-0x38(%rbp)
+    1384:	cmpq   $0x0,-0x38(%rbp)
+    1389:	jne    1394 <update_read_bitmap_update+0xd4>
+    138f:	jmp    143a <update_read_bitmap_update+0x17a>
+    1394:	mov    -0x38(%rbp),%rcx
+    1398:	mov    -0x28(%rbp),%rax
+    139c:	mov    %rcx,0x8(%rax)
+    13a0:	mov    -0x28(%rbp),%rax
+    13a4:	mov    0x8(%rax),%rdi
+    13a8:	mov    -0x28(%rbp),%rax
+    13ac:	mov    (%rax),%eax
+    13ae:	imul   $0x48,%rax,%rax
+    13b2:	add    %rax,%rdi
+    13b5:	movzwl -0x2a(%rbp),%eax
+    13b9:	mov    -0x28(%rbp),%rcx
+    13bd:	sub    (%rcx),%eax
+    13bf:	mov    %eax,%eax
+    13c1:	imul   $0x48,%rax,%rdx
+    13c5:	xor    %esi,%esi
+    13c7:	call   1070 <memset@plt>
+    13cc:	movzwl -0x2a(%rbp),%ecx
+    13d0:	mov    -0x28(%rbp),%rax
+    13d4:	mov    %ecx,(%rax)
+    13d6:	movl   $0x0,-0x1c(%rbp)
+    13dd:	mov    -0x1c(%rbp),%eax
+    13e0:	mov    -0x28(%rbp),%rcx
+    13e4:	cmp    0x4(%rcx),%eax
+    13e7:	jae    142d <update_read_bitmap_update+0x16d>
+    13ed:	mov    -0x10(%rbp),%rdi
+    13f1:	mov    -0x18(%rbp),%rsi
+    13f5:	mov    -0x28(%rbp),%rax
+    13f9:	mov    0x8(%rax),%rdx
+    13fd:	mov    -0x1c(%rbp),%eax
+    1400:	imul   $0x48,%rax,%rax
+    1404:	add    %rax,%rdx
+    1407:	call   14b0 <update_read_bitmap_data>
+    140c:	cmp    $0x0,%eax
+    140f:	jne    141a <update_read_bitmap_update+0x15a>
+    1415:	jmp    143a <update_read_bitmap_update+0x17a>
+    141a:	jmp    141f <update_read_bitmap_update+0x15f>
+    141f:	mov    -0x1c(%rbp),%eax
+    1422:	add    $0x1,%eax
+    1425:	mov    %eax,-0x1c(%rbp)
+    1428:	jmp    13dd <update_read_bitmap_update+0x11d>
+    142d:	mov    -0x28(%rbp),%rax
+    1431:	mov    %rax,-0x8(%rbp)
+    1435:	jmp    1453 <update_read_bitmap_update+0x193>
+    143a:	mov    -0x10(%rbp),%rax
+    143e:	mov    0x8(%rax),%rdi
+    1442:	mov    -0x28(%rbp),%rsi
+    1446:	call   1200 <free_bitmap_update>
+    144b:	movq   $0x0,-0x8(%rbp)
+    1453:	mov    -0x8(%rbp),%rax
+    1457:	add    $0x40,%rsp
+    145b:	pop    %rbp
+    145c:	ret
+
+Disassembly of section .fini:

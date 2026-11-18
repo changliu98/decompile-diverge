@@ -1,0 +1,1 @@
+int *func0(int *ptr, int n, int *arg) { int min =0x7fffffff; int max = -1; for (int i = 0; i < n; ++i) { if ((ptr[i] % 2) == 0 && (ptr[i] < min || max == -1)) { min = ptr[i]; max = i; } } if (max == -1) return NULL; arg[0] = min; arg[1] = max; return arg; }

@@ -1,0 +1,433 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+wildcard], rdi\nmov     [rbp+target], rsi\nmov     [rbp+target_len], rdx\nmov     rax, [rbp+target]\nadd     rax, [rbp+target_len]\nmov     [rbp+target_end], rax\nmov     rax, [rbp+wildcard]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 2Ah ; '*'\njz      loc_132E\nmov     rdx, [rbp+target_end]; target_end\nlea     rdi, [rbp+wildcard]; fragment\nlea     rsi, [rbp+target]; target\ncall    wc_match_fragment\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njg      loc_1329\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_14AF\njmp     $+5\njmp     $+5\nmov     rax, [rbp+wildcard]\ncmp     byte ptr [rax], 0\njz      loc_149C\nmov     rax, [rbp+wildcard]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 2Ah ; '*'\njnz     loc_1355\njmp     loc_1374\nlea     rdi, assertion; \"*wildcard == '*'\"\nlea     rsi, file; \"./func.c\"\nmov     edx, 0E4h; line\nlea     rcx, function; \"int wc_match_inner(const char *, const \"...\ncall    ___assert_fail\njmp     $+5\nmov     rax, [rbp+wildcard]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 2Ah ; '*'\njnz     loc_139A\nmov     rax, [rbp+wildcard]\nadd     rax, 1\nmov     [rbp+wildcard], rax\njmp     loc_1379\nmov     rax, [rbp+wildcard]\ncmp     byte ptr [rax], 0\njnz     loc_13B3\nmov     [rbp+var_4], 1\njmp     loc_14AF\nmov     [rbp+ret], 0\nmov     rax, [rbp+target]\ncmp     byte ptr [rax], 0\njz      loc_1481\nmov     rax, [rbp+wildcard]\nmov     [rbp+save_w], rax\nmov     rax, [rbp+target]\nmov     [rbp+save_t], rax\nmov     rdx, [rbp+target_end]; target_end\nlea     rdi, [rbp+wildcard]; fragment\nlea     rsi, [rbp+target]; target\ncall    wc_match_fragment\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njge     loc_1400\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_14AF\ncmp     [rbp+ret], 0\njle     loc_1461\nmov     rax, [rbp+wildcard]\ncmp     byte ptr [rax], 0\njnz     loc_1461\nmov     rax, [rbp+target]\ncmp     rax, [rbp+target_end]\njz      loc_1461\nmov     rax, [rbp+target_end]\nmov     rdx, [rbp+target]\nmov     rcx, [rbp+save_t]\nsub     rdx, rcx\nxor     ecx, ecx\nsub     rcx, rdx\nadd     rax, rcx\nmov     [rbp+target], rax\nmov     rax, [rbp+save_w]\nmov     [rbp+wildcard], rax\nmov     rdx, [rbp+target_end]; target_end\nlea     rdi, [rbp+wildcard]; fragment\nlea     rsi, [rbp+target]; target\ncall    wc_match_fragment\nmov     [rbp+var_4], eax\njmp     loc_14AF\ncmp     [rbp+ret], 0\njle     loc_1470\njmp     loc_1481\nmov     rax, [rbp+target]\nadd     rax, 1\nmov     [rbp+target], rax\njmp     loc_13BA\ncmp     [rbp+ret], 0\njle     loc_1490\njmp     loc_1333\nmov     [rbp+var_4], 0\njmp     loc_14AF\nmov     rax, [rbp+target]\ncmp     rax, [rbp+target_end]\nsetz    al\nand     al, 1\nmovzx   eax, al\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 30,
+  "edges": [
+   [
+    "start",
+    "loc_1300"
+   ],
+   [
+    "start",
+    "loc_132E"
+   ],
+   [
+    "loc_1300",
+    "loc_131E"
+   ],
+   [
+    "loc_1300",
+    "loc_1329"
+   ],
+   [
+    "loc_131E",
+    "loc_14AF"
+   ],
+   [
+    "loc_1329",
+    "loc_132E"
+   ],
+   [
+    "loc_132E",
+    "loc_1333"
+   ],
+   [
+    "loc_1333",
+    "loc_1340"
+   ],
+   [
+    "loc_1333",
+    "loc_149C"
+   ],
+   [
+    "loc_1340",
+    "loc_1350"
+   ],
+   [
+    "loc_1340",
+    "loc_1355"
+   ],
+   [
+    "loc_1350",
+    "loc_1374"
+   ],
+   [
+    "loc_1374",
+    "loc_1379"
+   ],
+   [
+    "loc_1379",
+    "loc_1389"
+   ],
+   [
+    "loc_1379",
+    "loc_139A"
+   ],
+   [
+    "loc_1389",
+    "loc_1379"
+   ],
+   [
+    "loc_139A",
+    "loc_13A7"
+   ],
+   [
+    "loc_139A",
+    "loc_13B3"
+   ],
+   [
+    "loc_13A7",
+    "loc_14AF"
+   ],
+   [
+    "loc_13B3",
+    "loc_13BA"
+   ],
+   [
+    "loc_13BA",
+    "loc_13C7"
+   ],
+   [
+    "loc_13BA",
+    "loc_1481"
+   ],
+   [
+    "loc_13C7",
+    "loc_13F5"
+   ],
+   [
+    "loc_13C7",
+    "loc_1400"
+   ],
+   [
+    "loc_13F5",
+    "loc_14AF"
+   ],
+   [
+    "loc_1400",
+    "loc_140A"
+   ],
+   [
+    "loc_1400",
+    "loc_1461"
+   ],
+   [
+    "loc_140A",
+    "loc_1417"
+   ],
+   [
+    "loc_140A",
+    "loc_1461"
+   ],
+   [
+    "loc_1417",
+    "loc_1425"
+   ],
+   [
+    "loc_1417",
+    "loc_1461"
+   ],
+   [
+    "loc_1425",
+    "loc_14AF"
+   ],
+   [
+    "loc_1461",
+    "loc_146B"
+   ],
+   [
+    "loc_1461",
+    "loc_1470"
+   ],
+   [
+    "loc_146B",
+    "loc_1481"
+   ],
+   [
+    "loc_1470",
+    "loc_13BA"
+   ],
+   [
+    "loc_1481",
+    "loc_148B"
+   ],
+   [
+    "loc_1481",
+    "loc_1490"
+   ],
+   [
+    "loc_148B",
+    "loc_1333"
+   ],
+   [
+    "loc_1490",
+    "loc_14AF"
+   ],
+   [
+    "loc_149C",
+    "loc_14AF"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+wildcard], rdi\nmov     [rbp+target], rsi\nmov     [rbp+target_len], rdx\nmov     rax, [rbp+target]\nadd     rax, [rbp+target_len]\nmov     [rbp+target_end], rax\nmov     rax, [rbp+wildcard]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 2Ah ; '*'\njz      loc_132E",
+   "loc_1300": "mov     rdx, [rbp+target_end]; target_end\nlea     rdi, [rbp+wildcard]; fragment\nlea     rsi, [rbp+target]; target\ncall    wc_match_fragment\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njg      loc_1329",
+   "loc_131E": "mov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_14AF",
+   "loc_1329": "jmp     $+5",
+   "loc_132E": "jmp     $+5",
+   "loc_1333": "mov     rax, [rbp+wildcard]\ncmp     byte ptr [rax], 0\njz      loc_149C",
+   "loc_1340": "mov     rax, [rbp+wildcard]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 2Ah ; '*'\njnz     loc_1355",
+   "loc_1350": "jmp     loc_1374",
+   "loc_1355": "lea     rdi, assertion; \"*wildcard == '*'\"\nlea     rsi, file; \"./func.c\"\nmov     edx, 0E4h; line\nlea     rcx, function; \"int wc_match_inner(const char *, const \"...\ncall    ___assert_fail",
+   "loc_1374": "jmp     $+5",
+   "loc_1379": "mov     rax, [rbp+wildcard]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 2Ah ; '*'\njnz     loc_139A",
+   "loc_1389": "mov     rax, [rbp+wildcard]\nadd     rax, 1\nmov     [rbp+wildcard], rax\njmp     loc_1379",
+   "loc_139A": "mov     rax, [rbp+wildcard]\ncmp     byte ptr [rax], 0\njnz     loc_13B3",
+   "loc_13A7": "mov     [rbp+var_4], 1\njmp     loc_14AF",
+   "loc_13B3": "mov     [rbp+ret], 0",
+   "loc_13BA": "mov     rax, [rbp+target]\ncmp     byte ptr [rax], 0\njz      loc_1481",
+   "loc_13C7": "mov     rax, [rbp+wildcard]\nmov     [rbp+save_w], rax\nmov     rax, [rbp+target]\nmov     [rbp+save_t], rax\nmov     rdx, [rbp+target_end]; target_end\nlea     rdi, [rbp+wildcard]; fragment\nlea     rsi, [rbp+target]; target\ncall    wc_match_fragment\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njge     loc_1400",
+   "loc_13F5": "mov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_14AF",
+   "loc_1400": "cmp     [rbp+ret], 0\njle     loc_1461",
+   "loc_140A": "mov     rax, [rbp+wildcard]\ncmp     byte ptr [rax], 0\njnz     loc_1461",
+   "loc_1417": "mov     rax, [rbp+target]\ncmp     rax, [rbp+target_end]\njz      loc_1461",
+   "loc_1425": "mov     rax, [rbp+target_end]\nmov     rdx, [rbp+target]\nmov     rcx, [rbp+save_t]\nsub     rdx, rcx\nxor     ecx, ecx\nsub     rcx, rdx\nadd     rax, rcx\nmov     [rbp+target], rax\nmov     rax, [rbp+save_w]\nmov     [rbp+wildcard], rax\nmov     rdx, [rbp+target_end]; target_end\nlea     rdi, [rbp+wildcard]; fragment\nlea     rsi, [rbp+target]; target\ncall    wc_match_fragment\nmov     [rbp+var_4], eax\njmp     loc_14AF",
+   "loc_1461": "cmp     [rbp+ret], 0\njle     loc_1470",
+   "loc_146B": "jmp     loc_1481",
+   "loc_1470": "mov     rax, [rbp+target]\nadd     rax, 1\nmov     [rbp+target], rax\njmp     loc_13BA",
+   "loc_1481": "cmp     [rbp+ret], 0\njle     loc_1490",
+   "loc_148B": "jmp     loc_1333",
+   "loc_1490": "mov     [rbp+var_4], 0\njmp     loc_14AF",
+   "loc_149C": "mov     rax, [rbp+target]\ncmp     rax, [rbp+target_end]\nsetz    al\nand     al, 1\nmovzx   eax, al\nmov     [rbp+var_4], eax",
+   "loc_14AF": "mov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "save_t": "qword ptr -40h",
+   "save_w": "qword ptr -38h",
+   "ret": "dword ptr -2Ch",
+   "target_end": "qword ptr -28h",
+   "target_len": "qword ptr -20h",
+   "target": "qword ptr -18h",
+   "wildcard": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "assertion": "byte '*wildcard == ',27h,'*',27h,0",
+   "file": "byte './func.c',0",
+   "function": "byte 'int wc_match_inner(const char *, const char *, size_t)',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4816,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".abs": "abs",
+  "_abs": "abs",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".abs",
+   ".plt",
+   true,
+   "abs"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "abs",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872679
+ }
+}

@@ -1,0 +1,187 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <stdio.h>\n\n#include <stdlib.h>\n\n#include <string.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_56eot9ephx.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(unsigned char Src1, unsigned char Dest, unsigned int SrcLength, int Cmin, int Cmax, int Nmin, int Nmax, int returnv) {\n  json output_json;\n\n  output_json[\"Src1\"] = Src1;\n\n  output_json[\"Dest\"] = Dest;\n\n  output_json[\"returnv\"] = returnv;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  unsigned char Src1 = input_json[\"Src1\"];\n  unsigned char Dest = input_json[\"Dest\"];\n  unsigned int SrcLength = input_json[\"SrcLength\"];\n  int Cmin = input_json[\"Cmin\"];\n  int Cmax = input_json[\"Cmax\"];\n  int Nmin = input_json[\"Nmin\"];\n  int Nmax = input_json[\"Nmax\"];\n  clock_t begin = clock();\n  int returnv = SDL_imageFilterNormalizeLinearMMX(Src1, Dest, SrcLength, Cmin, Cmax, Nmin, Nmax);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(Src1, Dest, SrcLength, Cmin, Cmax, Nmin, Nmax, returnv);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "Src1": 504,
+    "Dest": 281,
+    "SrcLength": 786,
+    "Cmin": 74,
+    "Cmax": 16,
+    "Nmin": 117,
+    "Nmax": 13
+   },
+   "output": {
+    "Dest": 25,
+    "Src1": 248,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "Src1": 230,
+    "Dest": 468,
+    "SrcLength": 216,
+    "Cmin": 4,
+    "Cmax": 17,
+    "Nmin": 30,
+    "Nmax": 77
+   },
+   "output": {
+    "Dest": 212,
+    "Src1": 230,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "Src1": 790,
+    "Dest": 35,
+    "SrcLength": 907,
+    "Cmin": 90,
+    "Cmax": 117,
+    "Nmin": 118,
+    "Nmax": 31
+   },
+   "output": {
+    "Dest": 35,
+    "Src1": 22,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "Src1": 570,
+    "Dest": 769,
+    "SrcLength": 203,
+    "Cmin": 98,
+    "Cmax": 27,
+    "Nmin": 117,
+    "Nmax": 119
+   },
+   "output": {
+    "Dest": 1,
+    "Src1": 58,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "Src1": 825,
+    "Dest": 354,
+    "SrcLength": 890,
+    "Cmin": 49,
+    "Cmax": 10,
+    "Nmin": 91,
+    "Nmax": 23
+   },
+   "output": {
+    "Dest": 98,
+    "Src1": 57,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "Src1": 636,
+    "Dest": 659,
+    "SrcLength": 689,
+    "Cmin": 89,
+    "Cmax": 22,
+    "Nmin": 19,
+    "Nmax": 29
+   },
+   "output": {
+    "Dest": 147,
+    "Src1": 124,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "Src1": 646,
+    "Dest": 89,
+    "SrcLength": 765,
+    "Cmin": 4,
+    "Cmax": 26,
+    "Nmin": 10,
+    "Nmax": 42
+   },
+   "output": {
+    "Dest": 89,
+    "Src1": 134,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "Src1": 350,
+    "Dest": 707,
+    "SrcLength": 744,
+    "Cmin": 87,
+    "Cmax": 36,
+    "Nmin": 69,
+    "Nmax": 44
+   },
+   "output": {
+    "Dest": 195,
+    "Src1": 94,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "Src1": 853,
+    "Dest": 870,
+    "SrcLength": 651,
+    "Cmin": 0,
+    "Cmax": 71,
+    "Nmin": 19,
+    "Nmax": 51
+   },
+   "output": {
+    "Dest": 102,
+    "Src1": 85,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "Src1": 198,
+    "Dest": 575,
+    "SrcLength": 41,
+    "Cmin": 11,
+    "Cmax": 68,
+    "Nmin": 31,
+    "Nmax": 61
+   },
+   "output": {
+    "Dest": 63,
+    "Src1": 198,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

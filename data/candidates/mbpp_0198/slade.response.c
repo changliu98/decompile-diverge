@@ -1,0 +1,1 @@
+double func0(int i, int n) { double result; if (i < 0 || n < 0) return -1.0; result = 100.0 * pow((double)i, 2.0) / (4 * n); return result; }

@@ -1,0 +1,1 @@
+void _uc(uint8_t *str) { while(*str) { if(*str >= 'a' && *str <= 'z') *str -= 32; str++; } }

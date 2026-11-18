@@ -1,0 +1,1 @@
+void SN_set_max_iters(struct SN_env * z, int max_iters) { z->max_iters = max_iters; }

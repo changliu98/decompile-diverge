@@ -1,0 +1,1 @@
+unsigned long long xorshf96(unsigned long long *a, unsigned long long *b, unsigned long long *c) { unsigned long t; *a ^= *a << 16; *a ^= *a >> 5; *a ^= *a << 1; t = *a; *a = *b; *b = *c ^ t ^ *b; return *c; }

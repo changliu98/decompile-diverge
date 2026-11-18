@@ -1,0 +1,1 @@
+int conta_voto(Voto *voto) { (voto->refcao)++; return (voto->refcao); }

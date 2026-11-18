@@ -1,0 +1,1 @@
+char *func0(int x, int y, int N) { for (int i = 0; i * x <= N; i++) { if ((N - i * x) % y == 0) { sprintf(result, "x = %d, y = %d", i, (N - i * x) / y); return result; } } return "No solution"; }

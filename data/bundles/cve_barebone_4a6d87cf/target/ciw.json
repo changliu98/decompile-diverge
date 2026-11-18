@@ -1,0 +1,551 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+dec], rdi\nmov     [rbp+ms], rsi\nmov     rax, [rbp+dec]\nmov     rax, [rax]\nmov     [rbp+tile], rax\ncmp     rax, 0\njnz     loc_14D1\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_182F\nmov     rax, [rbp+tile]\ncmp     dword ptr [rax+18h], 0\njnz     loc_154A\nmov     rax, [rbp+tile]\nmov     rdi, [rax+10h]; cp\ncall    jpc_dec_cp_isvalid\ncmp     eax, 0\njnz     loc_1501\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_182F\nmov     rax, [rbp+tile]\nmov     rdi, [rax+10h]; cp\ncall    jpc_dec_cp_prepare\ncmp     eax, 0\njz      loc_1523\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_182F\nmov     rdi, [rbp+dec]; dec\nmov     rsi, [rbp+tile]; tile\ncall    jpc_dec_tileinit\ncmp     eax, 0\njz      loc_1545\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_182F\njmp     $+5\nmov     rax, [rbp+dec]\ncmp     qword ptr [rax+10h], 0\njz      loc_158B\nmov     rax, [rbp+dec]\nmov     rdi, [rax+10h]; streamlist\nxor     esi, esi; streamno\ncall    jpc_streamlist_remove\nmov     rcx, [rbp+tile]\nmov     [rcx+8], rax\ncmp     rax, 0\njnz     loc_1586\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_182F\njmp     $+5\nmov     rax, [rbp+tile]\ncmp     qword ptr [rax], 0\njz      loc_164F\nmov     rax, [rbp+tile]\ncmp     qword ptr [rax+8], 0\njnz     loc_15D6\nxor     eax, eax\nmov     edi, eax; buf\nxor     esi, esi; bufsize\ncall    jas_stream_memopen\nmov     rcx, [rbp+tile]\nmov     [rcx+8], rax\ncmp     rax, 0\njnz     loc_15D1\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_182F\njmp     $+5\nmov     rax, [rbp+tile]\nmov     rdi, [rax+8]; s\ncall    jas_stream_tell\nmov     [rbp+pos], eax\nmov     rax, [rbp+tile]\nmov     rdi, [rax+8]; s\nxor     eax, eax\nmov     esi, eax; off\nmov     edx, 2; origin\ncall    jas_stream_seek\nmov     rax, [rbp+tile]\nmov     rdi, [rax+8]; out\nmov     rax, [rbp+tile]\nmov     rsi, [rax]; tab\ncall    jpc_pptstabwrite\ncmp     eax, 0\njz      loc_1625\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_182F\nmov     rax, [rbp+tile]\nmov     rdi, [rax+8]; s\nmovsxd  rsi, [rbp+pos]; off\nxor     edx, edx; origin\ncall    jas_stream_seek\nmov     rax, [rbp+tile]\nmov     rdi, [rax]; tab\ncall    jpc_ppxstab_destroy\nmov     rax, [rbp+tile]\nmov     qword ptr [rax], 0\ncall    jas_get_debug_level\ncmp     eax, 0Ah\njl      loc_1666\nmov     rdi, [rbp+dec]; dec\ncall    jpc_dec_dump\nmov     rax, [rbp+dec]\nmov     [rbp+var_40], rax\nmov     rax, [rbp+tile]\ncmp     qword ptr [rax+8], 0\njz      loc_168E\nmov     rax, [rbp+tile]\nmov     rax, [rax+8]\nmov     [rbp+in], rax\njmp     loc_169A\nmov     rax, [rbp+dec]\nmov     rax, [rax+8]\nmov     [rbp+in], rax\nmov     rdi, [rbp+var_40]; dec\nmov     rsi, [rbp+in]; in\nmov     rax, [rbp+dec]\nmov     rdx, [rax+8]; pin\ncall    jpc_dec_decodepkts\ncmp     eax, 0\njz      loc_16D2\nlea     rdi, fmt; \"jpc_dec_decodepkts failed\\n\"\nmov     al, 0\ncall    jas_logerrorf\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_182F\nmov     rax, [rbp+dec]\ncmp     qword ptr [rax+18h], 0\njle     loc_17AF\nmov     rax, [rbp+dec]\nmov     rdi, [rax+8]; s\ncall    jas_stream_getrwcount\nmov     [rbp+curoff], rax\nmov     rax, [rbp+curoff]\nmov     rcx, [rbp+dec]\ncmp     rax, [rcx+18h]\njge     loc_1779\nmov     rax, [rbp+dec]\nmov     rax, [rax+18h]\nsub     rax, [rbp+curoff]\nmov     [rbp+n], rax\nmov     rsi, [rbp+n]\nlea     rdi, aWarningIgnorin; \"warning: ignoring trailing garbage (%lu\"...\nmov     al, 0\ncall    jas_logwarnf\nmov     rax, [rbp+n]\nmov     rcx, rax\nadd     rcx, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+n], rcx\ncmp     rax, 0\njbe     loc_1774\nmov     rax, [rbp+dec]\nmov     rdi, [rax+8]; s\ncall    jas_stream_getc\ncmp     eax, 0FFFFFFFFh\njnz     loc_176F\nlea     rdi, aReadError; \"read error\\n\"\nmov     al, 0\ncall    jas_logerrorf\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_182F\njmp     loc_1726\njmp     loc_17AA\nmov     rax, [rbp+curoff]\nmov     rcx, [rbp+dec]\ncmp     rax, [rcx+18h]\njle     loc_17A5\nmov     rsi, [rbp+curoff]\nmov     rax, [rbp+dec]\nsub     rsi, [rax+18h]\nlea     rdi, aWarningNotEnou; \"warning: not enough tile data (%lu byte\"...\nmov     al, 0\ncall    jas_logwarnf\njmp     $+5\njmp     $+5\nmov     rax, [rbp+tile]\ncmp     dword ptr [rax+1Ch], 0\njbe     loc_1805\nmov     rax, [rbp+tile]\nmov     eax, [rax+18h]\nmov     rcx, [rbp+tile]\nmov     ecx, [rcx+1Ch]\nsub     ecx, 1\ncmp     eax, ecx\njnz     loc_1805\nmov     rdi, [rbp+dec]; dec\nmov     rsi, [rbp+tile]; tile\ncall    jpc_dec_tiledecode\ncmp     eax, 0\njz      loc_17F8\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_182F\nmov     rdi, [rbp+dec]; dec\nmov     rsi, [rbp+tile]; tile\ncall    jpc_dec_tilefini\nmov     rax, [rbp+dec]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+tile]\nmov     ecx, [rax+18h]\nadd     ecx, 1\nmov     [rax+18h], ecx\nmov     rax, [rbp+dec]\nmov     dword ptr [rax+20h], 8\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 48,
+  "edges": [
+   [
+    "start",
+    "loc_14C5"
+   ],
+   [
+    "start",
+    "loc_14D1"
+   ],
+   [
+    "loc_14C5",
+    "loc_182F"
+   ],
+   [
+    "loc_14D1",
+    "loc_14DF"
+   ],
+   [
+    "loc_14D1",
+    "loc_154A"
+   ],
+   [
+    "loc_14DF",
+    "loc_14F5"
+   ],
+   [
+    "loc_14DF",
+    "loc_1501"
+   ],
+   [
+    "loc_14F5",
+    "loc_182F"
+   ],
+   [
+    "loc_1501",
+    "loc_1517"
+   ],
+   [
+    "loc_1501",
+    "loc_1523"
+   ],
+   [
+    "loc_1517",
+    "loc_182F"
+   ],
+   [
+    "loc_1523",
+    "loc_1539"
+   ],
+   [
+    "loc_1523",
+    "loc_1545"
+   ],
+   [
+    "loc_1539",
+    "loc_182F"
+   ],
+   [
+    "loc_1545",
+    "loc_154A"
+   ],
+   [
+    "loc_154A",
+    "loc_1559"
+   ],
+   [
+    "loc_154A",
+    "loc_158B"
+   ],
+   [
+    "loc_1559",
+    "loc_157A"
+   ],
+   [
+    "loc_1559",
+    "loc_1586"
+   ],
+   [
+    "loc_157A",
+    "loc_182F"
+   ],
+   [
+    "loc_1586",
+    "loc_158B"
+   ],
+   [
+    "loc_158B",
+    "loc_1599"
+   ],
+   [
+    "loc_158B",
+    "loc_164F"
+   ],
+   [
+    "loc_1599",
+    "loc_15A8"
+   ],
+   [
+    "loc_1599",
+    "loc_15D6"
+   ],
+   [
+    "loc_15A8",
+    "loc_15C5"
+   ],
+   [
+    "loc_15A8",
+    "loc_15D1"
+   ],
+   [
+    "loc_15C5",
+    "loc_182F"
+   ],
+   [
+    "loc_15D1",
+    "loc_15D6"
+   ],
+   [
+    "loc_15D6",
+    "loc_1619"
+   ],
+   [
+    "loc_15D6",
+    "loc_1625"
+   ],
+   [
+    "loc_1619",
+    "loc_182F"
+   ],
+   [
+    "loc_1625",
+    "loc_164F"
+   ],
+   [
+    "loc_164F",
+    "loc_165D"
+   ],
+   [
+    "loc_164F",
+    "loc_1666"
+   ],
+   [
+    "loc_165D",
+    "loc_1666"
+   ],
+   [
+    "loc_1666",
+    "loc_167D"
+   ],
+   [
+    "loc_1666",
+    "loc_168E"
+   ],
+   [
+    "loc_167D",
+    "loc_169A"
+   ],
+   [
+    "loc_168E",
+    "loc_169A"
+   ],
+   [
+    "loc_169A",
+    "loc_16B8"
+   ],
+   [
+    "loc_169A",
+    "loc_16D2"
+   ],
+   [
+    "loc_16B8",
+    "loc_182F"
+   ],
+   [
+    "loc_16D2",
+    "loc_16E1"
+   ],
+   [
+    "loc_16D2",
+    "loc_17AF"
+   ],
+   [
+    "loc_16E1",
+    "loc_1704"
+   ],
+   [
+    "loc_16E1",
+    "loc_1779"
+   ],
+   [
+    "loc_1704",
+    "loc_1726"
+   ],
+   [
+    "loc_1726",
+    "loc_173F"
+   ],
+   [
+    "loc_1726",
+    "loc_1774"
+   ],
+   [
+    "loc_173F",
+    "loc_1755"
+   ],
+   [
+    "loc_173F",
+    "loc_176F"
+   ],
+   [
+    "loc_1755",
+    "loc_182F"
+   ],
+   [
+    "loc_176F",
+    "loc_1726"
+   ],
+   [
+    "loc_1774",
+    "loc_17AA"
+   ],
+   [
+    "loc_1779",
+    "loc_178B"
+   ],
+   [
+    "loc_1779",
+    "loc_17A5"
+   ],
+   [
+    "loc_178B",
+    "loc_17A5"
+   ],
+   [
+    "loc_17A5",
+    "loc_17AA"
+   ],
+   [
+    "loc_17AA",
+    "loc_17AF"
+   ],
+   [
+    "loc_17AF",
+    "loc_17BD"
+   ],
+   [
+    "loc_17AF",
+    "loc_1805"
+   ],
+   [
+    "loc_17BD",
+    "loc_17D6"
+   ],
+   [
+    "loc_17BD",
+    "loc_1805"
+   ],
+   [
+    "loc_17D6",
+    "loc_17EC"
+   ],
+   [
+    "loc_17D6",
+    "loc_17F8"
+   ],
+   [
+    "loc_17EC",
+    "loc_182F"
+   ],
+   [
+    "loc_17F8",
+    "loc_1805"
+   ],
+   [
+    "loc_1805",
+    "loc_182F"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+dec], rdi\nmov     [rbp+ms], rsi\nmov     rax, [rbp+dec]\nmov     rax, [rax]\nmov     [rbp+tile], rax\ncmp     rax, 0\njnz     loc_14D1",
+   "loc_14C5": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_182F",
+   "loc_14D1": "mov     rax, [rbp+tile]\ncmp     dword ptr [rax+18h], 0\njnz     loc_154A",
+   "loc_14DF": "mov     rax, [rbp+tile]\nmov     rdi, [rax+10h]; cp\ncall    jpc_dec_cp_isvalid\ncmp     eax, 0\njnz     loc_1501",
+   "loc_14F5": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_182F",
+   "loc_1501": "mov     rax, [rbp+tile]\nmov     rdi, [rax+10h]; cp\ncall    jpc_dec_cp_prepare\ncmp     eax, 0\njz      loc_1523",
+   "loc_1517": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_182F",
+   "loc_1523": "mov     rdi, [rbp+dec]; dec\nmov     rsi, [rbp+tile]; tile\ncall    jpc_dec_tileinit\ncmp     eax, 0\njz      loc_1545",
+   "loc_1539": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_182F",
+   "loc_1545": "jmp     $+5",
+   "loc_154A": "mov     rax, [rbp+dec]\ncmp     qword ptr [rax+10h], 0\njz      loc_158B",
+   "loc_1559": "mov     rax, [rbp+dec]\nmov     rdi, [rax+10h]; streamlist\nxor     esi, esi; streamno\ncall    jpc_streamlist_remove\nmov     rcx, [rbp+tile]\nmov     [rcx+8], rax\ncmp     rax, 0\njnz     loc_1586",
+   "loc_157A": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_182F",
+   "loc_1586": "jmp     $+5",
+   "loc_158B": "mov     rax, [rbp+tile]\ncmp     qword ptr [rax], 0\njz      loc_164F",
+   "loc_1599": "mov     rax, [rbp+tile]\ncmp     qword ptr [rax+8], 0\njnz     loc_15D6",
+   "loc_15A8": "xor     eax, eax\nmov     edi, eax; buf\nxor     esi, esi; bufsize\ncall    jas_stream_memopen\nmov     rcx, [rbp+tile]\nmov     [rcx+8], rax\ncmp     rax, 0\njnz     loc_15D1",
+   "loc_15C5": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_182F",
+   "loc_15D1": "jmp     $+5",
+   "loc_15D6": "mov     rax, [rbp+tile]\nmov     rdi, [rax+8]; s\ncall    jas_stream_tell\nmov     [rbp+pos], eax\nmov     rax, [rbp+tile]\nmov     rdi, [rax+8]; s\nxor     eax, eax\nmov     esi, eax; off\nmov     edx, 2; origin\ncall    jas_stream_seek\nmov     rax, [rbp+tile]\nmov     rdi, [rax+8]; out\nmov     rax, [rbp+tile]\nmov     rsi, [rax]; tab\ncall    jpc_pptstabwrite\ncmp     eax, 0\njz      loc_1625",
+   "loc_1619": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_182F",
+   "loc_1625": "mov     rax, [rbp+tile]\nmov     rdi, [rax+8]; s\nmovsxd  rsi, [rbp+pos]; off\nxor     edx, edx; origin\ncall    jas_stream_seek\nmov     rax, [rbp+tile]\nmov     rdi, [rax]; tab\ncall    jpc_ppxstab_destroy\nmov     rax, [rbp+tile]\nmov     qword ptr [rax], 0",
+   "loc_164F": "call    jas_get_debug_level\ncmp     eax, 0Ah\njl      loc_1666",
+   "loc_165D": "mov     rdi, [rbp+dec]; dec\ncall    jpc_dec_dump",
+   "loc_1666": "mov     rax, [rbp+dec]\nmov     [rbp+var_40], rax\nmov     rax, [rbp+tile]\ncmp     qword ptr [rax+8], 0\njz      loc_168E",
+   "loc_167D": "mov     rax, [rbp+tile]\nmov     rax, [rax+8]\nmov     [rbp+in], rax\njmp     loc_169A",
+   "loc_168E": "mov     rax, [rbp+dec]\nmov     rax, [rax+8]\nmov     [rbp+in], rax",
+   "loc_169A": "mov     rdi, [rbp+var_40]; dec\nmov     rsi, [rbp+in]; in\nmov     rax, [rbp+dec]\nmov     rdx, [rax+8]; pin\ncall    jpc_dec_decodepkts\ncmp     eax, 0\njz      loc_16D2",
+   "loc_16B8": "lea     rdi, fmt; \"jpc_dec_decodepkts failed\\n\"\nmov     al, 0\ncall    jas_logerrorf\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_182F",
+   "loc_16D2": "mov     rax, [rbp+dec]\ncmp     qword ptr [rax+18h], 0\njle     loc_17AF",
+   "loc_16E1": "mov     rax, [rbp+dec]\nmov     rdi, [rax+8]; s\ncall    jas_stream_getrwcount\nmov     [rbp+curoff], rax\nmov     rax, [rbp+curoff]\nmov     rcx, [rbp+dec]\ncmp     rax, [rcx+18h]\njge     loc_1779",
+   "loc_1704": "mov     rax, [rbp+dec]\nmov     rax, [rax+18h]\nsub     rax, [rbp+curoff]\nmov     [rbp+n], rax\nmov     rsi, [rbp+n]\nlea     rdi, aWarningIgnorin; \"warning: ignoring trailing garbage (%lu\"...\nmov     al, 0\ncall    jas_logwarnf",
+   "loc_1726": "mov     rax, [rbp+n]\nmov     rcx, rax\nadd     rcx, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+n], rcx\ncmp     rax, 0\njbe     loc_1774",
+   "loc_173F": "mov     rax, [rbp+dec]\nmov     rdi, [rax+8]; s\ncall    jas_stream_getc\ncmp     eax, 0FFFFFFFFh\njnz     loc_176F",
+   "loc_1755": "lea     rdi, aReadError; \"read error\\n\"\nmov     al, 0\ncall    jas_logerrorf\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_182F",
+   "loc_176F": "jmp     loc_1726",
+   "loc_1774": "jmp     loc_17AA",
+   "loc_1779": "mov     rax, [rbp+curoff]\nmov     rcx, [rbp+dec]\ncmp     rax, [rcx+18h]\njle     loc_17A5",
+   "loc_178B": "mov     rsi, [rbp+curoff]\nmov     rax, [rbp+dec]\nsub     rsi, [rax+18h]\nlea     rdi, aWarningNotEnou; \"warning: not enough tile data (%lu byte\"...\nmov     al, 0\ncall    jas_logwarnf",
+   "loc_17A5": "jmp     $+5",
+   "loc_17AA": "jmp     $+5",
+   "loc_17AF": "mov     rax, [rbp+tile]\ncmp     dword ptr [rax+1Ch], 0\njbe     loc_1805",
+   "loc_17BD": "mov     rax, [rbp+tile]\nmov     eax, [rax+18h]\nmov     rcx, [rbp+tile]\nmov     ecx, [rcx+1Ch]\nsub     ecx, 1\ncmp     eax, ecx\njnz     loc_1805",
+   "loc_17D6": "mov     rdi, [rbp+dec]; dec\nmov     rsi, [rbp+tile]; tile\ncall    jpc_dec_tiledecode\ncmp     eax, 0\njz      loc_17F8",
+   "loc_17EC": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_182F",
+   "loc_17F8": "mov     rdi, [rbp+dec]; dec\nmov     rsi, [rbp+tile]; tile\ncall    jpc_dec_tilefini",
+   "loc_1805": "mov     rax, [rbp+dec]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+tile]\nmov     ecx, [rax+18h]\nadd     ecx, 1\nmov     [rax+18h], ecx\nmov     rax, [rbp+dec]\nmov     dword ptr [rax+20h], 8\nmov     [rbp+var_4], 0",
+   "loc_182F": "mov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "in": "qword ptr -48h",
+   "var_40": "qword ptr -40h",
+   "n": "qword ptr -38h",
+   "curoff": "qword ptr -30h",
+   "pos": "dword ptr -24h",
+   "tile": "qword ptr -20h",
+   "ms": "qword ptr -18h",
+   "dec": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "fmt": "byte 'jpc_dec_decodepkts failed',0Ah,0",
+   "aWarningIgnorin": "byte 'warning: ignoring trailing garbage (%lu bytes)',0Ah,0",
+   "aReadError": "byte 'read error',0Ah,0",
+   "aWarningNotEnou": "byte 'warning: not enough tile data (%lu bytes)',0Ah,0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5280,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868461
+ }
+}

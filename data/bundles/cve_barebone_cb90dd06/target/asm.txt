@@ -1,0 +1,149 @@
+0000000000001710 <parse_matrix_header>:
+    1710:	push   %rbp
+    1711:	mov    %rsp,%rbp
+    1714:	sub    $0x70,%rsp
+    1718:	mov    %rdi,-0x10(%rbp)
+    171c:	mov    %rsi,-0x18(%rbp)
+    1720:	mov    %rdx,-0x20(%rbp)
+    1724:	mov    %rcx,-0x28(%rbp)
+    1728:	mov    %r8,-0x30(%rbp)
+    172c:	mov    -0x10(%rbp),%rdi
+    1730:	mov    $0xd,%esi
+    1735:	call   1090 <strchr@plt>
+    173a:	mov    %rax,-0x58(%rbp)
+    173e:	cmp    $0x0,%rax
+    1742:	jne    1764 <parse_matrix_header+0x54>
+    1748:	mov    -0x10(%rbp),%rdi
+    174c:	mov    $0xa,%esi
+    1751:	call   1090 <strchr@plt>
+    1756:	mov    %rax,-0x58(%rbp)
+    175a:	cmp    $0x0,%rax
+    175e:	je     176b <parse_matrix_header+0x5b>
+    1764:	mov    -0x58(%rbp),%rax
+    1768:	movb   $0x0,(%rax)
+    176b:	movl   $0x0,-0x64(%rbp)
+    1772:	mov    -0x10(%rbp),%rax
+    1776:	mov    %rax,-0x58(%rbp)
+    177a:	mov    -0x58(%rbp),%rdi
+    177e:	lea    0x8d9(%rip),%rsi        # 205e <_IO_stdin_used+0x5e>
+    1785:	call   1250 <vips_break_token>
+    178a:	mov    %rax,%rcx
+    178d:	mov    %rcx,-0x60(%rbp)
+    1791:	xor    %eax,%eax
+    1793:	cmp    $0x0,%rcx
+    1797:	mov    %al,-0x65(%rbp)
+    179a:	je     17aa <parse_matrix_header+0x9a>
+    17a0:	cmpl   $0x4,-0x64(%rbp)
+    17a4:	setl   %al
+    17a7:	mov    %al,-0x65(%rbp)
+    17aa:	mov    -0x65(%rbp),%al
+    17ad:	test   $0x1,%al
+    17af:	jne    17ba <parse_matrix_header+0xaa>
+    17b5:	jmp    181b <parse_matrix_header+0x10b>
+    17ba:	mov    -0x58(%rbp),%rdi
+    17be:	movslq -0x64(%rbp),%rax
+    17c2:	lea    -0x50(%rbp),%rsi
+    17c6:	shl    $0x3,%rax
+    17ca:	add    %rax,%rsi
+    17cd:	call   1470 <vips_strtod>
+    17d2:	cmp    $0x0,%eax
+    17d5:	je     1800 <parse_matrix_header+0xf0>
+    17db:	mov    -0x58(%rbp),%rdx
+    17df:	lea    0x87b(%rip),%rdi        # 2061 <_IO_stdin_used+0x61>
+    17e6:	lea    0x87c(%rip),%rsi        # 2069 <_IO_stdin_used+0x69>
+    17ed:	mov    $0x0,%al
+    17ef:	call   19c0 <vips_error>
+    17f4:	movl   $0xffffffff,-0x4(%rbp)
+    17fb:	jmp    19b2 <parse_matrix_header+0x2a2>
+    1800:	jmp    1805 <parse_matrix_header+0xf5>
+    1805:	mov    -0x64(%rbp),%eax
+    1808:	add    $0x1,%eax
+    180b:	mov    %eax,-0x64(%rbp)
+    180e:	mov    -0x60(%rbp),%rax
+    1812:	mov    %rax,-0x58(%rbp)
+    1816:	jmp    177a <parse_matrix_header+0x6a>
+    181b:	cmpl   $0x4,-0x64(%rbp)
+    181f:	jge    182d <parse_matrix_header+0x11d>
+    1825:	xorps  %xmm0,%xmm0
+    1828:	movsd  %xmm0,-0x38(%rbp)
+    182d:	cmpl   $0x3,-0x64(%rbp)
+    1831:	jge    1844 <parse_matrix_header+0x134>
+    1837:	movsd  0x7c9(%rip),%xmm0        # 2008 <_IO_stdin_used+0x8>
+    183f:	movsd  %xmm0,-0x40(%rbp)
+    1844:	cmpl   $0x2,-0x64(%rbp)
+    1848:	jge    1876 <parse_matrix_header+0x166>
+    184e:	lea    0x80c(%rip),%rdi        # 2061 <_IO_stdin_used+0x61>
+    1855:	lea    0x81d(%rip),%rsi        # 2079 <_IO_stdin_used+0x79>
+    185c:	lea    0x819(%rip),%rdx        # 207c <_IO_stdin_used+0x7c>
+    1863:	mov    $0x0,%al
+    1865:	call   19c0 <vips_error>
+    186a:	movl   $0xffffffff,-0x4(%rbp)
+    1871:	jmp    19b2 <parse_matrix_header+0x2a2>
+    1876:	movsd  -0x50(%rbp),%xmm0
+    187b:	call   1130 <floor@plt>
+    1880:	ucomisd -0x50(%rbp),%xmm0
+    1885:	jne    18b1 <parse_matrix_header+0x1a1>
+    188b:	jp     18b1 <parse_matrix_header+0x1a1>
+    1891:	movsd  -0x48(%rbp),%xmm0
+    1896:	call   1130 <floor@plt>
+    189b:	ucomisd -0x48(%rbp),%xmm0
+    18a0:	jne    18b1 <parse_matrix_header+0x1a1>
+    18a6:	jp     18b1 <parse_matrix_header+0x1a1>
+    18ac:	jmp    18d9 <parse_matrix_header+0x1c9>
+    18b1:	lea    0x7d6(%rip),%rdi        # 208e <_IO_stdin_used+0x8e>
+    18b8:	lea    0x7ba(%rip),%rsi        # 2079 <_IO_stdin_used+0x79>
+    18bf:	lea    0x7d2(%rip),%rdx        # 2098 <_IO_stdin_used+0x98>
+    18c6:	mov    $0x0,%al
+    18c8:	call   19c0 <vips_error>
+    18cd:	movl   $0xffffffff,-0x4(%rbp)
+    18d4:	jmp    19b2 <parse_matrix_header+0x2a2>
+    18d9:	cvttsd2si -0x50(%rbp),%ecx
+    18de:	mov    -0x18(%rbp),%rax
+    18e2:	mov    %ecx,(%rax)
+    18e4:	cvttsd2si -0x48(%rbp),%ecx
+    18e9:	mov    -0x20(%rbp),%rax
+    18ed:	mov    %ecx,(%rax)
+    18ef:	mov    -0x18(%rbp),%rax
+    18f3:	cmpl   $0x0,(%rax)
+    18f6:	jle    1929 <parse_matrix_header+0x219>
+    18fc:	mov    -0x18(%rbp),%rax
+    1900:	cmpl   $0x186a0,(%rax)
+    1906:	jg     1929 <parse_matrix_header+0x219>
+    190c:	mov    -0x20(%rbp),%rax
+    1910:	cmpl   $0x0,(%rax)
+    1913:	jle    1929 <parse_matrix_header+0x219>
+    1919:	mov    -0x20(%rbp),%rax
+    191d:	cmpl   $0x186a0,(%rax)
+    1923:	jle    1951 <parse_matrix_header+0x241>
+    1929:	lea    0x75e(%rip),%rdi        # 208e <_IO_stdin_used+0x8e>
+    1930:	lea    0x742(%rip),%rsi        # 2079 <_IO_stdin_used+0x79>
+    1937:	lea    0x771(%rip),%rdx        # 20af <_IO_stdin_used+0xaf>
+    193e:	mov    $0x0,%al
+    1940:	call   19c0 <vips_error>
+    1945:	movl   $0xffffffff,-0x4(%rbp)
+    194c:	jmp    19b2 <parse_matrix_header+0x2a2>
+    1951:	movsd  -0x40(%rbp),%xmm0
+    1956:	xorps  %xmm1,%xmm1
+    1959:	ucomisd %xmm1,%xmm0
+    195d:	jne    1991 <parse_matrix_header+0x281>
+    1963:	jp     1991 <parse_matrix_header+0x281>
+    1969:	lea    0x71e(%rip),%rdi        # 208e <_IO_stdin_used+0x8e>
+    1970:	lea    0x702(%rip),%rsi        # 2079 <_IO_stdin_used+0x79>
+    1977:	lea    0x74d(%rip),%rdx        # 20cb <_IO_stdin_used+0xcb>
+    197e:	mov    $0x0,%al
+    1980:	call   19c0 <vips_error>
+    1985:	movl   $0xffffffff,-0x4(%rbp)
+    198c:	jmp    19b2 <parse_matrix_header+0x2a2>
+    1991:	movsd  -0x40(%rbp),%xmm0
+    1996:	mov    -0x28(%rbp),%rax
+    199a:	movsd  %xmm0,(%rax)
+    199e:	movsd  -0x38(%rbp),%xmm0
+    19a3:	mov    -0x30(%rbp),%rax
+    19a7:	movsd  %xmm0,(%rax)
+    19ab:	movl   $0x0,-0x4(%rbp)
+    19b2:	mov    -0x4(%rbp),%eax
+    19b5:	add    $0x70,%rsp
+    19b9:	pop    %rbp
+    19ba:	ret
+
+Disassembly of section .fini:

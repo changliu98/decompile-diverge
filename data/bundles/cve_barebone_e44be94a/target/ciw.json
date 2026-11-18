@@ -1,0 +1,436 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 170h\nmov     [rbp+pamh], rdi\nmov     [rbp+flags], esi\nmov     [rbp+authkey], rdx\nmov     [rbp+ok], 0\nmov     [rbp+siglen], 100h\ncall    EVP_sha1\nmov     [rbp+md], rax\ncall    EVP_MD_CTX_new\nmov     [rbp+md_ctx], rax\nmov     rdi, [rbp+authkey]; key\ncall    PKCS11_get_private_key\nmov     [rbp+privkey], rax\nmov     rdi, [rbp+authkey]; key\ncall    PKCS11_get_public_key\nmov     [rbp+pubkey], rax\nmov     rdi, [rbp+pamh]; pamh\nlea     rsi, [rbp+challenge]; r\nmov     edx, 1Eh; r_len\ncall    randomize\nmov     ecx, eax\nmov     eax, 1\ncmp     eax, ecx\njz      loc_14D5\njmp     err\nxor     eax, eax\ncmp     rax, [rbp+pubkey]\njz      loc_15F3\nxor     eax, eax\ncmp     rax, [rbp+privkey]\njz      loc_15F3\nxor     eax, eax\ncmp     rax, [rbp+md_ctx]\njz      loc_15F3\nxor     eax, eax\ncmp     rax, [rbp+md]\njz      loc_15F3\nmov     rdi, [rbp+md_ctx]; ctx\nmov     rsi, [rbp+md]; type\ncall    EVP_SignInit\ncmp     eax, 0\njz      loc_15F3\nmov     rdi, [rbp+md_ctx]; ctx\nlea     rsi, [rbp+challenge]; d\nmov     edx, 1Eh; cnt\ncall    EVP_SignUpdate\ncmp     eax, 0\njz      loc_15F3\nmov     rdi, [rbp+md_ctx]; ctx\nlea     rsi, [rbp+signature]; sig\nmov     rcx, [rbp+privkey]; pkey\nlea     rdx, [rbp+siglen]; s\ncall    EVP_SignFinal\ncmp     eax, 0\njz      loc_15F3\nmov     rdi, [rbp+md_ctx]; ctx\ncall    EVP_MD_CTX_reset\ncmp     eax, 0\njz      loc_15F3\nmov     rdi, [rbp+md_ctx]; ctx\nmov     rsi, [rbp+md]; type\ncall    EVP_VerifyInit\ncmp     eax, 0\njz      loc_15F3\nmov     rdi, [rbp+md_ctx]; ctx\nlea     rsi, [rbp+challenge]; d\nmov     edx, 1Eh; cnt\ncall    EVP_VerifyUpdate\ncmp     eax, 0\njz      loc_15F3\nmov     rdi, [rbp+md_ctx]; ctx\nlea     rsi, [rbp+signature]; sigbuf\nmov     edx, [rbp+siglen]; siglen\nmov     rcx, [rbp+pubkey]; pkey\ncall    EVP_VerifyFinal\nmov     ecx, eax\nmov     eax, 1\ncmp     eax, ecx\njz      loc_164B\nmov     rax, [rbp+pamh]\nmov     [rbp+var_170], rax\ncall    ERR_get_error\nmov     rdi, rax; e\ncall    ERR_reason_error_string\nmov     rdi, [rbp+var_170]; pamh\nmov     rcx, rax\nmov     esi, 7; priority\nlea     rdx, fmt; \"Error verifying key: %s\\n\"\nmov     al, 0\ncall    pam_syslog\nmov     edi, [rbp+flags]; flags\nmov     rsi, [rbp+pamh]; pamh\nmov     edx, 3; style\nxor     eax, eax\nmov     ecx, eax; response\nlea     r8, aErrorVerifying_0; \"Error verifying key\"\nmov     al, 0\ncall    prompt\njmp     err\nmov     [rbp+ok], 1\nxor     eax, eax\ncmp     rax, [rbp+pubkey]\njz      loc_166D\nmov     rdi, [rbp+pubkey]; pkey\ncall    EVP_PKEY_free\nxor     eax, eax\ncmp     rax, [rbp+privkey]\njz      loc_1688\nmov     rdi, [rbp+privkey]; pkey\ncall    EVP_PKEY_free\nxor     eax, eax\ncmp     rax, [rbp+md_ctx]\njz      loc_16A3\nmov     rdi, [rbp+md_ctx]; ctx\ncall    EVP_MD_CTX_free\nmov     eax, [rbp+ok]\nadd     rsp, 170h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 22,
+  "edges": [
+   [
+    "start",
+    "loc_14D0"
+   ],
+   [
+    "start",
+    "loc_14D5"
+   ],
+   [
+    "loc_14D0",
+    "loc_1652"
+   ],
+   [
+    "loc_14D5",
+    "loc_14E4"
+   ],
+   [
+    "loc_14D5",
+    "loc_15F3"
+   ],
+   [
+    "loc_14E4",
+    "loc_14F3"
+   ],
+   [
+    "loc_14E4",
+    "loc_15F3"
+   ],
+   [
+    "loc_14F3",
+    "loc_1502"
+   ],
+   [
+    "loc_14F3",
+    "loc_15F3"
+   ],
+   [
+    "loc_1502",
+    "loc_1511"
+   ],
+   [
+    "loc_1502",
+    "loc_15F3"
+   ],
+   [
+    "loc_1511",
+    "loc_152D"
+   ],
+   [
+    "loc_1511",
+    "loc_15F3"
+   ],
+   [
+    "loc_152D",
+    "loc_154B"
+   ],
+   [
+    "loc_152D",
+    "loc_15F3"
+   ],
+   [
+    "loc_154B",
+    "loc_1575"
+   ],
+   [
+    "loc_154B",
+    "loc_15F3"
+   ],
+   [
+    "loc_1575",
+    "loc_158A"
+   ],
+   [
+    "loc_1575",
+    "loc_15F3"
+   ],
+   [
+    "loc_158A",
+    "loc_15A6"
+   ],
+   [
+    "loc_158A",
+    "loc_15F3"
+   ],
+   [
+    "loc_15A6",
+    "loc_15C4"
+   ],
+   [
+    "loc_15A6",
+    "loc_15F3"
+   ],
+   [
+    "loc_15C4",
+    "loc_15F3"
+   ],
+   [
+    "loc_15C4",
+    "loc_164B"
+   ],
+   [
+    "loc_15F3",
+    "loc_1652"
+   ],
+   [
+    "loc_164B",
+    "loc_1652"
+   ],
+   [
+    "loc_1652",
+    "loc_1661"
+   ],
+   [
+    "loc_1652",
+    "loc_166D"
+   ],
+   [
+    "loc_1661",
+    "loc_166D"
+   ],
+   [
+    "loc_166D",
+    "loc_167C"
+   ],
+   [
+    "loc_166D",
+    "loc_1688"
+   ],
+   [
+    "loc_167C",
+    "loc_1688"
+   ],
+   [
+    "loc_1688",
+    "loc_1697"
+   ],
+   [
+    "loc_1688",
+    "loc_16A3"
+   ],
+   [
+    "loc_1697",
+    "loc_16A3"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 170h\nmov     [rbp+pamh], rdi\nmov     [rbp+flags], esi\nmov     [rbp+authkey], rdx\nmov     [rbp+ok], 0\nmov     [rbp+siglen], 100h\ncall    EVP_sha1\nmov     [rbp+md], rax\ncall    EVP_MD_CTX_new\nmov     [rbp+md_ctx], rax\nmov     rdi, [rbp+authkey]; key\ncall    PKCS11_get_private_key\nmov     [rbp+privkey], rax\nmov     rdi, [rbp+authkey]; key\ncall    PKCS11_get_public_key\nmov     [rbp+pubkey], rax\nmov     rdi, [rbp+pamh]; pamh\nlea     rsi, [rbp+challenge]; r\nmov     edx, 1Eh; r_len\ncall    randomize\nmov     ecx, eax\nmov     eax, 1\ncmp     eax, ecx\njz      loc_14D5",
+   "loc_14D0": "jmp     err",
+   "loc_14D5": "xor     eax, eax\ncmp     rax, [rbp+pubkey]\njz      loc_15F3",
+   "loc_14E4": "xor     eax, eax\ncmp     rax, [rbp+privkey]\njz      loc_15F3",
+   "loc_14F3": "xor     eax, eax\ncmp     rax, [rbp+md_ctx]\njz      loc_15F3",
+   "loc_1502": "xor     eax, eax\ncmp     rax, [rbp+md]\njz      loc_15F3",
+   "loc_1511": "mov     rdi, [rbp+md_ctx]; ctx\nmov     rsi, [rbp+md]; type\ncall    EVP_SignInit\ncmp     eax, 0\njz      loc_15F3",
+   "loc_152D": "mov     rdi, [rbp+md_ctx]; ctx\nlea     rsi, [rbp+challenge]; d\nmov     edx, 1Eh; cnt\ncall    EVP_SignUpdate\ncmp     eax, 0\njz      loc_15F3",
+   "loc_154B": "mov     rdi, [rbp+md_ctx]; ctx\nlea     rsi, [rbp+signature]; sig\nmov     rcx, [rbp+privkey]; pkey\nlea     rdx, [rbp+siglen]; s\ncall    EVP_SignFinal\ncmp     eax, 0\njz      loc_15F3",
+   "loc_1575": "mov     rdi, [rbp+md_ctx]; ctx\ncall    EVP_MD_CTX_reset\ncmp     eax, 0\njz      loc_15F3",
+   "loc_158A": "mov     rdi, [rbp+md_ctx]; ctx\nmov     rsi, [rbp+md]; type\ncall    EVP_VerifyInit\ncmp     eax, 0\njz      loc_15F3",
+   "loc_15A6": "mov     rdi, [rbp+md_ctx]; ctx\nlea     rsi, [rbp+challenge]; d\nmov     edx, 1Eh; cnt\ncall    EVP_VerifyUpdate\ncmp     eax, 0\njz      loc_15F3",
+   "loc_15C4": "mov     rdi, [rbp+md_ctx]; ctx\nlea     rsi, [rbp+signature]; sigbuf\nmov     edx, [rbp+siglen]; siglen\nmov     rcx, [rbp+pubkey]; pkey\ncall    EVP_VerifyFinal\nmov     ecx, eax\nmov     eax, 1\ncmp     eax, ecx\njz      loc_164B",
+   "loc_15F3": "mov     rax, [rbp+pamh]\nmov     [rbp+var_170], rax\ncall    ERR_get_error\nmov     rdi, rax; e\ncall    ERR_reason_error_string\nmov     rdi, [rbp+var_170]; pamh\nmov     rcx, rax\nmov     esi, 7; priority\nlea     rdx, fmt; \"Error verifying key: %s\\n\"\nmov     al, 0\ncall    pam_syslog\nmov     edi, [rbp+flags]; flags\nmov     rsi, [rbp+pamh]; pamh\nmov     edx, 3; style\nxor     eax, eax\nmov     ecx, eax; response\nlea     r8, aErrorVerifying_0; \"Error verifying key\"\nmov     al, 0\ncall    prompt\njmp     err",
+   "loc_164B": "mov     [rbp+ok], 1",
+   "loc_1652": "xor     eax, eax\ncmp     rax, [rbp+pubkey]\njz      loc_166D",
+   "loc_1661": "mov     rdi, [rbp+pubkey]; pkey\ncall    EVP_PKEY_free",
+   "loc_166D": "xor     eax, eax\ncmp     rax, [rbp+privkey]\njz      loc_1688",
+   "loc_167C": "mov     rdi, [rbp+privkey]; pkey\ncall    EVP_PKEY_free",
+   "loc_1688": "xor     eax, eax\ncmp     rax, [rbp+md_ctx]\njz      loc_16A3",
+   "loc_1697": "mov     rdi, [rbp+md_ctx]; ctx\ncall    EVP_MD_CTX_free",
+   "loc_16A3": "mov     eax, [rbp+ok]\nadd     rsp, 170h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_170": "qword ptr -170h",
+   "pubkey": "qword ptr -168h",
+   "privkey": "qword ptr -160h",
+   "md_ctx": "qword ptr -158h",
+   "md": "qword ptr -150h",
+   "siglen": "dword ptr -144h",
+   "signature": "byte ptr -140h",
+   "challenge": "byte ptr -40h",
+   "ok": "dword ptr -1Ch",
+   "authkey": "qword ptr -18h",
+   "flags": "dword ptr -0Ch",
+   "pamh": "qword ptr -8"
+  },
+  ".rodata": {
+   "fmt": "byte 'Error verifying key: %s',0Ah,0",
+   "aErrorVerifying_0": "byte 'Error verifying key',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5200,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".__errno_location": "__errno_location",
+  "_errno_location": "__errno_location",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".close": "close",
+  "_close": "close",
+  ".read": "read",
+  "_read": "read",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".open": "open",
+  "_open": "open",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".strerror": "strerror",
+  "_strerror": "strerror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".__errno_location",
+   ".plt",
+   true,
+   "__errno_location"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".close",
+   ".plt",
+   true,
+   "close"
+  ],
+  [
+   ".read",
+   ".plt",
+   true,
+   "read"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".open",
+   ".plt",
+   true,
+   "open"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".strerror",
+   ".plt",
+   true,
+   "strerror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__errno_location",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "close",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "read",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "open",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strerror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868496
+ }
+}

@@ -1,0 +1,561 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0E0h\nmov     [rbp+filename], rdi\nmov     [rbp+bpf_filter], 0\nmov     [rbp+bpf_comment_tmp], 0\nmov     [rbp+bpf_comment_start], 0\nmov     [rbp+bpf_len], 0\nmov     [rbp+fp], 0\nmov     [rbp+nm], 0\nmov     rdi, [rbp+filename]; filename\nlea     rsi, aFailedToSetBpf+17h; modes\ncall    fopen\nmov     [rbp+fp], rax\ncmp     [rbp+fp], 0\njnz     loc_1705\nmov     rsi, [rbp+filename]\nlea     rdi, fmt; \"Failed to open file %s\"\nmov     al, 0\ncall    vb_log_stub\nmov     edi, 1; status\ncall    exit\nmov     rdi, [rbp+fp]; stream\ncall    fileno\nmov     edi, eax; fd\nlea     rsi, [rbp+st]; buf\ncall    fstat\ncmp     eax, 0\njz      loc_1744\nmov     rsi, [rbp+filename]\nlea     rdi, aFailedToStatFi; \"Failed to stat file %s\"\nmov     al, 0\ncall    vb_log_stub\nmov     edi, 1; status\ncall    exit\nmov     rax, [rbp+st.st_size]\nadd     rax, 1\nmov     [rbp+bpf_len], eax\nmov     eax, [rbp+bpf_len]\nmov     esi, eax; size\nmov     edi, 1; nmemb\ncall    calloc\nmov     [rbp+bpf_filter], rax\ncmp     [rbp+bpf_filter], 0\nsetz    al\nxor     al, 0FFh\nxor     al, 0FFh\nand     al, 1\nmovzx   eax, al\ncdqe\ncmp     rax, 0\njz      loc_179E\nmov     rsi, [rbp+filename]\nlea     rdi, aFailedToAlloca; \"Failed to allocate buffer for bpf filte\"...\nmov     al, 0\ncall    vb_log_stub\nmov     edi, 1; status\ncall    exit\nmov     rdi, [rbp+bpf_filter]; ptr\nmov     eax, [rbp+bpf_len]\nsub     eax, 1\nmov     eax, eax\nmov     edx, eax; n\nmov     rcx, [rbp+fp]; stream\nmov     esi, 1; size\ncall    fread\nmov     [rbp+nm], rax\nmov     rdi, [rbp+fp]; stream\ncall    ferror\ncmp     eax, 0\njnz     loc_17F1\nmov     rax, [rbp+nm]\nmov     ecx, [rbp+bpf_len]\nsub     ecx, 1\nmov     ecx, ecx\ncmp     rax, rcx\njz      loc_1822\nmov     rsi, [rbp+filename]\nlea     rdi, aFailedToReadCo; \"Failed to read complete BPF file %s\"\nmov     al, 0\ncall    vb_log_stub\nmov     rdi, [rbp+bpf_filter]; ptr\ncall    free\nmov     rdi, [rbp+fp]; stream\ncall    fclose\nmov     edi, 1; status\ncall    exit\nmov     rdi, [rbp+fp]; stream\ncall    fclose\nmov     rax, [rbp+bpf_filter]\nmov     rcx, [rbp+nm]\nmov     byte ptr [rax+rcx], 0\nmov     rdi, [rbp+bpf_filter]; s\ncall    strlen\ncmp     rax, 0\njbe     loc_1A37\nmov     rax, [rbp+bpf_filter]\nmov     [rbp+bpf_comment_start], rax\nmov     rdi, [rbp+bpf_comment_start]; s\nmov     esi, 23h ; '#'; c\ncall    strchr\nmov     [rbp+bpf_comment_tmp], rax\ncmp     rax, 0\njz      loc_18F3\njmp     $+5\nmov     rax, [rbp+bpf_comment_tmp]\nmovsx   ecx, byte ptr [rax]\nxor     eax, eax\ncmp     ecx, 0\nmov     [rbp+var_C9], al\njz      loc_18BC\nmov     rax, [rbp+bpf_comment_tmp]\nmovsx   ecx, byte ptr [rax]\nxor     eax, eax\ncmp     ecx, 0Dh\nmov     [rbp+var_C9], al\njz      loc_18BC\nmov     rax, [rbp+bpf_comment_tmp]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 0Ah\nsetnz   al\nmov     [rbp+var_C9], al\nmov     al, [rbp+var_C9]\ntest    al, 1\njnz     loc_18CF\njmp     loc_18E6\nmov     rax, [rbp+bpf_comment_tmp]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+bpf_comment_tmp], rcx\nmov     byte ptr [rax], 20h ; ' '\njmp     loc_1879\nmov     rax, [rbp+bpf_comment_tmp]\nmov     [rbp+bpf_comment_start], rax\njmp     loc_1858\njmp     $+5\nmov     rdi, [rbp+bpf_filter]; s\nmov     esi, 0Dh; c\ncall    strchr\nmov     [rbp+bpf_comment_tmp], rax\ncmp     rax, 0\njz      loc_1920\nmov     rax, [rbp+bpf_comment_tmp]\nmov     byte ptr [rax], 20h ; ' '\njmp     loc_18F8\njmp     $+5\nmov     rdi, [rbp+bpf_filter]; s\nmov     esi, 0Ah; c\ncall    strchr\nmov     [rbp+bpf_comment_tmp], rax\ncmp     rax, 0\njz      loc_194D\nmov     rax, [rbp+bpf_comment_tmp]\nmov     byte ptr [rax], 20h ; ' '\njmp     loc_1925\njmp     $+5\nmov     rdi, [rbp+bpf_filter]; s\ncall    strlen\nmov     rcx, rax\nxor     eax, eax\ncmp     rcx, 0\nmov     [rbp+var_CA], al\njbe     loc_19A2\nmov     rax, [rbp+bpf_filter]\nmov     [rbp+var_D8], rax\nmov     rdi, [rbp+bpf_filter]; s\ncall    strlen\nmov     rcx, rax\nmov     rax, [rbp+var_D8]\nsub     rcx, 1\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 20h ; ' '\nsetz    al\nmov     [rbp+var_CA], al\nmov     al, [rbp+var_CA]\ntest    al, 1\njnz     loc_19B5\njmp     loc_19E0\nmov     rax, [rbp+bpf_filter]\nmov     [rbp+var_E0], rax\nmov     rdi, [rbp+bpf_filter]; s\ncall    strlen\nmov     rcx, rax\nmov     rax, [rbp+var_E0]\nsub     rcx, 1\nmov     byte ptr [rax+rcx], 0\njmp     loc_1952\nmov     rdi, [rbp+bpf_filter]; s\ncall    strlen\ncmp     rax, 0\njbe     loc_1A32\nmov     rsi, [rbp+bpf_filter]; val\nlea     rdi, name; \"bpf-filter\"\ncall    ConfSetFinal\ncmp     eax, 1\njz      loc_1A2D\nmov     rdi, [rbp+bpf_filter]; ptr\ncall    free\nlea     rdi, aFailedToSetBpf; \"failed to set bpf filter\"\nmov     al, 0\ncall    vb_log_stub\nmov     edi, 1; status\ncall    exit\njmp     $+5\njmp     $+5\nmov     rdi, [rbp+bpf_filter]; ptr\ncall    free\nadd     rsp, 0E0h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 38,
+  "edges": [
+   [
+    "start",
+    "loc_16E9"
+   ],
+   [
+    "start",
+    "loc_1705"
+   ],
+   [
+    "loc_1705",
+    "loc_1728"
+   ],
+   [
+    "loc_1705",
+    "loc_1744"
+   ],
+   [
+    "loc_1744",
+    "loc_1782"
+   ],
+   [
+    "loc_1744",
+    "loc_179E"
+   ],
+   [
+    "loc_179E",
+    "loc_17D9"
+   ],
+   [
+    "loc_179E",
+    "loc_17F1"
+   ],
+   [
+    "loc_17D9",
+    "loc_17F1"
+   ],
+   [
+    "loc_17D9",
+    "loc_1822"
+   ],
+   [
+    "loc_1822",
+    "loc_1850"
+   ],
+   [
+    "loc_1822",
+    "loc_1A37"
+   ],
+   [
+    "loc_1850",
+    "loc_1858"
+   ],
+   [
+    "loc_1858",
+    "loc_1874"
+   ],
+   [
+    "loc_1858",
+    "loc_18F3"
+   ],
+   [
+    "loc_1874",
+    "loc_1879"
+   ],
+   [
+    "loc_1879",
+    "loc_1891"
+   ],
+   [
+    "loc_1879",
+    "loc_18BC"
+   ],
+   [
+    "loc_1891",
+    "loc_18A9"
+   ],
+   [
+    "loc_1891",
+    "loc_18BC"
+   ],
+   [
+    "loc_18A9",
+    "loc_18BC"
+   ],
+   [
+    "loc_18BC",
+    "loc_18CA"
+   ],
+   [
+    "loc_18BC",
+    "loc_18CF"
+   ],
+   [
+    "loc_18CA",
+    "loc_18E6"
+   ],
+   [
+    "loc_18CF",
+    "loc_1879"
+   ],
+   [
+    "loc_18E6",
+    "loc_1858"
+   ],
+   [
+    "loc_18F3",
+    "loc_18F8"
+   ],
+   [
+    "loc_18F8",
+    "loc_1914"
+   ],
+   [
+    "loc_18F8",
+    "loc_1920"
+   ],
+   [
+    "loc_1914",
+    "loc_18F8"
+   ],
+   [
+    "loc_1920",
+    "loc_1925"
+   ],
+   [
+    "loc_1925",
+    "loc_1941"
+   ],
+   [
+    "loc_1925",
+    "loc_194D"
+   ],
+   [
+    "loc_1941",
+    "loc_1925"
+   ],
+   [
+    "loc_194D",
+    "loc_1952"
+   ],
+   [
+    "loc_1952",
+    "loc_1970"
+   ],
+   [
+    "loc_1952",
+    "loc_19A2"
+   ],
+   [
+    "loc_1970",
+    "loc_19A2"
+   ],
+   [
+    "loc_19A2",
+    "loc_19B0"
+   ],
+   [
+    "loc_19A2",
+    "loc_19B5"
+   ],
+   [
+    "loc_19B0",
+    "loc_19E0"
+   ],
+   [
+    "loc_19B5",
+    "loc_1952"
+   ],
+   [
+    "loc_19E0",
+    "loc_19F3"
+   ],
+   [
+    "loc_19E0",
+    "loc_1A32"
+   ],
+   [
+    "loc_19F3",
+    "loc_1A0C"
+   ],
+   [
+    "loc_19F3",
+    "loc_1A2D"
+   ],
+   [
+    "loc_1A2D",
+    "loc_1A32"
+   ],
+   [
+    "loc_1A32",
+    "loc_1A37"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0E0h\nmov     [rbp+filename], rdi\nmov     [rbp+bpf_filter], 0\nmov     [rbp+bpf_comment_tmp], 0\nmov     [rbp+bpf_comment_start], 0\nmov     [rbp+bpf_len], 0\nmov     [rbp+fp], 0\nmov     [rbp+nm], 0\nmov     rdi, [rbp+filename]; filename\nlea     rsi, aFailedToSetBpf+17h; modes\ncall    fopen\nmov     [rbp+fp], rax\ncmp     [rbp+fp], 0\njnz     loc_1705",
+   "loc_16E9": "mov     rsi, [rbp+filename]\nlea     rdi, fmt; \"Failed to open file %s\"\nmov     al, 0\ncall    vb_log_stub\nmov     edi, 1; status\ncall    exit",
+   "loc_1705": "mov     rdi, [rbp+fp]; stream\ncall    fileno\nmov     edi, eax; fd\nlea     rsi, [rbp+st]; buf\ncall    fstat\ncmp     eax, 0\njz      loc_1744",
+   "loc_1728": "mov     rsi, [rbp+filename]\nlea     rdi, aFailedToStatFi; \"Failed to stat file %s\"\nmov     al, 0\ncall    vb_log_stub\nmov     edi, 1; status\ncall    exit",
+   "loc_1744": "mov     rax, [rbp+st.st_size]\nadd     rax, 1\nmov     [rbp+bpf_len], eax\nmov     eax, [rbp+bpf_len]\nmov     esi, eax; size\nmov     edi, 1; nmemb\ncall    calloc\nmov     [rbp+bpf_filter], rax\ncmp     [rbp+bpf_filter], 0\nsetz    al\nxor     al, 0FFh\nxor     al, 0FFh\nand     al, 1\nmovzx   eax, al\ncdqe\ncmp     rax, 0\njz      loc_179E",
+   "loc_1782": "mov     rsi, [rbp+filename]\nlea     rdi, aFailedToAlloca; \"Failed to allocate buffer for bpf filte\"...\nmov     al, 0\ncall    vb_log_stub\nmov     edi, 1; status\ncall    exit",
+   "loc_179E": "mov     rdi, [rbp+bpf_filter]; ptr\nmov     eax, [rbp+bpf_len]\nsub     eax, 1\nmov     eax, eax\nmov     edx, eax; n\nmov     rcx, [rbp+fp]; stream\nmov     esi, 1; size\ncall    fread\nmov     [rbp+nm], rax\nmov     rdi, [rbp+fp]; stream\ncall    ferror\ncmp     eax, 0\njnz     loc_17F1",
+   "loc_17D9": "mov     rax, [rbp+nm]\nmov     ecx, [rbp+bpf_len]\nsub     ecx, 1\nmov     ecx, ecx\ncmp     rax, rcx\njz      loc_1822",
+   "loc_17F1": "mov     rsi, [rbp+filename]\nlea     rdi, aFailedToReadCo; \"Failed to read complete BPF file %s\"\nmov     al, 0\ncall    vb_log_stub\nmov     rdi, [rbp+bpf_filter]; ptr\ncall    free\nmov     rdi, [rbp+fp]; stream\ncall    fclose\nmov     edi, 1; status\ncall    exit",
+   "loc_1822": "mov     rdi, [rbp+fp]; stream\ncall    fclose\nmov     rax, [rbp+bpf_filter]\nmov     rcx, [rbp+nm]\nmov     byte ptr [rax+rcx], 0\nmov     rdi, [rbp+bpf_filter]; s\ncall    strlen\ncmp     rax, 0\njbe     loc_1A37",
+   "loc_1850": "mov     rax, [rbp+bpf_filter]\nmov     [rbp+bpf_comment_start], rax",
+   "loc_1858": "mov     rdi, [rbp+bpf_comment_start]; s\nmov     esi, 23h ; '#'; c\ncall    strchr\nmov     [rbp+bpf_comment_tmp], rax\ncmp     rax, 0\njz      loc_18F3",
+   "loc_1874": "jmp     $+5",
+   "loc_1879": "mov     rax, [rbp+bpf_comment_tmp]\nmovsx   ecx, byte ptr [rax]\nxor     eax, eax\ncmp     ecx, 0\nmov     [rbp+var_C9], al\njz      loc_18BC",
+   "loc_1891": "mov     rax, [rbp+bpf_comment_tmp]\nmovsx   ecx, byte ptr [rax]\nxor     eax, eax\ncmp     ecx, 0Dh\nmov     [rbp+var_C9], al\njz      loc_18BC",
+   "loc_18A9": "mov     rax, [rbp+bpf_comment_tmp]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 0Ah\nsetnz   al\nmov     [rbp+var_C9], al",
+   "loc_18BC": "mov     al, [rbp+var_C9]\ntest    al, 1\njnz     loc_18CF",
+   "loc_18CA": "jmp     loc_18E6",
+   "loc_18CF": "mov     rax, [rbp+bpf_comment_tmp]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+bpf_comment_tmp], rcx\nmov     byte ptr [rax], 20h ; ' '\njmp     loc_1879",
+   "loc_18E6": "mov     rax, [rbp+bpf_comment_tmp]\nmov     [rbp+bpf_comment_start], rax\njmp     loc_1858",
+   "loc_18F3": "jmp     $+5",
+   "loc_18F8": "mov     rdi, [rbp+bpf_filter]; s\nmov     esi, 0Dh; c\ncall    strchr\nmov     [rbp+bpf_comment_tmp], rax\ncmp     rax, 0\njz      loc_1920",
+   "loc_1914": "mov     rax, [rbp+bpf_comment_tmp]\nmov     byte ptr [rax], 20h ; ' '\njmp     loc_18F8",
+   "loc_1920": "jmp     $+5",
+   "loc_1925": "mov     rdi, [rbp+bpf_filter]; s\nmov     esi, 0Ah; c\ncall    strchr\nmov     [rbp+bpf_comment_tmp], rax\ncmp     rax, 0\njz      loc_194D",
+   "loc_1941": "mov     rax, [rbp+bpf_comment_tmp]\nmov     byte ptr [rax], 20h ; ' '\njmp     loc_1925",
+   "loc_194D": "jmp     $+5",
+   "loc_1952": "mov     rdi, [rbp+bpf_filter]; s\ncall    strlen\nmov     rcx, rax\nxor     eax, eax\ncmp     rcx, 0\nmov     [rbp+var_CA], al\njbe     loc_19A2",
+   "loc_1970": "mov     rax, [rbp+bpf_filter]\nmov     [rbp+var_D8], rax\nmov     rdi, [rbp+bpf_filter]; s\ncall    strlen\nmov     rcx, rax\nmov     rax, [rbp+var_D8]\nsub     rcx, 1\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 20h ; ' '\nsetz    al\nmov     [rbp+var_CA], al",
+   "loc_19A2": "mov     al, [rbp+var_CA]\ntest    al, 1\njnz     loc_19B5",
+   "loc_19B0": "jmp     loc_19E0",
+   "loc_19B5": "mov     rax, [rbp+bpf_filter]\nmov     [rbp+var_E0], rax\nmov     rdi, [rbp+bpf_filter]; s\ncall    strlen\nmov     rcx, rax\nmov     rax, [rbp+var_E0]\nsub     rcx, 1\nmov     byte ptr [rax+rcx], 0\njmp     loc_1952",
+   "loc_19E0": "mov     rdi, [rbp+bpf_filter]; s\ncall    strlen\ncmp     rax, 0\njbe     loc_1A32",
+   "loc_19F3": "mov     rsi, [rbp+bpf_filter]; val\nlea     rdi, name; \"bpf-filter\"\ncall    ConfSetFinal\ncmp     eax, 1\njz      loc_1A2D",
+   "loc_1A0C": "mov     rdi, [rbp+bpf_filter]; ptr\ncall    free\nlea     rdi, aFailedToSetBpf; \"failed to set bpf filter\"\nmov     al, 0\ncall    vb_log_stub\nmov     edi, 1; status\ncall    exit",
+   "loc_1A2D": "jmp     $+5",
+   "loc_1A32": "jmp     $+5",
+   "loc_1A37": "mov     rdi, [rbp+bpf_filter]; ptr\ncall    free\nadd     rsp, 0E0h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_E0": "qword ptr -0E0h",
+   "var_D8": "qword ptr -0D8h",
+   "var_CA": "byte ptr -0CAh",
+   "var_C9": "byte ptr -0C9h",
+   "nm": "qword ptr -0C8h",
+   "fp": "qword ptr -0C0h",
+   "st": "SCStat ptr -0B8h",
+   "bpf_len": "dword ptr -24h",
+   "bpf_comment_start": "qword ptr -20h",
+   "bpf_comment_tmp": "qword ptr -18h",
+   "bpf_filter": "qword ptr -10h",
+   "filename": "qword ptr -8"
+  },
+  ".rodata": {
+   "unk_20BF": "byte 'failed to set bpf filter',0",
+   "fmt": "byte 'Failed to open file %s',0",
+   "aFailedToStatFi": "byte 'Failed to stat file %s',0",
+   "aFailedToAlloca": "byte 'Failed to allocate buffer for bpf filter in file %s',0",
+   "aFailedToReadCo": "byte 'Failed to read complete BPF file %s',0",
+   "name": "byte 'bpf-filter',0",
+   "aFailedToSetBpf": "byte 'failed to set bpf filter',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5760,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".unlink": "unlink",
+  "_unlink": "unlink",
+  ".ferror": "ferror",
+  "_ferror": "ferror",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".write": "write",
+  "_write": "write",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".strchr": "strchr",
+  "_strchr": "strchr",
+  ".ftruncate": "ftruncate",
+  "_ftruncate": "ftruncate",
+  ".close": "close",
+  "_close": "close",
+  ".fputc": "fputc",
+  "_fputc": "fputc",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".fileno": "fileno",
+  "_fileno": "fileno",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".mkstemp": "mkstemp",
+  "_mkstemp": "mkstemp",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".vfprintf": "vfprintf",
+  "_vfprintf": "vfprintf",
+  ".exit": "exit",
+  "_exit": "exit",
+  ".fstat": "fstat",
+  "_fstat": "fstat"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".unlink",
+   ".plt",
+   true,
+   "unlink"
+  ],
+  [
+   ".ferror",
+   ".plt",
+   true,
+   "ferror"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".write",
+   ".plt",
+   true,
+   "write"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".strchr",
+   ".plt",
+   true,
+   "strchr"
+  ],
+  [
+   ".ftruncate",
+   ".plt",
+   true,
+   "ftruncate"
+  ],
+  [
+   ".close",
+   ".plt",
+   true,
+   "close"
+  ],
+  [
+   ".fputc",
+   ".plt",
+   true,
+   "fputc"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".fileno",
+   ".plt",
+   true,
+   "fileno"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".mkstemp",
+   ".plt",
+   true,
+   "mkstemp"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".vfprintf",
+   ".plt",
+   true,
+   "vfprintf"
+  ],
+  [
+   ".exit",
+   ".plt",
+   true,
+   "exit"
+  ],
+  [
+   ".fstat",
+   ".plt",
+   true,
+   "fstat"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "unlink",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ferror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "write",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strchr",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftruncate",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "close",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fputc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fileno",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "mkstemp",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868464
+ }
+}

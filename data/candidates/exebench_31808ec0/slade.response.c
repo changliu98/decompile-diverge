@@ -1,0 +1,1 @@
+void trataCoordenadas(char *buffer, int *x, int *y){ *y = (int)buffer[0]-97; if(!buffer[3] || buffer[3] == '\n') *x = (int)buffer[2]-49; else *x = ((int)buffer[2]-48)*10 + (int)buffer[3]-48-1; }

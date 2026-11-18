@@ -1,0 +1,1 @@
+void hil_s_from_xy(unsigned int s, unsigned int c, unsigned int n, unsigned int *x) { int i = 0; unsigned int r, v = 0; for (i = n - 1; i >= 0; i--) { r = (v << 2) | ((s >> i) &0xf) << 1 | ((c >> i) & 1); *x = (*x << 2) | (0x3f80000 >> (r * 2) & 3); v = (0xf55c0000 >> (r * 2)) & 3; } }

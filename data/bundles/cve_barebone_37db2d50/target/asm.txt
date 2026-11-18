@@ -1,0 +1,178 @@
+0000000000001640 <mobi_decompress_huffman_internal>:
+    1640:	push   %rbp
+    1641:	mov    %rsp,%rbp
+    1644:	sub    $0x80,%rsp
+    164b:	mov    %rdi,-0x10(%rbp)
+    164f:	mov    %rsi,-0x18(%rbp)
+    1653:	mov    %rdx,-0x20(%rbp)
+    1657:	mov    %rcx,-0x28(%rbp)
+    165b:	cmpq   $0x14,-0x28(%rbp)
+    1660:	jbe    1672 <mobi_decompress_huffman_internal+0x32>
+    1666:	movl   $0x3,-0x4(%rbp)
+    166d:	jmp    18e4 <mobi_decompress_huffman_internal+0x2a4>
+    1672:	movl   $0x0,-0x2c(%rbp)
+    1679:	movb   $0x20,-0x2d(%rbp)
+    167d:	mov    -0x18(%rbp),%rax
+    1681:	mov    0x8(%rax),%rax
+    1685:	shl    $0x3,%rax
+    1689:	mov    %eax,-0x34(%rbp)
+    168c:	movb   $0x0,-0x35(%rbp)
+    1690:	mov    -0x18(%rbp),%rdi
+    1694:	call   18f0 <mobi_buffer_fill64>
+    1699:	mov    %rax,-0x40(%rbp)
+    169d:	cmpl   $0x0,-0x2c(%rbp)
+    16a1:	jne    18de <mobi_decompress_huffman_internal+0x29e>
+    16a7:	movsbl -0x2d(%rbp),%eax
+    16ab:	cmp    $0x0,%eax
+    16ae:	jg     16cb <mobi_decompress_huffman_internal+0x8b>
+    16b4:	movsbl -0x2d(%rbp),%eax
+    16b8:	add    $0x20,%eax
+    16bb:	mov    %al,-0x2d(%rbp)
+    16be:	mov    -0x18(%rbp),%rdi
+    16c2:	call   18f0 <mobi_buffer_fill64>
+    16c7:	mov    %rax,-0x40(%rbp)
+    16cb:	mov    -0x40(%rbp),%rax
+    16cf:	movsbl -0x2d(%rbp),%ecx
+    16d3:	mov    %ecx,%ecx
+    16d5:	shr    %cl,%rax
+    16d8:	movabs $0xffffffff,%rcx
+    16e2:	and    %rcx,%rax
+    16e5:	mov    %eax,-0x44(%rbp)
+    16e8:	mov    -0x20(%rbp),%rax
+    16ec:	mov    -0x44(%rbp),%ecx
+    16ef:	shr    $0x18,%ecx
+    16f2:	mov    %ecx,%ecx
+    16f4:	mov    0x18(%rax,%rcx,4),%eax
+    16f8:	mov    %eax,-0x48(%rbp)
+    16fb:	mov    -0x48(%rbp),%eax
+    16fe:	and    $0x1f,%eax
+    1701:	mov    %al,-0x35(%rbp)
+    1704:	mov    -0x48(%rbp),%eax
+    1707:	shr    $0x8,%eax
+    170a:	add    $0x1,%eax
+    170d:	movzbl -0x35(%rbp),%edx
+    1711:	mov    $0x20,%ecx
+    1716:	sub    %edx,%ecx
+    1718:	shl    %cl,%eax
+    171a:	sub    $0x1,%eax
+    171d:	mov    %eax,-0x4c(%rbp)
+    1720:	mov    -0x48(%rbp),%eax
+    1723:	and    $0x80,%eax
+    1728:	cmp    $0x0,%eax
+    172b:	jne    176d <mobi_decompress_huffman_internal+0x12d>
+    1731:	jmp    1736 <mobi_decompress_huffman_internal+0xf6>
+    1736:	mov    -0x44(%rbp),%eax
+    1739:	mov    -0x20(%rbp),%rcx
+    173d:	movzbl -0x35(%rbp),%edx
+    1741:	cmp    0x418(%rcx,%rdx,4),%eax
+    1748:	jae    175b <mobi_decompress_huffman_internal+0x11b>
+    174e:	mov    -0x35(%rbp),%al
+    1751:	add    $0x1,%al
+    1753:	mov    %al,-0x35(%rbp)
+    1756:	jmp    1736 <mobi_decompress_huffman_internal+0xf6>
+    175b:	mov    -0x20(%rbp),%rax
+    175f:	movzbl -0x35(%rbp),%ecx
+    1763:	mov    0x49c(%rax,%rcx,4),%eax
+    176a:	mov    %eax,-0x4c(%rbp)
+    176d:	movzbl -0x35(%rbp),%ecx
+    1771:	movsbl -0x2d(%rbp),%eax
+    1775:	sub    %ecx,%eax
+    1777:	mov    %al,-0x2d(%rbp)
+    177a:	movzbl -0x35(%rbp),%ecx
+    177e:	mov    -0x34(%rbp),%eax
+    1781:	sub    %ecx,%eax
+    1783:	mov    %eax,-0x34(%rbp)
+    1786:	cmpl   $0x0,-0x34(%rbp)
+    178a:	jge    1795 <mobi_decompress_huffman_internal+0x155>
+    1790:	jmp    18de <mobi_decompress_huffman_internal+0x29e>
+    1795:	mov    -0x4c(%rbp),%eax
+    1798:	sub    -0x44(%rbp),%eax
+    179b:	movzbl -0x35(%rbp),%edx
+    179f:	mov    $0x20,%ecx
+    17a4:	sub    %edx,%ecx
+    17a6:	shr    %cl,%eax
+    17a8:	mov    %eax,-0x50(%rbp)
+    17ab:	mov    -0x50(%rbp),%eax
+    17ae:	mov    -0x20(%rbp),%rcx
+    17b2:	mov    0x10(%rcx),%rcx
+    17b6:	shr    %cl,%eax
+    17b8:	mov    %ax,-0x52(%rbp)
+    17bc:	mov    -0x50(%rbp),%eax
+    17bf:	mov    -0x20(%rbp),%rcx
+    17c3:	cmp    (%rcx),%rax
+    17c6:	jb     17d8 <mobi_decompress_huffman_internal+0x198>
+    17cc:	movl   $0x3,-0x4(%rbp)
+    17d3:	jmp    18e4 <mobi_decompress_huffman_internal+0x2a4>
+    17d8:	mov    -0x20(%rbp),%rax
+    17dc:	mov    0x520(%rax),%rax
+    17e3:	mov    -0x50(%rbp),%ecx
+    17e6:	movzwl (%rax,%rcx,2),%eax
+    17ea:	mov    %eax,-0x58(%rbp)
+    17ed:	mov    -0x20(%rbp),%rax
+    17f1:	mov    0x528(%rax),%rax
+    17f8:	movzwl -0x52(%rbp),%ecx
+    17fc:	mov    (%rax,%rcx,8),%rax
+    1800:	mov    -0x58(%rbp),%ecx
+    1803:	movzbl (%rax,%rcx,1),%eax
+    1807:	shl    $0x8,%eax
+    180a:	mov    -0x20(%rbp),%rcx
+    180e:	mov    0x528(%rcx),%rcx
+    1815:	movzwl -0x52(%rbp),%edx
+    1819:	mov    (%rcx,%rdx,8),%rcx
+    181d:	mov    -0x58(%rbp),%edx
+    1820:	add    $0x1,%edx
+    1823:	mov    %edx,%edx
+    1825:	movzbl (%rcx,%rdx,1),%ecx
+    1829:	or     %ecx,%eax
+    182b:	mov    %eax,-0x5c(%rbp)
+    182e:	mov    -0x5c(%rbp),%eax
+    1831:	shr    $0xf,%eax
+    1834:	mov    %eax,-0x60(%rbp)
+    1837:	mov    -0x5c(%rbp),%eax
+    183a:	and    $0x7fff,%eax
+    183f:	mov    %eax,-0x5c(%rbp)
+    1842:	cmpl   $0x0,-0x60(%rbp)
+    1846:	je     1886 <mobi_decompress_huffman_internal+0x246>
+    184c:	mov    -0x10(%rbp),%rdi
+    1850:	mov    -0x20(%rbp),%rax
+    1854:	mov    0x528(%rax),%rax
+    185b:	movzwl -0x52(%rbp),%ecx
+    185f:	mov    (%rax,%rcx,8),%rsi
+    1863:	mov    -0x58(%rbp),%eax
+    1866:	add    %rax,%rsi
+    1869:	add    $0x2,%rsi
+    186d:	mov    -0x5c(%rbp),%eax
+    1870:	mov    %eax,%edx
+    1872:	call   11e0 <mobi_buffer_addraw>
+    1877:	mov    -0x10(%rbp),%rax
+    187b:	mov    0x18(%rax),%eax
+    187e:	mov    %eax,-0x2c(%rbp)
+    1881:	jmp    18d9 <mobi_decompress_huffman_internal+0x299>
+    1886:	mov    -0x20(%rbp),%rax
+    188a:	mov    0x528(%rax),%rax
+    1891:	movzwl -0x52(%rbp),%ecx
+    1895:	mov    (%rax,%rcx,8),%rax
+    1899:	mov    -0x58(%rbp),%ecx
+    189c:	add    %rcx,%rax
+    189f:	add    $0x2,%rax
+    18a3:	mov    %rax,-0x70(%rbp)
+    18a7:	movq   $0x0,-0x80(%rbp)
+    18af:	mov    -0x5c(%rbp),%eax
+    18b2:	mov    %rax,-0x78(%rbp)
+    18b6:	movl   $0x0,-0x68(%rbp)
+    18bd:	mov    -0x10(%rbp),%rdi
+    18c1:	mov    -0x20(%rbp),%rdx
+    18c5:	mov    -0x28(%rbp),%rcx
+    18c9:	add    $0x1,%rcx
+    18cd:	lea    -0x80(%rbp),%rsi
+    18d1:	call   1640 <mobi_decompress_huffman_internal>
+    18d6:	mov    %eax,-0x2c(%rbp)
+    18d9:	jmp    169d <mobi_decompress_huffman_internal+0x5d>
+    18de:	mov    -0x2c(%rbp),%eax
+    18e1:	mov    %eax,-0x4(%rbp)
+    18e4:	mov    -0x4(%rbp),%eax
+    18e7:	add    $0x80,%rsp
+    18ee:	pop    %rbp
+    18ef:	ret
+
+Disassembly of section .fini:

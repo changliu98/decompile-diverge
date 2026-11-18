@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nvoid func0(int x, int base, char *out) {\n    int index = 0;\n    char temp[33];\n    while (x > 0) {\n        temp[index++] = (x % base) + '0';\n        x = x / base;\n    }\n    int j = 0;\n    while(index > 0) {\n        out[j++] = temp[--index];\n    }\n    out[j] = '\\0';\n}",
+ "c_test": "#include <stdio.h>\n#include <assert.h>\n#include <string.h>\n\nint main() {\n    char buffer[33];\n    \n    func0(8, 3, buffer);\n    assert(strcmp(buffer, \"22\") == 0);\n    \n    func0(9, 3, buffer);\n    assert(strcmp(buffer, \"100\") == 0);\n    \n    func0(234, 2, buffer);\n    assert(strcmp(buffer, \"11101010\") == 0);\n    \n    func0(16, 2, buffer);\n    assert(strcmp(buffer, \"10000\") == 0);\n    \n    func0(8, 2, buffer);\n    assert(strcmp(buffer, \"1000\") == 0);\n    \n    func0(7, 2, buffer);\n    assert(strcmp(buffer, \"111\") == 0);\n    \n    for (int x = 2; x < 8; x++) {\n        char expected[33];\n        sprintf(expected, \"%d\", x);\n        func0(x, x + 1, buffer);\n        assert(strcmp(buffer, expected) == 0);\n    }\n\n    return 0;\n}"
+}

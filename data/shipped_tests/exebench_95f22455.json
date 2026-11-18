@@ -1,0 +1,207 @@
+{
+ "kind": "exebench",
+ "real_deps": "\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_554papmu3i.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(float* vec, int resolutionx, int resolutiony) {\n  json output_json;\n  std::vector<json> output_temp_2;\n  for (unsigned int i3 = 0; i3 < 3; i3++) {\n    float output_temp_4 = vec[i3];\n\n    output_temp_2.push_back(output_temp_4);\n  }\n  output_json[\"vec\"] = output_temp_2;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  std::vector<float> input_temp_1_vec;\n  for (auto& elem : input_json[\"vec\"]) {\n    float input_temp_1_inner = elem;\n    input_temp_1_vec.push_back(input_temp_1_inner);\n  }\n  float* vec = &input_temp_1_vec[0];\n  int resolutionx = input_json[\"resolutionx\"];\n  int resolutiony = input_json[\"resolutiony\"];\n  clock_t begin = clock();\n  convertscreenvertex(vec, resolutionx, resolutiony);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(vec, resolutionx, resolutiony);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "vec": [
+     54.6085402918,
+     1.77715230981,
+     28.5788621504
+    ],
+    "resolutionx": 113,
+    "resolutiony": 3
+   },
+   "output": {
+    "vec": [
+     -0.02484750747680664,
+     -0.013877719640731812,
+     -1.0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "vec": [
+     3.34104435818,
+     52.3165290433,
+     46.0570650274
+    ],
+    "resolutionx": 120,
+    "resolutiony": 116
+   },
+   "output": {
+    "vec": [
+     -0.9443159103393555,
+     0.09472452849149704,
+     -1.0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "vec": [
+     40.7158726821,
+     69.1501834933,
+     16.5997864941
+    ],
+    "resolutionx": 19,
+    "resolutiony": 101
+   },
+   "output": {
+    "vec": [
+     3.5239858627319336,
+     -2.127798318862915,
+     -1.0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "vec": [
+     52.0010123078,
+     81.9304785342,
+     80.5808517266
+    ],
+    "resolutionx": 47,
+    "resolutiony": 78
+   },
+   "output": {
+    "vec": [
+     1.2609134912490845,
+     -1.8665426969528198,
+     -1.0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "vec": [
+     66.7317759874,
+     98.5777517419,
+     10.8165449239
+    ],
+    "resolutionx": 108,
+    "resolutiony": 55
+   },
+   "output": {
+    "vec": [
+     0.23577357828617096,
+     -1.3255139589309692,
+     -1.0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "vec": [
+     10.9697198533,
+     35.3735402435,
+     14.3464399595
+    ],
+    "resolutionx": 21,
+    "resolutiony": 51
+   },
+   "output": {
+    "vec": [
+     0.09697198867797852,
+     -1.0373538732528687,
+     -1.0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "vec": [
+     90.3771908835,
+     63.0147593034,
+     69.3433167436
+    ],
+    "resolutionx": 24,
+    "resolutiony": 52
+   },
+   "output": {
+    "vec": [
+     6.531432628631592,
+     -3.0845632553100586,
+     -1.0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "vec": [
+     1.8564751253,
+     10.2046270219,
+     66.3451525116
+    ],
+    "resolutionx": 4,
+    "resolutiony": 63
+   },
+   "output": {
+    "vec": [
+     -0.07176244258880615,
+     10.397686004638672,
+     -1.0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "vec": [
+     47.8794383407,
+     27.2881228777,
+     58.9125319307
+    ],
+    "resolutionx": 44,
+    "resolutiony": 64
+   },
+   "output": {
+    "vec": [
+     1.1763380765914917,
+     0.2141762673854828,
+     -1.0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "vec": [
+     9.07371171473,
+     90.9951054932,
+     58.815097219
+    ],
+    "resolutionx": 27,
+    "resolutiony": 90
+   },
+   "output": {
+    "vec": [
+     -0.30202218890190125,
+     -3.5380847454071045,
+     -1.0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

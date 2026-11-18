@@ -1,0 +1,1 @@
+uint32_t func0(const uint8_t *p, uint32_t n) { uint32_t m = 0; uint32_t i; for (i = 0; i + i + 1 < n; ++i) { if ((p[2 * i + 1] & 1) == 0) m += p[2 * i + 1]; } return m; }

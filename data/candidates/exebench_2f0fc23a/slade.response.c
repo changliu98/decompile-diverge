@@ -1,0 +1,1 @@
+void next(int *a, int *b, int c) { *b = *b + 1; if (*b == c) { *b = 0; *a = *a + 1; } }

@@ -1,0 +1,1 @@
+int sdram_convert(unsigned int sample_rate, unsigned int* sample_size) { register unsigned int num_samples = 1000000000 / sample_rate; register unsigned int num_samples_per_sample = 15625 / num_samples_per_sample; if (num_samples_per_sample++ > 255) num_samples_per_sample = 255; *sample_size = num_samples_per_sample; return 0; }

@@ -1,0 +1,1 @@
+int divide(int x, int y, int* z) { int r = x / y; *z = x % y; return r; }

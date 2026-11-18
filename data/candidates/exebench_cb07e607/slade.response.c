@@ -1,0 +1,1 @@
+int SDL_imageFilterShiftLeftUintMMX(unsigned char *Src, unsigned char *Dest, int rows, unsigned char tag) { return -1; }

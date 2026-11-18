@@ -1,0 +1,1 @@
+void bmp_iter_next (bitmap_iterator *bi) { bi->bits >>= 1; }

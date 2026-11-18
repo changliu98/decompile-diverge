@@ -1,0 +1,1 @@
+int sendcw(int s, struct cw *c) { if (send(s, c,0x12, 0) == (ssize_t) -1) { syslog(3, "ca.so: Send cw failed %d", (*__errno_location ())); return 0; } return 1; }

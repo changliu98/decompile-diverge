@@ -1,0 +1,347 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 130h\nmov     [rbp+words], rdi\nmov     [rbp+count], esi\nlea     rax, format+18h; \"\"\nmov     [rbp+max], rax\nmov     [rbp+maxu], 0\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+count]\njge     loc_1384\nlea     rdi, [rbp+unique]; s\nxor     esi, esi; c\nmov     edx, 100h; n\ncall    memset\nmov     [rbp+unique_count], 0\nmov     [rbp+j], 0\nmov     rax, [rbp+words]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+j]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 0\njz      loc_131C\nlea     rdi, [rbp+unique]; s\nmov     rax, [rbp+words]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+j]\nmovsx   esi, byte ptr [rax+rcx]; c\ncall    strchr\ncmp     rax, 0\njnz     loc_1303\nlea     rdi, [rbp+unique]; s\ncall    strlen\nmov     [rbp+len], eax\nmov     rax, [rbp+words]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+j]\nmov     cl, [rax+rcx]\nmovsxd  rax, [rbp+len]\nmov     [rbp+rax+unique], cl\nmov     eax, [rbp+len]\nadd     eax, 1\ncdqe\nmov     [rbp+rax+unique], 0\nmov     eax, [rbp+unique_count]\nadd     eax, 1\nmov     [rbp+unique_count], eax\njmp     $+5\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_125E\nmov     eax, [rbp+unique_count]\ncmp     eax, [rbp+maxu]\njg      loc_1358\nmov     eax, [rbp+unique_count]\ncmp     eax, [rbp+maxu]\njnz     loc_1371\nmov     rax, [rbp+words]\nmovsxd  rcx, [rbp+i]\nmov     rdi, [rax+rcx*8]; s1\nmov     rsi, [rbp+max]; s2\ncall    strcmp\ncmp     eax, 0\njge     loc_1371\nmov     rax, [rbp+words]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmov     [rbp+max], rax\nmov     eax, [rbp+unique_count]\nmov     [rbp+maxu], eax\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_122B\nmov     rax, [rbp+max]\nadd     rsp, 130h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 15,
+  "edges": [
+   [
+    "start",
+    "loc_122B"
+   ],
+   [
+    "loc_122B",
+    "loc_1237"
+   ],
+   [
+    "loc_122B",
+    "loc_1384"
+   ],
+   [
+    "loc_1237",
+    "loc_125E"
+   ],
+   [
+    "loc_125E",
+    "loc_127E"
+   ],
+   [
+    "loc_125E",
+    "loc_131C"
+   ],
+   [
+    "loc_127E",
+    "loc_12AB"
+   ],
+   [
+    "loc_127E",
+    "loc_1303"
+   ],
+   [
+    "loc_12AB",
+    "loc_1303"
+   ],
+   [
+    "loc_1303",
+    "loc_1308"
+   ],
+   [
+    "loc_1308",
+    "loc_125E"
+   ],
+   [
+    "loc_131C",
+    "loc_132B"
+   ],
+   [
+    "loc_131C",
+    "loc_1358"
+   ],
+   [
+    "loc_132B",
+    "loc_133A"
+   ],
+   [
+    "loc_132B",
+    "loc_1371"
+   ],
+   [
+    "loc_133A",
+    "loc_1358"
+   ],
+   [
+    "loc_133A",
+    "loc_1371"
+   ],
+   [
+    "loc_1358",
+    "loc_1371"
+   ],
+   [
+    "loc_1371",
+    "loc_1376"
+   ],
+   [
+    "loc_1376",
+    "loc_122B"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 130h\nmov     [rbp+words], rdi\nmov     [rbp+count], esi\nlea     rax, format+18h; \"\"\nmov     [rbp+max], rax\nmov     [rbp+maxu], 0\nmov     [rbp+i], 0",
+   "loc_122B": "mov     eax, [rbp+i]\ncmp     eax, [rbp+count]\njge     loc_1384",
+   "loc_1237": "lea     rdi, [rbp+unique]; s\nxor     esi, esi; c\nmov     edx, 100h; n\ncall    memset\nmov     [rbp+unique_count], 0\nmov     [rbp+j], 0",
+   "loc_125E": "mov     rax, [rbp+words]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+j]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 0\njz      loc_131C",
+   "loc_127E": "lea     rdi, [rbp+unique]; s\nmov     rax, [rbp+words]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+j]\nmovsx   esi, byte ptr [rax+rcx]; c\ncall    strchr\ncmp     rax, 0\njnz     loc_1303",
+   "loc_12AB": "lea     rdi, [rbp+unique]; s\ncall    strlen\nmov     [rbp+len], eax\nmov     rax, [rbp+words]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+j]\nmov     cl, [rax+rcx]\nmovsxd  rax, [rbp+len]\nmov     [rbp+rax+unique], cl\nmov     eax, [rbp+len]\nadd     eax, 1\ncdqe\nmov     [rbp+rax+unique], 0\nmov     eax, [rbp+unique_count]\nadd     eax, 1\nmov     [rbp+unique_count], eax",
+   "loc_1303": "jmp     $+5",
+   "loc_1308": "mov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_125E",
+   "loc_131C": "mov     eax, [rbp+unique_count]\ncmp     eax, [rbp+maxu]\njg      loc_1358",
+   "loc_132B": "mov     eax, [rbp+unique_count]\ncmp     eax, [rbp+maxu]\njnz     loc_1371",
+   "loc_133A": "mov     rax, [rbp+words]\nmovsxd  rcx, [rbp+i]\nmov     rdi, [rax+rcx*8]; s1\nmov     rsi, [rbp+max]; s2\ncall    strcmp\ncmp     eax, 0\njge     loc_1371",
+   "loc_1358": "mov     rax, [rbp+words]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmov     [rbp+max], rax\nmov     eax, [rbp+unique_count]\nmov     [rbp+maxu], eax",
+   "loc_1371": "jmp     $+5",
+   "loc_1376": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_122B",
+   "loc_1384": "mov     rax, [rbp+max]\nadd     rsp, 130h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "len": "dword ptr -12Ch",
+   "j": "dword ptr -128h",
+   "unique_count": "dword ptr -124h",
+   "unique": "byte ptr -120h",
+   "i": "dword ptr -20h",
+   "maxu": "dword ptr -1Ch",
+   "max": "qword ptr -18h",
+   "count": "dword ptr -0Ch",
+   "words": "qword ptr -8"
+  },
+  ".rodata": {
+   "unk_201C": "byte 'usage: %s <seed> [dump]',0Ah,0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4608,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".strchr": "strchr",
+  "_strchr": "strchr",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".strchr",
+   ".plt",
+   true,
+   "strchr"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strchr",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792867920
+ }
+}

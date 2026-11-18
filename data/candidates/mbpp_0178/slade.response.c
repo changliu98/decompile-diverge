@@ -1,0 +1,1 @@
+char *func0(char *func[], int argc, char *argv[]) { int i; for (i = 0; i < argc; i++) { int rc; char regex_regex[64]; rc = regcomp(regex_regex, func[i], 0); if (0 != rc) { fputs("Could not Matched!", stderr); return "Not Matched!"; } rc = regexec(regex_regex, argv, 0, NULL, 0); if (!rc) { regfree(regex_regex); return "Matched!"; } regfree(regex_regex); } return "Not Matched!"; }

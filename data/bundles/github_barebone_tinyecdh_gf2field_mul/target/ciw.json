@@ -1,0 +1,324 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+z], rdi\nmov     [rbp+x], rsi\nmov     [rbp+y], rdx\nmov     rax, [rbp+z]\ncmp     rax, [rbp+y]\njz      loc_1B97\njmp     loc_1BB6\nlea     rdi, aZY; \"z != y\"\nlea     rsi, file; \"./func.c\"\nmov     edx, 1C2h; line\nlea     rcx, aVoidGf2fieldMu; \"void gf2field_mul(uint32_t *, const uin\"...\ncall    ___assert_fail\nlea     rdi, [rbp+tmp]; x\nmov     rsi, [rbp+x]; y\ncall    bitvec_copy\nmov     rdi, [rbp+y]; x\nxor     esi, esi; idx\ncall    bitvec_get_bit\ncmp     eax, 0\njz      loc_1BE9\nmov     rdi, [rbp+z]; x\nmov     rsi, [rbp+x]; y\ncall    bitvec_copy\njmp     loc_1BF2\nmov     rdi, [rbp+z]; x\ncall    bitvec_set_zero\nmov     [rbp+i], 1\ncmp     [rbp+i], 0A3h\njge     loc_1C7C\nlea     rdi, [rbp+tmp]; x\nlea     rsi, [rbp+tmp]; y\nmov     edx, 1; nbits\ncall    bitvec_lshift\nlea     rdi, [rbp+tmp]; x\nmov     esi, 0A3h; idx\ncall    bitvec_get_bit\ncmp     eax, 0\njz      loc_1C43\nlea     rdi, [rbp+tmp]; z\nlea     rsi, [rbp+tmp]; x\nlea     rdx, polynomial; y\ncall    gf2field_add\nmov     rdi, [rbp+y]; x\nmov     esi, [rbp+i]; idx\ncall    bitvec_get_bit\ncmp     eax, 0\njz      loc_1C69\nmov     rdi, [rbp+z]; z\nmov     rsi, [rbp+z]; x\nlea     rdx, [rbp+tmp]; y\ncall    gf2field_add\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1BF9\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 15,
+  "edges": [
+   [
+    "start",
+    "loc_1B92"
+   ],
+   [
+    "start",
+    "loc_1B97"
+   ],
+   [
+    "loc_1B92",
+    "loc_1BB6"
+   ],
+   [
+    "loc_1BB6",
+    "loc_1BD7"
+   ],
+   [
+    "loc_1BB6",
+    "loc_1BE9"
+   ],
+   [
+    "loc_1BD7",
+    "loc_1BF2"
+   ],
+   [
+    "loc_1BE9",
+    "loc_1BF2"
+   ],
+   [
+    "loc_1BF2",
+    "loc_1BF9"
+   ],
+   [
+    "loc_1BF9",
+    "loc_1C06"
+   ],
+   [
+    "loc_1BF9",
+    "loc_1C7C"
+   ],
+   [
+    "loc_1C06",
+    "loc_1C2F"
+   ],
+   [
+    "loc_1C06",
+    "loc_1C43"
+   ],
+   [
+    "loc_1C2F",
+    "loc_1C43"
+   ],
+   [
+    "loc_1C43",
+    "loc_1C58"
+   ],
+   [
+    "loc_1C43",
+    "loc_1C69"
+   ],
+   [
+    "loc_1C58",
+    "loc_1C69"
+   ],
+   [
+    "loc_1C69",
+    "loc_1C6E"
+   ],
+   [
+    "loc_1C6E",
+    "loc_1BF9"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+z], rdi\nmov     [rbp+x], rsi\nmov     [rbp+y], rdx\nmov     rax, [rbp+z]\ncmp     rax, [rbp+y]\njz      loc_1B97",
+   "loc_1B92": "jmp     loc_1BB6",
+   "loc_1B97": "lea     rdi, aZY; \"z != y\"\nlea     rsi, file; \"./func.c\"\nmov     edx, 1C2h; line\nlea     rcx, aVoidGf2fieldMu; \"void gf2field_mul(uint32_t *, const uin\"...\ncall    ___assert_fail",
+   "loc_1BB6": "lea     rdi, [rbp+tmp]; x\nmov     rsi, [rbp+x]; y\ncall    bitvec_copy\nmov     rdi, [rbp+y]; x\nxor     esi, esi; idx\ncall    bitvec_get_bit\ncmp     eax, 0\njz      loc_1BE9",
+   "loc_1BD7": "mov     rdi, [rbp+z]; x\nmov     rsi, [rbp+x]; y\ncall    bitvec_copy\njmp     loc_1BF2",
+   "loc_1BE9": "mov     rdi, [rbp+z]; x\ncall    bitvec_set_zero",
+   "loc_1BF2": "mov     [rbp+i], 1",
+   "loc_1BF9": "cmp     [rbp+i], 0A3h\njge     loc_1C7C",
+   "loc_1C06": "lea     rdi, [rbp+tmp]; x\nlea     rsi, [rbp+tmp]; y\nmov     edx, 1; nbits\ncall    bitvec_lshift\nlea     rdi, [rbp+tmp]; x\nmov     esi, 0A3h; idx\ncall    bitvec_get_bit\ncmp     eax, 0\njz      loc_1C43",
+   "loc_1C2F": "lea     rdi, [rbp+tmp]; z\nlea     rsi, [rbp+tmp]; x\nlea     rdx, polynomial; y\ncall    gf2field_add",
+   "loc_1C43": "mov     rdi, [rbp+y]; x\nmov     esi, [rbp+i]; idx\ncall    bitvec_get_bit\ncmp     eax, 0\njz      loc_1C69",
+   "loc_1C58": "mov     rdi, [rbp+z]; z\nmov     rsi, [rbp+z]; x\nlea     rdx, [rbp+tmp]; y\ncall    gf2field_add",
+   "loc_1C69": "jmp     $+5",
+   "loc_1C6E": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1BF9",
+   "loc_1C7C": "add     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "tmp": "dword ptr -40h",
+   "i": "dword ptr -1Ch",
+   "y": "qword ptr -18h",
+   "x": "qword ptr -10h",
+   "z": "qword ptr -8"
+  },
+  ".rodata": {
+   "aZY": "byte 'z != y',0",
+   "file": "byte './func.c',0",
+   "aVoidGf2fieldMu": "byte 'void gf2field_mul(uint32_t *, const uint32_t *, const uint32_t *)'",
+   "polynomial": "dword 0C9h"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 7024,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "printf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872690
+ }
+}

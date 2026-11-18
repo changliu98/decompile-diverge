@@ -1,0 +1,1 @@
+int SDL_imageFilterNormalizeLinearMMX(unsigned char *Src, unsigned char *Dest, int rows, int columns, int width, int height, int *filter) { return -1; }

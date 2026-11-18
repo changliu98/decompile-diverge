@@ -1,0 +1,1 @@
+int enddata(char *data, int datalen) { int toend = datalen % 64; int offset = datalen - toend; if (!toend) return 0; data[offset + 1] = toend - 1; datalen = offset + 64; return datalen; }

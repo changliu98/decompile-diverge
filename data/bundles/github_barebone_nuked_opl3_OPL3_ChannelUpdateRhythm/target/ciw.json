@@ -1,0 +1,358 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     al, sil\nmov     [rbp+chip], rdi\nmov     [rbp+data], al\nmovzx   eax, [rbp+data]\nand     eax, 3Fh\nmov     cl, al\nmov     rax, [rbp+chip]\nmov     [rax+1186h], cl\nmov     rax, [rbp+chip]\nmovzx   eax, byte ptr [rax+1186h]\nand     eax, 20h\ncmp     eax, 0\njz      loc_2FFF\nmov     rax, [rbp+chip]\nadd     rax, 210h\nmov     [rbp+channel6], rax\nmov     rax, [rbp+chip]\nadd     rax, 268h\nmov     [rbp+channel7], rax\nmov     rax, [rbp+chip]\nadd     rax, 2C0h\nmov     [rbp+channel8], rax\nmov     rax, [rbp+channel6]\nmov     rcx, [rax+8]\nadd     rcx, 10h\nmov     rax, [rbp+channel6]\nmov     [rax+20h], rcx\nmov     rax, [rbp+channel6]\nmov     rcx, [rax+8]\nadd     rcx, 10h\nmov     rax, [rbp+channel6]\nmov     [rax+28h], rcx\nmov     rcx, [rbp+chip]\nadd     rcx, 1190h\nmov     rax, [rbp+channel6]\nmov     [rax+30h], rcx\nmov     rcx, [rbp+chip]\nadd     rcx, 1190h\nmov     rax, [rbp+channel6]\nmov     [rax+38h], rcx\nmov     rax, [rbp+channel7]\nmov     rcx, [rax]\nadd     rcx, 10h\nmov     rax, [rbp+channel7]\nmov     [rax+20h], rcx\nmov     rax, [rbp+channel7]\nmov     rcx, [rax]\nadd     rcx, 10h\nmov     rax, [rbp+channel7]\nmov     [rax+28h], rcx\nmov     rax, [rbp+channel7]\nmov     rcx, [rax+8]\nadd     rcx, 10h\nmov     rax, [rbp+channel7]\nmov     [rax+30h], rcx\nmov     rax, [rbp+channel7]\nmov     rcx, [rax+8]\nadd     rcx, 10h\nmov     rax, [rbp+channel7]\nmov     [rax+38h], rcx\nmov     rax, [rbp+channel8]\nmov     rcx, [rax]\nadd     rcx, 10h\nmov     rax, [rbp+channel8]\nmov     [rax+20h], rcx\nmov     rax, [rbp+channel8]\nmov     rcx, [rax]\nadd     rcx, 10h\nmov     rax, [rbp+channel8]\nmov     [rax+28h], rcx\nmov     rax, [rbp+channel8]\nmov     rcx, [rax+8]\nadd     rcx, 10h\nmov     rax, [rbp+channel8]\nmov     [rax+30h], rcx\nmov     rax, [rbp+channel8]\nmov     rcx, [rax+8]\nadd     rcx, 10h\nmov     rax, [rbp+channel8]\nmov     [rax+38h], rcx\nmov     [rbp+chnum], 6\nmovzx   eax, [rbp+chnum]\ncmp     eax, 9\njge     loc_2E81\nmov     rax, [rbp+chip]\nmovzx   ecx, [rbp+chnum]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     byte ptr [rax+40h], 3\nmov     al, [rbp+chnum]\nadd     al, 1\nmov     [rbp+chnum], al\njmp     loc_2E54\nmov     rdi, [rbp+channel6]; channel\ncall    OPL3_ChannelSetupAlg\nmov     rdi, [rbp+channel7]; channel\ncall    OPL3_ChannelSetupAlg\nmov     rdi, [rbp+channel8]; channel\ncall    OPL3_ChannelSetupAlg\nmov     rax, [rbp+chip]\nmovzx   eax, byte ptr [rax+1186h]\nand     eax, 1\ncmp     eax, 0\njz      loc_2EC9\nmov     rax, [rbp+channel7]\nmov     rdi, [rax]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOn\njmp     loc_2EDA\nmov     rax, [rbp+channel7]\nmov     rdi, [rax]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOff\nmov     rax, [rbp+chip]\nmovzx   eax, byte ptr [rax+1186h]\nand     eax, 2\ncmp     eax, 0\njz      loc_2F08\nmov     rax, [rbp+channel8]\nmov     rdi, [rax+8]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOn\njmp     loc_2F1A\nmov     rax, [rbp+channel8]\nmov     rdi, [rax+8]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOff\nmov     rax, [rbp+chip]\nmovzx   eax, byte ptr [rax+1186h]\nand     eax, 4\ncmp     eax, 0\njz      loc_2F47\nmov     rax, [rbp+channel8]\nmov     rdi, [rax]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOn\njmp     loc_2F58\nmov     rax, [rbp+channel8]\nmov     rdi, [rax]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOff\nmov     rax, [rbp+chip]\nmovzx   eax, byte ptr [rax+1186h]\nand     eax, 8\ncmp     eax, 0\njz      loc_2F86\nmov     rax, [rbp+channel7]\nmov     rdi, [rax+8]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOn\njmp     loc_2F98\nmov     rax, [rbp+channel7]\nmov     rdi, [rax+8]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOff\nmov     rax, [rbp+chip]\nmovzx   eax, byte ptr [rax+1186h]\nand     eax, 10h\ncmp     eax, 0\njz      loc_2FD7\nmov     rax, [rbp+channel6]\nmov     rdi, [rax]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOn\nmov     rax, [rbp+channel6]\nmov     rdi, [rax+8]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOn\njmp     loc_2FFA\nmov     rax, [rbp+channel6]\nmov     rdi, [rax]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOff\nmov     rax, [rbp+channel6]\nmov     rdi, [rax+8]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOff\njmp     loc_3082\nmov     [rbp+chnum], 6\nmovzx   eax, [rbp+chnum]\ncmp     eax, 9\njge     loc_307D\nmov     rax, [rbp+chip]\nmovzx   ecx, [rbp+chnum]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     byte ptr [rax+40h], 0\nmov     rdi, [rbp+chip]\nmovzx   eax, [rbp+chnum]\nimul    rax, 58h ; 'X'\nadd     rdi, rax; channel\ncall    OPL3_ChannelSetupAlg\nmov     rax, [rbp+chip]\nmovzx   ecx, [rbp+chnum]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     rdi, [rax]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOff\nmov     rax, [rbp+chip]\nmovzx   ecx, [rbp+chnum]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     rdi, [rax+8]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOff\nmov     al, [rbp+chnum]\nadd     al, 1\nmov     [rbp+chnum], al\njmp     loc_3003\njmp     $+5\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 25,
+  "edges": [
+   [
+    "start",
+    "loc_2D3C"
+   ],
+   [
+    "start",
+    "loc_2FFF"
+   ],
+   [
+    "loc_2D3C",
+    "loc_2E54"
+   ],
+   [
+    "loc_2E54",
+    "loc_2E61"
+   ],
+   [
+    "loc_2E54",
+    "loc_2E81"
+   ],
+   [
+    "loc_2E61",
+    "loc_2E54"
+   ],
+   [
+    "loc_2E81",
+    "loc_2EB3"
+   ],
+   [
+    "loc_2E81",
+    "loc_2EC9"
+   ],
+   [
+    "loc_2EB3",
+    "loc_2EDA"
+   ],
+   [
+    "loc_2EC9",
+    "loc_2EDA"
+   ],
+   [
+    "loc_2EDA",
+    "loc_2EF1"
+   ],
+   [
+    "loc_2EDA",
+    "loc_2F08"
+   ],
+   [
+    "loc_2EF1",
+    "loc_2F1A"
+   ],
+   [
+    "loc_2F08",
+    "loc_2F1A"
+   ],
+   [
+    "loc_2F1A",
+    "loc_2F31"
+   ],
+   [
+    "loc_2F1A",
+    "loc_2F47"
+   ],
+   [
+    "loc_2F31",
+    "loc_2F58"
+   ],
+   [
+    "loc_2F47",
+    "loc_2F58"
+   ],
+   [
+    "loc_2F58",
+    "loc_2F6F"
+   ],
+   [
+    "loc_2F58",
+    "loc_2F86"
+   ],
+   [
+    "loc_2F6F",
+    "loc_2F98"
+   ],
+   [
+    "loc_2F86",
+    "loc_2F98"
+   ],
+   [
+    "loc_2F98",
+    "loc_2FAF"
+   ],
+   [
+    "loc_2F98",
+    "loc_2FD7"
+   ],
+   [
+    "loc_2FAF",
+    "loc_2FFA"
+   ],
+   [
+    "loc_2FD7",
+    "loc_2FFA"
+   ],
+   [
+    "loc_2FFA",
+    "loc_3082"
+   ],
+   [
+    "loc_2FFF",
+    "loc_3003"
+   ],
+   [
+    "loc_3003",
+    "loc_3010"
+   ],
+   [
+    "loc_3003",
+    "loc_307D"
+   ],
+   [
+    "loc_3010",
+    "loc_3003"
+   ],
+   [
+    "loc_307D",
+    "loc_3082"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     al, sil\nmov     [rbp+chip], rdi\nmov     [rbp+data], al\nmovzx   eax, [rbp+data]\nand     eax, 3Fh\nmov     cl, al\nmov     rax, [rbp+chip]\nmov     [rax+1186h], cl\nmov     rax, [rbp+chip]\nmovzx   eax, byte ptr [rax+1186h]\nand     eax, 20h\ncmp     eax, 0\njz      loc_2FFF",
+   "loc_2D3C": "mov     rax, [rbp+chip]\nadd     rax, 210h\nmov     [rbp+channel6], rax\nmov     rax, [rbp+chip]\nadd     rax, 268h\nmov     [rbp+channel7], rax\nmov     rax, [rbp+chip]\nadd     rax, 2C0h\nmov     [rbp+channel8], rax\nmov     rax, [rbp+channel6]\nmov     rcx, [rax+8]\nadd     rcx, 10h\nmov     rax, [rbp+channel6]\nmov     [rax+20h], rcx\nmov     rax, [rbp+channel6]\nmov     rcx, [rax+8]\nadd     rcx, 10h\nmov     rax, [rbp+channel6]\nmov     [rax+28h], rcx\nmov     rcx, [rbp+chip]\nadd     rcx, 1190h\nmov     rax, [rbp+channel6]\nmov     [rax+30h], rcx\nmov     rcx, [rbp+chip]\nadd     rcx, 1190h\nmov     rax, [rbp+channel6]\nmov     [rax+38h], rcx\nmov     rax, [rbp+channel7]\nmov     rcx, [rax]\nadd     rcx, 10h\nmov     rax, [rbp+channel7]\nmov     [rax+20h], rcx\nmov     rax, [rbp+channel7]\nmov     rcx, [rax]\nadd     rcx, 10h\nmov     rax, [rbp+channel7]\nmov     [rax+28h], rcx\nmov     rax, [rbp+channel7]\nmov     rcx, [rax+8]\nadd     rcx, 10h\nmov     rax, [rbp+channel7]\nmov     [rax+30h], rcx\nmov     rax, [rbp+channel7]\nmov     rcx, [rax+8]\nadd     rcx, 10h\nmov     rax, [rbp+channel7]\nmov     [rax+38h], rcx\nmov     rax, [rbp+channel8]\nmov     rcx, [rax]\nadd     rcx, 10h\nmov     rax, [rbp+channel8]\nmov     [rax+20h], rcx\nmov     rax, [rbp+channel8]\nmov     rcx, [rax]\nadd     rcx, 10h\nmov     rax, [rbp+channel8]\nmov     [rax+28h], rcx\nmov     rax, [rbp+channel8]\nmov     rcx, [rax+8]\nadd     rcx, 10h\nmov     rax, [rbp+channel8]\nmov     [rax+30h], rcx\nmov     rax, [rbp+channel8]\nmov     rcx, [rax+8]\nadd     rcx, 10h\nmov     rax, [rbp+channel8]\nmov     [rax+38h], rcx\nmov     [rbp+chnum], 6",
+   "loc_2E54": "movzx   eax, [rbp+chnum]\ncmp     eax, 9\njge     loc_2E81",
+   "loc_2E61": "mov     rax, [rbp+chip]\nmovzx   ecx, [rbp+chnum]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     byte ptr [rax+40h], 3\nmov     al, [rbp+chnum]\nadd     al, 1\nmov     [rbp+chnum], al\njmp     loc_2E54",
+   "loc_2E81": "mov     rdi, [rbp+channel6]; channel\ncall    OPL3_ChannelSetupAlg\nmov     rdi, [rbp+channel7]; channel\ncall    OPL3_ChannelSetupAlg\nmov     rdi, [rbp+channel8]; channel\ncall    OPL3_ChannelSetupAlg\nmov     rax, [rbp+chip]\nmovzx   eax, byte ptr [rax+1186h]\nand     eax, 1\ncmp     eax, 0\njz      loc_2EC9",
+   "loc_2EB3": "mov     rax, [rbp+channel7]\nmov     rdi, [rax]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOn\njmp     loc_2EDA",
+   "loc_2EC9": "mov     rax, [rbp+channel7]\nmov     rdi, [rax]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOff",
+   "loc_2EDA": "mov     rax, [rbp+chip]\nmovzx   eax, byte ptr [rax+1186h]\nand     eax, 2\ncmp     eax, 0\njz      loc_2F08",
+   "loc_2EF1": "mov     rax, [rbp+channel8]\nmov     rdi, [rax+8]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOn\njmp     loc_2F1A",
+   "loc_2F08": "mov     rax, [rbp+channel8]\nmov     rdi, [rax+8]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOff",
+   "loc_2F1A": "mov     rax, [rbp+chip]\nmovzx   eax, byte ptr [rax+1186h]\nand     eax, 4\ncmp     eax, 0\njz      loc_2F47",
+   "loc_2F31": "mov     rax, [rbp+channel8]\nmov     rdi, [rax]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOn\njmp     loc_2F58",
+   "loc_2F47": "mov     rax, [rbp+channel8]\nmov     rdi, [rax]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOff",
+   "loc_2F58": "mov     rax, [rbp+chip]\nmovzx   eax, byte ptr [rax+1186h]\nand     eax, 8\ncmp     eax, 0\njz      loc_2F86",
+   "loc_2F6F": "mov     rax, [rbp+channel7]\nmov     rdi, [rax+8]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOn\njmp     loc_2F98",
+   "loc_2F86": "mov     rax, [rbp+channel7]\nmov     rdi, [rax+8]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOff",
+   "loc_2F98": "mov     rax, [rbp+chip]\nmovzx   eax, byte ptr [rax+1186h]\nand     eax, 10h\ncmp     eax, 0\njz      loc_2FD7",
+   "loc_2FAF": "mov     rax, [rbp+channel6]\nmov     rdi, [rax]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOn\nmov     rax, [rbp+channel6]\nmov     rdi, [rax+8]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOn\njmp     loc_2FFA",
+   "loc_2FD7": "mov     rax, [rbp+channel6]\nmov     rdi, [rax]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOff\nmov     rax, [rbp+channel6]\nmov     rdi, [rax+8]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOff",
+   "loc_2FFA": "jmp     loc_3082",
+   "loc_2FFF": "mov     [rbp+chnum], 6",
+   "loc_3003": "movzx   eax, [rbp+chnum]\ncmp     eax, 9\njge     loc_307D",
+   "loc_3010": "mov     rax, [rbp+chip]\nmovzx   ecx, [rbp+chnum]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     byte ptr [rax+40h], 0\nmov     rdi, [rbp+chip]\nmovzx   eax, [rbp+chnum]\nimul    rax, 58h ; 'X'\nadd     rdi, rax; channel\ncall    OPL3_ChannelSetupAlg\nmov     rax, [rbp+chip]\nmovzx   ecx, [rbp+chnum]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     rdi, [rax]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOff\nmov     rax, [rbp+chip]\nmovzx   ecx, [rbp+chnum]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     rdi, [rax+8]; slot\nmov     esi, 2; type\ncall    OPL3_EnvelopeKeyOff\nmov     al, [rbp+chnum]\nadd     al, 1\nmov     [rbp+chnum], al\njmp     loc_3003",
+   "loc_307D": "jmp     $+5",
+   "loc_3082": "add     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "chnum": "byte ptr -29h",
+   "channel8": "qword ptr -28h",
+   "channel7": "qword ptr -20h",
+   "channel6": "qword ptr -18h",
+   "data": "byte ptr -9",
+   "chip": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 11520,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872676
+ }
+}

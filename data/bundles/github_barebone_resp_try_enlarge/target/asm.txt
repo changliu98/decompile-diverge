@@ -1,0 +1,42 @@
+0000000000001b40 <try_enlarge>:
+    1b40:	push   %rbp
+    1b41:	mov    %rsp,%rbp
+    1b44:	sub    $0x20,%rsp
+    1b48:	mov    %rdi,-0x10(%rbp)
+    1b4c:	mov    %esi,-0x14(%rbp)
+    1b4f:	mov    -0x10(%rbp),%rax
+    1b53:	mov    0x8(%rax),%eax
+    1b56:	mov    %eax,-0x18(%rbp)
+    1b59:	mov    -0x18(%rbp),%eax
+    1b5c:	mov    -0x10(%rbp),%rcx
+    1b60:	mov    0xc(%rcx),%ecx
+    1b63:	add    -0x14(%rbp),%ecx
+    1b66:	cmp    %ecx,%eax
+    1b68:	jae    1b7c <try_enlarge+0x3c>
+    1b6e:	mov    -0x18(%rbp),%eax
+    1b71:	shl    $0x1,%eax
+    1b74:	mov    %eax,-0x18(%rbp)
+    1b77:	jmp    1b59 <try_enlarge+0x19>
+    1b7c:	mov    -0x10(%rbp),%rax
+    1b80:	mov    (%rax),%rdi
+    1b83:	mov    -0x18(%rbp),%eax
+    1b86:	mov    %eax,%esi
+    1b88:	call   10f0 <realloc@plt>
+    1b8d:	mov    %rax,-0x20(%rbp)
+    1b91:	cmpq   $0x0,-0x20(%rbp)
+    1b96:	jne    1ba8 <try_enlarge+0x68>
+    1b9c:	movl   $0xffffffff,-0x4(%rbp)
+    1ba3:	jmp    1bc4 <try_enlarge+0x84>
+    1ba8:	mov    -0x20(%rbp),%rcx
+    1bac:	mov    -0x10(%rbp),%rax
+    1bb0:	mov    %rcx,(%rax)
+    1bb3:	mov    -0x18(%rbp),%ecx
+    1bb6:	mov    -0x10(%rbp),%rax
+    1bba:	mov    %ecx,0x8(%rax)
+    1bbd:	movl   $0x0,-0x4(%rbp)
+    1bc4:	mov    -0x4(%rbp),%eax
+    1bc7:	add    $0x20,%rsp
+    1bcb:	pop    %rbp
+    1bcc:	ret
+
+Disassembly of section .fini:

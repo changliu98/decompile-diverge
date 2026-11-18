@@ -1,0 +1,47 @@
+00000000000011c0 <bcd2int>:
+    11c0:	push   %rbp
+    11c1:	mov    %rsp,%rbp
+    11c4:	mov    %rdi,-0x10(%rbp)
+    11c8:	mov    %esi,-0x14(%rbp)
+    11cb:	cmpl   $0x5,-0x14(%rbp)
+    11cf:	jle    11e1 <bcd2int+0x21>
+    11d5:	movl   $0x0,-0x4(%rbp)
+    11dc:	jmp    1253 <bcd2int+0x93>
+    11e1:	movl   $0x0,-0x18(%rbp)
+    11e8:	movl   $0x0,-0x1c(%rbp)
+    11ef:	mov    -0x1c(%rbp),%eax
+    11f2:	cmp    -0x14(%rbp),%eax
+    11f5:	jge    124d <bcd2int+0x8d>
+    11fb:	imul   $0x64,-0x18(%rbp),%eax
+    11ff:	mov    %eax,-0x24(%rbp)
+    1202:	mov    -0x10(%rbp),%rax
+    1206:	movslq -0x1c(%rbp),%rcx
+    120a:	movzbl (%rax,%rcx,1),%eax
+    120e:	mov    $0x10,%ecx
+    1213:	cltd
+    1214:	idiv   %ecx
+    1216:	mov    %eax,%ecx
+    1218:	mov    -0x24(%rbp),%eax
+    121b:	imul   $0xa,%ecx,%ecx
+    121e:	add    %ecx,%eax
+    1220:	mov    %eax,-0x20(%rbp)
+    1223:	mov    -0x10(%rbp),%rax
+    1227:	movslq -0x1c(%rbp),%rcx
+    122b:	movzbl (%rax,%rcx,1),%eax
+    122f:	mov    $0x10,%ecx
+    1234:	cltd
+    1235:	idiv   %ecx
+    1237:	mov    -0x20(%rbp),%eax
+    123a:	add    %edx,%eax
+    123c:	mov    %eax,-0x18(%rbp)
+    123f:	mov    -0x1c(%rbp),%eax
+    1242:	add    $0x1,%eax
+    1245:	mov    %eax,-0x1c(%rbp)
+    1248:	jmp    11ef <bcd2int+0x2f>
+    124d:	mov    -0x18(%rbp),%eax
+    1250:	mov    %eax,-0x4(%rbp)
+    1253:	mov    -0x4(%rbp),%eax
+    1256:	pop    %rbp
+    1257:	ret
+
+Disassembly of section .fini:

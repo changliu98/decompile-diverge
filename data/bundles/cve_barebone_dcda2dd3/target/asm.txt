@@ -1,0 +1,245 @@
+0000000000001390 <read_fru_area>:
+    1390:	push   %rbp
+    1391:	mov    %rsp,%rbp
+    1394:	sub    $0x70,%rsp
+    1398:	mov    %dl,%al
+    139a:	mov    %rdi,-0x10(%rbp)
+    139e:	mov    %rsi,-0x18(%rbp)
+    13a2:	mov    %al,-0x19(%rbp)
+    13a5:	mov    %ecx,-0x20(%rbp)
+    13a8:	mov    %r8d,-0x24(%rbp)
+    13ac:	mov    %r9,-0x30(%rbp)
+    13b0:	mov    -0x20(%rbp),%eax
+    13b3:	mov    %eax,-0x34(%rbp)
+    13b6:	mov    -0x20(%rbp),%eax
+    13b9:	mov    -0x18(%rbp),%rcx
+    13bd:	movzwl (%rcx),%ecx
+    13c0:	cmp    %ecx,%eax
+    13c2:	jbe    13f1 <read_fru_area+0x61>
+    13c8:	mov    -0x20(%rbp),%edx
+    13cb:	mov    -0x18(%rbp),%rax
+    13cf:	movzwl (%rax),%ecx
+    13d2:	mov    $0x3,%edi
+    13d7:	lea    0xcc4(%rip),%rsi        # 20a2 <_IO_stdin_used+0xa2>
+    13de:	mov    $0x0,%al
+    13e0:	call   12b0 <lprintf>
+    13e5:	movl   $0xffffffff,-0x4(%rbp)
+    13ec:	jmp    172f <read_fru_area+0x39f>
+    13f1:	mov    -0x20(%rbp),%eax
+    13f4:	add    -0x24(%rbp),%eax
+    13f7:	mov    %eax,-0x3c(%rbp)
+    13fa:	mov    -0x3c(%rbp),%eax
+    13fd:	mov    -0x18(%rbp),%rcx
+    1401:	movzwl (%rcx),%ecx
+    1404:	cmp    %ecx,%eax
+    1406:	jbe    1435 <read_fru_area+0xa5>
+    140c:	mov    -0x18(%rbp),%rax
+    1410:	movzwl (%rax),%eax
+    1413:	mov    %eax,-0x3c(%rbp)
+    1416:	mov    -0x20(%rbp),%edx
+    1419:	add    -0x24(%rbp),%edx
+    141c:	mov    -0x3c(%rbp),%ecx
+    141f:	sub    -0x20(%rbp),%ecx
+    1422:	mov    $0x5,%edi
+    1427:	lea    0xc9c(%rip),%rsi        # 20ca <_IO_stdin_used+0xca>
+    142e:	mov    $0x0,%al
+    1430:	call   12b0 <lprintf>
+    1435:	lea    -0x58(%rbp),%rdi
+    1439:	xor    %esi,%esi
+    143b:	mov    $0x10,%edx
+    1440:	call   1080 <memset@plt>
+    1445:	mov    -0x58(%rbp),%al
+    1448:	and    $0xc0,%al
+    144a:	or     $0xa,%al
+    144c:	mov    %al,-0x58(%rbp)
+    144f:	movb   $0x11,-0x57(%rbp)
+    1453:	lea    -0x5c(%rbp),%rax
+    1457:	mov    %rax,-0x50(%rbp)
+    145b:	movw   $0x4,-0x54(%rbp)
+    1461:	mov    -0x18(%rbp),%rax
+    1465:	movzbl 0x3(%rax),%eax
+    1469:	cmp    $0x0,%eax
+    146c:	jne    1504 <read_fru_area+0x174>
+    1472:	mov    -0x10(%rbp),%rdi
+    1476:	call   1370 <ipmi_intf_get_max_response_data_size>
+    147b:	movzwl %ax,%eax
+    147e:	sub    $0x1,%eax
+    1481:	mov    %ax,-0x5e(%rbp)
+    1485:	movzwl -0x5e(%rbp),%eax
+    1489:	cmp    $0x1,%eax
+    148c:	jg     14b1 <read_fru_area+0x121>
+    1492:	mov    $0x3,%edi
+    1497:	lea    0xc5f(%rip),%rsi        # 20fd <_IO_stdin_used+0xfd>
+    149e:	mov    $0x0,%al
+    14a0:	call   12b0 <lprintf>
+    14a5:	movl   $0xffffffff,-0x4(%rbp)
+    14ac:	jmp    172f <read_fru_area+0x39f>
+    14b1:	movzwl -0x5e(%rbp),%eax
+    14b5:	sub    $0x1,%eax
+    14b8:	cmp    $0xff,%eax
+    14bd:	jle    14d0 <read_fru_area+0x140>
+    14c3:	mov    -0x18(%rbp),%rax
+    14c7:	movb   $0xff,0x3(%rax)
+    14cb:	jmp    14e0 <read_fru_area+0x150>
+    14d0:	movzwl -0x5e(%rbp),%eax
+    14d4:	sub    $0x1,%eax
+    14d7:	mov    %al,%cl
+    14d9:	mov    -0x18(%rbp),%rax
+    14dd:	mov    %cl,0x3(%rax)
+    14e0:	mov    -0x18(%rbp),%rax
+    14e4:	mov    0x2(%rax),%al
+    14e7:	and    $0x1,%al
+    14e9:	cmp    $0x0,%al
+    14eb:	je     14ff <read_fru_area+0x16f>
+    14f1:	mov    -0x18(%rbp),%rax
+    14f5:	movzbl 0x3(%rax),%ecx
+    14f9:	and    $0xfffffffe,%ecx
+    14fc:	mov    %cl,0x3(%rax)
+    14ff:	jmp    1504 <read_fru_area+0x174>
+    1504:	jmp    1509 <read_fru_area+0x179>
+    1509:	mov    -0x18(%rbp),%rax
+    150d:	mov    0x2(%rax),%al
+    1510:	and    $0x1,%al
+    1512:	movzbl %al,%eax
+    1515:	cmp    $0x0,%eax
+    1518:	je     152c <read_fru_area+0x19c>
+    151e:	mov    -0x34(%rbp),%eax
+    1521:	shr    $0x1,%eax
+    1524:	mov    %eax,-0x64(%rbp)
+    1527:	jmp    1532 <read_fru_area+0x1a2>
+    152c:	mov    -0x34(%rbp),%eax
+    152f:	mov    %eax,-0x64(%rbp)
+    1532:	mov    -0x64(%rbp),%eax
+    1535:	mov    %eax,-0x38(%rbp)
+    1538:	mov    -0x19(%rbp),%al
+    153b:	mov    %al,-0x5c(%rbp)
+    153e:	mov    -0x38(%rbp),%eax
+    1541:	and    $0xff,%eax
+    1546:	mov    %al,-0x5b(%rbp)
+    1549:	mov    -0x38(%rbp),%eax
+    154c:	shr    $0x8,%eax
+    154f:	mov    %al,-0x5a(%rbp)
+    1552:	mov    -0x3c(%rbp),%eax
+    1555:	sub    -0x34(%rbp),%eax
+    1558:	mov    %eax,-0x38(%rbp)
+    155b:	mov    -0x38(%rbp),%eax
+    155e:	mov    -0x18(%rbp),%rcx
+    1562:	movzbl 0x3(%rcx),%ecx
+    1566:	cmp    %ecx,%eax
+    1568:	jbe    157d <read_fru_area+0x1ed>
+    156e:	mov    -0x18(%rbp),%rax
+    1572:	mov    0x3(%rax),%al
+    1575:	mov    %al,-0x59(%rbp)
+    1578:	jmp    1583 <read_fru_area+0x1f3>
+    157d:	mov    -0x38(%rbp),%eax
+    1580:	mov    %al,-0x59(%rbp)
+    1583:	mov    -0x10(%rbp),%rax
+    1587:	mov    (%rax),%rax
+    158a:	mov    -0x10(%rbp),%rdi
+    158e:	lea    -0x58(%rbp),%rsi
+    1592:	call   *%rax
+    1594:	mov    %rax,-0x48(%rbp)
+    1598:	cmpq   $0x0,-0x48(%rbp)
+    159d:	jne    15bb <read_fru_area+0x22b>
+    15a3:	mov    $0x5,%edi
+    15a8:	lea    0xb88(%rip),%rsi        # 2137 <_IO_stdin_used+0x137>
+    15af:	mov    $0x0,%al
+    15b1:	call   12b0 <lprintf>
+    15b6:	jmp    1710 <read_fru_area+0x380>
+    15bb:	mov    -0x48(%rbp),%rax
+    15bf:	cmpb   $0x0,(%rax)
+    15c2:	je     1671 <read_fru_area+0x2e1>
+    15c8:	mov    -0x48(%rbp),%rax
+    15cc:	movzbl (%rax),%edi
+    15cf:	call   1740 <fru_cc_rq2big>
+    15d4:	test   $0x1,%al
+    15d6:	jne    15e1 <read_fru_area+0x251>
+    15dc:	jmp    1643 <read_fru_area+0x2b3>
+    15e1:	mov    -0x18(%rbp),%rax
+    15e5:	movzbl 0x3(%rax),%eax
+    15e9:	cmp    $0x8,%eax
+    15ec:	jle    1643 <read_fru_area+0x2b3>
+    15f2:	mov    -0x18(%rbp),%rax
+    15f6:	movzbl 0x3(%rax),%eax
+    15fa:	cmp    $0x20,%eax
+    15fd:	jle    1616 <read_fru_area+0x286>
+    1603:	mov    -0x18(%rbp),%rax
+    1607:	movzbl 0x3(%rax),%ecx
+    160b:	sub    $0x8,%ecx
+    160e:	mov    %cl,0x3(%rax)
+    1611:	jmp    1623 <read_fru_area+0x293>
+    1616:	mov    -0x18(%rbp),%rax
+    161a:	mov    0x3(%rax),%cl
+    161d:	add    $0xff,%cl
+    1620:	mov    %cl,0x3(%rax)
+    1623:	mov    -0x18(%rbp),%rax
+    1627:	movzbl 0x3(%rax),%edx
+    162b:	mov    $0x6,%edi
+    1630:	lea    0xb10(%rip),%rsi        # 2147 <_IO_stdin_used+0x147>
+    1637:	mov    $0x0,%al
+    1639:	call   12b0 <lprintf>
+    163e:	jmp    1704 <read_fru_area+0x374>
+    1643:	mov    -0x48(%rbp),%rax
+    1647:	movzbl (%rax),%edi
+    164a:	lea    0x273f(%rip),%rsi        # 3d90 <completion_code_vals>
+    1651:	call   1200 <val2str>
+    1656:	mov    %rax,%rdx
+    1659:	mov    $0x5,%edi
+    165e:	lea    0xb09(%rip),%rsi        # 216e <_IO_stdin_used+0x16e>
+    1665:	mov    $0x0,%al
+    1667:	call   12b0 <lprintf>
+    166c:	jmp    1710 <read_fru_area+0x380>
+    1671:	mov    -0x18(%rbp),%rax
+    1675:	mov    0x2(%rax),%al
+    1678:	and    $0x1,%al
+    167a:	movzbl %al,%eax
+    167d:	cmp    $0x0,%eax
+    1680:	je     1699 <read_fru_area+0x309>
+    1686:	mov    -0x48(%rbp),%rax
+    168a:	movzbl 0x1(%rax),%eax
+    168e:	shl    $0x1,%eax
+    1691:	mov    %eax,-0x68(%rbp)
+    1694:	jmp    16a4 <read_fru_area+0x314>
+    1699:	mov    -0x48(%rbp),%rax
+    169d:	movzbl 0x1(%rax),%eax
+    16a1:	mov    %eax,-0x68(%rbp)
+    16a4:	mov    -0x68(%rbp),%eax
+    16a7:	mov    %eax,-0x38(%rbp)
+    16aa:	mov    -0x30(%rbp),%rdi
+    16ae:	mov    -0x48(%rbp),%rsi
+    16b2:	add    $0x1,%rsi
+    16b6:	add    $0x1,%rsi
+    16ba:	mov    -0x38(%rbp),%eax
+    16bd:	mov    %eax,%edx
+    16bf:	call   10b0 <memcpy@plt>
+    16c4:	mov    -0x38(%rbp),%eax
+    16c7:	add    -0x34(%rbp),%eax
+    16ca:	mov    %eax,-0x34(%rbp)
+    16cd:	mov    -0x38(%rbp),%ecx
+    16d0:	mov    -0x30(%rbp),%rax
+    16d4:	mov    %ecx,%ecx
+    16d6:	add    %rcx,%rax
+    16d9:	mov    %rax,-0x30(%rbp)
+    16dd:	cmpl   $0x0,-0x38(%rbp)
+    16e1:	jne    16ff <read_fru_area+0x36f>
+    16e7:	mov    -0x34(%rbp),%eax
+    16ea:	cmp    -0x3c(%rbp),%eax
+    16ed:	jae    16ff <read_fru_area+0x36f>
+    16f3:	movl   $0x0,-0x4(%rbp)
+    16fa:	jmp    172f <read_fru_area+0x39f>
+    16ff:	jmp    1704 <read_fru_area+0x374>
+    1704:	mov    -0x34(%rbp),%eax
+    1707:	cmp    -0x3c(%rbp),%eax
+    170a:	jb     1509 <read_fru_area+0x179>
+    1710:	mov    -0x34(%rbp),%eax
+    1713:	cmp    -0x3c(%rbp),%eax
+    1716:	jae    1728 <read_fru_area+0x398>
+    171c:	movl   $0xffffffff,-0x4(%rbp)
+    1723:	jmp    172f <read_fru_area+0x39f>
+    1728:	movl   $0x0,-0x4(%rbp)
+    172f:	mov    -0x4(%rbp),%eax
+    1732:	add    $0x70,%rsp
+    1736:	pop    %rbp
+    1737:	ret
+
+Disassembly of section .fini:

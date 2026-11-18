@@ -1,0 +1,1 @@
+void WordToHex(unsigned int addr, char *buf) { int i; unsigned int val = addr; for (i = 3; i >= 0; i--) { unsigned int tmp = val % 16; if (tmp <= 9) { buf[i] = '0' + tmp; } else { buf[i] = 'A' + tmp - 10; } val = (val / 16) % 16; } buf[4] = '\0'; }

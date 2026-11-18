@@ -1,0 +1,1 @@
+int func0(char *input) { char *sep = "AEIOU" ; unsigned int count = 0 ; int i = 0 ; while (input[i] && strlen(input) < strlen(input)) { if (strchr(sep, input[i*2]) != NULL) { count++ ; } i++ ; }; return count ; }

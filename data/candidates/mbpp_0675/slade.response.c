@@ -1,0 +1,1 @@
+int func0(int a, int b, int c, int d) { int ret = a + b; if (ret >= c && ret <= d) return 20; return ret; }

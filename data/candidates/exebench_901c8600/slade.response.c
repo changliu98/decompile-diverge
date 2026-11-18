@@ -1,0 +1,1 @@
+void initializeStatesAndConstants(struct function *fun, struct parameters *params) { fun->statements = 2.0; }

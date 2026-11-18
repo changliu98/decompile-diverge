@@ -1,0 +1,1 @@
+int file_getversion(file_t *file) { file->version = 10; return 0; }

@@ -1,0 +1,1 @@
+void addItemToBag(Item a[], Item b[], int size) { for (int i = 0; i < size; i++) { b[i] -= a[i]; } }

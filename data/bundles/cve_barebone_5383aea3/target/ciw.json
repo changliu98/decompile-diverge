@@ -1,0 +1,355 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+bin], rdi\nmov     [rbp+buffer], rsi\nmov     [rbp+sz], rdx\nmov     [rbp+buf_offset], rcx\nmov     [rbp+attr], 0\nmov     [rbp+i], 0\nmov     [rbp+offset], 0\nmov     rdi, [rbp+bin]; bin\nmov     rsi, [rbp+buffer]; buffer\nmov     rdx, [rbp+sz]; sz\nmov     rcx, [rbp+buf_offset]; buf_offset\ncall    r_bin_java_default_attr_new\nmov     [rbp+attr], rax\nmov     rax, [rbp+offset]\nadd     rax, 6\nmov     [rbp+offset], rax\ncmp     [rbp+attr], 0\njnz     loc_156C\nmov     rax, [rbp+attr]\nmov     [rbp+var_8], rax\njmp     loc_18E8\nmov     rax, [rbp+attr]\nmov     dword ptr [rax+20h], 7\nmov     rax, [rbp+buffer]\nmov     rcx, [rbp+offset]\nmovzx   eax, byte ptr [rax+rcx+1]\nand     eax, 0FFh\nmov     rcx, [rbp+buffer]\nmov     rdx, [rbp+offset]\nmovzx   ecx, byte ptr [rcx+rdx]\nand     ecx, 0FFh\nshl     ecx, 8\nor      eax, ecx\nand     eax, 0FFFFh\nmov     cx, ax\nmov     rax, [rbp+attr]\nmov     [rax+30h], cx\nmov     rax, [rbp+offset]\nadd     rax, 2\nmov     [rbp+offset], rax\nlea     rdi, r_bin_java_inner_classes_attr_entry_free; f\ncall    r_list_newf\nmov     rcx, rax\nmov     rax, [rbp+attr]\nmov     [rax+38h], rcx\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\nmov     rcx, [rbp+attr]\nmovzx   ecx, word ptr [rcx+30h]\ncmp     eax, ecx\njnb     loc_18D5\nmov     rax, [rbp+buf_offset]\nadd     rax, [rbp+offset]\nmov     [rbp+curpos], rax\nmov     rax, [rbp+offset]\nadd     rax, 8\ncmp     rax, [rbp+sz]\njbe     loc_1628\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, aInvalidAmountO; \"Invalid amount of inner classes\\n\"\nmov     al, 0\ncall    fprintf\njmp     loc_18D5\nmov     edi, 1; nmemb\nmov     esi, 38h ; '8'; size\ncall    calloc\nmov     [rbp+icattr], rax\ncmp     [rbp+icattr], 0\njnz     loc_164B\njmp     loc_18D5\nmov     rax, [rbp+buffer]\nmov     rcx, [rbp+offset]\nmovzx   eax, byte ptr [rax+rcx+1]\nand     eax, 0FFh\nmov     rcx, [rbp+buffer]\nmov     rdx, [rbp+offset]\nmovzx   ecx, byte ptr [rcx+rdx]\nand     ecx, 0FFh\nshl     ecx, 8\nor      eax, ecx\nand     eax, 0FFFFh\nmov     cx, ax\nmov     rax, [rbp+icattr]\nmov     [rax+28h], cx\nmov     rax, [rbp+offset]\nadd     rax, 2\nmov     [rbp+offset], rax\nmov     rax, [rbp+buffer]\nmov     rcx, [rbp+offset]\nmovzx   eax, byte ptr [rax+rcx+1]\nand     eax, 0FFh\nmov     rcx, [rbp+buffer]\nmov     rdx, [rbp+offset]\nmovzx   ecx, byte ptr [rcx+rdx]\nand     ecx, 0FFh\nshl     ecx, 8\nor      eax, ecx\nand     eax, 0FFFFh\nmov     cx, ax\nmov     rax, [rbp+icattr]\nmov     [rax+2Ah], cx\nmov     rax, [rbp+offset]\nadd     rax, 2\nmov     [rbp+offset], rax\nmov     rax, [rbp+buffer]\nmov     rcx, [rbp+offset]\nmovzx   eax, byte ptr [rax+rcx+1]\nand     eax, 0FFh\nmov     rcx, [rbp+buffer]\nmov     rdx, [rbp+offset]\nmovzx   ecx, byte ptr [rcx+rdx]\nand     ecx, 0FFh\nshl     ecx, 8\nor      eax, ecx\nand     eax, 0FFFFh\nmov     cx, ax\nmov     rax, [rbp+icattr]\nmov     [rax+2Ch], cx\nmov     rax, [rbp+offset]\nadd     rax, 2\nmov     [rbp+offset], rax\nmov     rax, [rbp+buffer]\nmov     rcx, [rbp+offset]\nmovzx   eax, byte ptr [rax+rcx+1]\nand     eax, 0FFh\nmov     rcx, [rbp+buffer]\nmov     rdx, [rbp+offset]\nmovzx   ecx, byte ptr [rcx+rdx]\nand     ecx, 0FFh\nshl     ecx, 8\nor      eax, ecx\nand     eax, 0FFFFh\nmov     cx, ax\nmov     rax, [rbp+icattr]\nmov     [rax+2Eh], cx\nmov     rax, [rbp+offset]\nadd     rax, 2\nmov     [rbp+offset], rax\nmov     rax, [rbp+icattr]\nmovzx   edi, word ptr [rax+2Eh]; flags\ncall    retrieve_class_method_access_string\nmov     rcx, rax\nmov     rax, [rbp+icattr]\nmov     [rax+8], rcx\nmov     rcx, [rbp+curpos]\nmov     rax, [rbp+icattr]\nmov     [rax+10h], rcx\nmov     rax, [rbp+icattr]\nmov     qword ptr [rax+30h], 8\nmov     rdi, cs:R_BIN_JAVA_GLOBAL_BIN; bin\nmov     rax, [rbp+icattr]\nmovzx   eax, word ptr [rax+2Ch]\nmov     esi, eax; idx\ncall    r_bin_java_get_item_from_bin_cp_list\nmov     [rbp+obj], rax\ncmp     [rbp+obj], 0\njnz     loc_17D4\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nmov     rax, [rbp+icattr]\nmovzx   edx, word ptr [rax+2Ch]\nlea     rsi, aBincplisIsHull; \"BINCPLIS IS HULL %d\\n\"\nmov     al, 0\ncall    fprintf\nmov     rdi, cs:R_BIN_JAVA_GLOBAL_BIN; bin\nmov     rsi, [rbp+obj]; obj\ncall    r_bin_java_get_item_name_from_bin_cp_list\nmov     rcx, rax\nmov     rax, [rbp+icattr]\nmov     [rax], rcx\nmov     rax, [rbp+icattr]\ncmp     qword ptr [rax], 0\njnz     loc_18B6\nmov     rdi, cs:R_BIN_JAVA_GLOBAL_BIN; bin\nmov     rax, [rbp+icattr]\nmovzx   eax, word ptr [rax+28h]\nmov     esi, eax; idx\ncall    r_bin_java_get_item_from_bin_cp_list\nmov     [rbp+obj], rax\ncmp     [rbp+obj], 0\njnz     loc_1841\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nmov     rax, [rbp+icattr]\nmovzx   edx, word ptr [rax+28h]\nlea     rsi, aBincplistIsNul; \"BINCPLIST IS NULL %d\\n\"\nmov     al, 0\ncall    fprintf\nmov     rdi, cs:R_BIN_JAVA_GLOBAL_BIN; bin\nmov     rsi, [rbp+obj]; obj\ncall    r_bin_java_get_item_name_from_bin_cp_list\nmov     rcx, rax\nmov     rax, [rbp+icattr]\nmov     [rax], rcx\nmov     rax, [rbp+icattr]\ncmp     qword ptr [rax], 0\njnz     loc_18B1\nxor     eax, eax\nmov     edi, eax; ptr\nlea     rsi, string; \"NULL\"\ncall    r_str_dup\nmov     rcx, rax\nmov     rax, [rbp+icattr]\nmov     [rax], rcx\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nmov     rax, [rbp+icattr]\nmovzx   edx, word ptr [rax+2Ch]\nlea     rsi, aRBinJavaInnerC; \"r_bin_java_inner_classes_attr: Unable t\"...\nmov     al, 0\ncall    fprintf\nmov     rdi, [rbp+icattr]; ptr\ncall    free\njmp     loc_18D5\njmp     $+5\nmov     rax, [rbp+attr]\nmov     rdi, [rax+38h]; list\nmov     rsi, [rbp+icattr]; data\ncall    r_list_append\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_15DA\nmov     rcx, [rbp+offset]\nmov     rax, [rbp+attr]\nmov     [rax], rcx\nmov     rax, [rbp+attr]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nadd     rsp, 60h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 19,
+  "edges": [
+   [
+    "start",
+    "loc_155F"
+   ],
+   [
+    "start",
+    "loc_156C"
+   ],
+   [
+    "loc_155F",
+    "loc_18E8"
+   ],
+   [
+    "loc_156C",
+    "loc_15DA"
+   ],
+   [
+    "loc_15DA",
+    "loc_15ED"
+   ],
+   [
+    "loc_15DA",
+    "loc_18D5"
+   ],
+   [
+    "loc_15ED",
+    "loc_160B"
+   ],
+   [
+    "loc_15ED",
+    "loc_1628"
+   ],
+   [
+    "loc_160B",
+    "loc_18D5"
+   ],
+   [
+    "loc_1628",
+    "loc_1646"
+   ],
+   [
+    "loc_1628",
+    "loc_164B"
+   ],
+   [
+    "loc_1646",
+    "loc_18D5"
+   ],
+   [
+    "loc_164B",
+    "loc_17B4"
+   ],
+   [
+    "loc_164B",
+    "loc_17D4"
+   ],
+   [
+    "loc_17B4",
+    "loc_17D4"
+   ],
+   [
+    "loc_17D4",
+    "loc_17FC"
+   ],
+   [
+    "loc_17D4",
+    "loc_18B6"
+   ],
+   [
+    "loc_17FC",
+    "loc_1821"
+   ],
+   [
+    "loc_17FC",
+    "loc_1841"
+   ],
+   [
+    "loc_1821",
+    "loc_1841"
+   ],
+   [
+    "loc_1841",
+    "loc_1869"
+   ],
+   [
+    "loc_1841",
+    "loc_18B1"
+   ],
+   [
+    "loc_1869",
+    "loc_18D5"
+   ],
+   [
+    "loc_18B1",
+    "loc_18B6"
+   ],
+   [
+    "loc_18B6",
+    "loc_15DA"
+   ],
+   [
+    "loc_18D5",
+    "loc_18E8"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+bin], rdi\nmov     [rbp+buffer], rsi\nmov     [rbp+sz], rdx\nmov     [rbp+buf_offset], rcx\nmov     [rbp+attr], 0\nmov     [rbp+i], 0\nmov     [rbp+offset], 0\nmov     rdi, [rbp+bin]; bin\nmov     rsi, [rbp+buffer]; buffer\nmov     rdx, [rbp+sz]; sz\nmov     rcx, [rbp+buf_offset]; buf_offset\ncall    r_bin_java_default_attr_new\nmov     [rbp+attr], rax\nmov     rax, [rbp+offset]\nadd     rax, 6\nmov     [rbp+offset], rax\ncmp     [rbp+attr], 0\njnz     loc_156C",
+   "loc_155F": "mov     rax, [rbp+attr]\nmov     [rbp+var_8], rax\njmp     loc_18E8",
+   "loc_156C": "mov     rax, [rbp+attr]\nmov     dword ptr [rax+20h], 7\nmov     rax, [rbp+buffer]\nmov     rcx, [rbp+offset]\nmovzx   eax, byte ptr [rax+rcx+1]\nand     eax, 0FFh\nmov     rcx, [rbp+buffer]\nmov     rdx, [rbp+offset]\nmovzx   ecx, byte ptr [rcx+rdx]\nand     ecx, 0FFh\nshl     ecx, 8\nor      eax, ecx\nand     eax, 0FFFFh\nmov     cx, ax\nmov     rax, [rbp+attr]\nmov     [rax+30h], cx\nmov     rax, [rbp+offset]\nadd     rax, 2\nmov     [rbp+offset], rax\nlea     rdi, r_bin_java_inner_classes_attr_entry_free; f\ncall    r_list_newf\nmov     rcx, rax\nmov     rax, [rbp+attr]\nmov     [rax+38h], rcx\nmov     [rbp+i], 0",
+   "loc_15DA": "mov     eax, [rbp+i]\nmov     rcx, [rbp+attr]\nmovzx   ecx, word ptr [rcx+30h]\ncmp     eax, ecx\njnb     loc_18D5",
+   "loc_15ED": "mov     rax, [rbp+buf_offset]\nadd     rax, [rbp+offset]\nmov     [rbp+curpos], rax\nmov     rax, [rbp+offset]\nadd     rax, 8\ncmp     rax, [rbp+sz]\njbe     loc_1628",
+   "loc_160B": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, aInvalidAmountO; \"Invalid amount of inner classes\\n\"\nmov     al, 0\ncall    fprintf\njmp     loc_18D5",
+   "loc_1628": "mov     edi, 1; nmemb\nmov     esi, 38h ; '8'; size\ncall    calloc\nmov     [rbp+icattr], rax\ncmp     [rbp+icattr], 0\njnz     loc_164B",
+   "loc_1646": "jmp     loc_18D5",
+   "loc_164B": "mov     rax, [rbp+buffer]\nmov     rcx, [rbp+offset]\nmovzx   eax, byte ptr [rax+rcx+1]\nand     eax, 0FFh\nmov     rcx, [rbp+buffer]\nmov     rdx, [rbp+offset]\nmovzx   ecx, byte ptr [rcx+rdx]\nand     ecx, 0FFh\nshl     ecx, 8\nor      eax, ecx\nand     eax, 0FFFFh\nmov     cx, ax\nmov     rax, [rbp+icattr]\nmov     [rax+28h], cx\nmov     rax, [rbp+offset]\nadd     rax, 2\nmov     [rbp+offset], rax\nmov     rax, [rbp+buffer]\nmov     rcx, [rbp+offset]\nmovzx   eax, byte ptr [rax+rcx+1]\nand     eax, 0FFh\nmov     rcx, [rbp+buffer]\nmov     rdx, [rbp+offset]\nmovzx   ecx, byte ptr [rcx+rdx]\nand     ecx, 0FFh\nshl     ecx, 8\nor      eax, ecx\nand     eax, 0FFFFh\nmov     cx, ax\nmov     rax, [rbp+icattr]\nmov     [rax+2Ah], cx\nmov     rax, [rbp+offset]\nadd     rax, 2\nmov     [rbp+offset], rax\nmov     rax, [rbp+buffer]\nmov     rcx, [rbp+offset]\nmovzx   eax, byte ptr [rax+rcx+1]\nand     eax, 0FFh\nmov     rcx, [rbp+buffer]\nmov     rdx, [rbp+offset]\nmovzx   ecx, byte ptr [rcx+rdx]\nand     ecx, 0FFh\nshl     ecx, 8\nor      eax, ecx\nand     eax, 0FFFFh\nmov     cx, ax\nmov     rax, [rbp+icattr]\nmov     [rax+2Ch], cx\nmov     rax, [rbp+offset]\nadd     rax, 2\nmov     [rbp+offset], rax\nmov     rax, [rbp+buffer]\nmov     rcx, [rbp+offset]\nmovzx   eax, byte ptr [rax+rcx+1]\nand     eax, 0FFh\nmov     rcx, [rbp+buffer]\nmov     rdx, [rbp+offset]\nmovzx   ecx, byte ptr [rcx+rdx]\nand     ecx, 0FFh\nshl     ecx, 8\nor      eax, ecx\nand     eax, 0FFFFh\nmov     cx, ax\nmov     rax, [rbp+icattr]\nmov     [rax+2Eh], cx\nmov     rax, [rbp+offset]\nadd     rax, 2\nmov     [rbp+offset], rax\nmov     rax, [rbp+icattr]\nmovzx   edi, word ptr [rax+2Eh]; flags\ncall    retrieve_class_method_access_string\nmov     rcx, rax\nmov     rax, [rbp+icattr]\nmov     [rax+8], rcx\nmov     rcx, [rbp+curpos]\nmov     rax, [rbp+icattr]\nmov     [rax+10h], rcx\nmov     rax, [rbp+icattr]\nmov     qword ptr [rax+30h], 8\nmov     rdi, cs:R_BIN_JAVA_GLOBAL_BIN; bin\nmov     rax, [rbp+icattr]\nmovzx   eax, word ptr [rax+2Ch]\nmov     esi, eax; idx\ncall    r_bin_java_get_item_from_bin_cp_list\nmov     [rbp+obj], rax\ncmp     [rbp+obj], 0\njnz     loc_17D4",
+   "loc_17B4": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nmov     rax, [rbp+icattr]\nmovzx   edx, word ptr [rax+2Ch]\nlea     rsi, aBincplisIsHull; \"BINCPLIS IS HULL %d\\n\"\nmov     al, 0\ncall    fprintf",
+   "loc_17D4": "mov     rdi, cs:R_BIN_JAVA_GLOBAL_BIN; bin\nmov     rsi, [rbp+obj]; obj\ncall    r_bin_java_get_item_name_from_bin_cp_list\nmov     rcx, rax\nmov     rax, [rbp+icattr]\nmov     [rax], rcx\nmov     rax, [rbp+icattr]\ncmp     qword ptr [rax], 0\njnz     loc_18B6",
+   "loc_17FC": "mov     rdi, cs:R_BIN_JAVA_GLOBAL_BIN; bin\nmov     rax, [rbp+icattr]\nmovzx   eax, word ptr [rax+28h]\nmov     esi, eax; idx\ncall    r_bin_java_get_item_from_bin_cp_list\nmov     [rbp+obj], rax\ncmp     [rbp+obj], 0\njnz     loc_1841",
+   "loc_1821": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nmov     rax, [rbp+icattr]\nmovzx   edx, word ptr [rax+28h]\nlea     rsi, aBincplistIsNul; \"BINCPLIST IS NULL %d\\n\"\nmov     al, 0\ncall    fprintf",
+   "loc_1841": "mov     rdi, cs:R_BIN_JAVA_GLOBAL_BIN; bin\nmov     rsi, [rbp+obj]; obj\ncall    r_bin_java_get_item_name_from_bin_cp_list\nmov     rcx, rax\nmov     rax, [rbp+icattr]\nmov     [rax], rcx\nmov     rax, [rbp+icattr]\ncmp     qword ptr [rax], 0\njnz     loc_18B1",
+   "loc_1869": "xor     eax, eax\nmov     edi, eax; ptr\nlea     rsi, string; \"NULL\"\ncall    r_str_dup\nmov     rcx, rax\nmov     rax, [rbp+icattr]\nmov     [rax], rcx\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nmov     rax, [rbp+icattr]\nmovzx   edx, word ptr [rax+2Ch]\nlea     rsi, aRBinJavaInnerC; \"r_bin_java_inner_classes_attr: Unable t\"...\nmov     al, 0\ncall    fprintf\nmov     rdi, [rbp+icattr]; ptr\ncall    free\njmp     loc_18D5",
+   "loc_18B1": "jmp     $+5",
+   "loc_18B6": "mov     rax, [rbp+attr]\nmov     rdi, [rax+38h]; list\nmov     rsi, [rbp+icattr]; data\ncall    r_list_append\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_15DA",
+   "loc_18D5": "mov     rcx, [rbp+offset]\nmov     rax, [rbp+attr]\nmov     [rax], rcx\nmov     rax, [rbp+attr]\nmov     [rbp+var_8], rax",
+   "loc_18E8": "mov     rax, [rbp+var_8]\nadd     rsp, 60h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "curpos": "qword ptr -58h",
+   "offset": "qword ptr -50h",
+   "i": "dword ptr -44h",
+   "obj": "qword ptr -40h",
+   "attr": "qword ptr -38h",
+   "icattr": "qword ptr -30h",
+   "buf_offset": "qword ptr -28h",
+   "sz": "qword ptr -20h",
+   "buffer": "qword ptr -18h",
+   "bin": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {
+   "aInvalidAmountO": "byte 'Invalid amount of inner classes',0Ah,0",
+   "aBincplisIsHull": "byte 'BINCPLIS IS HULL %d',0Ah,0",
+   "aBincplistIsNul": "byte 'BINCPLIST IS NULL %d',0Ah,0",
+   "string": "byte 'NULL',0",
+   "aRBinJavaInnerC": "byte 'r_bin_java_inner_classes_attr: Unable to find the name for %d ind'"
+  },
+  ".data": {},
+  ".bss": {
+   "R_BIN_JAVA_GLOBAL_BIN": "[]"
+  }
+ },
+ "func_ea": 5376,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".strdup": "strdup",
+  "_strdup": "strdup"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".strdup",
+   ".plt",
+   true,
+   "strdup"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strdup",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868463
+ }
+}

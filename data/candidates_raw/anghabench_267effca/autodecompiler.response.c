@@ -1,0 +1,62 @@
+unsigned int hash(unsigned int key, int prime_index)
+{
+    unsigned int result;
+
+    switch(prime_index) {
+        case 0: result = key % 3; break;
+        case 1: result = key % 2; break;
+        case 2: result = key % 3; break;
+        case 3: result = key % 5; break;
+        case 4: result = key % 7; break;
+        case 5: result = key % 11; break;
+        case 6: result = key % 13; break;
+        case 7: result = key % 17; break;
+        case 8: result = key % 23; break;
+        case 9: result = key % 29; break;
+        case 10: result = key % 37; break;
+        case 11: result = key % 43; break;
+        case 12: result = key % 59; break;
+        case 13: result = key % 73; break;
+        case 14: result = key % 97; break;
+        case 15: result = key % 127; break;
+        case 16: result = key % 151; break;
+        case 17: result = key % 197; break;
+        case 18: result = key % 251; break;
+        case 19: result = key % 313; break;
+        case 20: result = key % 397; break;
+        case 21: result = key % 499; break;
+        case 22: result = key % 631; break;
+        case 23: result = key % 797; break;
+        case 24: result = key % 1009; break;
+        case 25: result = key % 1259; break;
+        case 26: result = key % 1597; break;
+        case 27: result = key % 1997; break;
+        case 28: result = key % 2539; break;
+        case 29: result = key % 3203; break;
+        case 30: result = key % 4039; break;
+        case 31: result = key % 5119; break;
+        case 32: result = key % 6421; break;
+        case 33: result = key % 8191; break;
+        case 34: result = key % 10501; break;
+        case 35: result = key % 12853; break;
+        case 36: result = key % 16381; break;
+        case 37: result = key % 20993; break;
+        case 38: result = key % 26621; break;
+        case 39: result = key % 32771; break;
+        case 40: result = key % 41029; break;
+        case 41: result = key % 52499; break;
+        case 42: result = key % 65537; break;
+        case 43: result = key % 81929; break;
+        case 44: result = key % 104857; break;
+        case 45: result = key % 131071; break;
+        case 46: result = key % 163841; break;
+        case 47: result = key % 209713; break;
+        case 48: result = key % 262141; break;
+        case 49: result = key % 327689; break;
+        case 50: result = key % 419431; break;
+        case 51: result = key % 524287; break;
+        case 52: result = key % 655357; break;
+        case 53: result = key % 838859; break;
+        case 54: result = key % 1048573; break;
+        case 55: result = key % 1342139; break;
+        case 56: result = key %

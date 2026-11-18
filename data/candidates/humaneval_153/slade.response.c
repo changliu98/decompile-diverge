@@ -1,0 +1,1 @@
+void func0(char *name, char **argv, int argc, char *buf) { int min = -1000; int i; int j; int k; char *p, *np; char *s = NULL; for (i = 0; i < argc; i++) { p = argv[i]; j = 0; for (k = 0; p[k]; k++) { char c = p[k]; if (c >= 'A' && c <= 'Z') j++; if (c >= 'a' && c <= 'z') j--; } if (j > min) { min = j; s = p; } } sprintf(buf, "%s.%s", name, s); }

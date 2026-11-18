@@ -1,0 +1,287 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+heap], rdi\nmov     [rbp+value], rsi\nmov     rax, [rbp+heap]\nmov     eax, [rax+10h]\nmov     rcx, [rbp+heap]\ncmp     eax, [rcx+14h]\njb      loc_1348\nmov     rax, [rbp+heap]\nmov     eax, [rax+14h]\nshl     eax, 1\nmov     [rbp+new_size], eax\nmov     rax, [rbp+heap]\nmov     rdi, [rax+8]; ptr\nmov     eax, [rbp+new_size]\nmov     esi, eax\nshl     rsi, 3; size\ncall    realloc\nmov     [rbp+new_values], rax\ncmp     [rbp+new_values], 0\njnz     loc_1332\nmov     [rbp+var_4], 0\njmp     loc_13E2\nmov     ecx, [rbp+new_size]\nmov     rax, [rbp+heap]\nmov     [rax+14h], ecx\nmov     rcx, [rbp+new_values]\nmov     rax, [rbp+heap]\nmov     [rax+8], rcx\nmov     rax, [rbp+heap]\nmov     eax, [rax+10h]\nmov     [rbp+index], eax\nmov     rax, [rbp+heap]\nmov     ecx, [rax+10h]\nadd     ecx, 1\nmov     [rax+10h], ecx\ncmp     [rbp+index], 0\njbe     loc_13C8\nmov     eax, [rbp+index]\nsub     eax, 1\nshr     eax, 1\nmov     [rbp+parent], eax\nmov     rdi, [rbp+heap]; heap\nmov     rax, [rbp+heap]\nmov     rax, [rax+8]\nmov     ecx, [rbp+parent]\nmov     rsi, [rax+rcx*8]; data1\nmov     rdx, [rbp+value]; data2\ncall    binary_heap_cmp\ncmp     eax, 0\njge     loc_139F\njmp     loc_13C8\nmov     rax, [rbp+heap]\nmov     rax, [rax+8]\nmov     ecx, [rbp+parent]\nmov     rdx, [rax+rcx*8]\nmov     rax, [rbp+heap]\nmov     rax, [rax+8]\nmov     ecx, [rbp+index]\nmov     [rax+rcx*8], rdx\nmov     eax, [rbp+parent]\nmov     [rbp+index], eax\njmp     loc_135F\nmov     rdx, [rbp+value]\nmov     rax, [rbp+heap]\nmov     rax, [rax+8]\nmov     ecx, [rbp+index]\nmov     [rax+rcx*8], rdx\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 11,
+  "edges": [
+   [
+    "start",
+    "loc_12F4"
+   ],
+   [
+    "start",
+    "loc_1348"
+   ],
+   [
+    "loc_12F4",
+    "loc_1326"
+   ],
+   [
+    "loc_12F4",
+    "loc_1332"
+   ],
+   [
+    "loc_1326",
+    "loc_13E2"
+   ],
+   [
+    "loc_1332",
+    "loc_1348"
+   ],
+   [
+    "loc_1348",
+    "loc_135F"
+   ],
+   [
+    "loc_135F",
+    "loc_1369"
+   ],
+   [
+    "loc_135F",
+    "loc_13C8"
+   ],
+   [
+    "loc_1369",
+    "loc_139A"
+   ],
+   [
+    "loc_1369",
+    "loc_139F"
+   ],
+   [
+    "loc_139A",
+    "loc_13C8"
+   ],
+   [
+    "loc_139F",
+    "loc_135F"
+   ],
+   [
+    "loc_13C8",
+    "loc_13E2"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+heap], rdi\nmov     [rbp+value], rsi\nmov     rax, [rbp+heap]\nmov     eax, [rax+10h]\nmov     rcx, [rbp+heap]\ncmp     eax, [rcx+14h]\njb      loc_1348",
+   "loc_12F4": "mov     rax, [rbp+heap]\nmov     eax, [rax+14h]\nshl     eax, 1\nmov     [rbp+new_size], eax\nmov     rax, [rbp+heap]\nmov     rdi, [rax+8]; ptr\nmov     eax, [rbp+new_size]\nmov     esi, eax\nshl     rsi, 3; size\ncall    realloc\nmov     [rbp+new_values], rax\ncmp     [rbp+new_values], 0\njnz     loc_1332",
+   "loc_1326": "mov     [rbp+var_4], 0\njmp     loc_13E2",
+   "loc_1332": "mov     ecx, [rbp+new_size]\nmov     rax, [rbp+heap]\nmov     [rax+14h], ecx\nmov     rcx, [rbp+new_values]\nmov     rax, [rbp+heap]\nmov     [rax+8], rcx",
+   "loc_1348": "mov     rax, [rbp+heap]\nmov     eax, [rax+10h]\nmov     [rbp+index], eax\nmov     rax, [rbp+heap]\nmov     ecx, [rax+10h]\nadd     ecx, 1\nmov     [rax+10h], ecx",
+   "loc_135F": "cmp     [rbp+index], 0\njbe     loc_13C8",
+   "loc_1369": "mov     eax, [rbp+index]\nsub     eax, 1\nshr     eax, 1\nmov     [rbp+parent], eax\nmov     rdi, [rbp+heap]; heap\nmov     rax, [rbp+heap]\nmov     rax, [rax+8]\nmov     ecx, [rbp+parent]\nmov     rsi, [rax+rcx*8]; data1\nmov     rdx, [rbp+value]; data2\ncall    binary_heap_cmp\ncmp     eax, 0\njge     loc_139F",
+   "loc_139A": "jmp     loc_13C8",
+   "loc_139F": "mov     rax, [rbp+heap]\nmov     rax, [rax+8]\nmov     ecx, [rbp+parent]\nmov     rdx, [rax+rcx*8]\nmov     rax, [rbp+heap]\nmov     rax, [rax+8]\nmov     ecx, [rbp+index]\nmov     [rax+rcx*8], rdx\nmov     eax, [rbp+parent]\nmov     [rbp+index], eax\njmp     loc_135F",
+   "loc_13C8": "mov     rdx, [rbp+value]\nmov     rax, [rbp+heap]\nmov     rax, [rax+8]\nmov     ecx, [rbp+index]\nmov     [rax+rcx*8], rdx\nmov     [rbp+var_4], 1",
+   "loc_13E2": "mov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "parent": "dword ptr -2Ch",
+   "new_size": "dword ptr -28h",
+   "index": "dword ptr -24h",
+   "new_values": "qword ptr -20h",
+   "value": "qword ptr -18h",
+   "heap": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4816,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872655
+ }
+}

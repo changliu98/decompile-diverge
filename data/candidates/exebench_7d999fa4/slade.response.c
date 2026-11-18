@@ -1,0 +1,1 @@
+int bkm_scale (long *x, int scale) { long y = *x * scale; if (*x != y / scale) return 1; *x = y; return 0; }

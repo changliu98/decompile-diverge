@@ -1,0 +1,1 @@
+char *func0(char *str) { int err; regex_t preg; regmatch_t pmatch[2]; char *rs = "[a-zA-Z0-9]$"; err = regcomp(&preg, rs, 1); if (err) return "Error compiling regex"; err = regexec(&preg, str, 1, pmatch, 0); regfree(&preg); if (!err) return "Accept"; return "Discard"; }

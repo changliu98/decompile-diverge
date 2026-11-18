@@ -1,0 +1,73 @@
+0000000000001300 <get_register>:
+    1300:	push   %rbp
+    1301:	mov    %rsp,%rbp
+    1304:	sub    $0x20,%rsp
+    1308:	mov    %edi,-0xc(%rbp)
+    130b:	mov    %esi,-0x10(%rbp)
+    130e:	mov    -0xc(%rbp),%edi
+    1311:	xor    %esi,%esi
+    1313:	call   11c0 <get_yank_register>
+    1318:	mov    $0x18,%edi
+    131d:	call   1430 <alloc>
+    1322:	mov    %rax,-0x18(%rbp)
+    1326:	cmpq   $0x0,-0x18(%rbp)
+    132b:	jne    133e <get_register+0x3e>
+    1331:	movq   $0x0,-0x8(%rbp)
+    1339:	jmp    1421 <get_register+0x121>
+    133e:	mov    -0x18(%rbp),%rax
+    1342:	mov    0x2d47(%rip),%rcx        # 4090 <y_current>
+    1349:	mov    (%rcx),%rdx
+    134c:	mov    %rdx,(%rax)
+    134f:	mov    0x8(%rcx),%rdx
+    1353:	mov    %rdx,0x8(%rax)
+    1357:	mov    0x10(%rcx),%rcx
+    135b:	mov    %rcx,0x10(%rax)
+    135f:	cmpl   $0x0,-0x10(%rbp)
+    1363:	je     140b <get_register+0x10b>
+    1369:	mov    -0x18(%rbp),%rax
+    136d:	cmpq   $0x0,0x8(%rax)
+    1372:	jne    1388 <get_register+0x88>
+    1378:	mov    -0x18(%rbp),%rax
+    137c:	movq   $0x0,(%rax)
+    1383:	jmp    13a3 <get_register+0xa3>
+    1388:	mov    -0x18(%rbp),%rax
+    138c:	mov    0x8(%rax),%rdi
+    1390:	shl    $0x3,%rdi
+    1394:	call   1430 <alloc>
+    1399:	mov    %rax,%rcx
+    139c:	mov    -0x18(%rbp),%rax
+    13a0:	mov    %rcx,(%rax)
+    13a3:	mov    -0x18(%rbp),%rax
+    13a7:	cmpq   $0x0,(%rax)
+    13ab:	je     1406 <get_register+0x106>
+    13b1:	movl   $0x0,-0x1c(%rbp)
+    13b8:	movslq -0x1c(%rbp),%rax
+    13bc:	mov    -0x18(%rbp),%rcx
+    13c0:	cmp    0x8(%rcx),%rax
+    13c4:	jge    1401 <get_register+0x101>
+    13ca:	mov    0x2cbf(%rip),%rax        # 4090 <y_current>
+    13d1:	mov    (%rax),%rax
+    13d4:	movslq -0x1c(%rbp),%rcx
+    13d8:	mov    (%rax,%rcx,8),%rdi
+    13dc:	call   1450 <vim_strsave>
+    13e1:	mov    %rax,%rdx
+    13e4:	mov    -0x18(%rbp),%rax
+    13e8:	mov    (%rax),%rax
+    13eb:	movslq -0x1c(%rbp),%rcx
+    13ef:	mov    %rdx,(%rax,%rcx,8)
+    13f3:	mov    -0x1c(%rbp),%eax
+    13f6:	add    $0x1,%eax
+    13f9:	mov    %eax,-0x1c(%rbp)
+    13fc:	jmp    13b8 <get_register+0xb8>
+    1401:	jmp    1406 <get_register+0x106>
+    1406:	jmp    1419 <get_register+0x119>
+    140b:	mov    0x2c7e(%rip),%rax        # 4090 <y_current>
+    1412:	movq   $0x0,(%rax)
+    1419:	mov    -0x18(%rbp),%rax
+    141d:	mov    %rax,-0x8(%rbp)
+    1421:	mov    -0x8(%rbp),%rax
+    1425:	add    $0x20,%rsp
+    1429:	pop    %rbp
+    142a:	ret
+
+Disassembly of section .fini:

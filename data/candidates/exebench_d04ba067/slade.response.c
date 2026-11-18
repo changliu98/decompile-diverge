@@ -1,0 +1,1 @@
+size_t itochar(uint64_t i, unsigned char *out) { unsigned char j = 0; unsigned char c = 0; do { c[j++] = (i % 10) + '0'; i /= 10; } while (i); do { out[c] = c[j - c - 1]; c++; } while (c < j); return c; }

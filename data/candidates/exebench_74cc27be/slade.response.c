@@ -1,0 +1,1 @@
+void Q_bstrcpy(char *d, const char *s) { while(*s) { *d++ = *s++; } *d = '\0'; }

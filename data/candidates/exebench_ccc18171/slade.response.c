@@ -1,0 +1,1 @@
+__attribute__((overloadable,always_)) char ok_smul4(int a, int b, __attribute__((aligned)) char * c) { char cc; *c = a * b; cc = cc << 32; return cc; }

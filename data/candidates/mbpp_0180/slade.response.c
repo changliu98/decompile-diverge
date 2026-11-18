@@ -1,0 +1,1 @@
+double func0(double x, double y, double theta, double phi) { double func = 0.42 * acos(sin(x) * sin(theta) + cos(x) * cos(theta) * cos(y - phi)); return func; }

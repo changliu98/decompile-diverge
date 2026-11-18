@@ -1,0 +1,1 @@
+void index_to_xwy(uint64_t index, uint64_t length, uint64_t *x, uint64_t *y) { *x = index % length; *y = index / length; }

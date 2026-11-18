@@ -1,0 +1,1 @@
+extern void warp_mat4_add_scaled(warp_mat4_t out, const warp_mat4_t a, const warp_mat4_t b, float s) { int i; for (i = 0; i < 16; i++) out[i] = a[i] + s * b[i]; }

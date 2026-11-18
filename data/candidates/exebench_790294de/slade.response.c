@@ -1,0 +1,1 @@
+void atomic_or(atomic_t *a, atomic_t *b) { asm volatile("lock"); *a = b; }

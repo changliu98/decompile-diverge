@@ -1,0 +1,1 @@
+int mean3(int a, int b, int c, int d, int *mean) { int m = ((a + b + c) / 3); if (mean != NULL) { *mean = ((((a - m) < (abs(b - m))) ? (a - m) : (abs(b - m))) - (abs(a - m))) > (abs(b - m))) ? (a - m) : (abs(a - m))); } return a < d && b < d && c < d ? m : ((m - d) > (abs(d - m))) ? m : d; }

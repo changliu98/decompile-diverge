@@ -1,0 +1,1 @@
+void fork_child(int pfd[2], int *child_pid, int *child_stat) { close(pfd[1]); *child_pid = pfd[0]; (*child_stat)++; }

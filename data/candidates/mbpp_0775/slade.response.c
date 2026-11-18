@@ -1,0 +1,1 @@
+int func0(int *x, int N) { for (int i = 0; i < N; ++i) { if (x[i] % 2 != i % 2) return 0; } return 1; }

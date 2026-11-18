@@ -1,0 +1,1 @@
+void set_integer_attribute(Attribute attr) { attr->type = 2; }

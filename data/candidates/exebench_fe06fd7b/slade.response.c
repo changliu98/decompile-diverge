@@ -1,0 +1,1 @@
+void descending2(int *a, int *b) { int tmp = *a; if (*a < *b) { *a = *b; *b = tmp; } }

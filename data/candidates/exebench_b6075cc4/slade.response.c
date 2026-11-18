@@ -1,0 +1,1 @@
+void break_atr(char *buf, char c) { char *p; if ((p = strrchr(buf, c))) *p = '\0'; }

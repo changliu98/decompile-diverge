@@ -1,0 +1,1 @@
+uint32_t func0(uint32_t x) { if (x & 1) return (x + 1) / 2; uint32_t acc = 0; for (int i = 0; i < 32; ++i) { acc += (x >> i) & 1; } uint32_t r = x / 2; if (acc & 1) ++r; return r; }

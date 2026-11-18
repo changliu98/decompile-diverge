@@ -1,0 +1,1 @@
+int func0(char *ptr) { return *ptr; }

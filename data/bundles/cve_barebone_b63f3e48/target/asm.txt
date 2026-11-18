@@ -1,0 +1,171 @@
+00000000000014e0 <DoCommand>:
+    14e0:	push   %rbp
+    14e1:	mov    %rsp,%rbp
+    14e4:	sub    $0x4180,%rsp
+    14eb:	mov    %rdi,-0x8(%rbp)
+    14ef:	mov    %esi,-0xc(%rbp)
+    14f2:	movl   $0x0,-0x4034(%rbp)
+    14fc:	movl   $0x0,-0x14(%rbp)
+    1503:	mov    -0x8(%rbp),%rdi
+    1507:	call   10a0 <strlen@plt>
+    150c:	sub    $0x1,%rax
+    1510:	mov    %eax,-0x10(%rbp)
+    1513:	xor    %eax,%eax
+    1515:	cmpl   $0x0,-0x10(%rbp)
+    1519:	mov    %al,-0x4171(%rbp)
+    151f:	jle    1542 <DoCommand+0x62>
+    1525:	mov    -0x8(%rbp),%rax
+    1529:	mov    -0x10(%rbp),%ecx
+    152c:	sub    $0x1,%ecx
+    152f:	movslq %ecx,%rcx
+    1532:	movsbl (%rax,%rcx,1),%eax
+    1536:	cmp    $0x2f,%eax
+    1539:	setne  %al
+    153c:	mov    %al,-0x4171(%rbp)
+    1542:	mov    -0x4171(%rbp),%al
+    1548:	test   $0x1,%al
+    154a:	jne    1555 <DoCommand+0x75>
+    1550:	jmp    1563 <DoCommand+0x83>
+    1555:	mov    -0x10(%rbp),%eax
+    1558:	add    $0xffffffff,%eax
+    155b:	mov    %eax,-0x10(%rbp)
+    155e:	jmp    1513 <DoCommand+0x33>
+    1563:	lea    -0x4030(%rbp),%rdi
+    156a:	mov    -0x8(%rbp),%rsi
+    156e:	movslq -0x10(%rbp),%rdx
+    1572:	call   1100 <memcpy@plt>
+    1577:	lea    -0x4030(%rbp),%rdi
+    157e:	movslq -0x10(%rbp),%rax
+    1582:	add    %rax,%rdi
+    1585:	lea    0xac2(%rip),%rsi        # 204e <_IO_stdin_used+0x4e>
+    158c:	call   1070 <strcpy@plt>
+    1591:	lea    -0x4030(%rbp),%rdi
+    1598:	call   1180 <mktemp@plt>
+    159d:	cmpb   $0x0,-0x4030(%rbp)
+    15a4:	jne    15b6 <DoCommand+0xd6>
+    15aa:	lea    0xaa4(%rip),%rdi        # 2055 <_IO_stdin_used+0x55>
+    15b1:	call   1290 <ErrFatal>
+    15b6:	movl   $0x0,-0x10(%rbp)
+    15bd:	mov    0x2b24(%rip),%rax        # 40e8 <ApplyCommand>
+    15c4:	movslq -0x10(%rbp),%rcx
+    15c8:	movsbl (%rax,%rcx,1),%eax
+    15cc:	cmp    $0x26,%eax
+    15cf:	jne    1677 <DoCommand+0x197>
+    15d5:	mov    0x2b0c(%rip),%rax        # 40e8 <ApplyCommand>
+    15dc:	mov    -0x10(%rbp),%ecx
+    15df:	add    $0x1,%ecx
+    15e2:	movslq %ecx,%rcx
+    15e5:	movsbl (%rax,%rcx,1),%eax
+    15e9:	cmp    $0x69,%eax
+    15ec:	jne    161d <DoCommand+0x13d>
+    15f2:	lea    -0x3020(%rbp),%rdi
+    15f9:	movslq -0x14(%rbp),%rax
+    15fd:	add    %rax,%rdi
+    1600:	mov    -0x8(%rbp),%rsi
+    1604:	call   1800 <shellescape>
+    1609:	add    -0x14(%rbp),%eax
+    160c:	mov    %eax,-0x14(%rbp)
+    160f:	mov    -0x10(%rbp),%eax
+    1612:	add    $0x1,%eax
+    1615:	mov    %eax,-0x10(%rbp)
+    1618:	jmp    16bb <DoCommand+0x1db>
+    161d:	mov    0x2ac4(%rip),%rax        # 40e8 <ApplyCommand>
+    1624:	mov    -0x10(%rbp),%ecx
+    1627:	add    $0x1,%ecx
+    162a:	movslq %ecx,%rcx
+    162d:	movsbl (%rax,%rcx,1),%eax
+    1631:	cmp    $0x6f,%eax
+    1634:	jne    1672 <DoCommand+0x192>
+    163a:	lea    -0x3020(%rbp),%rdi
+    1641:	movslq -0x14(%rbp),%rax
+    1645:	add    %rax,%rdi
+    1648:	lea    -0x4030(%rbp),%rsi
+    164f:	call   1800 <shellescape>
+    1654:	add    -0x14(%rbp),%eax
+    1657:	mov    %eax,-0x14(%rbp)
+    165a:	mov    -0x10(%rbp),%eax
+    165d:	add    $0x1,%eax
+    1660:	mov    %eax,-0x10(%rbp)
+    1663:	movl   $0x1,-0x4034(%rbp)
+    166d:	jmp    16bb <DoCommand+0x1db>
+    1672:	jmp    1677 <DoCommand+0x197>
+    1677:	mov    0x2a6a(%rip),%rax        # 40e8 <ApplyCommand>
+    167e:	movslq -0x10(%rbp),%rcx
+    1682:	mov    (%rax,%rcx,1),%cl
+    1685:	mov    -0x14(%rbp),%eax
+    1688:	mov    %eax,%edx
+    168a:	add    $0x1,%edx
+    168d:	mov    %edx,-0x14(%rbp)
+    1690:	cltq
+    1692:	mov    %cl,-0x3020(%rbp,%rax,1)
+    1699:	mov    0x2a48(%rip),%rax        # 40e8 <ApplyCommand>
+    16a0:	movslq -0x10(%rbp),%rcx
+    16a4:	movsbl (%rax,%rcx,1),%eax
+    16a8:	cmp    $0x0,%eax
+    16ab:	jne    16b6 <DoCommand+0x1d6>
+    16b1:	jmp    16c9 <DoCommand+0x1e9>
+    16b6:	jmp    16bb <DoCommand+0x1db>
+    16bb:	mov    -0x10(%rbp),%eax
+    16be:	add    $0x1,%eax
+    16c1:	mov    %eax,-0x10(%rbp)
+    16c4:	jmp    15bd <DoCommand+0xdd>
+    16c9:	cmpl   $0x0,-0xc(%rbp)
+    16cd:	je     16e8 <DoCommand+0x208>
+    16d3:	lea    -0x3020(%rbp),%rsi
+    16da:	lea    0x99e(%rip),%rdi        # 207f <_IO_stdin_used+0x7f>
+    16e1:	mov    $0x0,%al
+    16e3:	call   10c0 <printf@plt>
+    16e8:	call   1050 <__errno_location@plt>
+    16ed:	movl   $0x0,(%rax)
+    16f3:	lea    -0x3020(%rbp),%rdi
+    16fa:	call   10b0 <system@plt>
+    16ff:	mov    %eax,-0x10(%rbp)
+    1702:	cmpl   $0x0,-0x10(%rbp)
+    1706:	jne    171a <DoCommand+0x23a>
+    170c:	call   1050 <__errno_location@plt>
+    1711:	cmpl   $0x0,(%rax)
+    1714:	je     1740 <DoCommand+0x260>
+    171a:	call   1050 <__errno_location@plt>
+    171f:	cmpl   $0x0,(%rax)
+    1722:	je     1734 <DoCommand+0x254>
+    1728:	lea    0x958(%rip),%rdi        # 2087 <_IO_stdin_used+0x87>
+    172f:	call   1150 <perror@plt>
+    1734:	lea    0x953(%rip),%rdi        # 208e <_IO_stdin_used+0x8e>
+    173b:	call   1290 <ErrFatal>
+    1740:	cmpl   $0x0,-0x4034(%rbp)
+    1747:	je     17f6 <DoCommand+0x316>
+    174d:	lea    -0x4030(%rbp),%rdi
+    1754:	lea    -0x40c8(%rbp),%rsi
+    175b:	call   10f0 <stat@plt>
+    1760:	cmp    $0x0,%eax
+    1763:	jne    17e5 <DoCommand+0x305>
+    1769:	mov    -0x8(%rbp),%rdi
+    176d:	lea    -0x4158(%rbp),%rsi
+    1774:	call   10f0 <stat@plt>
+    1779:	mov    %eax,-0x415c(%rbp)
+    177f:	mov    -0x8(%rbp),%rdi
+    1783:	call   1060 <unlink@plt>
+    1788:	lea    -0x4030(%rbp),%rdi
+    178f:	mov    -0x8(%rbp),%rsi
+    1793:	call   1160 <rename@plt>
+    1798:	cmpl   $0x0,-0x415c(%rbp)
+    179f:	jne    17e0 <DoCommand+0x300>
+    17a5:	mov    -0x8(%rbp),%rdi
+    17a9:	mov    -0x4140(%rbp),%esi
+    17af:	call   1130 <chmod@plt>
+    17b4:	mov    -0x4110(%rbp),%rax
+    17bb:	mov    %rax,-0x4170(%rbp)
+    17c2:	mov    -0x4100(%rbp),%rax
+    17c9:	mov    %rax,-0x4168(%rbp)
+    17d0:	mov    -0x8(%rbp),%rdi
+    17d4:	lea    -0x4170(%rbp),%rsi
+    17db:	call   1030 <utime@plt>
+    17e0:	jmp    17f1 <DoCommand+0x311>
+    17e5:	lea    0x8c6(%rip),%rdi        # 20b2 <_IO_stdin_used+0xb2>
+    17ec:	call   1290 <ErrFatal>
+    17f1:	jmp    17f6 <DoCommand+0x316>
+    17f6:	add    $0x4180,%rsp
+    17fd:	pop    %rbp
+    17fe:	ret
+
+Disassembly of section .fini:

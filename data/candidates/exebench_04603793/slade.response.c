@@ -1,0 +1,1 @@
+void itoa(unsigned long n, char *s) { unsigned long x = n; char *p = s; do { p++; x /= 10; } while (x > 0); *p = '\0'; do { *--p = (n % 10) + '0'; n /= 10; } while (n); }

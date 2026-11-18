@@ -1,0 +1,1 @@
+unsigned long adjust_stack_addr(unsigned long addr, unsigned int n) { return addr + (n * sizeof(long)); }

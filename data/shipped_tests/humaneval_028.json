@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n#include <string.h>\n#include <stdlib.h>\n\nchar* func0(char** strings, int count) {\n    int length = 0;\n    for (int i = 0; i < count; i++) {\n        length += strlen(strings[i]);\n    }\n    \n    char* out = (char*)malloc(length + 1);\n    if (!out) {\n        return NULL; \n    }\n    \n    out[0] = '\\0';\n\n    for (int i = 0; i < count; i++) {\n        strcat(out, strings[i]);\n    }\n    \n    return out;\n}",
+ "c_test": "#include <assert.h>\n#include <string.h>\n\nint main() {\n    char* result;\n    char* empty_strings[] = {};\n    result = func0(empty_strings, 0);\n    assert(strcmp(result, \"\") == 0);\n    free(result);\n\n    char* strings1[] = {\"x\", \"y\", \"z\"};\n    result = func0(strings1, 3);\n    assert(strcmp(result, \"xyz\") == 0);\n    free(result);\n\n    char* strings2[] = {\"x\", \"y\", \"z\", \"w\", \"k\"};\n    result = func0(strings2, 5);\n    assert(strcmp(result, \"xyzwk\") == 0);\n    free(result);\n\n    return 0;\n}"
+}

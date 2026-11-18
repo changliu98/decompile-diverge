@@ -1,0 +1,1 @@
+void disable(cpu *m) { m->i =0x0; }

@@ -1,0 +1,1 @@
+void matmult(float* a, float* b, float* result) { for (int i = 0; i < 4; i++) { for (int j = 0; j < 4; j++) { result[4*j + i] = 0.0f; for (int k = 0; k < 4; k++) result[4*j + i] += a[4*k + i] * b[4*j + k]; } } }

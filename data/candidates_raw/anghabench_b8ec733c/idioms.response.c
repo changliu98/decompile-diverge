@@ -1,0 +1,83 @@
+void sdes_encrypt(unsigned char *block)
+{
+  int i;
+  unsigned char *in = (uint8_t *)block;
+  unsigned char *out = (uint8_t *)block;
+  unsigned char temp[64];
+  unsigned char *in1 = (uint8_t *)in;
+  unsigned char *out1 = (uint8_t *)temp;
+  for (i = 0; i < 8; i++) {
+    int t1 = in1[0] + in1[32];
+    int t2 = in1[0] - in1[32];
+    int t3 = in1[16] + in1[48];
+    int t4 = in1[16] - in1[48];
+    int t5 = t1 + t3;
+    int t6 = t2 + t4;
+    int t7 = t2 - t4;
+    int t8 = t1 - t3;
+    t1 = in1[8] + in1[56];
+    t2 = in1[8] - in1[56];
+    t3 = in1[24] + in1[40];
+    t4 = in1[24] - in1[40];
+    t1 = t1 + t3;
+    t2 = t2 + t4;
+    t3 = t3 + t1;
+    t4 = t4 + t2;
+    t1 = t1 + t5;
+    t2 = t2 + t6;
+    t3 = t3 + t7;
+    t4 = t4 + t8;
+    t5 = t5 + t8;
+    t6 = t6 + t4;
+    t7 = t7 + t3;
+    t8 = t8 + t1;
+    out1[0] = t1 >> 3;
+    out1[1] = t2 >> 3;
+    out1[2] = t3 >> 3;
+    out1[3] = t4 >> 3;
+    out1[4] = t5 >> 3;
+    out1[5] = t6 >> 3;
+    out1[6] = t7 >> 3;
+    out1[7] = t8 >> 3;
+    in1 += 8;
+    out1 += 8;
+  }
+  in1 = (unsigned char *)temp;
+  out1 = (unsigned char *)out;
+  for (i = 0; i < 8; i++) {
+    int t1 = in1[0] + in1[32];
+    int t2 = in1[0] - in1[32];
+    int t3 = in1[16] + in1[48];
+    int t4 = in1[16] - in1[48];
+    int t5 = t1 + t3;
+    int t6 = t2 + t4;
+    int t7 = t2 - t4;
+    int t8 = t1 - t3;
+    t1 = in1[8] + in1[56];
+    t2 = in1[8] - in1[56];
+    t3 = in1[24] + in1[40];
+    t4 = in1[24] - in1[40];
+    t1 = t1 + t3;
+    t2 = t2 + t4;
+    t3 = t3 + t1;
+    t4 = t4 + t2;
+    t1 = t1 + t5;
+    t2 = t2 + t6;
+    t3 = t3 + t7;
+    t4 = t4 + t8;
+    t5 = t5 + t8;
+    t6 = t6 + t4;
+    t7 = t7 + t3;
+    t8 = t8 + t1;
+    out1[0] = t1 >> 6;
+    out1[8] = t2 >> 6;
+    out1[16] = t3 >> 6;
+    out1[24] = t4 >> 6;
+    out1[32] = t5 >> 6;
+    out1[40] = t6 >> 6;
+    out1[48] = t7 >> 6;
+    out1[56] = t8 >> 6;
+    in1 += 1;
+    out1 += 1;
+  }
+}

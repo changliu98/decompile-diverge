@@ -1,0 +1,1 @@
+__attribute__((no, noclone)) void fun (int *x) { *x = 30; }

@@ -1,0 +1,1 @@
+double func0(uint32_t a, uint32_t b) { double s = 1.00; double r; if (b >= 18.00) return 1.0; r = s * a * (b / 18.00); return r; }

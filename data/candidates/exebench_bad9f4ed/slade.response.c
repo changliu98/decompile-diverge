@@ -1,0 +1,1 @@
+void Exchange(datatype *x, datatype *y) { datatype tmp; tmp = *x; *x = *y; *y = tmp; }

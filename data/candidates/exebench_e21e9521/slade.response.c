@@ -1,0 +1,1 @@
+float avg12(float *vals, float *val, size_t count) { size_t i; float sum = 0; for (i = 0; i < count; i++) sum += val[i] * vals[i] * vals[i]; sum /= count; return sum; }

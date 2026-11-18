@@ -1,0 +1,1 @@
+int modpars_to_struct(float *out, int *nx, int *ny, float *i1, float *i2){ if(*nx == 1){ *out = *i1; return 1; } if(*nx > *ny){ *out = *i1; *ny = *nx; i2[(*nx)-2] = *i1; return 1; } if(*nx > 1){ *out = i2[(*nx)-2]; return 0; } return 0; }

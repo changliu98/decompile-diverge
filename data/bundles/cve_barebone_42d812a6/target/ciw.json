@@ -1,0 +1,389 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nmov     rax, [rbp+aspect_ratio]\nmov     rax, [rbp+bitrate]\nmov     [rbp+pbuffer], rdi\nmov     [rbp+buflen], esi\nmov     [rbp+have_mpeg2], rdx\nmov     [rbp+height], rcx\nmov     [rbp+width], r8\nmov     [rbp+frame_rate], r9\nmov     [rbp+found], 0FFFFFFFFh\nmov     rax, [rbp+have_mpeg2]\nmov     dword ptr [rax], 0\nmov     eax, [rbp+buflen]\nsub     eax, 6\nmov     [rbp+buflen], eax\nmov     [rbp+bitrate_int], 0\nmov     [rbp+ix], 0\nmov     eax, [rbp+ix]\ncmp     eax, [rbp+buflen]\njnb     loc_1555\nmov     rax, [rbp+pbuffer]\nmovzx   eax, byte ptr [rax]\nshl     eax, 18h\nmov     rcx, [rbp+pbuffer]\nmovzx   ecx, byte ptr [rcx+1]\nshl     ecx, 10h\nor      eax, ecx\nmov     rcx, [rbp+pbuffer]\nmovzx   ecx, byte ptr [rcx+2]\nshl     ecx, 8\nor      eax, ecx\nmov     rcx, [rbp+pbuffer]\nmovzx   ecx, byte ptr [rcx+3]\nor      eax, ecx\nmov     [rbp+scode], eax\ncmp     [rbp+scode], 1B3h\njnz     loc_1400\nmov     rax, [rbp+pbuffer]\nadd     rax, 4\nmov     [rbp+pbuffer], rax\nmov     rax, [rbp+pbuffer]\nmovzx   ecx, byte ptr [rax]\nmov     rax, [rbp+width]\nmov     [rax], ecx\nmov     rax, [rbp+width]\nmov     ecx, [rax]\nshl     ecx, 4\nmov     [rax], ecx\nmov     rax, [rbp+pbuffer]\nmovzx   ecx, byte ptr [rax+1]\nsar     ecx, 4\nand     ecx, 0Fh\nmov     rax, [rbp+width]\nor      ecx, [rax]\nmov     [rax], ecx\nmov     rax, [rbp+pbuffer]\nmovzx   ecx, byte ptr [rax+1]\nand     ecx, 0Fh\nmov     rax, [rbp+height]\nmov     [rax], ecx\nmov     rax, [rbp+height]\nmov     ecx, [rax]\nshl     ecx, 8\nmov     [rax], ecx\nmov     rax, [rbp+pbuffer]\nmovzx   ecx, byte ptr [rax+2]\nmov     rax, [rbp+height]\nor      ecx, [rax]\nmov     [rax], ecx\nmov     rax, [rbp+pbuffer]\nmovzx   eax, byte ptr [rax+3]\nsar     eax, 4\nand     eax, 0Fh\nmov     [rbp+aspect_code], eax\ncmp     [rbp+aspect_ratio], 0\njz      loc_1371\nmov     [rbp+par], 0\nmov     eax, [rbp+aspect_code]\nmov     [rbp+var_5C], eax\nsub     eax, 2\njz      loc_1313\njmp     $+5\nmov     eax, [rbp+var_5C]\nsub     eax, 3\njz      loc_1331\njmp     $+5\nmov     eax, [rbp+var_5C]\nsub     eax, 4\njz      loc_134F\njmp     $+5\nmov     rax, [rbp+aspect_ratio]\nmov     dword ptr [rax], 0\njmp     loc_1368\nmov     [rbp+par], 4\nmov     eax, [rbp+par]\nshl     eax, 10h\nmov     [rbp+par], eax\nmov     eax, [rbp+par]\nor      eax, 3\nmov     [rbp+par], eax\njmp     loc_1368\nmov     [rbp+par], 10h\nmov     eax, [rbp+par]\nshl     eax, 10h\nmov     [rbp+par], eax\nmov     eax, [rbp+par]\nor      eax, 9\nmov     [rbp+par], eax\njmp     loc_1368\nmov     [rbp+par], 2\nmov     eax, [rbp+par]\nshl     eax, 10h\nmov     [rbp+par], eax\nmov     eax, [rbp+par]\nor      eax, 15h\nmov     [rbp+par], eax\nmov     ecx, [rbp+par]\nmov     rax, [rbp+aspect_ratio]\nmov     [rax], ecx\nmov     rax, [rbp+pbuffer]\nmovzx   eax, byte ptr [rax+3]\nand     eax, 0Fh\nmov     [rbp+framerate_code], eax\nmov     eax, [rbp+framerate_code]\nmov     ecx, eax\nlea     rax, mpeg12_frame_rate_table\nmovsd   xmm0, qword ptr [rax+rcx*8]\nmov     rax, [rbp+frame_rate]\nmovsd   qword ptr [rax], xmm0\nmov     rcx, [rbp+pbuffer]\nmovzx   esi, byte ptr [rcx+4]\nshl     esi, 0Ah\nmovzx   eax, byte ptr [rcx+5]\nmov     edx, eax\nmov     eax, esi\nlea     eax, [rax+rdx*4]\nmovzx   ecx, byte ptr [rcx+6]\nshr     ecx, 6\nor      eax, ecx\nmov     [rbp+bitrate_int], eax\nmov     eax, [rbp+bitrate_int]\ncvtsi2sd xmm0, rax\nmov     rax, [rbp+bitrate]\nmovsd   qword ptr [rax], xmm0\nmov     rax, [rbp+bitrate]\nmovsd   xmm0, cs:qword_2008\nmulsd   xmm0, qword ptr [rax]\nmovsd   qword ptr [rax], xmm0\nmov     eax, [rbp+ix]\nadd     rax, 0Bh\nmov     [rbp+ix], eax\nmov     rax, [rbp+pbuffer]\nadd     rax, 7\nmov     [rbp+pbuffer], rax\nmov     [rbp+found], 0\njmp     loc_1536\ncmp     [rbp+found], 0\njnz     loc_1531\ncmp     [rbp+scode], 1B5h\njnz     loc_150F\nmov     rax, [rbp+pbuffer]\nadd     rax, 4\nmov     [rbp+pbuffer], rax\nmov     eax, [rbp+ix]\nadd     eax, 4\nmov     [rbp+ix], eax\nmov     rax, [rbp+pbuffer]\nmovzx   eax, byte ptr [rax]\nshr     eax, 4\nsub     eax, 1\njnz     loc_14F0\njmp     $+5\nmov     rax, [rbp+have_mpeg2]\nmov     dword ptr [rax], 1\nmov     rax, [rbp+pbuffer]\nmovzx   ecx, byte ptr [rax+1]\nand     ecx, 1\nshl     ecx, 0Dh\nmovzx   eax, byte ptr [rax+2]\nand     eax, 0FFFFFF80h\nshl     eax, 5\nor      ecx, eax\nmov     rax, [rbp+height]\nmov     edx, [rax]\nand     edx, 0FFFh\nor      ecx, edx\nmov     [rax], ecx\nmov     rax, [rbp+pbuffer]\nmovzx   ecx, byte ptr [rax+2]\nand     ecx, 60h\nshl     ecx, 7\nmov     rax, [rbp+width]\nmov     edx, [rax]\nand     edx, 0FFFh\nor      ecx, edx\nmov     [rax], ecx\nmov     rax, [rbp+pbuffer]\nmovzx   eax, byte ptr [rax+2]\nand     eax, 1Fh\nshl     eax, 7\nmov     [rbp+bitrate_ext], eax\nmov     rax, [rbp+pbuffer]\nmovzx   ecx, byte ptr [rax+3]\nshr     ecx, 1\nmov     eax, [rbp+bitrate_ext]\nor      eax, ecx\nmov     [rbp+bitrate_ext], eax\nmov     ecx, [rbp+bitrate_ext]\nshl     ecx, 12h\nmov     eax, [rbp+bitrate_int]\nor      eax, ecx\nmov     [rbp+bitrate_int], eax\nmov     eax, [rbp+bitrate_int]\ncvtsi2sd xmm0, rax\nmov     rax, [rbp+bitrate]\nmovsd   qword ptr [rax], xmm0\nmov     rax, [rbp+bitrate]\nmovsd   xmm0, cs:qword_2008\nmulsd   xmm0, qword ptr [rax]\nmovsd   qword ptr [rax], xmm0\njmp     loc_14F5\njmp     $+5\nmov     rax, [rbp+pbuffer]\nadd     rax, 1\nmov     [rbp+pbuffer], rax\nmov     eax, [rbp+ix]\nadd     eax, 1\nmov     [rbp+ix], eax\njmp     loc_152C\ncmp     [rbp+scode], 100h\njnz     loc_1527\nmov     eax, [rbp+found]\nmov     [rbp+var_4], eax\njmp     loc_155B\njmp     $+5\njmp     $+5\njmp     $+5\njmp     $+5\nmov     eax, [rbp+ix]\nadd     eax, 1\nmov     [rbp+ix], eax\nmov     rax, [rbp+pbuffer]\nadd     rax, 1\nmov     [rbp+pbuffer], rax\njmp     loc_11FB\nmov     eax, [rbp+found]\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 32,
+  "edges": [
+   [
+    "start",
+    "loc_11FB"
+   ],
+   [
+    "loc_11FB",
+    "loc_1207"
+   ],
+   [
+    "loc_11FB",
+    "loc_1555"
+   ],
+   [
+    "loc_1207",
+    "loc_1245"
+   ],
+   [
+    "loc_1207",
+    "loc_1400"
+   ],
+   [
+    "loc_1245",
+    "loc_12C7"
+   ],
+   [
+    "loc_1245",
+    "loc_1371"
+   ],
+   [
+    "loc_12C7",
+    "loc_12DD"
+   ],
+   [
+    "loc_12C7",
+    "loc_1313"
+   ],
+   [
+    "loc_12DD",
+    "loc_12E2"
+   ],
+   [
+    "loc_12E2",
+    "loc_12EE"
+   ],
+   [
+    "loc_12E2",
+    "loc_1331"
+   ],
+   [
+    "loc_12EE",
+    "loc_12F3"
+   ],
+   [
+    "loc_12F3",
+    "loc_12FF"
+   ],
+   [
+    "loc_12F3",
+    "loc_134F"
+   ],
+   [
+    "loc_12FF",
+    "loc_1304"
+   ],
+   [
+    "loc_1304",
+    "loc_1368"
+   ],
+   [
+    "loc_1313",
+    "loc_1368"
+   ],
+   [
+    "loc_1331",
+    "loc_1368"
+   ],
+   [
+    "loc_134F",
+    "loc_1368"
+   ],
+   [
+    "loc_1368",
+    "loc_1371"
+   ],
+   [
+    "loc_1371",
+    "loc_1536"
+   ],
+   [
+    "loc_1400",
+    "loc_140A"
+   ],
+   [
+    "loc_1400",
+    "loc_1531"
+   ],
+   [
+    "loc_140A",
+    "loc_1417"
+   ],
+   [
+    "loc_140A",
+    "loc_150F"
+   ],
+   [
+    "loc_1417",
+    "loc_143F"
+   ],
+   [
+    "loc_1417",
+    "loc_14F0"
+   ],
+   [
+    "loc_143F",
+    "loc_1444"
+   ],
+   [
+    "loc_1444",
+    "loc_14F5"
+   ],
+   [
+    "loc_14F0",
+    "loc_14F5"
+   ],
+   [
+    "loc_14F5",
+    "loc_152C"
+   ],
+   [
+    "loc_150F",
+    "loc_151C"
+   ],
+   [
+    "loc_150F",
+    "loc_1527"
+   ],
+   [
+    "loc_151C",
+    "loc_155B"
+   ],
+   [
+    "loc_1527",
+    "loc_152C"
+   ],
+   [
+    "loc_152C",
+    "loc_1531"
+   ],
+   [
+    "loc_1531",
+    "loc_1536"
+   ],
+   [
+    "loc_1536",
+    "loc_153B"
+   ],
+   [
+    "loc_153B",
+    "loc_11FB"
+   ],
+   [
+    "loc_1555",
+    "loc_155B"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nmov     rax, [rbp+aspect_ratio]\nmov     rax, [rbp+bitrate]\nmov     [rbp+pbuffer], rdi\nmov     [rbp+buflen], esi\nmov     [rbp+have_mpeg2], rdx\nmov     [rbp+height], rcx\nmov     [rbp+width], r8\nmov     [rbp+frame_rate], r9\nmov     [rbp+found], 0FFFFFFFFh\nmov     rax, [rbp+have_mpeg2]\nmov     dword ptr [rax], 0\nmov     eax, [rbp+buflen]\nsub     eax, 6\nmov     [rbp+buflen], eax\nmov     [rbp+bitrate_int], 0\nmov     [rbp+ix], 0",
+   "loc_11FB": "mov     eax, [rbp+ix]\ncmp     eax, [rbp+buflen]\njnb     loc_1555",
+   "loc_1207": "mov     rax, [rbp+pbuffer]\nmovzx   eax, byte ptr [rax]\nshl     eax, 18h\nmov     rcx, [rbp+pbuffer]\nmovzx   ecx, byte ptr [rcx+1]\nshl     ecx, 10h\nor      eax, ecx\nmov     rcx, [rbp+pbuffer]\nmovzx   ecx, byte ptr [rcx+2]\nshl     ecx, 8\nor      eax, ecx\nmov     rcx, [rbp+pbuffer]\nmovzx   ecx, byte ptr [rcx+3]\nor      eax, ecx\nmov     [rbp+scode], eax\ncmp     [rbp+scode], 1B3h\njnz     loc_1400",
+   "loc_1245": "mov     rax, [rbp+pbuffer]\nadd     rax, 4\nmov     [rbp+pbuffer], rax\nmov     rax, [rbp+pbuffer]\nmovzx   ecx, byte ptr [rax]\nmov     rax, [rbp+width]\nmov     [rax], ecx\nmov     rax, [rbp+width]\nmov     ecx, [rax]\nshl     ecx, 4\nmov     [rax], ecx\nmov     rax, [rbp+pbuffer]\nmovzx   ecx, byte ptr [rax+1]\nsar     ecx, 4\nand     ecx, 0Fh\nmov     rax, [rbp+width]\nor      ecx, [rax]\nmov     [rax], ecx\nmov     rax, [rbp+pbuffer]\nmovzx   ecx, byte ptr [rax+1]\nand     ecx, 0Fh\nmov     rax, [rbp+height]\nmov     [rax], ecx\nmov     rax, [rbp+height]\nmov     ecx, [rax]\nshl     ecx, 8\nmov     [rax], ecx\nmov     rax, [rbp+pbuffer]\nmovzx   ecx, byte ptr [rax+2]\nmov     rax, [rbp+height]\nor      ecx, [rax]\nmov     [rax], ecx\nmov     rax, [rbp+pbuffer]\nmovzx   eax, byte ptr [rax+3]\nsar     eax, 4\nand     eax, 0Fh\nmov     [rbp+aspect_code], eax\ncmp     [rbp+aspect_ratio], 0\njz      loc_1371",
+   "loc_12C7": "mov     [rbp+par], 0\nmov     eax, [rbp+aspect_code]\nmov     [rbp+var_5C], eax\nsub     eax, 2\njz      loc_1313",
+   "loc_12DD": "jmp     $+5",
+   "loc_12E2": "mov     eax, [rbp+var_5C]\nsub     eax, 3\njz      loc_1331",
+   "loc_12EE": "jmp     $+5",
+   "loc_12F3": "mov     eax, [rbp+var_5C]\nsub     eax, 4\njz      loc_134F",
+   "loc_12FF": "jmp     $+5",
+   "loc_1304": "mov     rax, [rbp+aspect_ratio]\nmov     dword ptr [rax], 0\njmp     loc_1368",
+   "loc_1313": "mov     [rbp+par], 4\nmov     eax, [rbp+par]\nshl     eax, 10h\nmov     [rbp+par], eax\nmov     eax, [rbp+par]\nor      eax, 3\nmov     [rbp+par], eax\njmp     loc_1368",
+   "loc_1331": "mov     [rbp+par], 10h\nmov     eax, [rbp+par]\nshl     eax, 10h\nmov     [rbp+par], eax\nmov     eax, [rbp+par]\nor      eax, 9\nmov     [rbp+par], eax\njmp     loc_1368",
+   "loc_134F": "mov     [rbp+par], 2\nmov     eax, [rbp+par]\nshl     eax, 10h\nmov     [rbp+par], eax\nmov     eax, [rbp+par]\nor      eax, 15h\nmov     [rbp+par], eax",
+   "loc_1368": "mov     ecx, [rbp+par]\nmov     rax, [rbp+aspect_ratio]\nmov     [rax], ecx",
+   "loc_1371": "mov     rax, [rbp+pbuffer]\nmovzx   eax, byte ptr [rax+3]\nand     eax, 0Fh\nmov     [rbp+framerate_code], eax\nmov     eax, [rbp+framerate_code]\nmov     ecx, eax\nlea     rax, mpeg12_frame_rate_table\nmovsd   xmm0, qword ptr [rax+rcx*8]\nmov     rax, [rbp+frame_rate]\nmovsd   qword ptr [rax], xmm0\nmov     rcx, [rbp+pbuffer]\nmovzx   esi, byte ptr [rcx+4]\nshl     esi, 0Ah\nmovzx   eax, byte ptr [rcx+5]\nmov     edx, eax\nmov     eax, esi\nlea     eax, [rax+rdx*4]\nmovzx   ecx, byte ptr [rcx+6]\nshr     ecx, 6\nor      eax, ecx\nmov     [rbp+bitrate_int], eax\nmov     eax, [rbp+bitrate_int]\ncvtsi2sd xmm0, rax\nmov     rax, [rbp+bitrate]\nmovsd   qword ptr [rax], xmm0\nmov     rax, [rbp+bitrate]\nmovsd   xmm0, cs:qword_2008\nmulsd   xmm0, qword ptr [rax]\nmovsd   qword ptr [rax], xmm0\nmov     eax, [rbp+ix]\nadd     rax, 0Bh\nmov     [rbp+ix], eax\nmov     rax, [rbp+pbuffer]\nadd     rax, 7\nmov     [rbp+pbuffer], rax\nmov     [rbp+found], 0\njmp     loc_1536",
+   "loc_1400": "cmp     [rbp+found], 0\njnz     loc_1531",
+   "loc_140A": "cmp     [rbp+scode], 1B5h\njnz     loc_150F",
+   "loc_1417": "mov     rax, [rbp+pbuffer]\nadd     rax, 4\nmov     [rbp+pbuffer], rax\nmov     eax, [rbp+ix]\nadd     eax, 4\nmov     [rbp+ix], eax\nmov     rax, [rbp+pbuffer]\nmovzx   eax, byte ptr [rax]\nshr     eax, 4\nsub     eax, 1\njnz     loc_14F0",
+   "loc_143F": "jmp     $+5",
+   "loc_1444": "mov     rax, [rbp+have_mpeg2]\nmov     dword ptr [rax], 1\nmov     rax, [rbp+pbuffer]\nmovzx   ecx, byte ptr [rax+1]\nand     ecx, 1\nshl     ecx, 0Dh\nmovzx   eax, byte ptr [rax+2]\nand     eax, 0FFFFFF80h\nshl     eax, 5\nor      ecx, eax\nmov     rax, [rbp+height]\nmov     edx, [rax]\nand     edx, 0FFFh\nor      ecx, edx\nmov     [rax], ecx\nmov     rax, [rbp+pbuffer]\nmovzx   ecx, byte ptr [rax+2]\nand     ecx, 60h\nshl     ecx, 7\nmov     rax, [rbp+width]\nmov     edx, [rax]\nand     edx, 0FFFh\nor      ecx, edx\nmov     [rax], ecx\nmov     rax, [rbp+pbuffer]\nmovzx   eax, byte ptr [rax+2]\nand     eax, 1Fh\nshl     eax, 7\nmov     [rbp+bitrate_ext], eax\nmov     rax, [rbp+pbuffer]\nmovzx   ecx, byte ptr [rax+3]\nshr     ecx, 1\nmov     eax, [rbp+bitrate_ext]\nor      eax, ecx\nmov     [rbp+bitrate_ext], eax\nmov     ecx, [rbp+bitrate_ext]\nshl     ecx, 12h\nmov     eax, [rbp+bitrate_int]\nor      eax, ecx\nmov     [rbp+bitrate_int], eax\nmov     eax, [rbp+bitrate_int]\ncvtsi2sd xmm0, rax\nmov     rax, [rbp+bitrate]\nmovsd   qword ptr [rax], xmm0\nmov     rax, [rbp+bitrate]\nmovsd   xmm0, cs:qword_2008\nmulsd   xmm0, qword ptr [rax]\nmovsd   qword ptr [rax], xmm0\njmp     loc_14F5",
+   "loc_14F0": "jmp     $+5",
+   "loc_14F5": "mov     rax, [rbp+pbuffer]\nadd     rax, 1\nmov     [rbp+pbuffer], rax\nmov     eax, [rbp+ix]\nadd     eax, 1\nmov     [rbp+ix], eax\njmp     loc_152C",
+   "loc_150F": "cmp     [rbp+scode], 100h\njnz     loc_1527",
+   "loc_151C": "mov     eax, [rbp+found]\nmov     [rbp+var_4], eax\njmp     loc_155B",
+   "loc_1527": "jmp     $+5",
+   "loc_152C": "jmp     $+5",
+   "loc_1531": "jmp     $+5",
+   "loc_1536": "jmp     $+5",
+   "loc_153B": "mov     eax, [rbp+ix]\nadd     eax, 1\nmov     [rbp+ix], eax\nmov     rax, [rbp+pbuffer]\nadd     rax, 1\nmov     [rbp+pbuffer], rax\njmp     loc_11FB",
+   "loc_1555": "mov     eax, [rbp+found]\nmov     [rbp+var_4], eax",
+   "loc_155B": "mov     eax, [rbp+var_4]\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_5C": "dword ptr -5Ch",
+   "par": "dword ptr -58h",
+   "found": "dword ptr -54h",
+   "ix": "dword ptr -50h",
+   "scode": "dword ptr -4Ch",
+   "bitrate_ext": "dword ptr -48h",
+   "bitrate_int": "dword ptr -44h",
+   "framerate_code": "dword ptr -40h",
+   "aspect_code": "dword ptr -3Ch",
+   "frame_rate": "qword ptr -38h",
+   "width": "qword ptr -30h",
+   "height": "qword ptr -28h",
+   "have_mpeg2": "qword ptr -20h",
+   "buflen": "dword ptr -14h",
+   "pbuffer": "qword ptr -10h",
+   "var_4": "dword ptr -4",
+   "bitrate": "qword ptr 10h",
+   "aspect_ratio": "qword ptr 18h"
+  },
+  ".rodata": {
+   "qword_2008": "qword 4079000000000000h"
+  },
+  ".data": {
+   "mpeg12_frame_rate_table": "byte 0"
+  },
+  ".bss": {}
+ },
+ "func_ea": 4528,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868459
+ }
+}

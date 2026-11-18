@@ -1,0 +1,1 @@
+void Vec3MultValue( vec3_t in1, double in2, vec3_t out ) { out[0] = in1[0]*in2; out[1] = in1[1]*in2; out[2] = in1[2]*in2; }

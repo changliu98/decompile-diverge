@@ -1,0 +1,1 @@
+void to_bytes(uint64_t x, char *bytes) { bytes[0] = (char)(x &0xFF); bytes[1] = (char)((x >> 8) &0xFF); bytes[2] = (char)((x >> 16) &0xFF); bytes[3] = (char)((x >> 24) &0xFF); }

@@ -1,0 +1,1 @@
+void move_int(void *dst, void *src) { *(int *) dst = *(int *) src; }

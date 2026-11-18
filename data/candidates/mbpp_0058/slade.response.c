@@ -1,0 +1,1 @@
+uint32 func0(uint32 a, uint32 b) { return ((a ^ b) &0x80000000) >> 31; }

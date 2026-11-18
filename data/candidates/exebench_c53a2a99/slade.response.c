@@ -1,0 +1,1 @@
+void unhide(char *p) { int i,j; int col[]={0,3,1,2}; for (i=0;*(p+i)!='\0';i++) { *(p+i)-=col[j]; if (++col[0]==3) col[0]=0; } }

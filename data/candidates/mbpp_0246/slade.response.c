@@ -1,0 +1,1 @@
+double func0(double x) { if (x == 0) return 0; double y = x / 2; double z = y + 1; while (y != z) { double t = x / y; z = y; y = (y + t) / 2; } return y; }

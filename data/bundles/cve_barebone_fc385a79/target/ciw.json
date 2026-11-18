@@ -1,0 +1,377 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+ipv6], rdi\nmov     [rbp+rh], rsi\nmov     [rbp+err_ptr], rdx\nmov     rax, [rbp+rh]\nadd     rax, 8\nmov     [rbp+addr_vec], rax\nmov     rax, [rbp+rh]\nmovzx   eax, byte ptr [rax+3]\nsub     eax, 1\nmov     [rbp+new_seg_left], al\nmov     rax, [rbp+rh]\nmovzx   eax, byte ptr [rax+3]\ncmp     eax, 0\njle     loc_1224\njmp     loc_1243\nlea     rdi, assertion; \"rh->seg_left > 0\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 0A5h; line\nlea     rcx, function; \"int gnrc_rpl_srh_process(ipv6_hdr_t *, \"...\ncall    ___assert_fail\nmov     rax, [rbp+rh]\nmovzx   eax, byte ptr [rax+1]\nshl     eax, 3\nmov     rcx, [rbp+rh]\nmovzx   ecx, byte ptr [rcx+5]\nand     ecx, 0F0h\nsar     ecx, 4\nsub     eax, ecx\nmov     rcx, [rbp+rh]\nmovzx   edx, byte ptr [rcx+4]\nand     edx, 0Fh\nmov     ecx, 10h\nsub     ecx, edx\nsub     eax, ecx\nmov     rcx, [rbp+rh]\nmovzx   edx, byte ptr [rcx+4]\nand     edx, 0F0h\nsar     edx, 4\nmov     ecx, 10h\nsub     ecx, edx\ncdq\nidiv    ecx\nadd     eax, 1\nmov     [rbp+num_addr], al\njmp     $+5\nmov     rax, [rbp+rh]\nmovzx   eax, byte ptr [rax+3]\nmovzx   ecx, [rbp+num_addr]\ncmp     eax, ecx\njle     loc_12D4\njmp     $+5\njmp     $+5\nmov     rcx, [rbp+rh]\nadd     rcx, 3\nmov     rax, [rbp+err_ptr]\nmov     [rax], rcx\nmov     [rbp+var_4], 0\njmp     loc_1470\nmovzx   eax, [rbp+num_addr]\nmovzx   ecx, [rbp+new_seg_left]\nsub     eax, ecx\nmov     [rbp+current_pos], al\nmovzx   eax, [rbp+new_seg_left]\ncmp     eax, 0\njz      loc_1306\nmov     rax, [rbp+rh]\nmovzx   eax, byte ptr [rax+4]\nand     eax, 0F0h\nsar     eax, 4\nmov     [rbp+var_4C], eax\njmp     loc_1314\nmov     rax, [rbp+rh]\nmovzx   eax, byte ptr [rax+4]\nand     eax, 0Fh\nmov     [rbp+var_4C], eax\nmov     eax, [rbp+var_4C]\nmov     [rbp+pref_elided], al\nmov     rax, [rbp+rh]\nmovzx   eax, byte ptr [rax+4]\nand     eax, 0F0h\nsar     eax, 4\nmovsxd  rcx, eax\nmov     eax, 10h\nsub     rax, rcx\nmov     [rbp+compri_addr_len], al\nmovzx   eax, [rbp+pref_elided]\nmov     ecx, eax\nmov     eax, 10h\nsub     rax, rcx\nmov     [rbp+addr_len], al\nlea     rdi, [rbp+addr]; dest\nmov     rsi, [rbp+ipv6]\nadd     rsi, 18h; src\nmovzx   eax, [rbp+pref_elided]\nmov     edx, eax; n\ncall    memcpy\nmov     rax, [rbp+addr_vec]\nmovzx   ecx, [rbp+current_pos]\nsub     ecx, 1\nmovzx   edx, [rbp+compri_addr_len]\nimul    ecx, edx\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+current_address], rax\nlea     rdi, [rbp+addr]\nmovzx   eax, [rbp+pref_elided]\nadd     rdi, rax; dest\nmov     rsi, [rbp+current_address]; src\nmovzx   eax, [rbp+addr_len]\nmov     edx, eax; n\ncall    memcpy\nmov     rdi, [rbp+ipv6]\nadd     rdi, 18h; addr\ncall    ipv6_addr_is_multicast\ntest    al, 1\njnz     loc_13B0\njmp     loc_13C6\njmp     $+5\njmp     $+5\nmov     [rbp+var_4], 0\njmp     loc_1470\nlea     rdi, [rbp+addr]; addr\ncall    ipv6_addr_is_multicast\ntest    al, 1\njnz     loc_13DC\njmp     loc_13F2\njmp     $+5\njmp     $+5\nmov     [rbp+var_4], 0\njmp     loc_1470\nmov     rdi, [rbp+ipv6]\nadd     rdi, 18h; dst\nmov     rsi, [rbp+rh]; rh\nmovzx   edx, [rbp+num_addr]; num_addr\nmovzx   ecx, [rbp+compri_addr_len]; compri_addr_len\ncall    _contains_multiple_of_my_addr\nmov     rcx, [rbp+err_ptr]\nmov     [rcx], rax\ncmp     rax, 0\njz      loc_1428\nmov     [rbp+var_4], 0\njmp     loc_1470\nmov     cl, [rbp+new_seg_left]\nmov     rax, [rbp+rh]\nmov     [rax+3], cl\nmov     rdi, [rbp+current_address]; dest\nmov     rsi, [rbp+ipv6]\nadd     rsi, 18h\nmovzx   eax, [rbp+pref_elided]\nadd     rsi, rax; src\nmovzx   eax, [rbp+addr_len]\nmov     edx, eax; n\ncall    memcpy\njmp     $+5\nmov     rax, [rbp+ipv6]\nmov     rcx, qword ptr [rbp+addr]\nmov     [rax+18h], rcx\nmov     rcx, qword ptr [rbp+addr+8]\nmov     [rax+20h], rcx\nmov     [rbp+var_4], 2\nmov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 26,
+  "edges": [
+   [
+    "start",
+    "loc_121F"
+   ],
+   [
+    "start",
+    "loc_1224"
+   ],
+   [
+    "loc_121F",
+    "loc_1243"
+   ],
+   [
+    "loc_1243",
+    "loc_129B"
+   ],
+   [
+    "loc_129B",
+    "loc_12AF"
+   ],
+   [
+    "loc_129B",
+    "loc_12D4"
+   ],
+   [
+    "loc_12AF",
+    "loc_12B4"
+   ],
+   [
+    "loc_12B4",
+    "loc_12B9"
+   ],
+   [
+    "loc_12B9",
+    "loc_1470"
+   ],
+   [
+    "loc_12D4",
+    "loc_12EE"
+   ],
+   [
+    "loc_12D4",
+    "loc_1306"
+   ],
+   [
+    "loc_12EE",
+    "loc_1314"
+   ],
+   [
+    "loc_1306",
+    "loc_1314"
+   ],
+   [
+    "loc_1314",
+    "loc_13AB"
+   ],
+   [
+    "loc_1314",
+    "loc_13B0"
+   ],
+   [
+    "loc_13AB",
+    "loc_13C6"
+   ],
+   [
+    "loc_13B0",
+    "loc_13B5"
+   ],
+   [
+    "loc_13B5",
+    "loc_13BA"
+   ],
+   [
+    "loc_13BA",
+    "loc_1470"
+   ],
+   [
+    "loc_13C6",
+    "loc_13D7"
+   ],
+   [
+    "loc_13C6",
+    "loc_13DC"
+   ],
+   [
+    "loc_13D7",
+    "loc_13F2"
+   ],
+   [
+    "loc_13DC",
+    "loc_13E1"
+   ],
+   [
+    "loc_13E1",
+    "loc_13E6"
+   ],
+   [
+    "loc_13E6",
+    "loc_1470"
+   ],
+   [
+    "loc_13F2",
+    "loc_141C"
+   ],
+   [
+    "loc_13F2",
+    "loc_1428"
+   ],
+   [
+    "loc_141C",
+    "loc_1470"
+   ],
+   [
+    "loc_1428",
+    "loc_1455"
+   ],
+   [
+    "loc_1455",
+    "loc_1470"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+ipv6], rdi\nmov     [rbp+rh], rsi\nmov     [rbp+err_ptr], rdx\nmov     rax, [rbp+rh]\nadd     rax, 8\nmov     [rbp+addr_vec], rax\nmov     rax, [rbp+rh]\nmovzx   eax, byte ptr [rax+3]\nsub     eax, 1\nmov     [rbp+new_seg_left], al\nmov     rax, [rbp+rh]\nmovzx   eax, byte ptr [rax+3]\ncmp     eax, 0\njle     loc_1224",
+   "loc_121F": "jmp     loc_1243",
+   "loc_1224": "lea     rdi, assertion; \"rh->seg_left > 0\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 0A5h; line\nlea     rcx, function; \"int gnrc_rpl_srh_process(ipv6_hdr_t *, \"...\ncall    ___assert_fail",
+   "loc_1243": "mov     rax, [rbp+rh]\nmovzx   eax, byte ptr [rax+1]\nshl     eax, 3\nmov     rcx, [rbp+rh]\nmovzx   ecx, byte ptr [rcx+5]\nand     ecx, 0F0h\nsar     ecx, 4\nsub     eax, ecx\nmov     rcx, [rbp+rh]\nmovzx   edx, byte ptr [rcx+4]\nand     edx, 0Fh\nmov     ecx, 10h\nsub     ecx, edx\nsub     eax, ecx\nmov     rcx, [rbp+rh]\nmovzx   edx, byte ptr [rcx+4]\nand     edx, 0F0h\nsar     edx, 4\nmov     ecx, 10h\nsub     ecx, edx\ncdq\nidiv    ecx\nadd     eax, 1\nmov     [rbp+num_addr], al\njmp     $+5",
+   "loc_129B": "mov     rax, [rbp+rh]\nmovzx   eax, byte ptr [rax+3]\nmovzx   ecx, [rbp+num_addr]\ncmp     eax, ecx\njle     loc_12D4",
+   "loc_12AF": "jmp     $+5",
+   "loc_12B4": "jmp     $+5",
+   "loc_12B9": "mov     rcx, [rbp+rh]\nadd     rcx, 3\nmov     rax, [rbp+err_ptr]\nmov     [rax], rcx\nmov     [rbp+var_4], 0\njmp     loc_1470",
+   "loc_12D4": "movzx   eax, [rbp+num_addr]\nmovzx   ecx, [rbp+new_seg_left]\nsub     eax, ecx\nmov     [rbp+current_pos], al\nmovzx   eax, [rbp+new_seg_left]\ncmp     eax, 0\njz      loc_1306",
+   "loc_12EE": "mov     rax, [rbp+rh]\nmovzx   eax, byte ptr [rax+4]\nand     eax, 0F0h\nsar     eax, 4\nmov     [rbp+var_4C], eax\njmp     loc_1314",
+   "loc_1306": "mov     rax, [rbp+rh]\nmovzx   eax, byte ptr [rax+4]\nand     eax, 0Fh\nmov     [rbp+var_4C], eax",
+   "loc_1314": "mov     eax, [rbp+var_4C]\nmov     [rbp+pref_elided], al\nmov     rax, [rbp+rh]\nmovzx   eax, byte ptr [rax+4]\nand     eax, 0F0h\nsar     eax, 4\nmovsxd  rcx, eax\nmov     eax, 10h\nsub     rax, rcx\nmov     [rbp+compri_addr_len], al\nmovzx   eax, [rbp+pref_elided]\nmov     ecx, eax\nmov     eax, 10h\nsub     rax, rcx\nmov     [rbp+addr_len], al\nlea     rdi, [rbp+addr]; dest\nmov     rsi, [rbp+ipv6]\nadd     rsi, 18h; src\nmovzx   eax, [rbp+pref_elided]\nmov     edx, eax; n\ncall    memcpy\nmov     rax, [rbp+addr_vec]\nmovzx   ecx, [rbp+current_pos]\nsub     ecx, 1\nmovzx   edx, [rbp+compri_addr_len]\nimul    ecx, edx\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+current_address], rax\nlea     rdi, [rbp+addr]\nmovzx   eax, [rbp+pref_elided]\nadd     rdi, rax; dest\nmov     rsi, [rbp+current_address]; src\nmovzx   eax, [rbp+addr_len]\nmov     edx, eax; n\ncall    memcpy\nmov     rdi, [rbp+ipv6]\nadd     rdi, 18h; addr\ncall    ipv6_addr_is_multicast\ntest    al, 1\njnz     loc_13B0",
+   "loc_13AB": "jmp     loc_13C6",
+   "loc_13B0": "jmp     $+5",
+   "loc_13B5": "jmp     $+5",
+   "loc_13BA": "mov     [rbp+var_4], 0\njmp     loc_1470",
+   "loc_13C6": "lea     rdi, [rbp+addr]; addr\ncall    ipv6_addr_is_multicast\ntest    al, 1\njnz     loc_13DC",
+   "loc_13D7": "jmp     loc_13F2",
+   "loc_13DC": "jmp     $+5",
+   "loc_13E1": "jmp     $+5",
+   "loc_13E6": "mov     [rbp+var_4], 0\njmp     loc_1470",
+   "loc_13F2": "mov     rdi, [rbp+ipv6]\nadd     rdi, 18h; dst\nmov     rsi, [rbp+rh]; rh\nmovzx   edx, [rbp+num_addr]; num_addr\nmovzx   ecx, [rbp+compri_addr_len]; compri_addr_len\ncall    _contains_multiple_of_my_addr\nmov     rcx, [rbp+err_ptr]\nmov     [rcx], rax\ncmp     rax, 0\njz      loc_1428",
+   "loc_141C": "mov     [rbp+var_4], 0\njmp     loc_1470",
+   "loc_1428": "mov     cl, [rbp+new_seg_left]\nmov     rax, [rbp+rh]\nmov     [rax+3], cl\nmov     rdi, [rbp+current_address]; dest\nmov     rsi, [rbp+ipv6]\nadd     rsi, 18h\nmovzx   eax, [rbp+pref_elided]\nadd     rsi, rax; src\nmovzx   eax, [rbp+addr_len]\nmov     edx, eax; n\ncall    memcpy\njmp     $+5",
+   "loc_1455": "mov     rax, [rbp+ipv6]\nmov     rcx, qword ptr [rbp+addr]\nmov     [rax+18h], rcx\nmov     rcx, qword ptr [rbp+addr+8]\nmov     [rax+20h], rcx\nmov     [rbp+var_4], 2",
+   "loc_1470": "mov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_4C": "dword ptr -4Ch",
+   "new_seg_left": "byte ptr -46h",
+   "compri_addr_len": "byte ptr -45h",
+   "addr_len": "byte ptr -44h",
+   "pref_elided": "byte ptr -43h",
+   "current_pos": "byte ptr -42h",
+   "num_addr": "byte ptr -41h",
+   "current_address": "qword ptr -40h",
+   "addr_vec": "qword ptr -38h",
+   "addr": "ipv6_addr_t ptr -30h",
+   "err_ptr": "qword ptr -20h",
+   "rh": "qword ptr -18h",
+   "ipv6": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "assertion": "byte 'rh->seg_left > 0',0",
+   "file": "byte 'harness.c',0",
+   "function": "byte 'int gnrc_rpl_srh_process(ipv6_hdr_t *, gnrc_rpl_srh_t *, void **)'"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4576,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".rewind": "rewind",
+  "_rewind": "rewind",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".rewind",
+   ".plt",
+   true,
+   "rewind"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "rewind",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868503
+ }
+}

@@ -1,0 +1,1 @@
+int obdRevConvert_0B(float value, int *ptag, float *pdata, float *pconvert, char *status) { *ptag = (int)value; return 1; }

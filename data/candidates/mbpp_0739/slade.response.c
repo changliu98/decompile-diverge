@@ -1,0 +1,1 @@
+int func0(int n) { double x = sqrt(2.0*pow(2.0,(n-1))); return (int) round(x); }

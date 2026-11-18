@@ -1,0 +1,1 @@
+float add_denormal_prevention_white_noise(struct edid *edid) { edid->ptr = (edid->ptr *0x301f) +0x3bbee3; unsigned int val = ((edid->ptr &0x3fc0000) >> 0); val |= (1 << 23) << 23; return (*(float *)(&val)); }

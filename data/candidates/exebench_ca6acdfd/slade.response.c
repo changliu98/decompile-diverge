@@ -1,0 +1,1 @@
+void set_one(int *p) { *p = 3; }

@@ -1,0 +1,1 @@
+int func0(float *x, int N) { int a, b, i, j; a = b = 0; for (i = 1; i < N; i++) { if (x[i] > x[i-1]) a = 1; if (x[i] < x[i-1]) b = 1; } if (a+b == 2) return 0; else return 1; }

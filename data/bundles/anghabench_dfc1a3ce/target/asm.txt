@@ -1,0 +1,108 @@
+00000000000011e0 <TH_float2halfbits>:
+    11e0:	push   %rbp
+    11e1:	mov    %rsp,%rbp
+    11e4:	mov    %rdi,-0x8(%rbp)
+    11e8:	mov    %rsi,-0x10(%rbp)
+    11ec:	mov    -0x8(%rbp),%rax
+    11f0:	mov    (%rax),%eax
+    11f2:	mov    %eax,-0x14(%rbp)
+    11f5:	mov    -0x14(%rbp),%eax
+    11f8:	and    $0x7fffffff,%eax
+    11fd:	mov    %eax,-0x18(%rbp)
+    1200:	cmpl   $0x7f800000,-0x18(%rbp)
+    1207:	jbe    121b <TH_float2halfbits+0x3b>
+    120d:	mov    -0x10(%rbp),%rax
+    1211:	movw   $0x7fff,(%rax)
+    1216:	jmp    1365 <TH_float2halfbits+0x185>
+    121b:	mov    -0x14(%rbp),%eax
+    121e:	shr    $0x10,%eax
+    1221:	and    $0x8000,%eax
+    1226:	mov    %eax,-0x30(%rbp)
+    1229:	cmpl   $0x477fefff,-0x18(%rbp)
+    1230:	jbe    124d <TH_float2halfbits+0x6d>
+    1236:	mov    -0x30(%rbp),%eax
+    1239:	or     $0x7c00,%eax
+    123e:	mov    %ax,%cx
+    1241:	mov    -0x10(%rbp),%rax
+    1245:	mov    %cx,(%rax)
+    1248:	jmp    1365 <TH_float2halfbits+0x185>
+    124d:	cmpl   $0x33000001,-0x18(%rbp)
+    1254:	jae    126f <TH_float2halfbits+0x8f>
+    125a:	mov    -0x30(%rbp),%eax
+    125d:	or     $0x0,%eax
+    1260:	mov    %ax,%cx
+    1263:	mov    -0x10(%rbp),%rax
+    1267:	mov    %cx,(%rax)
+    126a:	jmp    1365 <TH_float2halfbits+0x185>
+    126f:	mov    -0x18(%rbp),%eax
+    1272:	shr    $0x17,%eax
+    1275:	and    $0xff,%eax
+    127a:	mov    %eax,-0x34(%rbp)
+    127d:	mov    -0x18(%rbp),%eax
+    1280:	and    $0x7fffff,%eax
+    1285:	mov    %eax,-0x38(%rbp)
+    1288:	cmpl   $0x70,-0x34(%rbp)
+    128c:	jbe    12a7 <TH_float2halfbits+0xc7>
+    1292:	movl   $0xd,-0x20(%rbp)
+    1299:	mov    -0x34(%rbp),%eax
+    129c:	sub    $0x70,%eax
+    129f:	mov    %eax,-0x34(%rbp)
+    12a2:	jmp    12c4 <TH_float2halfbits+0xe4>
+    12a7:	mov    $0x7e,%eax
+    12ac:	sub    -0x34(%rbp),%eax
+    12af:	mov    %eax,-0x20(%rbp)
+    12b2:	movl   $0x0,-0x34(%rbp)
+    12b9:	mov    -0x38(%rbp),%eax
+    12bc:	or     $0x800000,%eax
+    12c1:	mov    %eax,-0x38(%rbp)
+    12c4:	mov    -0x20(%rbp),%ecx
+    12c7:	mov    $0x1,%eax
+    12cc:	shl    %cl,%eax
+    12ce:	mov    %eax,-0x24(%rbp)
+    12d1:	mov    -0x24(%rbp),%eax
+    12d4:	shr    $0x1,%eax
+    12d7:	mov    %eax,-0x28(%rbp)
+    12da:	mov    -0x24(%rbp),%eax
+    12dd:	sub    $0x1,%eax
+    12e0:	mov    %eax,-0x2c(%rbp)
+    12e3:	mov    -0x38(%rbp),%eax
+    12e6:	and    -0x2c(%rbp),%eax
+    12e9:	mov    %eax,-0x1c(%rbp)
+    12ec:	mov    -0x20(%rbp),%ecx
+    12ef:	mov    -0x38(%rbp),%eax
+    12f2:	shr    %cl,%eax
+    12f4:	mov    %eax,-0x38(%rbp)
+    12f7:	mov    -0x1c(%rbp),%eax
+    12fa:	cmp    -0x28(%rbp),%eax
+    12fd:	ja     131e <TH_float2halfbits+0x13e>
+    1303:	mov    -0x1c(%rbp),%eax
+    1306:	cmp    -0x28(%rbp),%eax
+    1309:	jne    134d <TH_float2halfbits+0x16d>
+    130f:	mov    -0x38(%rbp),%eax
+    1312:	and    $0x1,%eax
+    1315:	cmp    $0x0,%eax
+    1318:	je     134d <TH_float2halfbits+0x16d>
+    131e:	mov    -0x38(%rbp),%eax
+    1321:	add    $0x1,%eax
+    1324:	mov    %eax,-0x38(%rbp)
+    1327:	mov    -0x38(%rbp),%eax
+    132a:	and    $0x3ff,%eax
+    132f:	cmp    $0x0,%eax
+    1332:	jne    1348 <TH_float2halfbits+0x168>
+    1338:	mov    -0x34(%rbp),%eax
+    133b:	add    $0x1,%eax
+    133e:	mov    %eax,-0x34(%rbp)
+    1341:	movl   $0x0,-0x38(%rbp)
+    1348:	jmp    134d <TH_float2halfbits+0x16d>
+    134d:	mov    -0x30(%rbp),%eax
+    1350:	mov    -0x34(%rbp),%ecx
+    1353:	shl    $0xa,%ecx
+    1356:	or     %ecx,%eax
+    1358:	or     -0x38(%rbp),%eax
+    135b:	mov    %ax,%cx
+    135e:	mov    -0x10(%rbp),%rax
+    1362:	mov    %cx,(%rax)
+    1365:	pop    %rbp
+    1366:	ret
+
+Disassembly of section .fini:

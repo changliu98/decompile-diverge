@@ -1,0 +1,618 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0F0h\nmov     [rbp+ndo], rdi\nmov     [rbp+opt], rsi\nmov     [rbp+caps_len], edx\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+caps_len]\njge     loc_1ABF\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 2\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1466\nmov     rax, [rbp+opt]\nmovsxd  rcx, [rbp+i]\nadd     rax, rcx\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 2\ncmp     rax, rcx\njbe     loc_146B\njmp     trunc\nmov     rax, [rbp+opt]\nmovsxd  rcx, [rbp+i]\nmovzx   eax, byte ptr [rax+rcx]\nmov     [rbp+cap_type], eax\nmov     rax, [rbp+opt]\nmov     ecx, [rbp+i]\nadd     ecx, 1\nmovsxd  rcx, ecx\nmovzx   eax, byte ptr [rax+rcx]\nmov     [rbp+cap_len], eax\nmov     eax, [rbp+cap_len]\nmov     [rbp+tcap_len], eax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_30], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_38], rax\nmov     edx, [rbp+cap_type]; v\nlea     rdi, bgp_capcode_values; lp\nlea     rsi, fmt; \"Unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_38]\nmov     r9, [rbp+var_30]\nmov     rdx, rax\nmov     ecx, [rbp+cap_type]\nmov     r8d, [rbp+cap_len]\nlea     rsi, aSULengthU; \"\\n\\t      %s (%u), length: %u\"\nmov     al, 0\ncall    r9\ncmp     [rbp+cap_len], 0\njg      loc_14F0\ncmp     [rbp+cap_len], 0\njnz     loc_1538\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nmovsxd  rcx, [rbp+cap_len]\nsub     rax, rcx\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1538\nmov     rax, [rbp+opt]\nmov     ecx, [rbp+i]\nadd     ecx, 2\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nmovsxd  rdx, [rbp+cap_len]\nsub     rcx, rdx\ncmp     rax, rcx\njbe     loc_153D\njmp     trunc\nmov     eax, [rbp+cap_type]\nmov     [rbp+var_3C], eax\nsub     eax, 1\njz      loc_15A8\njmp     $+5\nmov     eax, [rbp+var_3C]\nsub     eax, 2\njz      loc_1810\njmp     $+5\nmov     eax, [rbp+var_3C]\nsub     eax, 40h ; '@'\njz      loc_165D\njmp     $+5\nmov     eax, [rbp+var_3C]\nsub     eax, 41h ; 'A'\njz      loc_1815\njmp     $+5\nmov     eax, [rbp+var_3C]\nsub     eax, 45h ; 'E'\njz      loc_1893\njmp     $+5\nmov     eax, [rbp+var_3C]\nsub     eax, 80h\njz      loc_1810\njmp     loc_1A27\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_48], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_60], rax\nmov     rdi, [rbp+opt]\nmovsxd  rax, [rbp+i]\nadd     rdi, rax\nadd     rdi, 2; p\ncall    EXTRACT_16BITS\nmovzx   edx, ax; v\nlea     rdi, af_values; lp\nlea     rsi, fmt; \"Unknown\"\ncall    tok2str\nmov     [rbp+var_58], rax\nmov     rdi, [rbp+opt]\nmovsxd  rax, [rbp+i]\nadd     rdi, rax\nadd     rdi, 2; p\ncall    EXTRACT_16BITS\nmovzx   eax, ax\nmov     [rbp+var_4C], eax\nmov     rax, [rbp+opt]\nmov     ecx, [rbp+i]\nadd     ecx, 5\nmovsxd  rcx, ecx\nmovzx   edx, byte ptr [rax+rcx]; v\nlea     rdi, bgp_safi_values; lp\nlea     rsi, fmt; \"Unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_60]\nmov     rdx, [rbp+var_58]\nmov     ecx, [rbp+var_4C]\nmov     r10, [rbp+var_48]\nmov     r8, rax\nmov     rax, [rbp+opt]\nmov     esi, [rbp+i]\nadd     esi, 5\nmovsxd  rsi, esi\nmovzx   r9d, byte ptr [rax+rsi]\nlea     rsi, aAfiSUSafiSU; \"\\n\\t\\tAFI %s (%u), SAFI %s (%u)\"\nmov     al, 0\ncall    r10\njmp     loc_1A75\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_68], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_78], rax\nmov     rax, [rbp+opt]\nmov     ecx, [rbp+i]\nadd     ecx, 2\nmovsxd  rcx, ecx\nmovzx   edx, byte ptr [rax+rcx]\nand     edx, 80h\nlea     rax, aNone; \"none\"\nlea     rcx, aR; \"R\"\ncmp     edx, 0\ncmovnz  rax, rcx\nmov     [rbp+var_70], rax\nmov     rdi, [rbp+opt]\nmovsxd  rax, [rbp+i]\nadd     rdi, rax\nadd     rdi, 2; p\ncall    EXTRACT_16BITS\nmov     rdi, [rbp+var_78]\nmov     rdx, [rbp+var_70]\nmov     r8, [rbp+var_68]\nmovzx   ecx, ax\nand     ecx, 0FFFh\nlea     rsi, aRestartFlagsSR; \"\\n\\t\\tRestart Flags: [%s], Restart Time\"...\nmov     al, 0\ncall    r8\nmov     eax, [rbp+tcap_len]\nsub     eax, 2\nmov     [rbp+tcap_len], eax\nmov     [rbp+cap_offset], 4\ncmp     [rbp+tcap_len], 4\njl      loc_180B\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_80], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_98], rax\nmov     rdi, [rbp+opt]\nmovsxd  rax, [rbp+i]\nadd     rdi, rax\nmovsxd  rax, [rbp+cap_offset]\nadd     rdi, rax; p\ncall    EXTRACT_16BITS\nmovzx   edx, ax; v\nlea     rdi, af_values; lp\nlea     rsi, fmt; \"Unknown\"\ncall    tok2str\nmov     [rbp+var_90], rax\nmov     rdi, [rbp+opt]\nmovsxd  rax, [rbp+i]\nadd     rdi, rax\nmovsxd  rax, [rbp+cap_offset]\nadd     rdi, rax; p\ncall    EXTRACT_16BITS\nmovzx   eax, ax\nmov     [rbp+var_84], eax\nmov     rax, [rbp+opt]\nmov     ecx, [rbp+i]\nadd     ecx, [rbp+cap_offset]\nadd     ecx, 2\nmovsxd  rcx, ecx\nmovzx   edx, byte ptr [rax+rcx]; v\nlea     rdi, bgp_safi_values; lp\nlea     rsi, fmt; \"Unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_98]\nmov     rdx, [rbp+var_90]\nmov     ecx, [rbp+var_84]\nmov     r10, [rbp+var_80]\nmov     r8, rax\nmov     rax, [rbp+opt]\nmov     esi, [rbp+i]\nadd     esi, [rbp+cap_offset]\nadd     esi, 2\nmovsxd  rsi, esi\nmovzx   r9d, byte ptr [rax+rsi]\nmov     rax, [rbp+opt]\nmov     esi, [rbp+i]\nadd     esi, [rbp+cap_offset]\nadd     esi, 3\nmovsxd  rsi, esi\nmovzx   r11d, byte ptr [rax+rsi]\nand     r11d, 80h\nlea     rax, aNo; \"no\"\nlea     rsi, aYes; \"yes\"\ncmp     r11d, 0\ncmovnz  rax, rsi\nlea     rsi, aAfiSUSafiSUFor; \"\\n\\t\\t  AFI %s (%u), SAFI %s (%u), Forw\"...\nmov     [rsp+0F0h+var_F0], rax\nmov     al, 0\ncall    r10\nmov     eax, [rbp+tcap_len]\nsub     eax, 4\nmov     [rbp+tcap_len], eax\nmov     eax, [rbp+cap_offset]\nadd     eax, 4\nmov     [rbp+cap_offset], eax\njmp     loc_16E6\njmp     loc_1A75\njmp     loc_1A75\ncmp     [rbp+cap_len], 4\njnz     loc_188E\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_A0], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_A8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_B0], rax\nmov     rdi, [rbp+opt]\nmovsxd  rax, [rbp+i]\nadd     rdi, rax\nadd     rdi, 2; p\ncall    EXTRACT_32BITS\nmov     rdi, [rbp+var_B0]; ndo\nmov     ecx, eax; asnum\nlea     rsi, astostr; str\nmov     edx, 14h; size\ncall    as_printf\nmov     rdi, [rbp+var_A8]\nmov     rcx, [rbp+var_A0]\nmov     rdx, rax\nlea     rsi, a4ByteAsS; \"\\n\\t\\t 4 Byte AS %s\"\nmov     al, 0\ncall    rcx\njmp     loc_1A75\nmov     [rbp+cap_offset], 2\ncmp     [rbp+tcap_len], 0\njnz     loc_18C0\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aBogus; \" (bogus)\"\nmov     al, 0\ncall    rcx\njmp     loc_1A75\njmp     $+5\ncmp     [rbp+tcap_len], 0\njle     loc_1A22\ncmp     [rbp+tcap_len], 4\njge     loc_18F5\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aInvalid; \"\\n\\t\\t(invalid)\"\nmov     al, 0\ncall    rcx\njmp     loc_1A22\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_B8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_E0], rax\nmov     rdi, [rbp+opt]\nmovsxd  rax, [rbp+i]\nadd     rdi, rax\nmovsxd  rax, [rbp+cap_offset]\nadd     rdi, rax; p\ncall    EXTRACT_16BITS\nmovzx   edx, ax; v\nlea     rdi, af_values; lp\nlea     rsi, fmt; \"Unknown\"\ncall    tok2str\nmov     [rbp+var_D8], rax\nmov     rdi, [rbp+opt]\nmovsxd  rax, [rbp+i]\nadd     rdi, rax\nmovsxd  rax, [rbp+cap_offset]\nadd     rdi, rax; p\ncall    EXTRACT_16BITS\nmovzx   eax, ax\nmov     [rbp+var_CC], eax\nmov     rax, [rbp+opt]\nmov     ecx, [rbp+i]\nadd     ecx, [rbp+cap_offset]\nadd     ecx, 2\nmovsxd  rcx, ecx\nmovzx   edx, byte ptr [rax+rcx]; v\nlea     rdi, bgp_safi_values; lp\nlea     rsi, fmt; \"Unknown\"\ncall    tok2str\nmov     [rbp+var_C8], rax\nmov     rax, [rbp+opt]\nmov     ecx, [rbp+i]\nadd     ecx, [rbp+cap_offset]\nadd     ecx, 2\nmovsxd  rcx, ecx\nmovzx   eax, byte ptr [rax+rcx]\nmov     [rbp+var_BC], eax\nmov     rax, [rbp+opt]\nmov     ecx, [rbp+i]\nadd     ecx, [rbp+cap_offset]\nadd     ecx, 3\nmovsxd  rcx, ecx\nmovzx   edx, byte ptr [rax+rcx]; v\nlea     rdi, bgp_add_path_recvsend; lp\nlea     rsi, aBogus0x02x; \"Bogus (0x%02x)\"\ncall    tok2str\nmov     rdi, [rbp+var_E0]\nmov     rdx, [rbp+var_D8]\nmov     ecx, [rbp+var_CC]\nmov     r8, [rbp+var_C8]\nmov     r9d, [rbp+var_BC]\nmov     r10, [rbp+var_B8]\nlea     rsi, aAfiSUSafiSUSen; \"\\n\\t\\tAFI %s (%u), SAFI %s (%u), Send/R\"...\nmov     [rsp+0F0h+var_F0], rax\nmov     al, 0\ncall    r10\nmov     eax, [rbp+tcap_len]\nsub     eax, 4\nmov     [rbp+tcap_len], eax\nmov     eax, [rbp+cap_offset]\nadd     eax, 4\nmov     [rbp+cap_offset], eax\njmp     loc_18C5\njmp     loc_1A75\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nmov     edx, [rbp+cap_type]\nlea     rsi, aNoDecoderForCa; \"\\n\\t\\tno decoder for Capability %u\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 1\njg      loc_1A70\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+opt]\nmov     eax, [rbp+i]\nadd     eax, 2\ncdqe\nadd     rsi, rax; cp\nmov     ecx, [rbp+cap_len]; len\nlea     rdx, ident; \"\\n\\t\\t\"\ncall    print_unknown_data\njmp     $+5\nmov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 1\njle     loc_1AAE\ncmp     [rbp+cap_len], 0\njle     loc_1AAE\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+opt]\nmov     eax, [rbp+i]\nadd     eax, 2\ncdqe\nadd     rsi, rax; cp\nmov     ecx, [rbp+cap_len]; len\nlea     rdx, ident; \"\\n\\t\\t\"\ncall    print_unknown_data\nmov     eax, [rbp+cap_len]\nadd     eax, 2\nadd     eax, [rbp+i]\nmov     [rbp+i], eax\njmp     loc_141D\njmp     loc_1ADB\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aBgp; \"[|BGP]\"\nmov     al, 0\ncall    rcx\nadd     rsp, 0F0h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 49,
+  "edges": [
+   [
+    "start",
+    "loc_141D"
+   ],
+   [
+    "loc_141D",
+    "loc_1429"
+   ],
+   [
+    "loc_141D",
+    "loc_1ABF"
+   ],
+   [
+    "loc_1429",
+    "loc_1446"
+   ],
+   [
+    "loc_1429",
+    "loc_1466"
+   ],
+   [
+    "loc_1446",
+    "loc_1466"
+   ],
+   [
+    "loc_1446",
+    "loc_146B"
+   ],
+   [
+    "loc_1466",
+    "loc_1AC4"
+   ],
+   [
+    "loc_146B",
+    "loc_14E6"
+   ],
+   [
+    "loc_146B",
+    "loc_14F0"
+   ],
+   [
+    "loc_14E6",
+    "loc_14F0"
+   ],
+   [
+    "loc_14E6",
+    "loc_1538"
+   ],
+   [
+    "loc_14F0",
+    "loc_1510"
+   ],
+   [
+    "loc_14F0",
+    "loc_1538"
+   ],
+   [
+    "loc_1510",
+    "loc_1538"
+   ],
+   [
+    "loc_1510",
+    "loc_153D"
+   ],
+   [
+    "loc_1538",
+    "loc_1AC4"
+   ],
+   [
+    "loc_153D",
+    "loc_154C"
+   ],
+   [
+    "loc_153D",
+    "loc_15A8"
+   ],
+   [
+    "loc_154C",
+    "loc_1551"
+   ],
+   [
+    "loc_1551",
+    "loc_155D"
+   ],
+   [
+    "loc_1551",
+    "loc_1810"
+   ],
+   [
+    "loc_155D",
+    "loc_1562"
+   ],
+   [
+    "loc_1562",
+    "loc_156E"
+   ],
+   [
+    "loc_1562",
+    "loc_165D"
+   ],
+   [
+    "loc_156E",
+    "loc_1573"
+   ],
+   [
+    "loc_1573",
+    "loc_157F"
+   ],
+   [
+    "loc_1573",
+    "loc_1815"
+   ],
+   [
+    "loc_157F",
+    "loc_1584"
+   ],
+   [
+    "loc_1584",
+    "loc_1590"
+   ],
+   [
+    "loc_1584",
+    "loc_1893"
+   ],
+   [
+    "loc_1590",
+    "loc_1595"
+   ],
+   [
+    "loc_1595",
+    "loc_15A3"
+   ],
+   [
+    "loc_1595",
+    "loc_1810"
+   ],
+   [
+    "loc_15A3",
+    "loc_1A27"
+   ],
+   [
+    "loc_15A8",
+    "loc_1A75"
+   ],
+   [
+    "loc_165D",
+    "loc_16E6"
+   ],
+   [
+    "loc_16E6",
+    "loc_16F0"
+   ],
+   [
+    "loc_16E6",
+    "loc_180B"
+   ],
+   [
+    "loc_16F0",
+    "loc_16E6"
+   ],
+   [
+    "loc_180B",
+    "loc_1A75"
+   ],
+   [
+    "loc_1810",
+    "loc_1A75"
+   ],
+   [
+    "loc_1815",
+    "loc_181F"
+   ],
+   [
+    "loc_1815",
+    "loc_188E"
+   ],
+   [
+    "loc_181F",
+    "loc_188E"
+   ],
+   [
+    "loc_188E",
+    "loc_1A75"
+   ],
+   [
+    "loc_1893",
+    "loc_18A4"
+   ],
+   [
+    "loc_1893",
+    "loc_18C0"
+   ],
+   [
+    "loc_18A4",
+    "loc_1A75"
+   ],
+   [
+    "loc_18C0",
+    "loc_18C5"
+   ],
+   [
+    "loc_18C5",
+    "loc_18CF"
+   ],
+   [
+    "loc_18C5",
+    "loc_1A22"
+   ],
+   [
+    "loc_18CF",
+    "loc_18D9"
+   ],
+   [
+    "loc_18CF",
+    "loc_18F5"
+   ],
+   [
+    "loc_18D9",
+    "loc_1A22"
+   ],
+   [
+    "loc_18F5",
+    "loc_18C5"
+   ],
+   [
+    "loc_1A22",
+    "loc_1A75"
+   ],
+   [
+    "loc_1A27",
+    "loc_1A4E"
+   ],
+   [
+    "loc_1A27",
+    "loc_1A70"
+   ],
+   [
+    "loc_1A4E",
+    "loc_1A70"
+   ],
+   [
+    "loc_1A70",
+    "loc_1A75"
+   ],
+   [
+    "loc_1A75",
+    "loc_1A82"
+   ],
+   [
+    "loc_1A75",
+    "loc_1AAE"
+   ],
+   [
+    "loc_1A82",
+    "loc_1A8C"
+   ],
+   [
+    "loc_1A82",
+    "loc_1AAE"
+   ],
+   [
+    "loc_1A8C",
+    "loc_1AAE"
+   ],
+   [
+    "loc_1AAE",
+    "loc_141D"
+   ],
+   [
+    "loc_1ABF",
+    "loc_1ADB"
+   ],
+   [
+    "loc_1AC4",
+    "loc_1ADB"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0F0h\nmov     [rbp+ndo], rdi\nmov     [rbp+opt], rsi\nmov     [rbp+caps_len], edx\nmov     [rbp+i], 0",
+   "loc_141D": "mov     eax, [rbp+i]\ncmp     eax, [rbp+caps_len]\njge     loc_1ABF",
+   "loc_1429": "mov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 2\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1466",
+   "loc_1446": "mov     rax, [rbp+opt]\nmovsxd  rcx, [rbp+i]\nadd     rax, rcx\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 2\ncmp     rax, rcx\njbe     loc_146B",
+   "loc_1466": "jmp     trunc",
+   "loc_146B": "mov     rax, [rbp+opt]\nmovsxd  rcx, [rbp+i]\nmovzx   eax, byte ptr [rax+rcx]\nmov     [rbp+cap_type], eax\nmov     rax, [rbp+opt]\nmov     ecx, [rbp+i]\nadd     ecx, 1\nmovsxd  rcx, ecx\nmovzx   eax, byte ptr [rax+rcx]\nmov     [rbp+cap_len], eax\nmov     eax, [rbp+cap_len]\nmov     [rbp+tcap_len], eax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_30], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_38], rax\nmov     edx, [rbp+cap_type]; v\nlea     rdi, bgp_capcode_values; lp\nlea     rsi, fmt; \"Unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_38]\nmov     r9, [rbp+var_30]\nmov     rdx, rax\nmov     ecx, [rbp+cap_type]\nmov     r8d, [rbp+cap_len]\nlea     rsi, aSULengthU; \"\\n\\t      %s (%u), length: %u\"\nmov     al, 0\ncall    r9\ncmp     [rbp+cap_len], 0\njg      loc_14F0",
+   "loc_14E6": "cmp     [rbp+cap_len], 0\njnz     loc_1538",
+   "loc_14F0": "mov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nmovsxd  rcx, [rbp+cap_len]\nsub     rax, rcx\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1538",
+   "loc_1510": "mov     rax, [rbp+opt]\nmov     ecx, [rbp+i]\nadd     ecx, 2\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nmovsxd  rdx, [rbp+cap_len]\nsub     rcx, rdx\ncmp     rax, rcx\njbe     loc_153D",
+   "loc_1538": "jmp     trunc",
+   "loc_153D": "mov     eax, [rbp+cap_type]\nmov     [rbp+var_3C], eax\nsub     eax, 1\njz      loc_15A8",
+   "loc_154C": "jmp     $+5",
+   "loc_1551": "mov     eax, [rbp+var_3C]\nsub     eax, 2\njz      loc_1810",
+   "loc_155D": "jmp     $+5",
+   "loc_1562": "mov     eax, [rbp+var_3C]\nsub     eax, 40h ; '@'\njz      loc_165D",
+   "loc_156E": "jmp     $+5",
+   "loc_1573": "mov     eax, [rbp+var_3C]\nsub     eax, 41h ; 'A'\njz      loc_1815",
+   "loc_157F": "jmp     $+5",
+   "loc_1584": "mov     eax, [rbp+var_3C]\nsub     eax, 45h ; 'E'\njz      loc_1893",
+   "loc_1590": "jmp     $+5",
+   "loc_1595": "mov     eax, [rbp+var_3C]\nsub     eax, 80h\njz      loc_1810",
+   "loc_15A3": "jmp     loc_1A27",
+   "loc_15A8": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_48], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_60], rax\nmov     rdi, [rbp+opt]\nmovsxd  rax, [rbp+i]\nadd     rdi, rax\nadd     rdi, 2; p\ncall    EXTRACT_16BITS\nmovzx   edx, ax; v\nlea     rdi, af_values; lp\nlea     rsi, fmt; \"Unknown\"\ncall    tok2str\nmov     [rbp+var_58], rax\nmov     rdi, [rbp+opt]\nmovsxd  rax, [rbp+i]\nadd     rdi, rax\nadd     rdi, 2; p\ncall    EXTRACT_16BITS\nmovzx   eax, ax\nmov     [rbp+var_4C], eax\nmov     rax, [rbp+opt]\nmov     ecx, [rbp+i]\nadd     ecx, 5\nmovsxd  rcx, ecx\nmovzx   edx, byte ptr [rax+rcx]; v\nlea     rdi, bgp_safi_values; lp\nlea     rsi, fmt; \"Unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_60]\nmov     rdx, [rbp+var_58]\nmov     ecx, [rbp+var_4C]\nmov     r10, [rbp+var_48]\nmov     r8, rax\nmov     rax, [rbp+opt]\nmov     esi, [rbp+i]\nadd     esi, 5\nmovsxd  rsi, esi\nmovzx   r9d, byte ptr [rax+rsi]\nlea     rsi, aAfiSUSafiSU; \"\\n\\t\\tAFI %s (%u), SAFI %s (%u)\"\nmov     al, 0\ncall    r10\njmp     loc_1A75",
+   "loc_165D": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_68], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_78], rax\nmov     rax, [rbp+opt]\nmov     ecx, [rbp+i]\nadd     ecx, 2\nmovsxd  rcx, ecx\nmovzx   edx, byte ptr [rax+rcx]\nand     edx, 80h\nlea     rax, aNone; \"none\"\nlea     rcx, aR; \"R\"\ncmp     edx, 0\ncmovnz  rax, rcx\nmov     [rbp+var_70], rax\nmov     rdi, [rbp+opt]\nmovsxd  rax, [rbp+i]\nadd     rdi, rax\nadd     rdi, 2; p\ncall    EXTRACT_16BITS\nmov     rdi, [rbp+var_78]\nmov     rdx, [rbp+var_70]\nmov     r8, [rbp+var_68]\nmovzx   ecx, ax\nand     ecx, 0FFFh\nlea     rsi, aRestartFlagsSR; \"\\n\\t\\tRestart Flags: [%s], Restart Time\"...\nmov     al, 0\ncall    r8\nmov     eax, [rbp+tcap_len]\nsub     eax, 2\nmov     [rbp+tcap_len], eax\nmov     [rbp+cap_offset], 4",
+   "loc_16E6": "cmp     [rbp+tcap_len], 4\njl      loc_180B",
+   "loc_16F0": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_80], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_98], rax\nmov     rdi, [rbp+opt]\nmovsxd  rax, [rbp+i]\nadd     rdi, rax\nmovsxd  rax, [rbp+cap_offset]\nadd     rdi, rax; p\ncall    EXTRACT_16BITS\nmovzx   edx, ax; v\nlea     rdi, af_values; lp\nlea     rsi, fmt; \"Unknown\"\ncall    tok2str\nmov     [rbp+var_90], rax\nmov     rdi, [rbp+opt]\nmovsxd  rax, [rbp+i]\nadd     rdi, rax\nmovsxd  rax, [rbp+cap_offset]\nadd     rdi, rax; p\ncall    EXTRACT_16BITS\nmovzx   eax, ax\nmov     [rbp+var_84], eax\nmov     rax, [rbp+opt]\nmov     ecx, [rbp+i]\nadd     ecx, [rbp+cap_offset]\nadd     ecx, 2\nmovsxd  rcx, ecx\nmovzx   edx, byte ptr [rax+rcx]; v\nlea     rdi, bgp_safi_values; lp\nlea     rsi, fmt; \"Unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_98]\nmov     rdx, [rbp+var_90]\nmov     ecx, [rbp+var_84]\nmov     r10, [rbp+var_80]\nmov     r8, rax\nmov     rax, [rbp+opt]\nmov     esi, [rbp+i]\nadd     esi, [rbp+cap_offset]\nadd     esi, 2\nmovsxd  rsi, esi\nmovzx   r9d, byte ptr [rax+rsi]\nmov     rax, [rbp+opt]\nmov     esi, [rbp+i]\nadd     esi, [rbp+cap_offset]\nadd     esi, 3\nmovsxd  rsi, esi\nmovzx   r11d, byte ptr [rax+rsi]\nand     r11d, 80h\nlea     rax, aNo; \"no\"\nlea     rsi, aYes; \"yes\"\ncmp     r11d, 0\ncmovnz  rax, rsi\nlea     rsi, aAfiSUSafiSUFor; \"\\n\\t\\t  AFI %s (%u), SAFI %s (%u), Forw\"...\nmov     [rsp+0F0h+var_F0], rax\nmov     al, 0\ncall    r10\nmov     eax, [rbp+tcap_len]\nsub     eax, 4\nmov     [rbp+tcap_len], eax\nmov     eax, [rbp+cap_offset]\nadd     eax, 4\nmov     [rbp+cap_offset], eax\njmp     loc_16E6",
+   "loc_180B": "jmp     loc_1A75",
+   "loc_1810": "jmp     loc_1A75",
+   "loc_1815": "cmp     [rbp+cap_len], 4\njnz     loc_188E",
+   "loc_181F": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_A0], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_A8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_B0], rax\nmov     rdi, [rbp+opt]\nmovsxd  rax, [rbp+i]\nadd     rdi, rax\nadd     rdi, 2; p\ncall    EXTRACT_32BITS\nmov     rdi, [rbp+var_B0]; ndo\nmov     ecx, eax; asnum\nlea     rsi, astostr; str\nmov     edx, 14h; size\ncall    as_printf\nmov     rdi, [rbp+var_A8]\nmov     rcx, [rbp+var_A0]\nmov     rdx, rax\nlea     rsi, a4ByteAsS; \"\\n\\t\\t 4 Byte AS %s\"\nmov     al, 0\ncall    rcx",
+   "loc_188E": "jmp     loc_1A75",
+   "loc_1893": "mov     [rbp+cap_offset], 2\ncmp     [rbp+tcap_len], 0\njnz     loc_18C0",
+   "loc_18A4": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aBogus; \" (bogus)\"\nmov     al, 0\ncall    rcx\njmp     loc_1A75",
+   "loc_18C0": "jmp     $+5",
+   "loc_18C5": "cmp     [rbp+tcap_len], 0\njle     loc_1A22",
+   "loc_18CF": "cmp     [rbp+tcap_len], 4\njge     loc_18F5",
+   "loc_18D9": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aInvalid; \"\\n\\t\\t(invalid)\"\nmov     al, 0\ncall    rcx\njmp     loc_1A22",
+   "loc_18F5": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_B8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_E0], rax\nmov     rdi, [rbp+opt]\nmovsxd  rax, [rbp+i]\nadd     rdi, rax\nmovsxd  rax, [rbp+cap_offset]\nadd     rdi, rax; p\ncall    EXTRACT_16BITS\nmovzx   edx, ax; v\nlea     rdi, af_values; lp\nlea     rsi, fmt; \"Unknown\"\ncall    tok2str\nmov     [rbp+var_D8], rax\nmov     rdi, [rbp+opt]\nmovsxd  rax, [rbp+i]\nadd     rdi, rax\nmovsxd  rax, [rbp+cap_offset]\nadd     rdi, rax; p\ncall    EXTRACT_16BITS\nmovzx   eax, ax\nmov     [rbp+var_CC], eax\nmov     rax, [rbp+opt]\nmov     ecx, [rbp+i]\nadd     ecx, [rbp+cap_offset]\nadd     ecx, 2\nmovsxd  rcx, ecx\nmovzx   edx, byte ptr [rax+rcx]; v\nlea     rdi, bgp_safi_values; lp\nlea     rsi, fmt; \"Unknown\"\ncall    tok2str\nmov     [rbp+var_C8], rax\nmov     rax, [rbp+opt]\nmov     ecx, [rbp+i]\nadd     ecx, [rbp+cap_offset]\nadd     ecx, 2\nmovsxd  rcx, ecx\nmovzx   eax, byte ptr [rax+rcx]\nmov     [rbp+var_BC], eax\nmov     rax, [rbp+opt]\nmov     ecx, [rbp+i]\nadd     ecx, [rbp+cap_offset]\nadd     ecx, 3\nmovsxd  rcx, ecx\nmovzx   edx, byte ptr [rax+rcx]; v\nlea     rdi, bgp_add_path_recvsend; lp\nlea     rsi, aBogus0x02x; \"Bogus (0x%02x)\"\ncall    tok2str\nmov     rdi, [rbp+var_E0]\nmov     rdx, [rbp+var_D8]\nmov     ecx, [rbp+var_CC]\nmov     r8, [rbp+var_C8]\nmov     r9d, [rbp+var_BC]\nmov     r10, [rbp+var_B8]\nlea     rsi, aAfiSUSafiSUSen; \"\\n\\t\\tAFI %s (%u), SAFI %s (%u), Send/R\"...\nmov     [rsp+0F0h+var_F0], rax\nmov     al, 0\ncall    r10\nmov     eax, [rbp+tcap_len]\nsub     eax, 4\nmov     [rbp+tcap_len], eax\nmov     eax, [rbp+cap_offset]\nadd     eax, 4\nmov     [rbp+cap_offset], eax\njmp     loc_18C5",
+   "loc_1A22": "jmp     loc_1A75",
+   "loc_1A27": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nmov     edx, [rbp+cap_type]\nlea     rsi, aNoDecoderForCa; \"\\n\\t\\tno decoder for Capability %u\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 1\njg      loc_1A70",
+   "loc_1A4E": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+opt]\nmov     eax, [rbp+i]\nadd     eax, 2\ncdqe\nadd     rsi, rax; cp\nmov     ecx, [rbp+cap_len]; len\nlea     rdx, ident; \"\\n\\t\\t\"\ncall    print_unknown_data",
+   "loc_1A70": "jmp     $+5",
+   "loc_1A75": "mov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 1\njle     loc_1AAE",
+   "loc_1A82": "cmp     [rbp+cap_len], 0\njle     loc_1AAE",
+   "loc_1A8C": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+opt]\nmov     eax, [rbp+i]\nadd     eax, 2\ncdqe\nadd     rsi, rax; cp\nmov     ecx, [rbp+cap_len]; len\nlea     rdx, ident; \"\\n\\t\\t\"\ncall    print_unknown_data",
+   "loc_1AAE": "mov     eax, [rbp+cap_len]\nadd     eax, 2\nadd     eax, [rbp+i]\nmov     [rbp+i], eax\njmp     loc_141D",
+   "loc_1ABF": "jmp     loc_1ADB",
+   "loc_1AC4": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aBgp; \"[|BGP]\"\nmov     al, 0\ncall    rcx",
+   "loc_1ADB": "add     rsp, 0F0h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_F0": "qword ptr -0F0h",
+   "var_E0": "qword ptr -0E0h",
+   "var_D8": "qword ptr -0D8h",
+   "var_CC": "dword ptr -0CCh",
+   "var_C8": "qword ptr -0C8h",
+   "var_BC": "dword ptr -0BCh",
+   "var_B8": "qword ptr -0B8h",
+   "var_B0": "qword ptr -0B0h",
+   "var_A8": "qword ptr -0A8h",
+   "var_A0": "qword ptr -0A0h",
+   "var_98": "qword ptr -98h",
+   "var_90": "qword ptr -90h",
+   "var_84": "dword ptr -84h",
+   "var_80": "qword ptr -80h",
+   "var_78": "qword ptr -78h",
+   "var_70": "qword ptr -70h",
+   "var_68": "qword ptr -68h",
+   "var_60": "qword ptr -60h",
+   "var_58": "qword ptr -58h",
+   "var_4C": "dword ptr -4Ch",
+   "var_48": "qword ptr -48h",
+   "var_3C": "dword ptr -3Ch",
+   "var_38": "qword ptr -38h",
+   "var_30": "qword ptr -30h",
+   "i": "dword ptr -28h",
+   "cap_offset": "dword ptr -24h",
+   "tcap_len": "dword ptr -20h",
+   "cap_len": "dword ptr -1Ch",
+   "cap_type": "dword ptr -18h",
+   "caps_len": "dword ptr -14h",
+   "opt": "qword ptr -10h",
+   "ndo": "qword ptr -8"
+  },
+  ".rodata": {
+   "fmt": "byte 'Unknown',0",
+   "aSULengthU": "byte 0Ah",
+   "aAfiSUSafiSU": "byte 0Ah",
+   "aNone": "byte 'none',0",
+   "aR": "byte 'R',0",
+   "aRestartFlagsSR": "byte 0Ah",
+   "aNo": "byte 'no',0",
+   "aYes": "byte 'yes',0",
+   "aAfiSUSafiSUFor": "byte 0Ah",
+   "a4ByteAsS": "byte 0Ah",
+   "aBogus": "byte ' (bogus)',0",
+   "aInvalid": "byte 0Ah",
+   "aBogus0x02x": "byte 'Bogus (0x%02x)',0",
+   "aAfiSUSafiSUSen": "byte 0Ah",
+   "aNoDecoderForCa": "byte 0Ah",
+   "ident": "byte 0Ah",
+   "aBgp": "byte '[|BGP]',0"
+  },
+  ".data": {},
+  ".bss": {
+   "astostr": "[]"
+  }
+ },
+ "func_ea": 5120,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".ntohs": "ntohs",
+  "_ntohs": "ntohs",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".ntohl": "ntohl",
+  "_ntohl": "ntohl"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".ntohs",
+   ".plt",
+   true,
+   "ntohs"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".ntohl",
+   ".plt",
+   true,
+   "ntohl"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "snprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ntohs",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ntohl",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868500
+ }
+}

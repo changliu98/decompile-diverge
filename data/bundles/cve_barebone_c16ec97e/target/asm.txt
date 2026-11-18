@@ -1,0 +1,71 @@
+00000000000011d0 <njs_array_convert_to_slow_array>:
+    11d0:	push   %rbp
+    11d1:	mov    %rsp,%rbp
+    11d4:	sub    $0x50,%rsp
+    11d8:	mov    %rdi,-0x10(%rbp)
+    11dc:	mov    %rsi,-0x18(%rbp)
+    11e0:	mov    -0x18(%rbp),%rsi
+    11e4:	lea    -0x40(%rbp),%rdi
+    11e8:	call   12e0 <njs_set_array>
+    11ed:	mov    -0x18(%rbp),%rax
+    11f1:	mov    (%rax),%cl
+    11f3:	and    $0xfe,%cl
+    11f6:	or     $0x0,%cl
+    11f9:	mov    %cl,(%rax)
+    11fb:	mov    -0x18(%rbp),%rax
+    11ff:	mov    0x8(%rax),%eax
+    1202:	mov    %eax,-0x20(%rbp)
+    1205:	movl   $0x0,-0x1c(%rbp)
+    120c:	mov    -0x1c(%rbp),%eax
+    120f:	cmp    -0x20(%rbp),%eax
+    1212:	jae    12a7 <njs_array_convert_to_slow_array+0xd7>
+    1218:	mov    -0x18(%rbp),%rax
+    121c:	mov    0x10(%rax),%rax
+    1220:	mov    -0x1c(%rbp),%ecx
+    1223:	shl    $0x4,%rcx
+    1227:	add    %rcx,%rax
+    122a:	movzbl (%rax),%eax
+    122d:	cmp    $0x7,%eax
+    1230:	je     1294 <njs_array_convert_to_slow_array+0xc4>
+    1236:	mov    -0x1c(%rbp),%esi
+    1239:	lea    -0x30(%rbp),%rdi
+    123d:	call   1310 <njs_uint32_to_string>
+    1242:	mov    -0x10(%rbp),%rdi
+    1246:	lea    -0x40(%rbp),%rsi
+    124a:	lea    -0x30(%rbp),%rdx
+    124e:	xor    %ecx,%ecx
+    1250:	call   1320 <njs_object_property_add>
+    1255:	mov    %rax,-0x48(%rbp)
+    1259:	cmpq   $0x0,-0x48(%rbp)
+    125e:	jne    1270 <njs_array_convert_to_slow_array+0xa0>
+    1264:	movl   $0xffffffff,-0x4(%rbp)
+    126b:	jmp    12ce <njs_array_convert_to_slow_array+0xfe>
+    1270:	mov    -0x48(%rbp),%rax
+    1274:	mov    -0x18(%rbp),%rcx
+    1278:	mov    0x10(%rcx),%rcx
+    127c:	mov    -0x1c(%rbp),%edx
+    127f:	shl    $0x4,%rdx
+    1283:	add    %rdx,%rcx
+    1286:	mov    (%rcx),%rdx
+    1289:	mov    %rdx,(%rax)
+    128c:	mov    0x8(%rcx),%rcx
+    1290:	mov    %rcx,0x8(%rax)
+    1294:	jmp    1299 <njs_array_convert_to_slow_array+0xc9>
+    1299:	mov    -0x1c(%rbp),%eax
+    129c:	add    $0x1,%eax
+    129f:	mov    %eax,-0x1c(%rbp)
+    12a2:	jmp    120c <njs_array_convert_to_slow_array+0x3c>
+    12a7:	mov    -0x10(%rbp),%rax
+    12ab:	mov    (%rax),%rdi
+    12ae:	mov    -0x18(%rbp),%rax
+    12b2:	mov    0x10(%rax),%rsi
+    12b6:	call   1340 <njs_mp_free>
+    12bb:	mov    -0x18(%rbp),%rax
+    12bf:	movq   $0x0,0x10(%rax)
+    12c7:	movl   $0x0,-0x4(%rbp)
+    12ce:	mov    -0x4(%rbp),%eax
+    12d1:	add    $0x50,%rsp
+    12d5:	pop    %rbp
+    12d6:	ret
+
+Disassembly of section .fini:

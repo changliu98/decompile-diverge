@@ -1,0 +1,1 @@
+void Sqrt( float x, float *r ) { float f; int i; f = x * .5f; i = *( int * ) &x; i =0x5f3759df - ( i >> 1 ); x = *( float * ) &i; x = x * ( 1.5f - ( x * f * x ) ); if( x > 0.0f ) { *r = 1.0f / x; } else { *r = 0.0f; } return ; }

@@ -1,0 +1,136 @@
+0000000000001400 <cbs_av1_read_uvlc>:
+    1400:	push   %rbp
+    1401:	mov    %rsp,%rbp
+    1404:	sub    $0xa0,%rsp
+    140b:	mov    %rdi,-0x10(%rbp)
+    140f:	mov    %rsi,-0x18(%rbp)
+    1413:	mov    %rdx,-0x20(%rbp)
+    1417:	mov    %rcx,-0x28(%rbp)
+    141b:	mov    %r8d,-0x2c(%rbp)
+    141f:	mov    %r9d,-0x30(%rbp)
+    1423:	mov    -0x10(%rbp),%rax
+    1427:	cmpl   $0x0,0x8(%rax)
+    142b:	je     143d <cbs_av1_read_uvlc+0x3d>
+    1431:	mov    -0x18(%rbp),%rdi
+    1435:	call   1620 <get_bits_count>
+    143a:	mov    %eax,-0x38(%rbp)
+    143d:	movl   $0x0,-0x40(%rbp)
+    1444:	movl   $0x0,-0x3c(%rbp)
+    144b:	mov    -0x18(%rbp),%rdi
+    144f:	call   1640 <get_bits_left>
+    1454:	mov    -0x3c(%rbp),%ecx
+    1457:	add    $0x1,%ecx
+    145a:	cmp    %ecx,%eax
+    145c:	jge    148c <cbs_av1_read_uvlc+0x8c>
+    1462:	mov    -0x10(%rbp),%rax
+    1466:	mov    (%rax),%rdi
+    1469:	mov    -0x20(%rbp),%rcx
+    146d:	mov    $0x10,%esi
+    1472:	lea    0xbd1(%rip),%rdx        # 204a <_IO_stdin_used+0x4a>
+    1479:	mov    $0x0,%al
+    147b:	call   1670 <av_log>
+    1480:	movl   $0xbebbb1b7,-0x4(%rbp)
+    1487:	jmp    1606 <cbs_av1_read_uvlc+0x206>
+    148c:	mov    -0x18(%rbp),%rdi
+    1490:	call   1690 <get_bits1>
+    1495:	cmp    $0x0,%eax
+    1498:	je     14b8 <cbs_av1_read_uvlc+0xb8>
+    149e:	mov    -0x40(%rbp),%eax
+    14a1:	mov    %eax,%ecx
+    14a3:	add    $0x1,%ecx
+    14a6:	mov    %ecx,-0x40(%rbp)
+    14a9:	cltq
+    14ab:	movb   $0x31,-0x90(%rbp,%rax,1)
+    14b3:	jmp    14db <cbs_av1_read_uvlc+0xdb>
+    14b8:	mov    -0x40(%rbp),%eax
+    14bb:	mov    %eax,%ecx
+    14bd:	add    $0x1,%ecx
+    14c0:	mov    %ecx,-0x40(%rbp)
+    14c3:	cltq
+    14c5:	movb   $0x30,-0x90(%rbp,%rax,1)
+    14cd:	mov    -0x3c(%rbp),%eax
+    14d0:	add    $0x1,%eax
+    14d3:	mov    %eax,-0x3c(%rbp)
+    14d6:	jmp    144b <cbs_av1_read_uvlc+0x4b>
+    14db:	cmpl   $0x20,-0x3c(%rbp)
+    14df:	jl     14f1 <cbs_av1_read_uvlc+0xf1>
+    14e5:	movl   $0xffffffff,-0x34(%rbp)
+    14ec:	jmp    156b <cbs_av1_read_uvlc+0x16b>
+    14f1:	mov    -0x18(%rbp),%rdi
+    14f5:	mov    -0x3c(%rbp),%esi
+    14f8:	call   1700 <get_bits_long>
+    14fd:	mov    %eax,-0x34(%rbp)
+    1500:	movl   $0x0,-0x44(%rbp)
+    1507:	mov    -0x44(%rbp),%eax
+    150a:	cmp    -0x3c(%rbp),%eax
+    150d:	jge    1558 <cbs_av1_read_uvlc+0x158>
+    1513:	mov    -0x34(%rbp),%edx
+    1516:	mov    -0x3c(%rbp),%ecx
+    1519:	sub    -0x44(%rbp),%ecx
+    151c:	sub    $0x1,%ecx
+    151f:	shr    %cl,%edx
+    1521:	and    $0x1,%edx
+    1524:	mov    $0x30,%eax
+    1529:	mov    $0x31,%ecx
+    152e:	cmp    $0x0,%edx
+    1531:	cmovne %ecx,%eax
+    1534:	mov    %al,%cl
+    1536:	mov    -0x40(%rbp),%eax
+    1539:	mov    %eax,%edx
+    153b:	add    $0x1,%edx
+    153e:	mov    %edx,-0x40(%rbp)
+    1541:	cltq
+    1543:	mov    %cl,-0x90(%rbp,%rax,1)
+    154a:	mov    -0x44(%rbp),%eax
+    154d:	add    $0x1,%eax
+    1550:	mov    %eax,-0x44(%rbp)
+    1553:	jmp    1507 <cbs_av1_read_uvlc+0x107>
+    1558:	mov    -0x3c(%rbp),%ecx
+    155b:	mov    $0x1,%eax
+    1560:	shl    %cl,%eax
+    1562:	sub    $0x1,%eax
+    1565:	add    -0x34(%rbp),%eax
+    1568:	mov    %eax,-0x34(%rbp)
+    156b:	mov    -0x10(%rbp),%rax
+    156f:	cmpl   $0x0,0x8(%rax)
+    1573:	je     15a6 <cbs_av1_read_uvlc+0x1a6>
+    1579:	movslq -0x40(%rbp),%rax
+    157d:	movb   $0x0,-0x90(%rbp,%rax,1)
+    1585:	mov    -0x10(%rbp),%rdi
+    1589:	mov    -0x38(%rbp),%esi
+    158c:	mov    -0x20(%rbp),%rdx
+    1590:	lea    -0x90(%rbp),%r8
+    1597:	mov    -0x34(%rbp),%eax
+    159a:	mov    %eax,%r9d
+    159d:	xor    %eax,%eax
+    159f:	mov    %eax,%ecx
+    15a1:	call   1780 <ff_cbs_trace_syntax_element>
+    15a6:	mov    -0x34(%rbp),%eax
+    15a9:	cmp    -0x2c(%rbp),%eax
+    15ac:	jb     15be <cbs_av1_read_uvlc+0x1be>
+    15b2:	mov    -0x34(%rbp),%eax
+    15b5:	cmp    -0x30(%rbp),%eax
+    15b8:	jbe    15f6 <cbs_av1_read_uvlc+0x1f6>
+    15be:	mov    -0x10(%rbp),%rax
+    15c2:	mov    (%rax),%rdi
+    15c5:	mov    -0x20(%rbp),%rcx
+    15c9:	mov    -0x34(%rbp),%r8d
+    15cd:	mov    -0x2c(%rbp),%r9d
+    15d1:	mov    -0x30(%rbp),%eax
+    15d4:	mov    $0x10,%esi
+    15d9:	lea    0xa95(%rip),%rdx        # 2075 <_IO_stdin_used+0x75>
+    15e0:	mov    %eax,(%rsp)
+    15e3:	mov    $0x0,%al
+    15e5:	call   1670 <av_log>
+    15ea:	movl   $0xbebbb1b7,-0x4(%rbp)
+    15f1:	jmp    1606 <cbs_av1_read_uvlc+0x206>
+    15f6:	mov    -0x34(%rbp),%ecx
+    15f9:	mov    -0x28(%rbp),%rax
+    15fd:	mov    %ecx,(%rax)
+    15ff:	movl   $0x0,-0x4(%rbp)
+    1606:	mov    -0x4(%rbp),%eax
+    1609:	add    $0xa0,%rsp
+    1610:	pop    %rbp
+    1611:	ret
+
+Disassembly of section .fini:

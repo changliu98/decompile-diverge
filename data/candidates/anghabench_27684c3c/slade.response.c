@@ -1,0 +1,1 @@
+int resize_height(double width, double height, double size) { return (int) (size * (height / width) + 0.5); }

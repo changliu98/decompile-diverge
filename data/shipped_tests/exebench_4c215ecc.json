@@ -1,0 +1,137 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <inttypes.h>\n\n#include <stdlib.h>\n\n#include <string.h>\n\n#include <stdio.h>\n\n#include <time.h>\n\n#include <ctype.h>\n\n#include <unistd.h>\n\n#include <fcntl.h>\n\n#include <signal.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_36iqrmyias.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(char* dest, char* src, char* returnv) {\n  json output_json;\n\n  output_json[\"dest\"] = dest;\n\n  output_json[\"src\"] = src;\n\n  output_json[\"returnv\"] = returnv;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  char* dest = strdup(input_json[\"dest\"].get<std::string>().c_str());\n  char* src = strdup(input_json[\"src\"].get<std::string>().c_str());\n  clock_t begin = clock();\n  char* returnv = stpcpy0(dest, src);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(dest, src, returnv);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "dest": "aymavbxmtvctwroenwzcx",
+    "src": "ybr"
+   },
+   "output": {
+    "dest": "ybr",
+    "returnv": "",
+    "src": "ybr"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "dest": "",
+    "src": "zwwpgnvdapkwxgtlsddpa"
+   },
+   "output": {
+    "dest": "zwwpgnvdapkwxgtlsddpa",
+    "returnv": "",
+    "src": "zwwpgnvdapkwxgtlsddpa"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "dest": "",
+    "src": ""
+   },
+   "output": {
+    "dest": "",
+    "returnv": "",
+    "src": ""
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "dest": "fahzupeyzlkjtaxwvbwukhicblhdzwx",
+    "src": "iwdpqtadpwdnrxguilbtctiis"
+   },
+   "output": {
+    "dest": "iwdpqtadpwdnrxguilbtctiis",
+    "returnv": "",
+    "src": "iwdpqtadpwdnrxguilbtctiis"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "dest": "laxvtzqsjpuhvlmb",
+    "src": ""
+   },
+   "output": {
+    "dest": "",
+    "returnv": "",
+    "src": ""
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "dest": "qkxgfjesduteyh",
+    "src": "dmvcwikdnqqcoamfiqbcgqnj"
+   },
+   "output": {
+    "dest": "dmvcwikdnqqcoamfiqbcgqnj",
+    "returnv": "",
+    "src": "dmvcwikdnqqcoamfiqbcgqnj"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "dest": "hpbsxscwhepzubjbbeojyjcyxxqz",
+    "src": "mqfwwiyluil"
+   },
+   "output": {
+    "dest": "mqfwwiyluil",
+    "returnv": "",
+    "src": "mqfwwiyluil"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "dest": "fxwpelh",
+    "src": "k"
+   },
+   "output": {
+    "dest": "k",
+    "returnv": "",
+    "src": "k"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "dest": "cdouyhmvnvjnptjzjmkulxzvzlf",
+    "src": "ztefflmjyvickzgbbvldkvhd"
+   },
+   "output": {
+    "dest": "ztefflmjyvickzgbbvldkvhd",
+    "returnv": "",
+    "src": "ztefflmjyvickzgbbvldkvhd"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "dest": "ituyvneyxnztg",
+    "src": "foinszxtesfwyqyqagf"
+   },
+   "output": {
+    "dest": "foinszxtesfwyqyqagf",
+    "returnv": "",
+    "src": "foinszxtesfwyqyqagf"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

@@ -1,0 +1,1 @@
+int __attribute__((no,noclone)) g (int *a, short *b) { int r = *b; *a = 10; return r; }

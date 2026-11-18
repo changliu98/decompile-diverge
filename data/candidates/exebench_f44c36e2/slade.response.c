@@ -1,0 +1,1 @@
+void strcpymax(char *to, char *from, int maxlen) { int i; if (maxlen) { maxlen--; for (i = 0; *from && i < maxlen; i++) { *to++ = *from++; } } *to = '\0'; }

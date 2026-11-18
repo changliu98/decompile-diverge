@@ -1,0 +1,1 @@
+int read_double(int fd, double *ptr) { int ret; double d; ret = read(fd, &d, sizeof(double)); *ptr = d; return ret; }

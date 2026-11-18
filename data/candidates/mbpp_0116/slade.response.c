@@ -1,0 +1,1 @@
+u32 func0(u8 *buf, u32 size) { u32 ret = 0; int i; for (i = 0; i < size; i++) ret = ret * 10 + buf[i]; return ret; }

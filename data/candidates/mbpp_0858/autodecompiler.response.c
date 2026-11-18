@@ -1,0 +1,4 @@
+int func0(int *a, int n)
+{
+  return n * n;
+}

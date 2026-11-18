@@ -1,0 +1,1 @@
+uint32_t func0(uint32_t *x, int a, uint32_t b) { uint32_t m = 1; int i; for (i = 0; i < a; i++) m = (x[i] % b) * m % b; return m % b; }

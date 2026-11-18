@@ -1,0 +1,1 @@
+__attribute__((no, noclone)) int func0(int *x, int m, int n) { int ret = 0; for (int i = 0; i < m; ++i) { if ((x[i] * x[i]) % n == 1) ret++; } return ret; }

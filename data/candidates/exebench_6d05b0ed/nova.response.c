@@ -1,0 +1,1 @@
+void SetFloat(float *y) { *y = 3600.0; }

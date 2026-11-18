@@ -1,0 +1,1 @@
+void lib3ds_quat_copy(float *dst, float *quat) { for (int i = 0; i < 4; ++i) { dst[i] = quat[i]; } }

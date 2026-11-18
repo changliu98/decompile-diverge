@@ -1,0 +1,1 @@
+char *func0(char *str) { int len = strlen(str); if (len >= 5 && !strcmp(str + len - 4, "Road")) { str[len - 4] = '\0'; strcat(str, "-"); } return str; }

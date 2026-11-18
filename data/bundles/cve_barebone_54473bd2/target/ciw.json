@@ -1,0 +1,568 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 90h\nmov     ax, cx\nmov     [rbp+tif], rdi\nmov     [rbp+buf], rsi\nmov     [rbp+occ], rdx\nmov     [rbp+s], ax\nmov     rax, [rbp+buf]\nmov     [rbp+op], rax\nmov     rax, [rbp+occ]\nmov     [rbp+cc], rax\nmov     rax, [rbp+cc]\nmov     rcx, rax\nadd     rcx, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+cc], rcx\ncmp     rax, 0\njle     loc_15CE\nmov     rax, [rbp+op]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+op], rcx\nmov     byte ptr [rax], 0FFh\njmp     loc_159E\nmov     rax, [rbp+tif]\nmov     rax, [rax+18h]\nmov     [rbp+bp_0], rax\nmov     rax, [rbp+tif]\nmov     rax, [rax+20h]\nmov     [rbp+cc], rax\nmov     rax, [rbp+tif]\nmov     rax, [rax+10h]\nmov     [rbp+scanline], rax\nmov     rax, [rbp+occ]\ncqo\nidiv    [rbp+scanline]\ncmp     rdx, 0\njz      loc_162F\nmov     rax, [rbp+tif]\nmov     rdi, [rax+28h]; fd\nlea     rsi, NeXTDecode_module; \"NeXTDecode\"\nlea     rdx, fmt; \"Fractional scanlines cannot be read\"\nmov     al, 0\ncall    TIFFErrorExt\nmov     [rbp+var_4], 0\njmp     loc_1984\nmov     rax, [rbp+buf]\nmov     [rbp+row], rax\nxor     eax, eax\ncmp     [rbp+cc], 0\nmov     [rbp+var_6D], al\njle     loc_1652\ncmp     [rbp+occ], 0\nsetnle  al\nmov     [rbp+var_6D], al\nmov     al, [rbp+var_6D]\ntest    al, 1\njnz     loc_1662\njmp     loc_1933\nmov     rax, [rbp+bp_0]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+bp_0], rcx\nmovzx   eax, byte ptr [rax]\nmov     [rbp+n], rax\nmov     rax, [rbp+cc]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+cc], rax\nmov     rax, [rbp+n]\nmov     [rbp+var_78], rax\ntest    rax, rax\njz      loc_16AD\njmp     $+5\nmov     rax, [rbp+var_78]\nsub     rax, 40h ; '@'\njz      loc_16F1\njmp     loc_17A3\nmov     rax, [rbp+cc]\ncmp     rax, [rbp+scanline]\njge     loc_16C0\njmp     bad\nmov     rdi, [rbp+row]; d\nmov     rsi, [rbp+bp_0]; s\nmov     rdx, [rbp+scanline]; c\ncall    _ZNSt3__216allocator_traitsINS_9allocatorINS_11__tree_nodeINS_12__value_typeItP8_IO_FILEEEPvEEEEE10deallocateB8nn200000ERS9_PS8_m; std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<ushort,_IO_FILE *>,void *>>>::deallocate(std::allocator<std::__tree_node<std::__value_type<ushort,_IO_FILE *>,void *>>&,std::__tree_node<std::__value_type<ushort,_IO_FILE *>,void *>*,ulong)\nmov     rax, [rbp+scanline]\nadd     rax, [rbp+bp_0]\nmov     [rbp+bp_0], rax\nmov     rcx, [rbp+scanline]\nmov     rax, [rbp+cc]\nsub     rax, rcx\nmov     [rbp+cc], rax\njmp     loc_190E\ncmp     [rbp+cc], 4\njge     loc_1701\njmp     bad\nmov     rax, [rbp+bp_0]\nmovzx   eax, byte ptr [rax]\nshl     eax, 8\nmov     rcx, [rbp+bp_0]\nmovzx   ecx, byte ptr [rcx+1]\nadd     eax, ecx\ncdqe\nmov     [rbp+off], rax\nmov     rax, [rbp+bp_0]\nmovzx   eax, byte ptr [rax+2]\nshl     eax, 8\nmov     rcx, [rbp+bp_0]\nmovzx   ecx, byte ptr [rcx+3]\nadd     eax, ecx\ncdqe\nmov     [rbp+n], rax\nmov     rax, [rbp+cc]\nmov     rcx, [rbp+n]\nadd     rcx, 4\ncmp     rax, rcx\njl      loc_175D\nmov     rax, [rbp+off]\nadd     rax, [rbp+n]\ncmp     rax, [rbp+scanline]\njle     loc_1762\njmp     bad\nmov     rdi, [rbp+row]\nadd     rdi, [rbp+off]; d\nmov     rsi, [rbp+bp_0]\nadd     rsi, 4; s\nmov     rdx, [rbp+n]; c\ncall    _ZNSt3__216allocator_traitsINS_9allocatorINS_11__tree_nodeINS_12__value_typeItP8_IO_FILEEEPvEEEEE10deallocateB8nn200000ERS9_PS8_m; std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<ushort,_IO_FILE *>,void *>>>::deallocate(std::allocator<std::__tree_node<std::__value_type<ushort,_IO_FILE *>,void *>>&,std::__tree_node<std::__value_type<ushort,_IO_FILE *>,void *>*,ulong)\nmov     rax, [rbp+n]\nadd     rax, 4\nadd     rax, [rbp+bp_0]\nmov     [rbp+bp_0], rax\nmov     rcx, [rbp+n]\nadd     rcx, 4\nmov     rax, [rbp+cc]\nsub     rax, rcx\nmov     [rbp+cc], rax\njmp     loc_190E\nmov     [rbp+npixels], 0\nmov     rax, [rbp+tif]\nmov     eax, [rax+4]\nmov     [rbp+imagewidth], eax\nmov     rax, [rbp+tif]\nmov     eax, [rax]\nand     eax, 400h\ncmp     eax, 0\njz      loc_17D2\nmov     rax, [rbp+tif]\nmov     eax, [rax+8]\nmov     [rbp+imagewidth], eax\nmov     rax, [rbp+row]\nmov     [rbp+op], rax\nmov     rax, [rbp+n]\nsar     rax, 6\nand     rax, 3\nmov     [rbp+grey], eax\nmov     rax, [rbp+n]\nand     rax, 3Fh\nmov     [rbp+n], rax\nmov     rcx, [rbp+n]\nmov     rax, rcx\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+n], rax\nxor     eax, eax\ncmp     rcx, 0\nmov     [rbp+var_79], al\njle     loc_181F\nmov     eax, [rbp+npixels]\ncmp     eax, [rbp+imagewidth]\nsetb    al\nmov     [rbp+var_79], al\nmov     al, [rbp+var_79]\ntest    al, 1\njnz     loc_182F\njmp     loc_18C1\nmov     eax, [rbp+npixels]\nmov     ecx, eax\nadd     ecx, 1\nmov     [rbp+npixels], ecx\nand     eax, 3\nmov     [rbp+var_88], rax\nsub     eax, 3; switch 4 cases\nja      def_1862; jumptable 0000000000001862 default case\nmov     rax, [rbp+var_88]\nlea     rcx, jpt_1862\nmovsxd  rax, ds:(jpt_1862 - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nmov     eax, [rbp+grey]; jumptable 0000000000001862 case 0\nshl     eax, 6\nmov     cl, al\nmov     rax, [rbp+op]\nmov     [rax], cl\njmp     def_1862; jumptable 0000000000001862 default case\nmov     edx, [rbp+grey]; jumptable 0000000000001862 case 1\nshl     edx, 4\nmov     rax, [rbp+op]\nmovzx   ecx, byte ptr [rax]\nor      ecx, edx\nmov     [rax], cl\njmp     def_1862; jumptable 0000000000001862 default case\nmov     edx, [rbp+grey]; jumptable 0000000000001862 case 2\nshl     edx, 2\nmov     rax, [rbp+op]\nmovzx   ecx, byte ptr [rax]\nor      ecx, edx\nmov     [rax], cl\njmp     def_1862; jumptable 0000000000001862 default case\nmov     edx, [rbp+grey]; jumptable 0000000000001862 case 3\nmov     rax, [rbp+op]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+op], rcx\nmovzx   ecx, byte ptr [rax]\nor      ecx, edx\nmov     [rax], cl\njmp     loc_17F5; jumptable 0000000000001862 default case\nmov     eax, [rbp+npixels]\ncmp     eax, [rbp+imagewidth]\njb      loc_18D2\njmp     loc_1909\ncmp     [rbp+cc], 0\njnz     loc_18E2\njmp     bad\nmov     rax, [rbp+bp_0]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+bp_0], rcx\nmovzx   eax, byte ptr [rax]\nmov     [rbp+n], rax\nmov     rax, [rbp+cc]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+cc], rax\njmp     loc_17DA\njmp     $+5\njmp     $+5\nmov     rcx, [rbp+scanline]\nmov     rax, [rbp+occ]\nsub     rax, rcx\nmov     [rbp+occ], rax\nmov     rax, [rbp+scanline]\nadd     rax, [rbp+row]\nmov     [rbp+row], rax\njmp     loc_1637\nmov     rcx, [rbp+bp_0]\nmov     rax, [rbp+tif]\nmov     [rax+18h], rcx\nmov     rcx, [rbp+cc]\nmov     rax, [rbp+tif]\nmov     [rax+20h], rcx\nmov     [rbp+var_4], 1\njmp     loc_1984\nmov     rax, [rbp+tif]\nmov     rdi, [rax+28h]; fd\nmov     rax, [rbp+tif]\nmov     eax, [rax+0Ch]\nmov     ecx, eax\nlea     rsi, NeXTDecode_module; \"NeXTDecode\"\nlea     rdx, aNotEnoughDataF; \"Not enough data for scanline %ld\"\nmov     al, 0\ncall    TIFFErrorExt\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 90h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 49,
+  "edges": [
+   [
+    "start",
+    "loc_159E"
+   ],
+   [
+    "loc_159E",
+    "loc_15B7"
+   ],
+   [
+    "loc_159E",
+    "loc_15CE"
+   ],
+   [
+    "loc_15B7",
+    "loc_159E"
+   ],
+   [
+    "loc_15CE",
+    "loc_1606"
+   ],
+   [
+    "loc_15CE",
+    "loc_162F"
+   ],
+   [
+    "loc_1606",
+    "loc_1984"
+   ],
+   [
+    "loc_162F",
+    "loc_1637"
+   ],
+   [
+    "loc_1637",
+    "loc_1647"
+   ],
+   [
+    "loc_1637",
+    "loc_1652"
+   ],
+   [
+    "loc_1647",
+    "loc_1652"
+   ],
+   [
+    "loc_1652",
+    "loc_165D"
+   ],
+   [
+    "loc_1652",
+    "loc_1662"
+   ],
+   [
+    "loc_165D",
+    "loc_1933"
+   ],
+   [
+    "loc_1662",
+    "loc_1695"
+   ],
+   [
+    "loc_1662",
+    "loc_16AD"
+   ],
+   [
+    "loc_1695",
+    "loc_169A"
+   ],
+   [
+    "loc_169A",
+    "loc_16A8"
+   ],
+   [
+    "loc_169A",
+    "loc_16F1"
+   ],
+   [
+    "loc_16A8",
+    "loc_17A3"
+   ],
+   [
+    "loc_16AD",
+    "loc_16BB"
+   ],
+   [
+    "loc_16AD",
+    "loc_16C0"
+   ],
+   [
+    "loc_16BB",
+    "loc_1957"
+   ],
+   [
+    "loc_16C0",
+    "loc_190E"
+   ],
+   [
+    "loc_16F1",
+    "loc_16FC"
+   ],
+   [
+    "loc_16F1",
+    "loc_1701"
+   ],
+   [
+    "loc_16FC",
+    "loc_1957"
+   ],
+   [
+    "loc_1701",
+    "loc_174B"
+   ],
+   [
+    "loc_1701",
+    "loc_175D"
+   ],
+   [
+    "loc_174B",
+    "loc_175D"
+   ],
+   [
+    "loc_174B",
+    "loc_1762"
+   ],
+   [
+    "loc_175D",
+    "loc_1957"
+   ],
+   [
+    "loc_1762",
+    "loc_190E"
+   ],
+   [
+    "loc_17A3",
+    "loc_17C8"
+   ],
+   [
+    "loc_17A3",
+    "loc_17D2"
+   ],
+   [
+    "loc_17C8",
+    "loc_17D2"
+   ],
+   [
+    "loc_17D2",
+    "loc_17DA"
+   ],
+   [
+    "loc_17DA",
+    "loc_17F5"
+   ],
+   [
+    "loc_17F5",
+    "loc_1813"
+   ],
+   [
+    "loc_17F5",
+    "loc_181F"
+   ],
+   [
+    "loc_1813",
+    "loc_181F"
+   ],
+   [
+    "loc_181F",
+    "loc_182A"
+   ],
+   [
+    "loc_181F",
+    "loc_182F"
+   ],
+   [
+    "loc_182A",
+    "loc_18C1"
+   ],
+   [
+    "loc_182F",
+    "loc_184D"
+   ],
+   [
+    "loc_182F",
+    "loc_18BC"
+   ],
+   [
+    "loc_184D",
+    "loc_1864"
+   ],
+   [
+    "loc_184D",
+    "loc_1877"
+   ],
+   [
+    "loc_184D",
+    "loc_188D"
+   ],
+   [
+    "loc_184D",
+    "loc_18A3"
+   ],
+   [
+    "loc_1864",
+    "loc_18BC"
+   ],
+   [
+    "loc_1877",
+    "loc_18BC"
+   ],
+   [
+    "loc_188D",
+    "loc_18BC"
+   ],
+   [
+    "loc_18A3",
+    "loc_18BC"
+   ],
+   [
+    "loc_18BC",
+    "loc_17F5"
+   ],
+   [
+    "loc_18C1",
+    "loc_18CD"
+   ],
+   [
+    "loc_18C1",
+    "loc_18D2"
+   ],
+   [
+    "loc_18CD",
+    "loc_1909"
+   ],
+   [
+    "loc_18D2",
+    "loc_18DD"
+   ],
+   [
+    "loc_18D2",
+    "loc_18E2"
+   ],
+   [
+    "loc_18DD",
+    "loc_1957"
+   ],
+   [
+    "loc_18E2",
+    "loc_17DA"
+   ],
+   [
+    "loc_1909",
+    "loc_190E"
+   ],
+   [
+    "loc_190E",
+    "loc_1913"
+   ],
+   [
+    "loc_1913",
+    "loc_1637"
+   ],
+   [
+    "loc_1933",
+    "loc_1984"
+   ],
+   [
+    "loc_1957",
+    "loc_1984"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 90h\nmov     ax, cx\nmov     [rbp+tif], rdi\nmov     [rbp+buf], rsi\nmov     [rbp+occ], rdx\nmov     [rbp+s], ax\nmov     rax, [rbp+buf]\nmov     [rbp+op], rax\nmov     rax, [rbp+occ]\nmov     [rbp+cc], rax",
+   "loc_159E": "mov     rax, [rbp+cc]\nmov     rcx, rax\nadd     rcx, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+cc], rcx\ncmp     rax, 0\njle     loc_15CE",
+   "loc_15B7": "mov     rax, [rbp+op]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+op], rcx\nmov     byte ptr [rax], 0FFh\njmp     loc_159E",
+   "loc_15CE": "mov     rax, [rbp+tif]\nmov     rax, [rax+18h]\nmov     [rbp+bp_0], rax\nmov     rax, [rbp+tif]\nmov     rax, [rax+20h]\nmov     [rbp+cc], rax\nmov     rax, [rbp+tif]\nmov     rax, [rax+10h]\nmov     [rbp+scanline], rax\nmov     rax, [rbp+occ]\ncqo\nidiv    [rbp+scanline]\ncmp     rdx, 0\njz      loc_162F",
+   "loc_1606": "mov     rax, [rbp+tif]\nmov     rdi, [rax+28h]; fd\nlea     rsi, NeXTDecode_module; \"NeXTDecode\"\nlea     rdx, fmt; \"Fractional scanlines cannot be read\"\nmov     al, 0\ncall    TIFFErrorExt\nmov     [rbp+var_4], 0\njmp     loc_1984",
+   "loc_162F": "mov     rax, [rbp+buf]\nmov     [rbp+row], rax",
+   "loc_1637": "xor     eax, eax\ncmp     [rbp+cc], 0\nmov     [rbp+var_6D], al\njle     loc_1652",
+   "loc_1647": "cmp     [rbp+occ], 0\nsetnle  al\nmov     [rbp+var_6D], al",
+   "loc_1652": "mov     al, [rbp+var_6D]\ntest    al, 1\njnz     loc_1662",
+   "loc_165D": "jmp     loc_1933",
+   "loc_1662": "mov     rax, [rbp+bp_0]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+bp_0], rcx\nmovzx   eax, byte ptr [rax]\nmov     [rbp+n], rax\nmov     rax, [rbp+cc]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+cc], rax\nmov     rax, [rbp+n]\nmov     [rbp+var_78], rax\ntest    rax, rax\njz      loc_16AD",
+   "loc_1695": "jmp     $+5",
+   "loc_169A": "mov     rax, [rbp+var_78]\nsub     rax, 40h ; '@'\njz      loc_16F1",
+   "loc_16A8": "jmp     loc_17A3",
+   "loc_16AD": "mov     rax, [rbp+cc]\ncmp     rax, [rbp+scanline]\njge     loc_16C0",
+   "loc_16BB": "jmp     bad",
+   "loc_16C0": "mov     rdi, [rbp+row]; d\nmov     rsi, [rbp+bp_0]; s\nmov     rdx, [rbp+scanline]; c\ncall    _ZNSt3__216allocator_traitsINS_9allocatorINS_11__tree_nodeINS_12__value_typeItP8_IO_FILEEEPvEEEEE10deallocateB8nn200000ERS9_PS8_m; std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<ushort,_IO_FILE *>,void *>>>::deallocate(std::allocator<std::__tree_node<std::__value_type<ushort,_IO_FILE *>,void *>>&,std::__tree_node<std::__value_type<ushort,_IO_FILE *>,void *>*,ulong)\nmov     rax, [rbp+scanline]\nadd     rax, [rbp+bp_0]\nmov     [rbp+bp_0], rax\nmov     rcx, [rbp+scanline]\nmov     rax, [rbp+cc]\nsub     rax, rcx\nmov     [rbp+cc], rax\njmp     loc_190E",
+   "loc_16F1": "cmp     [rbp+cc], 4\njge     loc_1701",
+   "loc_16FC": "jmp     bad",
+   "loc_1701": "mov     rax, [rbp+bp_0]\nmovzx   eax, byte ptr [rax]\nshl     eax, 8\nmov     rcx, [rbp+bp_0]\nmovzx   ecx, byte ptr [rcx+1]\nadd     eax, ecx\ncdqe\nmov     [rbp+off], rax\nmov     rax, [rbp+bp_0]\nmovzx   eax, byte ptr [rax+2]\nshl     eax, 8\nmov     rcx, [rbp+bp_0]\nmovzx   ecx, byte ptr [rcx+3]\nadd     eax, ecx\ncdqe\nmov     [rbp+n], rax\nmov     rax, [rbp+cc]\nmov     rcx, [rbp+n]\nadd     rcx, 4\ncmp     rax, rcx\njl      loc_175D",
+   "loc_174B": "mov     rax, [rbp+off]\nadd     rax, [rbp+n]\ncmp     rax, [rbp+scanline]\njle     loc_1762",
+   "loc_175D": "jmp     bad",
+   "loc_1762": "mov     rdi, [rbp+row]\nadd     rdi, [rbp+off]; d\nmov     rsi, [rbp+bp_0]\nadd     rsi, 4; s\nmov     rdx, [rbp+n]; c\ncall    _ZNSt3__216allocator_traitsINS_9allocatorINS_11__tree_nodeINS_12__value_typeItP8_IO_FILEEEPvEEEEE10deallocateB8nn200000ERS9_PS8_m; std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<ushort,_IO_FILE *>,void *>>>::deallocate(std::allocator<std::__tree_node<std::__value_type<ushort,_IO_FILE *>,void *>>&,std::__tree_node<std::__value_type<ushort,_IO_FILE *>,void *>*,ulong)\nmov     rax, [rbp+n]\nadd     rax, 4\nadd     rax, [rbp+bp_0]\nmov     [rbp+bp_0], rax\nmov     rcx, [rbp+n]\nadd     rcx, 4\nmov     rax, [rbp+cc]\nsub     rax, rcx\nmov     [rbp+cc], rax\njmp     loc_190E",
+   "loc_17A3": "mov     [rbp+npixels], 0\nmov     rax, [rbp+tif]\nmov     eax, [rax+4]\nmov     [rbp+imagewidth], eax\nmov     rax, [rbp+tif]\nmov     eax, [rax]\nand     eax, 400h\ncmp     eax, 0\njz      loc_17D2",
+   "loc_17C8": "mov     rax, [rbp+tif]\nmov     eax, [rax+8]\nmov     [rbp+imagewidth], eax",
+   "loc_17D2": "mov     rax, [rbp+row]\nmov     [rbp+op], rax",
+   "loc_17DA": "mov     rax, [rbp+n]\nsar     rax, 6\nand     rax, 3\nmov     [rbp+grey], eax\nmov     rax, [rbp+n]\nand     rax, 3Fh\nmov     [rbp+n], rax",
+   "loc_17F5": "mov     rcx, [rbp+n]\nmov     rax, rcx\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+n], rax\nxor     eax, eax\ncmp     rcx, 0\nmov     [rbp+var_79], al\njle     loc_181F",
+   "loc_1813": "mov     eax, [rbp+npixels]\ncmp     eax, [rbp+imagewidth]\nsetb    al\nmov     [rbp+var_79], al",
+   "loc_181F": "mov     al, [rbp+var_79]\ntest    al, 1\njnz     loc_182F",
+   "loc_182A": "jmp     loc_18C1",
+   "loc_182F": "mov     eax, [rbp+npixels]\nmov     ecx, eax\nadd     ecx, 1\nmov     [rbp+npixels], ecx\nand     eax, 3\nmov     [rbp+var_88], rax\nsub     eax, 3; switch 4 cases\nja      def_1862; jumptable 0000000000001862 default case",
+   "loc_184D": "mov     rax, [rbp+var_88]\nlea     rcx, jpt_1862\nmovsxd  rax, ds:(jpt_1862 - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_1864": "mov     eax, [rbp+grey]; jumptable 0000000000001862 case 0\nshl     eax, 6\nmov     cl, al\nmov     rax, [rbp+op]\nmov     [rax], cl\njmp     def_1862; jumptable 0000000000001862 default case",
+   "loc_1877": "mov     edx, [rbp+grey]; jumptable 0000000000001862 case 1\nshl     edx, 4\nmov     rax, [rbp+op]\nmovzx   ecx, byte ptr [rax]\nor      ecx, edx\nmov     [rax], cl\njmp     def_1862; jumptable 0000000000001862 default case",
+   "loc_188D": "mov     edx, [rbp+grey]; jumptable 0000000000001862 case 2\nshl     edx, 2\nmov     rax, [rbp+op]\nmovzx   ecx, byte ptr [rax]\nor      ecx, edx\nmov     [rax], cl\njmp     def_1862; jumptable 0000000000001862 default case",
+   "loc_18A3": "mov     edx, [rbp+grey]; jumptable 0000000000001862 case 3\nmov     rax, [rbp+op]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+op], rcx\nmovzx   ecx, byte ptr [rax]\nor      ecx, edx\nmov     [rax], cl",
+   "loc_18BC": "jmp     loc_17F5; jumptable 0000000000001862 default case",
+   "loc_18C1": "mov     eax, [rbp+npixels]\ncmp     eax, [rbp+imagewidth]\njb      loc_18D2",
+   "loc_18CD": "jmp     loc_1909",
+   "loc_18D2": "cmp     [rbp+cc], 0\njnz     loc_18E2",
+   "loc_18DD": "jmp     bad",
+   "loc_18E2": "mov     rax, [rbp+bp_0]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+bp_0], rcx\nmovzx   eax, byte ptr [rax]\nmov     [rbp+n], rax\nmov     rax, [rbp+cc]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+cc], rax\njmp     loc_17DA",
+   "loc_1909": "jmp     $+5",
+   "loc_190E": "jmp     $+5",
+   "loc_1913": "mov     rcx, [rbp+scanline]\nmov     rax, [rbp+occ]\nsub     rax, rcx\nmov     [rbp+occ], rax\nmov     rax, [rbp+scanline]\nadd     rax, [rbp+row]\nmov     [rbp+row], rax\njmp     loc_1637",
+   "loc_1933": "mov     rcx, [rbp+bp_0]\nmov     rax, [rbp+tif]\nmov     [rax+18h], rcx\nmov     rcx, [rbp+cc]\nmov     rax, [rbp+tif]\nmov     [rax+20h], rcx\nmov     [rbp+var_4], 1\njmp     loc_1984",
+   "loc_1957": "mov     rax, [rbp+tif]\nmov     rdi, [rax+28h]; fd\nmov     rax, [rbp+tif]\nmov     eax, [rax+0Ch]\nmov     ecx, eax\nlea     rsi, NeXTDecode_module; \"NeXTDecode\"\nlea     rdx, aNotEnoughDataF; \"Not enough data for scanline %ld\"\nmov     al, 0\ncall    TIFFErrorExt\nmov     [rbp+var_4], 0",
+   "loc_1984": "mov     eax, [rbp+var_4]\nadd     rsp, 90h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_88": "qword ptr -88h",
+   "var_79": "byte ptr -79h",
+   "var_78": "qword ptr -78h",
+   "var_6D": "byte ptr -6Dh",
+   "imagewidth": "dword ptr -6Ch",
+   "grey": "dword ptr -68h",
+   "npixels": "dword ptr -64h",
+   "off": "qword ptr -60h",
+   "n": "qword ptr -58h",
+   "scanline": "qword ptr -50h",
+   "row": "qword ptr -48h",
+   "cc": "qword ptr -40h",
+   "op": "qword ptr -38h",
+   "bp_0": "qword ptr -30h",
+   "s": "word ptr -22h",
+   "occ": "qword ptr -20h",
+   "buf": "qword ptr -18h",
+   "tif": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "NeXTDecode.module": "byte 'NeXTDecode',0",
+   "fmt": "byte 'Fractional scanlines cannot be read',0",
+   "jpt_1862": "dword offset loc_1864 - 2004h; jump table for switch statement",
+   "aNotEnoughDataF": "byte 'Not enough data for scanline %ld',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5488,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".rewind": "rewind",
+  "_rewind": "rewind",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".vfprintf": "vfprintf",
+  "_vfprintf": "vfprintf"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".rewind",
+   ".plt",
+   true,
+   "rewind"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".vfprintf",
+   ".plt",
+   true,
+   "vfprintf"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "rewind",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "vfprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868553
+ }
+}

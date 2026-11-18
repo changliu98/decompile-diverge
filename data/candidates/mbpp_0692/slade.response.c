@@ -1,0 +1,1 @@
+int func0(int n) { if (n >= 10) return 0; int r = 1; for (int i = 1; i <= n; ++i) { r = (r * i) % 100; } return r; }

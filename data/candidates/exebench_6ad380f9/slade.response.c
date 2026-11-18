@@ -1,0 +1,1 @@
+void set_autofs_type_direct(autofs_node_t *node) { node->type = 2; }

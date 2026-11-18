@@ -1,0 +1,1 @@
+char * func0 (const char *s) { int i; int j = 0; for (i = 0; s[i] != '\0'; i++) { if ((__ctype_b_loc () -> S)[(s[i])] &0x200) { result[j++] = s[i]; } } result[j] = '\0'; return (&result); }

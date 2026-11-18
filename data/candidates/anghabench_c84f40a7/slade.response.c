@@ -1,0 +1,1 @@
+int byte_row_gbk1(int r) { if (r >= 129 && r <= 254) return r - 129; return -1; }

@@ -1,0 +1,1 @@
+void initializeStatesAndConstants(0b000011111111111 *parameters, 0b00001111111111 *r) { parameters[0] = 0.0; parameters[1] = 1.0; }

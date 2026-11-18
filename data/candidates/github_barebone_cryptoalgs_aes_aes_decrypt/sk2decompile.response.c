@@ -1,0 +1,100 @@
+void aes_decrypt(unsigned char *in, unsigned char *out, unsigned char *expkey,
+                 int keybits) {
+  unsigned char state[4][4];
+  state[0][0] = in[0];
+  state[1][0] = in[1];
+  state[2][0] = in[2];
+  state[3][0] = in[3];
+  state[0][1] = in[4];
+  state[1][1] = in[5];
+  state[2][1] = in[6];
+  state[3][1] = in[7];
+  state[0][2] = in[8];
+  state[1][2] = in[9];
+  state[2][2] = in[10];
+  state[3][2] = in[11];
+  state[0][3] = in[12];
+  state[1][3] = in[13];
+  state[2][3] = in[14];
+  state[3][3] = in[15];
+  if (keybits > 128) {
+    if (keybits > 192) {
+      AddRoundKey(state, expkey + 56);
+      InvShiftRows(state);
+      InvSubBytes(state);
+      AddRoundKey(state, expkey + 52);
+      InvMixColumns(state);
+      InvShiftRows(state);
+      InvSubBytes(state);
+      AddRoundKey(state, expkey + 48);
+      InvMixColumns(state);
+    } else {
+      AddRoundKey(state, expkey + 48);
+    }
+    InvShiftRows(state);
+    InvSubBytes(state);
+    AddRoundKey(state, expkey + 44);
+    InvMixColumns(state);
+    InvShiftRows(state);
+    InvSubBytes(state);
+    AddRoundKey(state, expkey + 40);
+    InvMixColumns(state);
+  } else {
+    AddRoundKey(state, expkey + 40);
+  }
+  InvShiftRows(state);
+  InvSubBytes(state);
+  AddRoundKey(state, expkey + 36);
+  InvMixColumns(state);
+  InvShiftRows(state);
+  InvSubBytes(state);
+  AddRoundKey(state, expkey + 32);
+  InvMixColumns(state);
+  InvShiftRows(state);
+  InvSubBytes(state);
+  AddRoundKey(state, expkey + 28);
+  InvMixColumns(state);
+  InvShiftRows(state);
+  InvSubBytes(state);
+  AddRoundKey(state, expkey + 24);
+  InvMixColumns(state);
+  InvShiftRows(state);
+  InvSubBytes(state);
+  AddRoundKey(state, expkey + 20);
+  InvMixColumns(state);
+  InvShiftRows(state);
+  InvSubBytes(state);
+  AddRoundKey(state, expkey + 16);
+  InvMixColumns(state);
+  InvShiftRows(state);
+  InvSubBytes(state);
+  AddRoundKey(state, expkey + 12);
+  InvMixColumns(state);
+  InvShiftRows(state);
+  InvSubBytes(state);
+  AddRoundKey(state, expkey + 8);
+  InvMixColumns(state);
+  InvShiftRows(state);
+  InvSubBytes(state);
+  AddRoundKey(state, expkey + 4);
+  InvMixColumns(state);
+  InvShiftRows(state);
+  InvSubBytes(state);
+  AddRoundKey(state, expkey + 0);
+  out[0] = state[0][0];
+  out[1] = state[1][0];
+  out[2] = state[2][0];
+  out[3] = state[3][0];
+  out[4] = state[0][1];
+  out[5] = state[1][1];
+  out[6] = state[2][1];
+  out[7] = state[3][1];
+  out[8] = state[0][2];
+  out[9] = state[1][2];
+  out[10] = state[2][2];
+  out[11] = state[3][2];
+  out[12] = state[0][3];
+  out[13] = state[1][3];
+  out[14] = state[2][3];
+  out[15] = state[3][3];
+}

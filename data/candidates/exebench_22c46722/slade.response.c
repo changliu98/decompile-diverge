@@ -1,0 +1,1 @@
+int read_sock(int fd, char *buf, int size) { int ret = -1; char *ptr = buf; int size_left = size; int count = 0; do { ret = read(fd, ptr, size_left); if (ret > 0) { ptr += ret; size_left -= ret; } count++; if (count > 10000) { return -1; } } while (size_left > 0); return size_left; }

@@ -1,0 +1,36 @@
+void OsdGetBoxSplineWeights(float x, float y, float z, float out[3]) {
+    float a = x * x - y * y - z * z;
+    float b = 2 * x * y;
+    float c = 2 * x * z;
+    float d = 2 * y * z;
+    float e = x * x - z * z;
+    float f = 2 * x * y;
+    float g = 2 * y * z;
+    float h = 2 * x * z;
+    float i = x * x - y * y;
+    float j = 2 * x * y;
+    float k = 2 * x * z;
+    float l = 2 * y * z;
+    float m = 2 * x * z;
+    float n = 2 * y * z;
+    float o = x * x - z * z;
+    float p = 2 * x * y;
+    float q = 2 * x * z;
+    float r = 2 * y * z;
+    float s = x * x - y * y;
+    float t = 2 * x * y;
+    float u = 2 * x * z;
+    float v = 2 * y * z;
+    float w = x * x - z * z;
+    float xx = 2 * x * y;
+    float yy = 2 * x * z;
+    float zz = 2 * y * z;
+    out[0] = a * e + b * f + c * g + d * h;
+    out[1] = a * f + b * g + c * h + d * i;
+    out[2] = a * g + b * h + c * i + d * j;
+    out[3] = a * h + b * i + c * j + d * k;
+    out[4] = a * i + b * j + c * k + d * l;
+    out[5] = a * j + b * k + c * l + d * m;
+    out[6] = a * k + b * l + c * m + d * n;
+    out[7] = a * l + b * m + c * n + d * o;
+    out[8

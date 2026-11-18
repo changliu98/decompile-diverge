@@ -1,0 +1,1 @@
+int sync_test_and_set_bit(int nr, volatile void *addr) { register u_int old; asm volatile ("lock; btsl	%0,%1\n" "sbbl	%2,%2\n" : "=r" (old), "=m" (*addr) : "r" (nr), "0" (nr) : "cc"); return old; }

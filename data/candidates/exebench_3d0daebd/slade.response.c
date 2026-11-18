@@ -1,0 +1,1 @@
+void swt_max(double *u, int n, double *max) { int i; *max = u[0]; for (i = 1; i < n; i++) { if (u[i] > *max) { *max = u[i]; } } return ; }

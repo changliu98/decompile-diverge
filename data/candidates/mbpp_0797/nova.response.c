@@ -1,0 +1,1 @@
+int func0(int n, int k) { return fact(n) - fact(n - 1); }

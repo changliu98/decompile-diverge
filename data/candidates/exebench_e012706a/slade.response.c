@@ -1,0 +1,1 @@
+void cmatrix_to_frame(double *data, double *c1, double *c2, double *c3) { int i; for (i = 0; i < 3; i++) { c1[i] = data[3*i + 0]; c2[i] = data[3*i + 1]; c3[i] = data[3*i + 2]; } }

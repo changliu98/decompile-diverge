@@ -1,0 +1,112 @@
+00000000000015d0 <parse_device>:
+    15d0:	push   %rbp
+    15d1:	mov    %rsp,%rbp
+    15d4:	sub    $0x70,%rsp
+    15d8:	mov    %rdi,-0x10(%rbp)
+    15dc:	mov    %rsi,-0x18(%rbp)
+    15e0:	mov    %rdx,-0x20(%rbp)
+    15e4:	movq   $0x0,-0x70(%rbp)
+    15ec:	mov    -0x10(%rbp),%rdi
+    15f0:	xor    %esi,%esi
+    15f2:	mov    $0x8,%edx
+    15f7:	call   1070 <memset@plt>
+    15fc:	mov    -0x20(%rbp),%rdi
+    1600:	mov    $0x2c,%esi
+    1605:	call   1060 <strchr@plt>
+    160a:	mov    %rax,-0x50(%rbp)
+    160e:	cmp    $0x0,%rax
+    1612:	je     1789 <parse_device+0x1b9>
+    1618:	mov    -0x50(%rbp),%rax
+    161c:	mov    %rax,%rcx
+    161f:	add    $0x1,%rcx
+    1623:	mov    %rcx,-0x50(%rbp)
+    1627:	movb   $0x0,(%rax)
+    162a:	mov    -0x20(%rbp),%rdi
+    162e:	call   12f0 <pack_find>
+    1633:	mov    %rax,-0x60(%rbp)
+    1637:	cmp    $0x0,%rax
+    163b:	jne    1668 <parse_device+0x98>
+    1641:	mov    -0x18(%rbp),%rdi
+    1645:	mov    -0x20(%rbp),%rcx
+    1649:	mov    $0x16,%esi
+    164e:	lea    0x1acb(%rip),%rdx        # 3120 <tooManyFields+0xd0>
+    1655:	mov    $0x0,%al
+    1657:	call   1200 <archive_set_error>
+    165c:	movl   $0xffffffec,-0x4(%rbp)
+    1663:	jmp    17a8 <parse_device+0x1d8>
+    1668:	movl   $0x0,-0x54(%rbp)
+    166f:	lea    -0x50(%rbp),%rdi
+    1673:	lea    0x1aba(%rip),%rsi        # 3134 <tooManyFields+0xe4>
+    167a:	call   1e70 <la_strsep>
+    167f:	mov    %rax,-0x48(%rbp)
+    1683:	cmp    $0x0,%rax
+    1687:	je     1710 <parse_device+0x140>
+    168d:	mov    -0x48(%rbp),%rax
+    1691:	movsbl (%rax),%eax
+    1694:	cmp    $0x0,%eax
+    1697:	jne    16c0 <parse_device+0xf0>
+    169d:	mov    -0x18(%rbp),%rdi
+    16a1:	mov    $0x16,%esi
+    16a6:	lea    0x1a89(%rip),%rdx        # 3136 <tooManyFields+0xe6>
+    16ad:	mov    $0x0,%al
+    16af:	call   1200 <archive_set_error>
+    16b4:	movl   $0xffffffec,-0x4(%rbp)
+    16bb:	jmp    17a8 <parse_device+0x1d8>
+    16c0:	lea    -0x48(%rbp),%rdi
+    16c4:	call   1f30 <mtree_atol>
+    16c9:	mov    %rax,%rcx
+    16cc:	mov    -0x54(%rbp),%eax
+    16cf:	mov    %eax,%edx
+    16d1:	add    $0x1,%edx
+    16d4:	mov    %edx,-0x54(%rbp)
+    16d7:	cltq
+    16d9:	mov    %rcx,-0x40(%rbp,%rax,8)
+    16de:	cmpl   $0x3,-0x54(%rbp)
+    16e2:	jle    170b <parse_device+0x13b>
+    16e8:	mov    -0x18(%rbp),%rdi
+    16ec:	mov    $0x16,%esi
+    16f1:	lea    0x1a4d(%rip),%rdx        # 3145 <tooManyFields+0xf5>
+    16f8:	mov    $0x0,%al
+    16fa:	call   1200 <archive_set_error>
+    16ff:	movl   $0xffffffec,-0x4(%rbp)
+    1706:	jmp    17a8 <parse_device+0x1d8>
+    170b:	jmp    166f <parse_device+0x9f>
+    1710:	cmpl   $0x2,-0x54(%rbp)
+    1714:	jge    173d <parse_device+0x16d>
+    171a:	mov    -0x18(%rbp),%rdi
+    171e:	mov    $0x16,%esi
+    1723:	lea    0x1a2e(%rip),%rdx        # 3158 <tooManyFields+0x108>
+    172a:	mov    $0x0,%al
+    172c:	call   1200 <archive_set_error>
+    1731:	movl   $0xffffffec,-0x4(%rbp)
+    1738:	jmp    17a8 <parse_device+0x1d8>
+    173d:	mov    -0x60(%rbp),%rax
+    1741:	mov    -0x54(%rbp),%edi
+    1744:	lea    -0x40(%rbp),%rsi
+    1748:	lea    -0x70(%rbp),%rdx
+    174c:	call   *%rax
+    174e:	mov    %rax,-0x68(%rbp)
+    1752:	cmpq   $0x0,-0x70(%rbp)
+    1757:	je     1784 <parse_device+0x1b4>
+    175d:	mov    -0x18(%rbp),%rdi
+    1761:	mov    -0x70(%rbp),%rcx
+    1765:	mov    $0x16,%esi
+    176a:	lea    0x19fc(%rip),%rdx        # 316d <tooManyFields+0x11d>
+    1771:	mov    $0x0,%al
+    1773:	call   1200 <archive_set_error>
+    1778:	movl   $0xffffffec,-0x4(%rbp)
+    177f:	jmp    17a8 <parse_device+0x1d8>
+    1784:	jmp    1796 <parse_device+0x1c6>
+    1789:	lea    -0x20(%rbp),%rdi
+    178d:	call   1f30 <mtree_atol>
+    1792:	mov    %rax,-0x68(%rbp)
+    1796:	mov    -0x68(%rbp),%rcx
+    179a:	mov    -0x10(%rbp),%rax
+    179e:	mov    %rcx,(%rax)
+    17a1:	movl   $0x0,-0x4(%rbp)
+    17a8:	mov    -0x4(%rbp),%eax
+    17ab:	add    $0x70,%rsp
+    17af:	pop    %rbp
+    17b0:	ret
+
+Disassembly of section .fini:

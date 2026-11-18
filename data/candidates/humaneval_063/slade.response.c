@@ -1,0 +1,1 @@
+int func0(int n) { int arr[100] = {0}; int i; arr[10] = 0; arr[11] = 1; for (i = 3; i <= n; i++) { arr[i] = arr[i - 1] + arr[i - 2] + arr[i - 3]; } return arr[n]; }

@@ -1,0 +1,1 @@
+char last_char(char *p) { char c; if (!p || !*p) return 0; while (*p) p++; c = *--p; *p = '\0'; return c; }

@@ -1,0 +1,1 @@
+void grad1(int x, float *y) { int fx = x & 15; *y = 1.0f + (fx & 7); if (fx & 8) *y *= -1.0f; return ; }

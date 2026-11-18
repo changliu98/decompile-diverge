@@ -1,0 +1,358 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+persistent], rdi\nmov     [rbp+entry], rsi\nlea     rdi, [rbp+entry3]; s\nxor     esi, esi; c\nmov     edx, 0Ch; n\ncall    memset\ncmp     [rbp+persistent], 0\njz      loc_1980\njmp     loc_199F\nlea     rdi, assertion; \"persistent\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 117h; line\nlea     rcx, function; \"int persistent_cache_read_entry_v3(rdpP\"...\ncall    ___assert_fail\ncmp     [rbp+entry], 0\njz      loc_19AF\njmp     loc_19CE\nlea     rdi, aEntry; \"entry\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 118h; line\nlea     rcx, function; \"int persistent_cache_read_entry_v3(rdpP\"...\ncall    ___assert_fail\nlea     rdi, [rbp+entry3]; ptr\nmov     rax, [rbp+persistent]\nmov     rcx, [rax]; stream\nmov     esi, 0Ch; size\nmov     edx, 1; n\ncall    fread\ncmp     rax, 1\njz      loc_19FE\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_1B1B\nmov     rcx, [rbp+entry3.key64]\nmov     rax, [rbp+entry]\nmov     [rax], rcx\nmov     cx, [rbp+entry3.width]\nmov     rax, [rbp+entry]\nmov     [rax+8], cx\nmov     cx, [rbp+entry3.height]\nmov     rax, [rbp+entry]\nmov     [rax+0Ah], cx\nmovzx   eax, [rbp+entry3.width]\nshl     rax, 2\nmovzx   ecx, [rbp+entry3.height]\nimul    rax, rcx\nmov     [rbp+size], rax\nmov     eax, 0FFFFFFFFh\ncmp     [rbp+size], rax\njbe     loc_1A50\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_1B1B\nmov     rax, [rbp+entry]\nmov     dword ptr [rax+10h], 0\nmov     rax, [rbp+size]\nmov     rcx, [rbp+persistent]\ncmp     rax, [rcx+28h]\njbe     loc_1ABF\nmov     rcx, [rbp+size]\nmov     rax, [rbp+persistent]\nmov     [rax+28h], rcx\nmov     rax, [rbp+persistent]\nmov     rdi, [rax+20h]; memblock\nmov     rax, [rbp+persistent]\nmov     rsi, [rax+28h]; num\nmov     edx, 1; size\nmov     ecx, 20h ; ' '; alignment\ncall    _ZN4chip9ArgParser11HelpOptionsC2EPKcS3_S3_; chip::ArgParser::HelpOptions::HelpOptions(char const*,char const*,char const*)\nmov     [rbp+bmpData], rax\ncmp     [rbp+bmpData], 0\njnz     loc_1AB3\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_1B1B\nmov     rcx, [rbp+bmpData]\nmov     rax, [rbp+persistent]\nmov     [rax+20h], rcx\nmov     rax, [rbp+size]\nmov     ecx, eax\nmov     rax, [rbp+entry]\nmov     [rax+0Ch], ecx\nmov     rax, [rbp+persistent]\nmov     rcx, [rax+20h]\nmov     rax, [rbp+entry]\nmov     [rax+18h], rcx\nmov     rax, [rbp+entry]\nmov     rdi, [rax+18h]; ptr\nmov     rax, [rbp+entry]\nmov     eax, [rax+0Ch]\nmov     esi, eax; size\nmov     rax, [rbp+persistent]\nmov     rcx, [rax]; stream\nmov     edx, 1; n\ncall    fread\ncmp     rax, 1\njz      loc_1B14\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_1B1B\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 18,
+  "edges": [
+   [
+    "start",
+    "loc_197B"
+   ],
+   [
+    "start",
+    "loc_1980"
+   ],
+   [
+    "loc_197B",
+    "loc_199F"
+   ],
+   [
+    "loc_199F",
+    "loc_19AA"
+   ],
+   [
+    "loc_199F",
+    "loc_19AF"
+   ],
+   [
+    "loc_19AA",
+    "loc_19CE"
+   ],
+   [
+    "loc_19CE",
+    "loc_19F2"
+   ],
+   [
+    "loc_19CE",
+    "loc_19FE"
+   ],
+   [
+    "loc_19F2",
+    "loc_1B1B"
+   ],
+   [
+    "loc_19FE",
+    "loc_1A44"
+   ],
+   [
+    "loc_19FE",
+    "loc_1A50"
+   ],
+   [
+    "loc_1A44",
+    "loc_1B1B"
+   ],
+   [
+    "loc_1A50",
+    "loc_1A6D"
+   ],
+   [
+    "loc_1A50",
+    "loc_1ABF"
+   ],
+   [
+    "loc_1A6D",
+    "loc_1AA7"
+   ],
+   [
+    "loc_1A6D",
+    "loc_1AB3"
+   ],
+   [
+    "loc_1AA7",
+    "loc_1B1B"
+   ],
+   [
+    "loc_1AB3",
+    "loc_1ABF"
+   ],
+   [
+    "loc_1ABF",
+    "loc_1B08"
+   ],
+   [
+    "loc_1ABF",
+    "loc_1B14"
+   ],
+   [
+    "loc_1B08",
+    "loc_1B1B"
+   ],
+   [
+    "loc_1B14",
+    "loc_1B1B"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+persistent], rdi\nmov     [rbp+entry], rsi\nlea     rdi, [rbp+entry3]; s\nxor     esi, esi; c\nmov     edx, 0Ch; n\ncall    memset\ncmp     [rbp+persistent], 0\njz      loc_1980",
+   "loc_197B": "jmp     loc_199F",
+   "loc_1980": "lea     rdi, assertion; \"persistent\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 117h; line\nlea     rcx, function; \"int persistent_cache_read_entry_v3(rdpP\"...\ncall    ___assert_fail",
+   "loc_199F": "cmp     [rbp+entry], 0\njz      loc_19AF",
+   "loc_19AA": "jmp     loc_19CE",
+   "loc_19AF": "lea     rdi, aEntry; \"entry\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 118h; line\nlea     rcx, function; \"int persistent_cache_read_entry_v3(rdpP\"...\ncall    ___assert_fail",
+   "loc_19CE": "lea     rdi, [rbp+entry3]; ptr\nmov     rax, [rbp+persistent]\nmov     rcx, [rax]; stream\nmov     esi, 0Ch; size\nmov     edx, 1; n\ncall    fread\ncmp     rax, 1\njz      loc_19FE",
+   "loc_19F2": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_1B1B",
+   "loc_19FE": "mov     rcx, [rbp+entry3.key64]\nmov     rax, [rbp+entry]\nmov     [rax], rcx\nmov     cx, [rbp+entry3.width]\nmov     rax, [rbp+entry]\nmov     [rax+8], cx\nmov     cx, [rbp+entry3.height]\nmov     rax, [rbp+entry]\nmov     [rax+0Ah], cx\nmovzx   eax, [rbp+entry3.width]\nshl     rax, 2\nmovzx   ecx, [rbp+entry3.height]\nimul    rax, rcx\nmov     [rbp+size], rax\nmov     eax, 0FFFFFFFFh\ncmp     [rbp+size], rax\njbe     loc_1A50",
+   "loc_1A44": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_1B1B",
+   "loc_1A50": "mov     rax, [rbp+entry]\nmov     dword ptr [rax+10h], 0\nmov     rax, [rbp+size]\nmov     rcx, [rbp+persistent]\ncmp     rax, [rcx+28h]\njbe     loc_1ABF",
+   "loc_1A6D": "mov     rcx, [rbp+size]\nmov     rax, [rbp+persistent]\nmov     [rax+28h], rcx\nmov     rax, [rbp+persistent]\nmov     rdi, [rax+20h]; memblock\nmov     rax, [rbp+persistent]\nmov     rsi, [rax+28h]; num\nmov     edx, 1; size\nmov     ecx, 20h ; ' '; alignment\ncall    _ZN4chip9ArgParser11HelpOptionsC2EPKcS3_S3_; chip::ArgParser::HelpOptions::HelpOptions(char const*,char const*,char const*)\nmov     [rbp+bmpData], rax\ncmp     [rbp+bmpData], 0\njnz     loc_1AB3",
+   "loc_1AA7": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_1B1B",
+   "loc_1AB3": "mov     rcx, [rbp+bmpData]\nmov     rax, [rbp+persistent]\nmov     [rax+20h], rcx",
+   "loc_1ABF": "mov     rax, [rbp+size]\nmov     ecx, eax\nmov     rax, [rbp+entry]\nmov     [rax+0Ch], ecx\nmov     rax, [rbp+persistent]\nmov     rcx, [rax+20h]\nmov     rax, [rbp+entry]\nmov     [rax+18h], rcx\nmov     rax, [rbp+entry]\nmov     rdi, [rax+18h]; ptr\nmov     rax, [rbp+entry]\nmov     eax, [rax+0Ch]\nmov     esi, eax; size\nmov     rax, [rbp+persistent]\nmov     rcx, [rax]; stream\nmov     edx, 1; n\ncall    fread\ncmp     rax, 1\njz      loc_1B14",
+   "loc_1B08": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_1B1B",
+   "loc_1B14": "mov     [rbp+var_4], 1",
+   "loc_1B1B": "mov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "bmpData": "qword ptr -38h",
+   "size": "qword ptr -30h",
+   "entry3": "PERSISTENT_CACHE_ENTRY_V3 ptr -28h",
+   "entry": "qword ptr -18h",
+   "persistent": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "assertion": "byte 'persistent',0",
+   "file": "byte 'harness.c',0",
+   "function": "byte 'int persistent_cache_read_entry_v3(rdpPersistentCache *, PERSISTE'",
+   "aEntry": "byte 'entry',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6480,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fmemopen": "fmemopen",
+  "_fmemopen": "fmemopen",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".posix_memalign": "posix_memalign",
+  "_posix_memalign": "posix_memalign"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fmemopen",
+   ".plt",
+   true,
+   "fmemopen"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".posix_memalign",
+   ".plt",
+   true,
+   "posix_memalign"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fmemopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "posix_memalign",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868499
+ }
+}

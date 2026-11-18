@@ -1,0 +1,1 @@
+void cha_ins(void *p, char c) { *(char *)p = c; }

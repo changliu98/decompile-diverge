@@ -1,0 +1,1 @@
+int func0(char *str) { int count = 0; int i, j, l; l = strlen(str); for (i = 0; i < l; i++) { for (j = 1; j <= l - i; j++) { if (check_Equality(str, i, j)) { count++; } } } return count; }

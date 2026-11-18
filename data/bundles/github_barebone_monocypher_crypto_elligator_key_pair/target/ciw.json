@@ -1,0 +1,281 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0A0h\nmov     [rbp+hidden], rdi\nmov     [rbp+secret_key], rsi\nmov     [rbp+seed], rdx\nmov     [rbp+_i_], 0\ncmp     [rbp+_i_], 20h ; ' '\njnb     loc_FE80\nmov     rax, [rbp+seed]\nmov     rcx, [rbp+_i_]\nmov     cl, [rax+rcx]\nmov     rax, [rbp+_i_]\nmov     [rbp+rax+buf+20h], cl\nmov     rax, [rbp+_i_]\nadd     rax, 1\nmov     [rbp+_i_], rax\njmp     loc_FE42\njmp     $+5\nlea     rdi, [rbp+buf]; cipher_text\nlea     rcx, [rbp+buf]\nadd     rcx, 20h ; ' '; key\nxor     eax, eax\nmov     r9d, eax; ctr\nmov     edx, 40h ; '@'; text_size\nlea     r8, zero; nonce\nmov     rsi, r9; plain_text\ncall    crypto_chacha20_djb\nlea     rdi, [rbp+pk]; public_key\nlea     rsi, [rbp+buf]; secret_key\ncall    crypto_x25519_dirty_fast\nlea     rdi, [rbp+buf]\nadd     rdi, 20h ; ' '; hidden\nlea     rsi, [rbp+pk]; public_key\nmovzx   edx, [rbp+buf+20h]; tweak\ncall    crypto_elligator_rev\ncmp     eax, 0\njnz     loc_FE85\nmov     rdi, [rbp+seed]; secret\nmov     esi, 20h ; ' '; size\ncall    crypto_wipe\nmov     [rbp+_i__0], 0\ncmp     [rbp+_i__0], 20h ; ' '\njnb     loc_FF2C\nmov     rax, [rbp+_i__0]\nmov     dl, [rbp+rax+buf+20h]\nmov     rax, [rbp+hidden]\nmov     rcx, [rbp+_i__0]\nmov     [rax+rcx], dl\nmov     rax, [rbp+_i__0]\nadd     rax, 1\nmov     [rbp+_i__0], rax\njmp     loc_FEEE\nmov     [rbp+_i__1], 0\ncmp     [rbp+_i__1], 20h ; ' '\njnb     loc_FF75\nmov     rax, [rbp+_i__1]\nmov     dl, [rbp+rax+buf]\nmov     rax, [rbp+secret_key]\nmov     rcx, [rbp+_i__1]\nmov     [rax+rcx], dl\nmov     rax, [rbp+_i__1]\nadd     rax, 1\nmov     [rbp+_i__1], rax\njmp     loc_FF37\nlea     rdi, [rbp+buf]; secret\nmov     esi, 40h ; '@'; size\ncall    crypto_wipe\nlea     rdi, [rbp+pk]; secret\nmov     esi, 20h ; ' '; size\ncall    crypto_wipe\nadd     rsp, 0A0h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 12,
+  "edges": [
+   [
+    "start",
+    "loc_FE42"
+   ],
+   [
+    "loc_FE42",
+    "loc_FE50"
+   ],
+   [
+    "loc_FE42",
+    "loc_FE80"
+   ],
+   [
+    "loc_FE50",
+    "loc_FE42"
+   ],
+   [
+    "loc_FE80",
+    "loc_FE85"
+   ],
+   [
+    "loc_FE85",
+    "loc_FE85"
+   ],
+   [
+    "loc_FE85",
+    "loc_FED5"
+   ],
+   [
+    "loc_FED5",
+    "loc_FEEE"
+   ],
+   [
+    "loc_FEEE",
+    "loc_FEFC"
+   ],
+   [
+    "loc_FEEE",
+    "loc_FF2C"
+   ],
+   [
+    "loc_FEFC",
+    "loc_FEEE"
+   ],
+   [
+    "loc_FF2C",
+    "loc_FF37"
+   ],
+   [
+    "loc_FF37",
+    "loc_FF45"
+   ],
+   [
+    "loc_FF37",
+    "loc_FF75"
+   ],
+   [
+    "loc_FF45",
+    "loc_FF37"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0A0h\nmov     [rbp+hidden], rdi\nmov     [rbp+secret_key], rsi\nmov     [rbp+seed], rdx\nmov     [rbp+_i_], 0",
+   "loc_FE42": "cmp     [rbp+_i_], 20h ; ' '\njnb     loc_FE80",
+   "loc_FE50": "mov     rax, [rbp+seed]\nmov     rcx, [rbp+_i_]\nmov     cl, [rax+rcx]\nmov     rax, [rbp+_i_]\nmov     [rbp+rax+buf+20h], cl\nmov     rax, [rbp+_i_]\nadd     rax, 1\nmov     [rbp+_i_], rax\njmp     loc_FE42",
+   "loc_FE80": "jmp     $+5",
+   "loc_FE85": "lea     rdi, [rbp+buf]; cipher_text\nlea     rcx, [rbp+buf]\nadd     rcx, 20h ; ' '; key\nxor     eax, eax\nmov     r9d, eax; ctr\nmov     edx, 40h ; '@'; text_size\nlea     r8, zero; nonce\nmov     rsi, r9; plain_text\ncall    crypto_chacha20_djb\nlea     rdi, [rbp+pk]; public_key\nlea     rsi, [rbp+buf]; secret_key\ncall    crypto_x25519_dirty_fast\nlea     rdi, [rbp+buf]\nadd     rdi, 20h ; ' '; hidden\nlea     rsi, [rbp+pk]; public_key\nmovzx   edx, [rbp+buf+20h]; tweak\ncall    crypto_elligator_rev\ncmp     eax, 0\njnz     loc_FE85",
+   "loc_FED5": "mov     rdi, [rbp+seed]; secret\nmov     esi, 20h ; ' '; size\ncall    crypto_wipe\nmov     [rbp+_i__0], 0",
+   "loc_FEEE": "cmp     [rbp+_i__0], 20h ; ' '\njnb     loc_FF2C",
+   "loc_FEFC": "mov     rax, [rbp+_i__0]\nmov     dl, [rbp+rax+buf+20h]\nmov     rax, [rbp+hidden]\nmov     rcx, [rbp+_i__0]\nmov     [rax+rcx], dl\nmov     rax, [rbp+_i__0]\nadd     rax, 1\nmov     [rbp+_i__0], rax\njmp     loc_FEEE",
+   "loc_FF2C": "mov     [rbp+_i__1], 0",
+   "loc_FF37": "cmp     [rbp+_i__1], 20h ; ' '\njnb     loc_FF75",
+   "loc_FF45": "mov     rax, [rbp+_i__1]\nmov     dl, [rbp+rax+buf]\nmov     rax, [rbp+secret_key]\nmov     rcx, [rbp+_i__1]\nmov     [rax+rcx], dl\nmov     rax, [rbp+_i__1]\nadd     rax, 1\nmov     [rbp+_i__1], rax\njmp     loc_FF37",
+   "loc_FF75": "lea     rdi, [rbp+buf]; secret\nmov     esi, 40h ; '@'; size\ncall    crypto_wipe\nlea     rdi, [rbp+pk]; secret\nmov     esi, 20h ; ' '; size\ncall    crypto_wipe\nadd     rsp, 0A0h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "_i__1": "qword ptr -98h",
+   "_i__0": "qword ptr -90h",
+   "_i_": "qword ptr -88h",
+   "buf": "byte ptr -80h",
+   "pk": "byte ptr -40h",
+   "seed": "qword ptr -18h",
+   "secret_key": "qword ptr -10h",
+   "hidden": "qword ptr -8"
+  },
+  ".rodata": {
+   "zero": "byte 0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 65056,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872675
+ }
+}

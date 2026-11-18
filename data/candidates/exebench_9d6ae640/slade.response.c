@@ -1,0 +1,1 @@
+void cpuinfo(unsigned int eax, unsigned int * ebx, unsigned int * ecx, unsigned int * edx, unsigned int * edx) { __asm__ __volatile__("cpuid; %0, %2\n" : "=a" (*ebx), "=d" (*ecx), "=c" (*edx) : "a" (eax), "c" (ecx)); }

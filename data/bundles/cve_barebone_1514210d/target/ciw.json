@@ -1,0 +1,373 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 70h\nmov     [rbp+pdev], rdi\nmov     [rbp+a], rsi\nmov     [rbp+val], rdx\nmov     [rbp+error], 0\nmov     rdi, [rbp+pdev]; s\nxor     esi, esi; c\nmov     edx, 8; n\ncall    memset\nmov     rdi, [rbp+val]; s\nmov     esi, 2Ch ; ','; c\ncall    strchr\nmov     [rbp+dev], rax\ncmp     rax, 0\njz      loc_1789\nmov     rax, [rbp+dev]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+dev], rcx\nmov     byte ptr [rax], 0\nmov     rdi, [rbp+val]; name\ncall    pack_find\nmov     [rbp+pack], rax\ncmp     rax, 0\njnz     loc_1668\nmov     rdi, [rbp+a]; a\nmov     rcx, [rbp+val]\nmov     esi, 16h; error_number\nlea     rdx, fmt; \"Unknown format `%s'\"\nmov     al, 0\ncall    archive_set_error\nmov     [rbp+var_4], 0FFFFFFECh\njmp     loc_17A8\nmov     [rbp+argc], 0\nlea     rdi, [rbp+dev]; sp_0\nlea     rsi, sep; \",\"\ncall    la_strsep\nmov     [rbp+p], rax\ncmp     rax, 0\njz      loc_1710\nmov     rax, [rbp+p]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 0\njnz     loc_16C0\nmov     rdi, [rbp+a]; a\nmov     esi, 16h; error_number\nlea     rdx, aMissingNumber; \"Missing number\"\nmov     al, 0\ncall    archive_set_error\nmov     [rbp+var_4], 0FFFFFFECh\njmp     loc_17A8\nlea     rdi, [rbp+p]; p\ncall    mtree_atol\nmov     rcx, rax\nmov     eax, [rbp+argc]\nmov     edx, eax\nadd     edx, 1\nmov     [rbp+argc], edx\ncdqe\nmov     [rbp+rax*8+numbers], rcx\ncmp     [rbp+argc], 3\njle     loc_170B\nmov     rdi, [rbp+a]; a\nmov     esi, 16h; error_number\nlea     rdx, aTooManyArgumen; \"Too many arguments\"\nmov     al, 0\ncall    archive_set_error\nmov     [rbp+var_4], 0FFFFFFECh\njmp     loc_17A8\njmp     loc_166F\ncmp     [rbp+argc], 2\njge     loc_173D\nmov     rdi, [rbp+a]; a\nmov     esi, 16h; error_number\nlea     rdx, aNotEnoughArgum; \"Not enough arguments\"\nmov     al, 0\ncall    archive_set_error\nmov     [rbp+var_4], 0FFFFFFECh\njmp     loc_17A8\nmov     rax, [rbp+pack]\nmov     edi, [rbp+argc]\nlea     rsi, [rbp+numbers]\nlea     rdx, [rbp+error]\ncall    rax\nmov     [rbp+result], rax\ncmp     [rbp+error], 0\njz      loc_1784\nmov     rdi, [rbp+a]; a\nmov     rcx, [rbp+error]\nmov     esi, 16h; error_number\nlea     rdx, aS; \"%s\"\nmov     al, 0\ncall    archive_set_error\nmov     [rbp+var_4], 0FFFFFFECh\njmp     loc_17A8\njmp     loc_1796\nlea     rdi, [rbp+val]; p\ncall    mtree_atol\nmov     [rbp+result], rax\nmov     rcx, [rbp+result]\nmov     rax, [rbp+pdev]\nmov     [rax], rcx\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 70h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 18,
+  "edges": [
+   [
+    "start",
+    "loc_1618"
+   ],
+   [
+    "start",
+    "loc_1789"
+   ],
+   [
+    "loc_1618",
+    "loc_1641"
+   ],
+   [
+    "loc_1618",
+    "loc_1668"
+   ],
+   [
+    "loc_1641",
+    "loc_17A8"
+   ],
+   [
+    "loc_1668",
+    "loc_166F"
+   ],
+   [
+    "loc_166F",
+    "loc_168D"
+   ],
+   [
+    "loc_166F",
+    "loc_1710"
+   ],
+   [
+    "loc_168D",
+    "loc_169D"
+   ],
+   [
+    "loc_168D",
+    "loc_16C0"
+   ],
+   [
+    "loc_169D",
+    "loc_17A8"
+   ],
+   [
+    "loc_16C0",
+    "loc_16E8"
+   ],
+   [
+    "loc_16C0",
+    "loc_170B"
+   ],
+   [
+    "loc_16E8",
+    "loc_17A8"
+   ],
+   [
+    "loc_170B",
+    "loc_166F"
+   ],
+   [
+    "loc_1710",
+    "loc_171A"
+   ],
+   [
+    "loc_1710",
+    "loc_173D"
+   ],
+   [
+    "loc_171A",
+    "loc_17A8"
+   ],
+   [
+    "loc_173D",
+    "loc_175D"
+   ],
+   [
+    "loc_173D",
+    "loc_1784"
+   ],
+   [
+    "loc_175D",
+    "loc_17A8"
+   ],
+   [
+    "loc_1784",
+    "loc_1796"
+   ],
+   [
+    "loc_1789",
+    "loc_1796"
+   ],
+   [
+    "loc_1796",
+    "loc_17A8"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 70h\nmov     [rbp+pdev], rdi\nmov     [rbp+a], rsi\nmov     [rbp+val], rdx\nmov     [rbp+error], 0\nmov     rdi, [rbp+pdev]; s\nxor     esi, esi; c\nmov     edx, 8; n\ncall    memset\nmov     rdi, [rbp+val]; s\nmov     esi, 2Ch ; ','; c\ncall    strchr\nmov     [rbp+dev], rax\ncmp     rax, 0\njz      loc_1789",
+   "loc_1618": "mov     rax, [rbp+dev]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+dev], rcx\nmov     byte ptr [rax], 0\nmov     rdi, [rbp+val]; name\ncall    pack_find\nmov     [rbp+pack], rax\ncmp     rax, 0\njnz     loc_1668",
+   "loc_1641": "mov     rdi, [rbp+a]; a\nmov     rcx, [rbp+val]\nmov     esi, 16h; error_number\nlea     rdx, fmt; \"Unknown format `%s'\"\nmov     al, 0\ncall    archive_set_error\nmov     [rbp+var_4], 0FFFFFFECh\njmp     loc_17A8",
+   "loc_1668": "mov     [rbp+argc], 0",
+   "loc_166F": "lea     rdi, [rbp+dev]; sp_0\nlea     rsi, sep; \",\"\ncall    la_strsep\nmov     [rbp+p], rax\ncmp     rax, 0\njz      loc_1710",
+   "loc_168D": "mov     rax, [rbp+p]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 0\njnz     loc_16C0",
+   "loc_169D": "mov     rdi, [rbp+a]; a\nmov     esi, 16h; error_number\nlea     rdx, aMissingNumber; \"Missing number\"\nmov     al, 0\ncall    archive_set_error\nmov     [rbp+var_4], 0FFFFFFECh\njmp     loc_17A8",
+   "loc_16C0": "lea     rdi, [rbp+p]; p\ncall    mtree_atol\nmov     rcx, rax\nmov     eax, [rbp+argc]\nmov     edx, eax\nadd     edx, 1\nmov     [rbp+argc], edx\ncdqe\nmov     [rbp+rax*8+numbers], rcx\ncmp     [rbp+argc], 3\njle     loc_170B",
+   "loc_16E8": "mov     rdi, [rbp+a]; a\nmov     esi, 16h; error_number\nlea     rdx, aTooManyArgumen; \"Too many arguments\"\nmov     al, 0\ncall    archive_set_error\nmov     [rbp+var_4], 0FFFFFFECh\njmp     loc_17A8",
+   "loc_170B": "jmp     loc_166F",
+   "loc_1710": "cmp     [rbp+argc], 2\njge     loc_173D",
+   "loc_171A": "mov     rdi, [rbp+a]; a\nmov     esi, 16h; error_number\nlea     rdx, aNotEnoughArgum; \"Not enough arguments\"\nmov     al, 0\ncall    archive_set_error\nmov     [rbp+var_4], 0FFFFFFECh\njmp     loc_17A8",
+   "loc_173D": "mov     rax, [rbp+pack]\nmov     edi, [rbp+argc]\nlea     rsi, [rbp+numbers]\nlea     rdx, [rbp+error]\ncall    rax\nmov     [rbp+result], rax\ncmp     [rbp+error], 0\njz      loc_1784",
+   "loc_175D": "mov     rdi, [rbp+a]; a\nmov     rcx, [rbp+error]\nmov     esi, 16h; error_number\nlea     rdx, aS; \"%s\"\nmov     al, 0\ncall    archive_set_error\nmov     [rbp+var_4], 0FFFFFFECh\njmp     loc_17A8",
+   "loc_1784": "jmp     loc_1796",
+   "loc_1789": "lea     rdi, [rbp+val]; p\ncall    mtree_atol\nmov     [rbp+result], rax",
+   "loc_1796": "mov     rcx, [rbp+result]\nmov     rax, [rbp+pdev]\nmov     [rax], rcx\nmov     [rbp+var_4], 0",
+   "loc_17A8": "mov     eax, [rbp+var_4]\nadd     rsp, 70h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "error": "qword ptr -70h",
+   "result": "qword ptr -68h",
+   "pack": "qword ptr -60h",
+   "argc": "dword ptr -54h",
+   "dev": "qword ptr -50h",
+   "p": "qword ptr -48h",
+   "numbers": "qword ptr -40h",
+   "val": "qword ptr -20h",
+   "a": "qword ptr -18h",
+   "pdev": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "fmt": "byte 'Unknown format `%s',27h,0",
+   "sep": "byte ',',0",
+   "aMissingNumber": "byte 'Missing number',0",
+   "aTooManyArgumen": "byte 'Too many arguments',0",
+   "aNotEnoughArgum": "byte 'Not enough arguments',0",
+   "aS": "byte '%s',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5584,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strchr": "strchr",
+  "_strchr": "strchr",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".strcspn": "strcspn",
+  "_strcspn": "strcspn",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".bsearch": "bsearch",
+  "_bsearch": "bsearch"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strchr",
+   ".plt",
+   true,
+   "strchr"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".strcspn",
+   ".plt",
+   true,
+   "strcspn"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".bsearch",
+   ".plt",
+   true,
+   "bsearch"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strchr",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcspn",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "bsearch",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868448
+ }
+}

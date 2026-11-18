@@ -1,0 +1,1 @@
+float vec4DotProduct(vec4 a, vec4 b) { return a.v[0] * b.v[0] + a.v[1] * b.v[1] + a.v[2] * b.v[2] + a.v[3] * b.v[3]; }

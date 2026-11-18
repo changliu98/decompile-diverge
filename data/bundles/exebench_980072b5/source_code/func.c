@@ -1,0 +1,13 @@
+#include <string.h>
+
+#include <stdint.h>
+
+#include <unistd.h>
+
+static inline void set_bit(int nr, volatile unsigned long *addr)
+{
+ unsigned long mask = (1UL << ((nr) % ((int)sizeof(unsigned long)*8)));
+ unsigned long *p = ((unsigned long *)addr) + ((nr) / ((int)sizeof(unsigned long)*8));
+
+ *p |= mask;
+}

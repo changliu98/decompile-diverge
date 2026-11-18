@@ -1,0 +1,1 @@
+float func0(float *x, int N) { float m = 1000000; for (int i = 0; i < N; ++i) { if (x[i] > m) { m = x[i]; } } return m; }

@@ -1,0 +1,257 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nmov     [rbp+capacity], rdi\nmov     [rbp+cyls], rsi\nmov     [rbp+hds], rdx\nmov     [rbp+secs], rcx\nmov     [rbp+rv], 0\nmov     [rbp+cylinders], 400h\nmov     [rbp+sectors], 3Eh ; '>'\nmov     rax, [rbp+cylinders]\nimul    rax, [rbp+sectors]\nmov     [rbp+temp], rax\nmov     rax, [rbp+capacity]\nxor     ecx, ecx\nmov     edx, ecx\ndiv     [rbp+temp]\nmov     [rbp+heads], rax\nmov     rax, [rbp+capacity]\nxor     ecx, ecx\nmov     edx, ecx\ndiv     [rbp+temp]\ncmp     rdx, 0\njz      loc_19EB\nmov     rax, [rbp+heads]\nadd     rax, 1\nmov     [rbp+heads], rax\nmov     rax, [rbp+cylinders]\nimul    rax, [rbp+heads]\nmov     [rbp+temp], rax\nmov     rax, [rbp+capacity]\nxor     ecx, ecx\nmov     edx, ecx\ndiv     [rbp+temp]\nmov     [rbp+sectors], rax\nmov     rax, [rbp+capacity]\nxor     ecx, ecx\nmov     edx, ecx\ndiv     [rbp+temp]\ncmp     rdx, 0\njz      loc_19E6\nmov     rax, [rbp+sectors]\nadd     rax, 1\nmov     [rbp+sectors], rax\nmov     rax, [rbp+heads]\nimul    rax, [rbp+sectors]\nmov     [rbp+temp], rax\nmov     rax, [rbp+capacity]\nxor     ecx, ecx\nmov     edx, ecx\ndiv     [rbp+temp]\nmov     [rbp+cylinders], rax\njmp     $+5\ncmp     [rbp+cylinders], 0\njnz     loc_19FD\nmov     [rbp+rv], 0FFFFFFFFh\nmov     rax, [rbp+cylinders]\nmov     ecx, eax\nmov     rax, [rbp+cyls]\nmov     [rax], ecx\nmov     rax, [rbp+sectors]\nmov     ecx, eax\nmov     rax, [rbp+secs]\nmov     [rax], ecx\nmov     rax, [rbp+heads]\nmov     ecx, eax\nmov     rax, [rbp+hds]\nmov     [rax], ecx\nmov     eax, [rbp+rv]\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 7,
+  "edges": [
+   [
+    "start",
+    "loc_197E"
+   ],
+   [
+    "start",
+    "loc_19EB"
+   ],
+   [
+    "loc_197E",
+    "loc_19BD"
+   ],
+   [
+    "loc_197E",
+    "loc_19E6"
+   ],
+   [
+    "loc_19BD",
+    "loc_19E6"
+   ],
+   [
+    "loc_19E6",
+    "loc_19EB"
+   ],
+   [
+    "loc_19EB",
+    "loc_19F6"
+   ],
+   [
+    "loc_19EB",
+    "loc_19FD"
+   ],
+   [
+    "loc_19F6",
+    "loc_19FD"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nmov     [rbp+capacity], rdi\nmov     [rbp+cyls], rsi\nmov     [rbp+hds], rdx\nmov     [rbp+secs], rcx\nmov     [rbp+rv], 0\nmov     [rbp+cylinders], 400h\nmov     [rbp+sectors], 3Eh ; '>'\nmov     rax, [rbp+cylinders]\nimul    rax, [rbp+sectors]\nmov     [rbp+temp], rax\nmov     rax, [rbp+capacity]\nxor     ecx, ecx\nmov     edx, ecx\ndiv     [rbp+temp]\nmov     [rbp+heads], rax\nmov     rax, [rbp+capacity]\nxor     ecx, ecx\nmov     edx, ecx\ndiv     [rbp+temp]\ncmp     rdx, 0\njz      loc_19EB",
+   "loc_197E": "mov     rax, [rbp+heads]\nadd     rax, 1\nmov     [rbp+heads], rax\nmov     rax, [rbp+cylinders]\nimul    rax, [rbp+heads]\nmov     [rbp+temp], rax\nmov     rax, [rbp+capacity]\nxor     ecx, ecx\nmov     edx, ecx\ndiv     [rbp+temp]\nmov     [rbp+sectors], rax\nmov     rax, [rbp+capacity]\nxor     ecx, ecx\nmov     edx, ecx\ndiv     [rbp+temp]\ncmp     rdx, 0\njz      loc_19E6",
+   "loc_19BD": "mov     rax, [rbp+sectors]\nadd     rax, 1\nmov     [rbp+sectors], rax\nmov     rax, [rbp+heads]\nimul    rax, [rbp+sectors]\nmov     [rbp+temp], rax\nmov     rax, [rbp+capacity]\nxor     ecx, ecx\nmov     edx, ecx\ndiv     [rbp+temp]\nmov     [rbp+cylinders], rax",
+   "loc_19E6": "jmp     $+5",
+   "loc_19EB": "cmp     [rbp+cylinders], 0\njnz     loc_19FD",
+   "loc_19F6": "mov     [rbp+rv], 0FFFFFFFFh",
+   "loc_19FD": "mov     rax, [rbp+cylinders]\nmov     ecx, eax\nmov     rax, [rbp+cyls]\nmov     [rax], ecx\nmov     rax, [rbp+sectors]\nmov     ecx, eax\nmov     rax, [rbp+secs]\nmov     [rax], ecx\nmov     rax, [rbp+heads]\nmov     ecx, eax\nmov     rax, [rbp+hds]\nmov     [rax], ecx\nmov     eax, [rbp+rv]\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "temp": "qword ptr -48h",
+   "cylinders": "qword ptr -40h",
+   "sectors": "qword ptr -38h",
+   "heads": "qword ptr -30h",
+   "rv": "dword ptr -24h",
+   "secs": "qword ptr -20h",
+   "hds": "qword ptr -18h",
+   "cyls": "qword ptr -10h",
+   "capacity": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6432,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868177
+ }
+}

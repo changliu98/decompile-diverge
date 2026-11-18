@@ -1,0 +1,1 @@
+char *get_begin(char *str, int *num) { int i, sign; for (i = 0, sign = 1; str[i] == '+' || str[i] == '-'; i++) if (str[i] == '-') sign = -sign; *num = sign; return str + i; }

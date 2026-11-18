@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n#include <string.h>\n#include <ctype.h>\n\nint func0(const char *txt) {\n    int len = strlen(txt);\n    if (len == 0) return 0;\n    char last_char = txt[len - 1];\n    if (!isalpha((unsigned char)last_char)) return 0;\n    if (len == 1) return 1;\n    char second_last_char = txt[len - 2];\n    if (isalpha((unsigned char)second_last_char)) return 0;\n    return 1;\n}",
+ "c_test": "#include <assert.h>\n\nint main() {\n    assert(func0(\"apple\") == 0);\n    assert(func0(\"apple pi e\") == 1);\n    assert(func0(\"eeeee\") == 0);\n    assert(func0(\"A\") == 1);\n    assert(func0(\"Pumpkin pie \") == 0);\n    assert(func0(\"Pumpkin pie 1\") == 0);\n    assert(func0(\"\") == 0);\n    assert(func0(\"eeeee e \") == 0);\n    assert(func0(\"apple pie\") == 0);\n    assert(func0(\"apple pi e \") == 0);\n\n    return 0;\n}"
+}

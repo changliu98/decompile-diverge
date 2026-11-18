@@ -1,0 +1,1 @@
+void func0(int * arr, int n, int * arr2) { for (int i = 0; i < n; i++) arr2[i] = ~arr[i]; }

@@ -1,0 +1,1 @@
+struct proc_inum * proc_alloc_inum(struct inode *inode) { inode->inum = 1; return NULL; }

@@ -1,0 +1,1 @@
+void func0(int a[], int n, int res[2]) { int min = 0; int max = 0; for (int i = 0; i < n; ++i) { if (a[i] < 0 && (min == 0 || a[i] > min)) min = a[i]; if (a[i] > 0 && (max == 0 || a[i] < max)) max = a[i]; } res[0] = min; res[1] = max; }

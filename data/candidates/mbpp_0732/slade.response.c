@@ -1,0 +1,1 @@
+char *func0(char *str) { int i; for (i = 0; str[i]; i++) { if (str[i] == ' ' || str[i] == ',' || str[i] == '.') { str[i] = ':'; } } return str; }

@@ -1,0 +1,1 @@
+char *func0(char *str) { int i = 0; char *argv[10], *argv[10]; argv[0] = strtok(str, " "); while (argv[0] != NULL) { argv[i++] = argv[0]; argv[0] = strtok(NULL, " "); } result[0] = '\0'; for (i = i - 1; i >= 0; i--) { strcat(result, argv[i]); if (i > 0) { result[strcat(result, " "); } } return result; }

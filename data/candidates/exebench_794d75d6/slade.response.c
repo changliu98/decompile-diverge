@@ -1,0 +1,1 @@
+void AdjustSpan2(int *span1, int *span2, int *span3, int maxdiff) { if (*span1 < 0) { *span3 += *span1; *span2 -= *span1; *span1 = 0; } if (*span1 + *span3 > maxdiff) *span3 = maxdiff - *span1; }

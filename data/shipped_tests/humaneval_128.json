@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n#include <stdlib.h>\n\nint func0(int *arr, int arr_size) {\n    if (arr_size == 0) return -32768;\n    int sum = 0, prods = 1, i;\n    for (i = 0; i < arr_size; i++) {\n        sum += abs(arr[i]);\n        if (arr[i] == 0) prods = 0;\n        if (arr[i] < 0) prods = -prods;\n    }\n    return sum * prods;\n}",
+ "c_test": "#include <stdio.h>\n#include <assert.h>\n\nint main() {\n    int arr1[] = {1, 2, 2, -4};\n    assert(func0(arr1, 4) == -9);\n\n    int arr2[] = {0, 1};\n    assert(func0(arr2, 2) == 0);\n\n    int arr3[] = {1, 1, 1, 2, 3, -1, 1};\n    assert(func0(arr3, 7) == -10);\n\n    assert(func0(NULL, 0) == -32768);\n\n    int arr5[] = {2, 4, 1, 2, -1, -1, 9};\n    assert(func0(arr5, 7) == 20);\n\n    int arr6[] = {-1, 1, -1, 1};\n    assert(func0(arr6, 4) == 4);\n\n    int arr7[] = {-1, 1, 1, 1};\n    assert(func0(arr7, 4) == -4);\n\n    int arr8[] = {-1, 1, 1, 0};\n    assert(func0(arr8, 4) == 0);\n    \n    return 0;\n}"
+}

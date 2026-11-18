@@ -1,0 +1,1 @@
+int foo(struct myStruct *s) { int x =0xdeadbeef; s->x = x; return s->x; }

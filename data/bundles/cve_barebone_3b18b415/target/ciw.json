@@ -1,0 +1,333 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     eax, [rbp+out_rows_avail]\nmov     [rbp+cinfo], rdi\nmov     [rbp+input_buf], rsi\nmov     [rbp+in_row_group_ctr], rdx\nmov     [rbp+in_row_groups_avail], ecx\nmov     [rbp+output_buf], r8\nmov     [rbp+out_row_ctr], r9\nmov     rax, [rbp+cinfo]\nmov     rax, [rax]\nmov     [rbp+upsample], rax\nmov     rax, [rbp+upsample]\ncmp     dword ptr [rax+48h], 0\njz      loc_1AF3\nmov     rax, [rbp+upsample]\nmov     eax, [rax+4Ch]\nmov     [rbp+size], eax\nmov     rax, [rbp+cinfo]\ncmp     dword ptr [rax+8], 10h\njnz     loc_1AB0\nmov     rax, [rbp+cinfo]\nmov     eax, [rax+0Ch]\nshl     eax, 1\nmov     [rbp+size], eax\nmov     rdi, [rbp+upsample]\nadd     rdi, 40h ; '@'; input_array\nmov     rdx, [rbp+output_buf]\nmov     rax, [rbp+out_row_ctr]\nmov     eax, [rax]\nshl     rax, 3\nadd     rdx, rax; output_array\nmov     r9d, [rbp+size]; num_cols\nxor     ecx, ecx; dest_row\nmov     r8d, 1; num_rows\nmov     esi, ecx; source_row\ncall    jcopy_sample_rows\nmov     [rbp+num_rows], 1\nmov     rax, [rbp+upsample]\nmov     dword ptr [rax+48h], 0\njmp     loc_1B9F\nmov     [rbp+num_rows], 2\nmov     eax, [rbp+num_rows]\nmov     rcx, [rbp+upsample]\ncmp     eax, [rcx+50h]\njbe     loc_1B14\nmov     rax, [rbp+upsample]\nmov     eax, [rax+50h]\nmov     [rbp+num_rows], eax\nmov     rax, [rbp+out_row_ctr]\nmov     ecx, [rax]\nmov     eax, [rbp+out_rows_avail]\nsub     eax, ecx\nmov     [rbp+out_rows_avail], eax\nmov     eax, [rbp+num_rows]\ncmp     eax, [rbp+out_rows_avail]\njbe     loc_1B34\nmov     eax, [rbp+out_rows_avail]\nmov     [rbp+num_rows], eax\nmov     rax, [rbp+output_buf]\nmov     rcx, [rbp+out_row_ctr]\nmov     ecx, [rcx]\nmov     rax, [rax+rcx*8]\nmov     [rbp+work_ptrs], rax\ncmp     [rbp+num_rows], 1\njbe     loc_1B6C\nmov     rax, [rbp+output_buf]\nmov     rcx, [rbp+out_row_ctr]\nmov     ecx, [rcx]\nadd     ecx, 1\nmov     ecx, ecx\nmov     rax, [rax+rcx*8]\nmov     [rbp+work_ptrs+8], rax\njmp     loc_1B83\nmov     rax, [rbp+upsample]\nmov     rax, [rax+40h]\nmov     [rbp+work_ptrs+8], rax\nmov     rax, [rbp+upsample]\nmov     dword ptr [rax+48h], 1\nmov     rax, [rbp+upsample]\nmov     rax, [rax+18h]\nmov     rdi, [rbp+cinfo]\nmov     rsi, [rbp+input_buf]\nmov     rcx, [rbp+in_row_group_ctr]\nmov     edx, [rcx]\nlea     rcx, [rbp+work_ptrs]\ncall    rax\nmov     ecx, [rbp+num_rows]\nmov     rax, [rbp+out_row_ctr]\nadd     ecx, [rax]\nmov     [rax], ecx\nmov     edx, [rbp+num_rows]\nmov     rax, [rbp+upsample]\nmov     ecx, [rax+50h]\nsub     ecx, edx\nmov     [rax+50h], ecx\nmov     rax, [rbp+upsample]\ncmp     dword ptr [rax+48h], 0\njnz     loc_1BD2\nmov     rax, [rbp+in_row_group_ctr]\nmov     ecx, [rax]\nadd     ecx, 1\nmov     [rax], ecx\nadd     rsp, 60h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 15,
+  "edges": [
+   [
+    "start",
+    "loc_1A8B"
+   ],
+   [
+    "start",
+    "loc_1AF3"
+   ],
+   [
+    "loc_1A8B",
+    "loc_1AA3"
+   ],
+   [
+    "loc_1A8B",
+    "loc_1AB0"
+   ],
+   [
+    "loc_1AA3",
+    "loc_1AB0"
+   ],
+   [
+    "loc_1AB0",
+    "loc_1B9F"
+   ],
+   [
+    "loc_1AF3",
+    "loc_1B0A"
+   ],
+   [
+    "loc_1AF3",
+    "loc_1B14"
+   ],
+   [
+    "loc_1B0A",
+    "loc_1B14"
+   ],
+   [
+    "loc_1B14",
+    "loc_1B2E"
+   ],
+   [
+    "loc_1B14",
+    "loc_1B34"
+   ],
+   [
+    "loc_1B2E",
+    "loc_1B34"
+   ],
+   [
+    "loc_1B34",
+    "loc_1B50"
+   ],
+   [
+    "loc_1B34",
+    "loc_1B6C"
+   ],
+   [
+    "loc_1B50",
+    "loc_1B83"
+   ],
+   [
+    "loc_1B6C",
+    "loc_1B83"
+   ],
+   [
+    "loc_1B83",
+    "loc_1B9F"
+   ],
+   [
+    "loc_1B9F",
+    "loc_1BC7"
+   ],
+   [
+    "loc_1B9F",
+    "loc_1BD2"
+   ],
+   [
+    "loc_1BC7",
+    "loc_1BD2"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     eax, [rbp+out_rows_avail]\nmov     [rbp+cinfo], rdi\nmov     [rbp+input_buf], rsi\nmov     [rbp+in_row_group_ctr], rdx\nmov     [rbp+in_row_groups_avail], ecx\nmov     [rbp+output_buf], r8\nmov     [rbp+out_row_ctr], r9\nmov     rax, [rbp+cinfo]\nmov     rax, [rax]\nmov     [rbp+upsample], rax\nmov     rax, [rbp+upsample]\ncmp     dword ptr [rax+48h], 0\njz      loc_1AF3",
+   "loc_1A8B": "mov     rax, [rbp+upsample]\nmov     eax, [rax+4Ch]\nmov     [rbp+size], eax\nmov     rax, [rbp+cinfo]\ncmp     dword ptr [rax+8], 10h\njnz     loc_1AB0",
+   "loc_1AA3": "mov     rax, [rbp+cinfo]\nmov     eax, [rax+0Ch]\nshl     eax, 1\nmov     [rbp+size], eax",
+   "loc_1AB0": "mov     rdi, [rbp+upsample]\nadd     rdi, 40h ; '@'; input_array\nmov     rdx, [rbp+output_buf]\nmov     rax, [rbp+out_row_ctr]\nmov     eax, [rax]\nshl     rax, 3\nadd     rdx, rax; output_array\nmov     r9d, [rbp+size]; num_cols\nxor     ecx, ecx; dest_row\nmov     r8d, 1; num_rows\nmov     esi, ecx; source_row\ncall    jcopy_sample_rows\nmov     [rbp+num_rows], 1\nmov     rax, [rbp+upsample]\nmov     dword ptr [rax+48h], 0\njmp     loc_1B9F",
+   "loc_1AF3": "mov     [rbp+num_rows], 2\nmov     eax, [rbp+num_rows]\nmov     rcx, [rbp+upsample]\ncmp     eax, [rcx+50h]\njbe     loc_1B14",
+   "loc_1B0A": "mov     rax, [rbp+upsample]\nmov     eax, [rax+50h]\nmov     [rbp+num_rows], eax",
+   "loc_1B14": "mov     rax, [rbp+out_row_ctr]\nmov     ecx, [rax]\nmov     eax, [rbp+out_rows_avail]\nsub     eax, ecx\nmov     [rbp+out_rows_avail], eax\nmov     eax, [rbp+num_rows]\ncmp     eax, [rbp+out_rows_avail]\njbe     loc_1B34",
+   "loc_1B2E": "mov     eax, [rbp+out_rows_avail]\nmov     [rbp+num_rows], eax",
+   "loc_1B34": "mov     rax, [rbp+output_buf]\nmov     rcx, [rbp+out_row_ctr]\nmov     ecx, [rcx]\nmov     rax, [rax+rcx*8]\nmov     [rbp+work_ptrs], rax\ncmp     [rbp+num_rows], 1\njbe     loc_1B6C",
+   "loc_1B50": "mov     rax, [rbp+output_buf]\nmov     rcx, [rbp+out_row_ctr]\nmov     ecx, [rcx]\nadd     ecx, 1\nmov     ecx, ecx\nmov     rax, [rax+rcx*8]\nmov     [rbp+work_ptrs+8], rax\njmp     loc_1B83",
+   "loc_1B6C": "mov     rax, [rbp+upsample]\nmov     rax, [rax+40h]\nmov     [rbp+work_ptrs+8], rax\nmov     rax, [rbp+upsample]\nmov     dword ptr [rax+48h], 1",
+   "loc_1B83": "mov     rax, [rbp+upsample]\nmov     rax, [rax+18h]\nmov     rdi, [rbp+cinfo]\nmov     rsi, [rbp+input_buf]\nmov     rcx, [rbp+in_row_group_ctr]\nmov     edx, [rcx]\nlea     rcx, [rbp+work_ptrs]\ncall    rax",
+   "loc_1B9F": "mov     ecx, [rbp+num_rows]\nmov     rax, [rbp+out_row_ctr]\nadd     ecx, [rax]\nmov     [rax], ecx\nmov     edx, [rbp+num_rows]\nmov     rax, [rbp+upsample]\nmov     ecx, [rax+50h]\nsub     ecx, edx\nmov     [rax+50h], ecx\nmov     rax, [rbp+upsample]\ncmp     dword ptr [rax+48h], 0\njnz     loc_1BD2",
+   "loc_1BC7": "mov     rax, [rbp+in_row_group_ctr]\nmov     ecx, [rax]\nadd     ecx, 1\nmov     [rax], ecx",
+   "loc_1BD2": "add     rsp, 60h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "size": "dword ptr -58h",
+   "num_rows": "dword ptr -54h",
+   "work_ptrs": "qword ptr -50h",
+   "upsample": "qword ptr -38h",
+   "out_row_ctr": "qword ptr -30h",
+   "output_buf": "qword ptr -28h",
+   "in_row_groups_avail": "dword ptr -1Ch",
+   "in_row_group_ctr": "qword ptr -18h",
+   "input_buf": "qword ptr -10h",
+   "cinfo": "qword ptr -8",
+   "out_rows_avail": "dword ptr 10h"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6736,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "printf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868459
+ }
+}

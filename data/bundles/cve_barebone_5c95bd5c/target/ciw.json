@@ -1,0 +1,606 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 130h\nmov     [rbp+ndo], rdi\nmov     [rbp+tptr], rsi\nmov     [rbp+indent], edx\nmov     rax, [rbp+tptr]\nmov     [rbp+pdu_header], rax\nmov     rax, [rbp+pdu_header]\nmovzx   eax, byte ptr [rax+1]\nmov     [rbp+pdu_type], eax\nmov     rax, [rbp+pdu_header]\nmovzx   eax, byte ptr [rax+4]\nshl     eax, 18h\nmov     rcx, [rbp+pdu_header]\nmovzx   ecx, byte ptr [rcx+5]\nshl     ecx, 10h\nor      eax, ecx\nmov     rcx, [rbp+pdu_header]\nmovzx   ecx, byte ptr [rcx+6]\nshl     ecx, 8\nor      eax, ecx\nmov     rcx, [rbp+pdu_header]\nmovzx   ecx, byte ptr [rcx+7]\nshl     ecx, 0\nor      eax, ecx\nmov     [rbp+pdu_len], eax\ncmp     [rbp+pdu_len], 0\nja      loc_1462\ncmp     [rbp+pdu_len], 0\njnz     loc_149C\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nmov     ecx, [rbp+pdu_len]\nsub     rax, rcx\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_149C\nmov     rax, [rbp+tptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nmov     edx, [rbp+pdu_len]\nsub     rcx, rdx\ncmp     rax, rcx\njbe     loc_14A1\njmp     trunc\nmov     [rbp+hexdump], 0\nmov     rax, [rbp+ndo]\nmov     [rbp+var_90], rax\nmov     rax, [rax+10h]\nmov     [rbp+var_78], rax\nmov     edi, 8; indent\ncall    indent_string\nmov     [rbp+var_88], rax\nmov     rax, [rbp+pdu_header]\nmovzx   eax, byte ptr [rax]\nmov     [rbp+var_7C], eax\nmov     edx, [rbp+pdu_type]; v\nlea     rdi, rpki_rtr_pdu_values; lp\nlea     rsi, fmt; \"Unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_90]\nmov     rdx, [rbp+var_88]\nmov     ecx, [rbp+var_7C]\nmov     r10, [rbp+var_78]\nmov     r8, rax\nmov     r9d, [rbp+pdu_type]\nmov     esi, [rbp+pdu_len]\nmov     rax, rsp\nmov     [rax], esi\nlea     rsi, aSrpkiRtrvUSPdu; \"%sRPKI-RTRv%u, %s PDU (%u), length: %u\"\nxor     eax, eax\ncall    r10\nmov     eax, [rbp+pdu_type]\nmov     [rbp+var_70], rax\nsub     rax, 0Ah; switch 11 cases\nja      def_153F; jumptable 000000000000153F default case, cases 5,9\nmov     rax, [rbp+var_70]\nlea     rcx, jpt_153F\nmovsxd  rax, ds:(jpt_153F - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nmov     rax, [rbp+pdu_header]; jumptable 000000000000153F cases 0,1,7\nadd     rax, 8\nmov     [rbp+msg], rax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_98], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_A0], rax\nmov     edi, [rbp+indent]\nadd     edi, 2; indent\ncall    indent_string\nmov     rdi, [rbp+var_A0]\nmov     r9, [rbp+var_98]\nmov     rdx, rax\nmov     rax, [rbp+pdu_header]\nmovzx   eax, byte ptr [rax+2]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+pdu_header]\nmovzx   ecx, byte ptr [rcx+3]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmovzx   ecx, ax\nmov     rax, [rbp+msg]\nmovzx   r8d, byte ptr [rax]\nshl     r8d, 18h\nmov     rax, [rbp+msg]\nmovzx   eax, byte ptr [rax+1]\nshl     eax, 10h\nor      r8d, eax\nmov     rax, [rbp+msg]\nmovzx   eax, byte ptr [rax+2]\nshl     eax, 8\nor      r8d, eax\nmov     rax, [rbp+msg]\nmovzx   eax, byte ptr [rax+3]\nshl     eax, 0\nor      r8d, eax\nlea     rsi, aSsessionId0x04; \"%sSession ID: 0x%04x, Serial: %u\"\nmov     al, 0\ncall    r9\njmp     loc_1AF7\njmp     loc_1AF7; jumptable 000000000000153F cases 2,8\nmov     rax, [rbp+ndo]; jumptable 000000000000153F case 3\nmov     rax, [rax+10h]\nmov     [rbp+var_A8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_B0], rax\nmov     edi, [rbp+indent]\nadd     edi, 2; indent\ncall    indent_string\nmov     rdi, [rbp+var_B0]\nmov     r8, [rbp+var_A8]\nmov     rdx, rax\nmov     rax, [rbp+pdu_header]\nmovzx   eax, byte ptr [rax+2]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+pdu_header]\nmovzx   ecx, byte ptr [rcx+3]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmovzx   ecx, ax\nlea     rsi, aSsessionId0x04_0; \"%sSession ID: 0x%04x\"\nmov     al, 0\ncall    r8\njmp     loc_1AF7\nmov     rax, [rbp+tptr]; jumptable 000000000000153F case 4\nmov     [rbp+pdu], rax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_B8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_C8], rax\nmov     edi, [rbp+indent]\nadd     edi, 2; indent\ncall    indent_string\nmov     [rbp+var_C0], rax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+pdu]\nadd     rsi, 0Ch; ap\ncall    getname\nmov     rdi, [rbp+var_C8]\nmov     rdx, [rbp+var_C0]\nmov     r10, [rbp+var_B8]\nmov     rcx, rax\nmov     rax, [rbp+pdu]\nmovzx   r8d, byte ptr [rax+9]\nmov     rax, [rbp+pdu]\nmovzx   r9d, byte ptr [rax+0Ah]\nmov     rax, [rbp+pdu]\nmovzx   r11d, byte ptr [rax+10h]\nshl     r11d, 18h\nmov     rax, [rbp+pdu]\nmovzx   eax, byte ptr [rax+11h]\nshl     eax, 10h\nor      r11d, eax\nmov     rax, [rbp+pdu]\nmovzx   eax, byte ptr [rax+12h]\nshl     eax, 8\nor      r11d, eax\nmov     rax, [rbp+pdu]\nmovzx   eax, byte ptr [rax+13h]\nshl     eax, 0\nor      r11d, eax\nmov     rax, [rbp+pdu]\nmovzx   eax, byte ptr [rax+8]\nlea     rsi, aSipv4PrefixSUU; \"%sIPv4 Prefix %s/%u-%u, origin-as %u, f\"...\nmov     [rsp+130h+var_130], r11d\nmov     [rsp+130h+var_128], eax\nmov     al, 0\ncall    r10\njmp     loc_1AF7\nmov     rax, [rbp+tptr]; jumptable 000000000000153F case 6\nmov     [rbp+pdu_0], rax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_D0], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_E0], rax\nmov     edi, [rbp+indent]\nadd     edi, 2; indent\ncall    indent_string\nmov     [rbp+var_D8], rax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+pdu_0]\nadd     rsi, 0Ch; ap\ncall    getname6\nmov     rdi, [rbp+var_E0]\nmov     rdx, [rbp+var_D8]\nmov     r10, [rbp+var_D0]\nmov     rcx, rax\nmov     rax, [rbp+pdu_0]\nmovzx   r8d, byte ptr [rax+9]\nmov     rax, [rbp+pdu_0]\nmovzx   r9d, byte ptr [rax+0Ah]\nmov     rax, [rbp+pdu_0]\nmovzx   r11d, byte ptr [rax+1Ch]\nshl     r11d, 18h\nmov     rax, [rbp+pdu_0]\nmovzx   eax, byte ptr [rax+1Dh]\nshl     eax, 10h\nor      r11d, eax\nmov     rax, [rbp+pdu_0]\nmovzx   eax, byte ptr [rax+1Eh]\nshl     eax, 8\nor      r11d, eax\nmov     rax, [rbp+pdu_0]\nmovzx   eax, byte ptr [rax+1Fh]\nshl     eax, 0\nor      r11d, eax\nmov     rax, [rbp+pdu_0]\nmovzx   eax, byte ptr [rax+8]\nlea     rsi, aSipv6PrefixSUU; \"%sIPv6 Prefix %s/%u-%u, origin-as %u, f\"...\nmov     [rsp+130h+var_130], r11d\nmov     [rsp+130h+var_128], eax\nmov     al, 0\ncall    r10\njmp     loc_1AF7\nmov     rax, [rbp+tptr]; jumptable 000000000000153F case 10\nmov     [rbp+pdu_1], rax\nmov     rax, [rbp+pdu_1]\nmovzx   eax, byte ptr [rax+8]\nshl     eax, 18h\nmov     rcx, [rbp+pdu_1]\nmovzx   ecx, byte ptr [rcx+9]\nshl     ecx, 10h\nor      eax, ecx\nmov     rcx, [rbp+pdu_1]\nmovzx   ecx, byte ptr [rcx+0Ah]\nshl     ecx, 8\nor      eax, ecx\nmov     rcx, [rbp+pdu_1]\nmovzx   ecx, byte ptr [rcx+0Bh]\nshl     ecx, 0\nor      eax, ecx\nmov     [rbp+encapsulated_pdu_length], eax\ncmp     [rbp+encapsulated_pdu_length], 0\nja      loc_1837\ncmp     [rbp+encapsulated_pdu_length], 0\njnz     loc_1871\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nmov     ecx, [rbp+encapsulated_pdu_length]\nsub     rax, rcx\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1871\nmov     rax, [rbp+tptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nmov     edx, [rbp+encapsulated_pdu_length]\nsub     rcx, rdx\ncmp     rax, rcx\njbe     loc_1876\njmp     trunc\nmov     eax, [rbp+pdu_len]\nmov     [rbp+tlen], eax\nmov     rax, [rbp+pdu_1]\nmovzx   eax, byte ptr [rax+2]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+pdu_1]\nmovzx   ecx, byte ptr [rcx+3]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmovzx   eax, ax\nmov     [rbp+error_code], eax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_E8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_F8], rax\nmov     edi, [rbp+indent]\nadd     edi, 2; indent\ncall    indent_string\nmov     [rbp+var_F0], rax\nmov     edx, [rbp+error_code]; v\nlea     rdi, rpki_rtr_error_codes; lp\nlea     rsi, fmt; \"Unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_F8]\nmov     rdx, [rbp+var_F0]\nmov     r10, [rbp+var_E8]\nmov     rcx, rax\nmov     r8d, [rbp+error_code]\nmov     r9d, [rbp+encapsulated_pdu_length]\nlea     rsi, aSerrorCodeSUEn; \"%sError code: %s (%u), Encapsulated PDU\"...\nmov     al, 0\ncall    r10\nmov     rax, [rbp+tptr]\nadd     rax, 0Ch\nmov     [rbp+tptr], rax\nmov     eax, [rbp+tlen]\nsub     rax, 0Ch\nmov     [rbp+tlen], eax\ncmp     [rbp+encapsulated_pdu_length], 0\njz      loc_19A1\nmov     eax, [rbp+encapsulated_pdu_length]\ncmp     eax, [rbp+tlen]\nja      loc_19A1\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_100], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_108], rax\nmov     edi, [rbp+indent]\nadd     edi, 4; indent\ncall    indent_string\nmov     rdi, [rbp+var_108]\nmov     rcx, [rbp+var_100]\nmov     rdx, rax\nlea     rsi, aSEncapsulatedP; \"%s-----encapsulated PDU-----\"\nmov     al, 0\ncall    rcx\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+tptr]; tptr\nmov     edx, [rbp+indent]\nadd     edx, 2; indent\ncall    rpki_rtr_pdu_print\ncmp     eax, 0\njz      loc_199C\njmp     trunc\njmp     $+5\nmov     ecx, [rbp+encapsulated_pdu_length]\nmov     rax, [rbp+tptr]\nmov     ecx, ecx\nadd     rax, rcx\nmov     [rbp+tptr], rax\nmov     ecx, [rbp+encapsulated_pdu_length]\nmov     eax, [rbp+tlen]\nsub     eax, ecx\nmov     [rbp+tlen], eax\nmov     [rbp+text_length], 0\ncmp     [rbp+tlen], 4\njbe     loc_1A16\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax]\nshl     eax, 18h\nmov     rcx, [rbp+tptr]\nmovzx   ecx, byte ptr [rcx+1]\nshl     ecx, 10h\nor      eax, ecx\nmov     rcx, [rbp+tptr]\nmovzx   ecx, byte ptr [rcx+2]\nshl     ecx, 8\nor      eax, ecx\nmov     rcx, [rbp+tptr]\nmovzx   ecx, byte ptr [rcx+3]\nshl     ecx, 0\nor      eax, ecx\nmov     [rbp+text_length], eax\nmov     rax, [rbp+tptr]\nadd     rax, 4\nmov     [rbp+tptr], rax\nmov     eax, [rbp+tlen]\nsub     eax, 4\nmov     [rbp+tlen], eax\ncmp     [rbp+text_length], 0\nja      loc_1A2A\ncmp     [rbp+text_length], 0\njnz     loc_1A64\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nmov     ecx, [rbp+text_length]\nsub     rax, rcx\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1A64\nmov     rax, [rbp+tptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nmov     edx, [rbp+text_length]\nsub     rcx, rdx\ncmp     rax, rcx\njbe     loc_1A69\njmp     trunc\ncmp     [rbp+text_length], 0\njz      loc_1AEB\nmov     eax, [rbp+text_length]\ncmp     eax, [rbp+tlen]\nja      loc_1AEB\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_110], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_118], rax\nmov     edi, [rbp+indent]\nadd     edi, 2; indent\ncall    indent_string\nmov     rdi, [rbp+var_118]\nmov     rcx, [rbp+var_110]\nmov     rdx, rax\nlea     rsi, aSerrorText; \"%sError text: \"\nmov     al, 0\ncall    rcx\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+tptr]; s\nmov     edx, [rbp+text_length]; n\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+8]; ep\ncall    fn_printn\ncmp     eax, 0\njz      loc_1AE6\njmp     trunc\njmp     $+5\njmp     loc_1AF7\nmov     [rbp+hexdump], 1; jumptable 000000000000153F default case, cases 5,9\nmov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 1\njg      loc_1B1B\nmov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 0\njz      loc_1B32\ncmp     [rbp+hexdump], 0\njz      loc_1B32\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+tptr]; cp\nmov     ecx, [rbp+pdu_len]; len\nlea     rdx, ident; \"\\n\\t  \"\ncall    print_unknown_data\nmov     [rbp+var_4], 0\njmp     loc_1B45\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 130h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 43,
+  "edges": [
+   [
+    "start",
+    "loc_1458"
+   ],
+   [
+    "start",
+    "loc_1462"
+   ],
+   [
+    "loc_1458",
+    "loc_1462"
+   ],
+   [
+    "loc_1458",
+    "loc_149C"
+   ],
+   [
+    "loc_1462",
+    "loc_1481"
+   ],
+   [
+    "loc_1462",
+    "loc_149C"
+   ],
+   [
+    "loc_1481",
+    "loc_149C"
+   ],
+   [
+    "loc_1481",
+    "loc_14A1"
+   ],
+   [
+    "loc_149C",
+    "loc_1B3E"
+   ],
+   [
+    "loc_14A1",
+    "loc_152D"
+   ],
+   [
+    "loc_14A1",
+    "loc_1AF0"
+   ],
+   [
+    "loc_152D",
+    "loc_1541"
+   ],
+   [
+    "loc_152D",
+    "loc_15EB"
+   ],
+   [
+    "loc_152D",
+    "loc_15F0"
+   ],
+   [
+    "loc_152D",
+    "loc_1658"
+   ],
+   [
+    "loc_152D",
+    "loc_171F"
+   ],
+   [
+    "loc_152D",
+    "loc_17E6"
+   ],
+   [
+    "loc_152D",
+    "loc_1AF0"
+   ],
+   [
+    "loc_1541",
+    "loc_1AF7"
+   ],
+   [
+    "loc_15EB",
+    "loc_1AF7"
+   ],
+   [
+    "loc_15F0",
+    "loc_1AF7"
+   ],
+   [
+    "loc_1658",
+    "loc_1AF7"
+   ],
+   [
+    "loc_171F",
+    "loc_1AF7"
+   ],
+   [
+    "loc_17E6",
+    "loc_182D"
+   ],
+   [
+    "loc_17E6",
+    "loc_1837"
+   ],
+   [
+    "loc_182D",
+    "loc_1837"
+   ],
+   [
+    "loc_182D",
+    "loc_1871"
+   ],
+   [
+    "loc_1837",
+    "loc_1856"
+   ],
+   [
+    "loc_1837",
+    "loc_1871"
+   ],
+   [
+    "loc_1856",
+    "loc_1871"
+   ],
+   [
+    "loc_1856",
+    "loc_1876"
+   ],
+   [
+    "loc_1871",
+    "loc_1B3E"
+   ],
+   [
+    "loc_1876",
+    "loc_192E"
+   ],
+   [
+    "loc_1876",
+    "loc_19A1"
+   ],
+   [
+    "loc_192E",
+    "loc_193A"
+   ],
+   [
+    "loc_192E",
+    "loc_19A1"
+   ],
+   [
+    "loc_193A",
+    "loc_1997"
+   ],
+   [
+    "loc_193A",
+    "loc_199C"
+   ],
+   [
+    "loc_1997",
+    "loc_1B3E"
+   ],
+   [
+    "loc_199C",
+    "loc_19A1"
+   ],
+   [
+    "loc_19A1",
+    "loc_19CD"
+   ],
+   [
+    "loc_19A1",
+    "loc_1A16"
+   ],
+   [
+    "loc_19CD",
+    "loc_1A16"
+   ],
+   [
+    "loc_1A16",
+    "loc_1A20"
+   ],
+   [
+    "loc_1A16",
+    "loc_1A2A"
+   ],
+   [
+    "loc_1A20",
+    "loc_1A2A"
+   ],
+   [
+    "loc_1A20",
+    "loc_1A64"
+   ],
+   [
+    "loc_1A2A",
+    "loc_1A49"
+   ],
+   [
+    "loc_1A2A",
+    "loc_1A64"
+   ],
+   [
+    "loc_1A49",
+    "loc_1A64"
+   ],
+   [
+    "loc_1A49",
+    "loc_1A69"
+   ],
+   [
+    "loc_1A64",
+    "loc_1B3E"
+   ],
+   [
+    "loc_1A69",
+    "loc_1A73"
+   ],
+   [
+    "loc_1A69",
+    "loc_1AEB"
+   ],
+   [
+    "loc_1A73",
+    "loc_1A7F"
+   ],
+   [
+    "loc_1A73",
+    "loc_1AEB"
+   ],
+   [
+    "loc_1A7F",
+    "loc_1AE1"
+   ],
+   [
+    "loc_1A7F",
+    "loc_1AE6"
+   ],
+   [
+    "loc_1AE1",
+    "loc_1B3E"
+   ],
+   [
+    "loc_1AE6",
+    "loc_1AEB"
+   ],
+   [
+    "loc_1AEB",
+    "loc_1AF7"
+   ],
+   [
+    "loc_1AF0",
+    "loc_1AF7"
+   ],
+   [
+    "loc_1AF7",
+    "loc_1B04"
+   ],
+   [
+    "loc_1AF7",
+    "loc_1B1B"
+   ],
+   [
+    "loc_1B04",
+    "loc_1B11"
+   ],
+   [
+    "loc_1B04",
+    "loc_1B32"
+   ],
+   [
+    "loc_1B11",
+    "loc_1B1B"
+   ],
+   [
+    "loc_1B11",
+    "loc_1B32"
+   ],
+   [
+    "loc_1B1B",
+    "loc_1B32"
+   ],
+   [
+    "loc_1B32",
+    "loc_1B45"
+   ],
+   [
+    "loc_1B3E",
+    "loc_1B45"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 130h\nmov     [rbp+ndo], rdi\nmov     [rbp+tptr], rsi\nmov     [rbp+indent], edx\nmov     rax, [rbp+tptr]\nmov     [rbp+pdu_header], rax\nmov     rax, [rbp+pdu_header]\nmovzx   eax, byte ptr [rax+1]\nmov     [rbp+pdu_type], eax\nmov     rax, [rbp+pdu_header]\nmovzx   eax, byte ptr [rax+4]\nshl     eax, 18h\nmov     rcx, [rbp+pdu_header]\nmovzx   ecx, byte ptr [rcx+5]\nshl     ecx, 10h\nor      eax, ecx\nmov     rcx, [rbp+pdu_header]\nmovzx   ecx, byte ptr [rcx+6]\nshl     ecx, 8\nor      eax, ecx\nmov     rcx, [rbp+pdu_header]\nmovzx   ecx, byte ptr [rcx+7]\nshl     ecx, 0\nor      eax, ecx\nmov     [rbp+pdu_len], eax\ncmp     [rbp+pdu_len], 0\nja      loc_1462",
+   "loc_1458": "cmp     [rbp+pdu_len], 0\njnz     loc_149C",
+   "loc_1462": "mov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nmov     ecx, [rbp+pdu_len]\nsub     rax, rcx\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_149C",
+   "loc_1481": "mov     rax, [rbp+tptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nmov     edx, [rbp+pdu_len]\nsub     rcx, rdx\ncmp     rax, rcx\njbe     loc_14A1",
+   "loc_149C": "jmp     trunc",
+   "loc_14A1": "mov     [rbp+hexdump], 0\nmov     rax, [rbp+ndo]\nmov     [rbp+var_90], rax\nmov     rax, [rax+10h]\nmov     [rbp+var_78], rax\nmov     edi, 8; indent\ncall    indent_string\nmov     [rbp+var_88], rax\nmov     rax, [rbp+pdu_header]\nmovzx   eax, byte ptr [rax]\nmov     [rbp+var_7C], eax\nmov     edx, [rbp+pdu_type]; v\nlea     rdi, rpki_rtr_pdu_values; lp\nlea     rsi, fmt; \"Unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_90]\nmov     rdx, [rbp+var_88]\nmov     ecx, [rbp+var_7C]\nmov     r10, [rbp+var_78]\nmov     r8, rax\nmov     r9d, [rbp+pdu_type]\nmov     esi, [rbp+pdu_len]\nmov     rax, rsp\nmov     [rax], esi\nlea     rsi, aSrpkiRtrvUSPdu; \"%sRPKI-RTRv%u, %s PDU (%u), length: %u\"\nxor     eax, eax\ncall    r10\nmov     eax, [rbp+pdu_type]\nmov     [rbp+var_70], rax\nsub     rax, 0Ah; switch 11 cases\nja      def_153F; jumptable 000000000000153F default case, cases 5,9",
+   "loc_152D": "mov     rax, [rbp+var_70]\nlea     rcx, jpt_153F\nmovsxd  rax, ds:(jpt_153F - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_1541": "mov     rax, [rbp+pdu_header]; jumptable 000000000000153F cases 0,1,7\nadd     rax, 8\nmov     [rbp+msg], rax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_98], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_A0], rax\nmov     edi, [rbp+indent]\nadd     edi, 2; indent\ncall    indent_string\nmov     rdi, [rbp+var_A0]\nmov     r9, [rbp+var_98]\nmov     rdx, rax\nmov     rax, [rbp+pdu_header]\nmovzx   eax, byte ptr [rax+2]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+pdu_header]\nmovzx   ecx, byte ptr [rcx+3]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmovzx   ecx, ax\nmov     rax, [rbp+msg]\nmovzx   r8d, byte ptr [rax]\nshl     r8d, 18h\nmov     rax, [rbp+msg]\nmovzx   eax, byte ptr [rax+1]\nshl     eax, 10h\nor      r8d, eax\nmov     rax, [rbp+msg]\nmovzx   eax, byte ptr [rax+2]\nshl     eax, 8\nor      r8d, eax\nmov     rax, [rbp+msg]\nmovzx   eax, byte ptr [rax+3]\nshl     eax, 0\nor      r8d, eax\nlea     rsi, aSsessionId0x04; \"%sSession ID: 0x%04x, Serial: %u\"\nmov     al, 0\ncall    r9\njmp     loc_1AF7",
+   "loc_15EB": "jmp     loc_1AF7; jumptable 000000000000153F cases 2,8",
+   "loc_15F0": "mov     rax, [rbp+ndo]; jumptable 000000000000153F case 3\nmov     rax, [rax+10h]\nmov     [rbp+var_A8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_B0], rax\nmov     edi, [rbp+indent]\nadd     edi, 2; indent\ncall    indent_string\nmov     rdi, [rbp+var_B0]\nmov     r8, [rbp+var_A8]\nmov     rdx, rax\nmov     rax, [rbp+pdu_header]\nmovzx   eax, byte ptr [rax+2]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+pdu_header]\nmovzx   ecx, byte ptr [rcx+3]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmovzx   ecx, ax\nlea     rsi, aSsessionId0x04_0; \"%sSession ID: 0x%04x\"\nmov     al, 0\ncall    r8\njmp     loc_1AF7",
+   "loc_1658": "mov     rax, [rbp+tptr]; jumptable 000000000000153F case 4\nmov     [rbp+pdu], rax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_B8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_C8], rax\nmov     edi, [rbp+indent]\nadd     edi, 2; indent\ncall    indent_string\nmov     [rbp+var_C0], rax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+pdu]\nadd     rsi, 0Ch; ap\ncall    getname\nmov     rdi, [rbp+var_C8]\nmov     rdx, [rbp+var_C0]\nmov     r10, [rbp+var_B8]\nmov     rcx, rax\nmov     rax, [rbp+pdu]\nmovzx   r8d, byte ptr [rax+9]\nmov     rax, [rbp+pdu]\nmovzx   r9d, byte ptr [rax+0Ah]\nmov     rax, [rbp+pdu]\nmovzx   r11d, byte ptr [rax+10h]\nshl     r11d, 18h\nmov     rax, [rbp+pdu]\nmovzx   eax, byte ptr [rax+11h]\nshl     eax, 10h\nor      r11d, eax\nmov     rax, [rbp+pdu]\nmovzx   eax, byte ptr [rax+12h]\nshl     eax, 8\nor      r11d, eax\nmov     rax, [rbp+pdu]\nmovzx   eax, byte ptr [rax+13h]\nshl     eax, 0\nor      r11d, eax\nmov     rax, [rbp+pdu]\nmovzx   eax, byte ptr [rax+8]\nlea     rsi, aSipv4PrefixSUU; \"%sIPv4 Prefix %s/%u-%u, origin-as %u, f\"...\nmov     [rsp+130h+var_130], r11d\nmov     [rsp+130h+var_128], eax\nmov     al, 0\ncall    r10\njmp     loc_1AF7",
+   "loc_171F": "mov     rax, [rbp+tptr]; jumptable 000000000000153F case 6\nmov     [rbp+pdu_0], rax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_D0], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_E0], rax\nmov     edi, [rbp+indent]\nadd     edi, 2; indent\ncall    indent_string\nmov     [rbp+var_D8], rax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+pdu_0]\nadd     rsi, 0Ch; ap\ncall    getname6\nmov     rdi, [rbp+var_E0]\nmov     rdx, [rbp+var_D8]\nmov     r10, [rbp+var_D0]\nmov     rcx, rax\nmov     rax, [rbp+pdu_0]\nmovzx   r8d, byte ptr [rax+9]\nmov     rax, [rbp+pdu_0]\nmovzx   r9d, byte ptr [rax+0Ah]\nmov     rax, [rbp+pdu_0]\nmovzx   r11d, byte ptr [rax+1Ch]\nshl     r11d, 18h\nmov     rax, [rbp+pdu_0]\nmovzx   eax, byte ptr [rax+1Dh]\nshl     eax, 10h\nor      r11d, eax\nmov     rax, [rbp+pdu_0]\nmovzx   eax, byte ptr [rax+1Eh]\nshl     eax, 8\nor      r11d, eax\nmov     rax, [rbp+pdu_0]\nmovzx   eax, byte ptr [rax+1Fh]\nshl     eax, 0\nor      r11d, eax\nmov     rax, [rbp+pdu_0]\nmovzx   eax, byte ptr [rax+8]\nlea     rsi, aSipv6PrefixSUU; \"%sIPv6 Prefix %s/%u-%u, origin-as %u, f\"...\nmov     [rsp+130h+var_130], r11d\nmov     [rsp+130h+var_128], eax\nmov     al, 0\ncall    r10\njmp     loc_1AF7",
+   "loc_17E6": "mov     rax, [rbp+tptr]; jumptable 000000000000153F case 10\nmov     [rbp+pdu_1], rax\nmov     rax, [rbp+pdu_1]\nmovzx   eax, byte ptr [rax+8]\nshl     eax, 18h\nmov     rcx, [rbp+pdu_1]\nmovzx   ecx, byte ptr [rcx+9]\nshl     ecx, 10h\nor      eax, ecx\nmov     rcx, [rbp+pdu_1]\nmovzx   ecx, byte ptr [rcx+0Ah]\nshl     ecx, 8\nor      eax, ecx\nmov     rcx, [rbp+pdu_1]\nmovzx   ecx, byte ptr [rcx+0Bh]\nshl     ecx, 0\nor      eax, ecx\nmov     [rbp+encapsulated_pdu_length], eax\ncmp     [rbp+encapsulated_pdu_length], 0\nja      loc_1837",
+   "loc_182D": "cmp     [rbp+encapsulated_pdu_length], 0\njnz     loc_1871",
+   "loc_1837": "mov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nmov     ecx, [rbp+encapsulated_pdu_length]\nsub     rax, rcx\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1871",
+   "loc_1856": "mov     rax, [rbp+tptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nmov     edx, [rbp+encapsulated_pdu_length]\nsub     rcx, rdx\ncmp     rax, rcx\njbe     loc_1876",
+   "loc_1871": "jmp     trunc",
+   "loc_1876": "mov     eax, [rbp+pdu_len]\nmov     [rbp+tlen], eax\nmov     rax, [rbp+pdu_1]\nmovzx   eax, byte ptr [rax+2]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+pdu_1]\nmovzx   ecx, byte ptr [rcx+3]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmovzx   eax, ax\nmov     [rbp+error_code], eax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_E8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_F8], rax\nmov     edi, [rbp+indent]\nadd     edi, 2; indent\ncall    indent_string\nmov     [rbp+var_F0], rax\nmov     edx, [rbp+error_code]; v\nlea     rdi, rpki_rtr_error_codes; lp\nlea     rsi, fmt; \"Unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_F8]\nmov     rdx, [rbp+var_F0]\nmov     r10, [rbp+var_E8]\nmov     rcx, rax\nmov     r8d, [rbp+error_code]\nmov     r9d, [rbp+encapsulated_pdu_length]\nlea     rsi, aSerrorCodeSUEn; \"%sError code: %s (%u), Encapsulated PDU\"...\nmov     al, 0\ncall    r10\nmov     rax, [rbp+tptr]\nadd     rax, 0Ch\nmov     [rbp+tptr], rax\nmov     eax, [rbp+tlen]\nsub     rax, 0Ch\nmov     [rbp+tlen], eax\ncmp     [rbp+encapsulated_pdu_length], 0\njz      loc_19A1",
+   "loc_192E": "mov     eax, [rbp+encapsulated_pdu_length]\ncmp     eax, [rbp+tlen]\nja      loc_19A1",
+   "loc_193A": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_100], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_108], rax\nmov     edi, [rbp+indent]\nadd     edi, 4; indent\ncall    indent_string\nmov     rdi, [rbp+var_108]\nmov     rcx, [rbp+var_100]\nmov     rdx, rax\nlea     rsi, aSEncapsulatedP; \"%s-----encapsulated PDU-----\"\nmov     al, 0\ncall    rcx\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+tptr]; tptr\nmov     edx, [rbp+indent]\nadd     edx, 2; indent\ncall    rpki_rtr_pdu_print\ncmp     eax, 0\njz      loc_199C",
+   "loc_1997": "jmp     trunc",
+   "loc_199C": "jmp     $+5",
+   "loc_19A1": "mov     ecx, [rbp+encapsulated_pdu_length]\nmov     rax, [rbp+tptr]\nmov     ecx, ecx\nadd     rax, rcx\nmov     [rbp+tptr], rax\nmov     ecx, [rbp+encapsulated_pdu_length]\nmov     eax, [rbp+tlen]\nsub     eax, ecx\nmov     [rbp+tlen], eax\nmov     [rbp+text_length], 0\ncmp     [rbp+tlen], 4\njbe     loc_1A16",
+   "loc_19CD": "mov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax]\nshl     eax, 18h\nmov     rcx, [rbp+tptr]\nmovzx   ecx, byte ptr [rcx+1]\nshl     ecx, 10h\nor      eax, ecx\nmov     rcx, [rbp+tptr]\nmovzx   ecx, byte ptr [rcx+2]\nshl     ecx, 8\nor      eax, ecx\nmov     rcx, [rbp+tptr]\nmovzx   ecx, byte ptr [rcx+3]\nshl     ecx, 0\nor      eax, ecx\nmov     [rbp+text_length], eax\nmov     rax, [rbp+tptr]\nadd     rax, 4\nmov     [rbp+tptr], rax\nmov     eax, [rbp+tlen]\nsub     eax, 4\nmov     [rbp+tlen], eax",
+   "loc_1A16": "cmp     [rbp+text_length], 0\nja      loc_1A2A",
+   "loc_1A20": "cmp     [rbp+text_length], 0\njnz     loc_1A64",
+   "loc_1A2A": "mov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nmov     ecx, [rbp+text_length]\nsub     rax, rcx\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1A64",
+   "loc_1A49": "mov     rax, [rbp+tptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nmov     edx, [rbp+text_length]\nsub     rcx, rdx\ncmp     rax, rcx\njbe     loc_1A69",
+   "loc_1A64": "jmp     trunc",
+   "loc_1A69": "cmp     [rbp+text_length], 0\njz      loc_1AEB",
+   "loc_1A73": "mov     eax, [rbp+text_length]\ncmp     eax, [rbp+tlen]\nja      loc_1AEB",
+   "loc_1A7F": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_110], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_118], rax\nmov     edi, [rbp+indent]\nadd     edi, 2; indent\ncall    indent_string\nmov     rdi, [rbp+var_118]\nmov     rcx, [rbp+var_110]\nmov     rdx, rax\nlea     rsi, aSerrorText; \"%sError text: \"\nmov     al, 0\ncall    rcx\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+tptr]; s\nmov     edx, [rbp+text_length]; n\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+8]; ep\ncall    fn_printn\ncmp     eax, 0\njz      loc_1AE6",
+   "loc_1AE1": "jmp     trunc",
+   "loc_1AE6": "jmp     $+5",
+   "loc_1AEB": "jmp     loc_1AF7",
+   "loc_1AF0": "mov     [rbp+hexdump], 1; jumptable 000000000000153F default case, cases 5,9",
+   "loc_1AF7": "mov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 1\njg      loc_1B1B",
+   "loc_1B04": "mov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 0\njz      loc_1B32",
+   "loc_1B11": "cmp     [rbp+hexdump], 0\njz      loc_1B32",
+   "loc_1B1B": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+tptr]; cp\nmov     ecx, [rbp+pdu_len]; len\nlea     rdx, ident; \"\\n\\t  \"\ncall    print_unknown_data",
+   "loc_1B32": "mov     [rbp+var_4], 0\njmp     loc_1B45",
+   "loc_1B3E": "mov     [rbp+var_4], 1",
+   "loc_1B45": "mov     eax, [rbp+var_4]\nadd     rsp, 130h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_130": "dword ptr -130h",
+   "var_128": "dword ptr -128h",
+   "var_118": "qword ptr -118h",
+   "var_110": "qword ptr -110h",
+   "var_108": "qword ptr -108h",
+   "var_100": "qword ptr -100h",
+   "var_F8": "qword ptr -0F8h",
+   "var_F0": "qword ptr -0F0h",
+   "var_E8": "qword ptr -0E8h",
+   "var_E0": "qword ptr -0E0h",
+   "var_D8": "qword ptr -0D8h",
+   "var_D0": "qword ptr -0D0h",
+   "var_C8": "qword ptr -0C8h",
+   "var_C0": "qword ptr -0C0h",
+   "var_B8": "qword ptr -0B8h",
+   "var_B0": "qword ptr -0B0h",
+   "var_A8": "qword ptr -0A8h",
+   "var_A0": "qword ptr -0A0h",
+   "var_98": "qword ptr -98h",
+   "var_90": "qword ptr -90h",
+   "var_88": "qword ptr -88h",
+   "var_7C": "dword ptr -7Ch",
+   "var_78": "qword ptr -78h",
+   "var_70": "qword ptr -70h",
+   "error_code": "dword ptr -68h",
+   "tlen": "dword ptr -64h",
+   "text_length": "dword ptr -60h",
+   "encapsulated_pdu_length": "dword ptr -5Ch",
+   "pdu_1": "qword ptr -58h",
+   "pdu_0": "qword ptr -50h",
+   "pdu": "qword ptr -48h",
+   "msg": "qword ptr -40h",
+   "hexdump": "dword ptr -34h",
+   "pdu_len": "dword ptr -30h",
+   "pdu_type": "dword ptr -2Ch",
+   "pdu_header": "qword ptr -28h",
+   "indent": "dword ptr -1Ch",
+   "tptr": "qword ptr -18h",
+   "ndo": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "fmt": "byte 'Unknown',0",
+   "aSrpkiRtrvUSPdu": "byte '%sRPKI-RTRv%u, %s PDU (%u), length: %u',0",
+   "jpt_153F": "dword offset loc_1541 - 2004h; jump table for switch statement",
+   "aSsessionId0x04": "byte '%sSession ID: 0x%04x, Serial: %u',0",
+   "aSsessionId0x04_0": "byte '%sSession ID: 0x%04x',0",
+   "aSipv4PrefixSUU": "byte '%sIPv4 Prefix %s/%u-%u, origin-as %u, flags 0x%02x',0",
+   "aSipv6PrefixSUU": "byte '%sIPv6 Prefix %s/%u-%u, origin-as %u, flags 0x%02x',0",
+   "aSerrorCodeSUEn": "byte '%sError code: %s (%u), Encapsulated PDU length: %u',0",
+   "aSEncapsulatedP": "byte '%s-----encapsulated PDU-----',0",
+   "aSerrorText": "byte '%sError text: ',0",
+   "ident": "byte 0Ah"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5104,
+ "thunk_map": {
+  ".inet_ntop": "inet_ntop",
+  "_inet_ntop": "inet_ntop",
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".inet_ntop",
+   ".plt",
+   true,
+   "inet_ntop"
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "inet_ntop",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "snprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868465
+ }
+}

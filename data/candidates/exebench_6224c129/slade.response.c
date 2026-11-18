@@ -1,0 +1,1 @@
+void fft2pt(float *x) { float d1, d2, d3, d4, d5; d1 = x[0]; d2 = x[1]; d3 = x[2]; d4 = x[3]; d5 = d1 + d3; d4 = d2 + d4; d3 = d1 - d3; d4 = d2 - d4; x[0] = d5; x[1] = d4; x[2] = d3; x[3] = d4; }

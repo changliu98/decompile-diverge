@@ -1,0 +1,1 @@
+void daxpy(unsigned int n, double alpha, double *x, double *y) { if (alpha == 0.0) return ; if (alpha != 1.0) { unsigned int i; n--; y[n] += x[n]; if (!n) return ; } n--; y[n] += alpha * x[n]; if (!n) return ; }

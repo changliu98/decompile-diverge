@@ -1,0 +1,1 @@
+static inline uint32_t func0(uint32_t i0, uint32_t i1) { return 0x000024a4 + __offset_OVLP(i0) + i1; }

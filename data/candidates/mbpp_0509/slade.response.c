@@ -1,0 +1,1 @@
+int func0(int n) { if (n % 2 == 0) { puts("Invalid Input"); return -1; } int sum = 0; int count = 0; while (n > 0) { count++; sum += n; n -= 2; } return sum / count; }

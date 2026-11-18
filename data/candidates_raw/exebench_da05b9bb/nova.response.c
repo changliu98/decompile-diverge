@@ -1,0 +1,1 @@
+void func0(float *out, float a, float b) { out[0] = a / b; }

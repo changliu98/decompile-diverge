@@ -1,0 +1,1 @@
+u_int chdlc_if_print(netdissect_options *ndo, const struct pcap_pkthdr *h, register const u_char *p) { register u_int length = h->len; register u_int type = h->type; if (type <= 3) { ndo->print(ndo, "[|chdlc]"); } else { return chdlc_print(ndo, p, length); } return 0; }

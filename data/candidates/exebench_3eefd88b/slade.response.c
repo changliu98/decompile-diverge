@@ -1,0 +1,1 @@
+int q_GetMemoryInformation(int32_t *addr, int32_t *size) { *addr =0x00100000; *size =0x00080000; return 0; }

@@ -1,0 +1,1 @@
+uint64_t func0(uint64_t x) { uint64_t sum = 0; for (uint64_t i = 2; i * i <= x; i++) { while (x % i == 0) { sum += i; x /= i; } } sum += x; return sum; }

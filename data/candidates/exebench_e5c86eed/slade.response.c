@@ -1,0 +1,1 @@
+int SeekPoint(unsigned char *buffer, int x, float val) { int i, j; float a, b, c; if (val < 0) val = 0; if (val > 100) val = 100; i = (int)val; if (i > 99) i = 99; a = buffer[i]; if (i < 99) b = buffer[i+1]; else b = 100; c = a + (b - a) * (val - i); j = 0.000001f * c * x; return j; }

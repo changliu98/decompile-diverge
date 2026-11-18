@@ -1,0 +1,1 @@
+int func0(int N) { int num = 1; while (N % 2 == 0) N /= 2; for (int i = 3; num >= sqrt(sqrt((double)N) + 0.5); i += 2) { int j = 0; int k = 1; int p = 1; while (N % i == 0) { j++; N /= i; p *= i; k += p; } num *= k; } if (N > 1) num *= num + 1; return num; }

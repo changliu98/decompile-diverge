@@ -1,0 +1,1 @@
+void scsi_sanitize_inquiry_string(unsigned char *s, int len) { int fin = 0; for (; len > 0; len--, s++) { if (*s == 0) fin = 1; if (fin || *s <0x20 || *s >0x7e) *s = ' '; } }

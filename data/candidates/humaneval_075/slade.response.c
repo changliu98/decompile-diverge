@@ -1,0 +1,1 @@
+bool func0(int n) { if (n <= 1) { return false; } int count = 0; for (int i = 2; i * i <= n; ++i) { while (n % i == 0) { n /= i; ++count; } } if (n > 1) { ++count; } return count == 3; }

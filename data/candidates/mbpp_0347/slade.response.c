@@ -1,0 +1,1 @@
+int func0(int a, int b) { if (b < a) { int tmp = a; a = b; b = tmp; } return (b * (b + 1)) * ((a * 3) - b + 1) / 6; }

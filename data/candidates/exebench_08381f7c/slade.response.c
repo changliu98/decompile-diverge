@@ -1,0 +1,1 @@
+void vscal(float v[3], float scale, float vr[3]) { vr[0] = v[0] * scale; vr[1] = v[1] * scale; vr[2] = v[2] * scale; }

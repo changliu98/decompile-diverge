@@ -1,0 +1,3 @@
+void increment(int *cell) {
+  (*cell)++;
+}

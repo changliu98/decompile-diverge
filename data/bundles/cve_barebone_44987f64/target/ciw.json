@@ -1,0 +1,530 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 1060h\nmov     [rbp+argc], edi\nmov     [rbp+argv], rsi\nmov     [rbp+fix], 0\ncmp     [rbp+argc], 2\njge     loc_126B\njmp     invalid_args\ncmp     [rbp+argc], 2\njnz     loc_12F4\nmov     rax, [rbp+argv]\nmov     rdi, [rax+8]; s1\nlea     rsi, s2; \"-v\"\ncall    strcmp\ncmp     eax, 0\njz      loc_12AF\nmov     rax, [rbp+argv]\nmov     rdi, [rax+8]; s1\nlea     rsi, aVersion; \"--version\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_12E3\ncall    getVersion\nmov     [rbp+version], rax\nmov     rsi, [rbp+version]\nlea     rdi, format; \"redis-check-aof %s\\n\"\nmov     al, 0\ncall    printf\nmov     rdi, [rbp+version]; s\ncall    sdsfree\nxor     edi, edi; status\ncall    exit\nmov     rax, [rbp+argv]\nmov     rax, [rax+8]\nmov     [rbp+filepath], rax\njmp     loc_13F5\ncmp     [rbp+argc], 3\njnz     loc_1340\nmov     rax, [rbp+argv]\nmov     rdi, [rax+8]; s1\nlea     rsi, aFix; \"--fix\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_1336\nmov     rax, [rbp+argv]\nmov     rax, [rax+10h]\nmov     [rbp+filepath], rax\nmov     [rbp+fix], 1\njmp     loc_133B\njmp     invalid_args\njmp     loc_13F0\ncmp     [rbp+argc], 4\njnz     loc_13E6\nmov     rax, [rbp+argv]\nmov     rdi, [rax+8]; s1\nlea     rsi, aTruncateToTime; \"--truncate-to-timestamp\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_13DC\ncall    ___errno_location\nmov     dword ptr [rax], 0\nmov     rax, [rbp+argv]\nmov     rdi, [rax+10h]; nptr\nlea     rsi, [rbp+endptr]; endptr\nmov     edx, 0Ah; base\ncall    strtol\nmov     cs:to_timestamp, rax\ncall    ___errno_location\ncmp     dword ptr [rax], 0\njnz     loc_13B3\nmov     rax, [rbp+endptr]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 0\njz      loc_13CB\nlea     rdi, aInvalidTimesta; \"Invalid timestamp, aborting...\\n\"\nmov     al, 0\ncall    printf\nmov     edi, 1; status\ncall    exit\nmov     rax, [rbp+argv]\nmov     rax, [rax+18h]\nmov     [rbp+filepath], rax\njmp     loc_13E1\njmp     invalid_args\njmp     loc_13EB\njmp     invalid_args\njmp     $+5\njmp     $+5\njmp     $+5\nmov     rdi, [rbp+filepath]; s\nmov     [rbp+src], rdi\ncall    strlen\nmov     rsi, [rbp+src]; src\nmov     rdx, rax\nadd     rdx, 1; n\nlea     rdi, [rbp+temp_filepath]; dest\nmov     [rbp+path], rdi\ncall    memcpy\nmov     rdi, [rbp+path]; path\ncall    dirname\nmov     [rbp+dirpath], rax\nmov     rdi, [rbp+filepath]; filepath\ncall    getInputFileType\nmov     [rbp+type], eax\nmov     eax, [rbp+type]\nmov     [rbp+var_1048], eax\ntest    eax, eax\njz      loc_14A9\njmp     $+5\nmov     eax, [rbp+var_1048]\nsub     eax, 1\njz      loc_14BF\njmp     $+5\nmov     eax, [rbp+var_1048]\nsub     eax, 2\njnz     loc_14D3\njmp     $+5\nmov     rdi, [rbp+dirpath]; dirpath\nmov     rsi, [rbp+filepath]; filepath\nmov     edx, [rbp+fix]; fix\ncall    checkMultiPartAof\njmp     loc_14D3\nmov     rdi, [rbp+filepath]; filepath\nmov     esi, [rbp+fix]; fix\nxor     edx, edx; preamble\ncall    checkOldStyleAof\njmp     loc_14D3\nmov     rdi, [rbp+filepath]; filepath\nmov     esi, [rbp+fix]; fix\nmov     edx, 1; preamble\ncall    checkOldStyleAof\nxor     edi, edi; status\ncall    exit\nmov     rax, [rbp+argv]\nmov     rsi, [rax]\nlea     rdi, aUsageSFixTrunc; \"Usage: %s [--fix|--truncate-to-timestam\"...\nmov     al, 0\ncall    printf\nmov     edi, 1; status\ncall    exit",
+ "assemgraph_com": {
+  "nodenum": 35,
+  "edges": [
+   [
+    "start",
+    "loc_1266"
+   ],
+   [
+    "start",
+    "loc_126B"
+   ],
+   [
+    "loc_1266",
+    "loc_14DA"
+   ],
+   [
+    "loc_126B",
+    "loc_1275"
+   ],
+   [
+    "loc_126B",
+    "loc_12F4"
+   ],
+   [
+    "loc_1275",
+    "loc_1292"
+   ],
+   [
+    "loc_1275",
+    "loc_12AF"
+   ],
+   [
+    "loc_1292",
+    "loc_12AF"
+   ],
+   [
+    "loc_1292",
+    "loc_12E3"
+   ],
+   [
+    "loc_12E3",
+    "loc_13F5"
+   ],
+   [
+    "loc_12F4",
+    "loc_12FE"
+   ],
+   [
+    "loc_12F4",
+    "loc_1340"
+   ],
+   [
+    "loc_12FE",
+    "loc_131B"
+   ],
+   [
+    "loc_12FE",
+    "loc_1336"
+   ],
+   [
+    "loc_131B",
+    "loc_133B"
+   ],
+   [
+    "loc_1336",
+    "loc_14DA"
+   ],
+   [
+    "loc_133B",
+    "loc_13F0"
+   ],
+   [
+    "loc_1340",
+    "loc_134A"
+   ],
+   [
+    "loc_1340",
+    "loc_13E6"
+   ],
+   [
+    "loc_134A",
+    "loc_1367"
+   ],
+   [
+    "loc_134A",
+    "loc_13DC"
+   ],
+   [
+    "loc_1367",
+    "loc_13A0"
+   ],
+   [
+    "loc_1367",
+    "loc_13B3"
+   ],
+   [
+    "loc_13A0",
+    "loc_13B3"
+   ],
+   [
+    "loc_13A0",
+    "loc_13CB"
+   ],
+   [
+    "loc_13CB",
+    "loc_13E1"
+   ],
+   [
+    "loc_13DC",
+    "loc_14DA"
+   ],
+   [
+    "loc_13E1",
+    "loc_13EB"
+   ],
+   [
+    "loc_13E6",
+    "loc_14DA"
+   ],
+   [
+    "loc_13EB",
+    "loc_13F0"
+   ],
+   [
+    "loc_13F0",
+    "loc_13F5"
+   ],
+   [
+    "loc_13F5",
+    "loc_13FA"
+   ],
+   [
+    "loc_13FA",
+    "loc_1461"
+   ],
+   [
+    "loc_13FA",
+    "loc_14A9"
+   ],
+   [
+    "loc_1461",
+    "loc_1466"
+   ],
+   [
+    "loc_1466",
+    "loc_1475"
+   ],
+   [
+    "loc_1466",
+    "loc_14BF"
+   ],
+   [
+    "loc_1475",
+    "loc_147A"
+   ],
+   [
+    "loc_147A",
+    "loc_1489"
+   ],
+   [
+    "loc_147A",
+    "loc_14D3"
+   ],
+   [
+    "loc_1489",
+    "loc_148E"
+   ],
+   [
+    "loc_148E",
+    "loc_14D3"
+   ],
+   [
+    "loc_14A9",
+    "loc_14D3"
+   ],
+   [
+    "loc_14BF",
+    "loc_14D3"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 1060h\nmov     [rbp+argc], edi\nmov     [rbp+argv], rsi\nmov     [rbp+fix], 0\ncmp     [rbp+argc], 2\njge     loc_126B",
+   "loc_1266": "jmp     invalid_args",
+   "loc_126B": "cmp     [rbp+argc], 2\njnz     loc_12F4",
+   "loc_1275": "mov     rax, [rbp+argv]\nmov     rdi, [rax+8]; s1\nlea     rsi, s2; \"-v\"\ncall    strcmp\ncmp     eax, 0\njz      loc_12AF",
+   "loc_1292": "mov     rax, [rbp+argv]\nmov     rdi, [rax+8]; s1\nlea     rsi, aVersion; \"--version\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_12E3",
+   "loc_12AF": "call    getVersion\nmov     [rbp+version], rax\nmov     rsi, [rbp+version]\nlea     rdi, format; \"redis-check-aof %s\\n\"\nmov     al, 0\ncall    printf\nmov     rdi, [rbp+version]; s\ncall    sdsfree\nxor     edi, edi; status\ncall    exit",
+   "loc_12E3": "mov     rax, [rbp+argv]\nmov     rax, [rax+8]\nmov     [rbp+filepath], rax\njmp     loc_13F5",
+   "loc_12F4": "cmp     [rbp+argc], 3\njnz     loc_1340",
+   "loc_12FE": "mov     rax, [rbp+argv]\nmov     rdi, [rax+8]; s1\nlea     rsi, aFix; \"--fix\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_1336",
+   "loc_131B": "mov     rax, [rbp+argv]\nmov     rax, [rax+10h]\nmov     [rbp+filepath], rax\nmov     [rbp+fix], 1\njmp     loc_133B",
+   "loc_1336": "jmp     invalid_args",
+   "loc_133B": "jmp     loc_13F0",
+   "loc_1340": "cmp     [rbp+argc], 4\njnz     loc_13E6",
+   "loc_134A": "mov     rax, [rbp+argv]\nmov     rdi, [rax+8]; s1\nlea     rsi, aTruncateToTime; \"--truncate-to-timestamp\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_13DC",
+   "loc_1367": "call    ___errno_location\nmov     dword ptr [rax], 0\nmov     rax, [rbp+argv]\nmov     rdi, [rax+10h]; nptr\nlea     rsi, [rbp+endptr]; endptr\nmov     edx, 0Ah; base\ncall    strtol\nmov     cs:to_timestamp, rax\ncall    ___errno_location\ncmp     dword ptr [rax], 0\njnz     loc_13B3",
+   "loc_13A0": "mov     rax, [rbp+endptr]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 0\njz      loc_13CB",
+   "loc_13B3": "lea     rdi, aInvalidTimesta; \"Invalid timestamp, aborting...\\n\"\nmov     al, 0\ncall    printf\nmov     edi, 1; status\ncall    exit",
+   "loc_13CB": "mov     rax, [rbp+argv]\nmov     rax, [rax+18h]\nmov     [rbp+filepath], rax\njmp     loc_13E1",
+   "loc_13DC": "jmp     invalid_args",
+   "loc_13E1": "jmp     loc_13EB",
+   "loc_13E6": "jmp     invalid_args",
+   "loc_13EB": "jmp     $+5",
+   "loc_13F0": "jmp     $+5",
+   "loc_13F5": "jmp     $+5",
+   "loc_13FA": "mov     rdi, [rbp+filepath]; s\nmov     [rbp+src], rdi\ncall    strlen\nmov     rsi, [rbp+src]; src\nmov     rdx, rax\nadd     rdx, 1; n\nlea     rdi, [rbp+temp_filepath]; dest\nmov     [rbp+path], rdi\ncall    memcpy\nmov     rdi, [rbp+path]; path\ncall    dirname\nmov     [rbp+dirpath], rax\nmov     rdi, [rbp+filepath]; filepath\ncall    getInputFileType\nmov     [rbp+type], eax\nmov     eax, [rbp+type]\nmov     [rbp+var_1048], eax\ntest    eax, eax\njz      loc_14A9",
+   "loc_1461": "jmp     $+5",
+   "loc_1466": "mov     eax, [rbp+var_1048]\nsub     eax, 1\njz      loc_14BF",
+   "loc_1475": "jmp     $+5",
+   "loc_147A": "mov     eax, [rbp+var_1048]\nsub     eax, 2\njnz     loc_14D3",
+   "loc_1489": "jmp     $+5",
+   "loc_148E": "mov     rdi, [rbp+dirpath]; dirpath\nmov     rsi, [rbp+filepath]; filepath\nmov     edx, [rbp+fix]; fix\ncall    checkMultiPartAof\njmp     loc_14D3",
+   "loc_14A9": "mov     rdi, [rbp+filepath]; filepath\nmov     esi, [rbp+fix]; fix\nxor     edx, edx; preamble\ncall    checkOldStyleAof\njmp     loc_14D3",
+   "loc_14BF": "mov     rdi, [rbp+filepath]; filepath\nmov     esi, [rbp+fix]; fix\nmov     edx, 1; preamble\ncall    checkOldStyleAof",
+   "loc_14D3": "xor     edi, edi; status\ncall    exit",
+   "loc_14DA": "mov     rax, [rbp+argv]\nmov     rsi, [rax]\nlea     rdi, aUsageSFixTrunc; \"Usage: %s [--fix|--truncate-to-timestam\"...\nmov     al, 0\ncall    printf\nmov     edi, 1; status\ncall    exit"
+  }
+ },
+ "data": {
+  "param": {
+   "src": "qword ptr -1058h",
+   "path": "qword ptr -1050h",
+   "var_1048": "dword ptr -1048h",
+   "type": "dword ptr -1044h",
+   "endptr": "qword ptr -1040h",
+   "version": "qword ptr -1038h",
+   "fix": "dword ptr -102Ch",
+   "dirpath": "qword ptr -1028h",
+   "temp_filepath": "byte ptr -1020h",
+   "filepath": "qword ptr -18h",
+   "argv": "qword ptr -10h",
+   "argc": "dword ptr -4"
+  },
+  ".rodata": {
+   "s2": "byte '-v',0",
+   "aVersion": "byte '--version',0",
+   "format": "byte 'redis-check-aof %s',0Ah,0",
+   "aFix": "byte '--fix',0",
+   "aTruncateToTime": "byte '--truncate-to-timestamp',0",
+   "aInvalidTimesta": "byte 'Invalid timestamp, aborting...',0Ah,0",
+   "aUsageSFixTrunc": "byte 'Usage: %s [--fix|--truncate-to-timestamp $timestamp] <file.manife'"
+  },
+  ".data": {},
+  ".bss": {
+   "to_timestamp": "[]"
+  }
+ },
+ "func_ea": 4672,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".__errno_location": "__errno_location",
+  "_errno_location": "__errno_location",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".dirname": "dirname",
+  "_dirname": "dirname",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".strtol": "strtol",
+  "_strtol": "strtol",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".exit": "exit",
+  "_exit": "exit",
+  ".strdup": "strdup",
+  "_strdup": "strdup"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".__errno_location",
+   ".plt",
+   true,
+   "__errno_location"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".dirname",
+   ".plt",
+   true,
+   "dirname"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".strtol",
+   ".plt",
+   true,
+   "strtol"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".exit",
+   ".plt",
+   true,
+   "exit"
+  ],
+  [
+   ".strdup",
+   ".plt",
+   true,
+   "strdup"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__errno_location",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "printf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "dirname",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strtol",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "exit",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strdup",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868460
+ }
+}

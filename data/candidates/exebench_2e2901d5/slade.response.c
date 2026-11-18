@@ -1,0 +1,1 @@
+void str_copy(char *d, char *s) { while(*s != '\0') { *d = *s; s++; d++; } *d = '\0'; }

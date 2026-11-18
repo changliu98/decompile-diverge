@@ -1,0 +1,1 @@
+void itoa(int n, char *buffer) { char *p = buffer; char *q = NULL; if (n < 0) { int tmp = n * -1; *p = '-'; p++; } else { tmp = n; } q = p; do { int digit = (tmp % 10) + '0'; *q = digit; tmp /= 10; q++; } while (tmp != 0); *q = '\0'; while (--q > p) { char tmp = *p; *p = *q; *q = tmp; p++; } }

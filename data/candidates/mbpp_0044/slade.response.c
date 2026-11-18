@@ -1,0 +1,1 @@
+char* func0(char *s) { char *regex = "^[[:alnum:]_]+"; regex_t preg; int result; if (regcomp(&preg, regex, 1) != 0) return "Not matched!"; result = regexec(&preg, s, 0, NULL, 0); regfree(&preg); if (result == 0) return "Found a match!"; return "Not matched!"; }

@@ -1,0 +1,1 @@
+void func0(int x, int y, int z, int *dst) { if (y > z) { dst[0] = x + z; dst[1] = 0; } else { dst[0] = x + y; dst[1] = z - y; } }

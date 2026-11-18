@@ -1,0 +1,1 @@
+double func0(int *ptr, int N) { int i; double sum = 1; for (i = 0; i < N; i++) sum *= ptr[i]; return sum / N; }

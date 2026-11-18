@@ -1,0 +1,1 @@
+__attribute__((no))  double func0(uint32_t x) { double s = x *0xffffffff; return s; }

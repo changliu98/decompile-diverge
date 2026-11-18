@@ -1,0 +1,1 @@
+void grid_point_to_grid_double(uint32_t * grid_point, uint32_t grid_dim, const uint32_t grid_s[3], const uint32_t grid_c[3]) { uint32_t grid_i[3]; grid_i[0] = grid_dim/(grid_s[0]*grid_s[1]); grid_i[1] = (grid_i[0]*grid_s[0]*grid_s[0]-grid_s[1])/grid_s[0]; grid_i[2] = grid_dim % grid_s[0]; for (uint32_t i=0; i<3; i++) grid_point[i] = 2*grid_i[i] + grid_c[i]; }

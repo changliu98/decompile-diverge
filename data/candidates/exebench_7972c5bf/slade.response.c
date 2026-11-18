@@ -1,0 +1,1 @@
+void tagcpy(char *to, char *from, int len) { char *s, *t; s = from; t = &from[len-1]; if (*t && !*(t-1)) t--; while (s <= t) { if (*s == ' ') s++; else if (*t && *t != ' ') break; t--; } while (*s && s <= t) *to++ = *s++; *to = '\0'; }

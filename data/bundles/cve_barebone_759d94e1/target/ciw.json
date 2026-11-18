@@ -1,0 +1,704 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 1070h\nmov     [rbp+filter], rdi\nmov     rdi, [rbp+filter]; filter\ncall    gf_filter_get_udta\nmov     [rbp+ctx], rax\nmov     [rbp+cts], 0FFFFFFFFFFFFFFFFh\nmov     rax, [rbp+ctx]\ncmp     dword ptr [rax+0BCh], 0\njz      loc_1447\nmov     rax, [rbp+ctx]\nmov     eax, [rax+0BCh]\nmov     [rbp+var_4], eax\njmp     loc_1A26\nmov     rax, [rbp+ctx]\ncmp     qword ptr [rax+48h], 0\njnz     loc_1463\nmov     rdi, [rbp+filter]; filter\nmov     rsi, [rbp+ctx]; ctx\ncall    latm_dmx_check_dur\nmov     rax, [rbp+ctx]\ncmp     qword ptr [rax+18h], 0\njz      loc_148F\nmov     rax, [rbp+ctx]\ncmp     dword ptr [rax+84h], 0\njnz     loc_148F\nmov     [rbp+var_4], 0\njmp     loc_1A26\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+10h]; PID\ncall    gf_filter_pid_get_packet\nmov     [rbp+pck], rax\ncmp     [rbp+pck], 0\njnz     loc_153E\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+10h]; PID\ncall    gf_filter_pid_is_eos\ncmp     eax, 0\njz      loc_152D\nmov     rax, [rbp+ctx]\ncmp     dword ptr [rax+78h], 0\njnz     loc_1528\nmov     rax, [rbp+ctx]\ncmp     qword ptr [rax+18h], 0\njz      loc_14EB\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+18h]; PID\ncall    gf_filter_pid_set_eos\nmov     rax, [rbp+ctx]\ncmp     qword ptr [rax+98h], 0\njz      loc_150D\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+98h]; pck\ncall    gf_filter_pck_unref\nmov     rax, [rbp+ctx]\nmov     qword ptr [rax+98h], 0\nmov     [rbp+var_4], 1\njmp     loc_1A26\njmp     loc_1539\nmov     [rbp+var_4], 0\njmp     loc_1A26\njmp     $+5\nmov     rdi, [rbp+pck]; pck\nlea     rsi, [rbp+pck_size]; size\ncall    gf_filter_pck_get_data\nmov     [rbp+data], rax\nmov     rax, [rbp+ctx]\ncmp     dword ptr [rax+64h], 0\njz      loc_1575\ncmp     [rbp+pck], 0\njz      loc_1575\nmov     rdi, [rbp+pck]; pck\ncall    gf_filter_pck_get_cts\nmov     [rbp+cts], rax\nmov     rax, [rbp+ctx]\nmov     eax, [rax+78h]\nmov     [rbp+prev_pck_size], eax\ncmp     [rbp+pck], 0\njz      loc_1611\nmov     rax, [rbp+ctx]\ncmp     dword ptr [rax+0B0h], 0\njnz     loc_1611\nmov     rax, [rbp+ctx]\nmov     eax, [rax+78h]\nadd     eax, [rbp+pck_size]\nmov     rcx, [rbp+ctx]\ncmp     eax, [rcx+7Ch]\njbe     loc_15E4\nmov     rax, [rbp+ctx]\nmov     ecx, [rax+78h]\nadd     ecx, [rbp+pck_size]\nmov     rax, [rbp+ctx]\nmov     [rax+7Ch], ecx\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+70h]; ptr\nmov     rax, [rbp+ctx]\nmov     eax, [rax+7Ch]\nmov     esi, eax; size\ncall    _ZN4chip14BindingManager40RegisterBoundDeviceContextReleaseHandlerEPFvPvE; chip::BindingManager::RegisterBoundDeviceContextReleaseHandler(void (*)(void *))\nmov     rcx, rax\nmov     rax, [rbp+ctx]\nmov     [rax+70h], rcx\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+70h]\nmov     rax, [rbp+ctx]\nmov     eax, [rax+78h]\nadd     rdi, rax; dest\nmov     rsi, [rbp+data]; src\nmov     eax, [rbp+pck_size]\nmov     edx, eax; n\ncall    memcpy\nmov     ecx, [rbp+pck_size]\nmov     rax, [rbp+ctx]\nadd     ecx, [rax+78h]\nmov     [rax+78h], ecx\nmov     rax, [rbp+ctx]\ncmp     qword ptr [rax+20h], 0\njnz     loc_1648\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+70h]; buffer\nmov     rax, [rbp+ctx]\nmov     eax, [rax+78h]\nmov     esi, eax; size\nxor     edx, edx; mode\ncall    gf_bs_new\nmov     rcx, rax\nmov     rax, [rbp+ctx]\nmov     [rax+20h], rcx\njmp     loc_1666\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+20h]; bs\nmov     rax, [rbp+ctx]\nmov     rsi, [rax+70h]; buffer\nmov     rax, [rbp+ctx]\nmov     eax, [rax+78h]\nmov     edx, eax; size\ncall    gf_bs_reassign_buffer\nmov     rax, [rbp+ctx]\ncmp     dword ptr [rax+0B0h], 0\njz      loc_16A3\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+20h]; bs\nmov     rax, [rbp+ctx]\nmov     eax, [rax+0B0h]\nsub     eax, 1\nmov     eax, eax\nmov     esi, eax; offset\ncall    gf_bs_seek\nmov     rax, [rbp+ctx]\nmov     dword ptr [rax+0B0h], 0\ncmp     [rbp+cts], 0FFFFFFFFFFFFFFFFh\njnz     loc_16B5\nmov     [rbp+prev_pck_size], 0\njmp     $+5\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+20h]; bs\ncall    gf_bs_get_position\nmov     [rbp+pos], eax\nmov     [rbp+latm_frame_size], 1000h\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+20h]; bs\nmov     rsi, [rbp+ctx]\nadd     rsi, 68h ; 'h'; acfg\nlea     rcx, [rbp+latm_buffer]; buffer\nlea     rdx, [rbp+latm_frame_size]; nb_bytes\nxor     eax, eax\nmov     r8d, eax; nb_skipped\ncall    latm_dmx_sync_frame_bs\ncmp     eax, 0\njnz     loc_170A\njmp     loc_199E\nmov     rax, [rbp+ctx]\ncmp     dword ptr [rax+60h], 0\njz      loc_1798\nmov     rax, [rbp+ctx]\nmovsd   xmm0, qword ptr [rax+58h]\nmov     eax, [rax+38h]\nmov     ecx, eax\nlea     rax, GF_M4ASampleRates\nmov     eax, [rax+rcx*4]\ncvtsi2sd xmm1, rax\nmulsd   xmm0, xmm1\nmovaps  xmm1, xmm0\ncvttsd2si rax, xmm1\nmov     rdx, rax\nsar     rdx, 3Fh\nmovsd   xmm1, cs:qword_2008\nsubsd   xmm0, xmm1\ncvttsd2si rcx, xmm0\nand     rcx, rdx\nor      rax, rcx\nmov     [rbp+nb_samples_at_seek], rax\nmov     rax, [rbp+ctx]\nmov     rax, [rax+30h]\nmov     rcx, [rbp+ctx]\nmov     ecx, [rcx+80h]\nadd     rax, rcx\ncmp     rax, [rbp+nb_samples_at_seek]\njb      loc_1793\nmov     rax, [rbp+ctx]\nmov     dword ptr [rax+60h], 0\njmp     $+5\nmov     rdi, [rbp+filter]; filter\nmov     rsi, [rbp+ctx]; ctx\ncall    latm_dmx_check_pid\nmov     rax, [rbp+ctx]\ncmp     dword ptr [rax+84h], 0\njnz     loc_17D2\nmov     ecx, [rbp+pos]\nadd     ecx, 1\nmov     rax, [rbp+ctx]\nmov     [rax+0B0h], ecx\nmov     [rbp+var_4], 0\njmp     loc_1A26\nmov     rax, [rbp+ctx]\ncmp     dword ptr [rax+60h], 0\njnz     loc_190D\nmov     [rbp+sap], 1\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+18h]; PID\nmov     esi, [rbp+latm_frame_size]; data_size\nlea     rdx, [rbp+output]; data\ncall    gf_filter_pck_new_alloc\nmov     [rbp+dst_pck], rax\nmov     rax, [rbp+ctx]\ncmp     qword ptr [rax+98h], 0\njz      loc_182B\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+98h]; pck_src\nmov     rsi, [rbp+dst_pck]; pck_dst\ncall    gf_filter_pck_merge_properties\nmov     rdi, [rbp+output]; dest\nlea     rsi, [rbp+latm_buffer]; src\nmov     eax, [rbp+latm_frame_size]\nmov     edx, eax; n\ncall    memcpy\nmov     rdi, [rbp+dst_pck]; pck\nmov     rax, [rbp+ctx]\nmov     rsi, [rax+30h]; cts\ncall    gf_filter_pck_set_cts\nmov     rdi, [rbp+dst_pck]; pck\nmov     rax, [rbp+ctx]\nmov     esi, [rax+80h]; duration\ncall    gf_filter_pck_set_duration\nmov     rdi, [rbp+dst_pck]; pck\nmov     edx, 1; is_end\nmov     esi, edx; is_start\ncall    gf_filter_pck_set_framing\nmov     rax, [rbp+ctx]\ncmp     dword ptr [rax+68h], 75736163h\njnz     loc_18F5\ncmp     [rbp+latm_frame_size], 0\njz      loc_18D8\nmov     rax, [rbp+output]\nmovzx   eax, byte ptr [rax]\nand     eax, 80h\ncmp     eax, 0\njz      loc_18D8\nmov     rax, [rbp+ctx]\ncmp     dword ptr [rax+0B4h], 0\njnz     loc_18D8\nmov     [rbp+sap], 1\nmov     rax, [rbp+ctx]\nmov     dword ptr [rax+0B4h], 1\njmp     loc_18F0\nmov     [rbp+sap], 0\nmov     rax, [rbp+ctx]\nmov     dword ptr [rax+0B4h], 0\njmp     $+5\nmov     rdi, [rbp+dst_pck]; pck\nmov     esi, [rbp+sap]; sap_type\ncall    gf_filter_pck_set_sap\nmov     rdi, [rbp+dst_pck]; pck\ncall    gf_filter_pck_send\nmov     rdi, [rbp+ctx]; ctx\ncall    latm_dmx_update_cts\ncmp     [rbp+prev_pck_size], 0\njz      loc_1999\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+20h]; bs\ncall    gf_bs_get_position\nmov     [rbp+pos], eax\nmov     eax, [rbp+prev_pck_size]\ncmp     eax, [rbp+pos]\nja      loc_1994\nmov     [rbp+prev_pck_size], 0\nmov     rax, [rbp+ctx]\ncmp     qword ptr [rax+98h], 0\njz      loc_1965\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+98h]; pck\ncall    gf_filter_pck_unref\nmov     rcx, [rbp+pck]\nmov     rax, [rbp+ctx]\nmov     [rax+98h], rcx\ncmp     [rbp+pck], 0\njz      loc_198F\nmov     rdi, [rbp+ctx]\nadd     rdi, 98h; pck\ncall    gf_filter_pck_ref_props\njmp     $+5\njmp     $+5\njmp     loc_16BA\ncmp     [rbp+pck], 0\njz      loc_1A03\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+20h]; bs\ncall    gf_bs_get_position\nmov     [rbp+pos], eax\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+70h]; dest\nmov     rax, [rbp+ctx]\nmov     rsi, [rax+70h]\nmov     eax, [rbp+pos]\nadd     rsi, rax; src\nmov     rax, [rbp+ctx]\nmov     eax, [rax+78h]\nsub     eax, [rbp+pos]\nmov     eax, eax\nmov     edx, eax; n\ncall    memmove\nmov     edx, [rbp+pos]\nmov     rax, [rbp+ctx]\nmov     ecx, [rax+78h]\nsub     ecx, edx\nmov     [rax+78h], ecx\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+10h]; PID\ncall    gf_filter_pid_drop_packet\njmp     loc_1A1F\nmov     rax, [rbp+ctx]\nmov     dword ptr [rax+78h], 0\nmov     rdi, [rbp+filter]; filter\ncall    latm_dmx_process\nmov     [rbp+var_4], eax\njmp     loc_1A26\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 1070h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 67,
+  "edges": [
+   [
+    "start",
+    "loc_1435"
+   ],
+   [
+    "start",
+    "loc_1447"
+   ],
+   [
+    "loc_1435",
+    "loc_1A26"
+   ],
+   [
+    "loc_1447",
+    "loc_1456"
+   ],
+   [
+    "loc_1447",
+    "loc_1463"
+   ],
+   [
+    "loc_1456",
+    "loc_1463"
+   ],
+   [
+    "loc_1463",
+    "loc_1472"
+   ],
+   [
+    "loc_1463",
+    "loc_148F"
+   ],
+   [
+    "loc_1472",
+    "loc_1483"
+   ],
+   [
+    "loc_1472",
+    "loc_148F"
+   ],
+   [
+    "loc_1483",
+    "loc_1A26"
+   ],
+   [
+    "loc_148F",
+    "loc_14AB"
+   ],
+   [
+    "loc_148F",
+    "loc_153E"
+   ],
+   [
+    "loc_14AB",
+    "loc_14C1"
+   ],
+   [
+    "loc_14AB",
+    "loc_152D"
+   ],
+   [
+    "loc_14C1",
+    "loc_14CF"
+   ],
+   [
+    "loc_14C1",
+    "loc_1528"
+   ],
+   [
+    "loc_14CF",
+    "loc_14DE"
+   ],
+   [
+    "loc_14CF",
+    "loc_14EB"
+   ],
+   [
+    "loc_14DE",
+    "loc_14EB"
+   ],
+   [
+    "loc_14EB",
+    "loc_14FD"
+   ],
+   [
+    "loc_14EB",
+    "loc_150D"
+   ],
+   [
+    "loc_14FD",
+    "loc_150D"
+   ],
+   [
+    "loc_150D",
+    "loc_1A26"
+   ],
+   [
+    "loc_1528",
+    "loc_1539"
+   ],
+   [
+    "loc_152D",
+    "loc_1A26"
+   ],
+   [
+    "loc_1539",
+    "loc_153E"
+   ],
+   [
+    "loc_153E",
+    "loc_155D"
+   ],
+   [
+    "loc_153E",
+    "loc_1575"
+   ],
+   [
+    "loc_155D",
+    "loc_1568"
+   ],
+   [
+    "loc_155D",
+    "loc_1575"
+   ],
+   [
+    "loc_1568",
+    "loc_1575"
+   ],
+   [
+    "loc_1575",
+    "loc_158A"
+   ],
+   [
+    "loc_1575",
+    "loc_1611"
+   ],
+   [
+    "loc_158A",
+    "loc_159B"
+   ],
+   [
+    "loc_158A",
+    "loc_1611"
+   ],
+   [
+    "loc_159B",
+    "loc_15B2"
+   ],
+   [
+    "loc_159B",
+    "loc_15E4"
+   ],
+   [
+    "loc_15B2",
+    "loc_15E4"
+   ],
+   [
+    "loc_15E4",
+    "loc_1611"
+   ],
+   [
+    "loc_1611",
+    "loc_1620"
+   ],
+   [
+    "loc_1611",
+    "loc_1648"
+   ],
+   [
+    "loc_1620",
+    "loc_1666"
+   ],
+   [
+    "loc_1648",
+    "loc_1666"
+   ],
+   [
+    "loc_1666",
+    "loc_1677"
+   ],
+   [
+    "loc_1666",
+    "loc_16A3"
+   ],
+   [
+    "loc_1677",
+    "loc_16A3"
+   ],
+   [
+    "loc_16A3",
+    "loc_16AE"
+   ],
+   [
+    "loc_16A3",
+    "loc_16B5"
+   ],
+   [
+    "loc_16AE",
+    "loc_16B5"
+   ],
+   [
+    "loc_16B5",
+    "loc_16BA"
+   ],
+   [
+    "loc_16BA",
+    "loc_1705"
+   ],
+   [
+    "loc_16BA",
+    "loc_170A"
+   ],
+   [
+    "loc_1705",
+    "loc_199E"
+   ],
+   [
+    "loc_170A",
+    "loc_1718"
+   ],
+   [
+    "loc_170A",
+    "loc_1798"
+   ],
+   [
+    "loc_1718",
+    "loc_1788"
+   ],
+   [
+    "loc_1718",
+    "loc_1793"
+   ],
+   [
+    "loc_1788",
+    "loc_1793"
+   ],
+   [
+    "loc_1793",
+    "loc_1798"
+   ],
+   [
+    "loc_1798",
+    "loc_17B6"
+   ],
+   [
+    "loc_1798",
+    "loc_17D2"
+   ],
+   [
+    "loc_17B6",
+    "loc_1A26"
+   ],
+   [
+    "loc_17D2",
+    "loc_17E0"
+   ],
+   [
+    "loc_17D2",
+    "loc_190D"
+   ],
+   [
+    "loc_17E0",
+    "loc_1817"
+   ],
+   [
+    "loc_17E0",
+    "loc_182B"
+   ],
+   [
+    "loc_1817",
+    "loc_182B"
+   ],
+   [
+    "loc_182B",
+    "loc_1888"
+   ],
+   [
+    "loc_182B",
+    "loc_18F5"
+   ],
+   [
+    "loc_1888",
+    "loc_1895"
+   ],
+   [
+    "loc_1888",
+    "loc_18D8"
+   ],
+   [
+    "loc_1895",
+    "loc_18AA"
+   ],
+   [
+    "loc_1895",
+    "loc_18D8"
+   ],
+   [
+    "loc_18AA",
+    "loc_18BB"
+   ],
+   [
+    "loc_18AA",
+    "loc_18D8"
+   ],
+   [
+    "loc_18BB",
+    "loc_18F0"
+   ],
+   [
+    "loc_18D8",
+    "loc_18F0"
+   ],
+   [
+    "loc_18F0",
+    "loc_18F5"
+   ],
+   [
+    "loc_18F5",
+    "loc_190D"
+   ],
+   [
+    "loc_190D",
+    "loc_1920"
+   ],
+   [
+    "loc_190D",
+    "loc_1999"
+   ],
+   [
+    "loc_1920",
+    "loc_193C"
+   ],
+   [
+    "loc_1920",
+    "loc_1994"
+   ],
+   [
+    "loc_193C",
+    "loc_1955"
+   ],
+   [
+    "loc_193C",
+    "loc_1965"
+   ],
+   [
+    "loc_1955",
+    "loc_1965"
+   ],
+   [
+    "loc_1965",
+    "loc_197F"
+   ],
+   [
+    "loc_1965",
+    "loc_198F"
+   ],
+   [
+    "loc_197F",
+    "loc_198F"
+   ],
+   [
+    "loc_198F",
+    "loc_1994"
+   ],
+   [
+    "loc_1994",
+    "loc_1999"
+   ],
+   [
+    "loc_1999",
+    "loc_16BA"
+   ],
+   [
+    "loc_199E",
+    "loc_19A9"
+   ],
+   [
+    "loc_199E",
+    "loc_1A03"
+   ],
+   [
+    "loc_19A9",
+    "loc_1A1F"
+   ],
+   [
+    "loc_1A03",
+    "loc_1A26"
+   ],
+   [
+    "loc_1A1F",
+    "loc_1A26"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 1070h\nmov     [rbp+filter], rdi\nmov     rdi, [rbp+filter]; filter\ncall    gf_filter_get_udta\nmov     [rbp+ctx], rax\nmov     [rbp+cts], 0FFFFFFFFFFFFFFFFh\nmov     rax, [rbp+ctx]\ncmp     dword ptr [rax+0BCh], 0\njz      loc_1447",
+   "loc_1435": "mov     rax, [rbp+ctx]\nmov     eax, [rax+0BCh]\nmov     [rbp+var_4], eax\njmp     loc_1A26",
+   "loc_1447": "mov     rax, [rbp+ctx]\ncmp     qword ptr [rax+48h], 0\njnz     loc_1463",
+   "loc_1456": "mov     rdi, [rbp+filter]; filter\nmov     rsi, [rbp+ctx]; ctx\ncall    latm_dmx_check_dur",
+   "loc_1463": "mov     rax, [rbp+ctx]\ncmp     qword ptr [rax+18h], 0\njz      loc_148F",
+   "loc_1472": "mov     rax, [rbp+ctx]\ncmp     dword ptr [rax+84h], 0\njnz     loc_148F",
+   "loc_1483": "mov     [rbp+var_4], 0\njmp     loc_1A26",
+   "loc_148F": "mov     rax, [rbp+ctx]\nmov     rdi, [rax+10h]; PID\ncall    gf_filter_pid_get_packet\nmov     [rbp+pck], rax\ncmp     [rbp+pck], 0\njnz     loc_153E",
+   "loc_14AB": "mov     rax, [rbp+ctx]\nmov     rdi, [rax+10h]; PID\ncall    gf_filter_pid_is_eos\ncmp     eax, 0\njz      loc_152D",
+   "loc_14C1": "mov     rax, [rbp+ctx]\ncmp     dword ptr [rax+78h], 0\njnz     loc_1528",
+   "loc_14CF": "mov     rax, [rbp+ctx]\ncmp     qword ptr [rax+18h], 0\njz      loc_14EB",
+   "loc_14DE": "mov     rax, [rbp+ctx]\nmov     rdi, [rax+18h]; PID\ncall    gf_filter_pid_set_eos",
+   "loc_14EB": "mov     rax, [rbp+ctx]\ncmp     qword ptr [rax+98h], 0\njz      loc_150D",
+   "loc_14FD": "mov     rax, [rbp+ctx]\nmov     rdi, [rax+98h]; pck\ncall    gf_filter_pck_unref",
+   "loc_150D": "mov     rax, [rbp+ctx]\nmov     qword ptr [rax+98h], 0\nmov     [rbp+var_4], 1\njmp     loc_1A26",
+   "loc_1528": "jmp     loc_1539",
+   "loc_152D": "mov     [rbp+var_4], 0\njmp     loc_1A26",
+   "loc_1539": "jmp     $+5",
+   "loc_153E": "mov     rdi, [rbp+pck]; pck\nlea     rsi, [rbp+pck_size]; size\ncall    gf_filter_pck_get_data\nmov     [rbp+data], rax\nmov     rax, [rbp+ctx]\ncmp     dword ptr [rax+64h], 0\njz      loc_1575",
+   "loc_155D": "cmp     [rbp+pck], 0\njz      loc_1575",
+   "loc_1568": "mov     rdi, [rbp+pck]; pck\ncall    gf_filter_pck_get_cts\nmov     [rbp+cts], rax",
+   "loc_1575": "mov     rax, [rbp+ctx]\nmov     eax, [rax+78h]\nmov     [rbp+prev_pck_size], eax\ncmp     [rbp+pck], 0\njz      loc_1611",
+   "loc_158A": "mov     rax, [rbp+ctx]\ncmp     dword ptr [rax+0B0h], 0\njnz     loc_1611",
+   "loc_159B": "mov     rax, [rbp+ctx]\nmov     eax, [rax+78h]\nadd     eax, [rbp+pck_size]\nmov     rcx, [rbp+ctx]\ncmp     eax, [rcx+7Ch]\njbe     loc_15E4",
+   "loc_15B2": "mov     rax, [rbp+ctx]\nmov     ecx, [rax+78h]\nadd     ecx, [rbp+pck_size]\nmov     rax, [rbp+ctx]\nmov     [rax+7Ch], ecx\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+70h]; ptr\nmov     rax, [rbp+ctx]\nmov     eax, [rax+7Ch]\nmov     esi, eax; size\ncall    _ZN4chip14BindingManager40RegisterBoundDeviceContextReleaseHandlerEPFvPvE; chip::BindingManager::RegisterBoundDeviceContextReleaseHandler(void (*)(void *))\nmov     rcx, rax\nmov     rax, [rbp+ctx]\nmov     [rax+70h], rcx",
+   "loc_15E4": "mov     rax, [rbp+ctx]\nmov     rdi, [rax+70h]\nmov     rax, [rbp+ctx]\nmov     eax, [rax+78h]\nadd     rdi, rax; dest\nmov     rsi, [rbp+data]; src\nmov     eax, [rbp+pck_size]\nmov     edx, eax; n\ncall    memcpy\nmov     ecx, [rbp+pck_size]\nmov     rax, [rbp+ctx]\nadd     ecx, [rax+78h]\nmov     [rax+78h], ecx",
+   "loc_1611": "mov     rax, [rbp+ctx]\ncmp     qword ptr [rax+20h], 0\njnz     loc_1648",
+   "loc_1620": "mov     rax, [rbp+ctx]\nmov     rdi, [rax+70h]; buffer\nmov     rax, [rbp+ctx]\nmov     eax, [rax+78h]\nmov     esi, eax; size\nxor     edx, edx; mode\ncall    gf_bs_new\nmov     rcx, rax\nmov     rax, [rbp+ctx]\nmov     [rax+20h], rcx\njmp     loc_1666",
+   "loc_1648": "mov     rax, [rbp+ctx]\nmov     rdi, [rax+20h]; bs\nmov     rax, [rbp+ctx]\nmov     rsi, [rax+70h]; buffer\nmov     rax, [rbp+ctx]\nmov     eax, [rax+78h]\nmov     edx, eax; size\ncall    gf_bs_reassign_buffer",
+   "loc_1666": "mov     rax, [rbp+ctx]\ncmp     dword ptr [rax+0B0h], 0\njz      loc_16A3",
+   "loc_1677": "mov     rax, [rbp+ctx]\nmov     rdi, [rax+20h]; bs\nmov     rax, [rbp+ctx]\nmov     eax, [rax+0B0h]\nsub     eax, 1\nmov     eax, eax\nmov     esi, eax; offset\ncall    gf_bs_seek\nmov     rax, [rbp+ctx]\nmov     dword ptr [rax+0B0h], 0",
+   "loc_16A3": "cmp     [rbp+cts], 0FFFFFFFFFFFFFFFFh\njnz     loc_16B5",
+   "loc_16AE": "mov     [rbp+prev_pck_size], 0",
+   "loc_16B5": "jmp     $+5",
+   "loc_16BA": "mov     rax, [rbp+ctx]\nmov     rdi, [rax+20h]; bs\ncall    gf_bs_get_position\nmov     [rbp+pos], eax\nmov     [rbp+latm_frame_size], 1000h\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+20h]; bs\nmov     rsi, [rbp+ctx]\nadd     rsi, 68h ; 'h'; acfg\nlea     rcx, [rbp+latm_buffer]; buffer\nlea     rdx, [rbp+latm_frame_size]; nb_bytes\nxor     eax, eax\nmov     r8d, eax; nb_skipped\ncall    latm_dmx_sync_frame_bs\ncmp     eax, 0\njnz     loc_170A",
+   "loc_1705": "jmp     loc_199E",
+   "loc_170A": "mov     rax, [rbp+ctx]\ncmp     dword ptr [rax+60h], 0\njz      loc_1798",
+   "loc_1718": "mov     rax, [rbp+ctx]\nmovsd   xmm0, qword ptr [rax+58h]\nmov     eax, [rax+38h]\nmov     ecx, eax\nlea     rax, GF_M4ASampleRates\nmov     eax, [rax+rcx*4]\ncvtsi2sd xmm1, rax\nmulsd   xmm0, xmm1\nmovaps  xmm1, xmm0\ncvttsd2si rax, xmm1\nmov     rdx, rax\nsar     rdx, 3Fh\nmovsd   xmm1, cs:qword_2008\nsubsd   xmm0, xmm1\ncvttsd2si rcx, xmm0\nand     rcx, rdx\nor      rax, rcx\nmov     [rbp+nb_samples_at_seek], rax\nmov     rax, [rbp+ctx]\nmov     rax, [rax+30h]\nmov     rcx, [rbp+ctx]\nmov     ecx, [rcx+80h]\nadd     rax, rcx\ncmp     rax, [rbp+nb_samples_at_seek]\njb      loc_1793",
+   "loc_1788": "mov     rax, [rbp+ctx]\nmov     dword ptr [rax+60h], 0",
+   "loc_1793": "jmp     $+5",
+   "loc_1798": "mov     rdi, [rbp+filter]; filter\nmov     rsi, [rbp+ctx]; ctx\ncall    latm_dmx_check_pid\nmov     rax, [rbp+ctx]\ncmp     dword ptr [rax+84h], 0\njnz     loc_17D2",
+   "loc_17B6": "mov     ecx, [rbp+pos]\nadd     ecx, 1\nmov     rax, [rbp+ctx]\nmov     [rax+0B0h], ecx\nmov     [rbp+var_4], 0\njmp     loc_1A26",
+   "loc_17D2": "mov     rax, [rbp+ctx]\ncmp     dword ptr [rax+60h], 0\njnz     loc_190D",
+   "loc_17E0": "mov     [rbp+sap], 1\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+18h]; PID\nmov     esi, [rbp+latm_frame_size]; data_size\nlea     rdx, [rbp+output]; data\ncall    gf_filter_pck_new_alloc\nmov     [rbp+dst_pck], rax\nmov     rax, [rbp+ctx]\ncmp     qword ptr [rax+98h], 0\njz      loc_182B",
+   "loc_1817": "mov     rax, [rbp+ctx]\nmov     rdi, [rax+98h]; pck_src\nmov     rsi, [rbp+dst_pck]; pck_dst\ncall    gf_filter_pck_merge_properties",
+   "loc_182B": "mov     rdi, [rbp+output]; dest\nlea     rsi, [rbp+latm_buffer]; src\nmov     eax, [rbp+latm_frame_size]\nmov     edx, eax; n\ncall    memcpy\nmov     rdi, [rbp+dst_pck]; pck\nmov     rax, [rbp+ctx]\nmov     rsi, [rax+30h]; cts\ncall    gf_filter_pck_set_cts\nmov     rdi, [rbp+dst_pck]; pck\nmov     rax, [rbp+ctx]\nmov     esi, [rax+80h]; duration\ncall    gf_filter_pck_set_duration\nmov     rdi, [rbp+dst_pck]; pck\nmov     edx, 1; is_end\nmov     esi, edx; is_start\ncall    gf_filter_pck_set_framing\nmov     rax, [rbp+ctx]\ncmp     dword ptr [rax+68h], 75736163h\njnz     loc_18F5",
+   "loc_1888": "cmp     [rbp+latm_frame_size], 0\njz      loc_18D8",
+   "loc_1895": "mov     rax, [rbp+output]\nmovzx   eax, byte ptr [rax]\nand     eax, 80h\ncmp     eax, 0\njz      loc_18D8",
+   "loc_18AA": "mov     rax, [rbp+ctx]\ncmp     dword ptr [rax+0B4h], 0\njnz     loc_18D8",
+   "loc_18BB": "mov     [rbp+sap], 1\nmov     rax, [rbp+ctx]\nmov     dword ptr [rax+0B4h], 1\njmp     loc_18F0",
+   "loc_18D8": "mov     [rbp+sap], 0\nmov     rax, [rbp+ctx]\nmov     dword ptr [rax+0B4h], 0",
+   "loc_18F0": "jmp     $+5",
+   "loc_18F5": "mov     rdi, [rbp+dst_pck]; pck\nmov     esi, [rbp+sap]; sap_type\ncall    gf_filter_pck_set_sap\nmov     rdi, [rbp+dst_pck]; pck\ncall    gf_filter_pck_send",
+   "loc_190D": "mov     rdi, [rbp+ctx]; ctx\ncall    latm_dmx_update_cts\ncmp     [rbp+prev_pck_size], 0\njz      loc_1999",
+   "loc_1920": "mov     rax, [rbp+ctx]\nmov     rdi, [rax+20h]; bs\ncall    gf_bs_get_position\nmov     [rbp+pos], eax\nmov     eax, [rbp+prev_pck_size]\ncmp     eax, [rbp+pos]\nja      loc_1994",
+   "loc_193C": "mov     [rbp+prev_pck_size], 0\nmov     rax, [rbp+ctx]\ncmp     qword ptr [rax+98h], 0\njz      loc_1965",
+   "loc_1955": "mov     rax, [rbp+ctx]\nmov     rdi, [rax+98h]; pck\ncall    gf_filter_pck_unref",
+   "loc_1965": "mov     rcx, [rbp+pck]\nmov     rax, [rbp+ctx]\nmov     [rax+98h], rcx\ncmp     [rbp+pck], 0\njz      loc_198F",
+   "loc_197F": "mov     rdi, [rbp+ctx]\nadd     rdi, 98h; pck\ncall    gf_filter_pck_ref_props",
+   "loc_198F": "jmp     $+5",
+   "loc_1994": "jmp     $+5",
+   "loc_1999": "jmp     loc_16BA",
+   "loc_199E": "cmp     [rbp+pck], 0\njz      loc_1A03",
+   "loc_19A9": "mov     rax, [rbp+ctx]\nmov     rdi, [rax+20h]; bs\ncall    gf_bs_get_position\nmov     [rbp+pos], eax\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+70h]; dest\nmov     rax, [rbp+ctx]\nmov     rsi, [rax+70h]\nmov     eax, [rbp+pos]\nadd     rsi, rax; src\nmov     rax, [rbp+ctx]\nmov     eax, [rax+78h]\nsub     eax, [rbp+pos]\nmov     eax, eax\nmov     edx, eax; n\ncall    memmove\nmov     edx, [rbp+pos]\nmov     rax, [rbp+ctx]\nmov     ecx, [rax+78h]\nsub     ecx, edx\nmov     [rax+78h], ecx\nmov     rax, [rbp+ctx]\nmov     rdi, [rax+10h]; PID\ncall    gf_filter_pid_drop_packet\njmp     loc_1A1F",
+   "loc_1A03": "mov     rax, [rbp+ctx]\nmov     dword ptr [rax+78h], 0\nmov     rdi, [rbp+filter]; filter\ncall    latm_dmx_process\nmov     [rbp+var_4], eax\njmp     loc_1A26",
+   "loc_1A1F": "mov     [rbp+var_4], 0",
+   "loc_1A26": "mov     eax, [rbp+var_4]\nadd     rsp, 1070h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "sap": "dword ptr -1064h",
+   "nb_samples_at_seek": "qword ptr -1060h",
+   "latm_frame_size": "dword ptr -1054h",
+   "latm_buffer": "byte ptr -1050h",
+   "cts": "qword ptr -50h",
+   "prev_pck_size": "dword ptr -48h",
+   "pck_size": "dword ptr -44h",
+   "output": "qword ptr -40h",
+   "data": "qword ptr -38h",
+   "pos": "dword ptr -2Ch",
+   "dst_pck": "qword ptr -28h",
+   "pck": "qword ptr -20h",
+   "ctx": "qword ptr -18h",
+   "filter": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "GF_M4ASampleRates": "byte 0",
+   "qword_2008": "qword 43E0000000000000h"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5120,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memmove",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868471
+ }
+}

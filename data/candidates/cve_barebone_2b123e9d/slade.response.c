@@ -1,0 +1,1 @@
+int writefile(const char *path, const u_char *p) { FILE *fp = fopen(path, "w"); if (!fp) { warn("open %s:", path); return -1; } int ret = 0; if (fwrite(p + 1, 1, *p, fp) != *p || fflush(fp) != 0) { warn("write %s:", path); ret = -1; } fclose(fp); return ret; }

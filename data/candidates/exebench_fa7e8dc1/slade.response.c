@@ -1,0 +1,1 @@
+void fancySwap (uint32_t *a, uint32_t *b) { *a ^= *b; *b ^= *b; *a ^= *b; }

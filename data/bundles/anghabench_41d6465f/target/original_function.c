@@ -1,0 +1,1 @@
+uint32_t REG_A5XX_VPC_VARYING_INTERP_MODE(uint32_t i0) { return 0x0000e282 + 0x1*i0; }

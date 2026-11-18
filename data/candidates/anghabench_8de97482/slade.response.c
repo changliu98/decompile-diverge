@@ -1,0 +1,1 @@
+int walNextHash(int iHash){ return (iHash+1)&(HASHTABLE_NSLOT-1); }

@@ -1,0 +1,1 @@
+void bitfield_set(bitfield_t *bf, int bit) { bf[bit/(sizeof(bitfield_t)*8)] |= (1UL << (bit % (sizeof(bitfield_t)*8))); }

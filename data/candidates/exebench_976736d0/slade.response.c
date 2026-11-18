@@ -1,0 +1,1 @@
+__attribute__((no))  unsigned long div10quickm (unsigned long *q) { unsigned long a, b, qq; a = *q; b = (a >> 1) + (a >> 2); b += (b >> 4); b += (b >> 8); b += (b >> 16); b >>= 3; qq = a - (b + b << 1); a = b + (qq >> 9); *q = a; a <<= 1; a += (a << 2); return *q - a; }

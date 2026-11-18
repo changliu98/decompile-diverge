@@ -1,0 +1,1 @@
+unsigned increase_1 (void *id) { * ((int*)id) += 1; return ~0U; }

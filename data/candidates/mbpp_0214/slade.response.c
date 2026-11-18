@@ -1,0 +1,1 @@
+__attribute__((no))  double func0(uint32_t val) { double s = val * 57.29577951308232; return s; }

@@ -1,0 +1,1 @@
+void func0(float *y) { *y = 3600.0; }

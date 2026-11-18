@@ -1,0 +1,1 @@
+char* func0(char *s) { char *regex = "a.*?b$"; int ret; regex_t reg; ret = regcomp(&reg, regex, 1); if (ret != 0) { fputs("Could not compile regex\n", stderr); return "Error"; } ret = regexec(&reg, s, 0, NULL, 0); regfree(&reg); if (ret == 0) { return "Found a match!"; } else { return "Not matched!"; } }

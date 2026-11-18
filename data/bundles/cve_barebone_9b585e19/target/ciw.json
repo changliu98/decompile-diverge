@@ -1,0 +1,346 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+a], rdi\nmov     [rbp+buff], rsi\nmov     [rbp+size], rdx\nmov     [rbp+offset], rcx\nmov     rax, [rbp+a]\nmov     rax, [rax+8]\nmov     rax, [rax]\nmov     [rbp+rar], rax\nmov     rax, [rbp+rar]\ncmp     dword ptr [rax+4F18h], 0FFFFFFFFh\njnz     loc_2E96\nmov     rax, [rbp+rar]\nmov     dword ptr [rax+4F18h], 0\nmov     rax, [rbp+rar]\ncmp     qword ptr [rax+0A0h], 0\njle     loc_2ECB\nmov     rdi, [rbp+a]; a\nmov     rax, [rbp+rar]\nmov     rsi, [rax+0A0h]; request\ncall    __archive_read_consume\nmov     rax, [rbp+rar]\nmov     qword ptr [rax+0A0h], 0\nmov     rax, [rbp+buff]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+rar]\nmovsx   eax, byte ptr [rax+0EDh]\ncmp     eax, 0\njnz     loc_2F03\nmov     rax, [rbp+rar]\nmov     rax, [rax+0C8h]\nmov     rcx, [rbp+rar]\ncmp     rax, [rcx+28h]\njl      loc_2F50\nmov     rax, [rbp+size]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+rar]\nmov     rcx, [rax+0B8h]\nmov     rax, [rbp+offset]\nmov     [rax], rcx\nmov     rax, [rbp+offset]\nmov     rax, [rax]\nmov     rcx, [rbp+rar]\ncmp     rax, [rcx+28h]\njge     loc_2F44\nmov     rax, [rbp+rar]\nmov     rcx, [rax+28h]\nmov     rax, [rbp+offset]\nmov     [rax], rcx\nmov     [rbp+var_4], 1\njmp     loc_3003\nmov     rax, [rbp+rar]\nmovsx   eax, byte ptr [rax+17h]\nmov     [rbp+var_38], eax\nsub     eax, 30h ; '0'\njz      loc_2F7D\njmp     $+5\nmov     eax, [rbp+var_38]\nadd     eax, 0FFFFFFCFh\nsub     eax, 5\njb      loc_2F9A\njmp     loc_2FDF\nmov     rdi, [rbp+a]; a\nmov     rsi, [rbp+buff]; buff\nmov     rdx, [rbp+size]; size\nmov     rcx, [rbp+offset]; offset\ncall    read_data_stored\nmov     [rbp+ret], eax\njmp     loc_2FFD\nmov     rdi, [rbp+a]; a\nmov     rsi, [rbp+buff]; buff\nmov     rdx, [rbp+size]; size\nmov     rcx, [rbp+offset]; offset\ncall    read_data_compressed\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njz      loc_2FDA\ncmp     [rbp+ret], 0FFFFFFECh\njz      loc_2FDA\nmov     rax, cs:off_7D90\nmov     rdi, [rbp+rar]\nadd     rdi, 3A0h; p\ncall    rax ; Ppmd7_Free\njmp     loc_2FFD\nmov     rdi, [rbp+a]; a\nmov     esi, 0FFFFFFFFh; err\nlea     rdx, fmt; \"Unsupported compression method for RAR \"...\nmov     al, 0\ncall    archive_set_error\nmov     [rbp+ret], 0FFFFFFE2h\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 21,
+  "edges": [
+   [
+    "start",
+    "loc_2E88"
+   ],
+   [
+    "start",
+    "loc_2E96"
+   ],
+   [
+    "loc_2E88",
+    "loc_2E96"
+   ],
+   [
+    "loc_2E96",
+    "loc_2EA8"
+   ],
+   [
+    "loc_2E96",
+    "loc_2ECB"
+   ],
+   [
+    "loc_2EA8",
+    "loc_2ECB"
+   ],
+   [
+    "loc_2ECB",
+    "loc_2EEA"
+   ],
+   [
+    "loc_2ECB",
+    "loc_2F03"
+   ],
+   [
+    "loc_2EEA",
+    "loc_2F03"
+   ],
+   [
+    "loc_2EEA",
+    "loc_2F50"
+   ],
+   [
+    "loc_2F03",
+    "loc_2F35"
+   ],
+   [
+    "loc_2F03",
+    "loc_2F44"
+   ],
+   [
+    "loc_2F35",
+    "loc_2F44"
+   ],
+   [
+    "loc_2F44",
+    "loc_3003"
+   ],
+   [
+    "loc_2F50",
+    "loc_2F64"
+   ],
+   [
+    "loc_2F50",
+    "loc_2F7D"
+   ],
+   [
+    "loc_2F64",
+    "loc_2F69"
+   ],
+   [
+    "loc_2F69",
+    "loc_2F78"
+   ],
+   [
+    "loc_2F69",
+    "loc_2F9A"
+   ],
+   [
+    "loc_2F78",
+    "loc_2FDF"
+   ],
+   [
+    "loc_2F7D",
+    "loc_2FFD"
+   ],
+   [
+    "loc_2F9A",
+    "loc_2FBC"
+   ],
+   [
+    "loc_2F9A",
+    "loc_2FDA"
+   ],
+   [
+    "loc_2FBC",
+    "loc_2FC6"
+   ],
+   [
+    "loc_2FBC",
+    "loc_2FDA"
+   ],
+   [
+    "loc_2FC6",
+    "loc_2FDA"
+   ],
+   [
+    "loc_2FDA",
+    "loc_2FFD"
+   ],
+   [
+    "loc_2FDF",
+    "loc_2FFD"
+   ],
+   [
+    "loc_2FFD",
+    "loc_3003"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+a], rdi\nmov     [rbp+buff], rsi\nmov     [rbp+size], rdx\nmov     [rbp+offset], rcx\nmov     rax, [rbp+a]\nmov     rax, [rax+8]\nmov     rax, [rax]\nmov     [rbp+rar], rax\nmov     rax, [rbp+rar]\ncmp     dword ptr [rax+4F18h], 0FFFFFFFFh\njnz     loc_2E96",
+   "loc_2E88": "mov     rax, [rbp+rar]\nmov     dword ptr [rax+4F18h], 0",
+   "loc_2E96": "mov     rax, [rbp+rar]\ncmp     qword ptr [rax+0A0h], 0\njle     loc_2ECB",
+   "loc_2EA8": "mov     rdi, [rbp+a]; a\nmov     rax, [rbp+rar]\nmov     rsi, [rax+0A0h]; request\ncall    __archive_read_consume\nmov     rax, [rbp+rar]\nmov     qword ptr [rax+0A0h], 0",
+   "loc_2ECB": "mov     rax, [rbp+buff]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+rar]\nmovsx   eax, byte ptr [rax+0EDh]\ncmp     eax, 0\njnz     loc_2F03",
+   "loc_2EEA": "mov     rax, [rbp+rar]\nmov     rax, [rax+0C8h]\nmov     rcx, [rbp+rar]\ncmp     rax, [rcx+28h]\njl      loc_2F50",
+   "loc_2F03": "mov     rax, [rbp+size]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+rar]\nmov     rcx, [rax+0B8h]\nmov     rax, [rbp+offset]\nmov     [rax], rcx\nmov     rax, [rbp+offset]\nmov     rax, [rax]\nmov     rcx, [rbp+rar]\ncmp     rax, [rcx+28h]\njge     loc_2F44",
+   "loc_2F35": "mov     rax, [rbp+rar]\nmov     rcx, [rax+28h]\nmov     rax, [rbp+offset]\nmov     [rax], rcx",
+   "loc_2F44": "mov     [rbp+var_4], 1\njmp     loc_3003",
+   "loc_2F50": "mov     rax, [rbp+rar]\nmovsx   eax, byte ptr [rax+17h]\nmov     [rbp+var_38], eax\nsub     eax, 30h ; '0'\njz      loc_2F7D",
+   "loc_2F64": "jmp     $+5",
+   "loc_2F69": "mov     eax, [rbp+var_38]\nadd     eax, 0FFFFFFCFh\nsub     eax, 5\njb      loc_2F9A",
+   "loc_2F78": "jmp     loc_2FDF",
+   "loc_2F7D": "mov     rdi, [rbp+a]; a\nmov     rsi, [rbp+buff]; buff\nmov     rdx, [rbp+size]; size\nmov     rcx, [rbp+offset]; offset\ncall    read_data_stored\nmov     [rbp+ret], eax\njmp     loc_2FFD",
+   "loc_2F9A": "mov     rdi, [rbp+a]; a\nmov     rsi, [rbp+buff]; buff\nmov     rdx, [rbp+size]; size\nmov     rcx, [rbp+offset]; offset\ncall    read_data_compressed\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njz      loc_2FDA",
+   "loc_2FBC": "cmp     [rbp+ret], 0FFFFFFECh\njz      loc_2FDA",
+   "loc_2FC6": "mov     rax, cs:off_7D90\nmov     rdi, [rbp+rar]\nadd     rdi, 3A0h; p\ncall    rax ; Ppmd7_Free",
+   "loc_2FDA": "jmp     loc_2FFD",
+   "loc_2FDF": "mov     rdi, [rbp+a]; a\nmov     esi, 0FFFFFFFFh; err\nlea     rdx, fmt; \"Unsupported compression method for RAR \"...\nmov     al, 0\ncall    archive_set_error\nmov     [rbp+ret], 0FFFFFFE2h",
+   "loc_2FFD": "mov     eax, [rbp+ret]\nmov     [rbp+var_4], eax",
+   "loc_3003": "mov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_38": "dword ptr -38h",
+   "ret": "dword ptr -34h",
+   "rar": "qword ptr -30h",
+   "offset": "qword ptr -28h",
+   "size": "qword ptr -20h",
+   "buff": "qword ptr -18h",
+   "a": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "fmt": "byte 'Unsupported compression method for RAR file.',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 11856,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".exit": "exit",
+  "_exit": "exit"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".exit",
+   ".plt",
+   true,
+   "exit"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "exit",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868478
+ }
+}

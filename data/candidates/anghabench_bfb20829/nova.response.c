@@ -1,0 +1,1 @@
+static inline uint32_t generic_mbus_win_cfg_offset(uint32_t i0) { return 0x00000000 + 0x10*i0; }

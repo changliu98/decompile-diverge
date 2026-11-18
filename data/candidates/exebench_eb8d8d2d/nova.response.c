@@ -1,0 +1,1 @@
+void algogas(double *x, double y) { *x += y; }

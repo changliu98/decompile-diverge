@@ -1,0 +1,37 @@
+000000000000c5e0 <drwav_mulaw_to_s32>:
+    c5e0:	push   %rbp
+    c5e1:	mov    %rsp,%rbp
+    c5e4:	mov    %rdi,-0x10(%rbp)
+    c5e8:	mov    %rsi,-0x18(%rbp)
+    c5ec:	mov    %rdx,-0x20(%rbp)
+    c5f0:	cmpq   $0x0,-0x10(%rbp)
+    c5f5:	je     c606 <drwav_mulaw_to_s32+0x26>
+    c5fb:	cmpq   $0x0,-0x18(%rbp)
+    c600:	jne    c60b <drwav_mulaw_to_s32+0x2b>
+    c606:	jmp    c665 <drwav_mulaw_to_s32+0x85>
+    c60b:	movq   $0x0,-0x28(%rbp)
+    c613:	mov    -0x28(%rbp),%rax
+    c617:	cmp    -0x20(%rbp),%rax
+    c61b:	jae    c665 <drwav_mulaw_to_s32+0x85>
+    c621:	mov    -0x18(%rbp),%rax
+    c625:	mov    -0x28(%rbp),%rcx
+    c629:	mov    (%rax,%rcx,1),%al
+    c62c:	mov    %al,-0x1(%rbp)
+    c62f:	movzbl -0x1(%rbp),%eax
+    c633:	mov    %eax,%ecx
+    c635:	lea    0x97c4(%rip),%rax        # 15e00 <g_drwavMulawTable>
+    c63c:	movswl (%rax,%rcx,2),%ecx
+    c640:	shl    $0x10,%ecx
+    c643:	mov    -0x10(%rbp),%rax
+    c647:	mov    %rax,%rdx
+    c64a:	add    $0x4,%rdx
+    c64e:	mov    %rdx,-0x10(%rbp)
+    c652:	mov    %ecx,(%rax)
+    c654:	mov    -0x28(%rbp),%rax
+    c658:	add    $0x1,%rax
+    c65c:	mov    %rax,-0x28(%rbp)
+    c660:	jmp    c613 <drwav_mulaw_to_s32+0x33>
+    c665:	pop    %rbp
+    c666:	ret
+
+Disassembly of section .fini:

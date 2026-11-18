@@ -1,0 +1,1 @@
+int obdRevConvert_33(float value, int *piValue, unsigned char *pbIn, unsigned char *pbOut, unsigned char *pbOutlen) { *piValue = (int)value; return 1; }

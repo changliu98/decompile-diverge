@@ -1,0 +1,302 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nmov     al, dil\nmov     [rbp+digit], al\nmovss   [rbp+row], xmm0\nmovss   [rbp+col], xmm1\nmovss   [rbp+hgt], xmm2\nmovss   [rbp+h], xmm3\nmov     [rbp+vx], rsi\nmov     [rbp+vy], rdx\nmov     [rbp+num], 0\nmovsx   eax, [rbp+digit]\ncmp     eax, 30h ; '0'\njl      loc_1967\nmovsx   eax, [rbp+digit]\ncmp     eax, 39h ; '9'\njle     loc_1973\nmov     [rbp+var_4], 0\njmp     loc_1AB6\nmovsx   eax, [rbp+digit]\nsub     eax, 30h ; '0'\nmov     [rbp+i], eax\nmov     eax, [rbp+i]\nadd     eax, 1\nmovsxd  rcx, eax\nlea     rax, plot_digit_wierd_lt\nmov     eax, [rax+rcx*4]\nmov     [rbp+ib], eax\nmov     eax, [rbp+i]\nadd     eax, 2\nmovsxd  rcx, eax\nlea     rax, plot_digit_wierd_lt\nmov     eax, [rax+rcx*4]\nsub     eax, 1\nmov     [rbp+ie], eax\nmov     eax, [rbp+ib]\nmov     [rbp+i], eax\nmov     eax, [rbp+i]\ncmp     eax, [rbp+ie]\njg      loc_1AB0\nmovsxd  rcx, [rbp+i]\nlea     rax, plot_digit_wierd_lb\nmov     eax, [rax+rcx*4]\nmov     ecx, 0Ah\ncdq\nidiv    ecx\nmov     [rbp+llin], eax\nmovsxd  rcx, [rbp+i]\nlea     rax, plot_digit_wierd_lb\nmov     eax, [rax+rcx*4]\nimul    ecx, [rbp+llin], 0Ah\nsub     eax, ecx\nmov     [rbp+llel], eax\nmovss   xmm0, [rbp+hgt]\ncvtsi2ss xmm1, [rbp+llin]\nmulss   xmm0, xmm1\nmovss   [rbp+hl], xmm0\nmovss   xmm0, [rbp+h]\ncvtsi2ss xmm1, [rbp+llel]\nmulss   xmm0, xmm1\nmovss   [rbp+he], xmm0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+ib]\njz      loc_1A84\nmovss   xmm0, [rbp+rs]\nmov     rax, [rbp+vx]\nmovsxd  rcx, [rbp+num]\nmovss   dword ptr [rax+rcx*4], xmm0\nmovss   xmm0, [rbp+cs_0]\nmov     rax, [rbp+vy]\nmovsxd  rcx, [rbp+num]\nmovss   dword ptr [rax+rcx*4], xmm0\nmov     eax, [rbp+num]\nadd     eax, 1\nmov     [rbp+num], eax\nmovss   xmm0, [rbp+row]\nsubss   xmm0, [rbp+hl]\nmov     rax, [rbp+vx]\nmovsxd  rcx, [rbp+num]\nmovss   dword ptr [rax+rcx*4], xmm0\nmovss   xmm0, [rbp+col]\nsubss   xmm0, [rbp+he]\nmov     rax, [rbp+vy]\nmovsxd  rcx, [rbp+num]\nmovss   dword ptr [rax+rcx*4], xmm0\nmov     eax, [rbp+num]\nadd     eax, 1\nmov     [rbp+num], eax\nmovss   xmm0, [rbp+row]\nsubss   xmm0, [rbp+hl]\nmovss   [rbp+rs], xmm0\nmovss   xmm0, [rbp+col]\nsubss   xmm0, [rbp+he]\nmovss   [rbp+cs_0], xmm0\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_19B2\nmov     eax, [rbp+num]\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 10,
+  "edges": [
+   [
+    "start",
+    "loc_195A"
+   ],
+   [
+    "start",
+    "loc_1967"
+   ],
+   [
+    "loc_195A",
+    "loc_1967"
+   ],
+   [
+    "loc_195A",
+    "loc_1973"
+   ],
+   [
+    "loc_1967",
+    "loc_1AB6"
+   ],
+   [
+    "loc_1973",
+    "loc_19B2"
+   ],
+   [
+    "loc_19B2",
+    "loc_19BE"
+   ],
+   [
+    "loc_19B2",
+    "loc_1AB0"
+   ],
+   [
+    "loc_19BE",
+    "loc_1A20"
+   ],
+   [
+    "loc_19BE",
+    "loc_1A84"
+   ],
+   [
+    "loc_1A20",
+    "loc_1A84"
+   ],
+   [
+    "loc_1A84",
+    "loc_19B2"
+   ],
+   [
+    "loc_1AB0",
+    "loc_1AB6"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nmov     al, dil\nmov     [rbp+digit], al\nmovss   [rbp+row], xmm0\nmovss   [rbp+col], xmm1\nmovss   [rbp+hgt], xmm2\nmovss   [rbp+h], xmm3\nmov     [rbp+vx], rsi\nmov     [rbp+vy], rdx\nmov     [rbp+num], 0\nmovsx   eax, [rbp+digit]\ncmp     eax, 30h ; '0'\njl      loc_1967",
+   "loc_195A": "movsx   eax, [rbp+digit]\ncmp     eax, 39h ; '9'\njle     loc_1973",
+   "loc_1967": "mov     [rbp+var_4], 0\njmp     loc_1AB6",
+   "loc_1973": "movsx   eax, [rbp+digit]\nsub     eax, 30h ; '0'\nmov     [rbp+i], eax\nmov     eax, [rbp+i]\nadd     eax, 1\nmovsxd  rcx, eax\nlea     rax, plot_digit_wierd_lt\nmov     eax, [rax+rcx*4]\nmov     [rbp+ib], eax\nmov     eax, [rbp+i]\nadd     eax, 2\nmovsxd  rcx, eax\nlea     rax, plot_digit_wierd_lt\nmov     eax, [rax+rcx*4]\nsub     eax, 1\nmov     [rbp+ie], eax\nmov     eax, [rbp+ib]\nmov     [rbp+i], eax",
+   "loc_19B2": "mov     eax, [rbp+i]\ncmp     eax, [rbp+ie]\njg      loc_1AB0",
+   "loc_19BE": "movsxd  rcx, [rbp+i]\nlea     rax, plot_digit_wierd_lb\nmov     eax, [rax+rcx*4]\nmov     ecx, 0Ah\ncdq\nidiv    ecx\nmov     [rbp+llin], eax\nmovsxd  rcx, [rbp+i]\nlea     rax, plot_digit_wierd_lb\nmov     eax, [rax+rcx*4]\nimul    ecx, [rbp+llin], 0Ah\nsub     eax, ecx\nmov     [rbp+llel], eax\nmovss   xmm0, [rbp+hgt]\ncvtsi2ss xmm1, [rbp+llin]\nmulss   xmm0, xmm1\nmovss   [rbp+hl], xmm0\nmovss   xmm0, [rbp+h]\ncvtsi2ss xmm1, [rbp+llel]\nmulss   xmm0, xmm1\nmovss   [rbp+he], xmm0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+ib]\njz      loc_1A84",
+   "loc_1A20": "movss   xmm0, [rbp+rs]\nmov     rax, [rbp+vx]\nmovsxd  rcx, [rbp+num]\nmovss   dword ptr [rax+rcx*4], xmm0\nmovss   xmm0, [rbp+cs_0]\nmov     rax, [rbp+vy]\nmovsxd  rcx, [rbp+num]\nmovss   dword ptr [rax+rcx*4], xmm0\nmov     eax, [rbp+num]\nadd     eax, 1\nmov     [rbp+num], eax\nmovss   xmm0, [rbp+row]\nsubss   xmm0, [rbp+hl]\nmov     rax, [rbp+vx]\nmovsxd  rcx, [rbp+num]\nmovss   dword ptr [rax+rcx*4], xmm0\nmovss   xmm0, [rbp+col]\nsubss   xmm0, [rbp+he]\nmov     rax, [rbp+vy]\nmovsxd  rcx, [rbp+num]\nmovss   dword ptr [rax+rcx*4], xmm0\nmov     eax, [rbp+num]\nadd     eax, 1\nmov     [rbp+num], eax",
+   "loc_1A84": "movss   xmm0, [rbp+row]\nsubss   xmm0, [rbp+hl]\nmovss   [rbp+rs], xmm0\nmovss   xmm0, [rbp+col]\nsubss   xmm0, [rbp+he]\nmovss   [rbp+cs_0], xmm0\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_19B2",
+   "loc_1AB0": "mov     eax, [rbp+num]\nmov     [rbp+var_4], eax",
+   "loc_1AB6": "mov     eax, [rbp+var_4]\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "num": "dword ptr -50h",
+   "llel": "dword ptr -4Ch",
+   "llin": "dword ptr -48h",
+   "ie": "dword ptr -44h",
+   "ib": "dword ptr -40h",
+   "i": "dword ptr -3Ch",
+   "he": "dword ptr -38h",
+   "hl": "dword ptr -34h",
+   "cs_0": "dword ptr -30h",
+   "rs": "dword ptr -2Ch",
+   "vy": "qword ptr -28h",
+   "vx": "qword ptr -20h",
+   "h": "dword ptr -18h",
+   "hgt": "dword ptr -14h",
+   "col": "dword ptr -10h",
+   "row": "dword ptr -0Ch",
+   "digit": "byte ptr -5",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {
+   "plot_digit_wierd.lt": "byte 0",
+   "plot_digit_wierd.lb": "byte 0"
+  },
+  ".bss": {}
+ },
+ "func_ea": 6432,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".llround": "llround",
+  "_llround": "llround",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".llround",
+   ".plt",
+   true,
+   "llround"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "llround",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868381
+ }
+}

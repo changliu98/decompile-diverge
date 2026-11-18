@@ -1,0 +1,1 @@
+char base64_encode_value(char value) {  const char* encoding = "|/-->-"; if (value >= 64) return '='; return encoding[(int)value]; }

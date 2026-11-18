@@ -1,0 +1,1 @@
+__attribute__((always_))  int32_t ok_smul1(int32_t a, int32_t b, int32_t *c) { int32_t ret = 0; *c = a * b; return ret; }

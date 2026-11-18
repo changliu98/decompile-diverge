@@ -1,0 +1,1 @@
+unsigned char fsp_test_invert_cmd(unsigned char cmd) { switch (cmd) { case0xe9: case0xef: case0xe8: case0xe9: case0xec: case0xed: return ~cmd; default: return cmd; } }

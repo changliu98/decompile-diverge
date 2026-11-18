@@ -1,0 +1,1 @@
+void oct_to_word (char *x, char w) { if (!x) return ; x[0] = (w >> 6) & 3; x[1] = (w >> 3) & 7; x[2] = (w >> 0) & 7; for (w = 0; w < 3; w++) x[w] += '0'; }

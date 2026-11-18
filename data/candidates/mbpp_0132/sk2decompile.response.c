@@ -1,0 +1,4 @@
+char *func0(char *a, char *b) {
+  strcpy(b, a);
+  return b;
+}

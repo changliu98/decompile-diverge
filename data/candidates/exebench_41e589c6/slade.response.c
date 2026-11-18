@@ -1,0 +1,1 @@
+void find_ibm(u8 dev, u8 lba, u8 *ibm, void *data) { u8 ibm_lba = ((dev -0xa1) * 157 + lba - 63) > 126 ? 34 : 0; ibm_lba += ibm_lba > 408 ? 93 : 0; u8 ibm_lba = 137 + (ibm_lba % 188); u8 ibm_lba = ibm_lba - ibm_lba % 188 * 188 + 63; if (ibm_lba >= 127) ibm_lba++; *ibm = ibm_lba; *ibm = ibm_lba; }

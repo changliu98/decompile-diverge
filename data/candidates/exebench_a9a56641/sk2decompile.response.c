@@ -1,0 +1,30 @@
+void Mat4_inv_Mat4_affine_mul(float *result, float *a, float *b) {
+  float a00 = a[0] * b[0] + a[1] * b[4] + a[2] * b[8];
+  float a01 = a[0] * b[1] + a[1] * b[5] + a[2] * b[9];
+  float a02 = a[0] * b[2] + a[1] * b[6] + a[2] * b[10];
+  float a03 = -(a[0] * b[12] + a[1] * b[13] + a[2] * b[14]);
+  float a10 = a[4] * b[0] + a[5] * b[4] + a[6] * b[8];
+  float a11 = a[4] * b[1] + a[5] * b[5] + a[6] * b[9];
+  float a12 = a[4] * b[2] + a[5] * b[6] + a[6] * b[10];
+  float a13 = -(a[4] * b[12] + a[5] * b[13] + a[6] * b[14]);
+  float a20 = a[8] * b[0] + a[9] * b[4] + a[10] * b[8];
+  float a21 = a[8] * b[1] + a[9] * b[5] + a[10] * b[9];
+  float a22 = a[8] * b[2] + a[9] * b[6] + a[10] * b[10];
+  float a23 = -(a[8] * b[12] + a[9] * b[13] + a[10] * b[14]);
+  result[0] = a00;
+  result[1] = a10;
+  result[2] = a20;
+  result[3] = 0.0f;
+  result[4] = a01;
+  result[5] = a11;
+  result[6] = a21;
+  result[7] = 0.0f;
+  result[8] = a02;
+  result[9] = a12;
+  result[10] = a22;
+  result[11] = 0.0f;
+  result[12] = a03;
+  result[13] = a13;
+  result[14] = a23;
+  result[15] = 1.0f;
+}

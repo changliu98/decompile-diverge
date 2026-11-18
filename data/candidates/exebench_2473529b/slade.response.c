@@ -1,0 +1,1 @@
+void normalize_angle(double *angle) { while (*angle > 3.141592653589793) { (*angle) -= 3.141592653589793; } while (*angle < 0) { (*angle) += 3.141592653589793; } }

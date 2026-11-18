@@ -1,0 +1,614 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 110h\nmov     [rbp+cache], rdi\nmov     edi, 1; nmemb\nmov     esi, 10h; size\ncall    calloc\nmov     [rbp+result], rax\ncmp     [rbp+result], 0\njnz     loc_14EA\nmov     [rbp+var_8], 0\njmp     loc_1A0C\nmov     rax, [rbp+cache]\nmov     rax, [rax+8]\ncmp     qword ptr [rax+38h], 0\njz      loc_1510\nmov     rax, [rbp+cache]\nmov     rax, [rax+8]\ncmp     qword ptr [rax+40h], 0\njnz     loc_191D\nmov     [rbp+total_slide_infos], 0\nmov     [rbp+i], 0\nmov     ecx, [rbp+i]\nmov     rdx, [rbp+cache]\nxor     eax, eax\ncmp     ecx, [rdx+28h]\nmov     [rbp+var_101], al\njnb     loc_1543\ncmp     [rbp+i], 10h\nsetb    al\nmov     [rbp+var_101], al\nmov     al, [rbp+var_101]\ntest    al, 1\njnz     loc_1556\njmp     loc_15B7\nmov     rax, [rbp+cache]\nmov     rax, [rax+10h]\nmov     ecx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmov     [rbp+hdr_offset], rax\nmov     rax, [rbp+cache]\nmov     rdi, [rax+48h]; b\nmov     rsi, [rbp+hdr_offset]\nadd     rsi, 13Ch; addr\nmov     eax, [rbp+i]\nlea     rdx, [rbp+n_slide_infos]\nshl     rax, 2\nadd     rdx, rax; result\ncall    rz_buf_read_le32_at\ntest    al, 1\njnz     loc_159C\njmp     beach\nmov     eax, [rbp+i]\nmov     eax, [rbp+rax*4+n_slide_infos]\nadd     eax, [rbp+total_slide_infos]\nmov     [rbp+total_slide_infos], eax\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_151E\ncmp     [rbp+total_slide_infos], 0\njnz     loc_15C6\njmp     beach\nmov     eax, [rbp+total_slide_infos]\nmov     edi, eax; nmemb\nmov     esi, 18h; size\ncall    calloc\nmov     [rbp+infos], rax\ncmp     [rbp+infos], 0\njnz     loc_15E9\njmp     beach\nmov     [rbp+k], 0\nmov     [rbp+i], 0\nmov     ecx, [rbp+i]\nmov     rdx, [rbp+cache]\nxor     eax, eax\ncmp     ecx, [rdx+28h]\nmov     [rbp+var_102], al\njnb     loc_161C\ncmp     [rbp+i], 10h\nsetb    al\nmov     [rbp+var_102], al\nmov     al, [rbp+var_102]\ntest    al, 1\njnz     loc_162F\njmp     loc_1877\nmov     rax, [rbp+cache]\nmov     rax, [rax+10h]\nmov     ecx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmov     [rbp+hdr_offset_0], rax\nmov     eax, [rbp+i]\ncmp     [rbp+rax*4+n_slide_infos], 0\njnz     loc_1658\njmp     loc_1869\nmov     rax, [rbp+cache]\nmov     rdi, [rax+48h]; b\nmov     rsi, [rbp+hdr_offset_0]\nadd     rsi, 138h; addr\nlea     rdx, [rbp+sio]; result\ncall    rz_buf_read_le32_at\ntest    al, 1\njnz     loc_1687\njmp     loc_1869\nmov     eax, [rbp+sio]\nmov     [rbp+slide_infos_offset], rax\ncmp     [rbp+slide_infos_offset], 0\njnz     loc_16A7\njmp     loc_1869\nmov     rax, [rbp+hdr_offset_0]\nadd     rax, [rbp+slide_infos_offset]\nmov     [rbp+slide_infos_offset], rax\nmov     [rbp+prev_info], 0\nmov     [rbp+j], 0\nmov     eax, [rbp+j]\nmov     ecx, [rbp+i]\ncmp     eax, [rbp+rcx*4+n_slide_infos]\njnb     loc_1864\nmov     rax, [rbp+slide_infos_offset]\nmov     ecx, [rbp+j]\nimul    rcx, 38h ; '8'\nadd     rax, rcx\nmov     [rbp+offset], rax\nmov     rax, [rbp+cache]\nmov     rdi, [rax+48h]; b\nmov     rsi, [rbp+offset]; addr\nlea     rdx, [rbp+entry]; buf\nlea     rcx, fmt; \"6lii\"\nmov     r8d, 1; n\ncall    rz_buf_fread_at\ncmp     rax, 38h ; '8'\njz      loc_1736\njmp     loc_1864\ncmp     [rbp+entry.slideInfoOffset], 0\njz      loc_184B\ncmp     [rbp+entry.slideInfoSize], 0\njz      loc_184B\nmov     rcx, [rbp+entry.fileOffset]\nadd     rcx, [rbp+hdr_offset_0]\nmov     rax, [rbp+infos]\nmov     edx, [rbp+k]\nimul    rdx, 18h\nadd     rax, rdx\nmov     [rax], rcx\nmov     rax, [rbp+infos]\nmov     ecx, [rbp+k]\nimul    rcx, 18h\nadd     rax, rcx\nmov     rcx, [rax]\nadd     rcx, [rbp+entry.size]\nmov     rax, [rbp+infos]\nmov     edx, [rbp+k]\nimul    rdx, 18h\nadd     rax, rdx\nmov     [rax+8], rcx\ncmp     [rbp+prev_info], 0\njz      loc_17C0\nmov     rax, [rbp+prev_info]\nmov     rax, [rax+8]\nmov     [rbp+var_110], rax\njmp     loc_17D3\nmov     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+var_110], rax\njmp     $+5\nmov     rax, [rbp+var_110]\nmov     [rbp+slide], rax\nmov     rdi, [rbp+cache]; cache\nmov     rsi, [rbp+entry.slideInfoOffset]\nadd     rsi, [rbp+hdr_offset_0]; slideInfoOffset\nmov     rdx, [rbp+entry.slideInfoSize]; slideInfoSize\nmov     rcx, [rbp+entry.fileOffset]\nadd     rcx, [rbp+hdr_offset_0]; start_of_data\nmov     r8, [rbp+slide]; slide\ncall    get_rebase_info\nmov     rcx, rax\nmov     rax, [rbp+infos]\nmov     edx, [rbp+k]\nimul    rdx, 18h\nadd     rax, rdx\nmov     [rax+10h], rcx\nmov     rax, [rbp+infos]\nmov     ecx, [rbp+k]\nimul    rcx, 18h\nadd     rax, rcx\nmov     rax, [rax+10h]\nmov     [rbp+prev_info], rax\nmov     eax, [rbp+k]\nadd     eax, 1\nmov     [rbp+k], eax\njmp     $+5\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_16D1\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_15F7\ncmp     [rbp+k], 0\njnz     loc_188F\nmov     rdi, [rbp+infos]; ptr\ncall    free\njmp     beach\nmov     eax, [rbp+k]\ncmp     eax, [rbp+total_slide_infos]\njnb     loc_18F8\nmov     eax, [rbp+k]\nmov     edi, eax; nmemb\nmov     esi, 18h; size\ncall    calloc\nmov     [rbp+pruned_infos], rax\ncmp     [rbp+pruned_infos], 0\njnz     loc_18CD\nmov     rdi, [rbp+infos]; ptr\ncall    free\njmp     beach\nmov     rdi, [rbp+pruned_infos]; dest\nmov     rsi, [rbp+infos]; src\nmov     eax, [rbp+k]\nimul    rdx, rax, 18h; n\ncall    memcpy\nmov     rdi, [rbp+infos]; ptr\ncall    free\nmov     rax, [rbp+pruned_infos]\nmov     [rbp+infos], rax\nmov     rcx, [rbp+infos]\nmov     rax, [rbp+result]\nmov     [rax], rcx\nmov     eax, [rbp+k]\nmov     ecx, eax\nmov     rax, [rbp+result]\nmov     [rax+8], rcx\nmov     rax, [rbp+result]\nmov     [rbp+var_8], rax\njmp     loc_1A0C\nmov     rax, [rbp+cache]\nmov     rax, [rax+8]\ncmp     dword ptr [rax+14h], 1\njbe     loc_19F6\nmov     edi, 1; nmemb\nmov     esi, 18h; size\ncall    calloc\nmov     [rbp+infos_0], rax\ncmp     [rbp+infos_0], 0\njnz     loc_1958\njmp     beach\nmov     rax, [rbp+cache]\nmov     rax, [rax+30h]\nmov     rcx, [rax+30h]\nmov     rax, [rbp+infos_0]\nmov     [rax], rcx\nmov     rax, [rbp+infos_0]\nmov     rcx, [rax]\nmov     rax, [rbp+cache]\nmov     rax, [rax+30h]\nadd     rcx, [rax+28h]\nmov     rax, [rbp+infos_0]\nmov     [rax+8], rcx\nmov     rdi, [rbp+cache]; cache\nmov     rax, [rbp+cache]\nmov     rax, [rax+8]\nmov     rsi, [rax+38h]; slideInfoOffset\nmov     rax, [rbp+cache]\nmov     rax, [rax+8]\nmov     rdx, [rax+40h]; slideInfoSize\nmov     rax, [rbp+infos_0]\nmov     rcx, [rax]; start_of_data\nmov     r8, 0FFFFFFFFFFFFFFFFh; slide\ncall    get_rebase_info\nmov     rcx, rax\nmov     rax, [rbp+infos_0]\nmov     [rax+10h], rcx\nmov     rcx, [rbp+infos_0]\nmov     rax, [rbp+result]\nmov     [rax], rcx\nmov     rax, [rbp+result]\nmov     qword ptr [rax+8], 1\nmov     rax, [rbp+result]\nmov     [rbp+var_8], rax\njmp     loc_1A0C\njmp     $+5\nmov     rdi, [rbp+result]; ptr\ncall    free\nmov     [rbp+var_8], 0\nmov     rax, [rbp+var_8]\nadd     rsp, 110h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 55,
+  "edges": [
+   [
+    "start",
+    "loc_14DD"
+   ],
+   [
+    "start",
+    "loc_14EA"
+   ],
+   [
+    "loc_14DD",
+    "loc_1A0C"
+   ],
+   [
+    "loc_14EA",
+    "loc_14FD"
+   ],
+   [
+    "loc_14EA",
+    "loc_1510"
+   ],
+   [
+    "loc_14FD",
+    "loc_1510"
+   ],
+   [
+    "loc_14FD",
+    "loc_191D"
+   ],
+   [
+    "loc_1510",
+    "loc_151E"
+   ],
+   [
+    "loc_151E",
+    "loc_1536"
+   ],
+   [
+    "loc_151E",
+    "loc_1543"
+   ],
+   [
+    "loc_1536",
+    "loc_1543"
+   ],
+   [
+    "loc_1543",
+    "loc_1551"
+   ],
+   [
+    "loc_1543",
+    "loc_1556"
+   ],
+   [
+    "loc_1551",
+    "loc_15B7"
+   ],
+   [
+    "loc_1556",
+    "loc_1597"
+   ],
+   [
+    "loc_1556",
+    "loc_159C"
+   ],
+   [
+    "loc_1597",
+    "loc_19FB"
+   ],
+   [
+    "loc_159C",
+    "loc_151E"
+   ],
+   [
+    "loc_15B7",
+    "loc_15C1"
+   ],
+   [
+    "loc_15B7",
+    "loc_15C6"
+   ],
+   [
+    "loc_15C1",
+    "loc_19FB"
+   ],
+   [
+    "loc_15C6",
+    "loc_15E4"
+   ],
+   [
+    "loc_15C6",
+    "loc_15E9"
+   ],
+   [
+    "loc_15E4",
+    "loc_19FB"
+   ],
+   [
+    "loc_15E9",
+    "loc_15F7"
+   ],
+   [
+    "loc_15F7",
+    "loc_160F"
+   ],
+   [
+    "loc_15F7",
+    "loc_161C"
+   ],
+   [
+    "loc_160F",
+    "loc_161C"
+   ],
+   [
+    "loc_161C",
+    "loc_162A"
+   ],
+   [
+    "loc_161C",
+    "loc_162F"
+   ],
+   [
+    "loc_162A",
+    "loc_1877"
+   ],
+   [
+    "loc_162F",
+    "loc_1653"
+   ],
+   [
+    "loc_162F",
+    "loc_1658"
+   ],
+   [
+    "loc_1653",
+    "loc_1869"
+   ],
+   [
+    "loc_1658",
+    "loc_1682"
+   ],
+   [
+    "loc_1658",
+    "loc_1687"
+   ],
+   [
+    "loc_1682",
+    "loc_1869"
+   ],
+   [
+    "loc_1687",
+    "loc_16A2"
+   ],
+   [
+    "loc_1687",
+    "loc_16A7"
+   ],
+   [
+    "loc_16A2",
+    "loc_1869"
+   ],
+   [
+    "loc_16A7",
+    "loc_16D1"
+   ],
+   [
+    "loc_16D1",
+    "loc_16E4"
+   ],
+   [
+    "loc_16D1",
+    "loc_1864"
+   ],
+   [
+    "loc_16E4",
+    "loc_1731"
+   ],
+   [
+    "loc_16E4",
+    "loc_1736"
+   ],
+   [
+    "loc_1731",
+    "loc_1864"
+   ],
+   [
+    "loc_1736",
+    "loc_1744"
+   ],
+   [
+    "loc_1736",
+    "loc_184B"
+   ],
+   [
+    "loc_1744",
+    "loc_1752"
+   ],
+   [
+    "loc_1744",
+    "loc_184B"
+   ],
+   [
+    "loc_1752",
+    "loc_17A9"
+   ],
+   [
+    "loc_1752",
+    "loc_17C0"
+   ],
+   [
+    "loc_17A9",
+    "loc_17D3"
+   ],
+   [
+    "loc_17C0",
+    "loc_17D3"
+   ],
+   [
+    "loc_17D3",
+    "loc_184B"
+   ],
+   [
+    "loc_184B",
+    "loc_1850"
+   ],
+   [
+    "loc_1850",
+    "loc_16D1"
+   ],
+   [
+    "loc_1864",
+    "loc_1869"
+   ],
+   [
+    "loc_1869",
+    "loc_15F7"
+   ],
+   [
+    "loc_1877",
+    "loc_1881"
+   ],
+   [
+    "loc_1877",
+    "loc_188F"
+   ],
+   [
+    "loc_1881",
+    "loc_19FB"
+   ],
+   [
+    "loc_188F",
+    "loc_189B"
+   ],
+   [
+    "loc_188F",
+    "loc_18F8"
+   ],
+   [
+    "loc_189B",
+    "loc_18BF"
+   ],
+   [
+    "loc_189B",
+    "loc_18CD"
+   ],
+   [
+    "loc_18BF",
+    "loc_19FB"
+   ],
+   [
+    "loc_18CD",
+    "loc_18F8"
+   ],
+   [
+    "loc_18F8",
+    "loc_1A0C"
+   ],
+   [
+    "loc_191D",
+    "loc_192F"
+   ],
+   [
+    "loc_191D",
+    "loc_19F6"
+   ],
+   [
+    "loc_192F",
+    "loc_1953"
+   ],
+   [
+    "loc_192F",
+    "loc_1958"
+   ],
+   [
+    "loc_1953",
+    "loc_19FB"
+   ],
+   [
+    "loc_1958",
+    "loc_1A0C"
+   ],
+   [
+    "loc_19F6",
+    "loc_19FB"
+   ],
+   [
+    "loc_19FB",
+    "loc_1A0C"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 110h\nmov     [rbp+cache], rdi\nmov     edi, 1; nmemb\nmov     esi, 10h; size\ncall    calloc\nmov     [rbp+result], rax\ncmp     [rbp+result], 0\njnz     loc_14EA",
+   "loc_14DD": "mov     [rbp+var_8], 0\njmp     loc_1A0C",
+   "loc_14EA": "mov     rax, [rbp+cache]\nmov     rax, [rax+8]\ncmp     qword ptr [rax+38h], 0\njz      loc_1510",
+   "loc_14FD": "mov     rax, [rbp+cache]\nmov     rax, [rax+8]\ncmp     qword ptr [rax+40h], 0\njnz     loc_191D",
+   "loc_1510": "mov     [rbp+total_slide_infos], 0\nmov     [rbp+i], 0",
+   "loc_151E": "mov     ecx, [rbp+i]\nmov     rdx, [rbp+cache]\nxor     eax, eax\ncmp     ecx, [rdx+28h]\nmov     [rbp+var_101], al\njnb     loc_1543",
+   "loc_1536": "cmp     [rbp+i], 10h\nsetb    al\nmov     [rbp+var_101], al",
+   "loc_1543": "mov     al, [rbp+var_101]\ntest    al, 1\njnz     loc_1556",
+   "loc_1551": "jmp     loc_15B7",
+   "loc_1556": "mov     rax, [rbp+cache]\nmov     rax, [rax+10h]\nmov     ecx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmov     [rbp+hdr_offset], rax\nmov     rax, [rbp+cache]\nmov     rdi, [rax+48h]; b\nmov     rsi, [rbp+hdr_offset]\nadd     rsi, 13Ch; addr\nmov     eax, [rbp+i]\nlea     rdx, [rbp+n_slide_infos]\nshl     rax, 2\nadd     rdx, rax; result\ncall    rz_buf_read_le32_at\ntest    al, 1\njnz     loc_159C",
+   "loc_1597": "jmp     beach",
+   "loc_159C": "mov     eax, [rbp+i]\nmov     eax, [rbp+rax*4+n_slide_infos]\nadd     eax, [rbp+total_slide_infos]\nmov     [rbp+total_slide_infos], eax\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_151E",
+   "loc_15B7": "cmp     [rbp+total_slide_infos], 0\njnz     loc_15C6",
+   "loc_15C1": "jmp     beach",
+   "loc_15C6": "mov     eax, [rbp+total_slide_infos]\nmov     edi, eax; nmemb\nmov     esi, 18h; size\ncall    calloc\nmov     [rbp+infos], rax\ncmp     [rbp+infos], 0\njnz     loc_15E9",
+   "loc_15E4": "jmp     beach",
+   "loc_15E9": "mov     [rbp+k], 0\nmov     [rbp+i], 0",
+   "loc_15F7": "mov     ecx, [rbp+i]\nmov     rdx, [rbp+cache]\nxor     eax, eax\ncmp     ecx, [rdx+28h]\nmov     [rbp+var_102], al\njnb     loc_161C",
+   "loc_160F": "cmp     [rbp+i], 10h\nsetb    al\nmov     [rbp+var_102], al",
+   "loc_161C": "mov     al, [rbp+var_102]\ntest    al, 1\njnz     loc_162F",
+   "loc_162A": "jmp     loc_1877",
+   "loc_162F": "mov     rax, [rbp+cache]\nmov     rax, [rax+10h]\nmov     ecx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmov     [rbp+hdr_offset_0], rax\nmov     eax, [rbp+i]\ncmp     [rbp+rax*4+n_slide_infos], 0\njnz     loc_1658",
+   "loc_1653": "jmp     loc_1869",
+   "loc_1658": "mov     rax, [rbp+cache]\nmov     rdi, [rax+48h]; b\nmov     rsi, [rbp+hdr_offset_0]\nadd     rsi, 138h; addr\nlea     rdx, [rbp+sio]; result\ncall    rz_buf_read_le32_at\ntest    al, 1\njnz     loc_1687",
+   "loc_1682": "jmp     loc_1869",
+   "loc_1687": "mov     eax, [rbp+sio]\nmov     [rbp+slide_infos_offset], rax\ncmp     [rbp+slide_infos_offset], 0\njnz     loc_16A7",
+   "loc_16A2": "jmp     loc_1869",
+   "loc_16A7": "mov     rax, [rbp+hdr_offset_0]\nadd     rax, [rbp+slide_infos_offset]\nmov     [rbp+slide_infos_offset], rax\nmov     [rbp+prev_info], 0\nmov     [rbp+j], 0",
+   "loc_16D1": "mov     eax, [rbp+j]\nmov     ecx, [rbp+i]\ncmp     eax, [rbp+rcx*4+n_slide_infos]\njnb     loc_1864",
+   "loc_16E4": "mov     rax, [rbp+slide_infos_offset]\nmov     ecx, [rbp+j]\nimul    rcx, 38h ; '8'\nadd     rax, rcx\nmov     [rbp+offset], rax\nmov     rax, [rbp+cache]\nmov     rdi, [rax+48h]; b\nmov     rsi, [rbp+offset]; addr\nlea     rdx, [rbp+entry]; buf\nlea     rcx, fmt; \"6lii\"\nmov     r8d, 1; n\ncall    rz_buf_fread_at\ncmp     rax, 38h ; '8'\njz      loc_1736",
+   "loc_1731": "jmp     loc_1864",
+   "loc_1736": "cmp     [rbp+entry.slideInfoOffset], 0\njz      loc_184B",
+   "loc_1744": "cmp     [rbp+entry.slideInfoSize], 0\njz      loc_184B",
+   "loc_1752": "mov     rcx, [rbp+entry.fileOffset]\nadd     rcx, [rbp+hdr_offset_0]\nmov     rax, [rbp+infos]\nmov     edx, [rbp+k]\nimul    rdx, 18h\nadd     rax, rdx\nmov     [rax], rcx\nmov     rax, [rbp+infos]\nmov     ecx, [rbp+k]\nimul    rcx, 18h\nadd     rax, rcx\nmov     rcx, [rax]\nadd     rcx, [rbp+entry.size]\nmov     rax, [rbp+infos]\nmov     edx, [rbp+k]\nimul    rdx, 18h\nadd     rax, rdx\nmov     [rax+8], rcx\ncmp     [rbp+prev_info], 0\njz      loc_17C0",
+   "loc_17A9": "mov     rax, [rbp+prev_info]\nmov     rax, [rax+8]\nmov     [rbp+var_110], rax\njmp     loc_17D3",
+   "loc_17C0": "mov     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+var_110], rax\njmp     $+5",
+   "loc_17D3": "mov     rax, [rbp+var_110]\nmov     [rbp+slide], rax\nmov     rdi, [rbp+cache]; cache\nmov     rsi, [rbp+entry.slideInfoOffset]\nadd     rsi, [rbp+hdr_offset_0]; slideInfoOffset\nmov     rdx, [rbp+entry.slideInfoSize]; slideInfoSize\nmov     rcx, [rbp+entry.fileOffset]\nadd     rcx, [rbp+hdr_offset_0]; start_of_data\nmov     r8, [rbp+slide]; slide\ncall    get_rebase_info\nmov     rcx, rax\nmov     rax, [rbp+infos]\nmov     edx, [rbp+k]\nimul    rdx, 18h\nadd     rax, rdx\nmov     [rax+10h], rcx\nmov     rax, [rbp+infos]\nmov     ecx, [rbp+k]\nimul    rcx, 18h\nadd     rax, rcx\nmov     rax, [rax+10h]\nmov     [rbp+prev_info], rax\nmov     eax, [rbp+k]\nadd     eax, 1\nmov     [rbp+k], eax",
+   "loc_184B": "jmp     $+5",
+   "loc_1850": "mov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_16D1",
+   "loc_1864": "jmp     $+5",
+   "loc_1869": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_15F7",
+   "loc_1877": "cmp     [rbp+k], 0\njnz     loc_188F",
+   "loc_1881": "mov     rdi, [rbp+infos]; ptr\ncall    free\njmp     beach",
+   "loc_188F": "mov     eax, [rbp+k]\ncmp     eax, [rbp+total_slide_infos]\njnb     loc_18F8",
+   "loc_189B": "mov     eax, [rbp+k]\nmov     edi, eax; nmemb\nmov     esi, 18h; size\ncall    calloc\nmov     [rbp+pruned_infos], rax\ncmp     [rbp+pruned_infos], 0\njnz     loc_18CD",
+   "loc_18BF": "mov     rdi, [rbp+infos]; ptr\ncall    free\njmp     beach",
+   "loc_18CD": "mov     rdi, [rbp+pruned_infos]; dest\nmov     rsi, [rbp+infos]; src\nmov     eax, [rbp+k]\nimul    rdx, rax, 18h; n\ncall    memcpy\nmov     rdi, [rbp+infos]; ptr\ncall    free\nmov     rax, [rbp+pruned_infos]\nmov     [rbp+infos], rax",
+   "loc_18F8": "mov     rcx, [rbp+infos]\nmov     rax, [rbp+result]\nmov     [rax], rcx\nmov     eax, [rbp+k]\nmov     ecx, eax\nmov     rax, [rbp+result]\nmov     [rax+8], rcx\nmov     rax, [rbp+result]\nmov     [rbp+var_8], rax\njmp     loc_1A0C",
+   "loc_191D": "mov     rax, [rbp+cache]\nmov     rax, [rax+8]\ncmp     dword ptr [rax+14h], 1\njbe     loc_19F6",
+   "loc_192F": "mov     edi, 1; nmemb\nmov     esi, 18h; size\ncall    calloc\nmov     [rbp+infos_0], rax\ncmp     [rbp+infos_0], 0\njnz     loc_1958",
+   "loc_1953": "jmp     beach",
+   "loc_1958": "mov     rax, [rbp+cache]\nmov     rax, [rax+30h]\nmov     rcx, [rax+30h]\nmov     rax, [rbp+infos_0]\nmov     [rax], rcx\nmov     rax, [rbp+infos_0]\nmov     rcx, [rax]\nmov     rax, [rbp+cache]\nmov     rax, [rax+30h]\nadd     rcx, [rax+28h]\nmov     rax, [rbp+infos_0]\nmov     [rax+8], rcx\nmov     rdi, [rbp+cache]; cache\nmov     rax, [rbp+cache]\nmov     rax, [rax+8]\nmov     rsi, [rax+38h]; slideInfoOffset\nmov     rax, [rbp+cache]\nmov     rax, [rax+8]\nmov     rdx, [rax+40h]; slideInfoSize\nmov     rax, [rbp+infos_0]\nmov     rcx, [rax]; start_of_data\nmov     r8, 0FFFFFFFFFFFFFFFFh; slide\ncall    get_rebase_info\nmov     rcx, rax\nmov     rax, [rbp+infos_0]\nmov     [rax+10h], rcx\nmov     rcx, [rbp+infos_0]\nmov     rax, [rbp+result]\nmov     [rax], rcx\nmov     rax, [rbp+result]\nmov     qword ptr [rax+8], 1\nmov     rax, [rbp+result]\nmov     [rbp+var_8], rax\njmp     loc_1A0C",
+   "loc_19F6": "jmp     $+5",
+   "loc_19FB": "mov     rdi, [rbp+result]; ptr\ncall    free\nmov     [rbp+var_8], 0",
+   "loc_1A0C": "mov     rax, [rbp+var_8]\nadd     rsp, 110h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_110": "qword ptr -110h",
+   "var_102": "byte ptr -102h",
+   "var_101": "byte ptr -101h",
+   "infos_0": "qword ptr -100h",
+   "pruned_infos": "qword ptr -0F8h",
+   "slide": "qword ptr -0F0h",
+   "entry": "cache_mapping_slide ptr -0E8h",
+   "offset": "qword ptr -0B0h",
+   "prev_info": "qword ptr -0A8h",
+   "j": "dword ptr -9Ch",
+   "slide_infos_offset": "qword ptr -98h",
+   "sio": "dword ptr -8Ch",
+   "hdr_offset_0": "qword ptr -88h",
+   "k": "dword ptr -7Ch",
+   "infos": "qword ptr -78h",
+   "hdr_offset": "qword ptr -70h",
+   "i": "dword ptr -64h",
+   "n_slide_infos": "dword ptr -60h",
+   "total_slide_infos": "dword ptr -1Ch",
+   "result": "qword ptr -18h",
+   "cache": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {
+   "fmt": "byte '6lii',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5296,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868477
+ }
+}

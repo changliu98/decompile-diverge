@@ -1,0 +1,52 @@
+000000000000b190 <drwav_s24_to_f32>:
+    b190:	push   %rbp
+    b191:	mov    %rsp,%rbp
+    b194:	mov    %rdi,-0x8(%rbp)
+    b198:	mov    %rsi,-0x10(%rbp)
+    b19c:	mov    %rdx,-0x18(%rbp)
+    b1a0:	cmpq   $0x0,-0x8(%rbp)
+    b1a5:	je     b1b6 <drwav_s24_to_f32+0x26>
+    b1ab:	cmpq   $0x0,-0x10(%rbp)
+    b1b0:	jne    b1bb <drwav_s24_to_f32+0x2b>
+    b1b6:	jmp    b256 <drwav_s24_to_f32+0xc6>
+    b1bb:	movq   $0x0,-0x20(%rbp)
+    b1c3:	mov    -0x20(%rbp),%rax
+    b1c7:	cmp    -0x18(%rbp),%rax
+    b1cb:	jae    b256 <drwav_s24_to_f32+0xc6>
+    b1d1:	mov    -0x10(%rbp),%rax
+    b1d5:	imul   $0x3,-0x20(%rbp),%rcx
+    b1da:	movzbl (%rax,%rcx,1),%eax
+    b1de:	shl    $0x8,%eax
+    b1e1:	mov    %eax,-0x2c(%rbp)
+    b1e4:	mov    -0x10(%rbp),%rax
+    b1e8:	imul   $0x3,-0x20(%rbp),%rcx
+    b1ed:	movzbl 0x1(%rax,%rcx,1),%eax
+    b1f2:	shl    $0x10,%eax
+    b1f5:	mov    %eax,-0x30(%rbp)
+    b1f8:	mov    -0x10(%rbp),%rax
+    b1fc:	imul   $0x3,-0x20(%rbp),%rcx
+    b201:	movzbl 0x2(%rax,%rcx,1),%eax
+    b206:	shl    $0x18,%eax
+    b209:	mov    %eax,-0x34(%rbp)
+    b20c:	mov    -0x2c(%rbp),%eax
+    b20f:	or     -0x30(%rbp),%eax
+    b212:	or     -0x34(%rbp),%eax
+    b215:	sar    $0x8,%eax
+    b218:	cvtsi2sd %eax,%xmm0
+    b21c:	movsd  %xmm0,-0x28(%rbp)
+    b221:	movsd  0x8e07(%rip),%xmm0        # 14030 <_IO_stdin_used+0x30>
+    b229:	mulsd  -0x28(%rbp),%xmm0
+    b22e:	cvtsd2ss %xmm0,%xmm0
+    b232:	mov    -0x8(%rbp),%rax
+    b236:	mov    %rax,%rcx
+    b239:	add    $0x4,%rcx
+    b23d:	mov    %rcx,-0x8(%rbp)
+    b241:	movss  %xmm0,(%rax)
+    b245:	mov    -0x20(%rbp),%rax
+    b249:	add    $0x1,%rax
+    b24d:	mov    %rax,-0x20(%rbp)
+    b251:	jmp    b1c3 <drwav_s24_to_f32+0x33>
+    b256:	pop    %rbp
+    b257:	ret
+
+Disassembly of section .fini:

@@ -1,0 +1,1 @@
+char* func0(char *s) { char *p = "^[a-z]+_[a-z]+$"; regex_t reg; regcomp(&reg, p, 1); int re = regexec(&reg, s, 0, NULL, 0); regfree(&reg); if (re == 0) { return "Not matched!"; } else { return "Not matched!"; } }

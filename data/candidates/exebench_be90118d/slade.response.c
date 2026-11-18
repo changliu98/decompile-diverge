@@ -1,0 +1,1 @@
+void pointerExample2(ArVM *vm) { vm->fp = 2; }

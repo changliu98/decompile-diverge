@@ -1,0 +1,1 @@
+void mlMatrixTransposeTo(const mlVector *a, float *m) { unsigned int i, j; for (j = 0; j < 4; ++j) { for (i = 0; i < 4; ++i) { m[j * 4 + i] = a[i * 4 + j]; } } }

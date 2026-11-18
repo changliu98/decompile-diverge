@@ -1,0 +1,1 @@
+void ft_ft(int *p) { *p = 42; }

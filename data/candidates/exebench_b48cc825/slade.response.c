@@ -1,0 +1,1 @@
+char *strcpy(char *dest, const char *src) { char *save = dest; int c; do { c = *dest++ = *src++; } while (c != '\0'); return save; }

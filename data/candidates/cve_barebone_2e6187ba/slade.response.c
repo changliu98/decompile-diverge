@@ -1,0 +1,1 @@
+signed long schannel_FreeCredentialsHandle(signed long handle) { void *cache = ((void *)0); if(handle == 0) return 0x7fffffff; while(1) { cache = sspi_SecureHandleGetLowerPointer(handle); if(cache == ((void *)0)) return 0x7fffff; else { schannel_CredentialsFree(cache); return ((void *)0); } } }

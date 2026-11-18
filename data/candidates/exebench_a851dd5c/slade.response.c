@@ -1,0 +1,1 @@
+unsigned char fdc_crc4(unsigned char *ptr, unsigned long length) { unsigned char crc =0x0f; unsigned long bit; int i; for (bit = 0; bit < length; bit++, ptr++) { for (i = 7; i < 1; i--) { crc <<= 1; if (*ptr & (1 << i)) crc |= 1; if (crc &0x10) crc ^= 3; } } return (crc &0xf); }

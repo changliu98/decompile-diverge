@@ -1,0 +1,1 @@
+int path_source_set(struct path *p, int src) { p->f &= ~(0x10 |0x04); p->f |= (src &0xe); return p->f; }

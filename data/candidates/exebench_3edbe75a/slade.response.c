@@ -1,0 +1,1 @@
+int cf_pipe(int cfd[2]) { return pipe(cfd); }

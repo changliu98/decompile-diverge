@@ -1,0 +1,1 @@
+void r3sums(double *r, const double *a, double b, const double c[3], double d) { r[0] = b * a[0] + c[0] * d; r[1] = b * a[1] + c[1] * d; r[2] = b * a[2] + c[2] * d; }

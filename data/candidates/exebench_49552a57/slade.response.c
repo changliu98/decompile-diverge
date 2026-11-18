@@ -1,0 +1,1 @@
+int matV4toV3(double m[3][3], double m3[3][3]) { m3[0][0] = m[0][0]; m3[1][0] = m[1][1]; m3[2][0] = m[2][0]; return 0; }

@@ -1,0 +1,201 @@
+00000000000014f0 <utf_16le_to_utf_8_truncated>:
+    14f0:	push   %rbp
+    14f1:	mov    %rsp,%rbp
+    14f4:	mov    %rdi,-0x10(%rbp)
+    14f8:	mov    %rsi,-0x18(%rbp)
+    14fc:	mov    %rdx,-0x20(%rbp)
+    1500:	cmpq   $0x0,-0x20(%rbp)
+    1505:	jne    1518 <utf_16le_to_utf_8_truncated+0x28>
+    150b:	mov    -0x18(%rbp),%rax
+    150f:	mov    %rax,-0x8(%rbp)
+    1513:	jmp    1801 <utf_16le_to_utf_8_truncated+0x311>
+    1518:	jmp    151d <utf_16le_to_utf_8_truncated+0x2d>
+    151d:	mov    -0x10(%rbp),%rax
+    1521:	mov    %rax,%rcx
+    1524:	add    $0x4,%rcx
+    1528:	mov    %rcx,-0x10(%rbp)
+    152c:	mov    (%rax),%eax
+    152e:	mov    %eax,-0x24(%rbp)
+    1531:	cmp    $0x0,%eax
+    1534:	je     17f2 <utf_16le_to_utf_8_truncated+0x302>
+    153a:	cmpl   $0xd800,-0x24(%rbp)
+    1541:	jl     15cd <utf_16le_to_utf_8_truncated+0xdd>
+    1547:	cmpl   $0xdc00,-0x24(%rbp)
+    154e:	jge    15cd <utf_16le_to_utf_8_truncated+0xdd>
+    1554:	mov    -0x10(%rbp),%rax
+    1558:	mov    (%rax),%eax
+    155a:	mov    %eax,-0x28(%rbp)
+    155d:	cmpl   $0x0,-0x28(%rbp)
+    1561:	jne    1573 <utf_16le_to_utf_8_truncated+0x83>
+    1567:	movl   $0xfffd,-0x2c(%rbp)
+    156e:	jmp    15c8 <utf_16le_to_utf_8_truncated+0xd8>
+    1573:	mov    -0x10(%rbp),%rax
+    1577:	add    $0x4,%rax
+    157b:	mov    %rax,-0x10(%rbp)
+    157f:	cmpl   $0xdc00,-0x28(%rbp)
+    1586:	jl     15bc <utf_16le_to_utf_8_truncated+0xcc>
+    158c:	cmpl   $0xe000,-0x28(%rbp)
+    1593:	jge    15bc <utf_16le_to_utf_8_truncated+0xcc>
+    1599:	mov    -0x24(%rbp),%eax
+    159c:	sub    $0xd800,%eax
+    15a1:	shl    $0xa,%eax
+    15a4:	mov    -0x28(%rbp),%ecx
+    15a7:	sub    $0xdc00,%ecx
+    15ad:	or     %ecx,%eax
+    15af:	add    $0x10000,%eax
+    15b4:	mov    %eax,-0x2c(%rbp)
+    15b7:	jmp    15c3 <utf_16le_to_utf_8_truncated+0xd3>
+    15bc:	movl   $0xfffd,-0x2c(%rbp)
+    15c3:	jmp    15c8 <utf_16le_to_utf_8_truncated+0xd8>
+    15c8:	jmp    15fe <utf_16le_to_utf_8_truncated+0x10e>
+    15cd:	cmpl   $0xdc00,-0x24(%rbp)
+    15d4:	jl     15f3 <utf_16le_to_utf_8_truncated+0x103>
+    15da:	cmpl   $0xe000,-0x24(%rbp)
+    15e1:	jge    15f3 <utf_16le_to_utf_8_truncated+0x103>
+    15e7:	movl   $0xfffd,-0x2c(%rbp)
+    15ee:	jmp    15f9 <utf_16le_to_utf_8_truncated+0x109>
+    15f3:	mov    -0x24(%rbp),%eax
+    15f6:	mov    %eax,-0x2c(%rbp)
+    15f9:	jmp    15fe <utf_16le_to_utf_8_truncated+0x10e>
+    15fe:	cmpl   $0x80,-0x2c(%rbp)
+    1605:	jae    1642 <utf_16le_to_utf_8_truncated+0x152>
+    160b:	cmpq   $0x2,-0x20(%rbp)
+    1610:	jae    161b <utf_16le_to_utf_8_truncated+0x12b>
+    1616:	jmp    17f2 <utf_16le_to_utf_8_truncated+0x302>
+    161b:	mov    -0x2c(%rbp),%eax
+    161e:	mov    %al,%cl
+    1620:	mov    -0x18(%rbp),%rax
+    1624:	mov    %rax,%rdx
+    1627:	add    $0x1,%rdx
+    162b:	mov    %rdx,-0x18(%rbp)
+    162f:	mov    %cl,(%rax)
+    1631:	mov    -0x20(%rbp),%rax
+    1635:	add    $0xffffffffffffffff,%rax
+    1639:	mov    %rax,-0x20(%rbp)
+    163d:	jmp    17ed <utf_16le_to_utf_8_truncated+0x2fd>
+    1642:	cmpl   $0x800,-0x2c(%rbp)
+    1649:	jae    16b2 <utf_16le_to_utf_8_truncated+0x1c2>
+    164f:	cmpq   $0x3,-0x20(%rbp)
+    1654:	jae    165f <utf_16le_to_utf_8_truncated+0x16f>
+    165a:	jmp    17f2 <utf_16le_to_utf_8_truncated+0x302>
+    165f:	mov    -0x2c(%rbp),%eax
+    1662:	shr    $0x6,%eax
+    1665:	and    $0x3f,%eax
+    1668:	or     $0xc0,%eax
+    166d:	mov    %al,%cl
+    166f:	mov    -0x18(%rbp),%rax
+    1673:	mov    %rax,%rdx
+    1676:	add    $0x1,%rdx
+    167a:	mov    %rdx,-0x18(%rbp)
+    167e:	mov    %cl,(%rax)
+    1680:	mov    -0x2c(%rbp),%eax
+    1683:	shr    $0x0,%eax
+    1686:	and    $0x3f,%eax
+    1689:	or     $0x80,%eax
+    168e:	mov    %al,%cl
+    1690:	mov    -0x18(%rbp),%rax
+    1694:	mov    %rax,%rdx
+    1697:	add    $0x1,%rdx
+    169b:	mov    %rdx,-0x18(%rbp)
+    169f:	mov    %cl,(%rax)
+    16a1:	mov    -0x20(%rbp),%rax
+    16a5:	sub    $0x2,%rax
+    16a9:	mov    %rax,-0x20(%rbp)
+    16ad:	jmp    17e8 <utf_16le_to_utf_8_truncated+0x2f8>
+    16b2:	cmpl   $0x10000,-0x2c(%rbp)
+    16b9:	jae    1743 <utf_16le_to_utf_8_truncated+0x253>
+    16bf:	cmpq   $0x4,-0x20(%rbp)
+    16c4:	jae    16cf <utf_16le_to_utf_8_truncated+0x1df>
+    16ca:	jmp    17f2 <utf_16le_to_utf_8_truncated+0x302>
+    16cf:	mov    -0x2c(%rbp),%eax
+    16d2:	shr    $0xc,%eax
+    16d5:	and    $0xf,%eax
+    16d8:	or     $0xe0,%eax
+    16dd:	mov    %al,%cl
+    16df:	mov    -0x18(%rbp),%rax
+    16e3:	mov    %rax,%rdx
+    16e6:	add    $0x1,%rdx
+    16ea:	mov    %rdx,-0x18(%rbp)
+    16ee:	mov    %cl,(%rax)
+    16f0:	mov    -0x2c(%rbp),%eax
+    16f3:	shr    $0x6,%eax
+    16f6:	and    $0x3f,%eax
+    16f9:	or     $0x80,%eax
+    16fe:	mov    %al,%cl
+    1700:	mov    -0x18(%rbp),%rax
+    1704:	mov    %rax,%rdx
+    1707:	add    $0x1,%rdx
+    170b:	mov    %rdx,-0x18(%rbp)
+    170f:	mov    %cl,(%rax)
+    1711:	mov    -0x2c(%rbp),%eax
+    1714:	shr    $0x0,%eax
+    1717:	and    $0x3f,%eax
+    171a:	or     $0x80,%eax
+    171f:	mov    %al,%cl
+    1721:	mov    -0x18(%rbp),%rax
+    1725:	mov    %rax,%rdx
+    1728:	add    $0x1,%rdx
+    172c:	mov    %rdx,-0x18(%rbp)
+    1730:	mov    %cl,(%rax)
+    1732:	mov    -0x20(%rbp),%rax
+    1736:	sub    $0x3,%rax
+    173a:	mov    %rax,-0x20(%rbp)
+    173e:	jmp    17e3 <utf_16le_to_utf_8_truncated+0x2f3>
+    1743:	cmpq   $0x5,-0x20(%rbp)
+    1748:	jae    1753 <utf_16le_to_utf_8_truncated+0x263>
+    174e:	jmp    17f2 <utf_16le_to_utf_8_truncated+0x302>
+    1753:	mov    -0x2c(%rbp),%eax
+    1756:	shr    $0x12,%eax
+    1759:	and    $0x3,%eax
+    175c:	or     $0xf0,%eax
+    1761:	mov    %al,%cl
+    1763:	mov    -0x18(%rbp),%rax
+    1767:	mov    %rax,%rdx
+    176a:	add    $0x1,%rdx
+    176e:	mov    %rdx,-0x18(%rbp)
+    1772:	mov    %cl,(%rax)
+    1774:	mov    -0x2c(%rbp),%eax
+    1777:	shr    $0xc,%eax
+    177a:	and    $0x3f,%eax
+    177d:	or     $0x80,%eax
+    1782:	mov    %al,%cl
+    1784:	mov    -0x18(%rbp),%rax
+    1788:	mov    %rax,%rdx
+    178b:	add    $0x1,%rdx
+    178f:	mov    %rdx,-0x18(%rbp)
+    1793:	mov    %cl,(%rax)
+    1795:	mov    -0x2c(%rbp),%eax
+    1798:	shr    $0x6,%eax
+    179b:	and    $0x3f,%eax
+    179e:	or     $0x80,%eax
+    17a3:	mov    %al,%cl
+    17a5:	mov    -0x18(%rbp),%rax
+    17a9:	mov    %rax,%rdx
+    17ac:	add    $0x1,%rdx
+    17b0:	mov    %rdx,-0x18(%rbp)
+    17b4:	mov    %cl,(%rax)
+    17b6:	mov    -0x2c(%rbp),%eax
+    17b9:	shr    $0x0,%eax
+    17bc:	and    $0x3f,%eax
+    17bf:	or     $0x80,%eax
+    17c4:	mov    %al,%cl
+    17c6:	mov    -0x18(%rbp),%rax
+    17ca:	mov    %rax,%rdx
+    17cd:	add    $0x1,%rdx
+    17d1:	mov    %rdx,-0x18(%rbp)
+    17d5:	mov    %cl,(%rax)
+    17d7:	mov    -0x20(%rbp),%rax
+    17db:	sub    $0x3,%rax
+    17df:	mov    %rax,-0x20(%rbp)
+    17e3:	jmp    17e8 <utf_16le_to_utf_8_truncated+0x2f8>
+    17e8:	jmp    17ed <utf_16le_to_utf_8_truncated+0x2fd>
+    17ed:	jmp    151d <utf_16le_to_utf_8_truncated+0x2d>
+    17f2:	mov    -0x18(%rbp),%rax
+    17f6:	movb   $0x0,(%rax)
+    17f9:	mov    -0x18(%rbp),%rax
+    17fd:	mov    %rax,-0x8(%rbp)
+    1801:	mov    -0x8(%rbp),%rax
+    1805:	pop    %rbp
+    1806:	ret
+
+Disassembly of section .fini:

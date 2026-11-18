@@ -1,0 +1,30 @@
+void func0(uint32_t *state, uint32_t key, uint32_t data, uint32_t *output) {
+    uint32_t x, y, z, k;
+    uint32_t i = key % 16;
+    uint32_t j = data;
+    uint32_t *s = state + i * 4;
+    x = s[0];
+    y = s[1];
+    z = s[2];
+    k = s[3];
+    x = x ^ (j * 5);
+    x = x ^ (x << 16);
+    x = x ^ (x >> 16);
+    y = y ^ (x * 5);
+    y = y ^ (y << 13);
+    y = y ^ (y >> 13);
+    z = z ^ (y * 5);
+    z = z ^ (z << 4);
+    z = z ^ (z >> 4);
+    k = k ^ (z * 5);
+    k = k ^ (k << 17);
+    k = k ^ (k >> 17);
+    s[0] = k;
+    s[1] = x;
+    s[2] = y;
+    s[3] = z;
+    output[0] = x;
+    output[1] = y;
+    output[2] = z;
+    output[3] = k;
+}

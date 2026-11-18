@@ -1,0 +1,1 @@
+void chartobit(int n, char *b) { int i; for (i = 7; i > 0; i--) { b[i] = n % 2 == 1 ? '1' : '0'; n /= 2; } b[0] = n % 2 == 1 ? '1' : '0'; }

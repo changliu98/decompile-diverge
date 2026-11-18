@@ -1,0 +1,1 @@
+char *func0(char *s) { int i; for (i = 0; s[i] != '\0'; i++) result[i] = (char)toupper((int)(unsigned char)s[i]); result[i] = '\0'; return &result; }

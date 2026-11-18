@@ -1,0 +1,109 @@
+00000000000011e0 <rom_copy>:
+    11e0:	push   %rbp
+    11e1:	mov    %rsp,%rbp
+    11e4:	sub    $0x40,%rsp
+    11e8:	mov    %rdi,-0x8(%rbp)
+    11ec:	mov    %rsi,-0x10(%rbp)
+    11f0:	mov    %rdx,-0x18(%rbp)
+    11f4:	mov    -0x10(%rbp),%rax
+    11f8:	add    -0x18(%rbp),%rax
+    11fc:	mov    %rax,-0x20(%rbp)
+    1200:	mov    -0x8(%rbp),%rax
+    1204:	mov    %rax,-0x30(%rbp)
+    1208:	movq   $0x0,-0x38(%rbp)
+    1210:	mov    0x2e69(%rip),%rax        # 4080 <roms>
+    1217:	mov    %rax,-0x40(%rbp)
+    121b:	cmpq   $0x0,-0x40(%rbp)
+    1220:	je     138a <rom_copy+0x1aa>
+    1226:	mov    -0x40(%rbp),%rax
+    122a:	cmpq   $0x0,0x48(%rax)
+    122f:	je     123a <rom_copy+0x5a>
+    1235:	jmp    1379 <rom_copy+0x199>
+    123a:	mov    -0x40(%rbp),%rax
+    123e:	cmpq   $0x0,0x28(%rax)
+    1243:	je     124e <rom_copy+0x6e>
+    1249:	jmp    1379 <rom_copy+0x199>
+    124e:	mov    -0x40(%rbp),%rax
+    1252:	mov    0x58(%rax),%rax
+    1256:	mov    -0x40(%rbp),%rcx
+    125a:	add    0x10(%rcx),%rax
+    125e:	cmp    -0x10(%rbp),%rax
+    1262:	jae    126d <rom_copy+0x8d>
+    1268:	jmp    1379 <rom_copy+0x199>
+    126d:	mov    -0x40(%rbp),%rax
+    1271:	mov    0x58(%rax),%rax
+    1275:	cmp    -0x20(%rbp),%rax
+    1279:	jbe    1284 <rom_copy+0xa4>
+    127f:	jmp    138a <rom_copy+0x1aa>
+    1284:	mov    -0x8(%rbp),%rax
+    1288:	mov    -0x40(%rbp),%rcx
+    128c:	mov    0x58(%rcx),%rcx
+    1290:	sub    -0x10(%rbp),%rcx
+    1294:	add    %rcx,%rax
+    1297:	mov    %rax,-0x30(%rbp)
+    129b:	mov    -0x40(%rbp),%rax
+    129f:	mov    0x20(%rax),%rax
+    12a3:	mov    %rax,-0x28(%rbp)
+    12a7:	mov    -0x40(%rbp),%rax
+    12ab:	mov    0x18(%rax),%rax
+    12af:	mov    %rax,-0x38(%rbp)
+    12b3:	mov    -0x30(%rbp),%rax
+    12b7:	add    -0x38(%rbp),%rax
+    12bb:	mov    -0x8(%rbp),%rcx
+    12bf:	add    -0x18(%rbp),%rcx
+    12c3:	cmp    %rcx,%rax
+    12c6:	jbe    12db <rom_copy+0xfb>
+    12cc:	mov    -0x8(%rbp),%rax
+    12d0:	mov    -0x30(%rbp),%rcx
+    12d4:	sub    %rcx,%rax
+    12d7:	mov    %rax,-0x38(%rbp)
+    12db:	cmpq   $0x0,-0x38(%rbp)
+    12e0:	jbe    12f7 <rom_copy+0x117>
+    12e6:	mov    -0x30(%rbp),%rdi
+    12ea:	mov    -0x28(%rbp),%rsi
+    12ee:	mov    -0x38(%rbp),%rdx
+    12f2:	call   1090 <memcpy@plt>
+    12f7:	mov    -0x40(%rbp),%rax
+    12fb:	mov    0x10(%rax),%rax
+    12ff:	mov    -0x40(%rbp),%rcx
+    1303:	cmp    0x18(%rcx),%rax
+    1307:	jbe    1374 <rom_copy+0x194>
+    130d:	mov    -0x38(%rbp),%rax
+    1311:	add    -0x30(%rbp),%rax
+    1315:	mov    %rax,-0x30(%rbp)
+    1319:	mov    -0x40(%rbp),%rax
+    131d:	mov    0x10(%rax),%rax
+    1321:	mov    -0x40(%rbp),%rcx
+    1325:	sub    0x18(%rcx),%rax
+    1329:	mov    %rax,-0x38(%rbp)
+    132d:	mov    -0x30(%rbp),%rax
+    1331:	add    -0x38(%rbp),%rax
+    1335:	mov    -0x8(%rbp),%rcx
+    1339:	add    -0x18(%rbp),%rcx
+    133d:	cmp    %rcx,%rax
+    1340:	jbe    1355 <rom_copy+0x175>
+    1346:	mov    -0x8(%rbp),%rax
+    134a:	mov    -0x30(%rbp),%rcx
+    134e:	sub    %rcx,%rax
+    1351:	mov    %rax,-0x38(%rbp)
+    1355:	cmpq   $0x0,-0x38(%rbp)
+    135a:	jbe    136f <rom_copy+0x18f>
+    1360:	mov    -0x30(%rbp),%rdi
+    1364:	mov    -0x38(%rbp),%rdx
+    1368:	xor    %esi,%esi
+    136a:	call   1060 <memset@plt>
+    136f:	jmp    1374 <rom_copy+0x194>
+    1374:	jmp    1379 <rom_copy+0x199>
+    1379:	mov    -0x40(%rbp),%rax
+    137d:	mov    0x60(%rax),%rax
+    1381:	mov    %rax,-0x40(%rbp)
+    1385:	jmp    121b <rom_copy+0x3b>
+    138a:	mov    -0x30(%rbp),%rax
+    138e:	add    -0x38(%rbp),%rax
+    1392:	mov    -0x8(%rbp),%rcx
+    1396:	sub    %rcx,%rax
+    1399:	add    $0x40,%rsp
+    139d:	pop    %rbp
+    139e:	ret
+
+Disassembly of section .fini:

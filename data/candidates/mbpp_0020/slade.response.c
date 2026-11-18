@@ -1,0 +1,1 @@
+int func0(long x) { if (x % 2 == 0) return 0; else if (x == 1) return 1; x++; long y = 0; while ((x % 2) == 0) { x /= 2; y++; if (y == x) return 1; } return 0; }

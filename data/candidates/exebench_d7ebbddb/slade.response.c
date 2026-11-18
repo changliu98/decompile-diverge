@@ -1,0 +1,1 @@
+void raw_relu_bulk_apply_function(int n, float *p) { int i; for (i = 0; i < n; i++) p[i] = (p[i] > 0 ? p[i] : 0); }

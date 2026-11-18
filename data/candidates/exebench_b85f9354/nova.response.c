@@ -1,0 +1,1 @@
+void calculate_crc(char *c, char bit) { *c ^= bit; }

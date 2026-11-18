@@ -1,0 +1,1 @@
+void modify_calculated_address_new_syntax(void *mem) { *(unsigned int*)(mem +0x4) = *(unsigned int*)(mem +0x4) +0x5; *(unsigned int*)(mem +0x8) -=0x5; return ; }

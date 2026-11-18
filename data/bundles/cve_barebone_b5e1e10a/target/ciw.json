@@ -1,0 +1,410 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 70h\nmov     [rbp+file], rdi\nmov     [rbp+track_number], esi\nmov     [rbp+has_itags], edx\nmov     rdi, [rbp+file]; isom_file\nmov     esi, [rbp+track_number]; trackNumber\ncall    gf_isom_get_udta_count\nmov     [rbp+count], eax\ncmp     [rbp+count], 0\njnz     loc_1810\njmp     loc_1A0A\ncmp     [rbp+has_itags], 0\njz      loc_1889\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+count]\njnb     loc_1875\nmov     rdi, [rbp+file]; isom_file\nmov     esi, [rbp+track_number]; trackNumber\nmov     edx, [rbp+i]\nadd     edx, 1; udta_idx\nlea     rcx, [rbp+type]; UserDataType\nlea     r8, [rbp+uuid]; UUID\ncall    gf_isom_get_udta_type\ncmp     [rbp+type], 6D657461h\njnz     loc_1862\nmov     eax, [rbp+count]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+count], eax\njmp     loc_1875\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1821\ncmp     [rbp+count], 0\njnz     loc_1884\njmp     loc_1A0A\njmp     $+5\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nmov     edx, [rbp+count]\nlea     rsi, format; \"%d UDTA types: \"\nmov     al, 0\ncall    fprintf\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+count]\njnb     loc_19F2\nmov     [rbp+first], 1\nmov     rdi, [rbp+file]; isom_file\nmov     esi, [rbp+track_number]; trackNumber\nmov     edx, [rbp+i]\nadd     edx, 1; udta_idx\nlea     rcx, [rbp+type_0]; UserDataType\nlea     r8, [rbp+uuid_0]; UUID\ncall    gf_isom_get_udta_type\nmov     rdi, [rbp+file]; isom_file\nmov     esi, [rbp+track_number]; trackNumber\nmov     edx, [rbp+type_0]; UserDataType\nlea     rcx, [rbp+uuid_0]; UUID\ncall    gf_isom_get_user_data_count\nmov     [rbp+nb_items], eax\nmov     rax, cs:stderr_ptr\nmov     rax, [rax]\nmov     [rbp+stream], rax\nmov     edi, [rbp+type_0]; type\ncall    gf_4cc_to_str\nmov     rdi, [rbp+stream]; stream\nmov     rdx, rax\nmov     ecx, [rbp+nb_items]\nlea     rsi, aSD; \"%s (%d) \"\nmov     al, 0\ncall    fprintf\nmov     [rbp+j], 0\nmov     eax, [rbp+j]\ncmp     eax, [rbp+nb_items]\njnb     loc_19DF\nmov     [rbp+udta], 0\nmov     rdi, [rbp+file]; isom_file\nmov     esi, [rbp+track_number]; trackNumber\nmov     edx, [rbp+type_0]; UserDataType\nlea     rcx, [rbp+uuid_0]; UUID\nmov     r8d, [rbp+j]\nadd     r8d, 1; UserDataIndex\nlea     r9, [rbp+udta]; userData\nlea     rax, [rbp+udta_size]\nmov     [rsp+70h+userDataSize], rax; userDataSize\ncall    gf_isom_get_user_data\ncmp     [rbp+udta], 0\njnz     loc_196E\njmp     loc_19D1\nmov     rdi, [rbp+udta]; data\nmov     esi, [rbp+udta_size]; length\ncall    gf_utf8_is_legal\ncmp     eax, 0\njz      loc_19C8\ncmp     [rbp+first], 0\njz      loc_19AC\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, aUsageSInput+11h; format\nmov     al, 0\ncall    fprintf\nmov     [rbp+first], 0\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nmov     rdx, [rbp+udta]\nlea     rsi, aS; \"\\t%s\\n\"\nmov     al, 0\ncall    fprintf\nmov     rdi, [rbp+udta]; ptr\ncall    gf_free\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_1923\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_18AB\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, aUsageSInput+11h; format\nmov     al, 0\ncall    fprintf\nadd     rsp, 70h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 28,
+  "edges": [
+   [
+    "start",
+    "loc_180B"
+   ],
+   [
+    "start",
+    "loc_1810"
+   ],
+   [
+    "loc_180B",
+    "loc_1A0A"
+   ],
+   [
+    "loc_1810",
+    "loc_181A"
+   ],
+   [
+    "loc_1810",
+    "loc_1889"
+   ],
+   [
+    "loc_181A",
+    "loc_1821"
+   ],
+   [
+    "loc_1821",
+    "loc_182D"
+   ],
+   [
+    "loc_1821",
+    "loc_1875"
+   ],
+   [
+    "loc_182D",
+    "loc_1854"
+   ],
+   [
+    "loc_182D",
+    "loc_1862"
+   ],
+   [
+    "loc_1854",
+    "loc_1875"
+   ],
+   [
+    "loc_1862",
+    "loc_1867"
+   ],
+   [
+    "loc_1867",
+    "loc_1821"
+   ],
+   [
+    "loc_1875",
+    "loc_187F"
+   ],
+   [
+    "loc_1875",
+    "loc_1884"
+   ],
+   [
+    "loc_187F",
+    "loc_1A0A"
+   ],
+   [
+    "loc_1884",
+    "loc_1889"
+   ],
+   [
+    "loc_1889",
+    "loc_18AB"
+   ],
+   [
+    "loc_18AB",
+    "loc_18B7"
+   ],
+   [
+    "loc_18AB",
+    "loc_19F2"
+   ],
+   [
+    "loc_18B7",
+    "loc_1923"
+   ],
+   [
+    "loc_1923",
+    "loc_192F"
+   ],
+   [
+    "loc_1923",
+    "loc_19DF"
+   ],
+   [
+    "loc_192F",
+    "loc_1969"
+   ],
+   [
+    "loc_192F",
+    "loc_196E"
+   ],
+   [
+    "loc_1969",
+    "loc_19D1"
+   ],
+   [
+    "loc_196E",
+    "loc_1983"
+   ],
+   [
+    "loc_196E",
+    "loc_19C8"
+   ],
+   [
+    "loc_1983",
+    "loc_198D"
+   ],
+   [
+    "loc_1983",
+    "loc_19AC"
+   ],
+   [
+    "loc_198D",
+    "loc_19AC"
+   ],
+   [
+    "loc_19AC",
+    "loc_19C8"
+   ],
+   [
+    "loc_19C8",
+    "loc_19D1"
+   ],
+   [
+    "loc_19D1",
+    "loc_1923"
+   ],
+   [
+    "loc_19DF",
+    "loc_19E4"
+   ],
+   [
+    "loc_19E4",
+    "loc_18AB"
+   ],
+   [
+    "loc_19F2",
+    "loc_1A0A"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 70h\nmov     [rbp+file], rdi\nmov     [rbp+track_number], esi\nmov     [rbp+has_itags], edx\nmov     rdi, [rbp+file]; isom_file\nmov     esi, [rbp+track_number]; trackNumber\ncall    gf_isom_get_udta_count\nmov     [rbp+count], eax\ncmp     [rbp+count], 0\njnz     loc_1810",
+   "loc_180B": "jmp     loc_1A0A",
+   "loc_1810": "cmp     [rbp+has_itags], 0\njz      loc_1889",
+   "loc_181A": "mov     [rbp+i], 0",
+   "loc_1821": "mov     eax, [rbp+i]\ncmp     eax, [rbp+count]\njnb     loc_1875",
+   "loc_182D": "mov     rdi, [rbp+file]; isom_file\nmov     esi, [rbp+track_number]; trackNumber\nmov     edx, [rbp+i]\nadd     edx, 1; udta_idx\nlea     rcx, [rbp+type]; UserDataType\nlea     r8, [rbp+uuid]; UUID\ncall    gf_isom_get_udta_type\ncmp     [rbp+type], 6D657461h\njnz     loc_1862",
+   "loc_1854": "mov     eax, [rbp+count]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+count], eax\njmp     loc_1875",
+   "loc_1862": "jmp     $+5",
+   "loc_1867": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1821",
+   "loc_1875": "cmp     [rbp+count], 0\njnz     loc_1884",
+   "loc_187F": "jmp     loc_1A0A",
+   "loc_1884": "jmp     $+5",
+   "loc_1889": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nmov     edx, [rbp+count]\nlea     rsi, format; \"%d UDTA types: \"\nmov     al, 0\ncall    fprintf\nmov     [rbp+i], 0",
+   "loc_18AB": "mov     eax, [rbp+i]\ncmp     eax, [rbp+count]\njnb     loc_19F2",
+   "loc_18B7": "mov     [rbp+first], 1\nmov     rdi, [rbp+file]; isom_file\nmov     esi, [rbp+track_number]; trackNumber\nmov     edx, [rbp+i]\nadd     edx, 1; udta_idx\nlea     rcx, [rbp+type_0]; UserDataType\nlea     r8, [rbp+uuid_0]; UUID\ncall    gf_isom_get_udta_type\nmov     rdi, [rbp+file]; isom_file\nmov     esi, [rbp+track_number]; trackNumber\nmov     edx, [rbp+type_0]; UserDataType\nlea     rcx, [rbp+uuid_0]; UUID\ncall    gf_isom_get_user_data_count\nmov     [rbp+nb_items], eax\nmov     rax, cs:stderr_ptr\nmov     rax, [rax]\nmov     [rbp+stream], rax\nmov     edi, [rbp+type_0]; type\ncall    gf_4cc_to_str\nmov     rdi, [rbp+stream]; stream\nmov     rdx, rax\nmov     ecx, [rbp+nb_items]\nlea     rsi, aSD; \"%s (%d) \"\nmov     al, 0\ncall    fprintf\nmov     [rbp+j], 0",
+   "loc_1923": "mov     eax, [rbp+j]\ncmp     eax, [rbp+nb_items]\njnb     loc_19DF",
+   "loc_192F": "mov     [rbp+udta], 0\nmov     rdi, [rbp+file]; isom_file\nmov     esi, [rbp+track_number]; trackNumber\nmov     edx, [rbp+type_0]; UserDataType\nlea     rcx, [rbp+uuid_0]; UUID\nmov     r8d, [rbp+j]\nadd     r8d, 1; UserDataIndex\nlea     r9, [rbp+udta]; userData\nlea     rax, [rbp+udta_size]\nmov     [rsp+70h+userDataSize], rax; userDataSize\ncall    gf_isom_get_user_data\ncmp     [rbp+udta], 0\njnz     loc_196E",
+   "loc_1969": "jmp     loc_19D1",
+   "loc_196E": "mov     rdi, [rbp+udta]; data\nmov     esi, [rbp+udta_size]; length\ncall    gf_utf8_is_legal\ncmp     eax, 0\njz      loc_19C8",
+   "loc_1983": "cmp     [rbp+first], 0\njz      loc_19AC",
+   "loc_198D": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, aUsageSInput+11h; format\nmov     al, 0\ncall    fprintf\nmov     [rbp+first], 0",
+   "loc_19AC": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nmov     rdx, [rbp+udta]\nlea     rsi, aS; \"\\t%s\\n\"\nmov     al, 0\ncall    fprintf",
+   "loc_19C8": "mov     rdi, [rbp+udta]; ptr\ncall    gf_free",
+   "loc_19D1": "mov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_1923",
+   "loc_19DF": "jmp     $+5",
+   "loc_19E4": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_18AB",
+   "loc_19F2": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, aUsageSInput+11h; format\nmov     al, 0\ncall    fprintf",
+   "loc_1A0A": "add     rsp, 70h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "userDataSize": "qword ptr -70h",
+   "stream": "qword ptr -68h",
+   "udta_size": "dword ptr -5Ch",
+   "udta": "qword ptr -58h",
+   "uuid_0": "byte ptr -50h",
+   "first": "dword ptr -40h",
+   "nb_items": "dword ptr -3Ch",
+   "type_0": "dword ptr -38h",
+   "j": "dword ptr -34h",
+   "uuid": "byte ptr -30h",
+   "type": "dword ptr -1Ch",
+   "count": "dword ptr -18h",
+   "i": "dword ptr -14h",
+   "has_itags": "dword ptr -10h",
+   "track_number": "dword ptr -0Ch",
+   "file": "qword ptr -8"
+  },
+  ".rodata": {
+   "format": "byte '%d UDTA types: ',0",
+   "aSD": "byte '%s (%d) ',0",
+   "unk_21C7": "byte 'usage: %s <input>',0Ah,0",
+   "aS": "byte 9,'%s',0Ah,0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6112,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868484
+ }
+}

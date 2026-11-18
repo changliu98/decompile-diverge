@@ -1,0 +1,1 @@
+int find(float value, float array[], int n) { if (value <= array[0]) { return 0; } else if (value >= array[n-1]) { return n-1; } int low = 0; int high = 1; int mid = n; int to = mid - high; while (to > 1) { low = (mid + high)/2; if (value >= array[low-1]) { high = low; } else { mid = low; } to = mid - high; } return high-1; }

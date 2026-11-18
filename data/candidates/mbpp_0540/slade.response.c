@@ -1,0 +1,1 @@
+int func0(int *arr, int size) { sortArray(arr, size); int count = 0; int min = 0; int max = size; for (int i = 0; i < size - 1; i++) { if (arr[i] == arr[i + 1]) { count++; } else { min = min > count ? min : count; max = max < count ? max : count; count = 0; } } return min - max; }

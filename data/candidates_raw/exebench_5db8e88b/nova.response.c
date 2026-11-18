@@ -1,0 +1,1 @@
+void func0(double *a, double b, double c[]) { *a = b * c[0]; }

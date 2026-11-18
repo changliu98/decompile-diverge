@@ -1,0 +1,264 @@
+00000000000019d0 <aes_decrypt>:
+    19d0:	push   %rbp
+    19d1:	mov    %rsp,%rbp
+    19d4:	sub    $0x30,%rsp
+    19d8:	mov    %rdi,-0x8(%rbp)
+    19dc:	mov    %rsi,-0x10(%rbp)
+    19e0:	mov    %rdx,-0x18(%rbp)
+    19e4:	mov    %ecx,-0x1c(%rbp)
+    19e7:	mov    -0x8(%rbp),%rax
+    19eb:	mov    (%rax),%al
+    19ed:	mov    %al,-0x30(%rbp)
+    19f0:	mov    -0x8(%rbp),%rax
+    19f4:	mov    0x1(%rax),%al
+    19f7:	mov    %al,-0x2c(%rbp)
+    19fa:	mov    -0x8(%rbp),%rax
+    19fe:	mov    0x2(%rax),%al
+    1a01:	mov    %al,-0x28(%rbp)
+    1a04:	mov    -0x8(%rbp),%rax
+    1a08:	mov    0x3(%rax),%al
+    1a0b:	mov    %al,-0x24(%rbp)
+    1a0e:	mov    -0x8(%rbp),%rax
+    1a12:	mov    0x4(%rax),%al
+    1a15:	mov    %al,-0x2f(%rbp)
+    1a18:	mov    -0x8(%rbp),%rax
+    1a1c:	mov    0x5(%rax),%al
+    1a1f:	mov    %al,-0x2b(%rbp)
+    1a22:	mov    -0x8(%rbp),%rax
+    1a26:	mov    0x6(%rax),%al
+    1a29:	mov    %al,-0x27(%rbp)
+    1a2c:	mov    -0x8(%rbp),%rax
+    1a30:	mov    0x7(%rax),%al
+    1a33:	mov    %al,-0x23(%rbp)
+    1a36:	mov    -0x8(%rbp),%rax
+    1a3a:	mov    0x8(%rax),%al
+    1a3d:	mov    %al,-0x2e(%rbp)
+    1a40:	mov    -0x8(%rbp),%rax
+    1a44:	mov    0x9(%rax),%al
+    1a47:	mov    %al,-0x2a(%rbp)
+    1a4a:	mov    -0x8(%rbp),%rax
+    1a4e:	mov    0xa(%rax),%al
+    1a51:	mov    %al,-0x26(%rbp)
+    1a54:	mov    -0x8(%rbp),%rax
+    1a58:	mov    0xb(%rax),%al
+    1a5b:	mov    %al,-0x22(%rbp)
+    1a5e:	mov    -0x8(%rbp),%rax
+    1a62:	mov    0xc(%rax),%al
+    1a65:	mov    %al,-0x2d(%rbp)
+    1a68:	mov    -0x8(%rbp),%rax
+    1a6c:	mov    0xd(%rax),%al
+    1a6f:	mov    %al,-0x29(%rbp)
+    1a72:	mov    -0x8(%rbp),%rax
+    1a76:	mov    0xe(%rax),%al
+    1a79:	mov    %al,-0x25(%rbp)
+    1a7c:	mov    -0x8(%rbp),%rax
+    1a80:	mov    0xf(%rax),%al
+    1a83:	mov    %al,-0x21(%rbp)
+    1a86:	cmpl   $0x80,-0x1c(%rbp)
+    1a8d:	jle    1b8e <aes_decrypt+0x1be>
+    1a93:	cmpl   $0xc0,-0x1c(%rbp)
+    1a9a:	jle    1b17 <aes_decrypt+0x147>
+    1aa0:	lea    -0x30(%rbp),%rdi
+    1aa4:	mov    -0x18(%rbp),%rsi
+    1aa8:	add    $0xe0,%rsi
+    1aaf:	call   2a70 <AddRoundKey>
+    1ab4:	lea    -0x30(%rbp),%rdi
+    1ab8:	call   33d0 <InvShiftRows>
+    1abd:	lea    -0x30(%rbp),%rdi
+    1ac1:	call   2fa0 <InvSubBytes>
+    1ac6:	lea    -0x30(%rbp),%rdi
+    1aca:	mov    -0x18(%rbp),%rsi
+    1ace:	add    $0xd0,%rsi
+    1ad5:	call   2a70 <AddRoundKey>
+    1ada:	lea    -0x30(%rbp),%rdi
+    1ade:	call   3ba0 <InvMixColumns>
+    1ae3:	lea    -0x30(%rbp),%rdi
+    1ae7:	call   33d0 <InvShiftRows>
+    1aec:	lea    -0x30(%rbp),%rdi
+    1af0:	call   2fa0 <InvSubBytes>
+    1af5:	lea    -0x30(%rbp),%rdi
+    1af9:	mov    -0x18(%rbp),%rsi
+    1afd:	add    $0xc0,%rsi
+    1b04:	call   2a70 <AddRoundKey>
+    1b09:	lea    -0x30(%rbp),%rdi
+    1b0d:	call   3ba0 <InvMixColumns>
+    1b12:	jmp    1b2b <aes_decrypt+0x15b>
+    1b17:	lea    -0x30(%rbp),%rdi
+    1b1b:	mov    -0x18(%rbp),%rsi
+    1b1f:	add    $0xc0,%rsi
+    1b26:	call   2a70 <AddRoundKey>
+    1b2b:	lea    -0x30(%rbp),%rdi
+    1b2f:	call   33d0 <InvShiftRows>
+    1b34:	lea    -0x30(%rbp),%rdi
+    1b38:	call   2fa0 <InvSubBytes>
+    1b3d:	lea    -0x30(%rbp),%rdi
+    1b41:	mov    -0x18(%rbp),%rsi
+    1b45:	add    $0xb0,%rsi
+    1b4c:	call   2a70 <AddRoundKey>
+    1b51:	lea    -0x30(%rbp),%rdi
+    1b55:	call   3ba0 <InvMixColumns>
+    1b5a:	lea    -0x30(%rbp),%rdi
+    1b5e:	call   33d0 <InvShiftRows>
+    1b63:	lea    -0x30(%rbp),%rdi
+    1b67:	call   2fa0 <InvSubBytes>
+    1b6c:	lea    -0x30(%rbp),%rdi
+    1b70:	mov    -0x18(%rbp),%rsi
+    1b74:	add    $0xa0,%rsi
+    1b7b:	call   2a70 <AddRoundKey>
+    1b80:	lea    -0x30(%rbp),%rdi
+    1b84:	call   3ba0 <InvMixColumns>
+    1b89:	jmp    1ba2 <aes_decrypt+0x1d2>
+    1b8e:	lea    -0x30(%rbp),%rdi
+    1b92:	mov    -0x18(%rbp),%rsi
+    1b96:	add    $0xa0,%rsi
+    1b9d:	call   2a70 <AddRoundKey>
+    1ba2:	lea    -0x30(%rbp),%rdi
+    1ba6:	call   33d0 <InvShiftRows>
+    1bab:	lea    -0x30(%rbp),%rdi
+    1baf:	call   2fa0 <InvSubBytes>
+    1bb4:	lea    -0x30(%rbp),%rdi
+    1bb8:	mov    -0x18(%rbp),%rsi
+    1bbc:	add    $0x90,%rsi
+    1bc3:	call   2a70 <AddRoundKey>
+    1bc8:	lea    -0x30(%rbp),%rdi
+    1bcc:	call   3ba0 <InvMixColumns>
+    1bd1:	lea    -0x30(%rbp),%rdi
+    1bd5:	call   33d0 <InvShiftRows>
+    1bda:	lea    -0x30(%rbp),%rdi
+    1bde:	call   2fa0 <InvSubBytes>
+    1be3:	lea    -0x30(%rbp),%rdi
+    1be7:	mov    -0x18(%rbp),%rsi
+    1beb:	add    $0x80,%rsi
+    1bf2:	call   2a70 <AddRoundKey>
+    1bf7:	lea    -0x30(%rbp),%rdi
+    1bfb:	call   3ba0 <InvMixColumns>
+    1c00:	lea    -0x30(%rbp),%rdi
+    1c04:	call   33d0 <InvShiftRows>
+    1c09:	lea    -0x30(%rbp),%rdi
+    1c0d:	call   2fa0 <InvSubBytes>
+    1c12:	lea    -0x30(%rbp),%rdi
+    1c16:	mov    -0x18(%rbp),%rsi
+    1c1a:	add    $0x70,%rsi
+    1c1e:	call   2a70 <AddRoundKey>
+    1c23:	lea    -0x30(%rbp),%rdi
+    1c27:	call   3ba0 <InvMixColumns>
+    1c2c:	lea    -0x30(%rbp),%rdi
+    1c30:	call   33d0 <InvShiftRows>
+    1c35:	lea    -0x30(%rbp),%rdi
+    1c39:	call   2fa0 <InvSubBytes>
+    1c3e:	lea    -0x30(%rbp),%rdi
+    1c42:	mov    -0x18(%rbp),%rsi
+    1c46:	add    $0x60,%rsi
+    1c4a:	call   2a70 <AddRoundKey>
+    1c4f:	lea    -0x30(%rbp),%rdi
+    1c53:	call   3ba0 <InvMixColumns>
+    1c58:	lea    -0x30(%rbp),%rdi
+    1c5c:	call   33d0 <InvShiftRows>
+    1c61:	lea    -0x30(%rbp),%rdi
+    1c65:	call   2fa0 <InvSubBytes>
+    1c6a:	lea    -0x30(%rbp),%rdi
+    1c6e:	mov    -0x18(%rbp),%rsi
+    1c72:	add    $0x50,%rsi
+    1c76:	call   2a70 <AddRoundKey>
+    1c7b:	lea    -0x30(%rbp),%rdi
+    1c7f:	call   3ba0 <InvMixColumns>
+    1c84:	lea    -0x30(%rbp),%rdi
+    1c88:	call   33d0 <InvShiftRows>
+    1c8d:	lea    -0x30(%rbp),%rdi
+    1c91:	call   2fa0 <InvSubBytes>
+    1c96:	lea    -0x30(%rbp),%rdi
+    1c9a:	mov    -0x18(%rbp),%rsi
+    1c9e:	add    $0x40,%rsi
+    1ca2:	call   2a70 <AddRoundKey>
+    1ca7:	lea    -0x30(%rbp),%rdi
+    1cab:	call   3ba0 <InvMixColumns>
+    1cb0:	lea    -0x30(%rbp),%rdi
+    1cb4:	call   33d0 <InvShiftRows>
+    1cb9:	lea    -0x30(%rbp),%rdi
+    1cbd:	call   2fa0 <InvSubBytes>
+    1cc2:	lea    -0x30(%rbp),%rdi
+    1cc6:	mov    -0x18(%rbp),%rsi
+    1cca:	add    $0x30,%rsi
+    1cce:	call   2a70 <AddRoundKey>
+    1cd3:	lea    -0x30(%rbp),%rdi
+    1cd7:	call   3ba0 <InvMixColumns>
+    1cdc:	lea    -0x30(%rbp),%rdi
+    1ce0:	call   33d0 <InvShiftRows>
+    1ce5:	lea    -0x30(%rbp),%rdi
+    1ce9:	call   2fa0 <InvSubBytes>
+    1cee:	lea    -0x30(%rbp),%rdi
+    1cf2:	mov    -0x18(%rbp),%rsi
+    1cf6:	add    $0x20,%rsi
+    1cfa:	call   2a70 <AddRoundKey>
+    1cff:	lea    -0x30(%rbp),%rdi
+    1d03:	call   3ba0 <InvMixColumns>
+    1d08:	lea    -0x30(%rbp),%rdi
+    1d0c:	call   33d0 <InvShiftRows>
+    1d11:	lea    -0x30(%rbp),%rdi
+    1d15:	call   2fa0 <InvSubBytes>
+    1d1a:	lea    -0x30(%rbp),%rdi
+    1d1e:	mov    -0x18(%rbp),%rsi
+    1d22:	add    $0x10,%rsi
+    1d26:	call   2a70 <AddRoundKey>
+    1d2b:	lea    -0x30(%rbp),%rdi
+    1d2f:	call   3ba0 <InvMixColumns>
+    1d34:	lea    -0x30(%rbp),%rdi
+    1d38:	call   33d0 <InvShiftRows>
+    1d3d:	lea    -0x30(%rbp),%rdi
+    1d41:	call   2fa0 <InvSubBytes>
+    1d46:	lea    -0x30(%rbp),%rdi
+    1d4a:	mov    -0x18(%rbp),%rsi
+    1d4e:	call   2a70 <AddRoundKey>
+    1d53:	mov    -0x30(%rbp),%cl
+    1d56:	mov    -0x10(%rbp),%rax
+    1d5a:	mov    %cl,(%rax)
+    1d5c:	mov    -0x2c(%rbp),%cl
+    1d5f:	mov    -0x10(%rbp),%rax
+    1d63:	mov    %cl,0x1(%rax)
+    1d66:	mov    -0x28(%rbp),%cl
+    1d69:	mov    -0x10(%rbp),%rax
+    1d6d:	mov    %cl,0x2(%rax)
+    1d70:	mov    -0x24(%rbp),%cl
+    1d73:	mov    -0x10(%rbp),%rax
+    1d77:	mov    %cl,0x3(%rax)
+    1d7a:	mov    -0x2f(%rbp),%cl
+    1d7d:	mov    -0x10(%rbp),%rax
+    1d81:	mov    %cl,0x4(%rax)
+    1d84:	mov    -0x2b(%rbp),%cl
+    1d87:	mov    -0x10(%rbp),%rax
+    1d8b:	mov    %cl,0x5(%rax)
+    1d8e:	mov    -0x27(%rbp),%cl
+    1d91:	mov    -0x10(%rbp),%rax
+    1d95:	mov    %cl,0x6(%rax)
+    1d98:	mov    -0x23(%rbp),%cl
+    1d9b:	mov    -0x10(%rbp),%rax
+    1d9f:	mov    %cl,0x7(%rax)
+    1da2:	mov    -0x2e(%rbp),%cl
+    1da5:	mov    -0x10(%rbp),%rax
+    1da9:	mov    %cl,0x8(%rax)
+    1dac:	mov    -0x2a(%rbp),%cl
+    1daf:	mov    -0x10(%rbp),%rax
+    1db3:	mov    %cl,0x9(%rax)
+    1db6:	mov    -0x26(%rbp),%cl
+    1db9:	mov    -0x10(%rbp),%rax
+    1dbd:	mov    %cl,0xa(%rax)
+    1dc0:	mov    -0x22(%rbp),%cl
+    1dc3:	mov    -0x10(%rbp),%rax
+    1dc7:	mov    %cl,0xb(%rax)
+    1dca:	mov    -0x2d(%rbp),%cl
+    1dcd:	mov    -0x10(%rbp),%rax
+    1dd1:	mov    %cl,0xc(%rax)
+    1dd4:	mov    -0x29(%rbp),%cl
+    1dd7:	mov    -0x10(%rbp),%rax
+    1ddb:	mov    %cl,0xd(%rax)
+    1dde:	mov    -0x25(%rbp),%cl
+    1de1:	mov    -0x10(%rbp),%rax
+    1de5:	mov    %cl,0xe(%rax)
+    1de8:	mov    -0x21(%rbp),%cl
+    1deb:	mov    -0x10(%rbp),%rax
+    1def:	mov    %cl,0xf(%rax)
+    1df2:	add    $0x30,%rsp
+    1df6:	pop    %rbp
+    1df7:	ret
+
+Disassembly of section .fini:

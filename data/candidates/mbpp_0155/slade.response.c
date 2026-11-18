@@ -1,0 +1,1 @@
+uint32_t func0(uint32_t input) { uint32_t out = 0; for (int i = 0, j = input; j > 0; i++, j >>= 1) { if (i % 2 == 1) { out |= 1 << i; } } return (input ^ out); }

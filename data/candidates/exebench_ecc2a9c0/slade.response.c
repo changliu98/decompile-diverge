@@ -1,0 +1,1 @@
+int myrnd(unsigned int *seed, int num) { unsigned int r; unsigned int x; x = *seed; x = (314159 * x) + 1; if (num == 256) r = x >> 24; else r = x % num; *seed = x; return r; }

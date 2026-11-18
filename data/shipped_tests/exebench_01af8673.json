@@ -1,0 +1,207 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <math.h>\n\n#include <stdio.h>\n\n#include <stdlib.h>\n\n#include <string.h>\n\n#include <time.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_400f5qyb1q.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(double* c, double soe, double coe) {\n  json output_json;\n  std::vector<json> output_temp_2;\n  for (unsigned int i3 = 0; i3 < 3; i3++) {\n    double output_temp_4 = c[i3];\n\n    output_temp_2.push_back(output_temp_4);\n  }\n  output_json[\"c\"] = output_temp_2;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  std::vector<double> input_temp_1_vec;\n  for (auto& elem : input_json[\"c\"]) {\n    double input_temp_1_inner = elem;\n    input_temp_1_vec.push_back(input_temp_1_inner);\n  }\n  double* c = &input_temp_1_vec[0];\n  double soe = input_json[\"soe\"];\n  double coe = input_json[\"coe\"];\n  clock_t begin = clock();\n  ecRotate(c, soe, coe);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(c, soe, coe);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "c": [
+     74.7746837483,
+     48.0219929966,
+     65.3171309047
+    ],
+    "soe": 29.3537710505,
+    "coe": 52.1298511469
+   },
+   "output": {
+    "c": [
+     74.7746837483,
+     4420.683452942334,
+     1995.3457235936814
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "c": [
+     99.0036659305,
+     14.6982931972,
+     80.9932637545
+    ],
+    "soe": 42.7513105664,
+    "coe": 84.4301610731
+   },
+   "output": {
+    "c": [
+     99.0036659305,
+     4703.547434694225,
+     6209.903007359006
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "c": [
+     1.44658863247,
+     41.7617093383,
+     39.6010356519
+    ],
+    "soe": 32.486140016,
+    "coe": 5.18572650281
+   },
+   "output": {
+    "c": [
+     1.44658863247,
+     1503.0495918845013,
+     -1151.316596752727
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "c": [
+     1.3691578124,
+     99.9820348429,
+     44.409175722
+    ],
+    "soe": 59.1751995953,
+    "coe": 82.7101122437
+   },
+   "output": {
+    "c": [
+     1.3691578124,
+     10897.447161421886,
+     -2243.3689591560296
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "c": [
+     52.7502347614,
+     25.9527282482,
+     6.81350899227
+    ],
+    "soe": 22.9107022916,
+    "coe": 24.3341528039
+   },
+   "output": {
+    "c": [
+     52.7502347614,
+     787.6399309528283,
+     -428.7942616006629
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "c": [
+     91.7793374541,
+     45.0208426081,
+     11.2835275687
+    ],
+    "soe": 45.1148241365,
+    "coe": 37.1557636943
+   },
+   "output": {
+    "c": [
+     91.7793374541,
+     2181.8381511660864,
+     -1611.8593127607405
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "c": [
+     62.2143478991,
+     32.3593004249,
+     28.9893946005
+    ],
+    "soe": 78.0614787365,
+    "coe": 58.0138646162
+   },
+   "output": {
+    "c": [
+     62.2143478991,
+     4140.243084116031,
+     -844.2280283873406
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "c": [
+     24.2300875176,
+     88.7752533655,
+     79.7220350466
+    ],
+    "soe": 99.5294264384,
+    "coe": 50.1257791939
+   },
+   "output": {
+    "c": [
+     24.2300875176,
+     12384.617170771702,
+     -4839.620923757626
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "c": [
+     20.0237215585,
+     5.77434766714,
+     58.7932484898
+    ],
+    "soe": 66.5184333901,
+    "coe": 8.12229558987
+   },
+   "output": {
+    "c": [
+     20.0237215585,
+     3957.735742047546,
+     93.43558225490216
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "c": [
+     88.019831742,
+     17.6315375019,
+     56.7031348527
+    ],
+    "soe": 97.2666613844,
+    "coe": 9.70904029754
+   },
+   "output": {
+    "c": [
+     88.019831742,
+     5686.509925265076,
+     -1164.427766601948
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

@@ -1,0 +1,1 @@
+int intwt(double n,double *z) { int ret; if(n<1.0) { ret=1; *z=n; } if(n>=1.0) { ret=(int)n; *z=1.0; } return ret; }

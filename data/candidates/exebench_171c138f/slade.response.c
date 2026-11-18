@@ -1,0 +1,1 @@
+int atomic_add32_ret(atomic32_t *v) { int ret = 1; __asm__ volatile("lock; xadd %0,%1" : "+d" (ret), "+m" (*v) : : "memory"); return ret; }

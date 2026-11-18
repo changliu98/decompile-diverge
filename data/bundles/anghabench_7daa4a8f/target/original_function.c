@@ -1,0 +1,8 @@
+char *stb_skipnewline(char *s)
+{
+   if (s[0] == '\r' || s[0] == '\n') {
+      if (s[0]+s[1] == '\r' + '\n') ++s;
+      ++s;
+   }
+   return s;
+}

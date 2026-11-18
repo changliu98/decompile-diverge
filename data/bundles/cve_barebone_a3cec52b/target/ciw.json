@@ -1,0 +1,497 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nlea     rax, [rbp+field]\nmov     [rbp+var_40], rax\nmov     [rbp+sdump], rdi\nmov     [rbp+parent], rsi\nmov     eax, [rax+4]\nmov     [rbp+var_34], eax\nsub     eax, 0Ah\njz      loc_154E\njmp     $+5\nmov     eax, [rbp+var_34]\nsub     eax, 0Eh\njz      loc_1635\njmp     $+5\nmov     eax, [rbp+var_34]\nsub     eax, 2Ah ; '*'\njz      loc_15A3\njmp     loc_163A\nmov     rax, [rbp+var_40]\nmov     rax, [rax+8]\ncmp     qword ptr [rax], 0\njz      loc_1565\njmp     loc_1584\nlea     rdi, assertion; \"*(GF_Node **)field.far_ptr\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 0E1h; line\nlea     rcx, function; \"void gf_dump_vrml_simple_field(GF_Scene\"...\ncall    ___assert_fail\nmov     rax, [rbp+var_40]\nmov     rdi, [rbp+sdump]; sdump\nmov     rax, [rax+8]\nmov     rsi, [rax]; node\nxor     edx, edx; in_list\nxor     eax, eax\nmov     ecx, eax; fieldContainer\ncall    gf_dump_vrml_node\njmp     loc_17F2\nmov     rax, [rbp+var_40]\nmov     rax, [rax+8]\nmov     rax, [rax]\nmov     [rbp+list], rax\ncmp     [rbp+list], 0\njz      loc_15C2\njmp     loc_15E1\nlea     rdi, aList; \"list\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 0E6h; line\nlea     rcx, function; \"void gf_dump_vrml_simple_field(GF_Scene\"...\ncall    ___assert_fail\nmov     rax, [rbp+sdump]\nmov     ecx, [rax+18h]\nadd     ecx, 1\nmov     [rax+18h], ecx\ncmp     [rbp+list], 0\njz      loc_1623\nmov     rdi, [rbp+sdump]; sdump\nmov     rax, [rbp+list]\nmov     rsi, [rax+8]; node\nmov     edx, 1; in_list\nxor     eax, eax\nmov     ecx, eax; fieldContainer\ncall    gf_dump_vrml_node\nmov     rax, [rbp+list]\nmov     rax, [rax]\nmov     [rbp+list], rax\njmp     loc_15EE\nmov     rax, [rbp+sdump]\nmov     ecx, [rax+18h]\nadd     ecx, 0FFFFFFFFh\nmov     [rax+18h], ecx\njmp     loc_17F2\njmp     loc_17F2\nmov     rax, [rbp+var_40]\nmov     edi, [rax+4]; FieldType\ncall    gf_sg_vrml_is_sf_field\ncmp     eax, 0\njz      loc_16A3\nmov     rax, [rbp+sdump]\ncmp     dword ptr [rax+30h], 0\njz      loc_166D\nmov     rdi, [rbp+sdump]; sdump\nlea     rsi, name; \"value\"\ncall    StartAttribute\nmov     rax, [rbp+var_40]\nmov     rdi, [rbp+sdump]; sdump\nmov     esi, [rax+4]; type\nmov     rdx, [rax+8]; ptr\nmov     r8, [rbp+parent]; node\nxor     ecx, ecx; is_mf\ncall    gf_dump_vrml_sffield\nmov     rax, [rbp+sdump]\ncmp     dword ptr [rax+30h], 0\njz      loc_169E\nmov     rdi, [rbp+sdump]; sdump\ncall    EndAttribute\njmp     loc_17F2\nmov     rax, [rbp+var_40]\nmov     rcx, [rax+8]\nmov     [rbp+mffield], rcx\nmov     edi, [rax+4]; FieldType\ncall    gf_sg_vrml_get_sf_type\nmov     [rbp+sf_type], eax\nmov     rax, [rbp+sdump]\ncmp     dword ptr [rax+30h], 0\njnz     loc_16E3\nmov     rax, [rbp+sdump]\nmov     rdi, [rax+10h]; stream\nlea     rsi, asc_209A; \"[\"\nmov     al, 0\ncall    gf_fprintf\njmp     loc_171D\ncmp     [rbp+sf_type], 4\njnz     loc_1708\nmov     rax, [rbp+sdump]\nmov     rdi, [rax+10h]; stream\nlea     rsi, aValue_0; \" value='\"\nmov     al, 0\ncall    gf_fprintf\njmp     loc_1718\nmov     rdi, [rbp+sdump]; sdump\nlea     rsi, name; \"value\"\ncall    StartAttribute\njmp     $+5\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\nmov     rcx, [rbp+mffield]\ncmp     eax, [rcx]\njnb     loc_1791\ncmp     [rbp+i], 0\njz      loc_1753\nmov     rax, [rbp+sdump]\nmov     rdi, [rax+10h]; stream\nlea     rsi, asc_20A5; \" \"\nmov     al, 0\ncall    gf_fprintf\nmov     rax, [rbp+var_40]\nmov     rdi, [rax+8]; mf\nmov     esi, [rax+4]; FieldType\nmov     ecx, [rbp+i]; ItemPos\nlea     rdx, [rbp+slot_ptr]; new_ptr\ncall    gf_sg_vrml_mf_get_item\nmov     rdi, [rbp+sdump]; sdump\nmov     esi, [rbp+sf_type]; type\nmov     rdx, [rbp+slot_ptr]; ptr\nmov     r8, [rbp+parent]; node\nmov     ecx, 1; is_mf\ncall    gf_dump_vrml_sffield\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1724\nmov     rax, [rbp+sdump]\ncmp     dword ptr [rax+30h], 0\njnz     loc_17BA\nmov     rax, [rbp+sdump]\nmov     rdi, [rax+10h]; stream\nlea     rsi, asc_20A7; \"]\"\nmov     al, 0\ncall    gf_fprintf\njmp     loc_17ED\ncmp     [rbp+sf_type], 4\njnz     loc_17DF\nmov     rax, [rbp+sdump]\nmov     rdi, [rax+10h]; stream\nlea     rsi, aValue_0+7; format\nmov     al, 0\ncall    gf_fprintf\njmp     loc_17E8\nmov     rdi, [rbp+sdump]; sdump\ncall    EndAttribute\njmp     $+5\njmp     $+5\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 43,
+  "edges": [
+   [
+    "start",
+    "loc_1527"
+   ],
+   [
+    "start",
+    "loc_154E"
+   ],
+   [
+    "loc_1527",
+    "loc_152C"
+   ],
+   [
+    "loc_152C",
+    "loc_1538"
+   ],
+   [
+    "loc_152C",
+    "loc_1635"
+   ],
+   [
+    "loc_1538",
+    "loc_153D"
+   ],
+   [
+    "loc_153D",
+    "loc_1549"
+   ],
+   [
+    "loc_153D",
+    "loc_15A3"
+   ],
+   [
+    "loc_1549",
+    "loc_163A"
+   ],
+   [
+    "loc_154E",
+    "loc_1560"
+   ],
+   [
+    "loc_154E",
+    "loc_1565"
+   ],
+   [
+    "loc_1560",
+    "loc_1584"
+   ],
+   [
+    "loc_1584",
+    "loc_17F2"
+   ],
+   [
+    "loc_15A3",
+    "loc_15BD"
+   ],
+   [
+    "loc_15A3",
+    "loc_15C2"
+   ],
+   [
+    "loc_15BD",
+    "loc_15E1"
+   ],
+   [
+    "loc_15E1",
+    "loc_15EE"
+   ],
+   [
+    "loc_15EE",
+    "loc_15F9"
+   ],
+   [
+    "loc_15EE",
+    "loc_1623"
+   ],
+   [
+    "loc_15F9",
+    "loc_15EE"
+   ],
+   [
+    "loc_1623",
+    "loc_17F2"
+   ],
+   [
+    "loc_1635",
+    "loc_17F2"
+   ],
+   [
+    "loc_163A",
+    "loc_164F"
+   ],
+   [
+    "loc_163A",
+    "loc_16A3"
+   ],
+   [
+    "loc_164F",
+    "loc_165D"
+   ],
+   [
+    "loc_164F",
+    "loc_166D"
+   ],
+   [
+    "loc_165D",
+    "loc_166D"
+   ],
+   [
+    "loc_166D",
+    "loc_1695"
+   ],
+   [
+    "loc_166D",
+    "loc_169E"
+   ],
+   [
+    "loc_1695",
+    "loc_169E"
+   ],
+   [
+    "loc_169E",
+    "loc_17F2"
+   ],
+   [
+    "loc_16A3",
+    "loc_16C8"
+   ],
+   [
+    "loc_16A3",
+    "loc_16E3"
+   ],
+   [
+    "loc_16C8",
+    "loc_171D"
+   ],
+   [
+    "loc_16E3",
+    "loc_16ED"
+   ],
+   [
+    "loc_16E3",
+    "loc_1708"
+   ],
+   [
+    "loc_16ED",
+    "loc_1718"
+   ],
+   [
+    "loc_1708",
+    "loc_1718"
+   ],
+   [
+    "loc_1718",
+    "loc_171D"
+   ],
+   [
+    "loc_171D",
+    "loc_1724"
+   ],
+   [
+    "loc_1724",
+    "loc_1733"
+   ],
+   [
+    "loc_1724",
+    "loc_1791"
+   ],
+   [
+    "loc_1733",
+    "loc_173D"
+   ],
+   [
+    "loc_1733",
+    "loc_1753"
+   ],
+   [
+    "loc_173D",
+    "loc_1753"
+   ],
+   [
+    "loc_1753",
+    "loc_1724"
+   ],
+   [
+    "loc_1791",
+    "loc_179F"
+   ],
+   [
+    "loc_1791",
+    "loc_17BA"
+   ],
+   [
+    "loc_179F",
+    "loc_17ED"
+   ],
+   [
+    "loc_17BA",
+    "loc_17C4"
+   ],
+   [
+    "loc_17BA",
+    "loc_17DF"
+   ],
+   [
+    "loc_17C4",
+    "loc_17E8"
+   ],
+   [
+    "loc_17DF",
+    "loc_17E8"
+   ],
+   [
+    "loc_17E8",
+    "loc_17ED"
+   ],
+   [
+    "loc_17ED",
+    "loc_17F2"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nlea     rax, [rbp+field]\nmov     [rbp+var_40], rax\nmov     [rbp+sdump], rdi\nmov     [rbp+parent], rsi\nmov     eax, [rax+4]\nmov     [rbp+var_34], eax\nsub     eax, 0Ah\njz      loc_154E",
+   "loc_1527": "jmp     $+5",
+   "loc_152C": "mov     eax, [rbp+var_34]\nsub     eax, 0Eh\njz      loc_1635",
+   "loc_1538": "jmp     $+5",
+   "loc_153D": "mov     eax, [rbp+var_34]\nsub     eax, 2Ah ; '*'\njz      loc_15A3",
+   "loc_1549": "jmp     loc_163A",
+   "loc_154E": "mov     rax, [rbp+var_40]\nmov     rax, [rax+8]\ncmp     qword ptr [rax], 0\njz      loc_1565",
+   "loc_1560": "jmp     loc_1584",
+   "loc_1565": "lea     rdi, assertion; \"*(GF_Node **)field.far_ptr\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 0E1h; line\nlea     rcx, function; \"void gf_dump_vrml_simple_field(GF_Scene\"...\ncall    ___assert_fail",
+   "loc_1584": "mov     rax, [rbp+var_40]\nmov     rdi, [rbp+sdump]; sdump\nmov     rax, [rax+8]\nmov     rsi, [rax]; node\nxor     edx, edx; in_list\nxor     eax, eax\nmov     ecx, eax; fieldContainer\ncall    gf_dump_vrml_node\njmp     loc_17F2",
+   "loc_15A3": "mov     rax, [rbp+var_40]\nmov     rax, [rax+8]\nmov     rax, [rax]\nmov     [rbp+list], rax\ncmp     [rbp+list], 0\njz      loc_15C2",
+   "loc_15BD": "jmp     loc_15E1",
+   "loc_15C2": "lea     rdi, aList; \"list\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 0E6h; line\nlea     rcx, function; \"void gf_dump_vrml_simple_field(GF_Scene\"...\ncall    ___assert_fail",
+   "loc_15E1": "mov     rax, [rbp+sdump]\nmov     ecx, [rax+18h]\nadd     ecx, 1\nmov     [rax+18h], ecx",
+   "loc_15EE": "cmp     [rbp+list], 0\njz      loc_1623",
+   "loc_15F9": "mov     rdi, [rbp+sdump]; sdump\nmov     rax, [rbp+list]\nmov     rsi, [rax+8]; node\nmov     edx, 1; in_list\nxor     eax, eax\nmov     ecx, eax; fieldContainer\ncall    gf_dump_vrml_node\nmov     rax, [rbp+list]\nmov     rax, [rax]\nmov     [rbp+list], rax\njmp     loc_15EE",
+   "loc_1623": "mov     rax, [rbp+sdump]\nmov     ecx, [rax+18h]\nadd     ecx, 0FFFFFFFFh\nmov     [rax+18h], ecx\njmp     loc_17F2",
+   "loc_1635": "jmp     loc_17F2",
+   "loc_163A": "mov     rax, [rbp+var_40]\nmov     edi, [rax+4]; FieldType\ncall    gf_sg_vrml_is_sf_field\ncmp     eax, 0\njz      loc_16A3",
+   "loc_164F": "mov     rax, [rbp+sdump]\ncmp     dword ptr [rax+30h], 0\njz      loc_166D",
+   "loc_165D": "mov     rdi, [rbp+sdump]; sdump\nlea     rsi, name; \"value\"\ncall    StartAttribute",
+   "loc_166D": "mov     rax, [rbp+var_40]\nmov     rdi, [rbp+sdump]; sdump\nmov     esi, [rax+4]; type\nmov     rdx, [rax+8]; ptr\nmov     r8, [rbp+parent]; node\nxor     ecx, ecx; is_mf\ncall    gf_dump_vrml_sffield\nmov     rax, [rbp+sdump]\ncmp     dword ptr [rax+30h], 0\njz      loc_169E",
+   "loc_1695": "mov     rdi, [rbp+sdump]; sdump\ncall    EndAttribute",
+   "loc_169E": "jmp     loc_17F2",
+   "loc_16A3": "mov     rax, [rbp+var_40]\nmov     rcx, [rax+8]\nmov     [rbp+mffield], rcx\nmov     edi, [rax+4]; FieldType\ncall    gf_sg_vrml_get_sf_type\nmov     [rbp+sf_type], eax\nmov     rax, [rbp+sdump]\ncmp     dword ptr [rax+30h], 0\njnz     loc_16E3",
+   "loc_16C8": "mov     rax, [rbp+sdump]\nmov     rdi, [rax+10h]; stream\nlea     rsi, asc_209A; \"[\"\nmov     al, 0\ncall    gf_fprintf\njmp     loc_171D",
+   "loc_16E3": "cmp     [rbp+sf_type], 4\njnz     loc_1708",
+   "loc_16ED": "mov     rax, [rbp+sdump]\nmov     rdi, [rax+10h]; stream\nlea     rsi, aValue_0; \" value='\"\nmov     al, 0\ncall    gf_fprintf\njmp     loc_1718",
+   "loc_1708": "mov     rdi, [rbp+sdump]; sdump\nlea     rsi, name; \"value\"\ncall    StartAttribute",
+   "loc_1718": "jmp     $+5",
+   "loc_171D": "mov     [rbp+i], 0",
+   "loc_1724": "mov     eax, [rbp+i]\nmov     rcx, [rbp+mffield]\ncmp     eax, [rcx]\njnb     loc_1791",
+   "loc_1733": "cmp     [rbp+i], 0\njz      loc_1753",
+   "loc_173D": "mov     rax, [rbp+sdump]\nmov     rdi, [rax+10h]; stream\nlea     rsi, asc_20A5; \" \"\nmov     al, 0\ncall    gf_fprintf",
+   "loc_1753": "mov     rax, [rbp+var_40]\nmov     rdi, [rax+8]; mf\nmov     esi, [rax+4]; FieldType\nmov     ecx, [rbp+i]; ItemPos\nlea     rdx, [rbp+slot_ptr]; new_ptr\ncall    gf_sg_vrml_mf_get_item\nmov     rdi, [rbp+sdump]; sdump\nmov     esi, [rbp+sf_type]; type\nmov     rdx, [rbp+slot_ptr]; ptr\nmov     r8, [rbp+parent]; node\nmov     ecx, 1; is_mf\ncall    gf_dump_vrml_sffield\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1724",
+   "loc_1791": "mov     rax, [rbp+sdump]\ncmp     dword ptr [rax+30h], 0\njnz     loc_17BA",
+   "loc_179F": "mov     rax, [rbp+sdump]\nmov     rdi, [rax+10h]; stream\nlea     rsi, asc_20A7; \"]\"\nmov     al, 0\ncall    gf_fprintf\njmp     loc_17ED",
+   "loc_17BA": "cmp     [rbp+sf_type], 4\njnz     loc_17DF",
+   "loc_17C4": "mov     rax, [rbp+sdump]\nmov     rdi, [rax+10h]; stream\nlea     rsi, aValue_0+7; format\nmov     al, 0\ncall    gf_fprintf\njmp     loc_17E8",
+   "loc_17DF": "mov     rdi, [rbp+sdump]; sdump\ncall    EndAttribute",
+   "loc_17E8": "jmp     $+5",
+   "loc_17ED": "jmp     $+5",
+   "loc_17F2": "add     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_40": "qword ptr -40h",
+   "var_34": "dword ptr -34h",
+   "mffield": "qword ptr -30h",
+   "slot_ptr": "qword ptr -28h",
+   "list": "qword ptr -20h",
+   "sf_type": "dword ptr -18h",
+   "i": "dword ptr -14h",
+   "parent": "qword ptr -10h",
+   "sdump": "qword ptr -8",
+   "field": "GF_FieldInfo ptr 10h"
+  },
+  ".rodata": {
+   "assertion": "byte '*(GF_Node **)field.far_ptr',0",
+   "file": "byte 'harness.c',0",
+   "function": "byte 'void gf_dump_vrml_simple_field(GF_SceneDumper *, GF_FieldInfo, GF'",
+   "aList": "byte 'list',0",
+   "name": "byte 'value',0",
+   "asc_209A": "byte '[',0",
+   "aValue_0": "byte ' value=',27h,0",
+   "asc_20A5": "byte ' ',0",
+   "asc_20A7": "byte ']',0",
+   "unk_20A3": "byte ' value=',27h,0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5376,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868480
+ }
+}

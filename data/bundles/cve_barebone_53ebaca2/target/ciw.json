@@ -1,0 +1,301 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+ndo], rdi\nmov     [rbp+bp_0], rsi\nmov     [rbp+length], edx\nmov     [rbp+bp2], rcx\ncmp     [rbp+length], 1\njnz     loc_120E\nmov     rax, [rbp+bp_0]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 0FFh\njnz     loc_120E\nmov     rax, [rbp+ndo]\nmov     rcx, [rax]\nmov     rdi, [rbp+ndo]\nlea     rsi, aIsakmpNatKeepA; \"isakmp-nat-keep-alive\"\nmov     al, 0\ncall    rcx\njmp     loc_1336\ncmp     [rbp+length], 4\njnb     loc_121D\njmp     trunc\nmov     rax, [rbp+bp_0]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 0\njnz     loc_1296\nmov     rax, [rbp+bp_0]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 0\njnz     loc_1296\nmov     rax, [rbp+bp_0]\nmovzx   eax, byte ptr [rax+2]\ncmp     eax, 0\njnz     loc_1296\nmov     rax, [rbp+bp_0]\nmovzx   eax, byte ptr [rax+3]\ncmp     eax, 0\njnz     loc_1296\nmov     rax, [rbp+ndo]\nmov     rcx, [rax]\nmov     rdi, [rbp+ndo]\nlea     rsi, aNonespEncap; \"NONESP-encap: \"\nmov     al, 0\ncall    rcx\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+bp_0]\nadd     rsi, 4; bp_0\nmov     edx, [rbp+length]\nsub     edx, 4; length\nmov     rcx, [rbp+bp2]; bp2\ncall    isakmp_print\njmp     loc_1336\nmov     rax, [rbp+ndo]\nmov     rcx, [rax]\nmov     rdi, [rbp+ndo]\nlea     rsi, aUdpEncap; \"UDP-encap: \"\nmov     al, 0\ncall    rcx\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+bp_0]; bp_0\nmov     edx, [rbp+length]; length\nmov     rcx, [rbp+bp2]; bp2\nlea     r8, [rbp+enh]; nhp\nlea     r9, [rbp+padlen]; padlenp\ncall    esp_print\nmov     [rbp+advance], eax\ncmp     [rbp+advance], 0\njg      loc_12DA\njmp     loc_1336\nmov     ecx, [rbp+advance]\nmov     rax, [rbp+bp_0]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+bp_0], rax\nmov     ecx, [rbp+advance]\nadd     ecx, [rbp+padlen]\nmov     eax, [rbp+length]\nsub     eax, ecx\nmov     [rbp+length], eax\nmov     eax, [rbp+enh]\nand     eax, 0FFh\nmov     [rbp+nh], eax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+bp_0]; bp_0\nmov     edx, [rbp+length]; length\nmov     ecx, [rbp+nh]; nh\nmov     r8, [rbp+bp2]; bp2\ncall    ip_print_inner\njmp     loc_1336\nmov     rax, [rbp+ndo]\nmov     rcx, [rax]\nmov     rdi, [rbp+ndo]\nlea     rsi, aIsakmp; \"[|isakmp]\"\nmov     al, 0\ncall    rcx\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 15,
+  "edges": [
+   [
+    "start",
+    "loc_11E1"
+   ],
+   [
+    "start",
+    "loc_120E"
+   ],
+   [
+    "loc_11E1",
+    "loc_11F3"
+   ],
+   [
+    "loc_11E1",
+    "loc_120E"
+   ],
+   [
+    "loc_11F3",
+    "loc_1336"
+   ],
+   [
+    "loc_120E",
+    "loc_1218"
+   ],
+   [
+    "loc_120E",
+    "loc_121D"
+   ],
+   [
+    "loc_1218",
+    "loc_1320"
+   ],
+   [
+    "loc_121D",
+    "loc_122D"
+   ],
+   [
+    "loc_121D",
+    "loc_1296"
+   ],
+   [
+    "loc_122D",
+    "loc_123E"
+   ],
+   [
+    "loc_122D",
+    "loc_1296"
+   ],
+   [
+    "loc_123E",
+    "loc_124F"
+   ],
+   [
+    "loc_123E",
+    "loc_1296"
+   ],
+   [
+    "loc_124F",
+    "loc_1260"
+   ],
+   [
+    "loc_124F",
+    "loc_1296"
+   ],
+   [
+    "loc_1260",
+    "loc_1336"
+   ],
+   [
+    "loc_1296",
+    "loc_12D5"
+   ],
+   [
+    "loc_1296",
+    "loc_12DA"
+   ],
+   [
+    "loc_12D5",
+    "loc_1336"
+   ],
+   [
+    "loc_12DA",
+    "loc_1336"
+   ],
+   [
+    "loc_1320",
+    "loc_1336"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+ndo], rdi\nmov     [rbp+bp_0], rsi\nmov     [rbp+length], edx\nmov     [rbp+bp2], rcx\ncmp     [rbp+length], 1\njnz     loc_120E",
+   "loc_11E1": "mov     rax, [rbp+bp_0]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 0FFh\njnz     loc_120E",
+   "loc_11F3": "mov     rax, [rbp+ndo]\nmov     rcx, [rax]\nmov     rdi, [rbp+ndo]\nlea     rsi, aIsakmpNatKeepA; \"isakmp-nat-keep-alive\"\nmov     al, 0\ncall    rcx\njmp     loc_1336",
+   "loc_120E": "cmp     [rbp+length], 4\njnb     loc_121D",
+   "loc_1218": "jmp     trunc",
+   "loc_121D": "mov     rax, [rbp+bp_0]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 0\njnz     loc_1296",
+   "loc_122D": "mov     rax, [rbp+bp_0]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 0\njnz     loc_1296",
+   "loc_123E": "mov     rax, [rbp+bp_0]\nmovzx   eax, byte ptr [rax+2]\ncmp     eax, 0\njnz     loc_1296",
+   "loc_124F": "mov     rax, [rbp+bp_0]\nmovzx   eax, byte ptr [rax+3]\ncmp     eax, 0\njnz     loc_1296",
+   "loc_1260": "mov     rax, [rbp+ndo]\nmov     rcx, [rax]\nmov     rdi, [rbp+ndo]\nlea     rsi, aNonespEncap; \"NONESP-encap: \"\nmov     al, 0\ncall    rcx\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+bp_0]\nadd     rsi, 4; bp_0\nmov     edx, [rbp+length]\nsub     edx, 4; length\nmov     rcx, [rbp+bp2]; bp2\ncall    isakmp_print\njmp     loc_1336",
+   "loc_1296": "mov     rax, [rbp+ndo]\nmov     rcx, [rax]\nmov     rdi, [rbp+ndo]\nlea     rsi, aUdpEncap; \"UDP-encap: \"\nmov     al, 0\ncall    rcx\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+bp_0]; bp_0\nmov     edx, [rbp+length]; length\nmov     rcx, [rbp+bp2]; bp2\nlea     r8, [rbp+enh]; nhp\nlea     r9, [rbp+padlen]; padlenp\ncall    esp_print\nmov     [rbp+advance], eax\ncmp     [rbp+advance], 0\njg      loc_12DA",
+   "loc_12D5": "jmp     loc_1336",
+   "loc_12DA": "mov     ecx, [rbp+advance]\nmov     rax, [rbp+bp_0]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+bp_0], rax\nmov     ecx, [rbp+advance]\nadd     ecx, [rbp+padlen]\nmov     eax, [rbp+length]\nsub     eax, ecx\nmov     [rbp+length], eax\nmov     eax, [rbp+enh]\nand     eax, 0FFh\nmov     [rbp+nh], eax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+bp_0]; bp_0\nmov     edx, [rbp+length]; length\nmov     ecx, [rbp+nh]; nh\nmov     r8, [rbp+bp2]; bp2\ncall    ip_print_inner\njmp     loc_1336",
+   "loc_1320": "mov     rax, [rbp+ndo]\nmov     rcx, [rax]\nmov     rdi, [rbp+ndo]\nlea     rsi, aIsakmp; \"[|isakmp]\"\nmov     al, 0\ncall    rcx",
+   "loc_1336": "add     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "advance": "dword ptr -30h",
+   "padlen": "dword ptr -2Ch",
+   "enh": "dword ptr -28h",
+   "nh": "dword ptr -24h",
+   "bp2": "qword ptr -20h",
+   "length": "dword ptr -14h",
+   "bp_0": "qword ptr -10h",
+   "ndo": "qword ptr -8"
+  },
+  ".rodata": {
+   "aIsakmpNatKeepA": "byte 'isakmp-nat-keep-alive',0",
+   "aNonespEncap": "byte 'NONESP-encap: ',0",
+   "aUdpEncap": "byte 'UDP-encap: ',0",
+   "aIsakmp": "byte '[|isakmp]',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4544,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".rewind": "rewind",
+  "_rewind": "rewind",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".rewind",
+   ".plt",
+   true,
+   "rewind"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "rewind",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868462
+ }
+}

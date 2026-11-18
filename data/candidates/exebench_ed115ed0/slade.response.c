@@ -1,0 +1,1 @@
+void operacao_dist(const uint32_t vec[32], uint32_t dst[2], uint32_t x, uint32_t y) { const uint32_t a = x + vec[0]; const uint32_t b = y + vec[1]; dst[0] = a; dst[1] = b; }

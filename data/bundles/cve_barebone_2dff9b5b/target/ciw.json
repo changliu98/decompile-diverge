@@ -1,0 +1,416 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+ndo], rdi\nmov     [rbp+pptr], rsi\nmov     [rbp+buf], rdx\nmov     [rbp+buflen], ecx\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 1\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_181D\nmov     rax, [rbp+pptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 1\ncmp     rax, rcx\njbe     loc_1822\njmp     trunc\nmov     rax, [rbp+pptr]\nmovzx   eax, byte ptr [rax]\nmov     [rbp+plen], eax\nxor     eax, eax\ncmp     eax, [rbp+plen]\njnz     loc_185A\nmov     rdi, [rbp+buf]; s\nmov     eax, [rbp+buflen]\nmov     esi, eax; maxlen\nlea     rdx, aDefaultRouteTa; \"default route target\"\nmov     al, 0\ncall    snprintf\nmov     [rbp+var_4], 1\njmp     loc_19FB\nmov     eax, 20h ; ' '\ncmp     eax, [rbp+plen]\njbe     loc_1874\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_19FB\nmov     eax, [rbp+plen]\nsub     eax, 20h ; ' '\nmov     [rbp+plen], eax\nmov     eax, 40h ; '@'\ncmp     eax, [rbp+plen]\njnb     loc_1897\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_19FB\nlea     rdi, [rbp+route_target]; s\nxor     esi, esi; c\nmov     edx, 8; n\ncall    memset\nmov     eax, [rbp+plen]\nadd     eax, 7\nshr     eax, 3\ncmp     eax, 0\nja      loc_18CB\nmov     eax, [rbp+plen]\nadd     eax, 7\nshr     eax, 3\ncmp     eax, 0\njnz     loc_1919\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nmov     ecx, [rbp+plen]\nadd     ecx, 7\nshr     ecx, 3\nmov     ecx, ecx\nsub     rax, rcx\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1919\nmov     rax, [rbp+pptr]\nadd     rax, 1\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nmov     edx, [rbp+plen]\nadd     edx, 7\nshr     edx, 3\nmov     edx, edx\nsub     rcx, rdx\ncmp     rax, rcx\njbe     loc_191E\njmp     trunc\nlea     rdi, [rbp+route_target]; dest\nmov     rsi, [rbp+pptr]\nadd     rsi, 1; src\nmov     eax, [rbp+plen]\nadd     eax, 7\nshr     eax, 3\nmov     eax, eax\nmov     edx, eax; n\ncall    memcpy\nmov     eax, [rbp+plen]\nand     eax, 7\ncmp     eax, 0\njz      loc_1977\nmov     ecx, [rbp+plen]\nand     ecx, 7\nmov     edx, 0FF00h\nsar     edx, cl\nand     edx, 0FFh\nmov     eax, [rbp+plen]\nadd     eax, 7\nshr     eax, 3\nsub     eax, 1\nmov     eax, eax\nmovzx   ecx, [rbp+rax+route_target]\nand     ecx, edx\nmov     [rbp+rax+route_target], cl\nmov     rax, [rbp+buf]\nmov     [rbp+s], rax\nmov     eax, [rbp+buflen]\nmov     [rbp+maxlen], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_50], rax\nmov     rdi, [rbp+pptr]\nadd     rdi, 1; p\ncall    EXTRACT_32BITS\nmov     rdi, [rbp+var_50]; ndo\nmov     ecx, eax; asnum\nlea     rsi, astostr; str\nmov     edx, 14h; size\ncall    as_printf\nmov     [rbp+var_38], rax\nmov     rdi, [rbp+ndo]; ndo\nlea     rsi, [rbp+route_target]; pptr\ncall    bgp_vpn_rd_print\nmov     rdi, [rbp+s]; s\nmov     rsi, [rbp+maxlen]; maxlen\nmov     rcx, [rbp+var_38]\nmov     r8, rax\nlea     rdx, aOriginAsSRoute; \"origin AS: %s, route target %s\"\nmov     al, 0\ncall    snprintf\nmov     eax, [rbp+plen]\nadd     eax, 7\nshr     eax, 3\nadd     eax, 5\nmov     [rbp+var_4], eax\njmp     loc_19FB\nmov     [rbp+var_4], 0FFFFFFFEh\nmov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 19,
+  "edges": [
+   [
+    "start",
+    "loc_1804"
+   ],
+   [
+    "start",
+    "loc_181D"
+   ],
+   [
+    "loc_1804",
+    "loc_181D"
+   ],
+   [
+    "loc_1804",
+    "loc_1822"
+   ],
+   [
+    "loc_181D",
+    "loc_19F4"
+   ],
+   [
+    "loc_1822",
+    "loc_1837"
+   ],
+   [
+    "loc_1822",
+    "loc_185A"
+   ],
+   [
+    "loc_1837",
+    "loc_19FB"
+   ],
+   [
+    "loc_185A",
+    "loc_1868"
+   ],
+   [
+    "loc_185A",
+    "loc_1874"
+   ],
+   [
+    "loc_1868",
+    "loc_19FB"
+   ],
+   [
+    "loc_1874",
+    "loc_188B"
+   ],
+   [
+    "loc_1874",
+    "loc_1897"
+   ],
+   [
+    "loc_188B",
+    "loc_19FB"
+   ],
+   [
+    "loc_1897",
+    "loc_18B9"
+   ],
+   [
+    "loc_1897",
+    "loc_18CB"
+   ],
+   [
+    "loc_18B9",
+    "loc_18CB"
+   ],
+   [
+    "loc_18B9",
+    "loc_1919"
+   ],
+   [
+    "loc_18CB",
+    "loc_18F2"
+   ],
+   [
+    "loc_18CB",
+    "loc_1919"
+   ],
+   [
+    "loc_18F2",
+    "loc_1919"
+   ],
+   [
+    "loc_18F2",
+    "loc_191E"
+   ],
+   [
+    "loc_1919",
+    "loc_19F4"
+   ],
+   [
+    "loc_191E",
+    "loc_194B"
+   ],
+   [
+    "loc_191E",
+    "loc_1977"
+   ],
+   [
+    "loc_194B",
+    "loc_1977"
+   ],
+   [
+    "loc_1977",
+    "loc_19FB"
+   ],
+   [
+    "loc_19F4",
+    "loc_19FB"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+ndo], rdi\nmov     [rbp+pptr], rsi\nmov     [rbp+buf], rdx\nmov     [rbp+buflen], ecx\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 1\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_181D",
+   "loc_1804": "mov     rax, [rbp+pptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 1\ncmp     rax, rcx\njbe     loc_1822",
+   "loc_181D": "jmp     trunc",
+   "loc_1822": "mov     rax, [rbp+pptr]\nmovzx   eax, byte ptr [rax]\nmov     [rbp+plen], eax\nxor     eax, eax\ncmp     eax, [rbp+plen]\njnz     loc_185A",
+   "loc_1837": "mov     rdi, [rbp+buf]; s\nmov     eax, [rbp+buflen]\nmov     esi, eax; maxlen\nlea     rdx, aDefaultRouteTa; \"default route target\"\nmov     al, 0\ncall    snprintf\nmov     [rbp+var_4], 1\njmp     loc_19FB",
+   "loc_185A": "mov     eax, 20h ; ' '\ncmp     eax, [rbp+plen]\njbe     loc_1874",
+   "loc_1868": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_19FB",
+   "loc_1874": "mov     eax, [rbp+plen]\nsub     eax, 20h ; ' '\nmov     [rbp+plen], eax\nmov     eax, 40h ; '@'\ncmp     eax, [rbp+plen]\njnb     loc_1897",
+   "loc_188B": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_19FB",
+   "loc_1897": "lea     rdi, [rbp+route_target]; s\nxor     esi, esi; c\nmov     edx, 8; n\ncall    memset\nmov     eax, [rbp+plen]\nadd     eax, 7\nshr     eax, 3\ncmp     eax, 0\nja      loc_18CB",
+   "loc_18B9": "mov     eax, [rbp+plen]\nadd     eax, 7\nshr     eax, 3\ncmp     eax, 0\njnz     loc_1919",
+   "loc_18CB": "mov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nmov     ecx, [rbp+plen]\nadd     ecx, 7\nshr     ecx, 3\nmov     ecx, ecx\nsub     rax, rcx\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1919",
+   "loc_18F2": "mov     rax, [rbp+pptr]\nadd     rax, 1\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nmov     edx, [rbp+plen]\nadd     edx, 7\nshr     edx, 3\nmov     edx, edx\nsub     rcx, rdx\ncmp     rax, rcx\njbe     loc_191E",
+   "loc_1919": "jmp     trunc",
+   "loc_191E": "lea     rdi, [rbp+route_target]; dest\nmov     rsi, [rbp+pptr]\nadd     rsi, 1; src\nmov     eax, [rbp+plen]\nadd     eax, 7\nshr     eax, 3\nmov     eax, eax\nmov     edx, eax; n\ncall    memcpy\nmov     eax, [rbp+plen]\nand     eax, 7\ncmp     eax, 0\njz      loc_1977",
+   "loc_194B": "mov     ecx, [rbp+plen]\nand     ecx, 7\nmov     edx, 0FF00h\nsar     edx, cl\nand     edx, 0FFh\nmov     eax, [rbp+plen]\nadd     eax, 7\nshr     eax, 3\nsub     eax, 1\nmov     eax, eax\nmovzx   ecx, [rbp+rax+route_target]\nand     ecx, edx\nmov     [rbp+rax+route_target], cl",
+   "loc_1977": "mov     rax, [rbp+buf]\nmov     [rbp+s], rax\nmov     eax, [rbp+buflen]\nmov     [rbp+maxlen], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_50], rax\nmov     rdi, [rbp+pptr]\nadd     rdi, 1; p\ncall    EXTRACT_32BITS\nmov     rdi, [rbp+var_50]; ndo\nmov     ecx, eax; asnum\nlea     rsi, astostr; str\nmov     edx, 14h; size\ncall    as_printf\nmov     [rbp+var_38], rax\nmov     rdi, [rbp+ndo]; ndo\nlea     rsi, [rbp+route_target]; pptr\ncall    bgp_vpn_rd_print\nmov     rdi, [rbp+s]; s\nmov     rsi, [rbp+maxlen]; maxlen\nmov     rcx, [rbp+var_38]\nmov     r8, rax\nlea     rdx, aOriginAsSRoute; \"origin AS: %s, route target %s\"\nmov     al, 0\ncall    snprintf\nmov     eax, [rbp+plen]\nadd     eax, 7\nshr     eax, 3\nadd     eax, 5\nmov     [rbp+var_4], eax\njmp     loc_19FB",
+   "loc_19F4": "mov     [rbp+var_4], 0FFFFFFFEh",
+   "loc_19FB": "mov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_50": "qword ptr -50h",
+   "s": "qword ptr -48h",
+   "maxlen": "qword ptr -40h",
+   "var_38": "qword ptr -38h",
+   "plen": "dword ptr -30h",
+   "route_target": "byte ptr -2Ch",
+   "buflen": "dword ptr -24h",
+   "buf": "qword ptr -20h",
+   "pptr": "qword ptr -18h",
+   "ndo": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "aDefaultRouteTa": "byte 'default route target',0",
+   "aOriginAsSRoute": "byte 'origin AS: %s, route target %s',0"
+  },
+  ".data": {},
+  ".bss": {
+   "astostr": "[]"
+  }
+ },
+ "func_ea": 6096,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".ntohs": "ntohs",
+  "_ntohs": "ntohs",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".ntohl": "ntohl",
+  "_ntohl": "ntohl"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".ntohs",
+   ".plt",
+   true,
+   "ntohs"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".ntohl",
+   ".plt",
+   true,
+   "ntohl"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "snprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ntohs",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ntohl",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868456
+ }
+}

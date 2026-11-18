@@ -1,0 +1,1 @@
+char * _xtoa(unsigned long val, char *a, int base, int sign) { char *o = a, buf[20], *p = buf; do { *p++ = "0123456789abcdef"[val % base &0xf]; } while ((val /= base) != 0); if (sign) *p++ = '-'; do { *a++ = *--p; } while (p != buf); *a = '\0'; return o; }

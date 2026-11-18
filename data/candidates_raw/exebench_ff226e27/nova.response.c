@@ -1,0 +1,1 @@
+void func0(int x, int *p) { *p += x; }

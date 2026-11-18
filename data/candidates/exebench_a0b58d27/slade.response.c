@@ -1,0 +1,1 @@
+char *string_copy(char *dest, const char *src) { const char *s; char *d; if (!src || !dest) return NULL; s = src; d = dest; while (*s) *d++ = *s++; *d = '\0'; return dest; }

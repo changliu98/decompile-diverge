@@ -1,0 +1,1 @@
+int *func0(char *src, int *pn) { int *p = NULL; int a = 0; int b = 0; int i = 0; int j = 0; for (i = 0; src[i] != '\0'; i++) { char c = src[i]; if (c == '(') { a++; if (a > b) b = a; } else if (c == ')') { a--; if (a == 0) { p = realloc(p, (size_t)(j + 1) * sizeof(int)); p[j++] = b; b = 0; } } } *pn = j; return p; }

@@ -1,0 +1,1 @@
+uint32_t func0(uint32_t x) { return x * (7 * x - 5) / 2; }

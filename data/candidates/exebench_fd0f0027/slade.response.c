@@ -1,0 +1,1 @@
+void ltostr(unsigned int n, char *s) { int i, c; s[0] = 0; s[8] = 0; for (i = 0; i < 8; i++) { c = n &0xf; c +=0x30; if (c >0x39) c += 7; s[7 - i] = c; n >>= 4; } return ; }

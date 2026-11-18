@@ -1,0 +1,1 @@
+void podnies_do_kwadratu(podnies_ctx *ctx) { ctx->kwadrat *= ctx->kwadrat; }

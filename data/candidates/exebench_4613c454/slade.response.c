@@ -1,0 +1,1 @@
+void cquat_scale(double *qdest, double scale, const double *cquat) { qdest[0] = cquat[0] * scale; qdest[1] = cquat[1] * scale; qdest[2] = cquat[2] * scale; qdest[3] = cquat[3] * scale; }

@@ -1,0 +1,1 @@
+void swap_l(list_node **a, list_node **b) { list_node *tmp = *a; *a = *b; *b = tmp; }

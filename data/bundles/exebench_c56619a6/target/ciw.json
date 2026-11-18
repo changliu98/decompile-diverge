@@ -1,0 +1,379 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0C0h\nmov     [rbp+fd], edi\nmov     [rbp+ip_0], rsi\nmov     [rbp+ip_len], rdx\nmov     [rbp+port], rcx\nmov     [rbp+salen], 80h\nmov     edi, [rbp+fd]; fd\nlea     rsi, [rbp+sa]; addr\nlea     rdx, [rbp+salen]; len\ncall    getsockname\ncmp     eax, 0FFFFFFFFh\njnz     loc_1283\ncmp     [rbp+port], 0\njz      loc_1268\nmov     rax, [rbp+port]\nmov     dword ptr [rax], 0\nmov     rax, [rbp+ip_0]\nmov     byte ptr [rax], 3Fh ; '?'\nmov     rax, [rbp+ip_0]\nmov     byte ptr [rax+1], 0\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_135C\nmovzx   eax, [rbp+sa.ss_family]\ncmp     eax, 2\njnz     loc_12F4\nlea     rax, [rbp+sa]\nmov     [rbp+s], rax\ncmp     [rbp+ip_0], 0\njz      loc_12CB\nmov     rsi, [rbp+s]\nadd     rsi, 4; cp\nmov     rdx, [rbp+ip_0]; buf\nmov     rax, [rbp+ip_len]\nmov     ecx, eax; len\nmov     edi, 2; af\ncall    inet_ntop\ncmp     [rbp+port], 0\njz      loc_12EF\nmov     rax, [rbp+s]\nmovzx   edi, word ptr [rax+2]; netshort\ncall    ntohs\nmovzx   ecx, ax\nmov     rax, [rbp+port]\nmov     [rax], ecx\njmp     loc_1355\nlea     rax, [rbp+sa]\nmov     [rbp+s_0], rax\ncmp     [rbp+ip_0], 0\njz      loc_132C\nmov     rsi, [rbp+s_0]\nadd     rsi, 8; cp\nmov     rdx, [rbp+ip_0]; buf\nmov     rax, [rbp+ip_len]\nmov     ecx, eax; len\nmov     edi, 0Ah; af\ncall    inet_ntop\ncmp     [rbp+port], 0\njz      loc_1350\nmov     rax, [rbp+s_0]\nmovzx   edi, word ptr [rax+2]; netshort\ncall    ntohs\nmovzx   ecx, ax\nmov     rax, [rbp+port]\nmov     [rax], ecx\njmp     $+5\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 0C0h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 17,
+  "edges": [
+   [
+    "start",
+    "loc_1253"
+   ],
+   [
+    "start",
+    "loc_1283"
+   ],
+   [
+    "loc_1253",
+    "loc_125E"
+   ],
+   [
+    "loc_1253",
+    "loc_1268"
+   ],
+   [
+    "loc_125E",
+    "loc_1268"
+   ],
+   [
+    "loc_1268",
+    "loc_135C"
+   ],
+   [
+    "loc_1283",
+    "loc_1293"
+   ],
+   [
+    "loc_1283",
+    "loc_12F4"
+   ],
+   [
+    "loc_1293",
+    "loc_12AC"
+   ],
+   [
+    "loc_1293",
+    "loc_12CB"
+   ],
+   [
+    "loc_12AC",
+    "loc_12CB"
+   ],
+   [
+    "loc_12CB",
+    "loc_12D6"
+   ],
+   [
+    "loc_12CB",
+    "loc_12EF"
+   ],
+   [
+    "loc_12D6",
+    "loc_12EF"
+   ],
+   [
+    "loc_12EF",
+    "loc_1355"
+   ],
+   [
+    "loc_12F4",
+    "loc_130D"
+   ],
+   [
+    "loc_12F4",
+    "loc_132C"
+   ],
+   [
+    "loc_130D",
+    "loc_132C"
+   ],
+   [
+    "loc_132C",
+    "loc_1337"
+   ],
+   [
+    "loc_132C",
+    "loc_1350"
+   ],
+   [
+    "loc_1337",
+    "loc_1350"
+   ],
+   [
+    "loc_1350",
+    "loc_1355"
+   ],
+   [
+    "loc_1355",
+    "loc_135C"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0C0h\nmov     [rbp+fd], edi\nmov     [rbp+ip_0], rsi\nmov     [rbp+ip_len], rdx\nmov     [rbp+port], rcx\nmov     [rbp+salen], 80h\nmov     edi, [rbp+fd]; fd\nlea     rsi, [rbp+sa]; addr\nlea     rdx, [rbp+salen]; len\ncall    getsockname\ncmp     eax, 0FFFFFFFFh\njnz     loc_1283",
+   "loc_1253": "cmp     [rbp+port], 0\njz      loc_1268",
+   "loc_125E": "mov     rax, [rbp+port]\nmov     dword ptr [rax], 0",
+   "loc_1268": "mov     rax, [rbp+ip_0]\nmov     byte ptr [rax], 3Fh ; '?'\nmov     rax, [rbp+ip_0]\nmov     byte ptr [rax+1], 0\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_135C",
+   "loc_1283": "movzx   eax, [rbp+sa.ss_family]\ncmp     eax, 2\njnz     loc_12F4",
+   "loc_1293": "lea     rax, [rbp+sa]\nmov     [rbp+s], rax\ncmp     [rbp+ip_0], 0\njz      loc_12CB",
+   "loc_12AC": "mov     rsi, [rbp+s]\nadd     rsi, 4; cp\nmov     rdx, [rbp+ip_0]; buf\nmov     rax, [rbp+ip_len]\nmov     ecx, eax; len\nmov     edi, 2; af\ncall    inet_ntop",
+   "loc_12CB": "cmp     [rbp+port], 0\njz      loc_12EF",
+   "loc_12D6": "mov     rax, [rbp+s]\nmovzx   edi, word ptr [rax+2]; netshort\ncall    ntohs\nmovzx   ecx, ax\nmov     rax, [rbp+port]\nmov     [rax], ecx",
+   "loc_12EF": "jmp     loc_1355",
+   "loc_12F4": "lea     rax, [rbp+sa]\nmov     [rbp+s_0], rax\ncmp     [rbp+ip_0], 0\njz      loc_132C",
+   "loc_130D": "mov     rsi, [rbp+s_0]\nadd     rsi, 8; cp\nmov     rdx, [rbp+ip_0]; buf\nmov     rax, [rbp+ip_len]\nmov     ecx, eax; len\nmov     edi, 0Ah; af\ncall    inet_ntop",
+   "loc_132C": "cmp     [rbp+port], 0\njz      loc_1350",
+   "loc_1337": "mov     rax, [rbp+s_0]\nmovzx   edi, word ptr [rax+2]; netshort\ncall    ntohs\nmovzx   ecx, ax\nmov     rax, [rbp+port]\nmov     [rax], ecx",
+   "loc_1350": "jmp     $+5",
+   "loc_1355": "mov     [rbp+var_4], 0",
+   "loc_135C": "mov     eax, [rbp+var_4]\nadd     rsp, 0C0h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "s_0": "qword ptr -0B8h",
+   "s": "qword ptr -0B0h",
+   "salen": "dword ptr -0A4h",
+   "sa": "sockaddr_storage ptr -0A0h",
+   "port": "qword ptr -20h",
+   "ip_len": "qword ptr -18h",
+   "ip_0": "qword ptr -10h",
+   "fd": "dword ptr -8",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4624,
+ "thunk_map": {
+  ".inet_ntop": "inet_ntop",
+  "_inet_ntop": "inet_ntop",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".ntohs": "ntohs",
+  "_ntohs": "ntohs",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".getsockname": "getsockname",
+  "_getsockname": "getsockname",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".inet_ntop",
+   ".plt",
+   true,
+   "inet_ntop"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".ntohs",
+   ".plt",
+   true,
+   "ntohs"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".getsockname",
+   ".plt",
+   true,
+   "getsockname"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "inet_ntop",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ntohs",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "getsockname",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868372
+ }
+}

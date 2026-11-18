@@ -1,0 +1,1 @@
+int func0(char *str) { int m = 0; int n = 0; for (int i = 0; i < strlen(str); i++) { if (str[i] == '[') m++; if (str[i] == ']') m--; if (m < 0) m = 0; if (m > n) n = m; if (m < n - 1) return 1; } return 0; }

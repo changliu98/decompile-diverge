@@ -1,0 +1,1 @@
+int func0(int *x, int a, int b) { for (int i = 0; i < a; i++) { if (x[i] < b) return 0; } return 1; }

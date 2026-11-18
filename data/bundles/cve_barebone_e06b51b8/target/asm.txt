@@ -1,0 +1,51 @@
+0000000000001220 <uwsgi_expand_path>:
+    1220:	push   %rbp
+    1221:	mov    %rsp,%rbp
+    1224:	sub    $0x1040,%rsp
+    122b:	mov    %rdi,-0x10(%rbp)
+    122f:	mov    %esi,-0x14(%rbp)
+    1232:	mov    %rdx,-0x20(%rbp)
+    1236:	lea    -0x1030(%rbp),%rdi
+    123d:	mov    -0x10(%rbp),%rsi
+    1241:	movslq -0x14(%rbp),%rdx
+    1245:	call   10a0 <memcpy@plt>
+    124a:	movslq -0x14(%rbp),%rax
+    124e:	movb   $0x0,-0x1030(%rbp,%rax,1)
+    1256:	mov    -0x20(%rbp),%rax
+    125a:	mov    %rax,-0x1038(%rbp)
+    1261:	cmpq   $0x0,-0x1038(%rbp)
+    1269:	jne    1280 <uwsgi_expand_path+0x60>
+    126f:	mov    $0x1001,%edi
+    1274:	call   1320 <uwsgi_malloc>
+    1279:	mov    %rax,-0x1038(%rbp)
+    1280:	lea    -0x1030(%rbp),%rdi
+    1287:	mov    -0x1038(%rbp),%rsi
+    128e:	call   1090 <realpath@plt>
+    1293:	cmp    $0x0,%rax
+    1297:	jne    1300 <uwsgi_expand_path+0xe0>
+    129d:	lea    -0x1030(%rbp),%rax
+    12a4:	mov    %rax,-0x1040(%rbp)
+    12ab:	call   1040 <__errno_location@plt>
+    12b0:	mov    (%rax),%edi
+    12b2:	call   1110 <strerror@plt>
+    12b7:	mov    -0x1040(%rbp),%rsi
+    12be:	mov    %rax,%rdx
+    12c1:	lea    0xd3c(%rip),%rdi        # 2004 <_IO_stdin_used+0x4>
+    12c8:	lea    0xd5f(%rip),%rcx        # 202e <_IO_stdin_used+0x2e>
+    12cf:	mov    $0x41,%r8d
+    12d5:	mov    $0x0,%al
+    12d7:	call   1390 <uwsgi_log>
+    12dc:	cmpq   $0x0,-0x20(%rbp)
+    12e1:	jne    12f3 <uwsgi_expand_path+0xd3>
+    12e7:	mov    -0x1038(%rbp),%rdi
+    12ee:	call   1030 <free@plt>
+    12f3:	movq   $0x0,-0x8(%rbp)
+    12fb:	jmp    130b <uwsgi_expand_path+0xeb>
+    1300:	mov    -0x1038(%rbp),%rax
+    1307:	mov    %rax,-0x8(%rbp)
+    130b:	mov    -0x8(%rbp),%rax
+    130f:	add    $0x1040,%rsp
+    1316:	pop    %rbp
+    1317:	ret
+
+Disassembly of section .fini:

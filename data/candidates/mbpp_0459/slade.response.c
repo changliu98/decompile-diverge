@@ -1,0 +1,1 @@
+char *func0(__const short *x) { size_t len = strlen(x); char *r = malloc(len + 1); size_t i, j; if (!r) return 0; for (i = 0, j = 0; j < len; ++j) { if (!(__ctype_b_loc((unsigned short *)x[j])[x[j]] &0x100)) r[i++] = x[j]; } r[i] = '\0'; return r; }

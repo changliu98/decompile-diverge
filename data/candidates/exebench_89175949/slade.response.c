@@ -1,0 +1,1 @@
+int foo(int *a, int *b, int c) { *a = *a + *a; *b = *b / 2; c = *a + *b; return c; }

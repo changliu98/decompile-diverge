@@ -1,0 +1,1 @@
+void bn_reverse(unsigned char *s, int len) { int i, j; unsigned char t; i = 0; j = len - 1; while (i < j) { t = s[i]; s[i] = s[j]; s[j] = t; i++; j--; } }

@@ -1,0 +1,1 @@
+void remove_line_ending(char *str, char c) { str = strrchr(str, c); if (str != NULL) *str = '\0'; }

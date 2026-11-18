@@ -1,0 +1,298 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nmov     [rbp+x], edi\nmov     [rbp+scale], esi\nmov     [rbp+vscrp], rdx\nmov     eax, [rbp+x]\nshr     eax, 17h\nand     eax, 0FFh\nmov     [rbp+exp], eax\nmov     eax, [rbp+x]\nand     eax, 7FFFFFh\nmov     [rbp+mant], eax\ncmp     [rbp+exp], 0FFh\njnz     loc_121A\ncmp     [rbp+mant], 0\njz      loc_121A\nmov     [rbp+var_4], 0\njmp     loc_12D3\nmov     eax, [rbp+exp]\nsub     eax, 7Fh\nadd     eax, [rbp+scale]\nmov     [rbp+exp], eax\ncmp     [rbp+exp], 0\njge     loc_123C\nmov     [rbp+var_4], 0\njmp     loc_12D3\ncmp     [rbp+exp], 1Fh\njl      loc_128B\nmov     eax, [rbp+x]\nmov     ecx, [rbp+scale]\nshl     ecx, 17h\nadd     eax, ecx\ncmp     eax, 0CF000000h\njz      loc_126A\nmov     ecx, cs:VSCR_SAT\nmov     rax, [rbp+vscrp]\nor      ecx, [rax]\nmov     [rax], ecx\nmov     edx, [rbp+x]\nand     edx, 80000000h\nmov     eax, 7FFFFFFFh\nmov     ecx, 80000000h\ncmp     edx, 0\ncmovnz  eax, ecx\nmov     [rbp+var_4], eax\njmp     loc_12D3\nmov     eax, [rbp+mant]\nor      eax, 800000h\nmov     [rbp+mant], eax\nmov     eax, [rbp+mant]\nshl     eax, 7\nmov     ecx, 1Eh\nsub     ecx, [rbp+exp]\nsar     eax, cl\nmov     [rbp+mant], eax\nmov     eax, [rbp+x]\nand     eax, 80000000h\ncmp     eax, 0\njz      loc_12C7\nxor     eax, eax\nsub     eax, [rbp+mant]\nmov     [rbp+var_24], eax\njmp     loc_12CD\nmov     eax, [rbp+mant]\nmov     [rbp+var_24], eax\nmov     eax, [rbp+var_24]\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 14,
+  "edges": [
+   [
+    "start",
+    "loc_1204"
+   ],
+   [
+    "start",
+    "loc_121A"
+   ],
+   [
+    "loc_1204",
+    "loc_120E"
+   ],
+   [
+    "loc_1204",
+    "loc_121A"
+   ],
+   [
+    "loc_120E",
+    "loc_12D3"
+   ],
+   [
+    "loc_121A",
+    "loc_1230"
+   ],
+   [
+    "loc_121A",
+    "loc_123C"
+   ],
+   [
+    "loc_1230",
+    "loc_12D3"
+   ],
+   [
+    "loc_123C",
+    "loc_1246"
+   ],
+   [
+    "loc_123C",
+    "loc_128B"
+   ],
+   [
+    "loc_1246",
+    "loc_125C"
+   ],
+   [
+    "loc_1246",
+    "loc_126A"
+   ],
+   [
+    "loc_125C",
+    "loc_126A"
+   ],
+   [
+    "loc_126A",
+    "loc_12D3"
+   ],
+   [
+    "loc_128B",
+    "loc_12BA"
+   ],
+   [
+    "loc_128B",
+    "loc_12C7"
+   ],
+   [
+    "loc_12BA",
+    "loc_12CD"
+   ],
+   [
+    "loc_12C7",
+    "loc_12CD"
+   ],
+   [
+    "loc_12CD",
+    "loc_12D3"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nmov     [rbp+x], edi\nmov     [rbp+scale], esi\nmov     [rbp+vscrp], rdx\nmov     eax, [rbp+x]\nshr     eax, 17h\nand     eax, 0FFh\nmov     [rbp+exp], eax\nmov     eax, [rbp+x]\nand     eax, 7FFFFFh\nmov     [rbp+mant], eax\ncmp     [rbp+exp], 0FFh\njnz     loc_121A",
+   "loc_1204": "cmp     [rbp+mant], 0\njz      loc_121A",
+   "loc_120E": "mov     [rbp+var_4], 0\njmp     loc_12D3",
+   "loc_121A": "mov     eax, [rbp+exp]\nsub     eax, 7Fh\nadd     eax, [rbp+scale]\nmov     [rbp+exp], eax\ncmp     [rbp+exp], 0\njge     loc_123C",
+   "loc_1230": "mov     [rbp+var_4], 0\njmp     loc_12D3",
+   "loc_123C": "cmp     [rbp+exp], 1Fh\njl      loc_128B",
+   "loc_1246": "mov     eax, [rbp+x]\nmov     ecx, [rbp+scale]\nshl     ecx, 17h\nadd     eax, ecx\ncmp     eax, 0CF000000h\njz      loc_126A",
+   "loc_125C": "mov     ecx, cs:VSCR_SAT\nmov     rax, [rbp+vscrp]\nor      ecx, [rax]\nmov     [rax], ecx",
+   "loc_126A": "mov     edx, [rbp+x]\nand     edx, 80000000h\nmov     eax, 7FFFFFFFh\nmov     ecx, 80000000h\ncmp     edx, 0\ncmovnz  eax, ecx\nmov     [rbp+var_4], eax\njmp     loc_12D3",
+   "loc_128B": "mov     eax, [rbp+mant]\nor      eax, 800000h\nmov     [rbp+mant], eax\nmov     eax, [rbp+mant]\nshl     eax, 7\nmov     ecx, 1Eh\nsub     ecx, [rbp+exp]\nsar     eax, cl\nmov     [rbp+mant], eax\nmov     eax, [rbp+x]\nand     eax, 80000000h\ncmp     eax, 0\njz      loc_12C7",
+   "loc_12BA": "xor     eax, eax\nsub     eax, [rbp+mant]\nmov     [rbp+var_24], eax\njmp     loc_12CD",
+   "loc_12C7": "mov     eax, [rbp+mant]\nmov     [rbp+var_24], eax",
+   "loc_12CD": "mov     eax, [rbp+var_24]\nmov     [rbp+var_4], eax",
+   "loc_12D3": "mov     eax, [rbp+var_4]\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_24": "dword ptr -24h",
+   "mant": "dword ptr -20h",
+   "exp": "dword ptr -1Ch",
+   "vscrp": "qword ptr -18h",
+   "scale": "dword ptr -0Ch",
+   "x": "dword ptr -8",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {
+   "VSCR_SAT": "[]"
+  }
+ },
+ "func_ea": 4560,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868087
+ }
+}

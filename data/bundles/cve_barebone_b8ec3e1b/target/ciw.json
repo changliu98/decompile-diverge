@@ -1,0 +1,624 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 80h\nmov     [rbp+avctx], rdi\nmov     [rbp+data], rsi\nmov     [rbp+got_frame], rdx\nmov     [rbp+avpkt], rcx\nmov     rax, [rbp+avctx]\nmov     rax, [rax]\nmov     [rbp+x], rax\nmov     rax, [rbp+data]\nmov     [rbp+p], rax\nmov     rax, [rbp+avpkt]\nmov     rax, [rax]\nmov     [rbp+ptr], rax\nmov     rax, [rbp+avctx]\nmov     dword ptr [rax+8], 1\nmov     rax, [rbp+avpkt]\nmov     rax, [rax]\nmov     rcx, [rbp+avpkt]\nmovsxd  rcx, dword ptr [rcx+8]\nadd     rax, rcx\nmov     [rbp+end], rax\nmov     rdi, [rbp+ptr]; s1\nlea     rsi, aXpm; \"/* XPM */\"\nmov     edx, 9; n\ncall    memcmp\nmov     ecx, eax\nxor     eax, eax\ncmp     ecx, 0\nmov     [rbp+var_7D], al\njz      loc_24E4\nmov     rax, [rbp+ptr]\nmov     rcx, [rbp+end]\nadd     rcx, 0FFFFFFFFFFFFFFF7h\ncmp     rax, rcx\nsetb    al\nmov     [rbp+var_7D], al\nmov     al, [rbp+var_7D]\ntest    al, 1\njnz     loc_24F4\njmp     loc_2505\nmov     rax, [rbp+ptr]\nadd     rax, 1\nmov     [rbp+ptr], rax\njmp     loc_24AA\nmov     rax, [rbp+ptr]\ncmp     rax, [rbp+end]\njb      loc_2536\nmov     rdi, [rbp+avctx]; avcl\nmov     esi, 10h; level\nlea     rdx, fmt; \"missing signature\\n\"\nmov     al, 0\ncall    av_log\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_2956\nmov     rdi, [rbp+ptr]; string\nlea     rsi, reject; \"\\\"\"\ncall    mod_strcspn\nadd     rax, [rbp+ptr]\nmov     [rbp+ptr], rax\nmov     rdi, [rbp+ptr]\nmov     rdx, [rbp+avctx]\nadd     rdx, 0Ch\nmov     rcx, [rbp+avctx]\nadd     rcx, 10h\nlea     rsi, aUUUU; \"\\\"%u %u %u %u\\\",\"\nlea     r8, [rbp+ncolors]\nlea     r9, [rbp+cpp]\nmov     al, 0\ncall    ___isoc99_sscanf\ncmp     eax, 4\njz      loc_25A4\nmov     rdi, [rbp+avctx]; avcl\nmov     esi, 10h; level\nlea     rdx, aMissingImagePa; \"missing image parameters\\n\"\nmov     al, 0\ncall    av_log\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_2956\nmov     rdi, [rbp+avctx]; avctx\nmov     rax, [rbp+avctx]\nmov     esi, [rax+0Ch]; w\nmov     rax, [rbp+avctx]\nmov     edx, [rax+10h]; h\ncall    ff_set_dimensions\nmov     [rbp+ret], eax\ncmp     eax, 0\njge     loc_25D2\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_2956\nmov     rdi, [rbp+avctx]; avctx\nmov     rsi, [rbp+p]; frame\nxor     edx, edx; flags\ncall    ff_get_buffer\nmov     [rbp+ret], eax\ncmp     eax, 0\njge     loc_25F8\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_2956\ncmp     [rbp+cpp], 0\njle     loc_260C\ncmp     [rbp+cpp], 5\njl      loc_2632\nmov     rdi, [rbp+avctx]; avcl\nmov     ecx, [rbp+cpp]\nmov     esi, 10h; level\nlea     rdx, aUnsupportedInv; \"unsupported/invalid number of chars per\"...\nmov     al, 0\ncall    av_log\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_2956\nmov     [rbp+size], 1\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+cpp]\njge     loc_2664\nimul    rax, [rbp+size], 5Eh ; '^'\nmov     [rbp+size], rax\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_2641\ncmp     [rbp+ncolors], 0\njle     loc_267C\nmovsxd  rax, [rbp+ncolors]\ncmp     rax, [rbp+size]\njle     loc_26A2\nmov     rdi, [rbp+avctx]; avcl\nmov     ecx, [rbp+ncolors]\nmov     esi, 10h; level\nlea     rdx, aInvalidNumberO; \"invalid number of colors: %d\\n\"\nmov     al, 0\ncall    av_log\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_2956\nmov     rax, [rbp+size]\nshl     rax, 2\nmov     [rbp+size], rax\nmov     rdi, [rbp+x]; ptr\nmov     rsi, [rbp+x]\nadd     rsi, 8; size\nmov     rdx, [rbp+size]; min_size\ncall    av_fast_padded_malloc\nmov     rax, [rbp+x]\ncmp     qword ptr [rax], 0\njnz     loc_26DD\nmov     [rbp+var_4], 0FFFFFFF4h\njmp     loc_2956\nmov     rdi, [rbp+ptr]; string\nlea     rsi, aUUUU+0Dh; reject\ncall    mod_strcspn\nadd     rax, 1\nadd     rax, [rbp+ptr]\nmov     [rbp+ptr], rax\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+ncolors]\njge     loc_281A\nmov     rdi, [rbp+ptr]; string\nlea     rsi, reject; \"\\\"\"\ncall    mod_strcspn\nadd     rax, 1\nadd     rax, [rbp+ptr]\nmov     [rbp+ptr], rax\nmov     rax, [rbp+ptr]\nmovsxd  rcx, [rbp+cpp]\nadd     rax, rcx\ncmp     rax, [rbp+end]\njbe     loc_2749\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_2956\nmov     rax, [rbp+ptr]\nmov     [rbp+index], rax\nmov     ecx, [rbp+cpp]\nmov     rax, [rbp+ptr]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+ptr], rax\nmov     rdi, [rbp+ptr]; haystack\nlea     rsi, needle; \"c \"\ncall    strstr\nmov     [rbp+ptr], rax\ncmp     [rbp+ptr], 0\njz      loc_2792\nmov     rax, [rbp+ptr]\nadd     rax, 2\nmov     [rbp+ptr], rax\njmp     loc_279E\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_2956\nmov     rdi, [rbp+ptr]; s\nlea     rsi, asc_40A3; \"\\\" \"\ncall    strcspn\nmov     [rbp+len], eax\nmov     rdi, [rbp+index]; cpixel\nmov     esi, [rbp+cpp]; cpp\ncall    ascii2index\nmov     [rbp+ret], eax\ncmp     eax, 0\njge     loc_27D4\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_2956\nmov     rdi, [rbp+ptr]; p\nmov     esi, [rbp+len]; len\ncall    color_string_to_rgba\nmov     edx, eax\nmov     rax, [rbp+x]\nmov     rax, [rax]\nmovsxd  rcx, [rbp+ret]\nmov     [rax+rcx*4], edx\nmov     rdi, [rbp+ptr]; string\nlea     rsi, aUUUU+0Dh; reject\ncall    mod_strcspn\nadd     rax, 1\nadd     rax, [rbp+ptr]\nmov     [rbp+ptr], rax\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_2700\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\nmov     rcx, [rbp+avctx]\ncmp     eax, [rcx+10h]\njge     loc_292C\nmov     rax, [rbp+p]\nmov     rax, [rax]\nmov     ecx, [rbp+i]\nmov     rdx, [rbp+p]\nimul    ecx, [rdx+40h]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+dst], rax\nmov     rdi, [rbp+ptr]; string\nlea     rsi, reject; \"\\\"\"\ncall    mod_strcspn\nadd     rax, 1\nadd     rax, [rbp+ptr]\nmov     [rbp+ptr], rax\nmov     [rbp+j], 0\nmov     eax, [rbp+j]\nmov     rcx, [rbp+avctx]\ncmp     eax, [rcx+0Ch]\njge     loc_2902\nmov     rax, [rbp+ptr]\nmovsxd  rcx, [rbp+cpp]\nadd     rax, rcx\ncmp     rax, [rbp+end]\njbe     loc_28A1\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_2956\nmov     rdi, [rbp+ptr]; cpixel\nmov     esi, [rbp+cpp]; cpp\ncall    ascii2index\nmov     [rbp+ret], eax\ncmp     eax, 0\njge     loc_28C4\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_2956\nmov     rax, [rbp+x]\nmov     rax, [rax]\nmovsxd  rcx, [rbp+ret]\nmov     ecx, [rax+rcx*4]\nmov     rax, [rbp+dst]\nmov     rdx, rax\nadd     rdx, 4\nmov     [rbp+dst], rdx\nmov     [rax], ecx\nmov     ecx, [rbp+cpp]\nmov     rax, [rbp+ptr]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+ptr], rax\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_2870\nmov     rdi, [rbp+ptr]; string\nlea     rsi, aUUUU+0Dh; reject\ncall    mod_strcspn\nadd     rax, 1\nadd     rax, [rbp+ptr]\nmov     [rbp+ptr], rax\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_2821\nmov     rax, [rbp+p]\nmov     dword ptr [rax+60h], 1\nmov     rax, [rbp+p]\nmov     dword ptr [rax+64h], 1\nmov     rax, [rbp+got_frame]\nmov     dword ptr [rax], 1\nmov     rax, [rbp+avpkt]\nmov     eax, [rax+8]\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\nadd     rsp, 80h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 47,
+  "edges": [
+   [
+    "start",
+    "loc_24AA"
+   ],
+   [
+    "loc_24AA",
+    "loc_24CF"
+   ],
+   [
+    "loc_24AA",
+    "loc_24E4"
+   ],
+   [
+    "loc_24CF",
+    "loc_24E4"
+   ],
+   [
+    "loc_24E4",
+    "loc_24EF"
+   ],
+   [
+    "loc_24E4",
+    "loc_24F4"
+   ],
+   [
+    "loc_24EF",
+    "loc_2505"
+   ],
+   [
+    "loc_24F4",
+    "loc_24AA"
+   ],
+   [
+    "loc_2505",
+    "loc_2513"
+   ],
+   [
+    "loc_2505",
+    "loc_2536"
+   ],
+   [
+    "loc_2513",
+    "loc_2956"
+   ],
+   [
+    "loc_2536",
+    "loc_2581"
+   ],
+   [
+    "loc_2536",
+    "loc_25A4"
+   ],
+   [
+    "loc_2581",
+    "loc_2956"
+   ],
+   [
+    "loc_25A4",
+    "loc_25C7"
+   ],
+   [
+    "loc_25A4",
+    "loc_25D2"
+   ],
+   [
+    "loc_25C7",
+    "loc_2956"
+   ],
+   [
+    "loc_25D2",
+    "loc_25ED"
+   ],
+   [
+    "loc_25D2",
+    "loc_25F8"
+   ],
+   [
+    "loc_25ED",
+    "loc_2956"
+   ],
+   [
+    "loc_25F8",
+    "loc_2602"
+   ],
+   [
+    "loc_25F8",
+    "loc_260C"
+   ],
+   [
+    "loc_2602",
+    "loc_260C"
+   ],
+   [
+    "loc_2602",
+    "loc_2632"
+   ],
+   [
+    "loc_260C",
+    "loc_2956"
+   ],
+   [
+    "loc_2632",
+    "loc_2641"
+   ],
+   [
+    "loc_2641",
+    "loc_264D"
+   ],
+   [
+    "loc_2641",
+    "loc_2664"
+   ],
+   [
+    "loc_264D",
+    "loc_2641"
+   ],
+   [
+    "loc_2664",
+    "loc_266E"
+   ],
+   [
+    "loc_2664",
+    "loc_267C"
+   ],
+   [
+    "loc_266E",
+    "loc_267C"
+   ],
+   [
+    "loc_266E",
+    "loc_26A2"
+   ],
+   [
+    "loc_267C",
+    "loc_2956"
+   ],
+   [
+    "loc_26A2",
+    "loc_26D1"
+   ],
+   [
+    "loc_26A2",
+    "loc_26DD"
+   ],
+   [
+    "loc_26D1",
+    "loc_2956"
+   ],
+   [
+    "loc_26DD",
+    "loc_2700"
+   ],
+   [
+    "loc_2700",
+    "loc_270C"
+   ],
+   [
+    "loc_2700",
+    "loc_281A"
+   ],
+   [
+    "loc_270C",
+    "loc_273D"
+   ],
+   [
+    "loc_270C",
+    "loc_2749"
+   ],
+   [
+    "loc_273D",
+    "loc_2956"
+   ],
+   [
+    "loc_2749",
+    "loc_2781"
+   ],
+   [
+    "loc_2749",
+    "loc_2792"
+   ],
+   [
+    "loc_2781",
+    "loc_279E"
+   ],
+   [
+    "loc_2792",
+    "loc_2956"
+   ],
+   [
+    "loc_279E",
+    "loc_27C9"
+   ],
+   [
+    "loc_279E",
+    "loc_27D4"
+   ],
+   [
+    "loc_27C9",
+    "loc_2956"
+   ],
+   [
+    "loc_27D4",
+    "loc_2700"
+   ],
+   [
+    "loc_281A",
+    "loc_2821"
+   ],
+   [
+    "loc_2821",
+    "loc_2831"
+   ],
+   [
+    "loc_2821",
+    "loc_292C"
+   ],
+   [
+    "loc_2831",
+    "loc_2870"
+   ],
+   [
+    "loc_2870",
+    "loc_2880"
+   ],
+   [
+    "loc_2870",
+    "loc_2902"
+   ],
+   [
+    "loc_2880",
+    "loc_2895"
+   ],
+   [
+    "loc_2880",
+    "loc_28A1"
+   ],
+   [
+    "loc_2895",
+    "loc_2956"
+   ],
+   [
+    "loc_28A1",
+    "loc_28B9"
+   ],
+   [
+    "loc_28A1",
+    "loc_28C4"
+   ],
+   [
+    "loc_28B9",
+    "loc_2956"
+   ],
+   [
+    "loc_28C4",
+    "loc_2870"
+   ],
+   [
+    "loc_2902",
+    "loc_2821"
+   ],
+   [
+    "loc_292C",
+    "loc_2956"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 80h\nmov     [rbp+avctx], rdi\nmov     [rbp+data], rsi\nmov     [rbp+got_frame], rdx\nmov     [rbp+avpkt], rcx\nmov     rax, [rbp+avctx]\nmov     rax, [rax]\nmov     [rbp+x], rax\nmov     rax, [rbp+data]\nmov     [rbp+p], rax\nmov     rax, [rbp+avpkt]\nmov     rax, [rax]\nmov     [rbp+ptr], rax\nmov     rax, [rbp+avctx]\nmov     dword ptr [rax+8], 1\nmov     rax, [rbp+avpkt]\nmov     rax, [rax]\nmov     rcx, [rbp+avpkt]\nmovsxd  rcx, dword ptr [rcx+8]\nadd     rax, rcx\nmov     [rbp+end], rax",
+   "loc_24AA": "mov     rdi, [rbp+ptr]; s1\nlea     rsi, aXpm; \"/* XPM */\"\nmov     edx, 9; n\ncall    memcmp\nmov     ecx, eax\nxor     eax, eax\ncmp     ecx, 0\nmov     [rbp+var_7D], al\njz      loc_24E4",
+   "loc_24CF": "mov     rax, [rbp+ptr]\nmov     rcx, [rbp+end]\nadd     rcx, 0FFFFFFFFFFFFFFF7h\ncmp     rax, rcx\nsetb    al\nmov     [rbp+var_7D], al",
+   "loc_24E4": "mov     al, [rbp+var_7D]\ntest    al, 1\njnz     loc_24F4",
+   "loc_24EF": "jmp     loc_2505",
+   "loc_24F4": "mov     rax, [rbp+ptr]\nadd     rax, 1\nmov     [rbp+ptr], rax\njmp     loc_24AA",
+   "loc_2505": "mov     rax, [rbp+ptr]\ncmp     rax, [rbp+end]\njb      loc_2536",
+   "loc_2513": "mov     rdi, [rbp+avctx]; avcl\nmov     esi, 10h; level\nlea     rdx, fmt; \"missing signature\\n\"\nmov     al, 0\ncall    av_log\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_2956",
+   "loc_2536": "mov     rdi, [rbp+ptr]; string\nlea     rsi, reject; \"\\\"\"\ncall    mod_strcspn\nadd     rax, [rbp+ptr]\nmov     [rbp+ptr], rax\nmov     rdi, [rbp+ptr]\nmov     rdx, [rbp+avctx]\nadd     rdx, 0Ch\nmov     rcx, [rbp+avctx]\nadd     rcx, 10h\nlea     rsi, aUUUU; \"\\\"%u %u %u %u\\\",\"\nlea     r8, [rbp+ncolors]\nlea     r9, [rbp+cpp]\nmov     al, 0\ncall    ___isoc99_sscanf\ncmp     eax, 4\njz      loc_25A4",
+   "loc_2581": "mov     rdi, [rbp+avctx]; avcl\nmov     esi, 10h; level\nlea     rdx, aMissingImagePa; \"missing image parameters\\n\"\nmov     al, 0\ncall    av_log\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_2956",
+   "loc_25A4": "mov     rdi, [rbp+avctx]; avctx\nmov     rax, [rbp+avctx]\nmov     esi, [rax+0Ch]; w\nmov     rax, [rbp+avctx]\nmov     edx, [rax+10h]; h\ncall    ff_set_dimensions\nmov     [rbp+ret], eax\ncmp     eax, 0\njge     loc_25D2",
+   "loc_25C7": "mov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_2956",
+   "loc_25D2": "mov     rdi, [rbp+avctx]; avctx\nmov     rsi, [rbp+p]; frame\nxor     edx, edx; flags\ncall    ff_get_buffer\nmov     [rbp+ret], eax\ncmp     eax, 0\njge     loc_25F8",
+   "loc_25ED": "mov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_2956",
+   "loc_25F8": "cmp     [rbp+cpp], 0\njle     loc_260C",
+   "loc_2602": "cmp     [rbp+cpp], 5\njl      loc_2632",
+   "loc_260C": "mov     rdi, [rbp+avctx]; avcl\nmov     ecx, [rbp+cpp]\nmov     esi, 10h; level\nlea     rdx, aUnsupportedInv; \"unsupported/invalid number of chars per\"...\nmov     al, 0\ncall    av_log\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_2956",
+   "loc_2632": "mov     [rbp+size], 1\nmov     [rbp+i], 0",
+   "loc_2641": "mov     eax, [rbp+i]\ncmp     eax, [rbp+cpp]\njge     loc_2664",
+   "loc_264D": "imul    rax, [rbp+size], 5Eh ; '^'\nmov     [rbp+size], rax\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_2641",
+   "loc_2664": "cmp     [rbp+ncolors], 0\njle     loc_267C",
+   "loc_266E": "movsxd  rax, [rbp+ncolors]\ncmp     rax, [rbp+size]\njle     loc_26A2",
+   "loc_267C": "mov     rdi, [rbp+avctx]; avcl\nmov     ecx, [rbp+ncolors]\nmov     esi, 10h; level\nlea     rdx, aInvalidNumberO; \"invalid number of colors: %d\\n\"\nmov     al, 0\ncall    av_log\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_2956",
+   "loc_26A2": "mov     rax, [rbp+size]\nshl     rax, 2\nmov     [rbp+size], rax\nmov     rdi, [rbp+x]; ptr\nmov     rsi, [rbp+x]\nadd     rsi, 8; size\nmov     rdx, [rbp+size]; min_size\ncall    av_fast_padded_malloc\nmov     rax, [rbp+x]\ncmp     qword ptr [rax], 0\njnz     loc_26DD",
+   "loc_26D1": "mov     [rbp+var_4], 0FFFFFFF4h\njmp     loc_2956",
+   "loc_26DD": "mov     rdi, [rbp+ptr]; string\nlea     rsi, aUUUU+0Dh; reject\ncall    mod_strcspn\nadd     rax, 1\nadd     rax, [rbp+ptr]\nmov     [rbp+ptr], rax\nmov     [rbp+i], 0",
+   "loc_2700": "mov     eax, [rbp+i]\ncmp     eax, [rbp+ncolors]\njge     loc_281A",
+   "loc_270C": "mov     rdi, [rbp+ptr]; string\nlea     rsi, reject; \"\\\"\"\ncall    mod_strcspn\nadd     rax, 1\nadd     rax, [rbp+ptr]\nmov     [rbp+ptr], rax\nmov     rax, [rbp+ptr]\nmovsxd  rcx, [rbp+cpp]\nadd     rax, rcx\ncmp     rax, [rbp+end]\njbe     loc_2749",
+   "loc_273D": "mov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_2956",
+   "loc_2749": "mov     rax, [rbp+ptr]\nmov     [rbp+index], rax\nmov     ecx, [rbp+cpp]\nmov     rax, [rbp+ptr]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+ptr], rax\nmov     rdi, [rbp+ptr]; haystack\nlea     rsi, needle; \"c \"\ncall    strstr\nmov     [rbp+ptr], rax\ncmp     [rbp+ptr], 0\njz      loc_2792",
+   "loc_2781": "mov     rax, [rbp+ptr]\nadd     rax, 2\nmov     [rbp+ptr], rax\njmp     loc_279E",
+   "loc_2792": "mov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_2956",
+   "loc_279E": "mov     rdi, [rbp+ptr]; s\nlea     rsi, asc_40A3; \"\\\" \"\ncall    strcspn\nmov     [rbp+len], eax\nmov     rdi, [rbp+index]; cpixel\nmov     esi, [rbp+cpp]; cpp\ncall    ascii2index\nmov     [rbp+ret], eax\ncmp     eax, 0\njge     loc_27D4",
+   "loc_27C9": "mov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_2956",
+   "loc_27D4": "mov     rdi, [rbp+ptr]; p\nmov     esi, [rbp+len]; len\ncall    color_string_to_rgba\nmov     edx, eax\nmov     rax, [rbp+x]\nmov     rax, [rax]\nmovsxd  rcx, [rbp+ret]\nmov     [rax+rcx*4], edx\nmov     rdi, [rbp+ptr]; string\nlea     rsi, aUUUU+0Dh; reject\ncall    mod_strcspn\nadd     rax, 1\nadd     rax, [rbp+ptr]\nmov     [rbp+ptr], rax\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_2700",
+   "loc_281A": "mov     [rbp+i], 0",
+   "loc_2821": "mov     eax, [rbp+i]\nmov     rcx, [rbp+avctx]\ncmp     eax, [rcx+10h]\njge     loc_292C",
+   "loc_2831": "mov     rax, [rbp+p]\nmov     rax, [rax]\nmov     ecx, [rbp+i]\nmov     rdx, [rbp+p]\nimul    ecx, [rdx+40h]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+dst], rax\nmov     rdi, [rbp+ptr]; string\nlea     rsi, reject; \"\\\"\"\ncall    mod_strcspn\nadd     rax, 1\nadd     rax, [rbp+ptr]\nmov     [rbp+ptr], rax\nmov     [rbp+j], 0",
+   "loc_2870": "mov     eax, [rbp+j]\nmov     rcx, [rbp+avctx]\ncmp     eax, [rcx+0Ch]\njge     loc_2902",
+   "loc_2880": "mov     rax, [rbp+ptr]\nmovsxd  rcx, [rbp+cpp]\nadd     rax, rcx\ncmp     rax, [rbp+end]\njbe     loc_28A1",
+   "loc_2895": "mov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_2956",
+   "loc_28A1": "mov     rdi, [rbp+ptr]; cpixel\nmov     esi, [rbp+cpp]; cpp\ncall    ascii2index\nmov     [rbp+ret], eax\ncmp     eax, 0\njge     loc_28C4",
+   "loc_28B9": "mov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_2956",
+   "loc_28C4": "mov     rax, [rbp+x]\nmov     rax, [rax]\nmovsxd  rcx, [rbp+ret]\nmov     ecx, [rax+rcx*4]\nmov     rax, [rbp+dst]\nmov     rdx, rax\nadd     rdx, 4\nmov     [rbp+dst], rdx\nmov     [rax], ecx\nmov     ecx, [rbp+cpp]\nmov     rax, [rbp+ptr]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+ptr], rax\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_2870",
+   "loc_2902": "mov     rdi, [rbp+ptr]; string\nlea     rsi, aUUUU+0Dh; reject\ncall    mod_strcspn\nadd     rax, 1\nadd     rax, [rbp+ptr]\nmov     [rbp+ptr], rax\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_2821",
+   "loc_292C": "mov     rax, [rbp+p]\nmov     dword ptr [rax+60h], 1\nmov     rax, [rbp+p]\nmov     dword ptr [rax+64h], 1\nmov     rax, [rbp+got_frame]\nmov     dword ptr [rax], 1\nmov     rax, [rbp+avpkt]\nmov     eax, [rax+8]\nmov     [rbp+var_4], eax",
+   "loc_2956": "mov     eax, [rbp+var_4]\nadd     rsp, 80h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_7D": "byte ptr -7Dh",
+   "len": "dword ptr -7Ch",
+   "index": "qword ptr -78h",
+   "dst": "qword ptr -70h",
+   "size": "qword ptr -68h",
+   "j": "dword ptr -5Ch",
+   "i": "dword ptr -58h",
+   "ret": "dword ptr -54h",
+   "cpp": "dword ptr -50h",
+   "ncolors": "dword ptr -4Ch",
+   "ptr": "qword ptr -48h",
+   "end": "qword ptr -40h",
+   "p": "qword ptr -38h",
+   "x": "qword ptr -30h",
+   "avpkt": "qword ptr -28h",
+   "got_frame": "qword ptr -20h",
+   "data": "qword ptr -18h",
+   "avctx": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "aXpm": "byte '/* XPM */',0",
+   "fmt": "byte 'missing signature',0Ah,0",
+   "reject": "byte '\"',0",
+   "aUUUU": "byte '\"%u %u %u %u\",',0",
+   "aMissingImagePa": "byte 'missing image parameters',0Ah,0",
+   "aUnsupportedInv": "byte 'unsupported/invalid number of chars per pixel: %d',0Ah,0",
+   "aInvalidNumberO": "byte 'invalid number of colors: %d',0Ah,0",
+   "unk_4033": "byte '\"%u %u %u %u\",',0",
+   "needle": "byte 'c ',0",
+   "asc_40A3": "byte '\" ',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 9296,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".strcasecmp": "strcasecmp",
+  "_strcasecmp": "strcasecmp",
+  ".strncpy": "strncpy",
+  "_strncpy": "strncpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".rewind": "rewind",
+  "_rewind": "rewind",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".strcspn": "strcspn",
+  "_strcspn": "strcspn",
+  ".memcmp": "memcmp",
+  "_memcmp": "memcmp",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".__isoc99_sscanf": "__isoc99_sscanf",
+  "_isoc99_sscanf": "__isoc99_sscanf",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".bsearch": "bsearch",
+  "_bsearch": "bsearch",
+  ".strstr": "strstr",
+  "_strstr": "strstr"
+ },
+ "thunk_debug": [
+  [
+   "sub_2020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".strcasecmp",
+   ".plt",
+   true,
+   "strcasecmp"
+  ],
+  [
+   ".strncpy",
+   ".plt",
+   true,
+   "strncpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".rewind",
+   ".plt",
+   true,
+   "rewind"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".strcspn",
+   ".plt",
+   true,
+   "strcspn"
+  ],
+  [
+   ".memcmp",
+   ".plt",
+   true,
+   "memcmp"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".__isoc99_sscanf",
+   ".plt",
+   true,
+   "__isoc99_sscanf"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".bsearch",
+   ".plt",
+   true,
+   "bsearch"
+  ],
+  [
+   ".strstr",
+   ".plt",
+   true,
+   "strstr"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcasecmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "rewind",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcspn",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__isoc99_sscanf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "bsearch",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strstr",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868486
+ }
+}

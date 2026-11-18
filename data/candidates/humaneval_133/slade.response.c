@@ -1,0 +1,1 @@
+int func0(float *input, int n) { int sum = 0; for (int i = 0; i < n; ++i) { sum += (int)ceil(input[i]) * (int)ceil(input[i]); } return sum; }

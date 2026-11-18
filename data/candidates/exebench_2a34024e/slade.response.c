@@ -1,0 +1,1 @@
+void vec2_sub(float *result, const float *a, const float *b) { result[0] = a[0] - b[0]; result[1] = a[1] - b[1]; }

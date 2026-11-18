@@ -1,0 +1,1 @@
+intptr_t shmDetach(intptr_t u) { return (intptr_t)shmdt(u); }

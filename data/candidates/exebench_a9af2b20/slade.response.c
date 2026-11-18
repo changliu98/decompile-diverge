@@ -1,0 +1,1 @@
+char * stpCpy(char * pDest, const char * pSrc) { while ((*pDest = *pSrc++)) pDest++; return pDest; }

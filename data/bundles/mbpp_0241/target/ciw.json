@@ -1,0 +1,280 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+m], edi\nmov     [rbp+n], esi\nmov     [rbp+o], edx\nmovsxd  rdi, [rbp+o]\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+result], rax\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+o]\njge     loc_12BB\nmovsxd  rdi, [rbp+n]\nshl     rdi, 3; size\ncall    malloc\nmov     rdx, rax\nmov     rax, [rbp+result]\nmovsxd  rcx, [rbp+i]\nmov     [rax+rcx*8], rdx\nmov     [rbp+j], 0\nmov     eax, [rbp+j]\ncmp     eax, [rbp+n]\njge     loc_12A8\nmovsxd  rdi, [rbp+m]\nshl     rdi, 0; size\ncall    malloc\nmov     rdx, rax\nmov     rax, [rbp+result]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+j]\nmov     [rax+rcx*8], rdx\nmov     [rbp+k], 0\nmov     eax, [rbp+k]\ncmp     eax, [rbp+m]\njge     loc_1295\nmov     rax, [rbp+result]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+j]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+k]\nmov     byte ptr [rax+rcx], 2Ah ; '*'\nmov     eax, [rbp+k]\nadd     eax, 1\nmov     [rbp+k], eax\njmp     loc_125F\njmp     $+5\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_1228\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_11F9\nmov     rax, [rbp+result]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 12,
+  "edges": [
+   [
+    "start",
+    "loc_11F9"
+   ],
+   [
+    "loc_11F9",
+    "loc_1205"
+   ],
+   [
+    "loc_11F9",
+    "loc_12BB"
+   ],
+   [
+    "loc_1205",
+    "loc_1228"
+   ],
+   [
+    "loc_1228",
+    "loc_1234"
+   ],
+   [
+    "loc_1228",
+    "loc_12A8"
+   ],
+   [
+    "loc_1234",
+    "loc_125F"
+   ],
+   [
+    "loc_125F",
+    "loc_126B"
+   ],
+   [
+    "loc_125F",
+    "loc_1295"
+   ],
+   [
+    "loc_126B",
+    "loc_125F"
+   ],
+   [
+    "loc_1295",
+    "loc_129A"
+   ],
+   [
+    "loc_129A",
+    "loc_1228"
+   ],
+   [
+    "loc_12A8",
+    "loc_12AD"
+   ],
+   [
+    "loc_12AD",
+    "loc_11F9"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+m], edi\nmov     [rbp+n], esi\nmov     [rbp+o], edx\nmovsxd  rdi, [rbp+o]\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+result], rax\nmov     [rbp+i], 0",
+   "loc_11F9": "mov     eax, [rbp+i]\ncmp     eax, [rbp+o]\njge     loc_12BB",
+   "loc_1205": "movsxd  rdi, [rbp+n]\nshl     rdi, 3; size\ncall    malloc\nmov     rdx, rax\nmov     rax, [rbp+result]\nmovsxd  rcx, [rbp+i]\nmov     [rax+rcx*8], rdx\nmov     [rbp+j], 0",
+   "loc_1228": "mov     eax, [rbp+j]\ncmp     eax, [rbp+n]\njge     loc_12A8",
+   "loc_1234": "movsxd  rdi, [rbp+m]\nshl     rdi, 0; size\ncall    malloc\nmov     rdx, rax\nmov     rax, [rbp+result]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+j]\nmov     [rax+rcx*8], rdx\nmov     [rbp+k], 0",
+   "loc_125F": "mov     eax, [rbp+k]\ncmp     eax, [rbp+m]\njge     loc_1295",
+   "loc_126B": "mov     rax, [rbp+result]\nmovsxd  rcx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+j]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+k]\nmov     byte ptr [rax+rcx], 2Ah ; '*'\nmov     eax, [rbp+k]\nadd     eax, 1\nmov     [rbp+k], eax\njmp     loc_125F",
+   "loc_1295": "jmp     $+5",
+   "loc_129A": "mov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_1228",
+   "loc_12A8": "jmp     $+5",
+   "loc_12AD": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_11F9",
+   "loc_12BB": "mov     rax, [rbp+result]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "k": "dword ptr -24h",
+   "j": "dword ptr -20h",
+   "i": "dword ptr -1Ch",
+   "result": "qword ptr -18h",
+   "o": "dword ptr -0Ch",
+   "n": "dword ptr -8",
+   "m": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4560,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792867967
+ }
+}

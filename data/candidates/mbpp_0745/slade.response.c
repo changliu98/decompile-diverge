@@ -1,0 +1,1 @@
+void func0(int start, int end, int *arr, int *count) { *count = 0; for (int i = start; i <= end; i++) { char found = 1; for (int j = i; j > 0; j /= 10) { int x = j % 10; if (x == 0 || i % x != 0) { found = 0; break; } } if (found) { arr[*count] = i; *count += 1; } } }

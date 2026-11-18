@@ -1,0 +1,1 @@
+float mayorDif(float *p) { float mayor, dif; int i; mayor = dif = 0; for (i = 0; p[i + 1] != 0; i++) { dif = p[i] - p[i + 1]; dif = dif >= 0 ? dif : -dif; if (dif > mayor) mayor = dif; } return mayor; }

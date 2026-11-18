@@ -1,0 +1,1 @@
+const char *convert_set_base (const char *src, int *t) { *t = 10; if (src && *src == '0' && (*++src == 'x' || *src == 'X')) { *t = 16; src++; } return src; }

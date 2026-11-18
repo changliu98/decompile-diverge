@@ -1,0 +1,1 @@
+void encode_vector(unsigned char *out,uint32_t vector,uint32_t eightvector) { out[0] = (eightvector >> 5) +0x20; out[1] = (eightvector &0x1F) +0x60; out[2] = ((vector >> 5) +0x20) +0x20; out[3] = (vector &0x1F) +0x40; out[4] =0x0; }

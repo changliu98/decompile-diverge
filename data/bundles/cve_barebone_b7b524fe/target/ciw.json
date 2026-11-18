@@ -1,0 +1,836 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 120h\nmov     [rbp+ndo], rdi\nmov     [rbp+op], rsi\nmov     [rbp+dataend], rdx\nmov     rax, [rbp+op]\nmovzx   eax, byte ptr [rax+1]\nadd     eax, 0FFFFFFFFh; switch 5 cases\nmov     ecx, eax\nmov     [rbp+var_68], rcx\nsub     eax, 4\nja      def_1483; jumptable 0000000000001483 default case\nmov     rax, [rbp+var_68]\nlea     rcx, jpt_1483\nmovsxd  rax, ds:(jpt_1483 - 3004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nmov     rax, [rbp+op]; jumptable 0000000000001483 case 1\nadd     rax, 10h\nmov     [rbp+hellop], rax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_70], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_78], rax\nmov     rdi, [rbp+hellop]\nadd     rdi, 4; p\ncall    EXTRACT_32BITS\nmov     edx, eax; v\nlea     rdi, ospf6_option_values; lp\nlea     rsi, fmt; \"none\"\ncall    bittok2str\nmov     rdi, [rbp+var_78]\nmov     rcx, [rbp+var_70]\nmov     rdx, rax\nlea     rsi, aOptionsS; \"\\n\\tOptions [%s]\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 2\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1517\nmov     rax, [rbp+hellop]\nadd     rax, 0Ah\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 2\ncmp     rax, rcx\njbe     loc_151C\njmp     trunc\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_80], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_90], rax\nmov     rdi, [rbp+hellop]\nadd     rdi, 8; p\ncall    EXTRACT_16BITS\nmovzx   eax, ax\nmov     [rbp+var_88], eax\nmov     rdi, [rbp+hellop]\nadd     rdi, 0Ah; p\ncall    EXTRACT_16BITS\nmovzx   eax, ax\nmov     [rbp+var_84], eax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+hellop]; p\ncall    getname\nmov     rdi, [rbp+var_90]\nmov     edx, [rbp+var_88]\nmov     ecx, [rbp+var_84]\nmov     r10, [rbp+var_80]\nmov     r8, rax\nmov     rax, [rbp+hellop]\nmovzx   r9d, byte ptr [rax+4]\nlea     rsi, aHelloTimerUsDe; \"\\n\\t  Hello Timer %us, Dead Timer %us, \"...\nmov     al, 0\ncall    r10\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 4\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_15D5\nmov     rax, [rbp+hellop]\nadd     rax, 0Ch\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 4\ncmp     rax, rcx\njbe     loc_15DA\njmp     trunc\nmov     rdi, [rbp+hellop]\nadd     rdi, 0Ch; p\ncall    EXTRACT_32BITS\ncmp     eax, 0\njz      loc_1637\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_98], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_A0], rax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+hellop]\nadd     rsi, 0Ch; p\ncall    getname\nmov     rdi, [rbp+var_A0]\nmov     rcx, [rbp+var_98]\nmov     rdx, rax\nlea     rsi, aDesignatedRout; \"\\n\\t  Designated Router %s\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 4\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1671\nmov     rax, [rbp+hellop]\nadd     rax, 10h\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 4\ncmp     rax, rcx\njbe     loc_1676\njmp     trunc\nmov     rdi, [rbp+hellop]\nadd     rdi, 10h; p\ncall    EXTRACT_32BITS\ncmp     eax, 0\njz      loc_16D3\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_A8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_B0], rax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+hellop]\nadd     rsi, 10h; p\ncall    getname\nmov     rdi, [rbp+var_B0]\nmov     rcx, [rbp+var_A8]\nmov     rdx, rax\nlea     rsi, aBackupDesignat; \", Backup Designated Router %s\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 1\njle     loc_17A5\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aNeighborList; \"\\n\\t  Neighbor List:\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+hellop]\nadd     rax, 14h\nmov     [rbp+ap], rax\nmov     rax, [rbp+ap]\ncmp     rax, [rbp+dataend]\njnb     loc_17A0\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 4\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1747\nmov     rax, [rbp+ap]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 4\ncmp     rax, rcx\njbe     loc_174C\njmp     trunc\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_B8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_C0], rax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+ap]; p\ncall    getname\nmov     rdi, [rbp+var_C0]\nmov     rcx, [rbp+var_B8]\nmov     rdx, rax\nlea     rsi, aS; \"\\n\\t    %s\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+ap]\nadd     rax, 4\nmov     [rbp+ap], rax\njmp     loc_1703\njmp     $+5\njmp     loc_1C34\nmov     rax, [rbp+op]; jumptable 0000000000001483 case 2\nadd     rax, 10h\nmov     [rbp+ddp], rax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 4\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_17EC\nmov     rax, [rbp+ddp]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 4\ncmp     rax, rcx\njbe     loc_17F1\njmp     trunc\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_C8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_D0], rax\nmov     rdi, [rbp+ddp]; p\ncall    EXTRACT_32BITS\nmov     edx, eax; v\nlea     rdi, ospf6_option_values; lp\nlea     rsi, fmt; \"none\"\ncall    bittok2str\nmov     rdi, [rbp+var_D0]\nmov     rcx, [rbp+var_C8]\nmov     rdx, rax\nlea     rsi, aOptionsS; \"\\n\\tOptions [%s]\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 1\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_187F\nmov     rax, [rbp+ddp]\nadd     rax, 7\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 1\ncmp     rax, rcx\njbe     loc_1884\njmp     trunc\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_D8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_E0], rax\nmov     rax, [rbp+ddp]\nmovzx   edx, byte ptr [rax+7]; v\nlea     rdi, ospf6_dd_flag_values; lp\nlea     rsi, fmt; \"none\"\ncall    bittok2str\nmov     rdi, [rbp+var_E0]\nmov     rcx, [rbp+var_D8]\nmov     rdx, rax\nlea     rsi, aDdFlagsS; \", DD Flags [%s]\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 4\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_190F\nmov     rax, [rbp+ddp]\nadd     rax, 8\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 4\ncmp     rax, rcx\njbe     loc_1914\njmp     trunc\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_E8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_F8], rax\nmov     rdi, [rbp+ddp]\nadd     rdi, 4; p\ncall    EXTRACT_16BITS\nmovzx   eax, ax\nmov     [rbp+var_EC], eax\nmov     rdi, [rbp+ddp]\nadd     rdi, 8; p\ncall    EXTRACT_32BITS\nmov     rdi, [rbp+var_F8]\nmov     edx, [rbp+var_EC]\nmov     r8, [rbp+var_E8]\nmov     ecx, eax\nlea     rsi, aMtuUDdSequence; \", MTU %u, DD-Sequence 0x%08x\"\nmov     al, 0\ncall    r8\nmov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 1\njle     loc_19CE\nmov     rax, [rbp+ddp]\nadd     rax, 0Ch\nmov     [rbp+lshp], rax\nmov     rax, [rbp+lshp]\ncmp     rax, [rbp+dataend]\njnb     loc_19C9\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+lshp]; lshp\nmov     rax, rsi\nadd     rax, 14h\nmov     [rbp+lshp], rax\nmov     rdx, [rbp+dataend]; dataend\ncall    ospf6_print_lshdr\ncmp     eax, 0\njz      loc_19C4\njmp     trunc\njmp     loc_198C\njmp     $+5\njmp     loc_1C34\nmov     rax, [rbp+ndo]; jumptable 0000000000001483 case 3\ncmp     dword ptr [rax], 1\njle     loc_1AC1\nmov     rax, [rbp+op]\nadd     rax, 10h\nmov     [rbp+lsrp], rax\nmov     rax, [rbp+lsrp]\ncmp     rax, [rbp+dataend]\njnb     loc_1ABC\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 0Ch\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1A30\nmov     rax, [rbp+lsrp]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 0Ch\ncmp     rax, rcx\njbe     loc_1A35\njmp     trunc\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_108], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_110], rax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+lsrp]\nadd     rsi, 8; p\ncall    getname\nmov     rdi, [rbp+var_110]\nmov     rcx, [rbp+var_108]\nmov     rdx, rax\nlea     rsi, aAdvertisingRou; \"\\n\\t  Advertising Router %s\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+ndo]\nmov     [rbp+var_100], rax\nmov     rdi, [rbp+lsrp]\nadd     rdi, 2; p\ncall    EXTRACT_16BITS\nmov     rdi, [rbp+var_100]; ndo\nmovzx   esi, ax; ls_type\nmov     rdx, [rbp+lsrp]\nadd     rdx, 4; ls_stateid\ncall    ospf6_print_ls_type\nmov     rax, [rbp+lsrp]\nadd     rax, 0Ch\nmov     [rbp+lsrp], rax\njmp     loc_19EC\njmp     $+5\njmp     loc_1C34\nmov     rax, [rbp+ndo]; jumptable 0000000000001483 case 4\ncmp     dword ptr [rax], 1\njle     loc_1BCA\nmov     rax, [rbp+op]\nadd     rax, 10h\nmov     [rbp+lsup], rax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 4\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1B15\nmov     rax, [rbp+lsup]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 4\ncmp     rax, rcx\njbe     loc_1B1A\njmp     trunc\nmov     rdi, [rbp+lsup]; p\ncall    EXTRACT_32BITS\nmov     [rbp+i], eax\nmov     rax, [rbp+lsup]\nadd     rax, 4\nmov     [rbp+lsap], rax\nmov     rcx, [rbp+lsap]\nxor     eax, eax\ncmp     rcx, [rbp+dataend]\nmov     [rbp+var_111], al\njnb     loc_1B5F\nmov     eax, [rbp+i]\nmov     ecx, eax\nadd     ecx, 0FFFFFFFFh\nmov     [rbp+i], ecx\ncmp     eax, 0\nsetnz   al\nmov     [rbp+var_111], al\nmov     al, [rbp+var_111]\ntest    al, 1\njnz     loc_1B72\njmp     loc_1BC5\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+lsap]; lsap\nmov     rdx, [rbp+dataend]; dataend\ncall    ospf6_print_lsa\ncmp     eax, 0\njz      loc_1B91\njmp     trunc\nmov     rax, [rbp+lsap]\nmov     [rbp+var_120], rax\nmov     rdi, [rbp+lsap]\nadd     rdi, 12h; p\ncall    EXTRACT_16BITS\nmov     cx, ax\nmov     rax, [rbp+var_120]\nmovzx   ecx, cx\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+lsap], rax\njmp     loc_1B32\njmp     $+5\njmp     loc_1C34\nmov     rax, [rbp+ndo]; jumptable 0000000000001483 case 5\ncmp     dword ptr [rax], 1\njle     loc_1C2A\nmov     rax, [rbp+op]\nadd     rax, 10h\nmov     [rbp+lshp], rax\nmov     rax, [rbp+lshp]\ncmp     rax, [rbp+dataend]\njnb     loc_1C25\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+lshp]; lshp\nmov     rax, rsi\nadd     rax, 14h\nmov     [rbp+lshp], rax\nmov     rdx, [rbp+dataend]; dataend\ncall    ospf6_print_lshdr\ncmp     eax, 0\njz      loc_1C20\njmp     trunc\njmp     loc_1BE8\njmp     $+5\njmp     loc_1C34\njmp     $+5; jumptable 0000000000001483 default case\nmov     [rbp+var_4], 0\njmp     loc_1C47\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 120h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 76,
+  "edges": [
+   [
+    "start",
+    "loc_1471"
+   ],
+   [
+    "start",
+    "loc_1C2F"
+   ],
+   [
+    "loc_1471",
+    "loc_1485"
+   ],
+   [
+    "loc_1471",
+    "loc_17AA"
+   ],
+   [
+    "loc_1471",
+    "loc_19D3"
+   ],
+   [
+    "loc_1471",
+    "loc_1AC6"
+   ],
+   [
+    "loc_1471",
+    "loc_1BCF"
+   ],
+   [
+    "loc_1485",
+    "loc_14FA"
+   ],
+   [
+    "loc_1485",
+    "loc_1517"
+   ],
+   [
+    "loc_14FA",
+    "loc_1517"
+   ],
+   [
+    "loc_14FA",
+    "loc_151C"
+   ],
+   [
+    "loc_1517",
+    "loc_1C40"
+   ],
+   [
+    "loc_151C",
+    "loc_15B8"
+   ],
+   [
+    "loc_151C",
+    "loc_15D5"
+   ],
+   [
+    "loc_15B8",
+    "loc_15D5"
+   ],
+   [
+    "loc_15B8",
+    "loc_15DA"
+   ],
+   [
+    "loc_15D5",
+    "loc_1C40"
+   ],
+   [
+    "loc_15DA",
+    "loc_15F0"
+   ],
+   [
+    "loc_15DA",
+    "loc_1637"
+   ],
+   [
+    "loc_15F0",
+    "loc_1637"
+   ],
+   [
+    "loc_1637",
+    "loc_1654"
+   ],
+   [
+    "loc_1637",
+    "loc_1671"
+   ],
+   [
+    "loc_1654",
+    "loc_1671"
+   ],
+   [
+    "loc_1654",
+    "loc_1676"
+   ],
+   [
+    "loc_1671",
+    "loc_1C40"
+   ],
+   [
+    "loc_1676",
+    "loc_168C"
+   ],
+   [
+    "loc_1676",
+    "loc_16D3"
+   ],
+   [
+    "loc_168C",
+    "loc_16D3"
+   ],
+   [
+    "loc_16D3",
+    "loc_16E0"
+   ],
+   [
+    "loc_16D3",
+    "loc_17A5"
+   ],
+   [
+    "loc_16E0",
+    "loc_1703"
+   ],
+   [
+    "loc_1703",
+    "loc_1711"
+   ],
+   [
+    "loc_1703",
+    "loc_17A0"
+   ],
+   [
+    "loc_1711",
+    "loc_172E"
+   ],
+   [
+    "loc_1711",
+    "loc_1747"
+   ],
+   [
+    "loc_172E",
+    "loc_1747"
+   ],
+   [
+    "loc_172E",
+    "loc_174C"
+   ],
+   [
+    "loc_1747",
+    "loc_1C40"
+   ],
+   [
+    "loc_174C",
+    "loc_1703"
+   ],
+   [
+    "loc_17A0",
+    "loc_17A5"
+   ],
+   [
+    "loc_17A5",
+    "loc_1C34"
+   ],
+   [
+    "loc_17AA",
+    "loc_17D3"
+   ],
+   [
+    "loc_17AA",
+    "loc_17EC"
+   ],
+   [
+    "loc_17D3",
+    "loc_17EC"
+   ],
+   [
+    "loc_17D3",
+    "loc_17F1"
+   ],
+   [
+    "loc_17EC",
+    "loc_1C40"
+   ],
+   [
+    "loc_17F1",
+    "loc_1862"
+   ],
+   [
+    "loc_17F1",
+    "loc_187F"
+   ],
+   [
+    "loc_1862",
+    "loc_187F"
+   ],
+   [
+    "loc_1862",
+    "loc_1884"
+   ],
+   [
+    "loc_187F",
+    "loc_1C40"
+   ],
+   [
+    "loc_1884",
+    "loc_18F2"
+   ],
+   [
+    "loc_1884",
+    "loc_190F"
+   ],
+   [
+    "loc_18F2",
+    "loc_190F"
+   ],
+   [
+    "loc_18F2",
+    "loc_1914"
+   ],
+   [
+    "loc_190F",
+    "loc_1C40"
+   ],
+   [
+    "loc_1914",
+    "loc_1980"
+   ],
+   [
+    "loc_1914",
+    "loc_19CE"
+   ],
+   [
+    "loc_1980",
+    "loc_198C"
+   ],
+   [
+    "loc_198C",
+    "loc_199A"
+   ],
+   [
+    "loc_198C",
+    "loc_19C9"
+   ],
+   [
+    "loc_199A",
+    "loc_19BF"
+   ],
+   [
+    "loc_199A",
+    "loc_19C4"
+   ],
+   [
+    "loc_19BF",
+    "loc_1C40"
+   ],
+   [
+    "loc_19C4",
+    "loc_198C"
+   ],
+   [
+    "loc_19C9",
+    "loc_19CE"
+   ],
+   [
+    "loc_19CE",
+    "loc_1C34"
+   ],
+   [
+    "loc_19D3",
+    "loc_19E0"
+   ],
+   [
+    "loc_19D3",
+    "loc_1AC1"
+   ],
+   [
+    "loc_19E0",
+    "loc_19EC"
+   ],
+   [
+    "loc_19EC",
+    "loc_19FA"
+   ],
+   [
+    "loc_19EC",
+    "loc_1ABC"
+   ],
+   [
+    "loc_19FA",
+    "loc_1A17"
+   ],
+   [
+    "loc_19FA",
+    "loc_1A30"
+   ],
+   [
+    "loc_1A17",
+    "loc_1A30"
+   ],
+   [
+    "loc_1A17",
+    "loc_1A35"
+   ],
+   [
+    "loc_1A30",
+    "loc_1C40"
+   ],
+   [
+    "loc_1A35",
+    "loc_19EC"
+   ],
+   [
+    "loc_1ABC",
+    "loc_1AC1"
+   ],
+   [
+    "loc_1AC1",
+    "loc_1C34"
+   ],
+   [
+    "loc_1AC6",
+    "loc_1AD3"
+   ],
+   [
+    "loc_1AC6",
+    "loc_1BCA"
+   ],
+   [
+    "loc_1AD3",
+    "loc_1AFC"
+   ],
+   [
+    "loc_1AD3",
+    "loc_1B15"
+   ],
+   [
+    "loc_1AFC",
+    "loc_1B15"
+   ],
+   [
+    "loc_1AFC",
+    "loc_1B1A"
+   ],
+   [
+    "loc_1B15",
+    "loc_1C40"
+   ],
+   [
+    "loc_1B1A",
+    "loc_1B32"
+   ],
+   [
+    "loc_1B32",
+    "loc_1B48"
+   ],
+   [
+    "loc_1B32",
+    "loc_1B5F"
+   ],
+   [
+    "loc_1B48",
+    "loc_1B5F"
+   ],
+   [
+    "loc_1B5F",
+    "loc_1B6D"
+   ],
+   [
+    "loc_1B5F",
+    "loc_1B72"
+   ],
+   [
+    "loc_1B6D",
+    "loc_1BC5"
+   ],
+   [
+    "loc_1B72",
+    "loc_1B8C"
+   ],
+   [
+    "loc_1B72",
+    "loc_1B91"
+   ],
+   [
+    "loc_1B8C",
+    "loc_1C40"
+   ],
+   [
+    "loc_1B91",
+    "loc_1B32"
+   ],
+   [
+    "loc_1BC5",
+    "loc_1BCA"
+   ],
+   [
+    "loc_1BCA",
+    "loc_1C34"
+   ],
+   [
+    "loc_1BCF",
+    "loc_1BDC"
+   ],
+   [
+    "loc_1BCF",
+    "loc_1C2A"
+   ],
+   [
+    "loc_1BDC",
+    "loc_1BE8"
+   ],
+   [
+    "loc_1BE8",
+    "loc_1BF6"
+   ],
+   [
+    "loc_1BE8",
+    "loc_1C25"
+   ],
+   [
+    "loc_1BF6",
+    "loc_1C1B"
+   ],
+   [
+    "loc_1BF6",
+    "loc_1C20"
+   ],
+   [
+    "loc_1C1B",
+    "loc_1C40"
+   ],
+   [
+    "loc_1C20",
+    "loc_1BE8"
+   ],
+   [
+    "loc_1C25",
+    "loc_1C2A"
+   ],
+   [
+    "loc_1C2A",
+    "loc_1C34"
+   ],
+   [
+    "loc_1C2F",
+    "loc_1C34"
+   ],
+   [
+    "loc_1C34",
+    "loc_1C47"
+   ],
+   [
+    "loc_1C40",
+    "loc_1C47"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 120h\nmov     [rbp+ndo], rdi\nmov     [rbp+op], rsi\nmov     [rbp+dataend], rdx\nmov     rax, [rbp+op]\nmovzx   eax, byte ptr [rax+1]\nadd     eax, 0FFFFFFFFh; switch 5 cases\nmov     ecx, eax\nmov     [rbp+var_68], rcx\nsub     eax, 4\nja      def_1483; jumptable 0000000000001483 default case",
+   "loc_1471": "mov     rax, [rbp+var_68]\nlea     rcx, jpt_1483\nmovsxd  rax, ds:(jpt_1483 - 3004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_1485": "mov     rax, [rbp+op]; jumptable 0000000000001483 case 1\nadd     rax, 10h\nmov     [rbp+hellop], rax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_70], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_78], rax\nmov     rdi, [rbp+hellop]\nadd     rdi, 4; p\ncall    EXTRACT_32BITS\nmov     edx, eax; v\nlea     rdi, ospf6_option_values; lp\nlea     rsi, fmt; \"none\"\ncall    bittok2str\nmov     rdi, [rbp+var_78]\nmov     rcx, [rbp+var_70]\nmov     rdx, rax\nlea     rsi, aOptionsS; \"\\n\\tOptions [%s]\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 2\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1517",
+   "loc_14FA": "mov     rax, [rbp+hellop]\nadd     rax, 0Ah\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 2\ncmp     rax, rcx\njbe     loc_151C",
+   "loc_1517": "jmp     trunc",
+   "loc_151C": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_80], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_90], rax\nmov     rdi, [rbp+hellop]\nadd     rdi, 8; p\ncall    EXTRACT_16BITS\nmovzx   eax, ax\nmov     [rbp+var_88], eax\nmov     rdi, [rbp+hellop]\nadd     rdi, 0Ah; p\ncall    EXTRACT_16BITS\nmovzx   eax, ax\nmov     [rbp+var_84], eax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+hellop]; p\ncall    getname\nmov     rdi, [rbp+var_90]\nmov     edx, [rbp+var_88]\nmov     ecx, [rbp+var_84]\nmov     r10, [rbp+var_80]\nmov     r8, rax\nmov     rax, [rbp+hellop]\nmovzx   r9d, byte ptr [rax+4]\nlea     rsi, aHelloTimerUsDe; \"\\n\\t  Hello Timer %us, Dead Timer %us, \"...\nmov     al, 0\ncall    r10\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 4\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_15D5",
+   "loc_15B8": "mov     rax, [rbp+hellop]\nadd     rax, 0Ch\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 4\ncmp     rax, rcx\njbe     loc_15DA",
+   "loc_15D5": "jmp     trunc",
+   "loc_15DA": "mov     rdi, [rbp+hellop]\nadd     rdi, 0Ch; p\ncall    EXTRACT_32BITS\ncmp     eax, 0\njz      loc_1637",
+   "loc_15F0": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_98], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_A0], rax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+hellop]\nadd     rsi, 0Ch; p\ncall    getname\nmov     rdi, [rbp+var_A0]\nmov     rcx, [rbp+var_98]\nmov     rdx, rax\nlea     rsi, aDesignatedRout; \"\\n\\t  Designated Router %s\"\nmov     al, 0\ncall    rcx",
+   "loc_1637": "mov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 4\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1671",
+   "loc_1654": "mov     rax, [rbp+hellop]\nadd     rax, 10h\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 4\ncmp     rax, rcx\njbe     loc_1676",
+   "loc_1671": "jmp     trunc",
+   "loc_1676": "mov     rdi, [rbp+hellop]\nadd     rdi, 10h; p\ncall    EXTRACT_32BITS\ncmp     eax, 0\njz      loc_16D3",
+   "loc_168C": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_A8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_B0], rax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+hellop]\nadd     rsi, 10h; p\ncall    getname\nmov     rdi, [rbp+var_B0]\nmov     rcx, [rbp+var_A8]\nmov     rdx, rax\nlea     rsi, aBackupDesignat; \", Backup Designated Router %s\"\nmov     al, 0\ncall    rcx",
+   "loc_16D3": "mov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 1\njle     loc_17A5",
+   "loc_16E0": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aNeighborList; \"\\n\\t  Neighbor List:\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+hellop]\nadd     rax, 14h\nmov     [rbp+ap], rax",
+   "loc_1703": "mov     rax, [rbp+ap]\ncmp     rax, [rbp+dataend]\njnb     loc_17A0",
+   "loc_1711": "mov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 4\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1747",
+   "loc_172E": "mov     rax, [rbp+ap]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 4\ncmp     rax, rcx\njbe     loc_174C",
+   "loc_1747": "jmp     trunc",
+   "loc_174C": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_B8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_C0], rax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+ap]; p\ncall    getname\nmov     rdi, [rbp+var_C0]\nmov     rcx, [rbp+var_B8]\nmov     rdx, rax\nlea     rsi, aS; \"\\n\\t    %s\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+ap]\nadd     rax, 4\nmov     [rbp+ap], rax\njmp     loc_1703",
+   "loc_17A0": "jmp     $+5",
+   "loc_17A5": "jmp     loc_1C34",
+   "loc_17AA": "mov     rax, [rbp+op]; jumptable 0000000000001483 case 2\nadd     rax, 10h\nmov     [rbp+ddp], rax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 4\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_17EC",
+   "loc_17D3": "mov     rax, [rbp+ddp]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 4\ncmp     rax, rcx\njbe     loc_17F1",
+   "loc_17EC": "jmp     trunc",
+   "loc_17F1": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_C8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_D0], rax\nmov     rdi, [rbp+ddp]; p\ncall    EXTRACT_32BITS\nmov     edx, eax; v\nlea     rdi, ospf6_option_values; lp\nlea     rsi, fmt; \"none\"\ncall    bittok2str\nmov     rdi, [rbp+var_D0]\nmov     rcx, [rbp+var_C8]\nmov     rdx, rax\nlea     rsi, aOptionsS; \"\\n\\tOptions [%s]\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 1\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_187F",
+   "loc_1862": "mov     rax, [rbp+ddp]\nadd     rax, 7\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 1\ncmp     rax, rcx\njbe     loc_1884",
+   "loc_187F": "jmp     trunc",
+   "loc_1884": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_D8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_E0], rax\nmov     rax, [rbp+ddp]\nmovzx   edx, byte ptr [rax+7]; v\nlea     rdi, ospf6_dd_flag_values; lp\nlea     rsi, fmt; \"none\"\ncall    bittok2str\nmov     rdi, [rbp+var_E0]\nmov     rcx, [rbp+var_D8]\nmov     rdx, rax\nlea     rsi, aDdFlagsS; \", DD Flags [%s]\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 4\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_190F",
+   "loc_18F2": "mov     rax, [rbp+ddp]\nadd     rax, 8\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 4\ncmp     rax, rcx\njbe     loc_1914",
+   "loc_190F": "jmp     trunc",
+   "loc_1914": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_E8], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_F8], rax\nmov     rdi, [rbp+ddp]\nadd     rdi, 4; p\ncall    EXTRACT_16BITS\nmovzx   eax, ax\nmov     [rbp+var_EC], eax\nmov     rdi, [rbp+ddp]\nadd     rdi, 8; p\ncall    EXTRACT_32BITS\nmov     rdi, [rbp+var_F8]\nmov     edx, [rbp+var_EC]\nmov     r8, [rbp+var_E8]\nmov     ecx, eax\nlea     rsi, aMtuUDdSequence; \", MTU %u, DD-Sequence 0x%08x\"\nmov     al, 0\ncall    r8\nmov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 1\njle     loc_19CE",
+   "loc_1980": "mov     rax, [rbp+ddp]\nadd     rax, 0Ch\nmov     [rbp+lshp], rax",
+   "loc_198C": "mov     rax, [rbp+lshp]\ncmp     rax, [rbp+dataend]\njnb     loc_19C9",
+   "loc_199A": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+lshp]; lshp\nmov     rax, rsi\nadd     rax, 14h\nmov     [rbp+lshp], rax\nmov     rdx, [rbp+dataend]; dataend\ncall    ospf6_print_lshdr\ncmp     eax, 0\njz      loc_19C4",
+   "loc_19BF": "jmp     trunc",
+   "loc_19C4": "jmp     loc_198C",
+   "loc_19C9": "jmp     $+5",
+   "loc_19CE": "jmp     loc_1C34",
+   "loc_19D3": "mov     rax, [rbp+ndo]; jumptable 0000000000001483 case 3\ncmp     dword ptr [rax], 1\njle     loc_1AC1",
+   "loc_19E0": "mov     rax, [rbp+op]\nadd     rax, 10h\nmov     [rbp+lsrp], rax",
+   "loc_19EC": "mov     rax, [rbp+lsrp]\ncmp     rax, [rbp+dataend]\njnb     loc_1ABC",
+   "loc_19FA": "mov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 0Ch\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1A30",
+   "loc_1A17": "mov     rax, [rbp+lsrp]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 0Ch\ncmp     rax, rcx\njbe     loc_1A35",
+   "loc_1A30": "jmp     trunc",
+   "loc_1A35": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_108], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_110], rax\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+lsrp]\nadd     rsi, 8; p\ncall    getname\nmov     rdi, [rbp+var_110]\nmov     rcx, [rbp+var_108]\nmov     rdx, rax\nlea     rsi, aAdvertisingRou; \"\\n\\t  Advertising Router %s\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+ndo]\nmov     [rbp+var_100], rax\nmov     rdi, [rbp+lsrp]\nadd     rdi, 2; p\ncall    EXTRACT_16BITS\nmov     rdi, [rbp+var_100]; ndo\nmovzx   esi, ax; ls_type\nmov     rdx, [rbp+lsrp]\nadd     rdx, 4; ls_stateid\ncall    ospf6_print_ls_type\nmov     rax, [rbp+lsrp]\nadd     rax, 0Ch\nmov     [rbp+lsrp], rax\njmp     loc_19EC",
+   "loc_1ABC": "jmp     $+5",
+   "loc_1AC1": "jmp     loc_1C34",
+   "loc_1AC6": "mov     rax, [rbp+ndo]; jumptable 0000000000001483 case 4\ncmp     dword ptr [rax], 1\njle     loc_1BCA",
+   "loc_1AD3": "mov     rax, [rbp+op]\nadd     rax, 10h\nmov     [rbp+lsup], rax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 4\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1B15",
+   "loc_1AFC": "mov     rax, [rbp+lsup]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 4\ncmp     rax, rcx\njbe     loc_1B1A",
+   "loc_1B15": "jmp     trunc",
+   "loc_1B1A": "mov     rdi, [rbp+lsup]; p\ncall    EXTRACT_32BITS\nmov     [rbp+i], eax\nmov     rax, [rbp+lsup]\nadd     rax, 4\nmov     [rbp+lsap], rax",
+   "loc_1B32": "mov     rcx, [rbp+lsap]\nxor     eax, eax\ncmp     rcx, [rbp+dataend]\nmov     [rbp+var_111], al\njnb     loc_1B5F",
+   "loc_1B48": "mov     eax, [rbp+i]\nmov     ecx, eax\nadd     ecx, 0FFFFFFFFh\nmov     [rbp+i], ecx\ncmp     eax, 0\nsetnz   al\nmov     [rbp+var_111], al",
+   "loc_1B5F": "mov     al, [rbp+var_111]\ntest    al, 1\njnz     loc_1B72",
+   "loc_1B6D": "jmp     loc_1BC5",
+   "loc_1B72": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+lsap]; lsap\nmov     rdx, [rbp+dataend]; dataend\ncall    ospf6_print_lsa\ncmp     eax, 0\njz      loc_1B91",
+   "loc_1B8C": "jmp     trunc",
+   "loc_1B91": "mov     rax, [rbp+lsap]\nmov     [rbp+var_120], rax\nmov     rdi, [rbp+lsap]\nadd     rdi, 12h; p\ncall    EXTRACT_16BITS\nmov     cx, ax\nmov     rax, [rbp+var_120]\nmovzx   ecx, cx\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+lsap], rax\njmp     loc_1B32",
+   "loc_1BC5": "jmp     $+5",
+   "loc_1BCA": "jmp     loc_1C34",
+   "loc_1BCF": "mov     rax, [rbp+ndo]; jumptable 0000000000001483 case 5\ncmp     dword ptr [rax], 1\njle     loc_1C2A",
+   "loc_1BDC": "mov     rax, [rbp+op]\nadd     rax, 10h\nmov     [rbp+lshp], rax",
+   "loc_1BE8": "mov     rax, [rbp+lshp]\ncmp     rax, [rbp+dataend]\njnb     loc_1C25",
+   "loc_1BF6": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+lshp]; lshp\nmov     rax, rsi\nadd     rax, 14h\nmov     [rbp+lshp], rax\nmov     rdx, [rbp+dataend]; dataend\ncall    ospf6_print_lshdr\ncmp     eax, 0\njz      loc_1C20",
+   "loc_1C1B": "jmp     trunc",
+   "loc_1C20": "jmp     loc_1BE8",
+   "loc_1C25": "jmp     $+5",
+   "loc_1C2A": "jmp     loc_1C34",
+   "loc_1C2F": "jmp     $+5; jumptable 0000000000001483 default case",
+   "loc_1C34": "mov     [rbp+var_4], 0\njmp     loc_1C47",
+   "loc_1C40": "mov     [rbp+var_4], 1",
+   "loc_1C47": "mov     eax, [rbp+var_4]\nadd     rsp, 120h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_120": "qword ptr -120h",
+   "var_111": "byte ptr -111h",
+   "var_110": "qword ptr -110h",
+   "var_108": "qword ptr -108h",
+   "var_100": "qword ptr -100h",
+   "var_F8": "qword ptr -0F8h",
+   "var_EC": "dword ptr -0ECh",
+   "var_E8": "qword ptr -0E8h",
+   "var_E0": "qword ptr -0E0h",
+   "var_D8": "qword ptr -0D8h",
+   "var_D0": "qword ptr -0D0h",
+   "var_C8": "qword ptr -0C8h",
+   "var_C0": "qword ptr -0C0h",
+   "var_B8": "qword ptr -0B8h",
+   "var_B0": "qword ptr -0B0h",
+   "var_A8": "qword ptr -0A8h",
+   "var_A0": "qword ptr -0A0h",
+   "var_98": "qword ptr -98h",
+   "var_90": "qword ptr -90h",
+   "var_88": "dword ptr -88h",
+   "var_84": "dword ptr -84h",
+   "var_80": "qword ptr -80h",
+   "var_78": "qword ptr -78h",
+   "var_70": "qword ptr -70h",
+   "var_68": "qword ptr -68h",
+   "lsup": "qword ptr -60h",
+   "ddp": "qword ptr -58h",
+   "hellop": "qword ptr -50h",
+   "i": "dword ptr -44h",
+   "lsap": "qword ptr -40h",
+   "lshp": "qword ptr -38h",
+   "lsrp": "qword ptr -30h",
+   "ap": "qword ptr -28h",
+   "dataend": "qword ptr -20h",
+   "op": "qword ptr -18h",
+   "ndo": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "jpt_1483": "dword offset loc_1485 - 3004h; jump table for switch statement",
+   "fmt": "byte 'none',0",
+   "aOptionsS": "byte 0Ah",
+   "aHelloTimerUsDe": "byte 0Ah",
+   "aDesignatedRout": "byte 0Ah",
+   "aBackupDesignat": "byte ', Backup Designated Router %s',0",
+   "aNeighborList": "byte 0Ah",
+   "aS": "byte 0Ah",
+   "aDdFlagsS": "byte ', DD Flags [%s]',0",
+   "aMtuUDdSequence": "byte ', MTU %u, DD-Sequence 0x%08x',0",
+   "aAdvertisingRou": "byte 0Ah"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5184,
+ "thunk_map": {
+  ".inet_ntop": "inet_ntop",
+  "_inet_ntop": "inet_ntop",
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".ntohs": "ntohs",
+  "_ntohs": "ntohs",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".ntohl": "ntohl",
+  "_ntohl": "ntohl"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".inet_ntop",
+   ".plt",
+   true,
+   "inet_ntop"
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".ntohs",
+   ".plt",
+   true,
+   "ntohs"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".ntohl",
+   ".plt",
+   true,
+   "ntohl"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "inet_ntop",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "snprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ntohs",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ntohl",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868485
+ }
+}

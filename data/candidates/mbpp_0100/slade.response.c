@@ -1,0 +1,1 @@
+int func0(int n) { char s[20]; for (int i = n + 1; i !=0x7fffffff; i++) { sprintf(s, "%d", i); int len = strlen(s); int found = 1; for (int j = 0; j < len / 2; j++) { if (s[j] != s[len - 1 - j]) { found = 0; break; } } if (found) { return i; } } return -1; }

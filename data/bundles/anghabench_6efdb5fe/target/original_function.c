@@ -1,0 +1,1 @@
+uint32_t REG_A3XX_VSC_PIPE_DATA_ADDRESS(uint32_t i0) { return 0x00000c07 + 0x3*i0; }

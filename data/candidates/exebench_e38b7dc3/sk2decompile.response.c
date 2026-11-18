@@ -1,0 +1,44 @@
+void rfft4pt(float *a) {
+  float a0r, a0i, a1r, a1i, a2r, a2i, a3r, a3i, b0r, b0i, b1r, b1i, b2r, b2i,
+      b3r, b3i, c0r, c0i, c1r, c1i, c2r, c2i, c3r, c3i, d0r, d0i, d1r, d1i;
+  a0r = a[0];
+  a0i = a[1];
+  a1r = a[2];
+  a1i = a[3];
+  a2r = a[4];
+  a2i = a[5];
+  a3r = a[6];
+  a3i = a[7];
+  b0r = a0r + a2r;
+  b0i = a0i + a2i;
+  b1r = a0r - a2r;
+  b1i = a0i - a2i;
+  b2r = a1r - a3r;
+  b2i = a1i - a3i;
+  b3r = a1r + a3r;
+  b3i = a1i + a3i;
+  a0r = b0r + b3r;
+  a0i = b0i + b3i;
+  b3r = b0r - b3r;
+  b3i = b0i - b3i;
+  c0r = b1r - b2i;
+  c0i = b1i + b2r;
+  c1r = b1r + b2i;
+  c1i = b1i - b2r;
+  c2r = a0r + a0i;
+  c2i = a0r - a0i;
+  c3r = c0r + c0i;
+  c3i = c1i - c0i;
+  d0r = c0r - c0i;
+  d0i = c1r + c1i;
+  d1r = c2r + c2i;
+  d1i = c2i - c2r;
+  a[4] = b3r;
+  a[5] = b3i;
+  a[0] = c2r;
+  a[1] = c2i;
+  a[2] = 0.5f * c3r;
+  a[3] = 0.5f * c3i;
+  a[6] = 0.5f * (d0r + d0r + c3r);
+  a[7] = 0.5f * (c3i - d1i);
+}

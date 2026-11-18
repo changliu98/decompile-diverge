@@ -1,0 +1,215 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+anal], rdi\nmov     [rbp+op], rsi\nmov     [rbp+addr], rdx\nmov     [rbp+buf], rcx\nmov     [rbp+len], r8d\nmov     [rbp+mask], r9d\nlea     rdi, [rbp+hi]; s\nxor     esi, esi; c\nmov     edx, 4; n\ncall    memset\nmov     [rbp+data], 0\nmov     rdi, [rbp+buf]; src\ncall    r_read_le32\nmov     [rbp+data], eax\nmov     edi, [rbp+data]; data\nmov     rax, [rbp+addr]\nmov     edx, eax; addr\nlea     rsi, [rbp+hi]; hi\ncall    hexagon_disasm_instruction\nmov     [rbp+size], eax\nmov     ecx, [rbp+size]\nmov     rax, [rbp+op]\nmov     [rax+8], ecx\ncmp     [rbp+size], 0\njg      loc_1437\nmov     eax, [rbp+size]\nmov     [rbp+var_4], eax\njmp     loc_1452\nmov     rcx, [rbp+addr]\nmov     rax, [rbp+op]\nmov     [rax], rcx\nmov     rsi, [rbp+op]; op\nlea     rdi, [rbp+hi]; hi\ncall    hexagon_anal_instruction\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 4,
+  "edges": [
+   [
+    "start",
+    "loc_142C"
+   ],
+   [
+    "start",
+    "loc_1437"
+   ],
+   [
+    "loc_142C",
+    "loc_1452"
+   ],
+   [
+    "loc_1437",
+    "loc_1452"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+anal], rdi\nmov     [rbp+op], rsi\nmov     [rbp+addr], rdx\nmov     [rbp+buf], rcx\nmov     [rbp+len], r8d\nmov     [rbp+mask], r9d\nlea     rdi, [rbp+hi]; s\nxor     esi, esi; c\nmov     edx, 4; n\ncall    memset\nmov     [rbp+data], 0\nmov     rdi, [rbp+buf]; src\ncall    r_read_le32\nmov     [rbp+data], eax\nmov     edi, [rbp+data]; data\nmov     rax, [rbp+addr]\nmov     edx, eax; addr\nlea     rsi, [rbp+hi]; hi\ncall    hexagon_disasm_instruction\nmov     [rbp+size], eax\nmov     ecx, [rbp+size]\nmov     rax, [rbp+op]\nmov     [rax+8], ecx\ncmp     [rbp+size], 0\njg      loc_1437",
+   "loc_142C": "mov     eax, [rbp+size]\nmov     [rbp+var_4], eax\njmp     loc_1452",
+   "loc_1437": "mov     rcx, [rbp+addr]\nmov     rax, [rbp+op]\nmov     [rax], rcx\nmov     rsi, [rbp+op]; op\nlea     rdi, [rbp+hi]; hi\ncall    hexagon_anal_instruction\nmov     [rbp+var_4], eax",
+   "loc_1452": "mov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "size": "dword ptr -40h",
+   "data": "dword ptr -3Ch",
+   "hi": "HexInsn ptr -38h",
+   "mask": "dword ptr -30h",
+   "len": "dword ptr -2Ch",
+   "buf": "qword ptr -28h",
+   "addr": "qword ptr -20h",
+   "op": "qword ptr -18h",
+   "anal": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5056,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868479
+ }
+}

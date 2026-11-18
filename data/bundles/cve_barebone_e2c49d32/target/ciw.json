@@ -1,0 +1,647 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     rax, [rbp+chunkIdx]\nmov     rax, [rbp+ncy]\nmov     rax, [rbp+ncx]\nmov     [rbp+in], rdi\nmov     [rbp+sx], rsi\nmov     [rbp+sy], rdx\nmov     [rbp+cs_0], rcx\nmov     [rbp+vers], r8\nmov     [rbp+fmt], r9\nmov     [rbp+i], 0\ncmp     [rbp+i], 4\njge     loc_19B3\nmov     rdi, [rbp+in]; ctx\ncall    gdGetC\nmov     [rbp+ch_0], eax\ncmp     [rbp+ch_0], 0FFFFFFFFh\njnz     loc_1998\njmp     fail1\nmov     eax, [rbp+ch_0]\nmov     cl, al\nmovsxd  rax, [rbp+i]\nmov     [rbp+rax+id], cl\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1973\nmov     [rbp+id+4], 0\nlea     rdi, [rbp+id]; s1\nlea     rsi, s2; \"gd2\"\ncall    strcmp\ncmp     eax, 0\njz      loc_19D5\njmp     fail1\nmov     rdi, [rbp+vers]; result\nmov     rsi, [rbp+in]; ctx\ncall    gdGetWord\ncmp     eax, 1\njz      loc_19F0\njmp     fail1\nmov     rax, [rbp+vers]\ncmp     dword ptr [rax], 1\njz      loc_1A0F\nmov     rax, [rbp+vers]\ncmp     dword ptr [rax], 2\njz      loc_1A0F\njmp     fail1\nmov     rdi, [rbp+sx]; result\nmov     rsi, [rbp+in]; ctx\ncall    gdGetWord\ncmp     eax, 0\njnz     loc_1A2A\njmp     fail1\nmov     rdi, [rbp+sy]; result\nmov     rsi, [rbp+in]; ctx\ncall    gdGetWord\ncmp     eax, 0\njnz     loc_1A45\njmp     fail1\nmov     rdi, [rbp+cs_0]; result\nmov     rsi, [rbp+in]; ctx\ncall    gdGetWord\ncmp     eax, 1\njz      loc_1A60\njmp     fail1\nmov     rax, [rbp+cs_0]\ncmp     dword ptr [rax], 40h ; '@'\njl      loc_1A7D\nmov     rax, [rbp+cs_0]\ncmp     dword ptr [rax], 1000h\njle     loc_1A82\njmp     fail1\nmov     rdi, [rbp+fmt]; result\nmov     rsi, [rbp+in]; ctx\ncall    gdGetWord\ncmp     eax, 1\njz      loc_1A9D\njmp     fail1\nmov     rax, [rbp+fmt]\ncmp     dword ptr [rax], 1\njz      loc_1AD6\nmov     rax, [rbp+fmt]\ncmp     dword ptr [rax], 2\njz      loc_1AD6\nmov     rax, [rbp+fmt]\ncmp     dword ptr [rax], 3\njz      loc_1AD6\nmov     rax, [rbp+fmt]\ncmp     dword ptr [rax], 4\njz      loc_1AD6\njmp     fail1\nmov     rdi, [rbp+ncx]; result\nmov     rsi, [rbp+in]; ctx\ncall    gdGetWord\ncmp     eax, 1\njz      loc_1AF1\njmp     fail1\nmov     rdi, [rbp+ncy]; result\nmov     rsi, [rbp+in]; ctx\ncall    gdGetWord\ncmp     eax, 1\njz      loc_1B0C\njmp     fail1\nmov     rax, [rbp+fmt]\ncmp     dword ptr [rax], 2\njz      loc_1B26\nmov     rax, [rbp+fmt]\ncmp     dword ptr [rax], 4\njnz     loc_1C38\nmov     rax, [rbp+ncx]\nmov     eax, [rax]\nmov     rcx, [rbp+ncy]\nimul    eax, [rcx]\nmov     [rbp+nc], eax\nmov     esi, [rbp+nc]; b\nmov     edi, 8; a\ncall    overflow2\ncmp     eax, 0\njz      loc_1B51\njmp     fail1\nmovsxd  rax, [rbp+nc]\nshl     rax, 3\nmov     [rbp+sidx], eax\ncmp     [rbp+sidx], 0\njg      loc_1B6B\njmp     fail1\nmovsxd  rdi, [rbp+sidx]; nmemb\nmov     esi, 1; size\ncall    _ZN4chip14BindingManager40RegisterBoundDeviceContextReleaseHandlerEPFvPvE; chip::BindingManager::RegisterBoundDeviceContextReleaseHandler(void (*)(void *))\nmov     [rbp+cidx], rax\ncmp     [rbp+cidx], 0\njnz     loc_1B8D\njmp     fail1\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+nc]\njge     loc_1C2D\nmov     rdi, [rbp+cidx]\nmovsxd  rax, [rbp+i]\nshl     rax, 3\nadd     rdi, rax; result\nmov     rsi, [rbp+in]; ctx\ncall    gdGetInt\ncmp     eax, 1\njz      loc_1BC6\njmp     fail2\nmov     rdi, [rbp+cidx]\nmovsxd  rax, [rbp+i]\nshl     rax, 3\nadd     rdi, rax\nadd     rdi, 4; result\nmov     rsi, [rbp+in]; ctx\ncall    gdGetInt\ncmp     eax, 1\njz      loc_1BF0\njmp     fail2\nmov     rax, [rbp+cidx]\nmovsxd  rcx, [rbp+i]\ncmp     dword ptr [rax+rcx*8], 0\njl      loc_1C15\nmov     rax, [rbp+cidx]\nmovsxd  rcx, [rbp+i]\ncmp     dword ptr [rax+rcx*8+4], 0\njge     loc_1C1A\njmp     fail2\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1B94\nmov     rcx, [rbp+cidx]\nmov     rax, [rbp+chunkIdx]\nmov     [rax], rcx\nmov     [rbp+var_4], 1\njmp     loc_1C54\nmov     rdi, [rbp+cidx]; ptr\ncall    gdFree\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 60h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 56,
+  "edges": [
+   [
+    "start",
+    "loc_1973"
+   ],
+   [
+    "loc_1973",
+    "loc_197D"
+   ],
+   [
+    "loc_1973",
+    "loc_19B3"
+   ],
+   [
+    "loc_197D",
+    "loc_1993"
+   ],
+   [
+    "loc_197D",
+    "loc_1998"
+   ],
+   [
+    "loc_1993",
+    "loc_1C4D"
+   ],
+   [
+    "loc_1998",
+    "loc_1973"
+   ],
+   [
+    "loc_19B3",
+    "loc_19D0"
+   ],
+   [
+    "loc_19B3",
+    "loc_19D5"
+   ],
+   [
+    "loc_19D0",
+    "loc_1C4D"
+   ],
+   [
+    "loc_19D5",
+    "loc_19EB"
+   ],
+   [
+    "loc_19D5",
+    "loc_19F0"
+   ],
+   [
+    "loc_19EB",
+    "loc_1C4D"
+   ],
+   [
+    "loc_19F0",
+    "loc_19FD"
+   ],
+   [
+    "loc_19F0",
+    "loc_1A0F"
+   ],
+   [
+    "loc_19FD",
+    "loc_1A0A"
+   ],
+   [
+    "loc_19FD",
+    "loc_1A0F"
+   ],
+   [
+    "loc_1A0A",
+    "loc_1C4D"
+   ],
+   [
+    "loc_1A0F",
+    "loc_1A25"
+   ],
+   [
+    "loc_1A0F",
+    "loc_1A2A"
+   ],
+   [
+    "loc_1A25",
+    "loc_1C4D"
+   ],
+   [
+    "loc_1A2A",
+    "loc_1A40"
+   ],
+   [
+    "loc_1A2A",
+    "loc_1A45"
+   ],
+   [
+    "loc_1A40",
+    "loc_1C4D"
+   ],
+   [
+    "loc_1A45",
+    "loc_1A5B"
+   ],
+   [
+    "loc_1A45",
+    "loc_1A60"
+   ],
+   [
+    "loc_1A5B",
+    "loc_1C4D"
+   ],
+   [
+    "loc_1A60",
+    "loc_1A6D"
+   ],
+   [
+    "loc_1A60",
+    "loc_1A7D"
+   ],
+   [
+    "loc_1A6D",
+    "loc_1A7D"
+   ],
+   [
+    "loc_1A6D",
+    "loc_1A82"
+   ],
+   [
+    "loc_1A7D",
+    "loc_1C4D"
+   ],
+   [
+    "loc_1A82",
+    "loc_1A98"
+   ],
+   [
+    "loc_1A82",
+    "loc_1A9D"
+   ],
+   [
+    "loc_1A98",
+    "loc_1C4D"
+   ],
+   [
+    "loc_1A9D",
+    "loc_1AAA"
+   ],
+   [
+    "loc_1A9D",
+    "loc_1AD6"
+   ],
+   [
+    "loc_1AAA",
+    "loc_1AB7"
+   ],
+   [
+    "loc_1AAA",
+    "loc_1AD6"
+   ],
+   [
+    "loc_1AB7",
+    "loc_1AC4"
+   ],
+   [
+    "loc_1AB7",
+    "loc_1AD6"
+   ],
+   [
+    "loc_1AC4",
+    "loc_1AD1"
+   ],
+   [
+    "loc_1AC4",
+    "loc_1AD6"
+   ],
+   [
+    "loc_1AD1",
+    "loc_1C4D"
+   ],
+   [
+    "loc_1AD6",
+    "loc_1AEC"
+   ],
+   [
+    "loc_1AD6",
+    "loc_1AF1"
+   ],
+   [
+    "loc_1AEC",
+    "loc_1C4D"
+   ],
+   [
+    "loc_1AF1",
+    "loc_1B07"
+   ],
+   [
+    "loc_1AF1",
+    "loc_1B0C"
+   ],
+   [
+    "loc_1B07",
+    "loc_1C4D"
+   ],
+   [
+    "loc_1B0C",
+    "loc_1B19"
+   ],
+   [
+    "loc_1B0C",
+    "loc_1B26"
+   ],
+   [
+    "loc_1B19",
+    "loc_1B26"
+   ],
+   [
+    "loc_1B19",
+    "loc_1C38"
+   ],
+   [
+    "loc_1B26",
+    "loc_1B4C"
+   ],
+   [
+    "loc_1B26",
+    "loc_1B51"
+   ],
+   [
+    "loc_1B4C",
+    "loc_1C4D"
+   ],
+   [
+    "loc_1B51",
+    "loc_1B66"
+   ],
+   [
+    "loc_1B51",
+    "loc_1B6B"
+   ],
+   [
+    "loc_1B66",
+    "loc_1C4D"
+   ],
+   [
+    "loc_1B6B",
+    "loc_1B88"
+   ],
+   [
+    "loc_1B6B",
+    "loc_1B8D"
+   ],
+   [
+    "loc_1B88",
+    "loc_1C4D"
+   ],
+   [
+    "loc_1B8D",
+    "loc_1B94"
+   ],
+   [
+    "loc_1B94",
+    "loc_1BA0"
+   ],
+   [
+    "loc_1B94",
+    "loc_1C2D"
+   ],
+   [
+    "loc_1BA0",
+    "loc_1BC1"
+   ],
+   [
+    "loc_1BA0",
+    "loc_1BC6"
+   ],
+   [
+    "loc_1BC1",
+    "loc_1C44"
+   ],
+   [
+    "loc_1BC6",
+    "loc_1BEB"
+   ],
+   [
+    "loc_1BC6",
+    "loc_1BF0"
+   ],
+   [
+    "loc_1BEB",
+    "loc_1C44"
+   ],
+   [
+    "loc_1BF0",
+    "loc_1C02"
+   ],
+   [
+    "loc_1BF0",
+    "loc_1C15"
+   ],
+   [
+    "loc_1C02",
+    "loc_1C15"
+   ],
+   [
+    "loc_1C02",
+    "loc_1C1A"
+   ],
+   [
+    "loc_1C15",
+    "loc_1C44"
+   ],
+   [
+    "loc_1C1A",
+    "loc_1C1F"
+   ],
+   [
+    "loc_1C1F",
+    "loc_1B94"
+   ],
+   [
+    "loc_1C2D",
+    "loc_1C38"
+   ],
+   [
+    "loc_1C38",
+    "loc_1C54"
+   ],
+   [
+    "loc_1C44",
+    "loc_1C4D"
+   ],
+   [
+    "loc_1C4D",
+    "loc_1C54"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     rax, [rbp+chunkIdx]\nmov     rax, [rbp+ncy]\nmov     rax, [rbp+ncx]\nmov     [rbp+in], rdi\nmov     [rbp+sx], rsi\nmov     [rbp+sy], rdx\nmov     [rbp+cs_0], rcx\nmov     [rbp+vers], r8\nmov     [rbp+fmt], r9\nmov     [rbp+i], 0",
+   "loc_1973": "cmp     [rbp+i], 4\njge     loc_19B3",
+   "loc_197D": "mov     rdi, [rbp+in]; ctx\ncall    gdGetC\nmov     [rbp+ch_0], eax\ncmp     [rbp+ch_0], 0FFFFFFFFh\njnz     loc_1998",
+   "loc_1993": "jmp     fail1",
+   "loc_1998": "mov     eax, [rbp+ch_0]\nmov     cl, al\nmovsxd  rax, [rbp+i]\nmov     [rbp+rax+id], cl\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1973",
+   "loc_19B3": "mov     [rbp+id+4], 0\nlea     rdi, [rbp+id]; s1\nlea     rsi, s2; \"gd2\"\ncall    strcmp\ncmp     eax, 0\njz      loc_19D5",
+   "loc_19D0": "jmp     fail1",
+   "loc_19D5": "mov     rdi, [rbp+vers]; result\nmov     rsi, [rbp+in]; ctx\ncall    gdGetWord\ncmp     eax, 1\njz      loc_19F0",
+   "loc_19EB": "jmp     fail1",
+   "loc_19F0": "mov     rax, [rbp+vers]\ncmp     dword ptr [rax], 1\njz      loc_1A0F",
+   "loc_19FD": "mov     rax, [rbp+vers]\ncmp     dword ptr [rax], 2\njz      loc_1A0F",
+   "loc_1A0A": "jmp     fail1",
+   "loc_1A0F": "mov     rdi, [rbp+sx]; result\nmov     rsi, [rbp+in]; ctx\ncall    gdGetWord\ncmp     eax, 0\njnz     loc_1A2A",
+   "loc_1A25": "jmp     fail1",
+   "loc_1A2A": "mov     rdi, [rbp+sy]; result\nmov     rsi, [rbp+in]; ctx\ncall    gdGetWord\ncmp     eax, 0\njnz     loc_1A45",
+   "loc_1A40": "jmp     fail1",
+   "loc_1A45": "mov     rdi, [rbp+cs_0]; result\nmov     rsi, [rbp+in]; ctx\ncall    gdGetWord\ncmp     eax, 1\njz      loc_1A60",
+   "loc_1A5B": "jmp     fail1",
+   "loc_1A60": "mov     rax, [rbp+cs_0]\ncmp     dword ptr [rax], 40h ; '@'\njl      loc_1A7D",
+   "loc_1A6D": "mov     rax, [rbp+cs_0]\ncmp     dword ptr [rax], 1000h\njle     loc_1A82",
+   "loc_1A7D": "jmp     fail1",
+   "loc_1A82": "mov     rdi, [rbp+fmt]; result\nmov     rsi, [rbp+in]; ctx\ncall    gdGetWord\ncmp     eax, 1\njz      loc_1A9D",
+   "loc_1A98": "jmp     fail1",
+   "loc_1A9D": "mov     rax, [rbp+fmt]\ncmp     dword ptr [rax], 1\njz      loc_1AD6",
+   "loc_1AAA": "mov     rax, [rbp+fmt]\ncmp     dword ptr [rax], 2\njz      loc_1AD6",
+   "loc_1AB7": "mov     rax, [rbp+fmt]\ncmp     dword ptr [rax], 3\njz      loc_1AD6",
+   "loc_1AC4": "mov     rax, [rbp+fmt]\ncmp     dword ptr [rax], 4\njz      loc_1AD6",
+   "loc_1AD1": "jmp     fail1",
+   "loc_1AD6": "mov     rdi, [rbp+ncx]; result\nmov     rsi, [rbp+in]; ctx\ncall    gdGetWord\ncmp     eax, 1\njz      loc_1AF1",
+   "loc_1AEC": "jmp     fail1",
+   "loc_1AF1": "mov     rdi, [rbp+ncy]; result\nmov     rsi, [rbp+in]; ctx\ncall    gdGetWord\ncmp     eax, 1\njz      loc_1B0C",
+   "loc_1B07": "jmp     fail1",
+   "loc_1B0C": "mov     rax, [rbp+fmt]\ncmp     dword ptr [rax], 2\njz      loc_1B26",
+   "loc_1B19": "mov     rax, [rbp+fmt]\ncmp     dword ptr [rax], 4\njnz     loc_1C38",
+   "loc_1B26": "mov     rax, [rbp+ncx]\nmov     eax, [rax]\nmov     rcx, [rbp+ncy]\nimul    eax, [rcx]\nmov     [rbp+nc], eax\nmov     esi, [rbp+nc]; b\nmov     edi, 8; a\ncall    overflow2\ncmp     eax, 0\njz      loc_1B51",
+   "loc_1B4C": "jmp     fail1",
+   "loc_1B51": "movsxd  rax, [rbp+nc]\nshl     rax, 3\nmov     [rbp+sidx], eax\ncmp     [rbp+sidx], 0\njg      loc_1B6B",
+   "loc_1B66": "jmp     fail1",
+   "loc_1B6B": "movsxd  rdi, [rbp+sidx]; nmemb\nmov     esi, 1; size\ncall    _ZN4chip14BindingManager40RegisterBoundDeviceContextReleaseHandlerEPFvPvE; chip::BindingManager::RegisterBoundDeviceContextReleaseHandler(void (*)(void *))\nmov     [rbp+cidx], rax\ncmp     [rbp+cidx], 0\njnz     loc_1B8D",
+   "loc_1B88": "jmp     fail1",
+   "loc_1B8D": "mov     [rbp+i], 0",
+   "loc_1B94": "mov     eax, [rbp+i]\ncmp     eax, [rbp+nc]\njge     loc_1C2D",
+   "loc_1BA0": "mov     rdi, [rbp+cidx]\nmovsxd  rax, [rbp+i]\nshl     rax, 3\nadd     rdi, rax; result\nmov     rsi, [rbp+in]; ctx\ncall    gdGetInt\ncmp     eax, 1\njz      loc_1BC6",
+   "loc_1BC1": "jmp     fail2",
+   "loc_1BC6": "mov     rdi, [rbp+cidx]\nmovsxd  rax, [rbp+i]\nshl     rax, 3\nadd     rdi, rax\nadd     rdi, 4; result\nmov     rsi, [rbp+in]; ctx\ncall    gdGetInt\ncmp     eax, 1\njz      loc_1BF0",
+   "loc_1BEB": "jmp     fail2",
+   "loc_1BF0": "mov     rax, [rbp+cidx]\nmovsxd  rcx, [rbp+i]\ncmp     dword ptr [rax+rcx*8], 0\njl      loc_1C15",
+   "loc_1C02": "mov     rax, [rbp+cidx]\nmovsxd  rcx, [rbp+i]\ncmp     dword ptr [rax+rcx*8+4], 0\njge     loc_1C1A",
+   "loc_1C15": "jmp     fail2",
+   "loc_1C1A": "jmp     $+5",
+   "loc_1C1F": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1B94",
+   "loc_1C2D": "mov     rcx, [rbp+cidx]\nmov     rax, [rbp+chunkIdx]\nmov     [rax], rcx",
+   "loc_1C38": "mov     [rbp+var_4], 1\njmp     loc_1C54",
+   "loc_1C44": "mov     rdi, [rbp+cidx]; ptr\ncall    gdFree",
+   "loc_1C4D": "mov     [rbp+var_4], 0",
+   "loc_1C54": "mov     eax, [rbp+var_4]\nadd     rsp, 60h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "nc": "dword ptr -58h",
+   "sidx": "dword ptr -54h",
+   "cidx": "qword ptr -50h",
+   "id": "byte ptr -45h",
+   "ch_0": "dword ptr -40h",
+   "i": "dword ptr -3Ch",
+   "fmt": "qword ptr -38h",
+   "vers": "qword ptr -30h",
+   "cs_0": "qword ptr -28h",
+   "sy": "qword ptr -20h",
+   "sx": "qword ptr -18h",
+   "in": "qword ptr -10h",
+   "var_4": "dword ptr -4",
+   "ncx": "qword ptr 10h",
+   "ncy": "qword ptr 18h",
+   "chunkIdx": "qword ptr 20h"
+  },
+  ".rodata": {
+   "s2": "byte 'gd2',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6464,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868495
+ }
+}

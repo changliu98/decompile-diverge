@@ -1,0 +1,53 @@
+{
+ "schema_version": 1,
+ "localId": "github_barebone_xxhash_XXH32_round",
+ "backend": "github",
+ "project": "xxhash",
+ "pname": "xxhash",
+ "language": "c",
+ "fuzz_target": "prog.bin",
+ "sanitizer": "asan_ubsan",
+ "oracle": "exit_memstate",
+ "n_inputs": 50,
+ "n_safe": 50,
+ "n_triggering": 0,
+ "signature": "static xxh_u32 XXH32_round(xxh_u32 acc, xxh_u32 input)",
+ "harness": "custom",
+ "memstate_masked": true,
+ "memstate_symcanon": true,
+ "baseline": {
+  "crashed": false,
+  "status": "PASS",
+  "n_pass": 50,
+  "memstate": "data_bss_symbol_canonical_relocmasked",
+  "memstate_masked": true,
+  "memstate_symcanon": true
+ },
+ "target": {
+  "name": "XXH32_round",
+  "repo_relpath": "func.c",
+  "start_byte": 105095,
+  "end_byte": 107204,
+  "start_line": 2943,
+  "end_line": 2988,
+  "return_type": "xxh_u32",
+  "signature": "static xxh_u32 XXH32_round(xxh_u32 acc, xxh_u32 input)"
+ },
+ "provenance": {
+  "source": "github",
+  "repo": "https://github.com/Cyan4973/xxHash",
+  "path": "xxhash.h",
+  "func": "XXH32_round",
+  "commit": "e573d4d2aaeaba0f3e5a0a9a54144a1f2b4b56e7",
+  "commit_verified": "exact"
+ },
+ "decompiler_input": [
+  "asm",
+  "ghidra",
+  "ida"
+ ],
+ "extra_cflags": "-DXXH_IMPLEMENTATION -DXXH_STATIC_LINKING_ONLY -I.",
+ "group": "github_barebone",
+ "category": "functional",
+ "reexec_from": "githubrc_xxhash_XXH32_round"
+}

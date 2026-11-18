@@ -1,0 +1,1 @@
+static int REG_A5XX_VPC_SO_BUFFER_OFFSET(int row) { return 0x10000 + 0x7 * row; }

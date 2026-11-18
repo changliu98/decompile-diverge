@@ -1,0 +1,1 @@
+void encipher(uint64_t *out, const uint8_t *in) { uint64_t a, b, c, d; size_t i, j; a = out[0]; b = out[1]; c = 0; d =0x9e3779b9; for (i = 0; i < 31; i++) { a += (b << 4 ^ b >> 5) + b ^ in[c & 3] + c; c += d; b += (a << 4 ^ b >> 5) + a ^ in[(c >> 11) & 3]; } out[0] = a; out[1] = b; }

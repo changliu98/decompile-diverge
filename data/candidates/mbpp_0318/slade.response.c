@@ -1,0 +1,1 @@
+uint64_t func0(uint64_t N) { uint64_t ret = 0; for (uint64_t i = 1; i < N - 1; i++) { for (uint64_t j = 1; j < N; j++) { uint64_t k = N - i - j; if (i * j * k > ret) ret = i * j * k; } } return ret; }

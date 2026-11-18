@@ -1,0 +1,154 @@
+0000000000005380 <utf16_literal_to_utf8>:
+    5380:	push   %rbp
+    5381:	mov    %rsp,%rbp
+    5384:	sub    $0x50,%rsp
+    5388:	mov    %rdi,-0x10(%rbp)
+    538c:	mov    %rsi,-0x18(%rbp)
+    5390:	mov    %rdx,-0x20(%rbp)
+    5394:	movq   $0x0,-0x28(%rbp)
+    539c:	movl   $0x0,-0x2c(%rbp)
+    53a3:	mov    -0x10(%rbp),%rax
+    53a7:	mov    %rax,-0x38(%rbp)
+    53ab:	movb   $0x0,-0x39(%rbp)
+    53af:	movb   $0x0,-0x3a(%rbp)
+    53b3:	movb   $0x0,-0x3b(%rbp)
+    53b7:	movb   $0x0,-0x3c(%rbp)
+    53bb:	mov    -0x18(%rbp),%rax
+    53bf:	mov    -0x38(%rbp),%rcx
+    53c3:	sub    %rcx,%rax
+    53c6:	cmp    $0x6,%rax
+    53ca:	jge    53d5 <utf16_literal_to_utf8+0x55>
+    53d0:	jmp    5601 <utf16_literal_to_utf8+0x281>
+    53d5:	mov    -0x38(%rbp),%rdi
+    53d9:	add    $0x2,%rdi
+    53dd:	call   74c0 <parse_hex4>
+    53e2:	mov    %eax,-0x2c(%rbp)
+    53e5:	cmpl   $0xdc00,-0x2c(%rbp)
+    53ec:	jb     5404 <utf16_literal_to_utf8+0x84>
+    53f2:	cmpl   $0xdfff,-0x2c(%rbp)
+    53f9:	ja     5404 <utf16_literal_to_utf8+0x84>
+    53ff:	jmp    5601 <utf16_literal_to_utf8+0x281>
+    5404:	cmpl   $0xd800,-0x2c(%rbp)
+    540b:	jb     54ca <utf16_literal_to_utf8+0x14a>
+    5411:	cmpl   $0xdbff,-0x2c(%rbp)
+    5418:	ja     54ca <utf16_literal_to_utf8+0x14a>
+    541e:	mov    -0x38(%rbp),%rax
+    5422:	add    $0x6,%rax
+    5426:	mov    %rax,-0x48(%rbp)
+    542a:	movl   $0x0,-0x4c(%rbp)
+    5431:	movb   $0xc,-0x3b(%rbp)
+    5435:	mov    -0x18(%rbp),%rax
+    5439:	mov    -0x48(%rbp),%rcx
+    543d:	sub    %rcx,%rax
+    5440:	cmp    $0x6,%rax
+    5444:	jge    544f <utf16_literal_to_utf8+0xcf>
+    544a:	jmp    5601 <utf16_literal_to_utf8+0x281>
+    544f:	mov    -0x48(%rbp),%rax
+    5453:	movzbl (%rax),%eax
+    5456:	cmp    $0x5c,%eax
+    5459:	jne    5470 <utf16_literal_to_utf8+0xf0>
+    545f:	mov    -0x48(%rbp),%rax
+    5463:	movzbl 0x1(%rax),%eax
+    5467:	cmp    $0x75,%eax
+    546a:	je     5475 <utf16_literal_to_utf8+0xf5>
+    5470:	jmp    5601 <utf16_literal_to_utf8+0x281>
+    5475:	mov    -0x48(%rbp),%rdi
+    5479:	add    $0x2,%rdi
+    547d:	call   74c0 <parse_hex4>
+    5482:	mov    %eax,-0x4c(%rbp)
+    5485:	cmpl   $0xdc00,-0x4c(%rbp)
+    548c:	jb     549f <utf16_literal_to_utf8+0x11f>
+    5492:	cmpl   $0xdfff,-0x4c(%rbp)
+    5499:	jbe    54a4 <utf16_literal_to_utf8+0x124>
+    549f:	jmp    5601 <utf16_literal_to_utf8+0x281>
+    54a4:	mov    -0x2c(%rbp),%eax
+    54a7:	and    $0x3ff,%eax
+    54ac:	shl    $0xa,%eax
+    54af:	mov    -0x4c(%rbp),%ecx
+    54b2:	and    $0x3ff,%ecx
+    54b8:	or     %ecx,%eax
+    54ba:	add    $0x10000,%eax
+    54bf:	mov    %eax,%eax
+    54c1:	mov    %rax,-0x28(%rbp)
+    54c5:	jmp    54d5 <utf16_literal_to_utf8+0x155>
+    54ca:	movb   $0x6,-0x3b(%rbp)
+    54ce:	mov    -0x2c(%rbp),%eax
+    54d1:	mov    %rax,-0x28(%rbp)
+    54d5:	cmpq   $0x80,-0x28(%rbp)
+    54dd:	jae    54ec <utf16_literal_to_utf8+0x16c>
+    54e3:	movb   $0x1,-0x39(%rbp)
+    54e7:	jmp    5551 <utf16_literal_to_utf8+0x1d1>
+    54ec:	cmpq   $0x800,-0x28(%rbp)
+    54f4:	jae    5507 <utf16_literal_to_utf8+0x187>
+    54fa:	movb   $0x2,-0x39(%rbp)
+    54fe:	movb   $0xc0,-0x3c(%rbp)
+    5502:	jmp    554c <utf16_literal_to_utf8+0x1cc>
+    5507:	cmpq   $0x10000,-0x28(%rbp)
+    550f:	jae    5522 <utf16_literal_to_utf8+0x1a2>
+    5515:	movb   $0x3,-0x39(%rbp)
+    5519:	movb   $0xe0,-0x3c(%rbp)
+    551d:	jmp    5547 <utf16_literal_to_utf8+0x1c7>
+    5522:	cmpq   $0x10ffff,-0x28(%rbp)
+    552a:	ja     553d <utf16_literal_to_utf8+0x1bd>
+    5530:	movb   $0x4,-0x39(%rbp)
+    5534:	movb   $0xf0,-0x3c(%rbp)
+    5538:	jmp    5542 <utf16_literal_to_utf8+0x1c2>
+    553d:	jmp    5601 <utf16_literal_to_utf8+0x281>
+    5542:	jmp    5547 <utf16_literal_to_utf8+0x1c7>
+    5547:	jmp    554c <utf16_literal_to_utf8+0x1cc>
+    554c:	jmp    5551 <utf16_literal_to_utf8+0x1d1>
+    5551:	movzbl -0x39(%rbp),%eax
+    5555:	sub    $0x1,%eax
+    5558:	mov    %al,-0x3a(%rbp)
+    555b:	movzbl -0x3a(%rbp),%eax
+    555f:	cmp    $0x0,%eax
+    5562:	jle    55a1 <utf16_literal_to_utf8+0x221>
+    5568:	mov    -0x28(%rbp),%rax
+    556c:	or     $0x80,%rax
+    5572:	and    $0xbf,%rax
+    5578:	mov    %al,%dl
+    557a:	mov    -0x20(%rbp),%rax
+    557e:	mov    (%rax),%rax
+    5581:	movzbl -0x3a(%rbp),%ecx
+    5585:	mov    %dl,(%rax,%rcx,1)
+    5588:	mov    -0x28(%rbp),%rax
+    558c:	shr    $0x6,%rax
+    5590:	mov    %rax,-0x28(%rbp)
+    5594:	mov    -0x3a(%rbp),%al
+    5597:	add    $0xff,%al
+    5599:	mov    %al,-0x3a(%rbp)
+    559c:	jmp    555b <utf16_literal_to_utf8+0x1db>
+    55a1:	movzbl -0x39(%rbp),%eax
+    55a5:	cmp    $0x1,%eax
+    55a8:	jle    55cf <utf16_literal_to_utf8+0x24f>
+    55ae:	mov    -0x28(%rbp),%rax
+    55b2:	movzbl -0x3c(%rbp),%ecx
+    55b6:	or     %rcx,%rax
+    55b9:	and    $0xff,%rax
+    55bf:	mov    %al,%cl
+    55c1:	mov    -0x20(%rbp),%rax
+    55c5:	mov    (%rax),%rax
+    55c8:	mov    %cl,(%rax)
+    55ca:	jmp    55e2 <utf16_literal_to_utf8+0x262>
+    55cf:	mov    -0x28(%rbp),%rax
+    55d3:	and    $0x7f,%rax
+    55d7:	mov    %al,%cl
+    55d9:	mov    -0x20(%rbp),%rax
+    55dd:	mov    (%rax),%rax
+    55e0:	mov    %cl,(%rax)
+    55e2:	movzbl -0x39(%rbp),%edx
+    55e6:	mov    -0x20(%rbp),%rax
+    55ea:	mov    (%rax),%rcx
+    55ed:	movslq %edx,%rdx
+    55f0:	add    %rdx,%rcx
+    55f3:	mov    %rcx,(%rax)
+    55f6:	mov    -0x3b(%rbp),%al
+    55f9:	mov    %al,-0x1(%rbp)
+    55fc:	jmp    5605 <utf16_literal_to_utf8+0x285>
+    5601:	movb   $0x0,-0x1(%rbp)
+    5605:	movzbl -0x1(%rbp),%eax
+    5609:	add    $0x50,%rsp
+    560d:	pop    %rbp
+    560e:	ret
+
+Disassembly of section .fini:

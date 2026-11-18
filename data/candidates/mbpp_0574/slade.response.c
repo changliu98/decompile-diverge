@@ -1,0 +1,1 @@
+double func0(uint32_t x, uint32_t y) { double z; z = x * x * x + 3 * x * y; return z; }

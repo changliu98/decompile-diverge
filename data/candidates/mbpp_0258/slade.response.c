@@ -1,0 +1,1 @@
+__attribute__((no, noclone)) int func0 (int *p, int N) { int ret = 0; for (int i = 0; i < N; ++i) if (p[i] % 2 != 0) ret++; return ret; }

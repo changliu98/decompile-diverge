@@ -1,0 +1,1 @@
+void add3(double *x, double *y) { *y++ += *x++; *y++ += *x++; *y++ += *x++; }

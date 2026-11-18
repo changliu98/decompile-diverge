@@ -1,0 +1,1 @@
+int func0(int *x, int N) { int *y = (int*) calloc((size_t) (N + 1), sizeof(int)); int ret = -1; for (int i = 0; i < N; i++) { y[x[i]]++; if (y[x[i]] >= x[i] && x[i] > ret) { ret = x[i]; } } free(y); return ret; }

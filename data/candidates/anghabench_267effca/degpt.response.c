@@ -1,0 +1,102 @@
+uint32_t compute_sparse_matrix_hash_bucket(uint32_t input_hash, int modulus_selector_index)
+{
+    // Select a prime modulus based on the prime_index to compute the hash bucket index.
+    // This implements a multiplicative hashing strategy using different prime numbers
+    // to reduce collision probability in sparse matrix indexing.
+    switch(modulus_selector_index) {
+    case 0: return 0;
+    case 1: return input_hash & 1;
+    case 2: return input_hash % 3;
+    case 3: return input_hash % 5;
+    case 4: return input_hash % 7;
+    case 5: return input_hash % 0xb;
+    case 6: return input_hash % 0xd;
+    case 7: return input_hash % 0x11;
+    case 8: return input_hash % 0x17;
+    case 9: return input_hash % 0x1d;
+    case 10: return input_hash % 0x25;
+    case 0xb: return input_hash % 0x2f;
+    case 0xc: return input_hash % 0x3b;
+    case 0xd: return input_hash % 0x49;
+    case 0xe: return input_hash % 0x61;
+    case 0xf: return input_hash % 0x7f;
+    case 0x10: return input_hash % 0x97;
+    case 0x11: return input_hash % 0xc5;
+    case 0x12: return input_hash % 0xfb;
+    case 0x13: return input_hash % 0x139;
+    case 0x14: return input_hash % 0x18d;
+    case 0x15: return input_hash % 499;
+    case 0x16: return input_hash % 0x277;
+    case 0x17: return input_hash % 0x31d;
+    case 0x18: return input_hash % 0x3f1;
+    case 0x19: return input_hash % 0x4eb;
+    case 0x1a: return input_hash % 0x63d;
+    case 0x1b: return input_hash % 0x7db;
+    case 0x1c: return input_hash % 0x9eb;
+    case 0x1d: return input_hash % 0xc83;
+    case 0x1e: return input_hash % 0xfbb;
+    case 0x1f: return input_hash % 0x13df;
+    case 0x20: return input_hash % 0x1915;
+    case 0x21: return input_hash % 0x1f99;
+    case 0x22: return input_hash % 0x27d1;
+    case 0x23: return input_hash % 0x3235;
+    case 0x24: return input_hash % 0x3f41;
+    case 0x25: return input_hash % 0x4faf;
+    case 0x26: return input_hash % 0x6475;
+    case 0x27: return input_hash % 0x7e91;
+    case 0x28: return input_hash % 0x9f77;
+    case 0x29: return input_hash % 0xc8ed;
+    case 0x2a: return input_hash % 0xfd2b;
+    case 0x2b: return input_hash % 0x13ef1;
+    case 0x2c: return input_hash % 0x191dd;
+    case 0x2d: return input_hash % 0x1fa47;
+    case 0x2e: return input_hash % 0x27deb;
+    case 0x2f: return input_hash % 0x323bf;
+    case 0x30: return input_hash % 0x3f49d;
+    case 0x31: return input_hash % 0x4fbd9;
+    case 0x32: return input_hash % 0x64787;
+    case 0x33: return input_hash % 0x7e96d;
+    case 0x34: return input_hash % 0x9f7d3;
+    case 0x35: return input_hash % 0xc8f4d;
+    case 0x36: return input_hash % 0xfd303;
+    case 0x37: return input_hash % 0x13efe9;
+    case 0x38: return input_hash % 0x191e9d;
+    case 0x39: return input_hash % 0x1fa611;
+    case 0x3a: return input_hash % 0x27dfed;
+    case 0x3b: return input_hash % 0x323d49;
+    case 0x3c: return input_hash % 0x3f4c37;
+    case 0x3d: return input_hash % 0x4fbffb;
+    case 0x3e: return input_hash % 0x647a97;
+    case 0x3f: return input_hash % 0x7e9869;
+    case 0x40: return input_hash % 0x9f800f;
+    case 0x41: return input_hash % 0xc8f539;
+    case 0x42: return input_hash % 0xfd30e7;
+    case 0x43: return input_hash % 0x13f0031;
+    case 0x44: return input_hash % 0x191ea81;
+    case 0x45: return input_hash % 0x1fa61e9;
+    case 0x46: return input_hash % 0x27e0081;
+    case 0x47: return input_hash % 0x323d521;
+    case 0x48: return input_hash % 0x3f4c409;
+    case 0x49: return input_hash % 0x4fc012d;
+    case 0x4a: return input_hash % 0x647aa43;
+    case 0x4b: return input_hash % 0x7e987ef;
+    case 0x4c: return input_hash % 0x9f80263;
+    case 0x4d: return input_hash % 0xc8f5489;
+    case 0x4e: return input_hash % 0xfd31009;
+    case 0x4f: return input_hash % 0x13f004cb;
+    case 0x50: return input_hash % 0x191ea927;
+    case 0x51: return input_hash % 0x1fa61ffd;
+    case 0x52: return input_hash % 0x27e009b9;
+    case 0x53: return input_hash % 0x323d525b;
+    case 0x54: return input_hash % 0x3f4c3ff9;
+    case 0x55: return input_hash % 0x4fc01359;
+    case 0x56: return input_hash % 0x647aa4bf;
+    case 0x57: return input_hash % 0x7e987ff7;
+    case 0x58: return input_hash % 0x9f8026c9;
+    case 0x59: return input_hash % 0xc8f54987;
+    case 0x5a: return input_hash % 0xfd31000f;
+    case 0x5b: return input_hash % 0xfffffffb;
+    }
+    // Fallback: if prime_index is out of range, return the hash as-is.
+    return input_hash;
+}

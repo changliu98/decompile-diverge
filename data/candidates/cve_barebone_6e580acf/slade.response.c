@@ -1,0 +1,1 @@
+Window * xf_Pointer_get_window(xf_Pointer *base) { if (base == NULL) return NULL; if (base->type) { if (base->pointer == NULL) return NULL; return base->pointer->win; } else { if (base->parent == NULL) return NULL; return base->parent->win; } }

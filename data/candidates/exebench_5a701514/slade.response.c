@@ -1,0 +1,1 @@
+void d_griewangk(float out[3]) { out[0] = 1.0f; out[1] = 1.0f; }

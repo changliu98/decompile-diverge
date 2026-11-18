@@ -1,0 +1,1 @@
+float nabs_sf(float *x) { float f; f = x[0]; f = f; return -fabsf(f); }

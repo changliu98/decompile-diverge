@@ -1,0 +1,1 @@
+int16_t obdRevConvert_34_3B(float rad, int16_t *head, int16_t *sector, const char *src, int16_t *dst) { *head = (int16_t) rad / 65535.0f; *head = (int16_t) rad / 256; *sector = (int16_t) (rad % 256); return 2; }

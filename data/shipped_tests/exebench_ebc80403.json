@@ -1,0 +1,297 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <math.h>\n\n#include <string.h>\n\n#include <stdlib.h>\n\n#include <stdio.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_35qeof2xdw.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(double* vec1, double value, double* vec2) {\n  json output_json;\n  std::vector<json> output_temp_3;\n  for (unsigned int i4 = 0; i4 < 3; i4++) {\n    double output_temp_5 = vec1[i4];\n\n    output_temp_3.push_back(output_temp_5);\n  }\n  output_json[\"vec1\"] = output_temp_3;\n  std::vector<json> output_temp_6;\n  for (unsigned int i7 = 0; i7 < 3; i7++) {\n    double output_temp_8 = vec2[i7];\n\n    output_temp_6.push_back(output_temp_8);\n  }\n  output_json[\"vec2\"] = output_temp_6;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  std::vector<double> input_temp_1_vec;\n  for (auto& elem : input_json[\"vec1\"]) {\n    double input_temp_1_inner = elem;\n    input_temp_1_vec.push_back(input_temp_1_inner);\n  }\n  double* vec1 = &input_temp_1_vec[0];\n  double value = input_json[\"value\"];\n  std::vector<double> input_temp_2_vec;\n  for (auto& elem : input_json[\"vec2\"]) {\n    double input_temp_2_inner = elem;\n    input_temp_2_vec.push_back(input_temp_2_inner);\n  }\n  double* vec2 = &input_temp_2_vec[0];\n  clock_t begin = clock();\n  Vec3MultValue(vec1, value, vec2);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(vec1, value, vec2);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "vec1": [
+     39.2828552804,
+     22.1764940455,
+     35.0844583705
+    ],
+    "value": 0.0637604873356,
+    "vec2": [
+     70.5674182892,
+     51.249398493,
+     76.9685360766
+    ]
+   },
+   "output": {
+    "vec1": [
+     39.2828552804,
+     22.1764940455,
+     35.0844583705
+    ],
+    "vec2": [
+     2.5046939966121515,
+     1.4139840677361115,
+     2.2370021636086506
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "vec1": [
+     19.8493341389,
+     30.6058613349,
+     74.9958328598
+    ],
+    "value": 67.0335789356,
+    "vec2": [
+     96.19688233,
+     4.65068328089,
+     99.4189562492
+    ]
+   },
+   "output": {
+    "vec1": [
+     19.8493341389,
+     30.6058613349,
+     74.9958328598
+    ],
+    "vec2": [
+     1330.5719068190533,
+     2051.6204216850474,
+     5027.239081848468
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "vec1": [
+     86.9969544346,
+     26.3219850606,
+     41.8144712453
+    ],
+    "value": 6.74876465855,
+    "vec2": [
+     63.2500960951,
+     75.3071228739,
+     14.496122308
+    ]
+   },
+   "output": {
+    "vec1": [
+     86.9969544346,
+     26.3219850606,
+     41.8144712453
+    ],
+    "vec2": [
+     587.1219714897131,
+     177.64088251985837,
+     282.1960257562358
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "vec1": [
+     49.0863579544,
+     24.2491339246,
+     52.8518293
+    ],
+    "value": 89.9969516378,
+    "vec2": [
+     65.491539464,
+     12.6043578549,
+     36.9409462713
+    ]
+   },
+   "output": {
+    "vec1": [
+     49.0863579544,
+     24.2491339246,
+     52.8518293
+    ],
+    "vec2": [
+     4417.622582897876,
+     2182.3481330707614,
+     4756.503525481361
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "vec1": [
+     57.9456965286,
+     75.2120838167,
+     38.4100515492
+    ],
+    "value": 97.2079898496,
+    "vec2": [
+     53.9188649238,
+     77.7288239007,
+     72.3704872208
+    ]
+   },
+   "output": {
+    "vec1": [
+     57.9456965286,
+     75.2120838167,
+     38.4100515492
+    ],
+    "vec2": [
+     5632.784679980151,
+     7311.215480221038,
+     3733.763901117246
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "vec1": [
+     2.95626275424,
+     93.9732252499,
+     75.680823716
+    ],
+    "value": 77.7216797177,
+    "vec2": [
+     75.968256505,
+     26.7991811638,
+     52.0042172732
+    ]
+   },
+   "output": {
+    "vec1": [
+     2.95626275424,
+     93.9732252499,
+     75.680823716
+    ],
+    "vec2": [
+     229.76570694640694,
+     7303.756914912006,
+     5882.040741626667
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "vec1": [
+     10.2962379087,
+     98.3013763803,
+     66.6271948654
+    ],
+    "value": 99.0055860743,
+    "vec2": [
+     10.9384773265,
+     77.5832186777,
+     54.0347306096
+    ]
+   },
+   "output": {
+    "vec1": [
+     10.2962379087,
+     98.3013763803,
+     66.6271948654
+    ],
+    "vec2": [
+     1019.3850685112685,
+     9732.385380441952,
+     6596.464476135518
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "vec1": [
+     45.9265766084,
+     36.580298231,
+     91.3635120376
+    ],
+    "value": 12.0322581062,
+    "vec2": [
+     64.9153502577,
+     15.7225210415,
+     53.6632581678
+    ]
+   },
+   "output": {
+    "vec1": [
+     45.9265766084,
+     36.580298231,
+     91.3635120376
+    ],
+    "vec2": [
+     552.6004236864362,
+     440.1435899171633,
+     1099.309358325314
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "vec1": [
+     67.8018173491,
+     10.5588192596,
+     0.127822442756
+    ],
+    "value": 30.1490183566,
+    "vec2": [
+     4.63048466892,
+     53.5285025615,
+     41.3202148689
+    ]
+   },
+   "output": {
+    "vec1": [
+     67.8018173491,
+     10.5588192596,
+     0.127822442756
+    ],
+    "vec2": [
+     2044.1582358688563,
+     318.338035681702,
+     3.8537211730360963
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "vec1": [
+     8.43353437046,
+     45.7039506375,
+     52.7401236411
+    ],
+    "value": 7.88913241648,
+    "vec2": [
+     14.3804736579,
+     52.5296769199,
+     45.7378718401
+    ]
+   },
+   "output": {
+    "vec1": [
+     8.43353437046,
+     45.7039506375,
+     52.7401236411
+    ],
+    "vec2": [
+     66.53326938749424,
+     360.564518535503,
+     416.0738190661652
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

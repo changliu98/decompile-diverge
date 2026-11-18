@@ -1,0 +1,1 @@
+void gitn_box_del(void *data) { gitn_box *box = (gitn_box *)data; if (!box) return ; for (unsigned i = 0; i < box->strip_count; i++) { if (box->strips[i].data) gf_free(box->strips[i].data); } if (box->strips) gf_free(box->strips); gf_free(box); }

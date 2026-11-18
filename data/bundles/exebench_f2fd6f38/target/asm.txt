@@ -1,0 +1,61 @@
+00000000000011e0 <find_max_idx>:
+    11e0:	push   %rbp
+    11e1:	mov    %rsp,%rbp
+    11e4:	mov    %rdi,-0x10(%rbp)
+    11e8:	xorps  %xmm0,%xmm0
+    11eb:	movss  %xmm0,-0x14(%rbp)
+    11f0:	movl   $0xffffffff,-0x18(%rbp)
+    11f7:	movl   $0x0,-0x1c(%rbp)
+    11fe:	cmpl   $0x10,-0x1c(%rbp)
+    1202:	jge    124a <find_max_idx+0x6a>
+    1208:	mov    -0x10(%rbp),%rax
+    120c:	movslq -0x1c(%rbp),%rcx
+    1210:	movss  (%rax,%rcx,4),%xmm0
+    1215:	ucomiss -0x14(%rbp),%xmm0
+    1219:	jbe    1237 <find_max_idx+0x57>
+    121f:	mov    -0x10(%rbp),%rax
+    1223:	movslq -0x1c(%rbp),%rcx
+    1227:	movss  (%rax,%rcx,4),%xmm0
+    122c:	movss  %xmm0,-0x14(%rbp)
+    1231:	mov    -0x1c(%rbp),%eax
+    1234:	mov    %eax,-0x18(%rbp)
+    1237:	jmp    123c <find_max_idx+0x5c>
+    123c:	mov    -0x1c(%rbp),%eax
+    123f:	add    $0x1,%eax
+    1242:	mov    %eax,-0x1c(%rbp)
+    1245:	jmp    11fe <find_max_idx+0x1e>
+    124a:	cmpl   $0x0,-0x18(%rbp)
+    124e:	jge    1260 <find_max_idx+0x80>
+    1254:	movl   $0xffffffff,-0x4(%rbp)
+    125b:	jmp    12d7 <find_max_idx+0xf7>
+    1260:	movss  -0x14(%rbp),%xmm0
+    1265:	cvtss2sd %xmm0,%xmm0
+    1269:	movsd  0xd97(%rip),%xmm1        # 2008 <_IO_stdin_used+0x8>
+    1271:	mulsd  %xmm1,%xmm0
+    1275:	cvtsd2ss %xmm0,%xmm0
+    1279:	movss  %xmm0,-0x14(%rbp)
+    127e:	movl   $0x0,-0x1c(%rbp)
+    1285:	cmpl   $0x10,-0x1c(%rbp)
+    1289:	jge    12d1 <find_max_idx+0xf1>
+    128f:	mov    -0x18(%rbp),%eax
+    1292:	cmp    -0x1c(%rbp),%eax
+    1295:	je     12be <find_max_idx+0xde>
+    129b:	mov    -0x10(%rbp),%rax
+    129f:	movslq -0x1c(%rbp),%rcx
+    12a3:	movss  (%rax,%rcx,4),%xmm0
+    12a8:	ucomiss -0x14(%rbp),%xmm0
+    12ac:	jbe    12be <find_max_idx+0xde>
+    12b2:	movl   $0xffffffff,-0x4(%rbp)
+    12b9:	jmp    12d7 <find_max_idx+0xf7>
+    12be:	jmp    12c3 <find_max_idx+0xe3>
+    12c3:	mov    -0x1c(%rbp),%eax
+    12c6:	add    $0x1,%eax
+    12c9:	mov    %eax,-0x1c(%rbp)
+    12cc:	jmp    1285 <find_max_idx+0xa5>
+    12d1:	mov    -0x18(%rbp),%eax
+    12d4:	mov    %eax,-0x4(%rbp)
+    12d7:	mov    -0x4(%rbp),%eax
+    12da:	pop    %rbp
+    12db:	ret
+
+Disassembly of section .fini:

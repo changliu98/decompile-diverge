@@ -1,0 +1,1 @@
+void test_mean2(double *b, double *a, int n) { double sum = 0.0; double sum2 = 0.0; int i; for (i = 0; i < 2*n; i += 2) sum += a[i]; for (i = 0; i < 2*n; i += 2) sum2 += a[i+1]; b[0] = sum/n; b[1] = sum2/n; }

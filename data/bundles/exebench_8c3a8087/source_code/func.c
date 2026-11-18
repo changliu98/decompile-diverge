@@ -1,0 +1,9 @@
+#include <math.h>
+
+void
+vset(float *v, float x, float y, float z)
+{
+    v[0] = x;
+    v[1] = y;
+    v[2] = z;
+}

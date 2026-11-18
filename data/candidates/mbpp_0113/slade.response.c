@@ -1,0 +1,1 @@
+int func0(char *s) { int l = strlen(s); int m; while (*s == ' ') { s++; l--; } if (l < 1) return -1; if (*s == '+' || *s == '-') { for (m = 1; m < l; m++) { if (s[m] < '0' || s[m] > '9') return 0; } return 1; } for (m = 0; m < l; m++) { if (s[m] < '0' || s[m] > '9') return 0; } return 1; }

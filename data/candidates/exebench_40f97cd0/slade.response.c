@@ -1,0 +1,1 @@
+void getNums(int nums[]) { for (int i = 0; i < 4; i++) { nums[i] = i*2; } }

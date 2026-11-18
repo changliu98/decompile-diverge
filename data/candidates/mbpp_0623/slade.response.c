@@ -1,0 +1,1 @@
+void func0(int *x, int m, int n, int *y) { for (int i = 0; i < m; ++i) y[i] = (int)pow((double)x[i], (double)n); }

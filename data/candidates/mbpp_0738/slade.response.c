@@ -1,0 +1,1 @@
+double func0(int x) { if (x < 0) { return 0; } else { return (1.0 / pow(2.0, (double)x)) + func0(x - 1); } }

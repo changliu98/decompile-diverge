@@ -1,0 +1,1 @@
+char* func0(int* nums, int n) { int sum = 0; for (int i = 0; i < n; i++) { sum = nums[i] * pow(10.0, (double) (n - 1 - i)) + sum; } char* str = (char*) malloc(sizeof(char) * 12); sprintf(str, "%d", sum); return str; }

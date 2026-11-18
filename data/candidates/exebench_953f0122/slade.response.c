@@ -1,0 +1,1 @@
+int murmur3_init_hash(struct hlist_head *h) { h->version =0x10; return 0; }

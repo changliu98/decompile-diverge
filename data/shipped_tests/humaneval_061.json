@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n#include <stdbool.h>\n#include <string.h>\n\nbool func0(const char *brackets) {\n    int level = 0;\n    for (int i = 0; i < strlen(brackets); i++) {\n        if (brackets[i] == '(') level += 1;\n        if (brackets[i] == ')') level -= 1;\n        if (level < 0) return false;\n    }\n    return level == 0;\n}",
+ "c_test": "#include <assert.h>\n#include <stdbool.h>\n\nint main() {\n    assert(func0(\"()\"));\n    assert(func0(\"(()())\"));\n    assert(func0(\"()()(()())()\"));\n    assert(func0(\"()()((()()())())(()()(()))\"));\n    assert(!func0(\"((()())))\"));\n    assert(!func0(\")(()\"));\n    assert(!func0(\"(\"));\n    assert(!func0(\"((((\"));\n    assert(!func0(\")\"));\n    assert(!func0(\"(()\"));\n    assert(!func0(\"()()(()())())(()\"));\n    assert(!func0(\"()()(()())()))()\"));\n\n    return 0;\n}"
+}

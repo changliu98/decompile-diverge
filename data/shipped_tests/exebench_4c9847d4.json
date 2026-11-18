@@ -1,0 +1,177 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <stdio.h>\n\n#include <stdlib.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_54sy60mcoz.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(unsigned char in, int insz, unsigned char out, int outsz, int format, int format2, int returnv) {\n  json output_json;\n\n  output_json[\"in\"] = in;\n\n  output_json[\"out\"] = out;\n\n  output_json[\"returnv\"] = returnv;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  unsigned char in = input_json[\"in\"];\n  int insz = input_json[\"insz\"];\n  unsigned char out = input_json[\"out\"];\n  int outsz = input_json[\"outsz\"];\n  int format = input_json[\"format\"];\n  int format2 = input_json[\"format2\"];\n  clock_t begin = clock();\n  int returnv = lunar_uncompress(in, insz, out, outsz, format, format2);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(in, insz, out, outsz, format, format2, returnv);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "in": 513,
+    "insz": 37,
+    "out": 509,
+    "outsz": 50,
+    "format": 70,
+    "format2": 7
+   },
+   "output": {
+    "in": 1,
+    "out": 253,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "in": 632,
+    "insz": 54,
+    "out": 374,
+    "outsz": 19,
+    "format": 86,
+    "format2": 49
+   },
+   "output": {
+    "in": 120,
+    "out": 118,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "in": 672,
+    "insz": 95,
+    "out": 230,
+    "outsz": 41,
+    "format": 49,
+    "format2": 104
+   },
+   "output": {
+    "in": 160,
+    "out": 230,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "in": 316,
+    "insz": 45,
+    "out": 94,
+    "outsz": 122,
+    "format": 112,
+    "format2": 126
+   },
+   "output": {
+    "in": 60,
+    "out": 94,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "in": 601,
+    "insz": 12,
+    "out": 714,
+    "outsz": 108,
+    "format": 99,
+    "format2": 62
+   },
+   "output": {
+    "in": 89,
+    "out": 202,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "in": 433,
+    "insz": 101,
+    "out": 863,
+    "outsz": 83,
+    "format": 50,
+    "format2": 41
+   },
+   "output": {
+    "in": 177,
+    "out": 95,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "in": 812,
+    "insz": 57,
+    "out": 793,
+    "outsz": 63,
+    "format": 55,
+    "format2": 38
+   },
+   "output": {
+    "in": 44,
+    "out": 25,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "in": 451,
+    "insz": 88,
+    "out": 672,
+    "outsz": 115,
+    "format": 40,
+    "format2": 18
+   },
+   "output": {
+    "in": 195,
+    "out": 160,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "in": 306,
+    "insz": 2,
+    "out": 81,
+    "outsz": 48,
+    "format": 45,
+    "format2": 69
+   },
+   "output": {
+    "in": 50,
+    "out": 81,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "in": 48,
+    "insz": 74,
+    "out": 761,
+    "outsz": 70,
+    "format": 109,
+    "format2": 67
+   },
+   "output": {
+    "in": 48,
+    "out": 249,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

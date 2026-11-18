@@ -1,0 +1,1 @@
+int __attribute__ ((__unused__)) wdl_atomic_incr(wdl_atomic_t *v) { return __builtin_lock__(&v->count) + 1; }

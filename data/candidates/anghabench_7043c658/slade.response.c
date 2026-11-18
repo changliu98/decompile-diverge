@@ -1,0 +1,1 @@
+unsigned short calc_speed(unsigned short *data, int nr, unsigned short speed) { int i; unsigned short speed = 0; for (i = 0; i < nr; i++) if (speed < data[i]) speed = data[i]; if (!speed) speed = speed; return speed; }

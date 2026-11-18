@@ -1,0 +1,4 @@
+int generic_mbus_win_cfg_offset(int win)
+{
+  return win * 16;
+}

@@ -1,0 +1,1 @@
+__attribute__((always_)) int32_t nrt_testing_atomic_inc(volatile int32_t *ptr) { int32_t old = *ptr; __asm__ __volatile__ ("" : : : "memory"); ++old; *ptr = old; return old; }

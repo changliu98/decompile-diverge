@@ -1,0 +1,1 @@
+int func0(int x, int y) { int tmp; if (y < x) { tmp = x; x = y; y = tmp; } return (x * (x + 1) * (2 * x + 1)) / 2 + (x * (y - x) * (x + 1)) / 2; }

@@ -1,0 +1,478 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+s], rdi\nmov     rax, [rbp+s]\nmov     rax, [rax+8]\nmov     [rbp+pb], rax\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     [rbp+c], rax\nmov     rdi, [rbp+pb]; s\ncall    avio_rl32\nmov     [rbp+tag], eax\ncmp     [rbp+tag], 41584544h\njz      loc_14B8\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_18F2\nmov     rdi, [rbp+pb]; s\ncall    avio_r8\nmov     [rbp+flags], eax\nmov     rdi, [rbp+pb]; s\ncall    avio_rb16\nmov     ecx, eax\nmov     rax, [rbp+c]\nmov     [rax], ecx\nmov     rax, [rbp+c]\ncmp     dword ptr [rax], 0\njnz     loc_1505\nmov     rdi, [rbp+s]; avcl\nmov     esi, 10h; level\nlea     rdx, fmt; \"File contains no frames ???\\n\"\nmov     al, 0\ncall    av_log\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_18F2\nmov     rdi, [rbp+pb]; s\ncall    avio_rb32\nmov     [rbp+fps], eax\ncmp     [rbp+fps], 0\njle     loc_152D\nmov     [rbp+den], 3E8h\nmov     eax, [rbp+fps]\nmov     [rbp+num], eax\njmp     loc_156B\ncmp     [rbp+fps], 0\njge     loc_1558\ncmp     [rbp+fps], 80000000h\njle     loc_1558\nmov     [rbp+den], 186A0h\nxor     eax, eax\nsub     eax, [rbp+fps]\nmov     [rbp+num], eax\njmp     loc_1566\nmov     [rbp+den], 0Ah\nmov     [rbp+num], 1\njmp     $+5\nmov     rdi, [rbp+pb]; s\ncall    avio_rb16\nmov     [rbp+w], eax\nmov     rdi, [rbp+pb]; s\ncall    avio_rb16\nmov     [rbp+h], eax\nmov     rax, [rbp+c]\nmov     dword ptr [rax+4], 0\nmov     rdi, [rbp+s]; s\nxor     eax, eax\nmov     esi, eax; c\ncall    avformat_new_stream\nmov     [rbp+st], rax\ncmp     [rbp+st], 0\njnz     loc_15B6\nmov     [rbp+var_4], 0FFFFFFF4h\njmp     loc_18F2\nmov     rdi, [rbp+pb]; s\ncall    avio_rl32\ncmp     eax, 45564157h\njnz     loc_17EA\nmov     rax, [rbp+c]\nmov     dword ptr [rax+4], 1\nmov     rdi, [rbp+pb]; s\ncall    avio_rb32\nmov     [rbp+size], eax\nmov     rdi, [rbp+pb]; s\ncall    avio_tell\nmov     rcx, rax\nmov     eax, [rbp+size]\nadd     rcx, rax\nmov     rax, [rbp+c]\nmov     [rax+18h], rcx\nmov     rdi, [rbp+pb]; s\nmov     esi, 10h; offset\ncall    x2realloc\nmov     rdi, [rbp+pb]; s\ncall    avio_rl32\nmov     [rbp+fsize], eax\nmov     rdi, [rbp+s]; s\nxor     eax, eax\nmov     esi, eax; c\ncall    avformat_new_stream\nmov     [rbp+ast], rax\ncmp     [rbp+ast], 0\njnz     loc_163D\nmov     [rbp+var_4], 0FFFFFFF4h\njmp     loc_18F2\nmov     rdi, [rbp+s]; logctx\nmov     rsi, [rbp+pb]; pb\nmov     rax, [rbp+ast]\nmov     rdx, [rax]; par\nmov     ecx, [rbp+fsize]; size\nxor     r8d, r8d; big_endian\ncall    ff_get_wav_header\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njge     loc_166F\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_18F2\nmov     rax, [rbp+ast]\nmov     rax, [rax]\ncmp     dword ptr [rax+10h], 0\njle     loc_169D\nmov     rdi, [rbp+ast]; s\nmov     rax, [rbp+ast]\nmov     rax, [rax]\nmov     ecx, [rax+10h]; den\nmov     esi, 40h ; '@'; pts_wrap_bits\nmov     edx, 1; num\ncall    avpriv_set_pts_info\njmp     $+5\nmov     rdi, [rbp+pb]; s\ncall    avio_tell\nmov     rcx, rax\nmov     rdx, [rbp+c]\nxor     eax, eax\ncmp     rcx, [rdx+18h]\nmov     [rbp+var_59], al\njge     loc_16D5\nmov     rdi, [rbp+pb]; s\ncall    avio_feof\ncmp     eax, 0\nsetnz   al\nxor     al, 0FFh\nmov     [rbp+var_59], al\nmov     al, [rbp+var_59]\ntest    al, 1\njnz     loc_16E5\njmp     loc_1722\nmov     rdi, [rbp+pb]; s\ncall    avio_rl32\nmov     [rbp+tag], eax\nmov     rdi, [rbp+pb]; s\ncall    avio_rl32\nmov     [rbp+fsize], eax\ncmp     [rbp+tag], 61746164h\njnz     loc_170F\njmp     loc_1722\nmov     rdi, [rbp+pb]; s\nmov     eax, [rbp+fsize]\nmov     esi, eax; offset\ncall    x2realloc\njmp     loc_16A2\nmov     eax, [rbp+fsize]\nmov     rcx, [rbp+c]\nmovsxd  rcx, dword ptr [rcx]\nadd     rax, rcx\nsub     rax, 1\nmov     rcx, [rbp+c]\nmovsxd  rcx, dword ptr [rcx]\ncqo\nidiv    rcx\nmov     ecx, eax\nmov     rax, [rbp+c]\nmov     [rax+8], ecx\nmov     rax, [rbp+ast]\nmov     rax, [rax]\ncmp     dword ptr [rax+14h], 0\njz      loc_17B9\nmov     rax, [rbp+c]\nmov     eax, [rax+8]\nmov     rcx, [rbp+ast]\nmov     rdx, [rcx]\nmov     ecx, 7FFFFFFFh\nsub     ecx, [rdx+14h]\nadd     ecx, 1\ncmp     eax, ecx\njle     loc_1786\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_18F2\nmov     rax, [rbp+c]\nmov     eax, [rax+8]\nmov     rcx, [rbp+ast]\nmov     rcx, [rcx]\nadd     eax, [rcx+14h]\nsub     eax, 1\nmov     rcx, [rbp+ast]\nmov     rcx, [rcx]\ncdq\nidiv    dword ptr [rcx+14h]\nmov     ecx, eax\nmov     rax, [rbp+ast]\nmov     rax, [rax]\nimul    ecx, [rax+14h]\nmov     rax, [rbp+c]\nmov     [rax+8], ecx\nmov     ecx, [rbp+fsize]\nmov     rax, [rbp+c]\nmov     [rax+0Ch], ecx\nmov     rdi, [rbp+pb]; s\ncall    avio_tell\nmov     rcx, rax\nmov     rax, [rbp+c]\nmov     [rax+10h], rcx\nmov     rdi, [rbp+pb]; s\nmov     rax, [rbp+c]\nmov     rsi, [rax+18h]; offset\nxor     edx, edx; whence\ncall    avio_seek\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     dword ptr [rax], 0\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     dword ptr [rax+4], 15000h\nmov     ecx, [rbp+w]\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     [rax+8], ecx\nmov     ecx, [rbp+h]\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     [rax+0Ch], ecx\nmovsxd  rdx, [rbp+den]; num\nmovsxd  rcx, [rbp+num]; den\nlea     rdi, [rbp+den]; dst_num\nlea     rsi, [rbp+num]; dst_den\nmov     r8d, 7FFFFFFFh; max\ncall    av_reduce\nmov     rdi, [rbp+st]; s\nmov     edx, [rbp+num]; num\nmov     ecx, [rbp+den]; den\nmov     esi, 21h ; '!'; pts_wrap_bits\ncall    avpriv_set_pts_info\nmov     eax, [rbp+flags]\nand     eax, 0C0h\ncmp     eax, 0\njz      loc_186F\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     ecx, [rax+0Ch]\nsar     ecx, 1\nmov     [rax+0Ch], ecx\nmov     rax, [rbp+c]\ncmp     dword ptr [rax+4], 0\nsetnz   al\nxor     al, 0FFh\nand     al, 1\nmovzx   ecx, al\nmov     rax, [rbp+c]\nmov     [rax+20h], ecx\nmov     rdi, [rbp+pb]; s\ncall    avio_tell\nmov     rcx, rax\nmov     rax, [rbp+c]\nmov     [rax+18h], rcx\nmov     rax, [rbp+s]\nmov     qword ptr [rax+10h], 0\nmov     rax, [rbp+c]\nmovsxd  rdi, dword ptr [rax]; a\nmovsxd  rax, [rbp+num]\nimul    rsi, rax, 0F4240h; b\nmovsxd  rdx, [rbp+den]; c\ncall    av_rescale\nmov     rcx, rax\nmov     rax, [rbp+s]\nmov     [rax+18h], rcx\nmov     rdi, [rbp+s]; avcl\nmov     rax, [rbp+c]\nmov     ecx, [rax]\nmov     esi, 30h ; '0'; level\nlea     rdx, aDFrameS; \"%d frame(s)\\n\"\nmov     al, 0\ncall    av_log\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 60h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 37,
+  "edges": [
+   [
+    "start",
+    "loc_14AC"
+   ],
+   [
+    "start",
+    "loc_14B8"
+   ],
+   [
+    "loc_14AC",
+    "loc_18F2"
+   ],
+   [
+    "loc_14B8",
+    "loc_14E2"
+   ],
+   [
+    "loc_14B8",
+    "loc_1505"
+   ],
+   [
+    "loc_14E2",
+    "loc_18F2"
+   ],
+   [
+    "loc_1505",
+    "loc_151B"
+   ],
+   [
+    "loc_1505",
+    "loc_152D"
+   ],
+   [
+    "loc_151B",
+    "loc_156B"
+   ],
+   [
+    "loc_152D",
+    "loc_1537"
+   ],
+   [
+    "loc_152D",
+    "loc_1558"
+   ],
+   [
+    "loc_1537",
+    "loc_1544"
+   ],
+   [
+    "loc_1537",
+    "loc_1558"
+   ],
+   [
+    "loc_1544",
+    "loc_1566"
+   ],
+   [
+    "loc_1558",
+    "loc_1566"
+   ],
+   [
+    "loc_1566",
+    "loc_156B"
+   ],
+   [
+    "loc_156B",
+    "loc_15AA"
+   ],
+   [
+    "loc_156B",
+    "loc_15B6"
+   ],
+   [
+    "loc_15AA",
+    "loc_18F2"
+   ],
+   [
+    "loc_15B6",
+    "loc_15CA"
+   ],
+   [
+    "loc_15B6",
+    "loc_17EA"
+   ],
+   [
+    "loc_15CA",
+    "loc_1631"
+   ],
+   [
+    "loc_15CA",
+    "loc_163D"
+   ],
+   [
+    "loc_1631",
+    "loc_18F2"
+   ],
+   [
+    "loc_163D",
+    "loc_1664"
+   ],
+   [
+    "loc_163D",
+    "loc_166F"
+   ],
+   [
+    "loc_1664",
+    "loc_18F2"
+   ],
+   [
+    "loc_166F",
+    "loc_1680"
+   ],
+   [
+    "loc_166F",
+    "loc_169D"
+   ],
+   [
+    "loc_1680",
+    "loc_169D"
+   ],
+   [
+    "loc_169D",
+    "loc_16A2"
+   ],
+   [
+    "loc_16A2",
+    "loc_16C1"
+   ],
+   [
+    "loc_16A2",
+    "loc_16D5"
+   ],
+   [
+    "loc_16C1",
+    "loc_16D5"
+   ],
+   [
+    "loc_16D5",
+    "loc_16E0"
+   ],
+   [
+    "loc_16D5",
+    "loc_16E5"
+   ],
+   [
+    "loc_16E0",
+    "loc_1722"
+   ],
+   [
+    "loc_16E5",
+    "loc_170A"
+   ],
+   [
+    "loc_16E5",
+    "loc_170F"
+   ],
+   [
+    "loc_170A",
+    "loc_1722"
+   ],
+   [
+    "loc_170F",
+    "loc_16A2"
+   ],
+   [
+    "loc_1722",
+    "loc_1759"
+   ],
+   [
+    "loc_1722",
+    "loc_17B9"
+   ],
+   [
+    "loc_1759",
+    "loc_177A"
+   ],
+   [
+    "loc_1759",
+    "loc_1786"
+   ],
+   [
+    "loc_177A",
+    "loc_18F2"
+   ],
+   [
+    "loc_1786",
+    "loc_17B9"
+   ],
+   [
+    "loc_17B9",
+    "loc_17EA"
+   ],
+   [
+    "loc_17EA",
+    "loc_185F"
+   ],
+   [
+    "loc_17EA",
+    "loc_186F"
+   ],
+   [
+    "loc_185F",
+    "loc_186F"
+   ],
+   [
+    "loc_186F",
+    "loc_18F2"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+s], rdi\nmov     rax, [rbp+s]\nmov     rax, [rax+8]\nmov     [rbp+pb], rax\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     [rbp+c], rax\nmov     rdi, [rbp+pb]; s\ncall    avio_rl32\nmov     [rbp+tag], eax\ncmp     [rbp+tag], 41584544h\njz      loc_14B8",
+   "loc_14AC": "mov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_18F2",
+   "loc_14B8": "mov     rdi, [rbp+pb]; s\ncall    avio_r8\nmov     [rbp+flags], eax\nmov     rdi, [rbp+pb]; s\ncall    avio_rb16\nmov     ecx, eax\nmov     rax, [rbp+c]\nmov     [rax], ecx\nmov     rax, [rbp+c]\ncmp     dword ptr [rax], 0\njnz     loc_1505",
+   "loc_14E2": "mov     rdi, [rbp+s]; avcl\nmov     esi, 10h; level\nlea     rdx, fmt; \"File contains no frames ???\\n\"\nmov     al, 0\ncall    av_log\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_18F2",
+   "loc_1505": "mov     rdi, [rbp+pb]; s\ncall    avio_rb32\nmov     [rbp+fps], eax\ncmp     [rbp+fps], 0\njle     loc_152D",
+   "loc_151B": "mov     [rbp+den], 3E8h\nmov     eax, [rbp+fps]\nmov     [rbp+num], eax\njmp     loc_156B",
+   "loc_152D": "cmp     [rbp+fps], 0\njge     loc_1558",
+   "loc_1537": "cmp     [rbp+fps], 80000000h\njle     loc_1558",
+   "loc_1544": "mov     [rbp+den], 186A0h\nxor     eax, eax\nsub     eax, [rbp+fps]\nmov     [rbp+num], eax\njmp     loc_1566",
+   "loc_1558": "mov     [rbp+den], 0Ah\nmov     [rbp+num], 1",
+   "loc_1566": "jmp     $+5",
+   "loc_156B": "mov     rdi, [rbp+pb]; s\ncall    avio_rb16\nmov     [rbp+w], eax\nmov     rdi, [rbp+pb]; s\ncall    avio_rb16\nmov     [rbp+h], eax\nmov     rax, [rbp+c]\nmov     dword ptr [rax+4], 0\nmov     rdi, [rbp+s]; s\nxor     eax, eax\nmov     esi, eax; c\ncall    avformat_new_stream\nmov     [rbp+st], rax\ncmp     [rbp+st], 0\njnz     loc_15B6",
+   "loc_15AA": "mov     [rbp+var_4], 0FFFFFFF4h\njmp     loc_18F2",
+   "loc_15B6": "mov     rdi, [rbp+pb]; s\ncall    avio_rl32\ncmp     eax, 45564157h\njnz     loc_17EA",
+   "loc_15CA": "mov     rax, [rbp+c]\nmov     dword ptr [rax+4], 1\nmov     rdi, [rbp+pb]; s\ncall    avio_rb32\nmov     [rbp+size], eax\nmov     rdi, [rbp+pb]; s\ncall    avio_tell\nmov     rcx, rax\nmov     eax, [rbp+size]\nadd     rcx, rax\nmov     rax, [rbp+c]\nmov     [rax+18h], rcx\nmov     rdi, [rbp+pb]; s\nmov     esi, 10h; offset\ncall    x2realloc\nmov     rdi, [rbp+pb]; s\ncall    avio_rl32\nmov     [rbp+fsize], eax\nmov     rdi, [rbp+s]; s\nxor     eax, eax\nmov     esi, eax; c\ncall    avformat_new_stream\nmov     [rbp+ast], rax\ncmp     [rbp+ast], 0\njnz     loc_163D",
+   "loc_1631": "mov     [rbp+var_4], 0FFFFFFF4h\njmp     loc_18F2",
+   "loc_163D": "mov     rdi, [rbp+s]; logctx\nmov     rsi, [rbp+pb]; pb\nmov     rax, [rbp+ast]\nmov     rdx, [rax]; par\nmov     ecx, [rbp+fsize]; size\nxor     r8d, r8d; big_endian\ncall    ff_get_wav_header\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njge     loc_166F",
+   "loc_1664": "mov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_18F2",
+   "loc_166F": "mov     rax, [rbp+ast]\nmov     rax, [rax]\ncmp     dword ptr [rax+10h], 0\njle     loc_169D",
+   "loc_1680": "mov     rdi, [rbp+ast]; s\nmov     rax, [rbp+ast]\nmov     rax, [rax]\nmov     ecx, [rax+10h]; den\nmov     esi, 40h ; '@'; pts_wrap_bits\nmov     edx, 1; num\ncall    avpriv_set_pts_info",
+   "loc_169D": "jmp     $+5",
+   "loc_16A2": "mov     rdi, [rbp+pb]; s\ncall    avio_tell\nmov     rcx, rax\nmov     rdx, [rbp+c]\nxor     eax, eax\ncmp     rcx, [rdx+18h]\nmov     [rbp+var_59], al\njge     loc_16D5",
+   "loc_16C1": "mov     rdi, [rbp+pb]; s\ncall    avio_feof\ncmp     eax, 0\nsetnz   al\nxor     al, 0FFh\nmov     [rbp+var_59], al",
+   "loc_16D5": "mov     al, [rbp+var_59]\ntest    al, 1\njnz     loc_16E5",
+   "loc_16E0": "jmp     loc_1722",
+   "loc_16E5": "mov     rdi, [rbp+pb]; s\ncall    avio_rl32\nmov     [rbp+tag], eax\nmov     rdi, [rbp+pb]; s\ncall    avio_rl32\nmov     [rbp+fsize], eax\ncmp     [rbp+tag], 61746164h\njnz     loc_170F",
+   "loc_170A": "jmp     loc_1722",
+   "loc_170F": "mov     rdi, [rbp+pb]; s\nmov     eax, [rbp+fsize]\nmov     esi, eax; offset\ncall    x2realloc\njmp     loc_16A2",
+   "loc_1722": "mov     eax, [rbp+fsize]\nmov     rcx, [rbp+c]\nmovsxd  rcx, dword ptr [rcx]\nadd     rax, rcx\nsub     rax, 1\nmov     rcx, [rbp+c]\nmovsxd  rcx, dword ptr [rcx]\ncqo\nidiv    rcx\nmov     ecx, eax\nmov     rax, [rbp+c]\nmov     [rax+8], ecx\nmov     rax, [rbp+ast]\nmov     rax, [rax]\ncmp     dword ptr [rax+14h], 0\njz      loc_17B9",
+   "loc_1759": "mov     rax, [rbp+c]\nmov     eax, [rax+8]\nmov     rcx, [rbp+ast]\nmov     rdx, [rcx]\nmov     ecx, 7FFFFFFFh\nsub     ecx, [rdx+14h]\nadd     ecx, 1\ncmp     eax, ecx\njle     loc_1786",
+   "loc_177A": "mov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_18F2",
+   "loc_1786": "mov     rax, [rbp+c]\nmov     eax, [rax+8]\nmov     rcx, [rbp+ast]\nmov     rcx, [rcx]\nadd     eax, [rcx+14h]\nsub     eax, 1\nmov     rcx, [rbp+ast]\nmov     rcx, [rcx]\ncdq\nidiv    dword ptr [rcx+14h]\nmov     ecx, eax\nmov     rax, [rbp+ast]\nmov     rax, [rax]\nimul    ecx, [rax+14h]\nmov     rax, [rbp+c]\nmov     [rax+8], ecx",
+   "loc_17B9": "mov     ecx, [rbp+fsize]\nmov     rax, [rbp+c]\nmov     [rax+0Ch], ecx\nmov     rdi, [rbp+pb]; s\ncall    avio_tell\nmov     rcx, rax\nmov     rax, [rbp+c]\nmov     [rax+10h], rcx\nmov     rdi, [rbp+pb]; s\nmov     rax, [rbp+c]\nmov     rsi, [rax+18h]; offset\nxor     edx, edx; whence\ncall    avio_seek",
+   "loc_17EA": "mov     rax, [rbp+st]\nmov     rax, [rax]\nmov     dword ptr [rax], 0\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     dword ptr [rax+4], 15000h\nmov     ecx, [rbp+w]\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     [rax+8], ecx\nmov     ecx, [rbp+h]\nmov     rax, [rbp+st]\nmov     rax, [rax]\nmov     [rax+0Ch], ecx\nmovsxd  rdx, [rbp+den]; num\nmovsxd  rcx, [rbp+num]; den\nlea     rdi, [rbp+den]; dst_num\nlea     rsi, [rbp+num]; dst_den\nmov     r8d, 7FFFFFFFh; max\ncall    av_reduce\nmov     rdi, [rbp+st]; s\nmov     edx, [rbp+num]; num\nmov     ecx, [rbp+den]; den\nmov     esi, 21h ; '!'; pts_wrap_bits\ncall    avpriv_set_pts_info\nmov     eax, [rbp+flags]\nand     eax, 0C0h\ncmp     eax, 0\njz      loc_186F",
+   "loc_185F": "mov     rax, [rbp+st]\nmov     rax, [rax]\nmov     ecx, [rax+0Ch]\nsar     ecx, 1\nmov     [rax+0Ch], ecx",
+   "loc_186F": "mov     rax, [rbp+c]\ncmp     dword ptr [rax+4], 0\nsetnz   al\nxor     al, 0FFh\nand     al, 1\nmovzx   ecx, al\nmov     rax, [rbp+c]\nmov     [rax+20h], ecx\nmov     rdi, [rbp+pb]; s\ncall    avio_tell\nmov     rcx, rax\nmov     rax, [rbp+c]\nmov     [rax+18h], rcx\nmov     rax, [rbp+s]\nmov     qword ptr [rax+10h], 0\nmov     rax, [rbp+c]\nmovsxd  rdi, dword ptr [rax]; a\nmovsxd  rax, [rbp+num]\nimul    rsi, rax, 0F4240h; b\nmovsxd  rdx, [rbp+den]; c\ncall    av_rescale\nmov     rcx, rax\nmov     rax, [rbp+s]\nmov     [rax+18h], rcx\nmov     rdi, [rbp+s]; avcl\nmov     rax, [rbp+c]\nmov     ecx, [rax]\nmov     esi, 30h ; '0'; level\nlea     rdx, aDFrameS; \"%d frame(s)\\n\"\nmov     al, 0\ncall    av_log\nmov     [rbp+var_4], 0",
+   "loc_18F2": "mov     eax, [rbp+var_4]\nadd     rsp, 60h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_59": "byte ptr -59h",
+   "fsize": "dword ptr -58h",
+   "size": "dword ptr -54h",
+   "ret": "dword ptr -50h",
+   "flags": "dword ptr -4Ch",
+   "den": "dword ptr -48h",
+   "num": "dword ptr -44h",
+   "h": "dword ptr -40h",
+   "w": "dword ptr -3Ch",
+   "fps": "dword ptr -38h",
+   "tag": "dword ptr -34h",
+   "ast": "qword ptr -30h",
+   "st": "qword ptr -28h",
+   "c": "qword ptr -20h",
+   "pb": "qword ptr -18h",
+   "s": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "fmt": "byte 'File contains no frames ???',0Ah,0",
+   "aDFrameS": "byte '%d frame(s)',0Ah,0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5232,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868474
+ }
+}

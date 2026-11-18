@@ -1,0 +1,1 @@
+void f(struct S *out) { out[2].x = out[0].x; out[3].x = out[1].x; }

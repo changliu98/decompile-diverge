@@ -1,0 +1,1 @@
+int readBytes(int fd, int offset, unsigned char *buffer, int len) { int ret; if( ioctl(fd,0x0717, offset) < 0 ) return -1; ret = read(fd, buffer, (size_t)len); return ret; }

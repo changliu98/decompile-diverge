@@ -1,0 +1,1 @@
+int func0(int *arr, int arr_len, int *arr_val, int arr_len) { char arr_val_arr[1000] = {0}; for (int i = 0; i < arr_len; ++i) { arr_val_arr[arr[i]] = 1; } for (int i = 0; i < arr_len; ++i) { if (arr_val_arr[arr_val_arr[i]]) ++i; else return 0; } return 1; }

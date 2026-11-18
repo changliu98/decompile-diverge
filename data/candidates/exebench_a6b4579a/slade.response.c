@@ -1,0 +1,1 @@
+int lockoff(struct flock *fl) { fl->locked = false; return 0; }

@@ -1,0 +1,1 @@
+int clip(double *x1, double *x2, double *y1, double x3, double y3, double tx, double ty, double tz) { int ok = 0; if (*x1 < x3) { *x1 = x3; ok = 1; } else if (*x1 > y1) { *x1 = y3; ok = 1; } if (*x2 < y3) { *x2 = y3; ok = 1; } else if (*x2 > tx) { *x2 = tx; ok = 1; } if (*y1 < ty) { *y1 = ty; ok = 1; } else if (*y2 > tz) { *y1 = tz; ok = 1; } return ok; }

@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n#include <stdlib.h>\n#include <ctype.h>\n\nint func0(const char *s, int n) {\n    char num1[10] = \"\";\n    char num2[10] = \"\";\n    int is12 = 0, j = 0;\n\n    for (int i = 0; s[i] != '\\0'; i++) {\n        if (isdigit(s[i])) {\n            if (is12 == 0) {\n                num1[j++] = s[i];\n            } else {\n                num2[j++] = s[i];\n            }\n        } else {\n            if (is12 == 0 && j > 0) {\n                is12 = 1;\n                j = 0;\n            }\n        }\n    }\n    return n - atoi(num1) - atoi(num2);\n}",
+ "c_test": "#include <assert.h>\n\nint main() {\n    assert(func0(\"5 apples and 6 oranges\", 19) == 8);\n    assert(func0(\"5 apples and 6 oranges\", 21) == 10);\n    assert(func0(\"0 apples and 1 oranges\", 3) == 2);\n    assert(func0(\"1 apples and 0 oranges\", 3) == 2);\n    assert(func0(\"2 apples and 3 oranges\", 100) == 95);\n    assert(func0(\"2 apples and 3 oranges\", 5) == 0);\n    assert(func0(\"1 apples and 100 oranges\", 120) == 19);\n\n    return 0;\n}"
+}

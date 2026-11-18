@@ -1,0 +1,1 @@
+void wdc_UtilsDeleteCharFromString(char * s, int size, char c) { int i = 0; int j = 0; if (NULL == s || 0 == size) return ; for (i = 0; i < size && s[i] != '\0'; i++) { if (s[i] != c) s[j++] = s[i]; } s[j] = '\0'; }

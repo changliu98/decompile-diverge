@@ -1,0 +1,1 @@
+int lowercase(int ch) { if (ch >= 'A' && ch <= 'Z') return ch + 'a' - 'A'; return ch; }

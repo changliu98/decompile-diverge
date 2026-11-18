@@ -1,0 +1,1 @@
+void ltox(unsigned int value, char *buffer) { int i = 0; char temp[16] = "0123456789ABCDEF"; for (i = 0; i < 8; i++) { buffer[9 - i] = temp[value &0xF]; value >>= 4; } buffer[0] = '0'; buffer[1] = 'x'; buffer[10] = '\n'; buffer[11] = '\0'; }

@@ -1,0 +1,1 @@
+char * _getbase(char *cp, int *basep) { if (*cp == '0') { switch (cp[1]) { case 'x': case 'x': *basep = 16; break; case 't': *basep = 10; break; case 'o': *basep = 8; break; default: *basep = 10; return (cp); } return (cp + 2); } *basep = 10; return (cp); }

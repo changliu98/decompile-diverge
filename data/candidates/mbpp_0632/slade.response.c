@@ -1,0 +1,1 @@
+void func0(int *p, int n, int *dst) { int a = 0; int b = 0; for (int i = 0; i < n; ++i) { if (p[i] == 0) { a = a + 1; } else { dst[b++] = p[i]; } } for (int i = 0; i < a; ++i) { dst[b++] = 0; } }

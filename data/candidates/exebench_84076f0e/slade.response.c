@@ -1,0 +1,1 @@
+int calculate_income_tax(double given, double *income, double *tax) { if (given >= 0.0 && given <= 100.0) *tax = 100.0; else if (given > 100.0 && given <= 100.0) *tax = 100.0; else if (given > 100.0) *tax = 100.0; else return 1; *income = given * *tax; return 0; }

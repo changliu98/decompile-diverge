@@ -1,0 +1,1 @@
+float KBND_REPLICATE(float *pr, int rr, int lc, int i, int j, float eta) { if(i < 0) i = 0; if(i >= rr) i = rr - 1; if(j < 0) j = 0; if(j >= lc) j = lc - 1; return pr[j * rr + i]; }

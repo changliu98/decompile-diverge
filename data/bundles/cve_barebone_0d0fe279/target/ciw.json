@@ -1,0 +1,562 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     al, dl\nmov     [rbp+packet], rdi\nmov     [rbp+buf], rsi\nmov     [rbp+client_hash], al\nmov     [rbp+offset], 16h\nmov     [rbp+buf_out_len], 0\nmovzx   eax, [rbp+offset]\nadd     rax, 4\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\ncmp     rax, rcx\njb      loc_158F\njmp     invalid_payload\nmov     rax, [rbp+packet]\nmov     rax, [rax]\nmovzx   ecx, [rbp+offset]\nmov     edi, [rax+rcx]; netlong\ncall    ntohl\nmov     [rbp+len], eax\nmovzx   eax, [rbp+offset]\nadd     eax, 4\nmov     [rbp+offset], ax\nmovzx   eax, [rbp+offset]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\ncmp     eax, ecx\njge     loc_15E0\nmov     eax, [rbp+len]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\nmovzx   edx, [rbp+offset]\nsub     ecx, edx\nsub     ecx, 1\ncmp     eax, ecx\njb      loc_15E5\njmp     invalid_payload\nmov     rdi, [rbp+buf]; dest\nmov     rax, [rbp+packet]\nmov     rsi, [rax]\nmovzx   eax, [rbp+offset]\nadd     rsi, rax; src\nmov     eax, [rbp+len]\nmov     [rbp+buf_out_len], ax\nmovzx   eax, ax\nmov     edx, eax; n\ncall    strncpy\nmov     rax, [rbp+buf]\nmov     cx, [rbp+buf_out_len]\nmov     dx, cx\nadd     dx, 1\nmov     [rbp+buf_out_len], dx\nmovzx   ecx, cx\nmov     byte ptr [rax+rcx], 3Bh ; ';'\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\nmov     rax, [rbp+packet]\nmov     rax, [rax]\nmovzx   ecx, [rbp+offset]\nmov     edi, [rax+rcx]; netlong\ncall    ntohl\nmov     [rbp+len], eax\nmov     ecx, [rbp+len]\nadd     ecx, 4\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\nmov     rax, [rbp+packet]\nmov     rax, [rax]\nmovzx   ecx, [rbp+offset]\nmov     edi, [rax+rcx]; netlong\ncall    ntohl\nmov     [rbp+len], eax\ncmp     [rbp+client_hash], 0\njz      loc_1711\nmovzx   eax, [rbp+offset]\nadd     eax, 4\nmov     [rbp+offset], ax\nmovzx   eax, [rbp+offset]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\ncmp     eax, ecx\njge     loc_16B0\nmov     eax, [rbp+len]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\nmovzx   edx, [rbp+offset]\nsub     ecx, edx\nsub     ecx, 1\ncmp     eax, ecx\njb      loc_16B5\njmp     invalid_payload\nmov     rdi, [rbp+buf]\nmovzx   eax, [rbp+buf_out_len]\nadd     rdi, rax; dest\nmov     rax, [rbp+packet]\nmov     rsi, [rax]\nmovzx   eax, [rbp+offset]\nadd     rsi, rax; src\nmov     eax, [rbp+len]\nmov     edx, eax; n\ncall    strncpy\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+buf_out_len]\nadd     eax, ecx\nmov     [rbp+buf_out_len], ax\nmov     rax, [rbp+buf]\nmov     cx, [rbp+buf_out_len]\nmov     dx, cx\nadd     dx, 1\nmov     [rbp+buf_out_len], dx\nmovzx   ecx, cx\nmov     byte ptr [rax+rcx], 3Bh ; ';'\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\njmp     loc_1721\nmov     ecx, [rbp+len]\nadd     ecx, 4\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\nmov     rax, [rbp+packet]\nmov     rax, [rax]\nmovzx   ecx, [rbp+offset]\nmov     edi, [rax+rcx]; netlong\ncall    ntohl\nmov     [rbp+len], eax\ncmp     [rbp+client_hash], 0\njnz     loc_17DD\nmovzx   eax, [rbp+offset]\nadd     eax, 4\nmov     [rbp+offset], ax\nmovzx   eax, [rbp+offset]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\ncmp     eax, ecx\njge     loc_177C\nmov     eax, [rbp+len]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\nmovzx   edx, [rbp+offset]\nsub     ecx, edx\nsub     ecx, 1\ncmp     eax, ecx\njb      loc_1781\njmp     invalid_payload\nmov     rdi, [rbp+buf]\nmovzx   eax, [rbp+buf_out_len]\nadd     rdi, rax; dest\nmov     rax, [rbp+packet]\nmov     rsi, [rax]\nmovzx   eax, [rbp+offset]\nadd     rsi, rax; src\nmov     eax, [rbp+len]\nmov     edx, eax; n\ncall    strncpy\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+buf_out_len]\nadd     eax, ecx\nmov     [rbp+buf_out_len], ax\nmov     rax, [rbp+buf]\nmov     cx, [rbp+buf_out_len]\nmov     dx, cx\nadd     dx, 1\nmov     [rbp+buf_out_len], dx\nmovzx   ecx, cx\nmov     byte ptr [rax+rcx], 3Bh ; ';'\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\njmp     loc_17ED\nmov     ecx, [rbp+len]\nadd     ecx, 4\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\nmov     rax, [rbp+packet]\nmov     rax, [rax]\nmovzx   ecx, [rbp+offset]\nmov     edi, [rax+rcx]; netlong\ncall    ntohl\nmov     [rbp+len], eax\ncmp     [rbp+client_hash], 0\njz      loc_18A9\nmovzx   eax, [rbp+offset]\nadd     eax, 4\nmov     [rbp+offset], ax\nmovzx   eax, [rbp+offset]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\ncmp     eax, ecx\njge     loc_1848\nmov     eax, [rbp+len]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\nmovzx   edx, [rbp+offset]\nsub     ecx, edx\nsub     ecx, 1\ncmp     eax, ecx\njb      loc_184D\njmp     invalid_payload\nmov     rdi, [rbp+buf]\nmovzx   eax, [rbp+buf_out_len]\nadd     rdi, rax; dest\nmov     rax, [rbp+packet]\nmov     rsi, [rax]\nmovzx   eax, [rbp+offset]\nadd     rsi, rax; src\nmov     eax, [rbp+len]\nmov     edx, eax; n\ncall    strncpy\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+buf_out_len]\nadd     eax, ecx\nmov     [rbp+buf_out_len], ax\nmov     rax, [rbp+buf]\nmov     cx, [rbp+buf_out_len]\nmov     dx, cx\nadd     dx, 1\nmov     [rbp+buf_out_len], dx\nmovzx   ecx, cx\nmov     byte ptr [rax+rcx], 3Bh ; ';'\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\njmp     loc_18B9\nmov     ecx, [rbp+len]\nadd     ecx, 4\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\nmov     rax, [rbp+packet]\nmov     rax, [rax]\nmovzx   ecx, [rbp+offset]\nmov     edi, [rax+rcx]; netlong\ncall    ntohl\nmov     [rbp+len], eax\ncmp     [rbp+client_hash], 0\njnz     loc_1975\nmovzx   eax, [rbp+offset]\nadd     eax, 4\nmov     [rbp+offset], ax\nmovzx   eax, [rbp+offset]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\ncmp     eax, ecx\njge     loc_1914\nmov     eax, [rbp+len]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\nmovzx   edx, [rbp+offset]\nsub     ecx, edx\nsub     ecx, 1\ncmp     eax, ecx\njb      loc_1919\njmp     invalid_payload\nmov     rdi, [rbp+buf]\nmovzx   eax, [rbp+buf_out_len]\nadd     rdi, rax; dest\nmov     rax, [rbp+packet]\nmov     rsi, [rax]\nmovzx   eax, [rbp+offset]\nadd     rsi, rax; src\nmov     eax, [rbp+len]\nmov     edx, eax; n\ncall    strncpy\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+buf_out_len]\nadd     eax, ecx\nmov     [rbp+buf_out_len], ax\nmov     rax, [rbp+buf]\nmov     cx, [rbp+buf_out_len]\nmov     dx, cx\nadd     dx, 1\nmov     [rbp+buf_out_len], dx\nmovzx   ecx, cx\nmov     byte ptr [rax+rcx], 3Bh ; ';'\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\njmp     loc_1985\nmov     ecx, [rbp+len]\nadd     ecx, 4\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\nmovzx   eax, [rbp+offset]\nadd     rax, 4\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\ncmp     rax, rcx\njb      loc_19A3\njmp     invalid_payload\nmov     rax, [rbp+packet]\nmov     rax, [rax]\nmovzx   ecx, [rbp+offset]\nmov     edi, [rax+rcx]; netlong\ncall    ntohl\nmov     [rbp+len], eax\ncmp     [rbp+client_hash], 0\njz      loc_1A45\nmovzx   eax, [rbp+offset]\nadd     eax, 4\nmov     [rbp+offset], ax\nmovzx   eax, [rbp+offset]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\ncmp     eax, ecx\njge     loc_19FE\nmov     eax, [rbp+len]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\nmovzx   edx, [rbp+offset]\nsub     ecx, edx\nsub     ecx, 1\ncmp     eax, ecx\njb      loc_1A03\njmp     invalid_payload\nmov     rdi, [rbp+buf]\nmovzx   eax, [rbp+buf_out_len]\nadd     rdi, rax; dest\nmov     rax, [rbp+packet]\nmov     rsi, [rax]\nmovzx   eax, [rbp+offset]\nadd     rsi, rax; src\nmov     eax, [rbp+len]\nmov     edx, eax; n\ncall    strncpy\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+buf_out_len]\nadd     eax, ecx\nmov     [rbp+buf_out_len], ax\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\njmp     loc_1A55\nmov     ecx, [rbp+len]\nadd     ecx, 4\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\nmov     rax, [rbp+packet]\nmov     rax, [rax]\nmovzx   ecx, [rbp+offset]\nmov     edi, [rax+rcx]; netlong\ncall    ntohl\nmov     [rbp+len], eax\ncmp     [rbp+client_hash], 0\njnz     loc_1AF7\nmovzx   eax, [rbp+offset]\nadd     eax, 4\nmov     [rbp+offset], ax\nmovzx   eax, [rbp+offset]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\ncmp     eax, ecx\njge     loc_1AB0\nmov     eax, [rbp+len]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\nmovzx   edx, [rbp+offset]\nsub     ecx, edx\nsub     ecx, 1\ncmp     eax, ecx\njb      loc_1AB5\njmp     invalid_payload\nmov     rdi, [rbp+buf]\nmovzx   eax, [rbp+buf_out_len]\nadd     rdi, rax; dest\nmov     rax, [rbp+packet]\nmov     rsi, [rax]\nmovzx   eax, [rbp+offset]\nadd     rsi, rax; src\nmov     eax, [rbp+len]\nmov     edx, eax; n\ncall    strncpy\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+buf_out_len]\nadd     eax, ecx\nmov     [rbp+buf_out_len], ax\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\njmp     loc_1B07\nmov     ecx, [rbp+len]\nadd     ecx, 4\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\nmov     ax, [rbp+buf_out_len]\nmov     [rbp+var_2], ax\njmp     loc_1B1A\nmov     [rbp+var_2], 0\nmovzx   eax, [rbp+var_2]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 46,
+  "edges": [
+   [
+    "start",
+    "loc_158A"
+   ],
+   [
+    "start",
+    "loc_158F"
+   ],
+   [
+    "loc_158A",
+    "loc_1B14"
+   ],
+   [
+    "loc_158F",
+    "loc_15C4"
+   ],
+   [
+    "loc_158F",
+    "loc_15E0"
+   ],
+   [
+    "loc_15C4",
+    "loc_15E0"
+   ],
+   [
+    "loc_15C4",
+    "loc_15E5"
+   ],
+   [
+    "loc_15E0",
+    "loc_1B14"
+   ],
+   [
+    "loc_15E5",
+    "loc_1675"
+   ],
+   [
+    "loc_15E5",
+    "loc_1711"
+   ],
+   [
+    "loc_1675",
+    "loc_1694"
+   ],
+   [
+    "loc_1675",
+    "loc_16B0"
+   ],
+   [
+    "loc_1694",
+    "loc_16B0"
+   ],
+   [
+    "loc_1694",
+    "loc_16B5"
+   ],
+   [
+    "loc_16B0",
+    "loc_1B14"
+   ],
+   [
+    "loc_16B5",
+    "loc_1721"
+   ],
+   [
+    "loc_1711",
+    "loc_1721"
+   ],
+   [
+    "loc_1721",
+    "loc_1741"
+   ],
+   [
+    "loc_1721",
+    "loc_17DD"
+   ],
+   [
+    "loc_1741",
+    "loc_1760"
+   ],
+   [
+    "loc_1741",
+    "loc_177C"
+   ],
+   [
+    "loc_1760",
+    "loc_177C"
+   ],
+   [
+    "loc_1760",
+    "loc_1781"
+   ],
+   [
+    "loc_177C",
+    "loc_1B14"
+   ],
+   [
+    "loc_1781",
+    "loc_17ED"
+   ],
+   [
+    "loc_17DD",
+    "loc_17ED"
+   ],
+   [
+    "loc_17ED",
+    "loc_180D"
+   ],
+   [
+    "loc_17ED",
+    "loc_18A9"
+   ],
+   [
+    "loc_180D",
+    "loc_182C"
+   ],
+   [
+    "loc_180D",
+    "loc_1848"
+   ],
+   [
+    "loc_182C",
+    "loc_1848"
+   ],
+   [
+    "loc_182C",
+    "loc_184D"
+   ],
+   [
+    "loc_1848",
+    "loc_1B14"
+   ],
+   [
+    "loc_184D",
+    "loc_18B9"
+   ],
+   [
+    "loc_18A9",
+    "loc_18B9"
+   ],
+   [
+    "loc_18B9",
+    "loc_18D9"
+   ],
+   [
+    "loc_18B9",
+    "loc_1975"
+   ],
+   [
+    "loc_18D9",
+    "loc_18F8"
+   ],
+   [
+    "loc_18D9",
+    "loc_1914"
+   ],
+   [
+    "loc_18F8",
+    "loc_1914"
+   ],
+   [
+    "loc_18F8",
+    "loc_1919"
+   ],
+   [
+    "loc_1914",
+    "loc_1B14"
+   ],
+   [
+    "loc_1919",
+    "loc_1985"
+   ],
+   [
+    "loc_1975",
+    "loc_1985"
+   ],
+   [
+    "loc_1985",
+    "loc_199E"
+   ],
+   [
+    "loc_1985",
+    "loc_19A3"
+   ],
+   [
+    "loc_199E",
+    "loc_1B14"
+   ],
+   [
+    "loc_19A3",
+    "loc_19C3"
+   ],
+   [
+    "loc_19A3",
+    "loc_1A45"
+   ],
+   [
+    "loc_19C3",
+    "loc_19E2"
+   ],
+   [
+    "loc_19C3",
+    "loc_19FE"
+   ],
+   [
+    "loc_19E2",
+    "loc_19FE"
+   ],
+   [
+    "loc_19E2",
+    "loc_1A03"
+   ],
+   [
+    "loc_19FE",
+    "loc_1B14"
+   ],
+   [
+    "loc_1A03",
+    "loc_1A55"
+   ],
+   [
+    "loc_1A45",
+    "loc_1A55"
+   ],
+   [
+    "loc_1A55",
+    "loc_1A75"
+   ],
+   [
+    "loc_1A55",
+    "loc_1AF7"
+   ],
+   [
+    "loc_1A75",
+    "loc_1A94"
+   ],
+   [
+    "loc_1A75",
+    "loc_1AB0"
+   ],
+   [
+    "loc_1A94",
+    "loc_1AB0"
+   ],
+   [
+    "loc_1A94",
+    "loc_1AB5"
+   ],
+   [
+    "loc_1AB0",
+    "loc_1B14"
+   ],
+   [
+    "loc_1AB5",
+    "loc_1B07"
+   ],
+   [
+    "loc_1AF7",
+    "loc_1B07"
+   ],
+   [
+    "loc_1B07",
+    "loc_1B1A"
+   ],
+   [
+    "loc_1B14",
+    "loc_1B1A"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     al, dl\nmov     [rbp+packet], rdi\nmov     [rbp+buf], rsi\nmov     [rbp+client_hash], al\nmov     [rbp+offset], 16h\nmov     [rbp+buf_out_len], 0\nmovzx   eax, [rbp+offset]\nadd     rax, 4\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\ncmp     rax, rcx\njb      loc_158F",
+   "loc_158A": "jmp     invalid_payload",
+   "loc_158F": "mov     rax, [rbp+packet]\nmov     rax, [rax]\nmovzx   ecx, [rbp+offset]\nmov     edi, [rax+rcx]; netlong\ncall    ntohl\nmov     [rbp+len], eax\nmovzx   eax, [rbp+offset]\nadd     eax, 4\nmov     [rbp+offset], ax\nmovzx   eax, [rbp+offset]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\ncmp     eax, ecx\njge     loc_15E0",
+   "loc_15C4": "mov     eax, [rbp+len]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\nmovzx   edx, [rbp+offset]\nsub     ecx, edx\nsub     ecx, 1\ncmp     eax, ecx\njb      loc_15E5",
+   "loc_15E0": "jmp     invalid_payload",
+   "loc_15E5": "mov     rdi, [rbp+buf]; dest\nmov     rax, [rbp+packet]\nmov     rsi, [rax]\nmovzx   eax, [rbp+offset]\nadd     rsi, rax; src\nmov     eax, [rbp+len]\nmov     [rbp+buf_out_len], ax\nmovzx   eax, ax\nmov     edx, eax; n\ncall    strncpy\nmov     rax, [rbp+buf]\nmov     cx, [rbp+buf_out_len]\nmov     dx, cx\nadd     dx, 1\nmov     [rbp+buf_out_len], dx\nmovzx   ecx, cx\nmov     byte ptr [rax+rcx], 3Bh ; ';'\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\nmov     rax, [rbp+packet]\nmov     rax, [rax]\nmovzx   ecx, [rbp+offset]\nmov     edi, [rax+rcx]; netlong\ncall    ntohl\nmov     [rbp+len], eax\nmov     ecx, [rbp+len]\nadd     ecx, 4\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\nmov     rax, [rbp+packet]\nmov     rax, [rax]\nmovzx   ecx, [rbp+offset]\nmov     edi, [rax+rcx]; netlong\ncall    ntohl\nmov     [rbp+len], eax\ncmp     [rbp+client_hash], 0\njz      loc_1711",
+   "loc_1675": "movzx   eax, [rbp+offset]\nadd     eax, 4\nmov     [rbp+offset], ax\nmovzx   eax, [rbp+offset]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\ncmp     eax, ecx\njge     loc_16B0",
+   "loc_1694": "mov     eax, [rbp+len]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\nmovzx   edx, [rbp+offset]\nsub     ecx, edx\nsub     ecx, 1\ncmp     eax, ecx\njb      loc_16B5",
+   "loc_16B0": "jmp     invalid_payload",
+   "loc_16B5": "mov     rdi, [rbp+buf]\nmovzx   eax, [rbp+buf_out_len]\nadd     rdi, rax; dest\nmov     rax, [rbp+packet]\nmov     rsi, [rax]\nmovzx   eax, [rbp+offset]\nadd     rsi, rax; src\nmov     eax, [rbp+len]\nmov     edx, eax; n\ncall    strncpy\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+buf_out_len]\nadd     eax, ecx\nmov     [rbp+buf_out_len], ax\nmov     rax, [rbp+buf]\nmov     cx, [rbp+buf_out_len]\nmov     dx, cx\nadd     dx, 1\nmov     [rbp+buf_out_len], dx\nmovzx   ecx, cx\nmov     byte ptr [rax+rcx], 3Bh ; ';'\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\njmp     loc_1721",
+   "loc_1711": "mov     ecx, [rbp+len]\nadd     ecx, 4\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax",
+   "loc_1721": "mov     rax, [rbp+packet]\nmov     rax, [rax]\nmovzx   ecx, [rbp+offset]\nmov     edi, [rax+rcx]; netlong\ncall    ntohl\nmov     [rbp+len], eax\ncmp     [rbp+client_hash], 0\njnz     loc_17DD",
+   "loc_1741": "movzx   eax, [rbp+offset]\nadd     eax, 4\nmov     [rbp+offset], ax\nmovzx   eax, [rbp+offset]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\ncmp     eax, ecx\njge     loc_177C",
+   "loc_1760": "mov     eax, [rbp+len]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\nmovzx   edx, [rbp+offset]\nsub     ecx, edx\nsub     ecx, 1\ncmp     eax, ecx\njb      loc_1781",
+   "loc_177C": "jmp     invalid_payload",
+   "loc_1781": "mov     rdi, [rbp+buf]\nmovzx   eax, [rbp+buf_out_len]\nadd     rdi, rax; dest\nmov     rax, [rbp+packet]\nmov     rsi, [rax]\nmovzx   eax, [rbp+offset]\nadd     rsi, rax; src\nmov     eax, [rbp+len]\nmov     edx, eax; n\ncall    strncpy\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+buf_out_len]\nadd     eax, ecx\nmov     [rbp+buf_out_len], ax\nmov     rax, [rbp+buf]\nmov     cx, [rbp+buf_out_len]\nmov     dx, cx\nadd     dx, 1\nmov     [rbp+buf_out_len], dx\nmovzx   ecx, cx\nmov     byte ptr [rax+rcx], 3Bh ; ';'\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\njmp     loc_17ED",
+   "loc_17DD": "mov     ecx, [rbp+len]\nadd     ecx, 4\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax",
+   "loc_17ED": "mov     rax, [rbp+packet]\nmov     rax, [rax]\nmovzx   ecx, [rbp+offset]\nmov     edi, [rax+rcx]; netlong\ncall    ntohl\nmov     [rbp+len], eax\ncmp     [rbp+client_hash], 0\njz      loc_18A9",
+   "loc_180D": "movzx   eax, [rbp+offset]\nadd     eax, 4\nmov     [rbp+offset], ax\nmovzx   eax, [rbp+offset]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\ncmp     eax, ecx\njge     loc_1848",
+   "loc_182C": "mov     eax, [rbp+len]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\nmovzx   edx, [rbp+offset]\nsub     ecx, edx\nsub     ecx, 1\ncmp     eax, ecx\njb      loc_184D",
+   "loc_1848": "jmp     invalid_payload",
+   "loc_184D": "mov     rdi, [rbp+buf]\nmovzx   eax, [rbp+buf_out_len]\nadd     rdi, rax; dest\nmov     rax, [rbp+packet]\nmov     rsi, [rax]\nmovzx   eax, [rbp+offset]\nadd     rsi, rax; src\nmov     eax, [rbp+len]\nmov     edx, eax; n\ncall    strncpy\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+buf_out_len]\nadd     eax, ecx\nmov     [rbp+buf_out_len], ax\nmov     rax, [rbp+buf]\nmov     cx, [rbp+buf_out_len]\nmov     dx, cx\nadd     dx, 1\nmov     [rbp+buf_out_len], dx\nmovzx   ecx, cx\nmov     byte ptr [rax+rcx], 3Bh ; ';'\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\njmp     loc_18B9",
+   "loc_18A9": "mov     ecx, [rbp+len]\nadd     ecx, 4\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax",
+   "loc_18B9": "mov     rax, [rbp+packet]\nmov     rax, [rax]\nmovzx   ecx, [rbp+offset]\nmov     edi, [rax+rcx]; netlong\ncall    ntohl\nmov     [rbp+len], eax\ncmp     [rbp+client_hash], 0\njnz     loc_1975",
+   "loc_18D9": "movzx   eax, [rbp+offset]\nadd     eax, 4\nmov     [rbp+offset], ax\nmovzx   eax, [rbp+offset]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\ncmp     eax, ecx\njge     loc_1914",
+   "loc_18F8": "mov     eax, [rbp+len]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\nmovzx   edx, [rbp+offset]\nsub     ecx, edx\nsub     ecx, 1\ncmp     eax, ecx\njb      loc_1919",
+   "loc_1914": "jmp     invalid_payload",
+   "loc_1919": "mov     rdi, [rbp+buf]\nmovzx   eax, [rbp+buf_out_len]\nadd     rdi, rax; dest\nmov     rax, [rbp+packet]\nmov     rsi, [rax]\nmovzx   eax, [rbp+offset]\nadd     rsi, rax; src\nmov     eax, [rbp+len]\nmov     edx, eax; n\ncall    strncpy\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+buf_out_len]\nadd     eax, ecx\nmov     [rbp+buf_out_len], ax\nmov     rax, [rbp+buf]\nmov     cx, [rbp+buf_out_len]\nmov     dx, cx\nadd     dx, 1\nmov     [rbp+buf_out_len], dx\nmovzx   ecx, cx\nmov     byte ptr [rax+rcx], 3Bh ; ';'\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\njmp     loc_1985",
+   "loc_1975": "mov     ecx, [rbp+len]\nadd     ecx, 4\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax",
+   "loc_1985": "movzx   eax, [rbp+offset]\nadd     rax, 4\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\ncmp     rax, rcx\njb      loc_19A3",
+   "loc_199E": "jmp     invalid_payload",
+   "loc_19A3": "mov     rax, [rbp+packet]\nmov     rax, [rax]\nmovzx   ecx, [rbp+offset]\nmov     edi, [rax+rcx]; netlong\ncall    ntohl\nmov     [rbp+len], eax\ncmp     [rbp+client_hash], 0\njz      loc_1A45",
+   "loc_19C3": "movzx   eax, [rbp+offset]\nadd     eax, 4\nmov     [rbp+offset], ax\nmovzx   eax, [rbp+offset]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\ncmp     eax, ecx\njge     loc_19FE",
+   "loc_19E2": "mov     eax, [rbp+len]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\nmovzx   edx, [rbp+offset]\nsub     ecx, edx\nsub     ecx, 1\ncmp     eax, ecx\njb      loc_1A03",
+   "loc_19FE": "jmp     invalid_payload",
+   "loc_1A03": "mov     rdi, [rbp+buf]\nmovzx   eax, [rbp+buf_out_len]\nadd     rdi, rax; dest\nmov     rax, [rbp+packet]\nmov     rsi, [rax]\nmovzx   eax, [rbp+offset]\nadd     rsi, rax; src\nmov     eax, [rbp+len]\nmov     edx, eax; n\ncall    strncpy\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+buf_out_len]\nadd     eax, ecx\nmov     [rbp+buf_out_len], ax\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\njmp     loc_1A55",
+   "loc_1A45": "mov     ecx, [rbp+len]\nadd     ecx, 4\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax",
+   "loc_1A55": "mov     rax, [rbp+packet]\nmov     rax, [rax]\nmovzx   ecx, [rbp+offset]\nmov     edi, [rax+rcx]; netlong\ncall    ntohl\nmov     [rbp+len], eax\ncmp     [rbp+client_hash], 0\njnz     loc_1AF7",
+   "loc_1A75": "movzx   eax, [rbp+offset]\nadd     eax, 4\nmov     [rbp+offset], ax\nmovzx   eax, [rbp+offset]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\ncmp     eax, ecx\njge     loc_1AB0",
+   "loc_1A94": "mov     eax, [rbp+len]\nmov     rcx, [rbp+packet]\nmovzx   ecx, word ptr [rcx+8]\nmovzx   edx, [rbp+offset]\nsub     ecx, edx\nsub     ecx, 1\ncmp     eax, ecx\njb      loc_1AB5",
+   "loc_1AB0": "jmp     invalid_payload",
+   "loc_1AB5": "mov     rdi, [rbp+buf]\nmovzx   eax, [rbp+buf_out_len]\nadd     rdi, rax; dest\nmov     rax, [rbp+packet]\nmov     rsi, [rax]\nmovzx   eax, [rbp+offset]\nadd     rsi, rax; src\nmov     eax, [rbp+len]\nmov     edx, eax; n\ncall    strncpy\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+buf_out_len]\nadd     eax, ecx\nmov     [rbp+buf_out_len], ax\nmov     ecx, [rbp+len]\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax\njmp     loc_1B07",
+   "loc_1AF7": "mov     ecx, [rbp+len]\nadd     ecx, 4\nmovzx   eax, [rbp+offset]\nadd     eax, ecx\nmov     [rbp+offset], ax",
+   "loc_1B07": "mov     ax, [rbp+buf_out_len]\nmov     [rbp+var_2], ax\njmp     loc_1B1A",
+   "loc_1B14": "mov     [rbp+var_2], 0",
+   "loc_1B1A": "movzx   eax, [rbp+var_2]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "len": "dword ptr -24h",
+   "buf_out_len": "word ptr -1Eh",
+   "offset": "word ptr -1Ch",
+   "client_hash": "byte ptr -19h",
+   "buf": "qword ptr -18h",
+   "packet": "qword ptr -10h",
+   "var_2": "word ptr -2"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5456,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".strncpy": "strncpy",
+  "_strncpy": "strncpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".ntohl": "ntohl",
+  "_ntohl": "ntohl"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".strncpy",
+   ".plt",
+   true,
+   "strncpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".ntohl",
+   ".plt",
+   true,
+   "ntohl"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ntohl",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868445
+ }
+}

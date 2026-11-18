@@ -1,0 +1,1 @@
+void set_to_3(volatile uint32_t *addr) { *addr =0x1 |0x2; }

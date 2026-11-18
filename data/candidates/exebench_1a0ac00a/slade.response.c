@@ -1,0 +1,1 @@
+void agrega(int *a, int *b, int c, int *x) { if (*a == -1) { *a = c; *b = c; } else { x[*b] = c; *b = c; } x[*b] = -1; }

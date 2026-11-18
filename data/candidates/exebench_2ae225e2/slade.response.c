@@ -1,0 +1,1 @@
+void make_double_bigendian(double *p) { union { double d; unsigned char b[8]; } u; u.d = *p; u.b[0] = u.b[7]; u.b[1] = u.b[6]; u.b[2] = u.b[5]; u.b[3] = u.b[4]; u.b[4] = u.b[3]; u.b[5] = u.b[2]; u.b[2] = u.b[1]; u.b[3] = u.b[0]; *p = u.d; }

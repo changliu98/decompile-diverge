@@ -1,0 +1,1 @@
+int error(struct parse *p) { return ++p->error; }

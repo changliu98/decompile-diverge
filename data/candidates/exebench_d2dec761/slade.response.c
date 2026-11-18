@@ -1,0 +1,1 @@
+void leer_datos_instruccion(unsigned char dato, unsigned char gauche, unsigned int *leer, unsigned int *leer, unsigned int *leeche) { *leeche = 0; if (dato &0x04) *leeche = 1; *leer = dato >> 3; *leer = (dato &0x03) * 256 + gauche; }

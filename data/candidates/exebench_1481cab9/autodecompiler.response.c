@@ -1,0 +1,16 @@
+void
+snake_upcase_char(char *s)
+{
+ switch (*s) {
+ case 'a': case 'b': case 'c': case 'd': case 'e':
+ case 'f': case 'g': case 'h': case 'i': case 'j':
+ case 'k': case 'l': case 'm': case 'n': case 'o':
+ case 'p': case 'q': case 'r': case 's': case 't':
+ case 'u': case 'v': case 'w': case 'x': case 'y':
+ case 'z':
+  *s &= ~0x20;
+  return;
+ case '-':
+  *s = '_';
+ }
+}

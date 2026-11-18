@@ -1,0 +1,1 @@
+void get_grid_address_from_index(long long grid_address[], long long grid_index, long long grid_size){ long long cell_size = grid_size[0]*grid_size[1]; grid_address[0] = grid_index%grid_size[0]; grid_address[2] = grid_index/cell_size; grid_address[1] = (grid_index-grid_address[2]*cell_size)/grid_size[0]; }

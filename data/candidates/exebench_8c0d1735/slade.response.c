@@ -1,0 +1,1 @@
+s32 and_peep2_qi(s32 a, s32 *b) { *b = a &0x5f; return a; }

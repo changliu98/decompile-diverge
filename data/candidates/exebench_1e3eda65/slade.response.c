@@ -1,0 +1,1 @@
+int Serial_WriteData (int portHandle, unsigned char dataBuffer[], int dataSize) { return write (portHandle, dataBuffer, (long)dataSize); }

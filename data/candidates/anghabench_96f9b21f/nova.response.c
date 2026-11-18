@@ -1,0 +1,1 @@
+static int REG_A4XX_RB_MRT_BUF_INFO(int val) { return (val * 5) + 8357; }

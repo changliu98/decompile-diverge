@@ -1,0 +1,374 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+ctx], rdi\nmov     [rbp+p], rsi\nmov     [rbp+tr], rdx\nmov     [rbp+uni], ecx\nmov     [rbp+remove], r8d\nmov     rax, [rbp+tr]\ncmp     qword ptr [rax+28h], 0\njnz     loc_17FF\njmp     loc_196F\ncmp     [rbp+remove], 0\njz      loc_1835\nmov     rdi, [rbp+ctx]; ctx\nmov     rax, [rbp+tr]\nmov     rsi, [rax+28h]; dict\nmov     edx, (offset dword_0+1); key\ncall    pdf_dict_del\nmov     rdi, [rbp+ctx]; ctx\nmov     rax, [rbp+tr]\nmov     rsi, [rax+28h]; dict\nmov     edx, (offset dword_0+2); key\ncall    pdf_dict_del\nmov     rdi, [rbp+ctx]; ctx\nmov     esi, [rbp+uni]; uni\nmov     edx, [rbp+remove]; remove\nmov     rcx, [rbp+tr]\nadd     rcx, 30h ; '0'; str\ncall    walk_string\nmov     rdi, [rbp+ctx]; ctx\nmov     esi, [rbp+uni]; uni\nmov     edx, [rbp+remove]; remove\nmov     rcx, [rbp+tr]\nadd     rcx, 40h ; '@'; str\ncall    walk_string\ncmp     [rbp+remove], 0\njz      loc_189E\nmov     rcx, [rbp+tr]\nmov     al, 1\ncmp     dword ptr [rcx+3Ch], 0FFFFFFFFh\nmov     [rbp+var_21], al\njz      loc_188E\nmov     rax, [rbp+tr]\ncmp     dword ptr [rax+4Ch], 0FFFFFFFFh\nsetz    al\nmov     [rbp+var_21], al\nmov     al, [rbp+var_21]\nand     al, 1\nmovzx   eax, al\nmov     [rbp+remove], eax\njmp     loc_18C6\nmov     rax, [rbp+tr]\ncmp     dword ptr [rax+3Ch], 0\njge     loc_18BA\nmov     rax, [rbp+tr]\ncmp     dword ptr [rax+4Ch], 0\njl      loc_18C1\nmov     [rbp+remove], 0\njmp     $+5\ncmp     [rbp+remove], 0\njz      loc_196F\nmov     rax, [rbp+tr]\ncmp     dword ptr [rax+4Ch], 0FFFFFFFFh\njnz     loc_18F4\nmov     rdi, [rbp+ctx]; ctx\nmov     rax, [rbp+tr]\nmov     rsi, [rax+28h]; dict\nmov     edx, (offset dword_0+3); key\ncall    pdf_dict_del\nmov     rax, [rbp+tr]\ncmp     dword ptr [rax+3Ch], 0FFFFFFFFh\njnz     loc_1918\nmov     rdi, [rbp+ctx]; ctx\nmov     rax, [rbp+tr]\nmov     rsi, [rax+28h]; dict\nmov     edx, offset byte_4; key\ncall    pdf_dict_del\nmov     rdi, [rbp+ctx]; ctx\nmov     rax, [rbp+tr]\nmov     rsi, [rax+28h]; obj\ncall    pdf_drop_obj\nmov     rax, [rbp+tr]\nmov     qword ptr [rax+28h], 0\nmov     rdi, [rbp+ctx]; ctx\nmov     rax, [rbp+tr]\nmov     rsi, [rax+30h]; p\ncall    fz_free\nmov     rax, [rbp+tr]\nmov     qword ptr [rax+30h], 0\nmov     rdi, [rbp+ctx]; ctx\nmov     rax, [rbp+tr]\nmov     rsi, [rax+40h]; p\ncall    fz_free\nmov     rax, [rbp+tr]\nmov     qword ptr [rax+40h], 0\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 19,
+  "edges": [
+   [
+    "start",
+    "loc_17FA"
+   ],
+   [
+    "start",
+    "loc_17FF"
+   ],
+   [
+    "loc_17FA",
+    "loc_196F"
+   ],
+   [
+    "loc_17FF",
+    "loc_1809"
+   ],
+   [
+    "loc_17FF",
+    "loc_1835"
+   ],
+   [
+    "loc_1809",
+    "loc_1835"
+   ],
+   [
+    "loc_1835",
+    "loc_186D"
+   ],
+   [
+    "loc_1835",
+    "loc_189E"
+   ],
+   [
+    "loc_186D",
+    "loc_1880"
+   ],
+   [
+    "loc_186D",
+    "loc_188E"
+   ],
+   [
+    "loc_1880",
+    "loc_188E"
+   ],
+   [
+    "loc_188E",
+    "loc_18C6"
+   ],
+   [
+    "loc_189E",
+    "loc_18AC"
+   ],
+   [
+    "loc_189E",
+    "loc_18BA"
+   ],
+   [
+    "loc_18AC",
+    "loc_18BA"
+   ],
+   [
+    "loc_18AC",
+    "loc_18C1"
+   ],
+   [
+    "loc_18BA",
+    "loc_18C1"
+   ],
+   [
+    "loc_18C1",
+    "loc_18C6"
+   ],
+   [
+    "loc_18C6",
+    "loc_18D0"
+   ],
+   [
+    "loc_18C6",
+    "loc_196F"
+   ],
+   [
+    "loc_18D0",
+    "loc_18DE"
+   ],
+   [
+    "loc_18D0",
+    "loc_18F4"
+   ],
+   [
+    "loc_18DE",
+    "loc_18F4"
+   ],
+   [
+    "loc_18F4",
+    "loc_1902"
+   ],
+   [
+    "loc_18F4",
+    "loc_1918"
+   ],
+   [
+    "loc_1902",
+    "loc_1918"
+   ],
+   [
+    "loc_1918",
+    "loc_196F"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+ctx], rdi\nmov     [rbp+p], rsi\nmov     [rbp+tr], rdx\nmov     [rbp+uni], ecx\nmov     [rbp+remove], r8d\nmov     rax, [rbp+tr]\ncmp     qword ptr [rax+28h], 0\njnz     loc_17FF",
+   "loc_17FA": "jmp     loc_196F",
+   "loc_17FF": "cmp     [rbp+remove], 0\njz      loc_1835",
+   "loc_1809": "mov     rdi, [rbp+ctx]; ctx\nmov     rax, [rbp+tr]\nmov     rsi, [rax+28h]; dict\nmov     edx, (offset dword_0+1); key\ncall    pdf_dict_del\nmov     rdi, [rbp+ctx]; ctx\nmov     rax, [rbp+tr]\nmov     rsi, [rax+28h]; dict\nmov     edx, (offset dword_0+2); key\ncall    pdf_dict_del",
+   "loc_1835": "mov     rdi, [rbp+ctx]; ctx\nmov     esi, [rbp+uni]; uni\nmov     edx, [rbp+remove]; remove\nmov     rcx, [rbp+tr]\nadd     rcx, 30h ; '0'; str\ncall    walk_string\nmov     rdi, [rbp+ctx]; ctx\nmov     esi, [rbp+uni]; uni\nmov     edx, [rbp+remove]; remove\nmov     rcx, [rbp+tr]\nadd     rcx, 40h ; '@'; str\ncall    walk_string\ncmp     [rbp+remove], 0\njz      loc_189E",
+   "loc_186D": "mov     rcx, [rbp+tr]\nmov     al, 1\ncmp     dword ptr [rcx+3Ch], 0FFFFFFFFh\nmov     [rbp+var_21], al\njz      loc_188E",
+   "loc_1880": "mov     rax, [rbp+tr]\ncmp     dword ptr [rax+4Ch], 0FFFFFFFFh\nsetz    al\nmov     [rbp+var_21], al",
+   "loc_188E": "mov     al, [rbp+var_21]\nand     al, 1\nmovzx   eax, al\nmov     [rbp+remove], eax\njmp     loc_18C6",
+   "loc_189E": "mov     rax, [rbp+tr]\ncmp     dword ptr [rax+3Ch], 0\njge     loc_18BA",
+   "loc_18AC": "mov     rax, [rbp+tr]\ncmp     dword ptr [rax+4Ch], 0\njl      loc_18C1",
+   "loc_18BA": "mov     [rbp+remove], 0",
+   "loc_18C1": "jmp     $+5",
+   "loc_18C6": "cmp     [rbp+remove], 0\njz      loc_196F",
+   "loc_18D0": "mov     rax, [rbp+tr]\ncmp     dword ptr [rax+4Ch], 0FFFFFFFFh\njnz     loc_18F4",
+   "loc_18DE": "mov     rdi, [rbp+ctx]; ctx\nmov     rax, [rbp+tr]\nmov     rsi, [rax+28h]; dict\nmov     edx, (offset dword_0+3); key\ncall    pdf_dict_del",
+   "loc_18F4": "mov     rax, [rbp+tr]\ncmp     dword ptr [rax+3Ch], 0FFFFFFFFh\njnz     loc_1918",
+   "loc_1902": "mov     rdi, [rbp+ctx]; ctx\nmov     rax, [rbp+tr]\nmov     rsi, [rax+28h]; dict\nmov     edx, offset byte_4; key\ncall    pdf_dict_del",
+   "loc_1918": "mov     rdi, [rbp+ctx]; ctx\nmov     rax, [rbp+tr]\nmov     rsi, [rax+28h]; obj\ncall    pdf_drop_obj\nmov     rax, [rbp+tr]\nmov     qword ptr [rax+28h], 0\nmov     rdi, [rbp+ctx]; ctx\nmov     rax, [rbp+tr]\nmov     rsi, [rax+30h]; p\ncall    fz_free\nmov     rax, [rbp+tr]\nmov     qword ptr [rax+30h], 0\nmov     rdi, [rbp+ctx]; ctx\nmov     rax, [rbp+tr]\nmov     rsi, [rax+40h]; p\ncall    fz_free\nmov     rax, [rbp+tr]\nmov     qword ptr [rax+40h], 0",
+   "loc_196F": "add     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_21": "byte ptr -21h",
+   "remove": "dword ptr -20h",
+   "uni": "dword ptr -1Ch",
+   "tr": "qword ptr -18h",
+   "p": "qword ptr -10h",
+   "ctx": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6096,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".rewind": "rewind",
+  "_rewind": "rewind",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".rewind",
+   ".plt",
+   true,
+   "rewind"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "rewind",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memmove",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868470
+ }
+}

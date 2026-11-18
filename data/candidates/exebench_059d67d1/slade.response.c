@@ -1,0 +1,1 @@
+void sun_timeofday2time(long long tm, unsigned int *sec, unsigned int *min, unsigned int *sec) { *sec = tm / 3600; *min = (tm % 3600) / 60; *sec = tm % 60; }

@@ -1,0 +1,306 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+s], rdi\nmov     [rbp+pkt], rsi\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     [rbp+ctx], rax\nmov     rax, [rbp+s]\nmov     rax, [rax+8]\nmov     [rbp+pb], rax\nmov     [rbp+offset], 0\nmov     rdi, [rbp+pb]; s\ncall    avio_size\nmov     [rbp+size], rax\ncmp     [rbp+size], 0\njge     loc_1623\nmov     rax, [rbp+size]\nmov     [rbp+var_4], eax\njmp     loc_1732\ncmp     [rbp+size], 0\njnz     loc_1636\nmov     [rbp+size], 1000h\nmov     rax, [rbp+ctx]\ncmp     qword ptr [rax], 0\njz      loc_1668\nmov     rax, [rbp+size]\nmov     rcx, [rbp+ctx]\nmov     rcx, [rcx]\ncmp     rax, [rcx+8]\njnb     loc_1668\nmov     rax, [rbp+ctx]\nmov     rax, [rax]\nmov     rax, [rax+8]\nmov     [rbp+size], rax\nmov     rdi, [rbp+pkt]; pkt\nmov     rax, [rbp+size]\nmov     esi, eax; size\ncall    av_new_packet\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njge     loc_168F\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_1732\nmov     rax, [rbp+ctx]\ncmp     qword ptr [rax], 0\njz      loc_16CF\nmov     rax, [rbp+ctx]\nmov     rax, [rax]\nmov     rax, [rax+8]\nmov     [rbp+offset], rax\nmov     rax, [rbp+pkt]\nmov     rdi, [rax]; dest\nmov     rax, [rbp+ctx]\nmov     rax, [rax]\nmov     rsi, [rax]; src\nmov     rdx, [rbp+offset]; n\ncall    memcpy\nmov     rdi, [rbp+ctx]; buf\ncall    av_buffer_unref\nmov     rdi, [rbp+pb]; s\nmov     rax, [rbp+pkt]\nmov     rsi, [rax]\nadd     rsi, [rbp+offset]; buf\nmov     rax, [rbp+size]\nsub     rax, [rbp+offset]\nmov     edx, eax; size\ncall    avio_read\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njge     loc_1705\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_1732\nmovsxd  rax, [rbp+ret]\nmov     rcx, [rbp+size]\nsub     rcx, [rbp+offset]\ncmp     rax, rcx\njnb     loc_172B\nmovsxd  rax, [rbp+ret]\nadd     rax, [rbp+offset]\nmov     ecx, eax\nmov     rax, [rbp+pkt]\nmov     [rax+8], ecx\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 17,
+  "edges": [
+   [
+    "start",
+    "loc_1617"
+   ],
+   [
+    "start",
+    "loc_1623"
+   ],
+   [
+    "loc_1617",
+    "loc_1732"
+   ],
+   [
+    "loc_1623",
+    "loc_162E"
+   ],
+   [
+    "loc_1623",
+    "loc_1636"
+   ],
+   [
+    "loc_162E",
+    "loc_1636"
+   ],
+   [
+    "loc_1636",
+    "loc_1644"
+   ],
+   [
+    "loc_1636",
+    "loc_1668"
+   ],
+   [
+    "loc_1644",
+    "loc_1659"
+   ],
+   [
+    "loc_1644",
+    "loc_1668"
+   ],
+   [
+    "loc_1659",
+    "loc_1668"
+   ],
+   [
+    "loc_1668",
+    "loc_1684"
+   ],
+   [
+    "loc_1668",
+    "loc_168F"
+   ],
+   [
+    "loc_1684",
+    "loc_1732"
+   ],
+   [
+    "loc_168F",
+    "loc_169D"
+   ],
+   [
+    "loc_168F",
+    "loc_16CF"
+   ],
+   [
+    "loc_169D",
+    "loc_16CF"
+   ],
+   [
+    "loc_16CF",
+    "loc_16FA"
+   ],
+   [
+    "loc_16CF",
+    "loc_1705"
+   ],
+   [
+    "loc_16FA",
+    "loc_1732"
+   ],
+   [
+    "loc_1705",
+    "loc_171A"
+   ],
+   [
+    "loc_1705",
+    "loc_172B"
+   ],
+   [
+    "loc_171A",
+    "loc_172B"
+   ],
+   [
+    "loc_172B",
+    "loc_1732"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+s], rdi\nmov     [rbp+pkt], rsi\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     [rbp+ctx], rax\nmov     rax, [rbp+s]\nmov     rax, [rax+8]\nmov     [rbp+pb], rax\nmov     [rbp+offset], 0\nmov     rdi, [rbp+pb]; s\ncall    avio_size\nmov     [rbp+size], rax\ncmp     [rbp+size], 0\njge     loc_1623",
+   "loc_1617": "mov     rax, [rbp+size]\nmov     [rbp+var_4], eax\njmp     loc_1732",
+   "loc_1623": "cmp     [rbp+size], 0\njnz     loc_1636",
+   "loc_162E": "mov     [rbp+size], 1000h",
+   "loc_1636": "mov     rax, [rbp+ctx]\ncmp     qword ptr [rax], 0\njz      loc_1668",
+   "loc_1644": "mov     rax, [rbp+size]\nmov     rcx, [rbp+ctx]\nmov     rcx, [rcx]\ncmp     rax, [rcx+8]\njnb     loc_1668",
+   "loc_1659": "mov     rax, [rbp+ctx]\nmov     rax, [rax]\nmov     rax, [rax+8]\nmov     [rbp+size], rax",
+   "loc_1668": "mov     rdi, [rbp+pkt]; pkt\nmov     rax, [rbp+size]\nmov     esi, eax; size\ncall    av_new_packet\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njge     loc_168F",
+   "loc_1684": "mov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_1732",
+   "loc_168F": "mov     rax, [rbp+ctx]\ncmp     qword ptr [rax], 0\njz      loc_16CF",
+   "loc_169D": "mov     rax, [rbp+ctx]\nmov     rax, [rax]\nmov     rax, [rax+8]\nmov     [rbp+offset], rax\nmov     rax, [rbp+pkt]\nmov     rdi, [rax]; dest\nmov     rax, [rbp+ctx]\nmov     rax, [rax]\nmov     rsi, [rax]; src\nmov     rdx, [rbp+offset]; n\ncall    memcpy\nmov     rdi, [rbp+ctx]; buf\ncall    av_buffer_unref",
+   "loc_16CF": "mov     rdi, [rbp+pb]; s\nmov     rax, [rbp+pkt]\nmov     rsi, [rax]\nadd     rsi, [rbp+offset]; buf\nmov     rax, [rbp+size]\nsub     rax, [rbp+offset]\nmov     edx, eax; size\ncall    avio_read\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njge     loc_1705",
+   "loc_16FA": "mov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_1732",
+   "loc_1705": "movsxd  rax, [rbp+ret]\nmov     rcx, [rbp+size]\nsub     rcx, [rbp+offset]\ncmp     rax, rcx\njnb     loc_172B",
+   "loc_171A": "movsxd  rax, [rbp+ret]\nadd     rax, [rbp+offset]\nmov     ecx, eax\nmov     rax, [rbp+pkt]\nmov     [rax+8], ecx",
+   "loc_172B": "mov     [rbp+var_4], 0",
+   "loc_1732": "mov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "offset": "qword ptr -40h",
+   "size": "qword ptr -38h",
+   "ret": "dword ptr -2Ch",
+   "pb": "qword ptr -28h",
+   "ctx": "qword ptr -20h",
+   "pkt": "qword ptr -18h",
+   "s": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5584,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868490
+ }
+}

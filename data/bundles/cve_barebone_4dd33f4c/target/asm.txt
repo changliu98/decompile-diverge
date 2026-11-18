@@ -1,0 +1,236 @@
+0000000000001540 <get_tagfname>:
+    1540:	push   %rbp
+    1541:	mov    %rsp,%rbp
+    1544:	sub    $0xa0,%rsp
+    154b:	mov    %rdi,-0x10(%rbp)
+    154f:	mov    %esi,-0x14(%rbp)
+    1552:	mov    %rdx,-0x20(%rbp)
+    1556:	movq   $0x0,-0x28(%rbp)
+    155e:	cmpl   $0x0,-0x14(%rbp)
+    1562:	je     1578 <get_tagfname+0x38>
+    1568:	mov    -0x10(%rbp),%rdi
+    156c:	xor    %esi,%esi
+    156e:	mov    $0x20,%edx
+    1573:	call   1090 <memset@plt>
+    1578:	mov    0x2b29(%rip),%rax        # 40a8 <curbuf>
+    157f:	cmpl   $0x0,(%rax)
+    1582:	je     16e5 <get_tagfname+0x1a5>
+    1588:	cmpl   $0x0,-0x14(%rbp)
+    158c:	je     15d0 <get_tagfname+0x90>
+    1592:	lea    0x2b2f(%rip),%rdi        # 40c8 <tag_fnames>
+    1599:	call   12d0 <ga_clear_strings>
+    159e:	lea    0x2b23(%rip),%rdi        # 40c8 <tag_fnames>
+    15a5:	mov    $0x8,%esi
+    15aa:	mov    $0xa,%edx
+    15af:	call   1260 <ga_init2>
+    15b4:	lea    0xa49(%rip),%rdi        # 2004 <_IO_stdin_used+0x4>
+    15bb:	mov    $0x1,%esi
+    15c0:	lea    0x3a9(%rip),%rdx        # 1970 <found_tagfile_cb>
+    15c7:	xor    %eax,%eax
+    15c9:	mov    %eax,%ecx
+    15cb:	call   14a0 <do_in_runtimepath>
+    15d0:	mov    -0x10(%rbp),%rax
+    15d4:	mov    0x14(%rax),%eax
+    15d7:	cmp    0x2aeb(%rip),%eax        # 40c8 <tag_fnames>
+    15dd:	jl     16ae <get_tagfname+0x16e>
+    15e3:	mov    -0x10(%rbp),%rax
+    15e7:	mov    0x14(%rax),%eax
+    15ea:	cmp    0x2ad8(%rip),%eax        # 40c8 <tag_fnames>
+    15f0:	jg     1609 <get_tagfname+0xc9>
+    15f6:	mov    0x2ab3(%rip),%rax        # 40b0 <p_hf>
+    15fd:	movzbl (%rax),%eax
+    1600:	cmp    $0x0,%eax
+    1603:	jne    1615 <get_tagfname+0xd5>
+    1609:	movl   $0x0,-0x4(%rbp)
+    1610:	jmp    195d <get_tagfname+0x41d>
+    1615:	mov    -0x10(%rbp),%rax
+    1619:	mov    0x14(%rax),%ecx
+    161c:	add    $0x1,%ecx
+    161f:	mov    %ecx,0x14(%rax)
+    1622:	mov    -0x20(%rbp),%rdi
+    1626:	mov    0x2a83(%rip),%rsi        # 40b0 <p_hf>
+    162d:	call   1050 <strcpy@plt>
+    1632:	mov    -0x20(%rbp),%rdi
+    1636:	call   1400 <gettail>
+    163b:	mov    %rax,%rdi
+    163e:	lea    0x9c3(%rip),%rsi        # 2008 <_IO_stdin_used+0x8>
+    1645:	call   1050 <strcpy@plt>
+    164a:	mov    -0x20(%rbp),%rdi
+    164e:	call   1480 <simplify_filename>
+    1653:	movl   $0x0,-0x34(%rbp)
+    165a:	mov    -0x34(%rbp),%eax
+    165d:	cmp    0x2a65(%rip),%eax        # 40c8 <tag_fnames>
+    1663:	jge    16a9 <get_tagfname+0x169>
+    1669:	mov    -0x20(%rbp),%rdi
+    166d:	mov    0x2a64(%rip),%rax        # 40d8 <tag_fnames+0x10>
+    1674:	movslq -0x34(%rbp),%rcx
+    1678:	mov    (%rax,%rcx,8),%rsi
+    167c:	call   10a0 <strcmp@plt>
+    1681:	cmp    $0x0,%eax
+    1684:	jne    1696 <get_tagfname+0x156>
+    168a:	movl   $0x0,-0x4(%rbp)
+    1691:	jmp    195d <get_tagfname+0x41d>
+    1696:	jmp    169b <get_tagfname+0x15b>
+    169b:	mov    -0x34(%rbp),%eax
+    169e:	add    $0x1,%eax
+    16a1:	mov    %eax,-0x34(%rbp)
+    16a4:	jmp    165a <get_tagfname+0x11a>
+    16a9:	jmp    16d9 <get_tagfname+0x199>
+    16ae:	mov    -0x20(%rbp),%rdi
+    16b2:	mov    0x2a1f(%rip),%rax        # 40d8 <tag_fnames+0x10>
+    16b9:	mov    -0x10(%rbp),%rdx
+    16bd:	mov    0x14(%rdx),%ecx
+    16c0:	mov    %ecx,%esi
+    16c2:	add    $0x1,%esi
+    16c5:	mov    %esi,0x14(%rdx)
+    16c8:	movslq %ecx,%rcx
+    16cb:	mov    (%rax,%rcx,8),%rsi
+    16cf:	mov    $0xfff,%edx
+    16d4:	call   1370 <vim_strncpy>
+    16d9:	movl   $0x1,-0x4(%rbp)
+    16e0:	jmp    195d <get_tagfname+0x41d>
+    16e5:	cmpl   $0x0,-0x14(%rbp)
+    16e9:	je     1761 <get_tagfname+0x221>
+    16ef:	mov    0x29b2(%rip),%rax        # 40a8 <curbuf>
+    16f6:	mov    0x8(%rax),%rax
+    16fa:	movzbl (%rax),%eax
+    16fd:	cmp    $0x0,%eax
+    1700:	je     171a <get_tagfname+0x1da>
+    1706:	mov    0x299b(%rip),%rax        # 40a8 <curbuf>
+    170d:	mov    0x8(%rax),%rax
+    1711:	mov    %rax,-0x48(%rbp)
+    1715:	jmp    1725 <get_tagfname+0x1e5>
+    171a:	mov    0x2997(%rip),%rax        # 40b8 <p_tags>
+    1721:	mov    %rax,-0x48(%rbp)
+    1725:	mov    -0x48(%rbp),%rdi
+    1729:	call   13b0 <vim_strsave>
+    172e:	mov    %rax,%rcx
+    1731:	mov    -0x10(%rbp),%rax
+    1735:	mov    %rcx,(%rax)
+    1738:	mov    -0x10(%rbp),%rax
+    173c:	cmpq   $0x0,(%rax)
+    1740:	jne    1752 <get_tagfname+0x212>
+    1746:	movl   $0x0,-0x4(%rbp)
+    174d:	jmp    195d <get_tagfname+0x41d>
+    1752:	mov    -0x10(%rbp),%rax
+    1756:	mov    (%rax),%rcx
+    1759:	mov    -0x10(%rbp),%rax
+    175d:	mov    %rcx,0x8(%rax)
+    1761:	jmp    1766 <get_tagfname+0x226>
+    1766:	mov    -0x10(%rbp),%rax
+    176a:	cmpl   $0x0,0x10(%rax)
+    176e:	je     17a5 <get_tagfname+0x265>
+    1774:	mov    -0x10(%rbp),%rax
+    1778:	mov    0x18(%rax),%rdi
+    177c:	call   1520 <vim_findfile>
+    1781:	mov    %rax,-0x28(%rbp)
+    1785:	cmpq   $0x0,-0x28(%rbp)
+    178a:	je     1795 <get_tagfname+0x255>
+    1790:	jmp    1940 <get_tagfname+0x400>
+    1795:	mov    -0x10(%rbp),%rax
+    1799:	movl   $0x0,0x10(%rax)
+    17a0:	jmp    193b <get_tagfname+0x3fb>
+    17a5:	movq   $0x0,-0x40(%rbp)
+    17ad:	mov    -0x10(%rbp),%rax
+    17b1:	mov    0x8(%rax),%rax
+    17b5:	movzbl (%rax),%eax
+    17b8:	cmp    $0x0,%eax
+    17bb:	jne    17e6 <get_tagfname+0x2a6>
+    17c1:	mov    -0x10(%rbp),%rax
+    17c5:	mov    0x18(%rax),%rdi
+    17c9:	call   1530 <vim_findfile_cleanup>
+    17ce:	mov    -0x10(%rbp),%rax
+    17d2:	movq   $0x0,0x18(%rax)
+    17da:	movl   $0x0,-0x4(%rbp)
+    17e1:	jmp    195d <get_tagfname+0x41d>
+    17e6:	mov    -0x20(%rbp),%rax
+    17ea:	movb   $0x0,(%rax)
+    17ed:	mov    -0x10(%rbp),%rdi
+    17f1:	add    $0x8,%rdi
+    17f5:	mov    -0x20(%rbp),%rsi
+    17f9:	mov    $0xfff,%edx
+    17fe:	lea    0x808(%rip),%rcx        # 200d <_IO_stdin_used+0xd>
+    1805:	call   14c0 <copy_option_part>
+    180a:	mov    -0x20(%rbp),%rdi
+    180e:	call   14e0 <vim_findfile_stopdir>
+    1813:	mov    %rax,-0x30(%rbp)
+    1817:	mov    -0x20(%rbp),%rdi
+    181b:	call   1400 <gettail>
+    1820:	mov    %rax,-0x40(%rbp)
+    1824:	cmpq   $0x0,-0x30(%rbp)
+    1829:	je     186c <get_tagfname+0x32c>
+    182f:	mov    -0x30(%rbp),%rax
+    1833:	add    $0x1,%rax
+    1837:	mov    %rax,-0x58(%rbp)
+    183b:	mov    -0x30(%rbp),%rax
+    183f:	mov    %rax,-0x50(%rbp)
+    1843:	mov    -0x30(%rbp),%rdi
+    1847:	call   1080 <strlen@plt>
+    184c:	mov    -0x58(%rbp),%rdi
+    1850:	mov    -0x50(%rbp),%rsi
+    1854:	mov    %rax,%rdx
+    1857:	add    $0x1,%rdx
+    185b:	call   1100 <memmove@plt>
+    1860:	mov    -0x30(%rbp),%rax
+    1864:	add    $0x1,%rax
+    1868:	mov    %rax,-0x30(%rbp)
+    186c:	mov    -0x40(%rbp),%rax
+    1870:	add    $0x1,%rax
+    1874:	mov    %rax,-0x78(%rbp)
+    1878:	mov    -0x40(%rbp),%rax
+    187c:	mov    %rax,-0x70(%rbp)
+    1880:	mov    -0x40(%rbp),%rdi
+    1884:	call   1080 <strlen@plt>
+    1889:	mov    -0x78(%rbp),%rdi
+    188d:	mov    -0x70(%rbp),%rsi
+    1891:	mov    %rax,%rdx
+    1894:	add    $0x1,%rdx
+    1898:	call   1100 <memmove@plt>
+    189d:	mov    -0x40(%rbp),%rax
+    18a1:	mov    %rax,%rcx
+    18a4:	add    $0x1,%rcx
+    18a8:	mov    %rcx,-0x40(%rbp)
+    18ac:	movb   $0x0,(%rax)
+    18af:	mov    -0x20(%rbp),%rax
+    18b3:	mov    %rax,-0x68(%rbp)
+    18b7:	mov    -0x40(%rbp),%rax
+    18bb:	mov    %rax,-0x60(%rbp)
+    18bf:	mov    -0x40(%rbp),%rdi
+    18c3:	call   1080 <strlen@plt>
+    18c8:	mov    -0x68(%rbp),%rdi
+    18cc:	mov    -0x60(%rbp),%rsi
+    18d0:	mov    %rax,%rdx
+    18d3:	mov    -0x30(%rbp),%rcx
+    18d7:	mov    -0x10(%rbp),%rax
+    18db:	mov    0x18(%rax),%r10
+    18df:	mov    0x27c2(%rip),%rax        # 40a8 <curbuf>
+    18e6:	mov    0x10(%rax),%rax
+    18ea:	mov    $0x64,%r8d
+    18f0:	xor    %r9d,%r9d
+    18f3:	movl   $0x0,(%rsp)
+    18fa:	mov    %r10,0x8(%rsp)
+    18ff:	movl   $0x1,0x10(%rsp)
+    1907:	mov    %rax,0x18(%rsp)
+    190c:	call   14f0 <vim_findfile_init>
+    1911:	mov    %rax,%rcx
+    1914:	mov    -0x10(%rbp),%rax
+    1918:	mov    %rcx,0x18(%rax)
+    191c:	mov    -0x10(%rbp),%rax
+    1920:	cmpq   $0x0,0x18(%rax)
+    1925:	je     1936 <get_tagfname+0x3f6>
+    192b:	mov    -0x10(%rbp),%rax
+    192f:	movl   $0x1,0x10(%rax)
+    1936:	jmp    193b <get_tagfname+0x3fb>
+    193b:	jmp    1766 <get_tagfname+0x226>
+    1940:	mov    -0x20(%rbp),%rdi
+    1944:	mov    -0x28(%rbp),%rsi
+    1948:	call   1050 <strcpy@plt>
+    194d:	mov    -0x28(%rbp),%rdi
+    1951:	call   1220 <vim_free>
+    1956:	movl   $0x1,-0x4(%rbp)
+    195d:	mov    -0x4(%rbp),%eax
+    1960:	add    $0xa0,%rsp
+    1967:	pop    %rbp
+    1968:	ret
+
+Disassembly of section .fini:

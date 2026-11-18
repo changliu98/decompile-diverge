@@ -1,0 +1,1 @@
+int str_copy(char *d, char *s) { int i = 0; while (1) { if (!(*d = *s)) return i; d++; s++; i++; if (!(*d = *s)) return i; d++; s++; i++; if (!(*d = *s)) return i; d++; s++; i++; if (!(*d = *s)) return i; d++; s++; i++; } }

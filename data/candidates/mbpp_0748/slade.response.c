@@ -1,0 +1,1 @@
+void func0(char *s, char *rs) { regex_t reg; regcomp(&reg, "([a-z])([A-Z])", 1); char buffer0[1024]; strcpy(buffer0, s); char *ptr = buffer0; rs[0] = '\0'; while (!regexec(&reg, ptr, 3, buffer0, 0) == !0) { strncat(rs, ptr, reg.re_len); rs[strcat(rs, ""); } strcat(rs, ptr); regfree(&reg); }

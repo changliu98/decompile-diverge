@@ -1,0 +1,1 @@
+void initializeStatesAndConstants( States *inStates, Discourse *dc ) { inStates->state = 0.0; }

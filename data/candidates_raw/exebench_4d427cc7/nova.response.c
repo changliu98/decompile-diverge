@@ -1,0 +1,1 @@
+void func0(char *s) { s[5] = 1 + '0'; }

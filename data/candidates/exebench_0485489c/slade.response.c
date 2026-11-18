@@ -1,0 +1,1 @@
+void crossp(double *R, const double *P, const double *Q) { R[0] = P[1]*Q[2] - P[2]*Q[1]; R[1] = P[2]*Q[0] - P[0]*Q[2]; R[2] = P[0]*Q[1] - P[1]*Q[0]; }

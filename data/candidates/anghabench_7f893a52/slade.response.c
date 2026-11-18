@@ -1,0 +1,1 @@
+int uniphier_ld11_get_gpio_muxval(unsigned int pin, unsigned int gpio_offset) { if (gpio_offset ==0x84 || gpio_offset ==0x87) return 14; else if (gpio_offset >=0x70 && gpio_offset <=0x8f) return 14; return 15; }

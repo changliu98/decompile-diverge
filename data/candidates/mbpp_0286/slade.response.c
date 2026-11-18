@@ -1,0 +1,1 @@
+uint64_t func0(const uint8_t *src, int width, int height) { uint64_t sum =0x80000000; uint64_t tmp = 0; int i; for (i = 0; i < width * height; ++i) { tmp += src[i % width]; if (sum < tmp) sum = tmp; if (tmp < 0) tmp = 0; } return sum; }

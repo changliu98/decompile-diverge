@@ -1,0 +1,1 @@
+void _prtX16(long long i, char * buf) { char x[9]; int j; x[0] = 0; for (j = 1; j <= 8; j++) { x[j] = "0123456789ABCDEF"[i &0xF]; i >>= 4; } for (j = 8; x[j] == '0'; j--) ; if (j == 0) { j++; } while (j >= 0) { *buf++ = x[j--]; } }

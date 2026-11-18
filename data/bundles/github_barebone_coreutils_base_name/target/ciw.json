@@ -1,0 +1,280 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+name], rdi\nmov     rdi, [rbp+name]; name\ncall    last_component\nmov     [rbp+base], rax\nmov     rax, [rbp+base]\ncmp     byte ptr [rax], 0\njz      loc_1260\nmov     rdi, [rbp+base]; name\ncall    base_len\nmov     [rbp+length], rax\nmov     rax, [rbp+base]\nmov     rcx, [rbp+length]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 2Fh ; '/'\nsetz    al\nand     al, 1\nmovzx   eax, al\ncdqe\nadd     rax, [rbp+length]\nmov     [rbp+length], rax\nmov     [rbp+dotslash_len], 0\njmp     loc_127C\nmov     rax, [rbp+name]\nmov     [rbp+base], rax\nmov     rdi, [rbp+base]; name\ncall    base_len\nmov     [rbp+length], rax\nmov     [rbp+dotslash_len], 0\nmovsxd  rdi, [rbp+dotslash_len]\nadd     rdi, [rbp+length]\nadd     rdi, 1; s\ncall    ximalloc\nmov     [rbp+p], rax\ncmp     [rbp+dotslash_len], 0\njz      loc_12AA\nmov     rax, [rbp+p]\nmov     byte ptr [rax], 2Eh ; '.'\nmov     rax, [rbp+p]\nmov     byte ptr [rax+1], 2Fh ; '/'\nmov     rdi, [rbp+p]\nmovsxd  rax, [rbp+dotslash_len]\nadd     rdi, rax; dest\nmov     rsi, [rbp+base]; src\nmov     rdx, [rbp+length]; n\ncall    memcpy\nmov     rax, [rbp+p]\nmovsxd  rcx, [rbp+dotslash_len]\nadd     rcx, [rbp+length]\nmov     byte ptr [rax+rcx], 0\nmov     rax, [rbp+p]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 6,
+  "edges": [
+   [
+    "start",
+    "loc_1226"
+   ],
+   [
+    "start",
+    "loc_1260"
+   ],
+   [
+    "loc_1226",
+    "loc_127C"
+   ],
+   [
+    "loc_1260",
+    "loc_127C"
+   ],
+   [
+    "loc_127C",
+    "loc_129B"
+   ],
+   [
+    "loc_127C",
+    "loc_12AA"
+   ],
+   [
+    "loc_129B",
+    "loc_12AA"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+name], rdi\nmov     rdi, [rbp+name]; name\ncall    last_component\nmov     [rbp+base], rax\nmov     rax, [rbp+base]\ncmp     byte ptr [rax], 0\njz      loc_1260",
+   "loc_1226": "mov     rdi, [rbp+base]; name\ncall    base_len\nmov     [rbp+length], rax\nmov     rax, [rbp+base]\nmov     rcx, [rbp+length]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 2Fh ; '/'\nsetz    al\nand     al, 1\nmovzx   eax, al\ncdqe\nadd     rax, [rbp+length]\nmov     [rbp+length], rax\nmov     [rbp+dotslash_len], 0\njmp     loc_127C",
+   "loc_1260": "mov     rax, [rbp+name]\nmov     [rbp+base], rax\nmov     rdi, [rbp+base]; name\ncall    base_len\nmov     [rbp+length], rax\nmov     [rbp+dotslash_len], 0",
+   "loc_127C": "movsxd  rdi, [rbp+dotslash_len]\nadd     rdi, [rbp+length]\nadd     rdi, 1; s\ncall    ximalloc\nmov     [rbp+p], rax\ncmp     [rbp+dotslash_len], 0\njz      loc_12AA",
+   "loc_129B": "mov     rax, [rbp+p]\nmov     byte ptr [rax], 2Eh ; '.'\nmov     rax, [rbp+p]\nmov     byte ptr [rax+1], 2Fh ; '/'",
+   "loc_12AA": "mov     rdi, [rbp+p]\nmovsxd  rax, [rbp+dotslash_len]\nadd     rdi, rax; dest\nmov     rsi, [rbp+base]; src\nmov     rdx, [rbp+length]; n\ncall    memcpy\nmov     rax, [rbp+p]\nmovsxd  rcx, [rbp+dotslash_len]\nadd     rcx, [rbp+length]\nmov     byte ptr [rax+rcx], 0\nmov     rax, [rbp+p]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "p": "qword ptr -28h",
+   "dotslash_len": "dword ptr -1Ch",
+   "length": "qword ptr -18h",
+   "base": "qword ptr -10h",
+   "name": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4608,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".abort": "abort",
+  "_abort": "abort",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".abort",
+   ".plt",
+   true,
+   "abort"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "abort",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868509
+ }
+}

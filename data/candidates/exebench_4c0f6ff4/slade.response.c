@@ -1,0 +1,1 @@
+bool endGCGdata ( const char *string, int *error ) { *error = 0; return ( string[0] == '>' ); }

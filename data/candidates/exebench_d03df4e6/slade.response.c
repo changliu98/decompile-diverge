@@ -1,0 +1,1 @@
+void SN_set_nb_iters(uint32_t* base_address,uint32_t nb_iters){ (*(base_address+1)=(nb_iters)); }

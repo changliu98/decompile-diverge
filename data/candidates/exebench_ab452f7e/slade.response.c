@@ -1,0 +1,1 @@
+int maxdig(int *a, int *b) {  int dig; if (*a == 0) return *b; dig = *a % 10; if (*b <= dig) *b = dig; *a /= 10; maxdig(a, b); }

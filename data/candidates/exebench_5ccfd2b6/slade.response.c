@@ -1,0 +1,1 @@
+void TwoOutArgs(int a, int *p, int b, int *c) { *p += a; *c += b; }

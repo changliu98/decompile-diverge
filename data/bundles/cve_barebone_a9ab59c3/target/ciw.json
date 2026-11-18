@@ -1,0 +1,314 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+p], rdi\nmov     [rbp+key], rsi\ncmp     [rbp+p], 0\njz      loc_1DE0\njmp     loc_1DFF\nlea     rdi, assertion; \"p\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 2F3h; line\nlea     rcx, aIntDnsPacketIs; \"int dns_packet_is_reply_for(DnsPacket *\"...\ncall    ___assert_fail\ncmp     [rbp+key], 0\njz      loc_1E0F\njmp     loc_1E2E\nlea     rdi, aKey; \"key\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 2F4h; line\nlea     rcx, aIntDnsPacketIs; \"int dns_packet_is_reply_for(DnsPacket *\"...\ncall    ___assert_fail\nmov     rdi, [rbp+p]; p\ncall    DNS_PACKET_DATA\nmovzx   edi, word ptr [rax+2]; value\ncall    __ZL8foldCaset; foldCase(ushort)\nmovzx   eax, ax\nsar     eax, 0Fh\nand     eax, 1\ncmp     eax, 1\njz      loc_1E5E\nmov     [rbp+var_4], 0\njmp     loc_1EB5\nmov     rdi, [rbp+p]; p\ncall    dns_packet_extract\nmov     [rbp+r], eax\ncmp     [rbp+r], 0\njge     loc_1E7F\nmov     eax, [rbp+r]\nmov     [rbp+var_4], eax\njmp     loc_1EB5\nmov     rax, [rbp+p]\nmov     rax, [rax+40h]\ncmp     dword ptr [rax+4], 1\njz      loc_1E9D\nmov     [rbp+var_4], 0\njmp     loc_1EB5\nmov     rax, [rbp+p]\nmov     rax, [rax+40h]\nmov     rdi, [rax+10h]; a\nmov     rsi, [rbp+key]; b\ncall    dns_resource_key_equal\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\nadd     rsp, 20h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 14,
+  "edges": [
+   [
+    "start",
+    "loc_1DDB"
+   ],
+   [
+    "start",
+    "loc_1DE0"
+   ],
+   [
+    "loc_1DDB",
+    "loc_1DFF"
+   ],
+   [
+    "loc_1DFF",
+    "loc_1E0A"
+   ],
+   [
+    "loc_1DFF",
+    "loc_1E0F"
+   ],
+   [
+    "loc_1E0A",
+    "loc_1E2E"
+   ],
+   [
+    "loc_1E2E",
+    "loc_1E52"
+   ],
+   [
+    "loc_1E2E",
+    "loc_1E5E"
+   ],
+   [
+    "loc_1E52",
+    "loc_1EB5"
+   ],
+   [
+    "loc_1E5E",
+    "loc_1E74"
+   ],
+   [
+    "loc_1E5E",
+    "loc_1E7F"
+   ],
+   [
+    "loc_1E74",
+    "loc_1EB5"
+   ],
+   [
+    "loc_1E7F",
+    "loc_1E91"
+   ],
+   [
+    "loc_1E7F",
+    "loc_1E9D"
+   ],
+   [
+    "loc_1E91",
+    "loc_1EB5"
+   ],
+   [
+    "loc_1E9D",
+    "loc_1EB5"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+p], rdi\nmov     [rbp+key], rsi\ncmp     [rbp+p], 0\njz      loc_1DE0",
+   "loc_1DDB": "jmp     loc_1DFF",
+   "loc_1DE0": "lea     rdi, assertion; \"p\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 2F3h; line\nlea     rcx, aIntDnsPacketIs; \"int dns_packet_is_reply_for(DnsPacket *\"...\ncall    ___assert_fail",
+   "loc_1DFF": "cmp     [rbp+key], 0\njz      loc_1E0F",
+   "loc_1E0A": "jmp     loc_1E2E",
+   "loc_1E0F": "lea     rdi, aKey; \"key\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 2F4h; line\nlea     rcx, aIntDnsPacketIs; \"int dns_packet_is_reply_for(DnsPacket *\"...\ncall    ___assert_fail",
+   "loc_1E2E": "mov     rdi, [rbp+p]; p\ncall    DNS_PACKET_DATA\nmovzx   edi, word ptr [rax+2]; value\ncall    __ZL8foldCaset; foldCase(ushort)\nmovzx   eax, ax\nsar     eax, 0Fh\nand     eax, 1\ncmp     eax, 1\njz      loc_1E5E",
+   "loc_1E52": "mov     [rbp+var_4], 0\njmp     loc_1EB5",
+   "loc_1E5E": "mov     rdi, [rbp+p]; p\ncall    dns_packet_extract\nmov     [rbp+r], eax\ncmp     [rbp+r], 0\njge     loc_1E7F",
+   "loc_1E74": "mov     eax, [rbp+r]\nmov     [rbp+var_4], eax\njmp     loc_1EB5",
+   "loc_1E7F": "mov     rax, [rbp+p]\nmov     rax, [rax+40h]\ncmp     dword ptr [rax+4], 1\njz      loc_1E9D",
+   "loc_1E91": "mov     [rbp+var_4], 0\njmp     loc_1EB5",
+   "loc_1E9D": "mov     rax, [rbp+p]\nmov     rax, [rax+40h]\nmov     rdi, [rax+10h]; a\nmov     rsi, [rbp+key]; b\ncall    dns_resource_key_equal\nmov     [rbp+var_4], eax",
+   "loc_1EB5": "mov     eax, [rbp+var_4]\nadd     rsp, 20h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "r": "dword ptr -1Ch",
+   "key": "qword ptr -18h",
+   "p": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "assertion": "byte 'p',0",
+   "file": "byte 'harness.c',0",
+   "aIntDnsPacketIs": "byte 'int dns_packet_is_reply_for(DnsPacket *, const DnsResourceKey *)',0",
+   "aKey": "byte 'key',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 7616,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868481
+ }
+}

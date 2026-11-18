@@ -1,0 +1,1 @@
+char * func0 (char *p) { int i = 0; int j = 0; while (p[i] != 0) { if ((__ctype_b_loc (p[i])[(unsigned char)p[i]] &0x2000) == 0) p[j++] = p[i]; i++; } p[j] = 0; return p; }

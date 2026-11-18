@@ -1,0 +1,260 @@
+00000000000013e0 <read_file_dentry_set>:
+    13e0:	push   %rbp
+    13e1:	mov    %rsp,%rbp
+    13e4:	sub    $0x50,%rsp
+    13e8:	mov    %rdi,-0x10(%rbp)
+    13ec:	mov    %rsi,-0x18(%rbp)
+    13f0:	mov    %rdx,-0x20(%rbp)
+    13f4:	movq   $0x0,-0x40(%rbp)
+    13fc:	movb   $0x0,-0x49(%rbp)
+    1400:	mov    -0x10(%rbp),%rdi
+    1404:	xor    %esi,%esi
+    1406:	lea    -0x28(%rbp),%rdx
+    140a:	call   1850 <exfat_de_iter_get>
+    140f:	mov    %eax,-0x48(%rbp)
+    1412:	cmpl   $0x0,-0x48(%rbp)
+    1416:	jne    142e <read_file_dentry_set+0x4e>
+    141c:	mov    -0x28(%rbp),%rax
+    1420:	movzbl (%rax),%eax
+    1423:	cmp    $0x85,%eax
+    1428:	je     1448 <read_file_dentry_set+0x68>
+    142e:	lea    0xc3a(%rip),%rdi        # 206f <_IO_stdin_used+0x6f>
+    1435:	mov    $0x0,%al
+    1437:	call   18b0 <exfat_err>
+    143c:	movl   $0xffffffea,-0x4(%rbp)
+    1443:	jmp    17f5 <read_file_dentry_set+0x415>
+    1448:	mov    -0x10(%rbp),%rdi
+    144c:	call   18c0 <file_calc_checksum>
+    1451:	mov    %ax,-0x4c(%rbp)
+    1455:	movzwl -0x4c(%rbp),%eax
+    1459:	mov    -0x28(%rbp),%rcx
+    145d:	movzwl 0x2(%rcx),%ecx
+    1461:	cmp    %ecx,%eax
+    1463:	je     1478 <read_file_dentry_set+0x98>
+    1469:	mov    -0x20(%rbp),%rax
+    146d:	movl   $0x1,(%rax)
+    1473:	jmp    1721 <read_file_dentry_set+0x341>
+    1478:	mov    -0x28(%rbp),%rax
+    147c:	movzbl 0x1(%rax),%eax
+    1480:	cmp    $0x2,%eax
+    1483:	jge    1498 <read_file_dentry_set+0xb8>
+    1489:	mov    -0x20(%rbp),%rax
+    148d:	movl   $0x1,(%rax)
+    1493:	jmp    1721 <read_file_dentry_set+0x341>
+    1498:	mov    -0x10(%rbp),%rdi
+    149c:	mov    $0x1,%esi
+    14a1:	lea    -0x30(%rbp),%rdx
+    14a5:	call   1850 <exfat_de_iter_get>
+    14aa:	mov    %eax,-0x48(%rbp)
+    14ad:	cmpl   $0x0,-0x48(%rbp)
+    14b1:	jne    14c9 <read_file_dentry_set+0xe9>
+    14b7:	mov    -0x30(%rbp),%rax
+    14bb:	movzbl (%rax),%eax
+    14be:	cmp    $0xc0,%eax
+    14c3:	je     14d8 <read_file_dentry_set+0xf8>
+    14c9:	mov    -0x20(%rbp),%rax
+    14cd:	movl   $0x2,(%rax)
+    14d3:	jmp    1721 <read_file_dentry_set+0x341>
+    14d8:	mov    -0x18(%rbp),%rax
+    14dc:	movq   $0x0,(%rax)
+    14e3:	mov    -0x28(%rbp),%rax
+    14e7:	movzwl 0x4(%rax),%edi
+    14eb:	call   1950 <exfat_alloc_inode>
+    14f0:	mov    %rax,-0x40(%rbp)
+    14f4:	cmpq   $0x0,-0x40(%rbp)
+    14f9:	jne    150b <read_file_dentry_set+0x12b>
+    14ff:	movl   $0xfffffff4,-0x4(%rbp)
+    1506:	jmp    17f5 <read_file_dentry_set+0x415>
+    150b:	movl   $0x2,-0x44(%rbp)
+    1512:	mov    -0x44(%rbp),%eax
+    1515:	mov    -0x28(%rbp),%rcx
+    1519:	movzbl 0x1(%rcx),%ecx
+    151d:	cmp    %ecx,%eax
+    151f:	jg     15f4 <read_file_dentry_set+0x214>
+    1525:	mov    -0x10(%rbp),%rdi
+    1529:	mov    -0x44(%rbp),%esi
+    152c:	lea    -0x38(%rbp),%rdx
+    1530:	call   1850 <exfat_de_iter_get>
+    1535:	mov    %eax,-0x48(%rbp)
+    1538:	cmpl   $0x0,-0x48(%rbp)
+    153c:	jne    1554 <read_file_dentry_set+0x174>
+    1542:	mov    -0x38(%rbp),%rax
+    1546:	movzbl (%rax),%eax
+    1549:	cmp    $0xc1,%eax
+    154e:	je     15a1 <read_file_dentry_set+0x1c1>
+    1554:	cmpl   $0x2,-0x44(%rbp)
+    1558:	jle    1590 <read_file_dentry_set+0x1b0>
+    155e:	xor    %eax,%eax
+    1560:	test   $0x1,%al
+    1562:	jne    156d <read_file_dentry_set+0x18d>
+    1568:	jmp    1590 <read_file_dentry_set+0x1b0>
+    156d:	mov    -0x10(%rbp),%rdi
+    1571:	xor    %esi,%esi
+    1573:	lea    -0x28(%rbp),%rdx
+    1577:	call   1a40 <exfat_de_iter_get_dirty>
+    157c:	mov    -0x44(%rbp),%eax
+    157f:	sub    $0x1,%eax
+    1582:	mov    %al,%cl
+    1584:	mov    -0x28(%rbp),%rax
+    1588:	mov    %cl,0x1(%rax)
+    158b:	jmp    15f4 <read_file_dentry_set+0x214>
+    1590:	mov    -0x44(%rbp),%ecx
+    1593:	add    $0x1,%ecx
+    1596:	mov    -0x20(%rbp),%rax
+    159a:	mov    %ecx,(%rax)
+    159c:	jmp    1721 <read_file_dentry_set+0x341>
+    15a1:	mov    -0x40(%rbp),%rax
+    15a5:	mov    -0x44(%rbp),%ecx
+    15a8:	sub    $0x2,%ecx
+    15ab:	imul   $0xf,%ecx,%ecx
+    15ae:	movslq %ecx,%rcx
+    15b1:	mov    -0x38(%rbp),%rdx
+    15b5:	mov    0x2(%rdx),%rsi
+    15b9:	mov    %rsi,0x68(%rax,%rcx,2)
+    15be:	mov    0xa(%rdx),%rsi
+    15c2:	mov    %rsi,0x70(%rax,%rcx,2)
+    15c7:	mov    0x12(%rdx),%rsi
+    15cb:	mov    %rsi,0x78(%rax,%rcx,2)
+    15d0:	mov    0x1a(%rdx),%esi
+    15d3:	mov    %esi,0x80(%rax,%rcx,2)
+    15da:	mov    0x1e(%rdx),%dx
+    15de:	mov    %dx,0x84(%rax,%rcx,2)
+    15e6:	mov    -0x44(%rbp),%eax
+    15e9:	add    $0x1,%eax
+    15ec:	mov    %eax,-0x44(%rbp)
+    15ef:	jmp    1512 <read_file_dentry_set+0x132>
+    15f4:	mov    -0x10(%rbp),%rdi
+    15f8:	mov    -0x40(%rbp),%rsi
+    15fc:	call   1a70 <check_name_dentry_set>
+    1601:	mov    %eax,-0x48(%rbp)
+    1604:	cmpl   $0x0,-0x48(%rbp)
+    1608:	je     1624 <read_file_dentry_set+0x244>
+    160e:	mov    -0x28(%rbp),%rax
+    1612:	movzbl 0x1(%rax),%ecx
+    1616:	add    $0x1,%ecx
+    1619:	mov    -0x20(%rbp),%rax
+    161d:	mov    %ecx,(%rax)
+    161f:	jmp    1721 <read_file_dentry_set+0x341>
+    1624:	mov    -0x28(%rbp),%rax
+    1628:	movzbl 0x1(%rax),%eax
+    162c:	cmp    $0x2,%eax
+    162f:	jne    1683 <read_file_dentry_set+0x2a3>
+    1635:	mov    -0x30(%rbp),%rax
+    1639:	movzbl 0x3(%rax),%eax
+    163d:	cmp    $0x2,%eax
+    1640:	jg     1683 <read_file_dentry_set+0x2a3>
+    1646:	mov    -0x10(%rbp),%rdi
+    164a:	mov    -0x38(%rbp),%rsi
+    164e:	mov    -0x30(%rbp),%rax
+    1652:	movzbl 0x3(%rax),%edx
+    1656:	call   1a80 <handle_dot_dotdot_filename>
+    165b:	mov    %eax,-0x48(%rbp)
+    165e:	cmpl   $0x0,-0x48(%rbp)
+    1662:	jge    167e <read_file_dentry_set+0x29e>
+    1668:	mov    -0x28(%rbp),%rax
+    166c:	movzbl 0x1(%rax),%ecx
+    1670:	add    $0x1,%ecx
+    1673:	mov    -0x20(%rbp),%rax
+    1677:	mov    %ecx,(%rax)
+    1679:	jmp    1721 <read_file_dentry_set+0x341>
+    167e:	jmp    1683 <read_file_dentry_set+0x2a3>
+    1683:	mov    -0x30(%rbp),%rax
+    1687:	mov    0x14(%rax),%ecx
+    168a:	mov    -0x40(%rbp),%rax
+    168e:	mov    %ecx,0x38(%rax)
+    1691:	mov    -0x30(%rbp),%rax
+    1695:	movzbl 0x1(%rax),%eax
+    1699:	and    $0x2,%eax
+    169c:	cmp    $0x0,%eax
+    169f:	setne  %cl
+    16a2:	mov    -0x40(%rbp),%rax
+    16a6:	and    $0x1,%cl
+    16a9:	mov    %cl,0x48(%rax)
+    16ac:	mov    -0x30(%rbp),%rax
+    16b0:	mov    0x18(%rax),%rcx
+    16b4:	mov    -0x40(%rbp),%rax
+    16b8:	mov    %rcx,0x40(%rax)
+    16bc:	mov    -0x40(%rbp),%rax
+    16c0:	mov    0x40(%rax),%rax
+    16c4:	mov    -0x30(%rbp),%rcx
+    16c8:	cmp    0x8(%rcx),%rax
+    16cc:	jae    16f9 <read_file_dentry_set+0x319>
+    16d2:	mov    -0x28(%rbp),%rax
+    16d6:	movzbl 0x1(%rax),%ecx
+    16da:	add    $0x1,%ecx
+    16dd:	mov    -0x20(%rbp),%rax
+    16e1:	mov    %ecx,(%rax)
+    16e3:	mov    -0x28(%rbp),%rax
+    16e7:	movzbl 0x1(%rax),%ecx
+    16eb:	add    $0x1,%ecx
+    16ee:	mov    -0x20(%rbp),%rax
+    16f2:	mov    %ecx,(%rax)
+    16f4:	jmp    1721 <read_file_dentry_set+0x341>
+    16f9:	mov    -0x28(%rbp),%rax
+    16fd:	movzbl 0x1(%rax),%ecx
+    1701:	add    $0x1,%ecx
+    1704:	mov    -0x20(%rbp),%rax
+    1708:	mov    %ecx,(%rax)
+    170a:	mov    -0x40(%rbp),%rcx
+    170e:	mov    -0x18(%rbp),%rax
+    1712:	mov    %rcx,(%rax)
+    1715:	movl   $0x0,-0x4(%rbp)
+    171c:	jmp    17f5 <read_file_dentry_set+0x415>
+    1721:	testb  $0x1,-0x49(%rbp)
+    1725:	je     1749 <read_file_dentry_set+0x369>
+    172b:	mov    -0x10(%rbp),%rdi
+    172f:	xor    %esi,%esi
+    1731:	lea    -0x38(%rbp),%rdx
+    1735:	call   1a40 <exfat_de_iter_get_dirty>
+    173a:	mov    -0x38(%rbp),%rax
+    173e:	movzbl (%rax),%ecx
+    1741:	and    $0xffffff7f,%ecx
+    1747:	mov    %cl,(%rax)
+    1749:	movl   $0x1,-0x44(%rbp)
+    1750:	mov    -0x44(%rbp),%eax
+    1753:	mov    -0x20(%rbp),%rcx
+    1757:	cmp    (%rcx),%eax
+    1759:	jge    17c2 <read_file_dentry_set+0x3e2>
+    175f:	mov    -0x10(%rbp),%rdi
+    1763:	mov    -0x44(%rbp),%esi
+    1766:	lea    -0x38(%rbp),%rdx
+    176a:	call   1850 <exfat_de_iter_get>
+    176f:	mov    -0x38(%rbp),%rax
+    1773:	movzbl (%rax),%eax
+    1776:	cmp    $0x85,%eax
+    177b:	jne    1786 <read_file_dentry_set+0x3a6>
+    1781:	jmp    17c2 <read_file_dentry_set+0x3e2>
+    1786:	testb  $0x1,-0x49(%rbp)
+    178a:	je     17af <read_file_dentry_set+0x3cf>
+    1790:	mov    -0x10(%rbp),%rdi
+    1794:	mov    -0x44(%rbp),%esi
+    1797:	lea    -0x38(%rbp),%rdx
+    179b:	call   1a40 <exfat_de_iter_get_dirty>
+    17a0:	mov    -0x38(%rbp),%rax
+    17a4:	movzbl (%rax),%ecx
+    17a7:	and    $0xffffff7f,%ecx
+    17ad:	mov    %cl,(%rax)
+    17af:	jmp    17b4 <read_file_dentry_set+0x3d4>
+    17b4:	mov    -0x44(%rbp),%eax
+    17b7:	add    $0x1,%eax
+    17ba:	mov    %eax,-0x44(%rbp)
+    17bd:	jmp    1750 <read_file_dentry_set+0x370>
+    17c2:	mov    -0x44(%rbp),%ecx
+    17c5:	mov    -0x20(%rbp),%rax
+    17c9:	mov    %ecx,(%rax)
+    17cb:	mov    -0x18(%rbp),%rax
+    17cf:	movq   $0x0,(%rax)
+    17d6:	mov    -0x40(%rbp),%rdi
+    17da:	call   1800 <exfat_free_inode>
+    17df:	mov    -0x49(%rbp),%dl
+    17e2:	mov    $0xffffffea,%eax
+    17e7:	mov    $0x1,%ecx
+    17ec:	test   $0x1,%dl
+    17ef:	cmovne %ecx,%eax
+    17f2:	mov    %eax,-0x4(%rbp)
+    17f5:	mov    -0x4(%rbp),%eax
+    17f8:	add    $0x50,%rsp
+    17fc:	pop    %rbp
+    17fd:	ret
+
+Disassembly of section .fini:

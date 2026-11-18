@@ -1,0 +1,501 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+music_string], rdi\nmov     [rbp+count], rsi\nmov     [rbp+out], 0\nmov     [rbp+size], 0\nmov     [rbp+capacity], 0\nlea     rdi, [rbp+current]; s\nxor     esi, esi; c\nmov     edx, 3; n\ncall    memset\nmov     rdi, [rbp+music_string]; s\ncall    strlen\nadd     rax, 1\nmov     [rbp+music_string_length], eax\nmov     eax, [rbp+music_string_length]\nadd     eax, 1\nmovsxd  rdi, eax; size\ncall    malloc\nmov     [rbp+temp_music_string], rax\nmov     rdi, [rbp+temp_music_string]; dest\nmov     rsi, [rbp+music_string]; src\ncall    strcpy\nmov     rdi, [rbp+temp_music_string]; dest\nlea     rsi, src; \" \"\ncall    strcat\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+music_string_length]\njge     loc_14A8\nmov     rax, [rbp+temp_music_string]\nmovsxd  rcx, [rbp+i]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 20h ; ' '\njnz     loc_145C\nlea     rdi, [rbp+current]; s1\nlea     rsi, s2; \"o\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_134B\nmov     eax, [rbp+size]\ncmp     eax, [rbp+capacity]\njnz     loc_1332\ncmp     [rbp+capacity], 0\njle     loc_130A\nmov     eax, [rbp+capacity]\nshl     eax, 1\nmov     [rbp+var_44], eax\njmp     loc_1317\nmov     eax, 4\nmov     [rbp+var_44], eax\njmp     $+5\nmov     eax, [rbp+var_44]\nmov     [rbp+capacity], eax\nmov     rdi, [rbp+out]; ptr\nmovsxd  rsi, [rbp+capacity]\nshl     rsi, 2; size\ncall    realloc\nmov     [rbp+out], rax\nmov     rax, [rbp+out]\nmov     ecx, [rbp+size]\nmov     edx, ecx\nadd     edx, 1\nmov     [rbp+size], edx\nmovsxd  rcx, ecx\nmov     dword ptr [rax+rcx*4], 4\nlea     rdi, [rbp+current]; s1\nlea     rsi, aO; \"o|\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_13C9\nmov     eax, [rbp+size]\ncmp     eax, [rbp+capacity]\njnz     loc_13B0\ncmp     [rbp+capacity], 0\njle     loc_1388\nmov     eax, [rbp+capacity]\nshl     eax, 1\nmov     [rbp+var_48], eax\njmp     loc_1395\nmov     eax, 4\nmov     [rbp+var_48], eax\njmp     $+5\nmov     eax, [rbp+var_48]\nmov     [rbp+capacity], eax\nmov     rdi, [rbp+out]; ptr\nmovsxd  rsi, [rbp+capacity]\nshl     rsi, 2; size\ncall    realloc\nmov     [rbp+out], rax\nmov     rax, [rbp+out]\nmov     ecx, [rbp+size]\nmov     edx, ecx\nadd     edx, 1\nmov     [rbp+size], edx\nmovsxd  rcx, ecx\nmov     dword ptr [rax+rcx*4], 2\nlea     rdi, [rbp+current]; s1\nlea     rsi, asc_200B; \".|\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_1447\nmov     eax, [rbp+size]\ncmp     eax, [rbp+capacity]\njnz     loc_142E\ncmp     [rbp+capacity], 0\njle     loc_1406\nmov     eax, [rbp+capacity]\nshl     eax, 1\nmov     [rbp+var_4C], eax\njmp     loc_1413\nmov     eax, 4\nmov     [rbp+var_4C], eax\njmp     $+5\nmov     eax, [rbp+var_4C]\nmov     [rbp+capacity], eax\nmov     rdi, [rbp+out]; ptr\nmovsxd  rsi, [rbp+capacity]\nshl     rsi, 2; size\ncall    realloc\nmov     [rbp+out], rax\nmov     rax, [rbp+out]\nmov     ecx, [rbp+size]\nmov     edx, ecx\nadd     edx, 1\nmov     [rbp+size], edx\nmovsxd  rcx, ecx\nmov     dword ptr [rax+rcx*4], 1\nlea     rdi, [rbp+current]; dest\nlea     rsi, format+18h; src\ncall    strcpy\njmp     loc_1495\nlea     rdi, [rbp+current]; s\ncall    strlen\nmov     [rbp+len], rax\ncmp     [rbp+len], 2\njnb     loc_1490\nmov     rax, [rbp+temp_music_string]\nmovsxd  rcx, [rbp+i]\nmov     cl, [rax+rcx]\nmov     rax, [rbp+len]\nmov     [rbp+rax+current], cl\nmov     rax, [rbp+len]\nmov     [rbp+rax+current+1], 0\njmp     $+5\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_12AC\nmov     rdi, [rbp+temp_music_string]; ptr\ncall    free\nmov     ecx, [rbp+size]\nmov     rax, [rbp+count]\nmov     [rax], ecx\nmov     rax, [rbp+out]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 31,
+  "edges": [
+   [
+    "start",
+    "loc_12AC"
+   ],
+   [
+    "loc_12AC",
+    "loc_12B8"
+   ],
+   [
+    "loc_12AC",
+    "loc_14A8"
+   ],
+   [
+    "loc_12B8",
+    "loc_12CD"
+   ],
+   [
+    "loc_12B8",
+    "loc_145C"
+   ],
+   [
+    "loc_12CD",
+    "loc_12E6"
+   ],
+   [
+    "loc_12CD",
+    "loc_134B"
+   ],
+   [
+    "loc_12E6",
+    "loc_12F2"
+   ],
+   [
+    "loc_12E6",
+    "loc_1332"
+   ],
+   [
+    "loc_12F2",
+    "loc_12FC"
+   ],
+   [
+    "loc_12F2",
+    "loc_130A"
+   ],
+   [
+    "loc_12FC",
+    "loc_1317"
+   ],
+   [
+    "loc_130A",
+    "loc_1317"
+   ],
+   [
+    "loc_1317",
+    "loc_1332"
+   ],
+   [
+    "loc_1332",
+    "loc_134B"
+   ],
+   [
+    "loc_134B",
+    "loc_1364"
+   ],
+   [
+    "loc_134B",
+    "loc_13C9"
+   ],
+   [
+    "loc_1364",
+    "loc_1370"
+   ],
+   [
+    "loc_1364",
+    "loc_13B0"
+   ],
+   [
+    "loc_1370",
+    "loc_137A"
+   ],
+   [
+    "loc_1370",
+    "loc_1388"
+   ],
+   [
+    "loc_137A",
+    "loc_1395"
+   ],
+   [
+    "loc_1388",
+    "loc_1395"
+   ],
+   [
+    "loc_1395",
+    "loc_13B0"
+   ],
+   [
+    "loc_13B0",
+    "loc_13C9"
+   ],
+   [
+    "loc_13C9",
+    "loc_13E2"
+   ],
+   [
+    "loc_13C9",
+    "loc_1447"
+   ],
+   [
+    "loc_13E2",
+    "loc_13EE"
+   ],
+   [
+    "loc_13E2",
+    "loc_142E"
+   ],
+   [
+    "loc_13EE",
+    "loc_13F8"
+   ],
+   [
+    "loc_13EE",
+    "loc_1406"
+   ],
+   [
+    "loc_13F8",
+    "loc_1413"
+   ],
+   [
+    "loc_1406",
+    "loc_1413"
+   ],
+   [
+    "loc_1413",
+    "loc_142E"
+   ],
+   [
+    "loc_142E",
+    "loc_1447"
+   ],
+   [
+    "loc_1447",
+    "loc_1495"
+   ],
+   [
+    "loc_145C",
+    "loc_1474"
+   ],
+   [
+    "loc_145C",
+    "loc_1490"
+   ],
+   [
+    "loc_1474",
+    "loc_1490"
+   ],
+   [
+    "loc_1490",
+    "loc_1495"
+   ],
+   [
+    "loc_1495",
+    "loc_149A"
+   ],
+   [
+    "loc_149A",
+    "loc_12AC"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+music_string], rdi\nmov     [rbp+count], rsi\nmov     [rbp+out], 0\nmov     [rbp+size], 0\nmov     [rbp+capacity], 0\nlea     rdi, [rbp+current]; s\nxor     esi, esi; c\nmov     edx, 3; n\ncall    memset\nmov     rdi, [rbp+music_string]; s\ncall    strlen\nadd     rax, 1\nmov     [rbp+music_string_length], eax\nmov     eax, [rbp+music_string_length]\nadd     eax, 1\nmovsxd  rdi, eax; size\ncall    malloc\nmov     [rbp+temp_music_string], rax\nmov     rdi, [rbp+temp_music_string]; dest\nmov     rsi, [rbp+music_string]; src\ncall    strcpy\nmov     rdi, [rbp+temp_music_string]; dest\nlea     rsi, src; \" \"\ncall    strcat\nmov     [rbp+i], 0",
+   "loc_12AC": "mov     eax, [rbp+i]\ncmp     eax, [rbp+music_string_length]\njge     loc_14A8",
+   "loc_12B8": "mov     rax, [rbp+temp_music_string]\nmovsxd  rcx, [rbp+i]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 20h ; ' '\njnz     loc_145C",
+   "loc_12CD": "lea     rdi, [rbp+current]; s1\nlea     rsi, s2; \"o\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_134B",
+   "loc_12E6": "mov     eax, [rbp+size]\ncmp     eax, [rbp+capacity]\njnz     loc_1332",
+   "loc_12F2": "cmp     [rbp+capacity], 0\njle     loc_130A",
+   "loc_12FC": "mov     eax, [rbp+capacity]\nshl     eax, 1\nmov     [rbp+var_44], eax\njmp     loc_1317",
+   "loc_130A": "mov     eax, 4\nmov     [rbp+var_44], eax\njmp     $+5",
+   "loc_1317": "mov     eax, [rbp+var_44]\nmov     [rbp+capacity], eax\nmov     rdi, [rbp+out]; ptr\nmovsxd  rsi, [rbp+capacity]\nshl     rsi, 2; size\ncall    realloc\nmov     [rbp+out], rax",
+   "loc_1332": "mov     rax, [rbp+out]\nmov     ecx, [rbp+size]\nmov     edx, ecx\nadd     edx, 1\nmov     [rbp+size], edx\nmovsxd  rcx, ecx\nmov     dword ptr [rax+rcx*4], 4",
+   "loc_134B": "lea     rdi, [rbp+current]; s1\nlea     rsi, aO; \"o|\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_13C9",
+   "loc_1364": "mov     eax, [rbp+size]\ncmp     eax, [rbp+capacity]\njnz     loc_13B0",
+   "loc_1370": "cmp     [rbp+capacity], 0\njle     loc_1388",
+   "loc_137A": "mov     eax, [rbp+capacity]\nshl     eax, 1\nmov     [rbp+var_48], eax\njmp     loc_1395",
+   "loc_1388": "mov     eax, 4\nmov     [rbp+var_48], eax\njmp     $+5",
+   "loc_1395": "mov     eax, [rbp+var_48]\nmov     [rbp+capacity], eax\nmov     rdi, [rbp+out]; ptr\nmovsxd  rsi, [rbp+capacity]\nshl     rsi, 2; size\ncall    realloc\nmov     [rbp+out], rax",
+   "loc_13B0": "mov     rax, [rbp+out]\nmov     ecx, [rbp+size]\nmov     edx, ecx\nadd     edx, 1\nmov     [rbp+size], edx\nmovsxd  rcx, ecx\nmov     dword ptr [rax+rcx*4], 2",
+   "loc_13C9": "lea     rdi, [rbp+current]; s1\nlea     rsi, asc_200B; \".|\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_1447",
+   "loc_13E2": "mov     eax, [rbp+size]\ncmp     eax, [rbp+capacity]\njnz     loc_142E",
+   "loc_13EE": "cmp     [rbp+capacity], 0\njle     loc_1406",
+   "loc_13F8": "mov     eax, [rbp+capacity]\nshl     eax, 1\nmov     [rbp+var_4C], eax\njmp     loc_1413",
+   "loc_1406": "mov     eax, 4\nmov     [rbp+var_4C], eax\njmp     $+5",
+   "loc_1413": "mov     eax, [rbp+var_4C]\nmov     [rbp+capacity], eax\nmov     rdi, [rbp+out]; ptr\nmovsxd  rsi, [rbp+capacity]\nshl     rsi, 2; size\ncall    realloc\nmov     [rbp+out], rax",
+   "loc_142E": "mov     rax, [rbp+out]\nmov     ecx, [rbp+size]\nmov     edx, ecx\nadd     edx, 1\nmov     [rbp+size], edx\nmovsxd  rcx, ecx\nmov     dword ptr [rax+rcx*4], 1",
+   "loc_1447": "lea     rdi, [rbp+current]; dest\nlea     rsi, format+18h; src\ncall    strcpy\njmp     loc_1495",
+   "loc_145C": "lea     rdi, [rbp+current]; s\ncall    strlen\nmov     [rbp+len], rax\ncmp     [rbp+len], 2\njnb     loc_1490",
+   "loc_1474": "mov     rax, [rbp+temp_music_string]\nmovsxd  rcx, [rbp+i]\nmov     cl, [rax+rcx]\nmov     rax, [rbp+len]\nmov     [rbp+rax+current], cl\nmov     rax, [rbp+len]\nmov     [rbp+rax+current+1], 0",
+   "loc_1490": "jmp     $+5",
+   "loc_1495": "jmp     $+5",
+   "loc_149A": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_12AC",
+   "loc_14A8": "mov     rdi, [rbp+temp_music_string]; ptr\ncall    free\nmov     ecx, [rbp+size]\nmov     rax, [rbp+count]\nmov     [rax], ecx\nmov     rax, [rbp+out]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_4C": "dword ptr -4Ch",
+   "var_48": "dword ptr -48h",
+   "var_44": "dword ptr -44h",
+   "len": "qword ptr -40h",
+   "i": "dword ptr -34h",
+   "temp_music_string": "qword ptr -30h",
+   "music_string_length": "dword ptr -28h",
+   "current": "byte ptr -23h",
+   "capacity": "dword ptr -20h",
+   "size": "dword ptr -1Ch",
+   "out": "qword ptr -18h",
+   "count": "qword ptr -10h",
+   "music_string": "qword ptr -8"
+  },
+  ".rodata": {
+   "src": "byte ' ',0",
+   "s2": "byte 'o',0",
+   "aO": "byte 'o|',0",
+   "asc_200B": "byte '.|',0",
+   "unk_2026": "byte 'usage: %s <seed> [dump]',0Ah,0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4656,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".strcpy": "strcpy",
+  "_strcpy": "strcpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".strcat": "strcat",
+  "_strcat": "strcat",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".strcpy",
+   ".plt",
+   true,
+   "strcpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".strcat",
+   ".plt",
+   true,
+   "strcat"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcat",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792867884
+ }
+}

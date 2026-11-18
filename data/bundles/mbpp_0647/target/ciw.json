@@ -1,0 +1,339 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+text], rdi\nmov     [rbp+count], rsi\nmov     rdi, [rbp+text]; s\ncall    strlen\nmov     [rbp+len], eax\nmovsxd  rdi, [rbp+len]\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+result], rax\ncmp     [rbp+result], 0\njnz     loc_125E\nlea     rdi, s; \"Failed to allocate memory\"\ncall    perror\nmov     edi, 1; status\ncall    exit\nmov     [rbp+current_word], 0\nmov     [rbp+start], 0\nmov     [rbp+i], 1\nmov     eax, [rbp+i]\ncmp     eax, [rbp+len]\njg      loc_1362\ncall    ___ctype_b_loc\nmov     rax, [rax]\nmov     rcx, [rbp+text]\nmovsxd  rdx, [rbp+i]\nmovsx   ecx, byte ptr [rcx+rdx]\nmovsxd  rcx, ecx\nmovzx   eax, word ptr [rax+rcx*2]\nand     eax, 100h\ncmp     eax, 0\njnz     loc_12BD\nmov     rax, [rbp+text]\nmovsxd  rcx, [rbp+i]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 0\njnz     loc_134F\nmov     eax, [rbp+i]\nsub     eax, [rbp+start]\nmov     [rbp+word_length], eax\nmov     eax, [rbp+word_length]\nadd     eax, 1\nmovsxd  rdi, eax; size\ncall    malloc\nmov     rdx, rax\nmov     rax, [rbp+result]\nmovsxd  rcx, [rbp+current_word]\nmov     [rax+rcx*8], rdx\nmov     rax, [rbp+result]\nmovsxd  rcx, [rbp+current_word]\ncmp     qword ptr [rax+rcx*8], 0\njnz     loc_130C\nlea     rdi, s; \"Failed to allocate memory\"\ncall    perror\nmov     edi, 1; status\ncall    exit\nmov     rax, [rbp+result]\nmovsxd  rcx, [rbp+current_word]\nmov     rdi, [rax+rcx*8]; dest\nmov     rsi, [rbp+text]\nmovsxd  rax, [rbp+start]\nadd     rsi, rax; src\nmovsxd  rdx, [rbp+word_length]; n\ncall    memcpy\nmov     rax, [rbp+result]\nmovsxd  rcx, [rbp+current_word]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+word_length]\nmov     byte ptr [rax+rcx], 0\nmov     eax, [rbp+i]\nmov     [rbp+start], eax\nmov     eax, [rbp+current_word]\nadd     eax, 1\nmov     [rbp+current_word], eax\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1273\nmov     ecx, [rbp+current_word]\nmov     rax, [rbp+count]\nmov     [rax], ecx\nmov     rax, [rbp+result]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 12,
+  "edges": [
+   [
+    "start",
+    "loc_1248"
+   ],
+   [
+    "start",
+    "loc_125E"
+   ],
+   [
+    "loc_125E",
+    "loc_1273"
+   ],
+   [
+    "loc_1273",
+    "loc_127F"
+   ],
+   [
+    "loc_1273",
+    "loc_1362"
+   ],
+   [
+    "loc_127F",
+    "loc_12A8"
+   ],
+   [
+    "loc_127F",
+    "loc_12BD"
+   ],
+   [
+    "loc_12A8",
+    "loc_12BD"
+   ],
+   [
+    "loc_12A8",
+    "loc_134F"
+   ],
+   [
+    "loc_12BD",
+    "loc_12F6"
+   ],
+   [
+    "loc_12BD",
+    "loc_130C"
+   ],
+   [
+    "loc_130C",
+    "loc_134F"
+   ],
+   [
+    "loc_134F",
+    "loc_1354"
+   ],
+   [
+    "loc_1354",
+    "loc_1273"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+text], rdi\nmov     [rbp+count], rsi\nmov     rdi, [rbp+text]; s\ncall    strlen\nmov     [rbp+len], eax\nmovsxd  rdi, [rbp+len]\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+result], rax\ncmp     [rbp+result], 0\njnz     loc_125E",
+   "loc_1248": "lea     rdi, s; \"Failed to allocate memory\"\ncall    perror\nmov     edi, 1; status\ncall    exit",
+   "loc_125E": "mov     [rbp+current_word], 0\nmov     [rbp+start], 0\nmov     [rbp+i], 1",
+   "loc_1273": "mov     eax, [rbp+i]\ncmp     eax, [rbp+len]\njg      loc_1362",
+   "loc_127F": "call    ___ctype_b_loc\nmov     rax, [rax]\nmov     rcx, [rbp+text]\nmovsxd  rdx, [rbp+i]\nmovsx   ecx, byte ptr [rcx+rdx]\nmovsxd  rcx, ecx\nmovzx   eax, word ptr [rax+rcx*2]\nand     eax, 100h\ncmp     eax, 0\njnz     loc_12BD",
+   "loc_12A8": "mov     rax, [rbp+text]\nmovsxd  rcx, [rbp+i]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 0\njnz     loc_134F",
+   "loc_12BD": "mov     eax, [rbp+i]\nsub     eax, [rbp+start]\nmov     [rbp+word_length], eax\nmov     eax, [rbp+word_length]\nadd     eax, 1\nmovsxd  rdi, eax; size\ncall    malloc\nmov     rdx, rax\nmov     rax, [rbp+result]\nmovsxd  rcx, [rbp+current_word]\nmov     [rax+rcx*8], rdx\nmov     rax, [rbp+result]\nmovsxd  rcx, [rbp+current_word]\ncmp     qword ptr [rax+rcx*8], 0\njnz     loc_130C",
+   "loc_12F6": "lea     rdi, s; \"Failed to allocate memory\"\ncall    perror\nmov     edi, 1; status\ncall    exit",
+   "loc_130C": "mov     rax, [rbp+result]\nmovsxd  rcx, [rbp+current_word]\nmov     rdi, [rax+rcx*8]; dest\nmov     rsi, [rbp+text]\nmovsxd  rax, [rbp+start]\nadd     rsi, rax; src\nmovsxd  rdx, [rbp+word_length]; n\ncall    memcpy\nmov     rax, [rbp+result]\nmovsxd  rcx, [rbp+current_word]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+word_length]\nmov     byte ptr [rax+rcx], 0\nmov     eax, [rbp+i]\nmov     [rbp+start], eax\nmov     eax, [rbp+current_word]\nadd     eax, 1\nmov     [rbp+current_word], eax",
+   "loc_134F": "jmp     $+5",
+   "loc_1354": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1273",
+   "loc_1362": "mov     ecx, [rbp+current_word]\nmov     rax, [rbp+count]\nmov     [rax], ecx\nmov     rax, [rbp+result]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "word_length": "dword ptr -30h",
+   "i": "dword ptr -2Ch",
+   "start": "dword ptr -28h",
+   "current_word": "dword ptr -24h",
+   "result": "qword ptr -20h",
+   "len": "dword ptr -14h",
+   "count": "qword ptr -10h",
+   "text": "qword ptr -8"
+  },
+  ".rodata": {
+   "s": "byte 'Failed to allocate memory',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4624,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".exit": "exit",
+  "_exit": "exit",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".__ctype_b_loc": "__ctype_b_loc",
+  "_ctype_b_loc": "__ctype_b_loc"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".exit",
+   ".plt",
+   true,
+   "exit"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   ".__ctype_b_loc",
+   ".plt",
+   true,
+   "__ctype_b_loc"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "exit",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__ctype_b_loc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868031
+ }
+}

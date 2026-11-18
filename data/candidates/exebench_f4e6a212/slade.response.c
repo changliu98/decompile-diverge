@@ -1,0 +1,1 @@
+void mix_16h_to_32_s2(int *dest_buf, short *buf, int count) { count >>= 1; while (count--) { *dest_buf++ += *buf++ >> 1; *dest_buf++ += *buf++ >> 1; buf += 32; } }

@@ -1,0 +1,1 @@
+int ExtractRnick( char *arg, char *s ) { int i = 0; if ( *s == ':' ) s++; while ( *s != '!' && *s != '\0' ) { arg[i] = *s; s++; i++; } arg[i] = '\0'; if ( arg[0] < '0' ) return ( 0 ); else return ( 1 ); }

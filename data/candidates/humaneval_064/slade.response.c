@@ -1,0 +1,1 @@
+int func0(char *str) { char *sep = "aeiouAEIOU"; int count = 0; int len = strlen(str); for (int i = 0; i < len; i++) { if (strchr(sep, str[i])) count++; } if (len > 0 && (str[len - 1] == 'y' || str[len - 1] == 'Y')) count++; return count; }

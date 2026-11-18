@@ -1,0 +1,1 @@
+unsigned int ring_size_to_bytes(unsigned int ring_size) { return ring_size * sizeof(uint32_t); }

@@ -1,0 +1,1 @@
+int func0(int* nums, int numsSize, int num) { int index = numsSize - 1; qsort(nums, (size_t)numsSize, sizeof(int), strcmp); for (int i = 0; i < numsSize; i++) { int p = find_ind(nums[i], i, numsSize, num, nums); if (p != -1) { index = ((index) < (numsSize - (p - i + 1)) ? (index) : (numsSize - (p - i + 1))); } } return index; }

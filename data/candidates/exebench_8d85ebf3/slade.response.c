@@ -1,0 +1,1 @@
+int obdRevConvert_04(float t, int *p_dest, const uint8_t *p_src, size_t i_dest_len, size_t i_src_len) { *p_dest = (int) (t * 255.0f / 100.0f); return 1; }

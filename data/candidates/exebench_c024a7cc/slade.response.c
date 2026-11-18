@@ -1,0 +1,1 @@
+void pn_diag_SD_contr(int n, const double *a, double *b, const double *c) { do { *b++ += *c++ * *a++; } while (--n); }

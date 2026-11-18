@@ -1,0 +1,1 @@
+int func0(char **str, int n) { int i; for (i = 1; i < n; i++) { if (strcmp(str[0], str[i])) return 0; } return 1; }

@@ -1,0 +1,1 @@
+double func0(int n, int k, double x) { int i; double s; int nk = k; if (k > n/2) k = n-k; s = 1; for (i = 1; i <= k; i++) { s *= (n-k+i); s /= i; } return s*pow(x, nk)*pow(1.0-x, n-nk); }

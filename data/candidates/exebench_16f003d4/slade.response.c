@@ -1,0 +1,1 @@
+void calc_speed(const double *t, double *f, const double *g, double s) { int i, j, k; for (k = 0; k < 19; k += 6) { for (j = 0; j < 3; j++) { const int kx = k + j; const double a = (g[kx] - t[kx]) / 2; const double b = (g[kx] + t[kx]) / 2 - f[kx]; f[kx + 3] = (2 * b + a) / s; }} }

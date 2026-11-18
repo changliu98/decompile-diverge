@@ -1,0 +1,1 @@
+void delete_buff_tail (buff_list * list, int pos) { int len; len = strlen (&(list->tail->data)); if (len >= pos) { list->tail->data = '\0'; list->head += pos; } }

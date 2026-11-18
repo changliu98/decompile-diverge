@@ -1,0 +1,1 @@
+double func0(int *array, int size) { int count = 0; int i; for (i = 0; i < size; i++) { if (array[i] > 0) count++; } double r = count / size; r = round(2.0 * r) / 2.0; return r; }

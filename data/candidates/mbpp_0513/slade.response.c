@@ -1,0 +1,1 @@
+char** func0(int* array, int size, char* element) { char** result = malloc((size*2)*sizeof(char*)); int i = 0; for (int j = 0; j < size; ++j) { asprintf(&result[i++], "%d", array[j]); result[i++] = element; } return result; }

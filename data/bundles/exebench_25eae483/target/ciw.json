@@ -1,0 +1,314 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     rax, [rbp+v]\nmov     rax, [rbp+u]\nmov     [rbp+orig], rdi\nmov     [rbp+dir], rsi\nmov     [rbp+vert0], rdx\nmov     [rbp+vert1], rcx\nmov     [rbp+vert2], r8\nmov     [rbp+t], r9\nmov     rax, [rbp+vert1]\nmovsd   xmm0, qword ptr [rax]\nmov     rax, [rbp+vert0]\nsubsd   xmm0, qword ptr [rax]\nmovsd   [rbp+edge1], xmm0\nmov     rax, [rbp+vert1]\nmovsd   xmm0, qword ptr [rax+8]\nmov     rax, [rbp+vert0]\nsubsd   xmm0, qword ptr [rax+8]\nmovsd   [rbp+edge1+8], xmm0\nmov     rax, [rbp+vert1]\nmovsd   xmm0, qword ptr [rax+10h]\nmov     rax, [rbp+vert0]\nsubsd   xmm0, qword ptr [rax+10h]\nmovsd   [rbp+edge1+10h], xmm0\nmov     rax, [rbp+vert2]\nmovsd   xmm0, qword ptr [rax]\nmov     rax, [rbp+vert0]\nsubsd   xmm0, qword ptr [rax]\nmovsd   [rbp+edge2], xmm0\nmov     rax, [rbp+vert2]\nmovsd   xmm0, qword ptr [rax+8]\nmov     rax, [rbp+vert0]\nsubsd   xmm0, qword ptr [rax+8]\nmovsd   [rbp+edge2+8], xmm0\nmov     rax, [rbp+vert2]\nmovsd   xmm0, qword ptr [rax+10h]\nmov     rax, [rbp+vert0]\nsubsd   xmm0, qword ptr [rax+10h]\nmovsd   [rbp+edge2+10h], xmm0\nmov     rax, [rbp+dir]\nmovsd   xmm0, qword ptr [rax+8]\nmovsd   xmm2, [rbp+edge2+10h]\nmov     rax, [rbp+dir]\nmovsd   xmm1, qword ptr [rax+10h]\nmulsd   xmm1, [rbp+edge2+8]\nmovq    rax, xmm1\nmov     rcx, 8000000000000000h\nxor     rax, rcx\nmovq    xmm1, rax\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmovsd   [rbp+pvec], xmm0\nmov     rax, [rbp+dir]\nmovsd   xmm0, qword ptr [rax+10h]\nmovsd   xmm2, [rbp+edge2]\nmov     rax, [rbp+dir]\nmovsd   xmm1, qword ptr [rax]\nmulsd   xmm1, [rbp+edge2+10h]\nmovq    rax, xmm1\nmov     rcx, 8000000000000000h\nxor     rax, rcx\nmovq    xmm1, rax\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmovsd   [rbp+pvec+8], xmm0\nmov     rax, [rbp+dir]\nmovsd   xmm0, qword ptr [rax]\nmovsd   xmm2, [rbp+edge2+8]\nmov     rax, [rbp+dir]\nmovsd   xmm1, qword ptr [rax+8]\nmulsd   xmm1, [rbp+edge2]\nmovq    rax, xmm1\nmov     rcx, 8000000000000000h\nxor     rax, rcx\nmovq    xmm1, rax\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmovsd   [rbp+pvec+10h], xmm0\nmovsd   xmm1, [rbp+edge1]\nmovsd   xmm2, [rbp+pvec]\nmovsd   xmm0, [rbp+edge1+8]\nmulsd   xmm0, [rbp+pvec+8]\nmulsd   xmm1, xmm2\naddsd   xmm1, xmm0\nmovsd   xmm0, [rbp+edge1+10h]\nmovsd   xmm2, [rbp+pvec+10h]\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmovsd   [rbp+det], xmm0\nmovsd   xmm0, [rbp+det]\nmovsd   xmm1, cs:qword_3008\nucomisd xmm0, xmm1\njbe     loc_13D0\nmovsd   xmm0, cs:qword_3010\nucomisd xmm0, [rbp+det]\njbe     loc_13D0\nmov     [rbp+var_4], 0\njmp     loc_1651\nmovsd   xmm0, cs:qword_3018\ndivsd   xmm0, [rbp+det]\nmovsd   [rbp+inv_det], xmm0\nmov     rax, [rbp+orig]\nmovsd   xmm0, qword ptr [rax]\nmov     rax, [rbp+vert0]\nsubsd   xmm0, qword ptr [rax]\nmovsd   [rbp+tvec], xmm0\nmov     rax, [rbp+orig]\nmovsd   xmm0, qword ptr [rax+8]\nmov     rax, [rbp+vert0]\nsubsd   xmm0, qword ptr [rax+8]\nmovsd   [rbp+tvec+8], xmm0\nmov     rax, [rbp+orig]\nmovsd   xmm0, qword ptr [rax+10h]\nmov     rax, [rbp+vert0]\nsubsd   xmm0, qword ptr [rax+10h]\nmovsd   [rbp+tvec+10h], xmm0\nmovsd   xmm1, [rbp+tvec]\nmovsd   xmm2, [rbp+pvec]\nmovsd   xmm0, [rbp+tvec+8]\nmulsd   xmm0, [rbp+pvec+8]\nmulsd   xmm1, xmm2\naddsd   xmm1, xmm0\nmovsd   xmm0, [rbp+tvec+10h]\nmovsd   xmm2, [rbp+pvec+10h]\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmulsd   xmm0, [rbp+inv_det]\nmov     rax, [rbp+u]\nmovsd   qword ptr [rax], xmm0\nmov     rax, [rbp+u]\nxorps   xmm0, xmm0\nucomisd xmm0, qword ptr [rax]\nja      loc_14A9\nmov     rax, [rbp+u]\nmovsd   xmm0, qword ptr [rax]\nmovsd   xmm1, cs:qword_3018\nucomisd xmm0, xmm1\njbe     loc_14B5\nmov     [rbp+var_4], 0\njmp     loc_1651\nmovsd   xmm0, [rbp+tvec+8]\nmovsd   xmm2, [rbp+edge1+10h]\nmovsd   xmm1, [rbp+tvec+10h]\nmulsd   xmm1, [rbp+edge1+8]\nmovq    rax, xmm1\nmov     rcx, 8000000000000000h\nxor     rax, rcx\nmovq    xmm1, rax\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmovsd   [rbp+qvec], xmm0\nmovsd   xmm0, [rbp+tvec+10h]\nmovsd   xmm2, [rbp+edge1]\nmovsd   xmm1, [rbp+tvec]\nmulsd   xmm1, [rbp+edge1+10h]\nmovq    rax, xmm1\nmov     rcx, 8000000000000000h\nxor     rax, rcx\nmovq    xmm1, rax\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmovsd   [rbp+qvec+8], xmm0\nmovsd   xmm0, [rbp+tvec]\nmovsd   xmm2, [rbp+edge1+8]\nmovsd   xmm1, [rbp+tvec+8]\nmulsd   xmm1, [rbp+edge1]\nmovq    rax, xmm1\nmov     rcx, 8000000000000000h\nxor     rax, rcx\nmovq    xmm1, rax\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmovsd   [rbp+qvec+10h], xmm0\nmov     rax, [rbp+dir]\nmovsd   xmm1, qword ptr [rax]\nmovsd   xmm2, [rbp+qvec]\nmov     rax, [rbp+dir]\nmovsd   xmm0, qword ptr [rax+8]\nmulsd   xmm0, [rbp+qvec+8]\nmulsd   xmm1, xmm2\naddsd   xmm1, xmm0\nmov     rax, [rbp+dir]\nmovsd   xmm0, qword ptr [rax+10h]\nmovsd   xmm2, [rbp+qvec+10h]\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmulsd   xmm0, [rbp+inv_det]\nmov     rax, [rbp+v]\nmovsd   qword ptr [rax], xmm0\nmov     rax, [rbp+v]\nxorps   xmm0, xmm0\nucomisd xmm0, qword ptr [rax]\nja      loc_15F7\nmov     rax, [rbp+u]\nmovsd   xmm0, qword ptr [rax]\nmov     rax, [rbp+v]\naddsd   xmm0, qword ptr [rax]\nmovsd   xmm1, cs:qword_3018\nucomisd xmm0, xmm1\njbe     loc_1603\nmov     [rbp+var_4], 0\njmp     loc_1651\nmovsd   xmm1, [rbp+edge2]\nmovsd   xmm2, [rbp+qvec]\nmovsd   xmm0, [rbp+edge2+8]\nmulsd   xmm0, [rbp+qvec+8]\nmulsd   xmm1, xmm2\naddsd   xmm1, xmm0\nmovsd   xmm0, [rbp+edge2+10h]\nmovsd   xmm2, [rbp+qvec+10h]\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmulsd   xmm0, [rbp+inv_det]\nmov     rax, [rbp+t]\nmovsd   qword ptr [rax], xmm0\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 60h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 11,
+  "edges": [
+   [
+    "start",
+    "loc_13AE"
+   ],
+   [
+    "start",
+    "loc_13D0"
+   ],
+   [
+    "loc_13AE",
+    "loc_13C4"
+   ],
+   [
+    "loc_13AE",
+    "loc_13D0"
+   ],
+   [
+    "loc_13C4",
+    "loc_1651"
+   ],
+   [
+    "loc_13D0",
+    "loc_148F"
+   ],
+   [
+    "loc_13D0",
+    "loc_14A9"
+   ],
+   [
+    "loc_148F",
+    "loc_14A9"
+   ],
+   [
+    "loc_148F",
+    "loc_14B5"
+   ],
+   [
+    "loc_14A9",
+    "loc_1651"
+   ],
+   [
+    "loc_14B5",
+    "loc_15D5"
+   ],
+   [
+    "loc_14B5",
+    "loc_15F7"
+   ],
+   [
+    "loc_15D5",
+    "loc_15F7"
+   ],
+   [
+    "loc_15D5",
+    "loc_1603"
+   ],
+   [
+    "loc_15F7",
+    "loc_1651"
+   ],
+   [
+    "loc_1603",
+    "loc_1651"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     rax, [rbp+v]\nmov     rax, [rbp+u]\nmov     [rbp+orig], rdi\nmov     [rbp+dir], rsi\nmov     [rbp+vert0], rdx\nmov     [rbp+vert1], rcx\nmov     [rbp+vert2], r8\nmov     [rbp+t], r9\nmov     rax, [rbp+vert1]\nmovsd   xmm0, qword ptr [rax]\nmov     rax, [rbp+vert0]\nsubsd   xmm0, qword ptr [rax]\nmovsd   [rbp+edge1], xmm0\nmov     rax, [rbp+vert1]\nmovsd   xmm0, qword ptr [rax+8]\nmov     rax, [rbp+vert0]\nsubsd   xmm0, qword ptr [rax+8]\nmovsd   [rbp+edge1+8], xmm0\nmov     rax, [rbp+vert1]\nmovsd   xmm0, qword ptr [rax+10h]\nmov     rax, [rbp+vert0]\nsubsd   xmm0, qword ptr [rax+10h]\nmovsd   [rbp+edge1+10h], xmm0\nmov     rax, [rbp+vert2]\nmovsd   xmm0, qword ptr [rax]\nmov     rax, [rbp+vert0]\nsubsd   xmm0, qword ptr [rax]\nmovsd   [rbp+edge2], xmm0\nmov     rax, [rbp+vert2]\nmovsd   xmm0, qword ptr [rax+8]\nmov     rax, [rbp+vert0]\nsubsd   xmm0, qword ptr [rax+8]\nmovsd   [rbp+edge2+8], xmm0\nmov     rax, [rbp+vert2]\nmovsd   xmm0, qword ptr [rax+10h]\nmov     rax, [rbp+vert0]\nsubsd   xmm0, qword ptr [rax+10h]\nmovsd   [rbp+edge2+10h], xmm0\nmov     rax, [rbp+dir]\nmovsd   xmm0, qword ptr [rax+8]\nmovsd   xmm2, [rbp+edge2+10h]\nmov     rax, [rbp+dir]\nmovsd   xmm1, qword ptr [rax+10h]\nmulsd   xmm1, [rbp+edge2+8]\nmovq    rax, xmm1\nmov     rcx, 8000000000000000h\nxor     rax, rcx\nmovq    xmm1, rax\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmovsd   [rbp+pvec], xmm0\nmov     rax, [rbp+dir]\nmovsd   xmm0, qword ptr [rax+10h]\nmovsd   xmm2, [rbp+edge2]\nmov     rax, [rbp+dir]\nmovsd   xmm1, qword ptr [rax]\nmulsd   xmm1, [rbp+edge2+10h]\nmovq    rax, xmm1\nmov     rcx, 8000000000000000h\nxor     rax, rcx\nmovq    xmm1, rax\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmovsd   [rbp+pvec+8], xmm0\nmov     rax, [rbp+dir]\nmovsd   xmm0, qword ptr [rax]\nmovsd   xmm2, [rbp+edge2+8]\nmov     rax, [rbp+dir]\nmovsd   xmm1, qword ptr [rax+8]\nmulsd   xmm1, [rbp+edge2]\nmovq    rax, xmm1\nmov     rcx, 8000000000000000h\nxor     rax, rcx\nmovq    xmm1, rax\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmovsd   [rbp+pvec+10h], xmm0\nmovsd   xmm1, [rbp+edge1]\nmovsd   xmm2, [rbp+pvec]\nmovsd   xmm0, [rbp+edge1+8]\nmulsd   xmm0, [rbp+pvec+8]\nmulsd   xmm1, xmm2\naddsd   xmm1, xmm0\nmovsd   xmm0, [rbp+edge1+10h]\nmovsd   xmm2, [rbp+pvec+10h]\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmovsd   [rbp+det], xmm0\nmovsd   xmm0, [rbp+det]\nmovsd   xmm1, cs:qword_3008\nucomisd xmm0, xmm1\njbe     loc_13D0",
+   "loc_13AE": "movsd   xmm0, cs:qword_3010\nucomisd xmm0, [rbp+det]\njbe     loc_13D0",
+   "loc_13C4": "mov     [rbp+var_4], 0\njmp     loc_1651",
+   "loc_13D0": "movsd   xmm0, cs:qword_3018\ndivsd   xmm0, [rbp+det]\nmovsd   [rbp+inv_det], xmm0\nmov     rax, [rbp+orig]\nmovsd   xmm0, qword ptr [rax]\nmov     rax, [rbp+vert0]\nsubsd   xmm0, qword ptr [rax]\nmovsd   [rbp+tvec], xmm0\nmov     rax, [rbp+orig]\nmovsd   xmm0, qword ptr [rax+8]\nmov     rax, [rbp+vert0]\nsubsd   xmm0, qword ptr [rax+8]\nmovsd   [rbp+tvec+8], xmm0\nmov     rax, [rbp+orig]\nmovsd   xmm0, qword ptr [rax+10h]\nmov     rax, [rbp+vert0]\nsubsd   xmm0, qword ptr [rax+10h]\nmovsd   [rbp+tvec+10h], xmm0\nmovsd   xmm1, [rbp+tvec]\nmovsd   xmm2, [rbp+pvec]\nmovsd   xmm0, [rbp+tvec+8]\nmulsd   xmm0, [rbp+pvec+8]\nmulsd   xmm1, xmm2\naddsd   xmm1, xmm0\nmovsd   xmm0, [rbp+tvec+10h]\nmovsd   xmm2, [rbp+pvec+10h]\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmulsd   xmm0, [rbp+inv_det]\nmov     rax, [rbp+u]\nmovsd   qword ptr [rax], xmm0\nmov     rax, [rbp+u]\nxorps   xmm0, xmm0\nucomisd xmm0, qword ptr [rax]\nja      loc_14A9",
+   "loc_148F": "mov     rax, [rbp+u]\nmovsd   xmm0, qword ptr [rax]\nmovsd   xmm1, cs:qword_3018\nucomisd xmm0, xmm1\njbe     loc_14B5",
+   "loc_14A9": "mov     [rbp+var_4], 0\njmp     loc_1651",
+   "loc_14B5": "movsd   xmm0, [rbp+tvec+8]\nmovsd   xmm2, [rbp+edge1+10h]\nmovsd   xmm1, [rbp+tvec+10h]\nmulsd   xmm1, [rbp+edge1+8]\nmovq    rax, xmm1\nmov     rcx, 8000000000000000h\nxor     rax, rcx\nmovq    xmm1, rax\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmovsd   [rbp+qvec], xmm0\nmovsd   xmm0, [rbp+tvec+10h]\nmovsd   xmm2, [rbp+edge1]\nmovsd   xmm1, [rbp+tvec]\nmulsd   xmm1, [rbp+edge1+10h]\nmovq    rax, xmm1\nmov     rcx, 8000000000000000h\nxor     rax, rcx\nmovq    xmm1, rax\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmovsd   [rbp+qvec+8], xmm0\nmovsd   xmm0, [rbp+tvec]\nmovsd   xmm2, [rbp+edge1+8]\nmovsd   xmm1, [rbp+tvec+8]\nmulsd   xmm1, [rbp+edge1]\nmovq    rax, xmm1\nmov     rcx, 8000000000000000h\nxor     rax, rcx\nmovq    xmm1, rax\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmovsd   [rbp+qvec+10h], xmm0\nmov     rax, [rbp+dir]\nmovsd   xmm1, qword ptr [rax]\nmovsd   xmm2, [rbp+qvec]\nmov     rax, [rbp+dir]\nmovsd   xmm0, qword ptr [rax+8]\nmulsd   xmm0, [rbp+qvec+8]\nmulsd   xmm1, xmm2\naddsd   xmm1, xmm0\nmov     rax, [rbp+dir]\nmovsd   xmm0, qword ptr [rax+10h]\nmovsd   xmm2, [rbp+qvec+10h]\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmulsd   xmm0, [rbp+inv_det]\nmov     rax, [rbp+v]\nmovsd   qword ptr [rax], xmm0\nmov     rax, [rbp+v]\nxorps   xmm0, xmm0\nucomisd xmm0, qword ptr [rax]\nja      loc_15F7",
+   "loc_15D5": "mov     rax, [rbp+u]\nmovsd   xmm0, qword ptr [rax]\nmov     rax, [rbp+v]\naddsd   xmm0, qword ptr [rax]\nmovsd   xmm1, cs:qword_3018\nucomisd xmm0, xmm1\njbe     loc_1603",
+   "loc_15F7": "mov     [rbp+var_4], 0\njmp     loc_1651",
+   "loc_1603": "movsd   xmm1, [rbp+edge2]\nmovsd   xmm2, [rbp+qvec]\nmovsd   xmm0, [rbp+edge2+8]\nmulsd   xmm0, [rbp+qvec+8]\nmulsd   xmm1, xmm2\naddsd   xmm1, xmm0\nmovsd   xmm0, [rbp+edge2+10h]\nmovsd   xmm2, [rbp+qvec+10h]\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\nmulsd   xmm0, [rbp+inv_det]\nmov     rax, [rbp+t]\nmovsd   qword ptr [rax], xmm0\nmov     [rbp+var_4], 1",
+   "loc_1651": "mov     eax, [rbp+var_4]\nadd     rsp, 60h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "inv_det": "qword ptr -0E0h",
+   "det": "qword ptr -0D8h",
+   "qvec": "qword ptr -0D0h",
+   "pvec": "qword ptr -0B0h",
+   "tvec": "qword ptr -90h",
+   "edge2": "qword ptr -70h",
+   "edge1": "qword ptr -50h",
+   "t": "qword ptr -38h",
+   "vert2": "qword ptr -30h",
+   "vert1": "qword ptr -28h",
+   "vert0": "qword ptr -20h",
+   "dir": "qword ptr -18h",
+   "orig": "qword ptr -10h",
+   "var_4": "dword ptr -4",
+   "u": "qword ptr 10h",
+   "v": "qword ptr 18h"
+  },
+  ".rodata": {
+   "qword_3008": "qword 0BEB0C6F7A0B5ED8Dh",
+   "qword_3010": "qword 3EB0C6F7A0B5ED8Dh",
+   "qword_3018": "qword 3FF0000000000000h"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4576,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".llround": "llround",
+  "_llround": "llround",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".llround",
+   ".plt",
+   true,
+   "llround"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "llround",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868169
+ }
+}

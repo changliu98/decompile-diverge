@@ -1,0 +1,1 @@
+unsigned int mc_bitcode(const float * data, float bit_value) { unsigned int i, ret = 0; for (i = 0; i < 8; i++) if (data[i] > bit_value) ret |= 1 << i; return ret; }

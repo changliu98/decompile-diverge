@@ -1,0 +1,149 @@
+0000000000018d90 <stb_kdtree_search_knn_recursive>:
+   18d90:	push   %rbp
+   18d91:	mov    %rsp,%rbp
+   18d94:	sub    $0x70,%rsp
+   18d98:	mov    %rdi,-0x8(%rbp)
+   18d9c:	mov    %rsi,-0x10(%rbp)
+   18da0:	mov    %edx,-0x14(%rbp)
+   18da3:	mov    %rcx,-0x20(%rbp)
+   18da7:	mov    %r8,-0x28(%rbp)
+   18dab:	mov    %r9d,-0x2c(%rbp)
+   18daf:	cmpq   $0x0,-0x8(%rbp)
+   18db4:	jne    18dbf <stb_kdtree_search_knn_recursive+0x2f>
+   18dba:	jmp    18fd5 <stb_kdtree_search_knn_recursive+0x245>
+   18dbf:	mov    -0x8(%rbp),%rax
+   18dc3:	mov    (%rax),%rdi
+   18dc6:	mov    -0x10(%rbp),%rsi
+   18dca:	mov    -0x2c(%rbp),%edx
+   18dcd:	call   19f30 <stb_kdtree_distance_squared>
+   18dd2:	movsd  %xmm0,-0x38(%rbp)
+   18dd7:	movl   $0xffffffff,-0x3c(%rbp)
+   18dde:	movl   $0x0,-0x40(%rbp)
+   18de5:	mov    -0x40(%rbp),%eax
+   18de8:	cmp    -0x14(%rbp),%eax
+   18deb:	jge    18e41 <stb_kdtree_search_knn_recursive+0xb1>
+   18df1:	mov    -0x28(%rbp),%rax
+   18df5:	movslq -0x40(%rbp),%rcx
+   18df9:	xorps  %xmm0,%xmm0
+   18dfc:	ucomisd (%rax,%rcx,8),%xmm0
+   18e01:	ja     18e23 <stb_kdtree_search_knn_recursive+0x93>
+   18e07:	movsd  -0x38(%rbp),%xmm1
+   18e0c:	mov    -0x28(%rbp),%rax
+   18e10:	movslq -0x40(%rbp),%rcx
+   18e14:	movsd  (%rax,%rcx,8),%xmm0
+   18e19:	ucomisd %xmm1,%xmm0
+   18e1d:	jbe    18e2e <stb_kdtree_search_knn_recursive+0x9e>
+   18e23:	mov    -0x40(%rbp),%eax
+   18e26:	mov    %eax,-0x3c(%rbp)
+   18e29:	jmp    18e41 <stb_kdtree_search_knn_recursive+0xb1>
+   18e2e:	jmp    18e33 <stb_kdtree_search_knn_recursive+0xa3>
+   18e33:	mov    -0x40(%rbp),%eax
+   18e36:	add    $0x1,%eax
+   18e39:	mov    %eax,-0x40(%rbp)
+   18e3c:	jmp    18de5 <stb_kdtree_search_knn_recursive+0x55>
+   18e41:	cmpl   $0x0,-0x3c(%rbp)
+   18e45:	jl     18ecc <stb_kdtree_search_knn_recursive+0x13c>
+   18e4b:	mov    -0x14(%rbp),%eax
+   18e4e:	sub    $0x1,%eax
+   18e51:	mov    %eax,-0x44(%rbp)
+   18e54:	mov    -0x44(%rbp),%eax
+   18e57:	cmp    -0x3c(%rbp),%eax
+   18e5a:	jle    18ea8 <stb_kdtree_search_knn_recursive+0x118>
+   18e60:	mov    -0x28(%rbp),%rax
+   18e64:	mov    -0x44(%rbp),%ecx
+   18e67:	sub    $0x1,%ecx
+   18e6a:	movslq %ecx,%rcx
+   18e6d:	movsd  (%rax,%rcx,8),%xmm0
+   18e72:	mov    -0x28(%rbp),%rax
+   18e76:	movslq -0x44(%rbp),%rcx
+   18e7a:	movsd  %xmm0,(%rax,%rcx,8)
+   18e7f:	mov    -0x20(%rbp),%rax
+   18e83:	mov    -0x44(%rbp),%ecx
+   18e86:	sub    $0x1,%ecx
+   18e89:	movslq %ecx,%rcx
+   18e8c:	mov    (%rax,%rcx,4),%edx
+   18e8f:	mov    -0x20(%rbp),%rax
+   18e93:	movslq -0x44(%rbp),%rcx
+   18e97:	mov    %edx,(%rax,%rcx,4)
+   18e9a:	mov    -0x44(%rbp),%eax
+   18e9d:	add    $0xffffffff,%eax
+   18ea0:	mov    %eax,-0x44(%rbp)
+   18ea3:	jmp    18e54 <stb_kdtree_search_knn_recursive+0xc4>
+   18ea8:	movsd  -0x38(%rbp),%xmm0
+   18ead:	mov    -0x28(%rbp),%rax
+   18eb1:	movslq -0x3c(%rbp),%rcx
+   18eb5:	movsd  %xmm0,(%rax,%rcx,8)
+   18eba:	mov    -0x8(%rbp),%rax
+   18ebe:	mov    0x8(%rax),%edx
+   18ec1:	mov    -0x20(%rbp),%rax
+   18ec5:	movslq -0x3c(%rbp),%rcx
+   18ec9:	mov    %edx,(%rax,%rcx,4)
+   18ecc:	mov    -0x10(%rbp),%rax
+   18ed0:	mov    -0x8(%rbp),%rcx
+   18ed4:	movslq 0x20(%rcx),%rcx
+   18ed8:	movsd  (%rax,%rcx,8),%xmm0
+   18edd:	mov    -0x8(%rbp),%rax
+   18ee1:	mov    (%rax),%rax
+   18ee4:	mov    -0x8(%rbp),%rcx
+   18ee8:	movslq 0x20(%rcx),%rcx
+   18eec:	subsd  (%rax,%rcx,8),%xmm0
+   18ef1:	movsd  %xmm0,-0x50(%rbp)
+   18ef6:	xorps  %xmm0,%xmm0
+   18ef9:	ucomisd -0x50(%rbp),%xmm0
+   18efe:	jbe    18f15 <stb_kdtree_search_knn_recursive+0x185>
+   18f04:	mov    -0x8(%rbp),%rax
+   18f08:	mov    0x10(%rax),%rax
+   18f0c:	mov    %rax,-0x68(%rbp)
+   18f10:	jmp    18f21 <stb_kdtree_search_knn_recursive+0x191>
+   18f15:	mov    -0x8(%rbp),%rax
+   18f19:	mov    0x18(%rax),%rax
+   18f1d:	mov    %rax,-0x68(%rbp)
+   18f21:	mov    -0x68(%rbp),%rax
+   18f25:	mov    %rax,-0x58(%rbp)
+   18f29:	xorps  %xmm0,%xmm0
+   18f2c:	ucomisd -0x50(%rbp),%xmm0
+   18f31:	jbe    18f48 <stb_kdtree_search_knn_recursive+0x1b8>
+   18f37:	mov    -0x8(%rbp),%rax
+   18f3b:	mov    0x18(%rax),%rax
+   18f3f:	mov    %rax,-0x70(%rbp)
+   18f43:	jmp    18f54 <stb_kdtree_search_knn_recursive+0x1c4>
+   18f48:	mov    -0x8(%rbp),%rax
+   18f4c:	mov    0x10(%rax),%rax
+   18f50:	mov    %rax,-0x70(%rbp)
+   18f54:	mov    -0x70(%rbp),%rax
+   18f58:	mov    %rax,-0x60(%rbp)
+   18f5c:	mov    -0x58(%rbp),%rdi
+   18f60:	mov    -0x10(%rbp),%rsi
+   18f64:	mov    -0x14(%rbp),%edx
+   18f67:	mov    -0x20(%rbp),%rcx
+   18f6b:	mov    -0x28(%rbp),%r8
+   18f6f:	mov    -0x2c(%rbp),%r9d
+   18f73:	call   18d90 <stb_kdtree_search_knn_recursive>
+   18f78:	mov    -0x28(%rbp),%rax
+   18f7c:	mov    -0x14(%rbp),%ecx
+   18f7f:	sub    $0x1,%ecx
+   18f82:	movslq %ecx,%rcx
+   18f85:	xorps  %xmm0,%xmm0
+   18f88:	ucomisd (%rax,%rcx,8),%xmm0
+   18f8d:	ja     18fb9 <stb_kdtree_search_knn_recursive+0x229>
+   18f93:	movsd  -0x50(%rbp),%xmm1
+   18f98:	mulsd  -0x50(%rbp),%xmm1
+   18f9d:	mov    -0x28(%rbp),%rax
+   18fa1:	mov    -0x14(%rbp),%ecx
+   18fa4:	sub    $0x1,%ecx
+   18fa7:	movslq %ecx,%rcx
+   18faa:	movsd  (%rax,%rcx,8),%xmm0
+   18faf:	ucomisd %xmm1,%xmm0
+   18fb3:	jbe    18fd5 <stb_kdtree_search_knn_recursive+0x245>
+   18fb9:	mov    -0x60(%rbp),%rdi
+   18fbd:	mov    -0x10(%rbp),%rsi
+   18fc1:	mov    -0x14(%rbp),%edx
+   18fc4:	mov    -0x20(%rbp),%rcx
+   18fc8:	mov    -0x28(%rbp),%r8
+   18fcc:	mov    -0x2c(%rbp),%r9d
+   18fd0:	call   18d90 <stb_kdtree_search_knn_recursive>
+   18fd5:	add    $0x70,%rsp
+   18fd9:	pop    %rbp
+   18fda:	ret
+
+Disassembly of section .fini:

@@ -1,0 +1,1 @@
+void MultMat(double *A, double *B, double *C) { int i, j; for (i = 0; i < 3; i++) { for (j = 0; j < 3; j++) { C[i*3 + j] = A[3*i]*B[j*3 + 1] + A[3*(j+3)*3 + 2] + A[3*(j+6)*B[j*3 + 0]*B[j*3 + 0]; } } }

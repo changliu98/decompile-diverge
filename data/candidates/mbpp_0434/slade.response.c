@@ -1,0 +1,1 @@
+char* func0(char *s) { int rc; char regex[64]; rc = regcomp(regex, "Regex compilation failed!", 1); if (rc != 0) { return "Not matched!"; } else { rc = regexec(regex, s, (size_t) 0, NULL, 0); regfree(regex); if (rc == 0) { return "Found a match!"; } else { return "Not matched!"; } } }

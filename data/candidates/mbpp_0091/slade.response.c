@@ -1,0 +1,1 @@
+int func0(char **str, char *key, int n) { int i; for (i = 0; i < n; i++) { if (strstr(str[i], key) != NULL) return 1; } return 0; }

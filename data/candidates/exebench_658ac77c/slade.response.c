@@ -1,0 +1,1 @@
+void vertexAdd(GLdouble p[3], GLdouble q[3], GLfloat out[3]) { out[0] = p[0] + q[0]; out[1] = p[1] + q[1]; out[2] = p[2] + q[2]; }

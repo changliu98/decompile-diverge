@@ -1,0 +1,1 @@
+float func0(const struct vec2 *v) { return v->x + v->y; }

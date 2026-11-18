@@ -1,0 +1,1 @@
+void measure(uint16_t *x, uint16_t *y, uint16_t *w, uint16_t *h, uint16_t *v) { *x = 63360; *y = (uint16_t)(*x); *w = (uint16_t)((double)*x * (1 << 16)); *h = (uint16_t)((double)*x * (1 << 16)); *v = (uint16_t)((double)*x * (1 << 16)); }

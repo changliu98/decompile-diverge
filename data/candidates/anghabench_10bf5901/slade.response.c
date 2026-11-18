@@ -1,0 +1,1 @@
+int affs_intl_toupper(int ch) { return (ch >= 'a' && ch <= 'z') || (ch >=0xE0 && ch <=0xFE && ch !=0xF7) ? ch - ('a' - 'A') : ch; }

@@ -1,0 +1,209 @@
+0000000000001730 <find_next_cell>:
+    1730:	push   %rbp
+    1731:	mov    %rsp,%rbp
+    1734:	mov    %rdi,-0x8(%rbp)
+    1738:	mov    %rsi,-0x10(%rbp)
+    173c:	mov    %rdx,-0x18(%rbp)
+    1740:	mov    %rcx,-0x20(%rbp)
+    1744:	mov    %r8,-0x28(%rbp)
+    1748:	movl   $0x1,-0x34(%rbp)
+    174f:	movl   $0x0,-0x2c(%rbp)
+    1756:	cmpl   $0x3,-0x2c(%rbp)
+    175a:	jge    1781 <find_next_cell+0x51>
+    1760:	mov    -0x18(%rbp),%rax
+    1764:	movslq -0x2c(%rbp),%rcx
+    1768:	mov    (%rax,%rcx,4),%ecx
+    176b:	movslq -0x2c(%rbp),%rax
+    176f:	mov    %ecx,-0x40(%rbp,%rax,4)
+    1773:	mov    -0x2c(%rbp),%eax
+    1776:	add    $0x1,%eax
+    1779:	mov    %eax,-0x2c(%rbp)
+    177c:	jmp    1756 <find_next_cell+0x26>
+    1781:	movl   $0x0,-0x2c(%rbp)
+    1788:	cmpl   $0x3,-0x2c(%rbp)
+    178c:	jge    17b6 <find_next_cell+0x86>
+    1792:	mov    -0x10(%rbp),%rax
+    1796:	movslq -0x2c(%rbp),%rcx
+    179a:	mov    (%rax,%rcx,4),%edx
+    179d:	mov    -0x28(%rbp),%rax
+    17a1:	movslq -0x2c(%rbp),%rcx
+    17a5:	mov    %edx,(%rax,%rcx,4)
+    17a8:	mov    -0x2c(%rbp),%eax
+    17ab:	add    $0x1,%eax
+    17ae:	mov    %eax,-0x2c(%rbp)
+    17b1:	jmp    1788 <find_next_cell+0x58>
+    17b6:	movl   $0x0,-0x30(%rbp)
+    17bd:	cmpl   $0x3,-0x30(%rbp)
+    17c1:	jge    1a62 <find_next_cell+0x332>
+    17c7:	mov    -0x18(%rbp),%rax
+    17cb:	movslq -0x30(%rbp),%rcx
+    17cf:	cmpl   $0xffffffff,(%rax,%rcx,4)
+    17d3:	je     1a4f <find_next_cell+0x31f>
+    17d9:	mov    -0x18(%rbp),%rax
+    17dd:	movslq -0x30(%rbp),%rcx
+    17e1:	cmpl   $0x0,(%rax,%rcx,4)
+    17e5:	jne    1833 <find_next_cell+0x103>
+    17eb:	mov    -0x20(%rbp),%rax
+    17ef:	xorps  %xmm0,%xmm0
+    17f2:	ucomisd (%rax),%xmm0
+    17f6:	jbe    182e <find_next_cell+0xfe>
+    17fc:	mov    -0x10(%rbp),%rax
+    1800:	mov    (%rax),%ecx
+    1802:	sub    $0x1,%ecx
+    1805:	mov    -0x28(%rbp),%rax
+    1809:	mov    %ecx,(%rax)
+    180b:	movslq -0x30(%rbp),%rax
+    180f:	movl   $0x1,-0x40(%rbp,%rax,4)
+    1817:	mov    -0x28(%rbp),%rax
+    181b:	cmpl   $0x0,(%rax)
+    181e:	jge    1829 <find_next_cell+0xf9>
+    1824:	jmp    1a62 <find_next_cell+0x332>
+    1829:	jmp    182e <find_next_cell+0xfe>
+    182e:	jmp    1a4a <find_next_cell+0x31a>
+    1833:	mov    -0x18(%rbp),%rax
+    1837:	movslq -0x30(%rbp),%rcx
+    183b:	cmpl   $0x1,(%rax,%rcx,4)
+    183f:	jne    189b <find_next_cell+0x16b>
+    1845:	mov    -0x20(%rbp),%rax
+    1849:	movsd  (%rax),%xmm0
+    184d:	xorps  %xmm1,%xmm1
+    1850:	ucomisd %xmm1,%xmm0
+    1854:	jbe    1896 <find_next_cell+0x166>
+    185a:	mov    -0x10(%rbp),%rax
+    185e:	mov    (%rax),%ecx
+    1860:	add    $0x1,%ecx
+    1863:	mov    -0x28(%rbp),%rax
+    1867:	mov    %ecx,(%rax)
+    1869:	movslq -0x30(%rbp),%rax
+    186d:	movl   $0x0,-0x40(%rbp,%rax,4)
+    1875:	mov    -0x28(%rbp),%rax
+    1879:	mov    (%rax),%eax
+    187b:	mov    -0x8(%rbp),%rcx
+    187f:	mov    (%rcx),%ecx
+    1881:	sub    $0x1,%ecx
+    1884:	cmp    %ecx,%eax
+    1886:	jle    1891 <find_next_cell+0x161>
+    188c:	jmp    1a62 <find_next_cell+0x332>
+    1891:	jmp    1896 <find_next_cell+0x166>
+    1896:	jmp    1a45 <find_next_cell+0x315>
+    189b:	mov    -0x18(%rbp),%rax
+    189f:	movslq -0x30(%rbp),%rcx
+    18a3:	cmpl   $0x2,(%rax,%rcx,4)
+    18a7:	jne    18f9 <find_next_cell+0x1c9>
+    18ad:	mov    -0x20(%rbp),%rax
+    18b1:	xorps  %xmm0,%xmm0
+    18b4:	ucomisd 0x8(%rax),%xmm0
+    18b9:	jbe    18f4 <find_next_cell+0x1c4>
+    18bf:	mov    -0x10(%rbp),%rax
+    18c3:	mov    0x4(%rax),%ecx
+    18c6:	sub    $0x1,%ecx
+    18c9:	mov    -0x28(%rbp),%rax
+    18cd:	mov    %ecx,0x4(%rax)
+    18d0:	movslq -0x30(%rbp),%rax
+    18d4:	movl   $0x3,-0x40(%rbp,%rax,4)
+    18dc:	mov    -0x28(%rbp),%rax
+    18e0:	cmpl   $0x0,0x4(%rax)
+    18e4:	jge    18ef <find_next_cell+0x1bf>
+    18ea:	jmp    1a62 <find_next_cell+0x332>
+    18ef:	jmp    18f4 <find_next_cell+0x1c4>
+    18f4:	jmp    1a40 <find_next_cell+0x310>
+    18f9:	mov    -0x18(%rbp),%rax
+    18fd:	movslq -0x30(%rbp),%rcx
+    1901:	cmpl   $0x3,(%rax,%rcx,4)
+    1905:	jne    1966 <find_next_cell+0x236>
+    190b:	mov    -0x20(%rbp),%rax
+    190f:	movsd  0x8(%rax),%xmm0
+    1914:	xorps  %xmm1,%xmm1
+    1917:	ucomisd %xmm1,%xmm0
+    191b:	jbe    1961 <find_next_cell+0x231>
+    1921:	mov    -0x10(%rbp),%rax
+    1925:	mov    0x4(%rax),%ecx
+    1928:	add    $0x1,%ecx
+    192b:	mov    -0x28(%rbp),%rax
+    192f:	mov    %ecx,0x4(%rax)
+    1932:	movslq -0x30(%rbp),%rax
+    1936:	movl   $0x2,-0x40(%rbp,%rax,4)
+    193e:	mov    -0x28(%rbp),%rax
+    1942:	mov    0x4(%rax),%eax
+    1945:	mov    -0x8(%rbp),%rcx
+    1949:	mov    0x4(%rcx),%ecx
+    194c:	sub    $0x1,%ecx
+    194f:	cmp    %ecx,%eax
+    1951:	jle    195c <find_next_cell+0x22c>
+    1957:	jmp    1a62 <find_next_cell+0x332>
+    195c:	jmp    1961 <find_next_cell+0x231>
+    1961:	jmp    1a3b <find_next_cell+0x30b>
+    1966:	mov    -0x18(%rbp),%rax
+    196a:	movslq -0x30(%rbp),%rcx
+    196e:	cmpl   $0x4,(%rax,%rcx,4)
+    1972:	jne    19c4 <find_next_cell+0x294>
+    1978:	mov    -0x20(%rbp),%rax
+    197c:	xorps  %xmm0,%xmm0
+    197f:	ucomisd 0x10(%rax),%xmm0
+    1984:	jbe    19bf <find_next_cell+0x28f>
+    198a:	mov    -0x10(%rbp),%rax
+    198e:	mov    0x8(%rax),%ecx
+    1991:	sub    $0x1,%ecx
+    1994:	mov    -0x28(%rbp),%rax
+    1998:	mov    %ecx,0x8(%rax)
+    199b:	movslq -0x30(%rbp),%rax
+    199f:	movl   $0x5,-0x40(%rbp,%rax,4)
+    19a7:	mov    -0x28(%rbp),%rax
+    19ab:	cmpl   $0x0,0x8(%rax)
+    19af:	jge    19ba <find_next_cell+0x28a>
+    19b5:	jmp    1a62 <find_next_cell+0x332>
+    19ba:	jmp    19bf <find_next_cell+0x28f>
+    19bf:	jmp    1a36 <find_next_cell+0x306>
+    19c4:	mov    -0x18(%rbp),%rax
+    19c8:	movslq -0x30(%rbp),%rcx
+    19cc:	cmpl   $0x5,(%rax,%rcx,4)
+    19d0:	jne    1a31 <find_next_cell+0x301>
+    19d6:	mov    -0x20(%rbp),%rax
+    19da:	movsd  0x10(%rax),%xmm0
+    19df:	xorps  %xmm1,%xmm1
+    19e2:	ucomisd %xmm1,%xmm0
+    19e6:	jbe    1a2c <find_next_cell+0x2fc>
+    19ec:	mov    -0x10(%rbp),%rax
+    19f0:	mov    0x8(%rax),%ecx
+    19f3:	add    $0x1,%ecx
+    19f6:	mov    -0x28(%rbp),%rax
+    19fa:	mov    %ecx,0x8(%rax)
+    19fd:	movslq -0x30(%rbp),%rax
+    1a01:	movl   $0x4,-0x40(%rbp,%rax,4)
+    1a09:	mov    -0x28(%rbp),%rax
+    1a0d:	mov    0x8(%rax),%eax
+    1a10:	mov    -0x8(%rbp),%rcx
+    1a14:	mov    0x8(%rcx),%ecx
+    1a17:	sub    $0x1,%ecx
+    1a1a:	cmp    %ecx,%eax
+    1a1c:	jle    1a27 <find_next_cell+0x2f7>
+    1a22:	jmp    1a62 <find_next_cell+0x332>
+    1a27:	jmp    1a2c <find_next_cell+0x2fc>
+    1a2c:	jmp    1a31 <find_next_cell+0x301>
+    1a31:	jmp    1a36 <find_next_cell+0x306>
+    1a36:	jmp    1a3b <find_next_cell+0x30b>
+    1a3b:	jmp    1a40 <find_next_cell+0x310>
+    1a40:	jmp    1a45 <find_next_cell+0x315>
+    1a45:	jmp    1a4a <find_next_cell+0x31a>
+    1a4a:	jmp    1a4f <find_next_cell+0x31f>
+    1a4f:	jmp    1a54 <find_next_cell+0x324>
+    1a54:	mov    -0x30(%rbp),%eax
+    1a57:	add    $0x1,%eax
+    1a5a:	mov    %eax,-0x30(%rbp)
+    1a5d:	jmp    17bd <find_next_cell+0x8d>
+    1a62:	movl   $0x0,-0x30(%rbp)
+    1a69:	cmpl   $0x3,-0x30(%rbp)
+    1a6d:	jge    1a94 <find_next_cell+0x364>
+    1a73:	movslq -0x30(%rbp),%rax
+    1a77:	mov    -0x40(%rbp,%rax,4),%edx
+    1a7b:	mov    -0x18(%rbp),%rax
+    1a7f:	movslq -0x30(%rbp),%rcx
+    1a83:	mov    %edx,(%rax,%rcx,4)
+    1a86:	mov    -0x30(%rbp),%eax
+    1a89:	add    $0x1,%eax
+    1a8c:	mov    %eax,-0x30(%rbp)
+    1a8f:	jmp    1a69 <find_next_cell+0x339>
+    1a94:	pop    %rbp
+    1a95:	ret
+
+Disassembly of section .fini:

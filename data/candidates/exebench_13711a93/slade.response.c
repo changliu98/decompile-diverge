@@ -1,0 +1,1 @@
+void cgi_sys_get_action(int *p_sys_action) { p_sys_action[1] = 6; p_sys_action[2] = 1; }

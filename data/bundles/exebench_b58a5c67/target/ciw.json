@@ -1,0 +1,319 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nmov     rax, [rbp+amin]\nmov     [rbp+ra], rdi\nmov     [rbp+dec], rsi\nmov     [rbp+ih], rdx\nmov     [rbp+am], rcx\nmov     [rbp+isgn], r8\nmov     [rbp+id], r9\nmov     [rbp+iminus], 2Dh ; '-'\nmov     [rbp+iplus], 2Bh ; '+'\nmovss   xmm0, cs:dword_3040\nmovss   [rbp+rad], xmm0\nmov     rax, [rbp+ra]\nmovsd   xmm0, qword ptr [rax]\nmovss   xmm1, [rbp+rad]\ncvtss2sd xmm1, xmm1\ndivsd   xmm0, xmm1\nmovsd   xmm1, cs:qword_3008\ndivsd   xmm0, xmm1\ncvtsd2ss xmm0, xmm0\nmovss   [rbp+hours], xmm0\nmovss   xmm0, [rbp+hours]\ncvtss2sd xmm0, xmm0\nmovsd   xmm1, cs:qword_3010\nucomisd xmm0, xmm1\njbe     loc_128D\nmovss   xmm0, [rbp+hours]\ncvtss2sd xmm0, xmm0\nmovsd   xmm1, cs:qword_3010\nsubsd   xmm0, xmm1\ncvtsd2ss xmm0, xmm0\nmovss   [rbp+hours], xmm0\njmp     loc_124F\ncvttss2si eax, [rbp+hours]\nmov     [rbp+ira], eax\nmov     ecx, [rbp+ira]\nmov     rax, [rbp+ih]\nmov     [rax], ecx\nmovss   xmm0, [rbp+hours]\ncvtsi2ss xmm1, [rbp+ira]\nsubss   xmm0, xmm1\ncvtss2sd xmm0, xmm0\nmovsd   xmm1, cs:qword_3018\nmulsd   xmm0, xmm1\nmov     rax, [rbp+am]\nmovsd   qword ptr [rax], xmm0\nmov     rax, [rbp+am]\nmovsd   xmm0, cs:qword_3020\naddsd   xmm0, qword ptr [rax]\nmov     rax, [rbp+am]\nmovsd   qword ptr [rax], xmm0\nmov     rax, [rbp+am]\nmovsd   xmm0, qword ptr [rax]\nmovsd   xmm1, cs:qword_3018\nucomisd xmm0, xmm1\njb      loc_1321\nmov     rax, [rbp+am]\nmovsd   xmm0, qword ptr [rax]\nmovsd   xmm1, cs:qword_3018\nsubsd   xmm0, xmm1\nmov     rax, [rbp+am]\nmovsd   qword ptr [rax], xmm0\nmov     rax, [rbp+ih]\nmov     ecx, [rax]\nadd     ecx, 1\nmov     rax, [rbp+ih]\nmov     [rax], ecx\nmov     rax, [rbp+ih]\ncmp     dword ptr [rax], 18h\njl      loc_133D\nmov     rax, [rbp+ih]\nmov     ecx, [rax]\nsub     ecx, 18h\nmov     rax, [rbp+ih]\nmov     [rax], ecx\nmov     rax, [rbp+dec]\nxorps   xmm0, xmm0\nucomisd xmm0, qword ptr [rax]\njbe     loc_1383\nmov     cl, [rbp+iminus]\nmov     rax, [rbp+isgn]\nmov     [rax], cl\nmov     rax, [rbp+dec]\nmovsd   xmm0, qword ptr [rax]\nmovq    rax, xmm0\nmov     rcx, 8000000000000000h\nxor     rax, rcx\nmovq    xmm0, rax\nmov     rax, [rbp+dec]\nmovsd   qword ptr [rax], xmm0\njmp     loc_138C\nmov     cl, [rbp+iplus]\nmov     rax, [rbp+isgn]\nmov     [rax], cl\nmov     rax, [rbp+dec]\nmovsd   xmm0, qword ptr [rax]\nmovss   xmm1, [rbp+rad]\ncvtss2sd xmm1, xmm1\ndivsd   xmm0, xmm1\ncvtsd2ss xmm0, xmm0\nmovss   [rbp+deg], xmm0\ncvttss2si ecx, [rbp+deg]\nmov     rax, [rbp+id]\nmov     [rax], ecx\nmovss   xmm0, [rbp+deg]\nmov     rax, [rbp+id]\ncvtsi2ss xmm1, dword ptr [rax]\nsubss   xmm0, xmm1\ncvtss2sd xmm0, xmm0\nmovsd   xmm1, cs:qword_3018\nmulsd   xmm0, xmm1\nmov     rax, [rbp+amin]\nmovsd   qword ptr [rax], xmm0\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 11,
+  "edges": [
+   [
+    "start",
+    "loc_124F"
+   ],
+   [
+    "loc_124F",
+    "loc_126A"
+   ],
+   [
+    "loc_124F",
+    "loc_128D"
+   ],
+   [
+    "loc_126A",
+    "loc_124F"
+   ],
+   [
+    "loc_128D",
+    "loc_12F6"
+   ],
+   [
+    "loc_128D",
+    "loc_1321"
+   ],
+   [
+    "loc_12F6",
+    "loc_1321"
+   ],
+   [
+    "loc_1321",
+    "loc_132E"
+   ],
+   [
+    "loc_1321",
+    "loc_133D"
+   ],
+   [
+    "loc_132E",
+    "loc_133D"
+   ],
+   [
+    "loc_133D",
+    "loc_134E"
+   ],
+   [
+    "loc_133D",
+    "loc_1383"
+   ],
+   [
+    "loc_134E",
+    "loc_138C"
+   ],
+   [
+    "loc_1383",
+    "loc_138C"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nmov     rax, [rbp+amin]\nmov     [rbp+ra], rdi\nmov     [rbp+dec], rsi\nmov     [rbp+ih], rdx\nmov     [rbp+am], rcx\nmov     [rbp+isgn], r8\nmov     [rbp+id], r9\nmov     [rbp+iminus], 2Dh ; '-'\nmov     [rbp+iplus], 2Bh ; '+'\nmovss   xmm0, cs:dword_3040\nmovss   [rbp+rad], xmm0\nmov     rax, [rbp+ra]\nmovsd   xmm0, qword ptr [rax]\nmovss   xmm1, [rbp+rad]\ncvtss2sd xmm1, xmm1\ndivsd   xmm0, xmm1\nmovsd   xmm1, cs:qword_3008\ndivsd   xmm0, xmm1\ncvtsd2ss xmm0, xmm0\nmovss   [rbp+hours], xmm0",
+   "loc_124F": "movss   xmm0, [rbp+hours]\ncvtss2sd xmm0, xmm0\nmovsd   xmm1, cs:qword_3010\nucomisd xmm0, xmm1\njbe     loc_128D",
+   "loc_126A": "movss   xmm0, [rbp+hours]\ncvtss2sd xmm0, xmm0\nmovsd   xmm1, cs:qword_3010\nsubsd   xmm0, xmm1\ncvtsd2ss xmm0, xmm0\nmovss   [rbp+hours], xmm0\njmp     loc_124F",
+   "loc_128D": "cvttss2si eax, [rbp+hours]\nmov     [rbp+ira], eax\nmov     ecx, [rbp+ira]\nmov     rax, [rbp+ih]\nmov     [rax], ecx\nmovss   xmm0, [rbp+hours]\ncvtsi2ss xmm1, [rbp+ira]\nsubss   xmm0, xmm1\ncvtss2sd xmm0, xmm0\nmovsd   xmm1, cs:qword_3018\nmulsd   xmm0, xmm1\nmov     rax, [rbp+am]\nmovsd   qword ptr [rax], xmm0\nmov     rax, [rbp+am]\nmovsd   xmm0, cs:qword_3020\naddsd   xmm0, qword ptr [rax]\nmov     rax, [rbp+am]\nmovsd   qword ptr [rax], xmm0\nmov     rax, [rbp+am]\nmovsd   xmm0, qword ptr [rax]\nmovsd   xmm1, cs:qword_3018\nucomisd xmm0, xmm1\njb      loc_1321",
+   "loc_12F6": "mov     rax, [rbp+am]\nmovsd   xmm0, qword ptr [rax]\nmovsd   xmm1, cs:qword_3018\nsubsd   xmm0, xmm1\nmov     rax, [rbp+am]\nmovsd   qword ptr [rax], xmm0\nmov     rax, [rbp+ih]\nmov     ecx, [rax]\nadd     ecx, 1\nmov     rax, [rbp+ih]\nmov     [rax], ecx",
+   "loc_1321": "mov     rax, [rbp+ih]\ncmp     dword ptr [rax], 18h\njl      loc_133D",
+   "loc_132E": "mov     rax, [rbp+ih]\nmov     ecx, [rax]\nsub     ecx, 18h\nmov     rax, [rbp+ih]\nmov     [rax], ecx",
+   "loc_133D": "mov     rax, [rbp+dec]\nxorps   xmm0, xmm0\nucomisd xmm0, qword ptr [rax]\njbe     loc_1383",
+   "loc_134E": "mov     cl, [rbp+iminus]\nmov     rax, [rbp+isgn]\nmov     [rax], cl\nmov     rax, [rbp+dec]\nmovsd   xmm0, qword ptr [rax]\nmovq    rax, xmm0\nmov     rcx, 8000000000000000h\nxor     rax, rcx\nmovq    xmm0, rax\nmov     rax, [rbp+dec]\nmovsd   qword ptr [rax], xmm0\njmp     loc_138C",
+   "loc_1383": "mov     cl, [rbp+iplus]\nmov     rax, [rbp+isgn]\nmov     [rax], cl",
+   "loc_138C": "mov     rax, [rbp+dec]\nmovsd   xmm0, qword ptr [rax]\nmovss   xmm1, [rbp+rad]\ncvtss2sd xmm1, xmm1\ndivsd   xmm0, xmm1\ncvtsd2ss xmm0, xmm0\nmovss   [rbp+deg], xmm0\ncvttss2si ecx, [rbp+deg]\nmov     rax, [rbp+id]\nmov     [rax], ecx\nmovss   xmm0, [rbp+deg]\nmov     rax, [rbp+id]\ncvtsi2ss xmm1, dword ptr [rax]\nsubss   xmm0, xmm1\ncvtss2sd xmm0, xmm0\nmovsd   xmm1, cs:qword_3018\nmulsd   xmm0, xmm1\nmov     rax, [rbp+amin]\nmovsd   qword ptr [rax], xmm0\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "ira": "dword ptr -44h",
+   "hours": "dword ptr -40h",
+   "deg": "dword ptr -3Ch",
+   "rad": "dword ptr -38h",
+   "iplus": "byte ptr -32h",
+   "iminus": "byte ptr -31h",
+   "id": "qword ptr -30h",
+   "isgn": "qword ptr -28h",
+   "am": "qword ptr -20h",
+   "ih": "qword ptr -18h",
+   "dec": "qword ptr -10h",
+   "ra": "qword ptr -8",
+   "amin": "qword ptr 10h"
+  },
+  ".rodata": {
+   "dword_3040": "dword 3C8EFA35h",
+   "qword_3008": "qword 402E000000000000h",
+   "qword_3010": "qword 4038000000000000h",
+   "qword_3018": "qword 404E000000000000h",
+   "qword_3020": "qword 3EB0C6F7A0B5ED8Dh"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4592,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".llround": "llround",
+  "_llround": "llround",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".llround",
+   ".plt",
+   true,
+   "llround"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "llround",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868347
+ }
+}

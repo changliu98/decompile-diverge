@@ -1,0 +1,1 @@
+int obdRevConvert_42(float rad, int *x, int *y, int *z, int *symbol) { rad *= 1000; *x = (int) rad / 256; *y = (int) rad % 256; return 2; }

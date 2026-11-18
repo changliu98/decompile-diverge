@@ -1,0 +1,1 @@
+void sortVrtx(int *vector) { int i, sorted, pos; do { sorted = 1; for (i=1; i<=2; i++) { if (vector[i-1] > vector[i]) { pos = vector[i]; vector[i] = vector[i-1]; vector[i-1] = pos; sorted = 0; } } } while (!sorted); }

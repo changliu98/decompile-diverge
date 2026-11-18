@@ -1,0 +1,1 @@
+void r3scal(float3 out, double scale) { out[0] *= scale; out[1] *= scale; out[2] *= scale; }

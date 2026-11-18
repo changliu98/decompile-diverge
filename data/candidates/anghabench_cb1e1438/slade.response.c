@@ -1,0 +1,1 @@
+unsigned gf32_mod (unsigned long long R, int n) { int i = n; for (i = n; i >= 32; i--) { if (R & (1ULL << i)) R ^=0x1EDC6F41ULL << (i - 32); } return R; }

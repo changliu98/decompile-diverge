@@ -1,0 +1,374 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+dest], rdi\nmov     [rbp+addr], rsi\nmov     [rbp+size], rdx\nmov     rax, [rbp+addr]\nadd     rax, [rbp+size]\nmov     [rbp+end], rax\nmov     rax, [rbp+dest]\nmov     [rbp+d], rax\nmov     [rbp+l], 0\nmov     rax, cs:roms\nmov     [rbp+rom], rax\ncmp     [rbp+rom], 0\njz      loc_138A\nmov     rax, [rbp+rom]\ncmp     qword ptr [rax+48h], 0\njz      loc_123A\njmp     loc_1379\nmov     rax, [rbp+rom]\ncmp     qword ptr [rax+28h], 0\njz      loc_124E\njmp     loc_1379\nmov     rax, [rbp+rom]\nmov     rax, [rax+58h]\nmov     rcx, [rbp+rom]\nadd     rax, [rcx+10h]\ncmp     rax, [rbp+addr]\njnb     loc_126D\njmp     loc_1379\nmov     rax, [rbp+rom]\nmov     rax, [rax+58h]\ncmp     rax, [rbp+end]\njbe     loc_1284\njmp     loc_138A\nmov     rax, [rbp+dest]\nmov     rcx, [rbp+rom]\nmov     rcx, [rcx+58h]\nsub     rcx, [rbp+addr]\nadd     rax, rcx\nmov     [rbp+d], rax\nmov     rax, [rbp+rom]\nmov     rax, [rax+20h]\nmov     [rbp+s], rax\nmov     rax, [rbp+rom]\nmov     rax, [rax+18h]\nmov     [rbp+l], rax\nmov     rax, [rbp+d]\nadd     rax, [rbp+l]\nmov     rcx, [rbp+dest]\nadd     rcx, [rbp+size]\ncmp     rax, rcx\njbe     loc_12DB\nmov     rax, [rbp+dest]\nmov     rcx, [rbp+d]\nsub     rax, rcx\nmov     [rbp+l], rax\ncmp     [rbp+l], 0\njbe     loc_12F7\nmov     rdi, [rbp+d]; dest\nmov     rsi, [rbp+s]; src\nmov     rdx, [rbp+l]; n\ncall    memcpy\nmov     rax, [rbp+rom]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+rom]\ncmp     rax, [rcx+18h]\njbe     loc_1374\nmov     rax, [rbp+l]\nadd     rax, [rbp+d]\nmov     [rbp+d], rax\nmov     rax, [rbp+rom]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+rom]\nsub     rax, [rcx+18h]\nmov     [rbp+l], rax\nmov     rax, [rbp+d]\nadd     rax, [rbp+l]\nmov     rcx, [rbp+dest]\nadd     rcx, [rbp+size]\ncmp     rax, rcx\njbe     loc_1355\nmov     rax, [rbp+dest]\nmov     rcx, [rbp+d]\nsub     rax, rcx\nmov     [rbp+l], rax\ncmp     [rbp+l], 0\njbe     loc_136F\nmov     rdi, [rbp+d]; s\nmov     rdx, [rbp+l]; n\nxor     esi, esi; c\ncall    memset\njmp     $+5\njmp     $+5\nmov     rax, [rbp+rom]\nmov     rax, [rax+60h]\nmov     [rbp+rom], rax\njmp     loc_121B\nmov     rax, [rbp+d]\nadd     rax, [rbp+l]\nmov     rcx, [rbp+dest]\nsub     rax, rcx\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 23,
+  "edges": [
+   [
+    "start",
+    "loc_121B"
+   ],
+   [
+    "loc_121B",
+    "loc_1226"
+   ],
+   [
+    "loc_121B",
+    "loc_138A"
+   ],
+   [
+    "loc_1226",
+    "loc_1235"
+   ],
+   [
+    "loc_1226",
+    "loc_123A"
+   ],
+   [
+    "loc_1235",
+    "loc_1379"
+   ],
+   [
+    "loc_123A",
+    "loc_1249"
+   ],
+   [
+    "loc_123A",
+    "loc_124E"
+   ],
+   [
+    "loc_1249",
+    "loc_1379"
+   ],
+   [
+    "loc_124E",
+    "loc_1268"
+   ],
+   [
+    "loc_124E",
+    "loc_126D"
+   ],
+   [
+    "loc_1268",
+    "loc_1379"
+   ],
+   [
+    "loc_126D",
+    "loc_127F"
+   ],
+   [
+    "loc_126D",
+    "loc_1284"
+   ],
+   [
+    "loc_127F",
+    "loc_138A"
+   ],
+   [
+    "loc_1284",
+    "loc_12CC"
+   ],
+   [
+    "loc_1284",
+    "loc_12DB"
+   ],
+   [
+    "loc_12CC",
+    "loc_12DB"
+   ],
+   [
+    "loc_12DB",
+    "loc_12E6"
+   ],
+   [
+    "loc_12DB",
+    "loc_12F7"
+   ],
+   [
+    "loc_12E6",
+    "loc_12F7"
+   ],
+   [
+    "loc_12F7",
+    "loc_130D"
+   ],
+   [
+    "loc_12F7",
+    "loc_1374"
+   ],
+   [
+    "loc_130D",
+    "loc_1346"
+   ],
+   [
+    "loc_130D",
+    "loc_1355"
+   ],
+   [
+    "loc_1346",
+    "loc_1355"
+   ],
+   [
+    "loc_1355",
+    "loc_1360"
+   ],
+   [
+    "loc_1355",
+    "loc_136F"
+   ],
+   [
+    "loc_1360",
+    "loc_136F"
+   ],
+   [
+    "loc_136F",
+    "loc_1374"
+   ],
+   [
+    "loc_1374",
+    "loc_1379"
+   ],
+   [
+    "loc_1379",
+    "loc_121B"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+dest], rdi\nmov     [rbp+addr], rsi\nmov     [rbp+size], rdx\nmov     rax, [rbp+addr]\nadd     rax, [rbp+size]\nmov     [rbp+end], rax\nmov     rax, [rbp+dest]\nmov     [rbp+d], rax\nmov     [rbp+l], 0\nmov     rax, cs:roms\nmov     [rbp+rom], rax",
+   "loc_121B": "cmp     [rbp+rom], 0\njz      loc_138A",
+   "loc_1226": "mov     rax, [rbp+rom]\ncmp     qword ptr [rax+48h], 0\njz      loc_123A",
+   "loc_1235": "jmp     loc_1379",
+   "loc_123A": "mov     rax, [rbp+rom]\ncmp     qword ptr [rax+28h], 0\njz      loc_124E",
+   "loc_1249": "jmp     loc_1379",
+   "loc_124E": "mov     rax, [rbp+rom]\nmov     rax, [rax+58h]\nmov     rcx, [rbp+rom]\nadd     rax, [rcx+10h]\ncmp     rax, [rbp+addr]\njnb     loc_126D",
+   "loc_1268": "jmp     loc_1379",
+   "loc_126D": "mov     rax, [rbp+rom]\nmov     rax, [rax+58h]\ncmp     rax, [rbp+end]\njbe     loc_1284",
+   "loc_127F": "jmp     loc_138A",
+   "loc_1284": "mov     rax, [rbp+dest]\nmov     rcx, [rbp+rom]\nmov     rcx, [rcx+58h]\nsub     rcx, [rbp+addr]\nadd     rax, rcx\nmov     [rbp+d], rax\nmov     rax, [rbp+rom]\nmov     rax, [rax+20h]\nmov     [rbp+s], rax\nmov     rax, [rbp+rom]\nmov     rax, [rax+18h]\nmov     [rbp+l], rax\nmov     rax, [rbp+d]\nadd     rax, [rbp+l]\nmov     rcx, [rbp+dest]\nadd     rcx, [rbp+size]\ncmp     rax, rcx\njbe     loc_12DB",
+   "loc_12CC": "mov     rax, [rbp+dest]\nmov     rcx, [rbp+d]\nsub     rax, rcx\nmov     [rbp+l], rax",
+   "loc_12DB": "cmp     [rbp+l], 0\njbe     loc_12F7",
+   "loc_12E6": "mov     rdi, [rbp+d]; dest\nmov     rsi, [rbp+s]; src\nmov     rdx, [rbp+l]; n\ncall    memcpy",
+   "loc_12F7": "mov     rax, [rbp+rom]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+rom]\ncmp     rax, [rcx+18h]\njbe     loc_1374",
+   "loc_130D": "mov     rax, [rbp+l]\nadd     rax, [rbp+d]\nmov     [rbp+d], rax\nmov     rax, [rbp+rom]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+rom]\nsub     rax, [rcx+18h]\nmov     [rbp+l], rax\nmov     rax, [rbp+d]\nadd     rax, [rbp+l]\nmov     rcx, [rbp+dest]\nadd     rcx, [rbp+size]\ncmp     rax, rcx\njbe     loc_1355",
+   "loc_1346": "mov     rax, [rbp+dest]\nmov     rcx, [rbp+d]\nsub     rax, rcx\nmov     [rbp+l], rax",
+   "loc_1355": "cmp     [rbp+l], 0\njbe     loc_136F",
+   "loc_1360": "mov     rdi, [rbp+d]; s\nmov     rdx, [rbp+l]; n\nxor     esi, esi; c\ncall    memset",
+   "loc_136F": "jmp     $+5",
+   "loc_1374": "jmp     $+5",
+   "loc_1379": "mov     rax, [rbp+rom]\nmov     rax, [rax+60h]\nmov     [rbp+rom], rax\njmp     loc_121B",
+   "loc_138A": "mov     rax, [rbp+d]\nadd     rax, [rbp+l]\nmov     rcx, [rbp+dest]\nsub     rax, rcx\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "rom": "qword ptr -40h",
+   "l": "qword ptr -38h",
+   "d": "qword ptr -30h",
+   "s": "qword ptr -28h",
+   "end": "qword ptr -20h",
+   "size": "qword ptr -18h",
+   "addr": "qword ptr -10h",
+   "dest": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {
+   "roms": "qword 0"
+  },
+  ".bss": {}
+ },
+ "func_ea": 4576,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868454
+ }
+}

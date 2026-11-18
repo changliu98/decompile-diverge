@@ -1,0 +1,1 @@
+void convert_human(unsigned long t, unsigned char *out, unsigned char *in) { int i = 0; while (t > 1024) { t /= 1024; i++; } switch (i) { case 1: *in = ' '; break; case 2: *in = 'K'; break; case 3: *in = 'M'; break; case 4: *in = 'G'; break; case 5: *in = 'T'; break; case 6: *in = 'P'; break; } *out = t; }

@@ -1,0 +1,1 @@
+int func0(float *x, int N, float a) { int i, j; for (i = 0; i < N; i++) for (j = i + 1; j < N; j++) if (fabsf(x[i] - x[j]) < a) return 1; return 0; }

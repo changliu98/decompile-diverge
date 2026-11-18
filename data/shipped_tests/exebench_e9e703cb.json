@@ -1,0 +1,137 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <stdio.h>\n\n#include <limits.h>\n\n#include <assert.h>\n\n#include <string.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_52xbspqduc.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(int val, char* str, int base, char* returnv) {\n  json output_json;\n\n  output_json[\"str\"] = str;\n\n  output_json[\"returnv\"] = returnv;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  int val = input_json[\"val\"];\n  char* str = strdup(input_json[\"str\"].get<std::string>().c_str());\n  int base = input_json[\"base\"];\n  clock_t begin = clock();\n  char* returnv = int2str(val, str, base);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(val, str, base, returnv);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "val": 111,
+    "str": "g",
+    "base": 44
+   },
+   "output": {
+    "returnv": "",
+    "str": ""
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "val": 77,
+    "str": "dbojytomkbmehxip",
+    "base": 42
+   },
+   "output": {
+    "returnv": "",
+    "str": ""
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "val": 120,
+    "str": "wusvnjmubvlgtsyw",
+    "base": 47
+   },
+   "output": {
+    "returnv": "",
+    "str": ""
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "val": 80,
+    "str": "vc",
+    "base": 99
+   },
+   "output": {
+    "returnv": "",
+    "str": ""
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "val": 7,
+    "str": "lnbrlcttwzywgan",
+    "base": 107
+   },
+   "output": {
+    "returnv": "",
+    "str": ""
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "val": 115,
+    "str": "fdwttrqzlb",
+    "base": 40
+   },
+   "output": {
+    "returnv": "",
+    "str": ""
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "val": 30,
+    "str": "faeycxvjwlgkqwwhez",
+    "base": 25
+   },
+   "output": {
+    "returnv": "15",
+    "str": "15"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "val": 32,
+    "str": "qjgnbrpdugqdpduupfaugpfqy",
+    "base": 62
+   },
+   "output": {
+    "returnv": "",
+    "str": ""
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "val": 74,
+    "str": "dqaaixtzjdtuapdusqqiezwlbj",
+    "base": 80
+   },
+   "output": {
+    "returnv": "",
+    "str": ""
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "val": 0,
+    "str": "orakahvpvc",
+    "base": 126
+   },
+   "output": {
+    "returnv": "",
+    "str": ""
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

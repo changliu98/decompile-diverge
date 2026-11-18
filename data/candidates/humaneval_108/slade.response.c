@@ -1,0 +1,1 @@
+int func0(int32_t *p, int n) { int count = 0; for (int i = 0; i < n; i++) { if (p[i] > 0) count++; else { int32_t sum = 0; int32_t t = abs(p[i]); while (t >= 10) { sum += t % 10; t /= 10; } sum -= t; if (sum > 0) count++; } } return count; }

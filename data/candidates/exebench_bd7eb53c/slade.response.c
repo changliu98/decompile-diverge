@@ -1,0 +1,1 @@
+void zywrleCalcSize(uint32_t* size, uint32_t* sizes, uint32_t depth) { *size &= ~((1 << depth) - 1); *sizes &= ~((1 << depth) - 1); }

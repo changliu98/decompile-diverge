@@ -1,0 +1,1 @@
+void int_swap(void *a, void *b) { intptr_t ia = (intptr_t)*(int *)a; intptr_t ib = (intptr_t)*(int *)b; *(int *)a = (int)ib; *(int *)b = (int)ia; }

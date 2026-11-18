@@ -1,0 +1,1 @@
+void htond(void *data) { uint32_t *d = data; uint32_t x; x = d[0]; d[0] = htonl(d[1]); d[1] = htonl(x); }

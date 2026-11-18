@@ -1,0 +1,1 @@
+float vec3DotProduct(vec3 a, vec3 b) { return a.v[0] * b.v[0] + a.v[1] * b.v[1] + a.v[2] * b.v[2]; }

@@ -1,0 +1,43 @@
+00000000000012d0 <mrb_realloc>:
+    12d0:	push   %rbp
+    12d1:	mov    %rsp,%rbp
+    12d4:	sub    $0x30,%rsp
+    12d8:	mov    %rdi,-0x10(%rbp)
+    12dc:	mov    %rsi,-0x18(%rbp)
+    12e0:	mov    %rdx,-0x20(%rbp)
+    12e4:	mov    -0x10(%rbp),%rdi
+    12e8:	mov    -0x18(%rbp),%rsi
+    12ec:	mov    -0x20(%rbp),%rdx
+    12f0:	call   11d0 <mrb_realloc_simple>
+    12f5:	mov    %rax,-0x28(%rbp)
+    12f9:	cmpq   $0x0,-0x20(%rbp)
+    12fe:	jne    1311 <mrb_realloc+0x41>
+    1304:	mov    -0x28(%rbp),%rax
+    1308:	mov    %rax,-0x8(%rbp)
+    130c:	jmp    135f <mrb_realloc+0x8f>
+    1311:	cmpq   $0x0,-0x28(%rbp)
+    1316:	jne    1347 <mrb_realloc+0x77>
+    131c:	mov    -0x10(%rbp),%rdi
+    1320:	mov    -0x18(%rbp),%rsi
+    1324:	call   1270 <mrb_free>
+    1329:	mov    -0x10(%rbp),%rax
+    132d:	mov    0x78(%rax),%cl
+    1330:	and    $0xef,%cl
+    1333:	or     $0x10,%cl
+    1336:	mov    %cl,0x78(%rax)
+    1339:	mov    -0x10(%rbp),%rdi
+    133d:	call   12b0 <mrb_raise_nomemory>
+    1342:	jmp    1357 <mrb_realloc+0x87>
+    1347:	mov    -0x10(%rbp),%rax
+    134b:	mov    0x78(%rax),%cl
+    134e:	and    $0xef,%cl
+    1351:	or     $0x0,%cl
+    1354:	mov    %cl,0x78(%rax)
+    1357:	mov    -0x28(%rbp),%rax
+    135b:	mov    %rax,-0x8(%rbp)
+    135f:	mov    -0x8(%rbp),%rax
+    1363:	add    $0x30,%rsp
+    1367:	pop    %rbp
+    1368:	ret
+
+Disassembly of section .fini:

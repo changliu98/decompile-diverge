@@ -1,0 +1,1 @@
+void sync_clear_bit(unsigned int bit, volatile unsigned long *addr) { asm volatile ("lock; btrl %1,%2" : : "r" (bit), "m" (*addr) : "r" (bit)); }

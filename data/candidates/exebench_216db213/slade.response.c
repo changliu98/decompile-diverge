@@ -1,0 +1,1 @@
+void swapminusfloat(dfloat *a, dfloat* b) { *a -= *b; *b += *a; *a -= *a; }

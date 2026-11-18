@@ -1,0 +1,1 @@
+void wordstore(unsigned char *buf, uint16_t val) { buf[0] = val &0xff; buf[1] = (val &0xff00) >> 8; }

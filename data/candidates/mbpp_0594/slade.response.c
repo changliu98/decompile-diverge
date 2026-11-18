@@ -1,0 +1,1 @@
+int func0(int *ptr, int n) { int ret = -1; int ret2 = -1; for (int i = 0; i < n; ++i) { if ((ptr[i] % 2) == 0) { ret = ptr[i]; break; } } for (int i = 0; i < n; ++i) { if ((ptr[i] % 2) != 0) { ret2 = ptr[i]; break; } } return ret - ret2; }

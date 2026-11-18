@@ -1,0 +1,1 @@
+bool next(bool arr[], int n) { int i; for (i = 0; i < n && arr[i] != 0; i++) { arr[i] = false; } if (i < n) { arr[i] = true; return true; } else { return false; } }

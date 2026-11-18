@@ -1,0 +1,1 @@
+int test_and_set_bit(uint32_t bit, uint8_t *addr) { register int old; asm volatile("lock bts %0,%1" : "=r" (old), "=d" (addr) : "0" (bit), "1" (bit)); return old; }

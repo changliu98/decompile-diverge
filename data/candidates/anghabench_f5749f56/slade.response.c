@@ -1,0 +1,1 @@
+int hex2int(int ch) { if (ch >= 'a' && ch <= 'f') return ch - 'a' + 10; else if (ch >= 'A' && ch <= 'F') return ch - 'A' + 10; else return ch - '0'; }

@@ -1,0 +1,1 @@
+void foo (struct S *s, int *x) { int i; for (i = 0; i < 8; i++) if (x[i] != i + 2) break; if (i != 8 || s->a != 1) { s->a = 6; } else { s->a = 8; for (i = 0; i < 8; i++) x[i] = i + 9; } return ; }

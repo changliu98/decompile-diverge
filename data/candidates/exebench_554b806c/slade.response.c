@@ -1,0 +1,1 @@
+int is_empty(float *v, int n) { int i; for (i = 0; i <= n; i++) { if (v[i] > 0.999) { return 0; } } return 1; }

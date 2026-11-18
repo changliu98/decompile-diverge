@@ -1,0 +1,1 @@
+int fatfs_get_sfn_display_name(char *directory, char *filename) { int count = 0; char c; while (*filename && count < 12) { c = *filename++; if (c == ' ') continue; if (c >= 'A' && c <= 'Z') c += 'a' - 'A'; *directory++ = c; count++; } *directory = 0; return 1; }

@@ -1,0 +1,1 @@
+float mmapGet(float *a, long long i) { return a[i]; }

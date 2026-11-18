@@ -1,0 +1,1 @@
+void ToRNA(char *s) { while(*s) { if(*s=='T') *s='U'; else if(*s=='t') *s='u'; s++; } }

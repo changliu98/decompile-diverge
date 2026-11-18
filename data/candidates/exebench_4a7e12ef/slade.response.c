@@ -1,0 +1,1 @@
+void mat3mulv(float out[3], const float a[3 * 3], const float b[3 * 3]) { for (int i = 0; i < 3; i++) { float v = 0; for (int j = 0; j < 3; j++) { v += a[i * 3 + j] * b[j]; } out[i] = v; } }

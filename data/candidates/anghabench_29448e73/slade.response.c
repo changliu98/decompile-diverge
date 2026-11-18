@@ -1,0 +1,1 @@
+bool hex_to_int(const char *str, int *num) { int i; *num = 0; for (i = 0; i < 8; i++) { if (str[i] >= '0' && str[i] <= '9') *num = *num * 16 + str[i] - '0'; else if (str[i] >= 'a' && str[i] <= 'f') *num = *num * 16 + str[i] - 'a' - 10; else return false; } return true; }

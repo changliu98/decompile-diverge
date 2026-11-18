@@ -1,0 +1,1 @@
+uint32 func0(uint32 x) { uint32 n = 0; while (x) { x /= 10; n++; } return n; }

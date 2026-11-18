@@ -1,0 +1,1 @@
+unsigned get_high_speed_hz(unsigned int rate) { return (rate * 125 + (1 << 9)) >> 10; }

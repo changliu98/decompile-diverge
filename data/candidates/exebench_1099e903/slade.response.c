@@ -1,0 +1,1 @@
+void set_nb(char *str, char c, int *nb) { int i = 0, j = 0; while (str[i] != '\0') { if (i == j && str[i] == c) { i++; j++; } else if (str[j] == c || str[j] == '\0') { (*nb)++; i = j; } else { j++; } } }

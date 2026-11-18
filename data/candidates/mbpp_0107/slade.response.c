@@ -1,0 +1,1 @@
+int func0(int a, int b) { int ret = 0; int i, j; for (i = a; i <= b; i++) { if (i >= 10 && i <= 15) { ret++; } else if (i >= 16) { for (j = i; j != 0; j /= 16) { if (j % 16 >= 10) { ret++; } } } } return ret; }

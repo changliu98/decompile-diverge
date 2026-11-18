@@ -1,0 +1,1 @@
+void set_autofs_type_indirect(struct __sk_buff *skb) { skb->priority = 1; }

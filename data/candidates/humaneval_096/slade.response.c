@@ -1,0 +1,1 @@
+int *func0(int n, int *return Size) { int *array = (int *)malloc((size_t)n * sizeof(int)); *return Size = 0; for (int i = 2; i < n; i++) { int flag = 1; for (int j = 0; j < *return Size; j++) { flag = array[j]; if (i < (flag * flag)) { break; } if (i % flag == 0) { flag = 0; break; } } if (flag) { array[*return Size] = i; *return Size += 1; } } return array; }

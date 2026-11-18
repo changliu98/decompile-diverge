@@ -1,0 +1,1 @@
+float vec3f_dot(vec3f u, vec3f v) { return u[0] * v[0] + u[1] * v[1] + u[2] * v[2]; }

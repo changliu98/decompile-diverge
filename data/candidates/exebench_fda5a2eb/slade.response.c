@@ -1,0 +1,1 @@
+void put_user_word(short w, void *x) { *((short *)x) = w; }

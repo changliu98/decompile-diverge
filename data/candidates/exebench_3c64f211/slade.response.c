@@ -1,0 +1,1 @@
+void jpq_cpuid_custom(struct jpq_cpuid *cpuid, uint32_t function) { __asm__ __volatile__ ("cpuid" : "=a" (cpuid)[0], "=b" (cpuid)[1], "=c" (cpuid)[2] : "0" (function)); }

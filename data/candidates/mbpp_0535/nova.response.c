@@ -1,0 +1,1 @@
+double func0(double r) { return PI * r * r; }

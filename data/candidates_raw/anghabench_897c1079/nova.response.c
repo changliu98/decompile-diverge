@@ -1,0 +1,1 @@
+float func0(float x) { return x * (float)sin(x * 20.0f + 30.0f); }

@@ -1,0 +1,1 @@
+char *func0(int n) { int size = 2; for (int i = 1; i <= n; i++) { size += snprintf(NULL, 0, " %d", i); } char *buffer = malloc(size); if (buffer == NULL) { return NULL; } char *p = buffer; p += sprintf(p, "0"); for (int i = 1; i <= n; i++) { p += sprintf(p, " %d", i); } return buffer; }

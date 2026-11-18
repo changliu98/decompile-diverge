@@ -1,0 +1,251 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+model], rdi\nmov     [rbp+conv_string], rsi\nmov     [rbp+result], 0\nmov     rax, [rbp+model]\nmov     eax, [rax+10h]\nmov     edi, eax; size\ncall    PyTuple_New\nmov     [rbp+children], rax\ncmp     [rbp+children], 0\njz      loc_164F\nmov     rax, [rbp+model]\ncmp     dword ptr [rax+10h], 7FFFFFFFh\njnb     loc_158B\njmp     loc_15AA\nlea     rdi, assertion; \"model->numchildren < INT_MAX\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 0A9h; line\nlea     rcx, function; \"PyObject *conv_content_model(XML_Conten\"...\ncall    ___assert_fail\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\nmov     rcx, [rbp+model]\ncmp     eax, [rcx+10h]\njge     loc_1620\nmov     rax, [rbp+model]\nmov     rdi, [rax+18h]\nmovsxd  rax, [rbp+i]\nshl     rax, 5\nadd     rdi, rax; model\nmov     rsi, [rbp+conv_string]; conv_string\ncall    conv_content_model\nmov     [rbp+child], rax\ncmp     [rbp+child], 0\njnz     loc_1602\nmov     rdi, [rbp+children]; o\ncall    __ZN24QScopedPointerPodDeleter7cleanupEPv; QScopedPointerPodDeleter::cleanup(void *)\nmov     [rbp+var_8], 0\njmp     loc_1657\nmov     rdi, [rbp+children]; tup\nmov     esi, [rbp+i]; i\nmov     rdx, [rbp+child]; v\ncall    PyTuple_SET_ITEM\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_15B1\nmov     rax, [rbp+model]\nmov     esi, [rax]\nmov     rax, [rbp+model]\nmov     edx, [rax+4]\nmov     rcx, [rbp+conv_string]\nmov     rax, [rbp+model]\nmov     r8, [rax+8]\nmov     r9, [rbp+children]\nlea     rdi, format; \"(iiO&N)\"\nmov     al, 0\ncall    Py_BuildValue\nmov     [rbp+result], rax\nmov     rax, [rbp+result]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 12,
+  "edges": [
+   [
+    "start",
+    "loc_1575"
+   ],
+   [
+    "start",
+    "loc_164F"
+   ],
+   [
+    "loc_1575",
+    "loc_1586"
+   ],
+   [
+    "loc_1575",
+    "loc_158B"
+   ],
+   [
+    "loc_1586",
+    "loc_15AA"
+   ],
+   [
+    "loc_15AA",
+    "loc_15B1"
+   ],
+   [
+    "loc_15B1",
+    "loc_15C1"
+   ],
+   [
+    "loc_15B1",
+    "loc_1620"
+   ],
+   [
+    "loc_15C1",
+    "loc_15EC"
+   ],
+   [
+    "loc_15C1",
+    "loc_1602"
+   ],
+   [
+    "loc_15EC",
+    "loc_1657"
+   ],
+   [
+    "loc_1602",
+    "loc_15B1"
+   ],
+   [
+    "loc_1620",
+    "loc_164F"
+   ],
+   [
+    "loc_164F",
+    "loc_1657"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+model], rdi\nmov     [rbp+conv_string], rsi\nmov     [rbp+result], 0\nmov     rax, [rbp+model]\nmov     eax, [rax+10h]\nmov     edi, eax; size\ncall    PyTuple_New\nmov     [rbp+children], rax\ncmp     [rbp+children], 0\njz      loc_164F",
+   "loc_1575": "mov     rax, [rbp+model]\ncmp     dword ptr [rax+10h], 7FFFFFFFh\njnb     loc_158B",
+   "loc_1586": "jmp     loc_15AA",
+   "loc_158B": "lea     rdi, assertion; \"model->numchildren < INT_MAX\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 0A9h; line\nlea     rcx, function; \"PyObject *conv_content_model(XML_Conten\"...\ncall    ___assert_fail",
+   "loc_15AA": "mov     [rbp+i], 0",
+   "loc_15B1": "mov     eax, [rbp+i]\nmov     rcx, [rbp+model]\ncmp     eax, [rcx+10h]\njge     loc_1620",
+   "loc_15C1": "mov     rax, [rbp+model]\nmov     rdi, [rax+18h]\nmovsxd  rax, [rbp+i]\nshl     rax, 5\nadd     rdi, rax; model\nmov     rsi, [rbp+conv_string]; conv_string\ncall    conv_content_model\nmov     [rbp+child], rax\ncmp     [rbp+child], 0\njnz     loc_1602",
+   "loc_15EC": "mov     rdi, [rbp+children]; o\ncall    __ZN24QScopedPointerPodDeleter7cleanupEPv; QScopedPointerPodDeleter::cleanup(void *)\nmov     [rbp+var_8], 0\njmp     loc_1657",
+   "loc_1602": "mov     rdi, [rbp+children]; tup\nmov     esi, [rbp+i]; i\nmov     rdx, [rbp+child]; v\ncall    PyTuple_SET_ITEM\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_15B1",
+   "loc_1620": "mov     rax, [rbp+model]\nmov     esi, [rax]\nmov     rax, [rbp+model]\nmov     edx, [rax+4]\nmov     rcx, [rbp+conv_string]\nmov     rax, [rbp+model]\nmov     r8, [rax+8]\nmov     r9, [rbp+children]\nlea     rdi, format; \"(iiO&N)\"\nmov     al, 0\ncall    Py_BuildValue\nmov     [rbp+result], rax",
+   "loc_164F": "mov     rax, [rbp+result]\nmov     [rbp+var_8], rax",
+   "loc_1657": "mov     rax, [rbp+var_8]\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "child": "qword ptr -38h",
+   "i": "dword ptr -2Ch",
+   "children": "qword ptr -28h",
+   "result": "qword ptr -20h",
+   "conv_string": "qword ptr -18h",
+   "model": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {
+   "assertion": "byte 'model->numchildren < INT_MAX',0",
+   "file": "byte 'harness.c',0",
+   "function": "byte 'PyObject *conv_content_model(XML_Content *const, PyObject *(*)(co'",
+   "format": "byte '(iiO&N)',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5440,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868455
+ }
+}

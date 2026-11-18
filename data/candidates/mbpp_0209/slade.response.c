@@ -1,0 +1,1 @@
+void func0(int arr[], int n, int val, int temp[]) { buildHeap(arr, n); if (val < arr[0]) { return ; } arr[0] = val; heapify(arr, n, 0); int i; for (i = 0; i < n; i++) { temp[i] = arr[i]; } }

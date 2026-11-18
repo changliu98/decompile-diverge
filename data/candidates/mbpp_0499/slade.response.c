@@ -1,0 +1,1 @@
+struct s0 func0(int x) { struct s0 r; r.a = x * 2; return r; }

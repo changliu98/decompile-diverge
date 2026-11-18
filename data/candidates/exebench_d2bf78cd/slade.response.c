@@ -1,0 +1,1 @@
+int SDL_imageFilterBitAndMMX(unsigned char *Src, unsigned char *Dest, unsigned char *Dest2, int length) { return -1; }

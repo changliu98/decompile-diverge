@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n#include <stdbool.h>\n\nbool func0(int *arr, int size) {\n    int num = 0;\n    if (size == 0) return true;\n    for (int i = 1; i < size; i++)\n        if (arr[i] < arr[i - 1]) num += 1;\n    if (arr[size - 1] > arr[0]) num += 1;\n    if (num < 2) return true;\n    return false;\n}",
+ "c_test": "#include <assert.h>\n#include <stdbool.h>\n\nint main() {\n    assert(func0((const int[]){3, 4, 5, 1, 2}, 5) == true);\n    assert(func0((const int[]){3, 5, 10, 1, 2}, 5) == true);\n    assert(func0((const int[]){4, 3, 1, 2}, 4) == false);\n    assert(func0((const int[]){3, 5, 4, 1, 2}, 5) == false);\n    assert(func0((const int[]){}, 0) == true);\n\n    return 0;\n}"
+}

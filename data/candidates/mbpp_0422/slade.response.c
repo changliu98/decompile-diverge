@@ -1,0 +1,1 @@
+double func0(int n) { int i; double sum = 0.0; for (i = 1; i <= n; i++) sum += i * i * i; return round(sum / n * 4.0) / 4.0; }

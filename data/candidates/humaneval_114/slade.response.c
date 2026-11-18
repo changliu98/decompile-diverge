@@ -1,0 +1,1 @@
+__attribute__((no, noclone)) long func0 (long *p, int len) { long a = p[0]; long b = p[0]; int i; for (i = 1; i < len; i++) { a = a < 0 ? a + p[i] : p[i]; if (a < b) b = a; } return b; }

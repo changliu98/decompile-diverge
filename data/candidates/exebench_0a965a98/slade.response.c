@@ -1,0 +1,1 @@
+int new_strcpy(char *dest, char *src, int max) { int i = 0; while (src[i] != 0 && i < max) { dest[i] = src[i]; i++; } dest[i] = 0; return 0; }

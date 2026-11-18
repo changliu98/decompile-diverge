@@ -1,0 +1,1 @@
+uint32_t REG_A3XX_HLSQ_CL_GLOBAL_WORK_OFFSET(uint32_t i0) { return 0x0000220c + 0x2*i0; }

@@ -1,0 +1,1 @@
+void encode_int(char *p, int i) { int sign = 0; if (i > 0) { if (i &0x7C00) *p++ =0x40 | ((i >> 10) &0x1F); if (i &0x3F0) *p++ =0x40 | ((i >> 4) &0x3F); } else { i = -i; sign = 1; } if (i &0x0F) *p =0x20 | (i &0x0F); else *p =0x20; if (!sign) *p |=0x10; p++; *p = '\0'; }

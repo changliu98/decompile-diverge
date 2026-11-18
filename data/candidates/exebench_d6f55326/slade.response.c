@@ -1,0 +1,1 @@
+void swap_long(void *_out) { unsigned char *out = _out, a; a = out[0]; out[0] = out[3]; out[3] = a; a = out[1]; out[1] = out[2]; out[2] = a; }

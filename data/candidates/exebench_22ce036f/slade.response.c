@@ -1,0 +1,1 @@
+void foo (long N, long *p, long *q) { long i; if (N <= 0) return ; foo (N / 2, p, q); for (i = 1; i <= N; i++) *p += *q; }

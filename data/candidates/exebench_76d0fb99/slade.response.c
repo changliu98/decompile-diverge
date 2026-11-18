@@ -1,0 +1,1 @@
+void stack4_push(unsigned long *s, unsigned long i) { *s = (*s << 4) | i; }

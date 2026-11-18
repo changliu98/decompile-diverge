@@ -1,0 +1,1 @@
+void cost_bounds(double *Cpx, double *Cpx, int i) { if (i > 0) { *Cpx = 0.01; *Cpx = 0.005; } }

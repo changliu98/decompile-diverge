@@ -1,0 +1,1 @@
+int func0(int *arr, int n) { int sum = 0; for (int i = 0; i + i < n; ++i) { if (arr[2*i] % 2 == 1) sum += arr[i*2]; } return sum; }

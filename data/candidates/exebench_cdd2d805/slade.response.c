@@ -1,0 +1,1 @@
+void atomic_retain(atomic_t *p) { p->value++; }

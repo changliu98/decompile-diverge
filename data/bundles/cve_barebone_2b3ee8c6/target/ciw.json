@@ -1,0 +1,450 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 90h\nmov     [rbp+a], rdi\nmov     [rbp+entry], rsi\nmov     [rbp+rsrc], rdx\nmov     rax, [rbp+a]\nmov     rax, [rax+8]\nmov     rax, [rax]\nmov     [rbp+zip], rax\nmov     rdi, [rbp+a]; a\nxor     esi, esi; n\ncall    archive_filter_bytes\nmov     [rbp+offset], rax\nmov     [rbp+ret], 0\nmov     rax, [rbp+rsrc]\nmov     al, [rax+18h]\ntest    al, al\njnz     loc_1695\njmp     $+5\njmp     loc_16D0\nmov     rax, [rbp+a]\nmov     [rbp+var_80], rax\nmov     rax, [rbp+rsrc]\nmovzx   edi, byte ptr [rax+18h]; compression\ncall    compression_name\nmov     rdi, [rbp+var_80]; a\nmov     rcx, rax\nmov     esi, 16h; err\nlea     rdx, fmt; \"Unsupported ZIP compression method (%s)\"\nmov     al, 0\ncall    archive_set_error\nmov     [rbp+var_4], 0FFFFFFECh\njmp     loc_1936\nmov     rax, [rbp+rsrc]\ncmp     qword ptr [rax+10h], 400000h\njle     loc_170D\nmov     rdi, [rbp+a]; a\nmov     rax, [rbp+rsrc]\nmov     rcx, [rax+10h]\nmov     esi, 16h; err\nlea     rdx, aMacMetadataIsT; \"Mac metadata is too large: %jd > 4M byt\"...\nmov     al, 0\ncall    archive_set_error\nmov     [rbp+var_4], 0FFFFFFECh\njmp     loc_1936\nmov     rax, [rbp+rsrc]\nmov     rdi, [rax+10h]; size\ncall    malloc\nmov     [rbp+metadata], rax\ncmp     [rbp+metadata], 0\njnz     loc_174C\nmov     rdi, [rbp+a]; a\nmov     esi, 0Ch; err\nlea     rdx, aCanTAllocateMe; \"Can't allocate memory for Mac metadata\"\nmov     al, 0\ncall    archive_set_error\nmov     [rbp+var_4], 0FFFFFFE2h\njmp     loc_1936\nmov     rax, [rbp+offset]\nmov     rcx, [rbp+rsrc]\ncmp     rax, [rcx]\njge     loc_1776\nmov     rdi, [rbp+a]; a\nmov     rax, [rbp+rsrc]\nmov     rsi, [rax]\nsub     rsi, [rbp+offset]; request\ncall    __archive_read_consume\njmp     loc_179E\nmov     rax, [rbp+offset]\nmov     rcx, [rbp+rsrc]\ncmp     rax, [rcx]\njz      loc_1799\nmov     rdi, [rbp+a]; a\nmov     rax, [rbp+rsrc]\nmov     rsi, [rax]; offset\nxor     edx, edx; whence\ncall    __archive_read_seek\njmp     $+5\nmov     rdi, [rbp+a]; a\nxor     eax, eax\nmov     esi, eax; extra\ncall    zip_get_local_file_header_size\nmov     [rbp+hsize], rax\nmov     rdi, [rbp+a]; a\nmov     rsi, [rbp+hsize]; request\ncall    __archive_read_consume\nmov     rax, [rbp+rsrc]\nmov     rax, [rax+8]\nmov     [rbp+remaining_bytes], rax\nmov     rax, [rbp+rsrc]\nmov     rax, [rax+10h]\nmov     [rbp+metadata_bytes], rax\nmov     rax, [rbp+metadata]\nmov     [rbp+mp], rax\nmov     [rbp+eof], 0\nxor     eax, eax\ncmp     [rbp+eof], 0\nmov     [rbp+var_81], al\njnz     loc_1803\ncmp     [rbp+remaining_bytes], 0\nsetnz   al\nmov     [rbp+var_81], al\nmov     al, [rbp+var_81]\ntest    al, 1\njnz     loc_1816\njmp     loc_18F8\nmov     rdi, [rbp+a]; a\nmov     esi, 1; min\nlea     rdx, [rbp+bytes_avail]; avail\ncall    __archive_read_ahead\nmov     [rbp+p], rax\ncmp     [rbp+p], 0\njnz     loc_185A\nmov     rdi, [rbp+a]; a\nmov     esi, 16h; err\nlea     rdx, aTruncatedZipFi; \"Truncated ZIP file header\"\nmov     al, 0\ncall    archive_set_error\nmov     [rbp+ret], 0FFFFFFECh\njmp     exit_mac_metadata\nmov     rax, [rbp+bytes_avail]\ncmp     rax, [rbp+remaining_bytes]\njbe     loc_1870\nmov     rax, [rbp+remaining_bytes]\nmov     [rbp+bytes_avail], rax\nmov     rax, [rbp+rsrc]\nmov     al, [rax+18h]\ntest    al, al\njnz     loc_18CF\njmp     $+5\nmov     rdi, [rbp+mp]; dest\nmov     rsi, [rbp+p]; src\nmov     rdx, [rbp+bytes_avail]; n\ncall    memcpy\nmov     rax, [rbp+bytes_avail]\nmov     [rbp+bytes_used], rax\nmov     rcx, [rbp+bytes_used]\nmov     rax, [rbp+metadata_bytes]\nsub     rax, rcx\nmov     [rbp+metadata_bytes], rax\nmov     rax, [rbp+bytes_used]\nadd     rax, [rbp+mp]\nmov     [rbp+mp], rax\ncmp     [rbp+metadata_bytes], 0\njnz     loc_18CA\nmov     [rbp+eof], 1\njmp     loc_18D7\nmov     [rbp+bytes_used], 0\nmov     rdi, [rbp+a]; a\nmov     rsi, [rbp+bytes_used]; request\ncall    __archive_read_consume\nmov     rcx, [rbp+bytes_used]\nmov     rax, [rbp+remaining_bytes]\nsub     rax, rcx\nmov     [rbp+remaining_bytes], rax\njmp     loc_17E3\nmov     rdi, [rbp+entry]; e\nmov     rsi, [rbp+metadata]; d\nmov     rax, [rbp+rsrc]\nmov     rdx, [rax+10h]\nsub     rdx, [rbp+metadata_bytes]; s\ncall    archive_entry_copy_mac_metadata\nmov     rdi, [rbp+a]; a\nmov     rsi, [rbp+offset]; offset\nxor     edx, edx; whence\ncall    __archive_read_seek\nmov     rax, [rbp+zip]\nmov     byte ptr [rax], 0\nmov     rdi, [rbp+metadata]; ptr\ncall    free\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\nadd     rsp, 90h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 32,
+  "edges": [
+   [
+    "start",
+    "loc_168B"
+   ],
+   [
+    "start",
+    "loc_1695"
+   ],
+   [
+    "loc_168B",
+    "loc_1690"
+   ],
+   [
+    "loc_1690",
+    "loc_16D0"
+   ],
+   [
+    "loc_1695",
+    "loc_1936"
+   ],
+   [
+    "loc_16D0",
+    "loc_16E2"
+   ],
+   [
+    "loc_16D0",
+    "loc_170D"
+   ],
+   [
+    "loc_16E2",
+    "loc_1936"
+   ],
+   [
+    "loc_170D",
+    "loc_1729"
+   ],
+   [
+    "loc_170D",
+    "loc_174C"
+   ],
+   [
+    "loc_1729",
+    "loc_1936"
+   ],
+   [
+    "loc_174C",
+    "loc_175D"
+   ],
+   [
+    "loc_174C",
+    "loc_1776"
+   ],
+   [
+    "loc_175D",
+    "loc_179E"
+   ],
+   [
+    "loc_1776",
+    "loc_1787"
+   ],
+   [
+    "loc_1776",
+    "loc_1799"
+   ],
+   [
+    "loc_1787",
+    "loc_1799"
+   ],
+   [
+    "loc_1799",
+    "loc_179E"
+   ],
+   [
+    "loc_179E",
+    "loc_17E3"
+   ],
+   [
+    "loc_17E3",
+    "loc_17F5"
+   ],
+   [
+    "loc_17E3",
+    "loc_1803"
+   ],
+   [
+    "loc_17F5",
+    "loc_1803"
+   ],
+   [
+    "loc_1803",
+    "loc_1811"
+   ],
+   [
+    "loc_1803",
+    "loc_1816"
+   ],
+   [
+    "loc_1811",
+    "loc_18F8"
+   ],
+   [
+    "loc_1816",
+    "loc_1837"
+   ],
+   [
+    "loc_1816",
+    "loc_185A"
+   ],
+   [
+    "loc_1837",
+    "loc_1911"
+   ],
+   [
+    "loc_185A",
+    "loc_1868"
+   ],
+   [
+    "loc_185A",
+    "loc_1870"
+   ],
+   [
+    "loc_1868",
+    "loc_1870"
+   ],
+   [
+    "loc_1870",
+    "loc_187F"
+   ],
+   [
+    "loc_1870",
+    "loc_18CF"
+   ],
+   [
+    "loc_187F",
+    "loc_1884"
+   ],
+   [
+    "loc_1884",
+    "loc_18C3"
+   ],
+   [
+    "loc_1884",
+    "loc_18CA"
+   ],
+   [
+    "loc_18C3",
+    "loc_18CA"
+   ],
+   [
+    "loc_18CA",
+    "loc_18D7"
+   ],
+   [
+    "loc_18CF",
+    "loc_18D7"
+   ],
+   [
+    "loc_18D7",
+    "loc_17E3"
+   ],
+   [
+    "loc_18F8",
+    "loc_1911"
+   ],
+   [
+    "loc_1911",
+    "loc_1936"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 90h\nmov     [rbp+a], rdi\nmov     [rbp+entry], rsi\nmov     [rbp+rsrc], rdx\nmov     rax, [rbp+a]\nmov     rax, [rax+8]\nmov     rax, [rax]\nmov     [rbp+zip], rax\nmov     rdi, [rbp+a]; a\nxor     esi, esi; n\ncall    archive_filter_bytes\nmov     [rbp+offset], rax\nmov     [rbp+ret], 0\nmov     rax, [rbp+rsrc]\nmov     al, [rax+18h]\ntest    al, al\njnz     loc_1695",
+   "loc_168B": "jmp     $+5",
+   "loc_1690": "jmp     loc_16D0",
+   "loc_1695": "mov     rax, [rbp+a]\nmov     [rbp+var_80], rax\nmov     rax, [rbp+rsrc]\nmovzx   edi, byte ptr [rax+18h]; compression\ncall    compression_name\nmov     rdi, [rbp+var_80]; a\nmov     rcx, rax\nmov     esi, 16h; err\nlea     rdx, fmt; \"Unsupported ZIP compression method (%s)\"\nmov     al, 0\ncall    archive_set_error\nmov     [rbp+var_4], 0FFFFFFECh\njmp     loc_1936",
+   "loc_16D0": "mov     rax, [rbp+rsrc]\ncmp     qword ptr [rax+10h], 400000h\njle     loc_170D",
+   "loc_16E2": "mov     rdi, [rbp+a]; a\nmov     rax, [rbp+rsrc]\nmov     rcx, [rax+10h]\nmov     esi, 16h; err\nlea     rdx, aMacMetadataIsT; \"Mac metadata is too large: %jd > 4M byt\"...\nmov     al, 0\ncall    archive_set_error\nmov     [rbp+var_4], 0FFFFFFECh\njmp     loc_1936",
+   "loc_170D": "mov     rax, [rbp+rsrc]\nmov     rdi, [rax+10h]; size\ncall    malloc\nmov     [rbp+metadata], rax\ncmp     [rbp+metadata], 0\njnz     loc_174C",
+   "loc_1729": "mov     rdi, [rbp+a]; a\nmov     esi, 0Ch; err\nlea     rdx, aCanTAllocateMe; \"Can't allocate memory for Mac metadata\"\nmov     al, 0\ncall    archive_set_error\nmov     [rbp+var_4], 0FFFFFFE2h\njmp     loc_1936",
+   "loc_174C": "mov     rax, [rbp+offset]\nmov     rcx, [rbp+rsrc]\ncmp     rax, [rcx]\njge     loc_1776",
+   "loc_175D": "mov     rdi, [rbp+a]; a\nmov     rax, [rbp+rsrc]\nmov     rsi, [rax]\nsub     rsi, [rbp+offset]; request\ncall    __archive_read_consume\njmp     loc_179E",
+   "loc_1776": "mov     rax, [rbp+offset]\nmov     rcx, [rbp+rsrc]\ncmp     rax, [rcx]\njz      loc_1799",
+   "loc_1787": "mov     rdi, [rbp+a]; a\nmov     rax, [rbp+rsrc]\nmov     rsi, [rax]; offset\nxor     edx, edx; whence\ncall    __archive_read_seek",
+   "loc_1799": "jmp     $+5",
+   "loc_179E": "mov     rdi, [rbp+a]; a\nxor     eax, eax\nmov     esi, eax; extra\ncall    zip_get_local_file_header_size\nmov     [rbp+hsize], rax\nmov     rdi, [rbp+a]; a\nmov     rsi, [rbp+hsize]; request\ncall    __archive_read_consume\nmov     rax, [rbp+rsrc]\nmov     rax, [rax+8]\nmov     [rbp+remaining_bytes], rax\nmov     rax, [rbp+rsrc]\nmov     rax, [rax+10h]\nmov     [rbp+metadata_bytes], rax\nmov     rax, [rbp+metadata]\nmov     [rbp+mp], rax\nmov     [rbp+eof], 0",
+   "loc_17E3": "xor     eax, eax\ncmp     [rbp+eof], 0\nmov     [rbp+var_81], al\njnz     loc_1803",
+   "loc_17F5": "cmp     [rbp+remaining_bytes], 0\nsetnz   al\nmov     [rbp+var_81], al",
+   "loc_1803": "mov     al, [rbp+var_81]\ntest    al, 1\njnz     loc_1816",
+   "loc_1811": "jmp     loc_18F8",
+   "loc_1816": "mov     rdi, [rbp+a]; a\nmov     esi, 1; min\nlea     rdx, [rbp+bytes_avail]; avail\ncall    __archive_read_ahead\nmov     [rbp+p], rax\ncmp     [rbp+p], 0\njnz     loc_185A",
+   "loc_1837": "mov     rdi, [rbp+a]; a\nmov     esi, 16h; err\nlea     rdx, aTruncatedZipFi; \"Truncated ZIP file header\"\nmov     al, 0\ncall    archive_set_error\nmov     [rbp+ret], 0FFFFFFECh\njmp     exit_mac_metadata",
+   "loc_185A": "mov     rax, [rbp+bytes_avail]\ncmp     rax, [rbp+remaining_bytes]\njbe     loc_1870",
+   "loc_1868": "mov     rax, [rbp+remaining_bytes]\nmov     [rbp+bytes_avail], rax",
+   "loc_1870": "mov     rax, [rbp+rsrc]\nmov     al, [rax+18h]\ntest    al, al\njnz     loc_18CF",
+   "loc_187F": "jmp     $+5",
+   "loc_1884": "mov     rdi, [rbp+mp]; dest\nmov     rsi, [rbp+p]; src\nmov     rdx, [rbp+bytes_avail]; n\ncall    memcpy\nmov     rax, [rbp+bytes_avail]\nmov     [rbp+bytes_used], rax\nmov     rcx, [rbp+bytes_used]\nmov     rax, [rbp+metadata_bytes]\nsub     rax, rcx\nmov     [rbp+metadata_bytes], rax\nmov     rax, [rbp+bytes_used]\nadd     rax, [rbp+mp]\nmov     [rbp+mp], rax\ncmp     [rbp+metadata_bytes], 0\njnz     loc_18CA",
+   "loc_18C3": "mov     [rbp+eof], 1",
+   "loc_18CA": "jmp     loc_18D7",
+   "loc_18CF": "mov     [rbp+bytes_used], 0",
+   "loc_18D7": "mov     rdi, [rbp+a]; a\nmov     rsi, [rbp+bytes_used]; request\ncall    __archive_read_consume\nmov     rcx, [rbp+bytes_used]\nmov     rax, [rbp+remaining_bytes]\nsub     rax, rcx\nmov     [rbp+remaining_bytes], rax\njmp     loc_17E3",
+   "loc_18F8": "mov     rdi, [rbp+entry]; e\nmov     rsi, [rbp+metadata]; d\nmov     rax, [rbp+rsrc]\nmov     rdx, [rax+10h]\nsub     rdx, [rbp+metadata_bytes]; s\ncall    archive_entry_copy_mac_metadata",
+   "loc_1911": "mov     rdi, [rbp+a]; a\nmov     rsi, [rbp+offset]; offset\nxor     edx, edx; whence\ncall    __archive_read_seek\nmov     rax, [rbp+zip]\nmov     byte ptr [rax], 0\nmov     rdi, [rbp+metadata]; ptr\ncall    free\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax",
+   "loc_1936": "mov     eax, [rbp+var_4]\nadd     rsp, 90h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_81": "byte ptr -81h",
+   "var_80": "qword ptr -80h",
+   "bytes_used": "qword ptr -78h",
+   "bytes_avail": "qword ptr -70h",
+   "p": "qword ptr -68h",
+   "eof": "dword ptr -60h",
+   "ret": "dword ptr -5Ch",
+   "hsize": "qword ptr -58h",
+   "metadata_bytes": "qword ptr -50h",
+   "remaining_bytes": "qword ptr -48h",
+   "offset": "qword ptr -40h",
+   "mp": "qword ptr -38h",
+   "metadata": "qword ptr -30h",
+   "zip": "qword ptr -28h",
+   "rsrc": "qword ptr -20h",
+   "entry": "qword ptr -18h",
+   "a": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "fmt": "byte 'Unsupported ZIP compression method (%s)',0",
+   "aMacMetadataIsT": "byte 'Mac metadata is too large: %jd > 4M bytes',0",
+   "aCanTAllocateMe": "byte 'Can',27h,'t allocate memory for Mac metadata',0",
+   "aTruncatedZipFi": "byte 'Truncated ZIP file header',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5696,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".rewind": "rewind",
+  "_rewind": "rewind",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".rewind",
+   ".plt",
+   true,
+   "rewind"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "rewind",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868455
+ }
+}

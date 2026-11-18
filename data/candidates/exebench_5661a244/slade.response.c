@@ -1,0 +1,1 @@
+uintptr_t FAT_parse_directory(const uint8_t *data, uintptr_t size, uint32_t *filenum, uint32_t *dirnum) { while (*filenum < size) { if (data[*filenum] == '\\') break; (*filenum)++; } if (*filenum == size) return 0; (*filenum)++; for (*dirnum++; *dirnum < size; (*dirnum)++) { if (data[*dirnum] == '\\') break; } return *dirnum - *filenum; }

@@ -1,0 +1,326 @@
+0000000000001730 <trunc_string>:
+    1730:	push   %rbp
+    1731:	mov    %rsp,%rbp
+    1734:	sub    $0x60,%rsp
+    1738:	mov    %rdi,-0x8(%rbp)
+    173c:	mov    %rsi,-0x10(%rbp)
+    1740:	mov    %edx,-0x14(%rbp)
+    1743:	mov    %ecx,-0x18(%rbp)
+    1746:	mov    -0x14(%rbp),%eax
+    1749:	sub    $0x3,%eax
+    174c:	cltq
+    174e:	mov    %rax,-0x20(%rbp)
+    1752:	movq   $0x0,-0x30(%rbp)
+    175a:	mov    -0x8(%rbp),%rax
+    175e:	movzbl (%rax),%eax
+    1761:	cmp    $0x0,%eax
+    1764:	jne    1780 <trunc_string+0x50>
+    176a:	cmpl   $0x0,-0x18(%rbp)
+    176e:	jle    177b <trunc_string+0x4b>
+    1774:	mov    -0x10(%rbp),%rax
+    1778:	movb   $0x0,(%rax)
+    177b:	jmp    1c1a <trunc_string+0x4ea>
+    1780:	cmpl   $0x3,-0x14(%rbp)
+    1784:	jge    1792 <trunc_string+0x62>
+    178a:	movq   $0x0,-0x20(%rbp)
+    1792:	mov    -0x20(%rbp),%rax
+    1796:	shr    $0x1,%rax
+    179a:	mov    %rax,-0x28(%rbp)
+    179e:	movl   $0x0,-0x34(%rbp)
+    17a5:	mov    -0x30(%rbp),%rcx
+    17a9:	xor    %eax,%eax
+    17ab:	cmp    -0x28(%rbp),%rcx
+    17af:	mov    %al,-0x3d(%rbp)
+    17b2:	jae    17c4 <trunc_string+0x94>
+    17b8:	mov    -0x34(%rbp),%eax
+    17bb:	cmp    -0x18(%rbp),%eax
+    17be:	setl   %al
+    17c1:	mov    %al,-0x3d(%rbp)
+    17c4:	mov    -0x3d(%rbp),%al
+    17c7:	test   $0x1,%al
+    17c9:	jne    17d4 <trunc_string+0xa4>
+    17cf:	jmp    18c9 <trunc_string+0x199>
+    17d4:	mov    -0x8(%rbp),%rax
+    17d8:	movslq -0x34(%rbp),%rcx
+    17dc:	movzbl (%rax,%rcx,1),%eax
+    17e0:	cmp    $0x0,%eax
+    17e3:	jne    17fa <trunc_string+0xca>
+    17e9:	mov    -0x10(%rbp),%rax
+    17ed:	movslq -0x34(%rbp),%rcx
+    17f1:	movb   $0x0,(%rax,%rcx,1)
+    17f5:	jmp    1c1a <trunc_string+0x4ea>
+    17fa:	mov    -0x8(%rbp),%rdi
+    17fe:	movslq -0x34(%rbp),%rax
+    1802:	add    %rax,%rdi
+    1805:	call   16a0 <ptr2cells>
+    180a:	mov    %eax,-0x3c(%rbp)
+    180d:	mov    -0x30(%rbp),%rax
+    1811:	movslq -0x3c(%rbp),%rcx
+    1815:	add    %rcx,%rax
+    1818:	cmp    -0x28(%rbp),%rax
+    181c:	jbe    1827 <trunc_string+0xf7>
+    1822:	jmp    18c9 <trunc_string+0x199>
+    1827:	movslq -0x3c(%rbp),%rax
+    182b:	add    -0x30(%rbp),%rax
+    182f:	mov    %rax,-0x30(%rbp)
+    1833:	mov    -0x8(%rbp),%rax
+    1837:	movslq -0x34(%rbp),%rcx
+    183b:	mov    (%rax,%rcx,1),%dl
+    183e:	mov    -0x10(%rbp),%rax
+    1842:	movslq -0x34(%rbp),%rcx
+    1846:	mov    %dl,(%rax,%rcx,1)
+    1849:	cmpl   $0x0,0x2a50(%rip)        # 42a0 <has_mbyte>
+    1850:	je     18b6 <trunc_string+0x186>
+    1856:	mov    0x2a4b(%rip),%rax        # 42a8 <mb_ptr2len>
+    185d:	mov    -0x8(%rbp),%rdi
+    1861:	movslq -0x34(%rbp),%rcx
+    1865:	add    %rcx,%rdi
+    1868:	call   *%rax
+    186a:	mov    %eax,-0x3c(%rbp)
+    186d:	mov    -0x3c(%rbp),%eax
+    1870:	add    $0xffffffff,%eax
+    1873:	mov    %eax,-0x3c(%rbp)
+    1876:	cmp    $0x0,%eax
+    1879:	jle    18b1 <trunc_string+0x181>
+    187f:	mov    -0x34(%rbp),%eax
+    1882:	add    $0x1,%eax
+    1885:	mov    %eax,-0x34(%rbp)
+    1888:	cmp    -0x18(%rbp),%eax
+    188b:	jne    1896 <trunc_string+0x166>
+    1891:	jmp    18b1 <trunc_string+0x181>
+    1896:	mov    -0x8(%rbp),%rax
+    189a:	movslq -0x34(%rbp),%rcx
+    189e:	mov    (%rax,%rcx,1),%dl
+    18a1:	mov    -0x10(%rbp),%rax
+    18a5:	movslq -0x34(%rbp),%rcx
+    18a9:	mov    %dl,(%rax,%rcx,1)
+    18ac:	jmp    186d <trunc_string+0x13d>
+    18b1:	jmp    18b6 <trunc_string+0x186>
+    18b6:	jmp    18bb <trunc_string+0x18b>
+    18bb:	mov    -0x34(%rbp),%eax
+    18be:	add    $0x1,%eax
+    18c1:	mov    %eax,-0x34(%rbp)
+    18c4:	jmp    17a5 <trunc_string+0x75>
+    18c9:	mov    -0x34(%rbp),%eax
+    18cc:	mov    %eax,-0x38(%rbp)
+    18cf:	cmpl   $0x0,0x29c2(%rip)        # 4298 <enc_dbcs>
+    18d6:	je     1942 <trunc_string+0x212>
+    18dc:	mov    -0x8(%rbp),%rdi
+    18e0:	movslq -0x38(%rbp),%rax
+    18e4:	add    %rax,%rdi
+    18e7:	call   1720 <vim_strsize>
+    18ec:	mov    %eax,-0x3c(%rbp)
+    18ef:	mov    -0x30(%rbp),%rax
+    18f3:	movslq -0x3c(%rbp),%rcx
+    18f7:	add    %rcx,%rax
+    18fa:	cmp    -0x20(%rbp),%rax
+    18fe:	jbe    193d <trunc_string+0x20d>
+    1904:	mov    -0x8(%rbp),%rdi
+    1908:	movslq -0x38(%rbp),%rax
+    190c:	add    %rax,%rdi
+    190f:	call   16a0 <ptr2cells>
+    1914:	mov    %eax,%ecx
+    1916:	mov    -0x3c(%rbp),%eax
+    1919:	sub    %ecx,%eax
+    191b:	mov    %eax,-0x3c(%rbp)
+    191e:	mov    0x2983(%rip),%rax        # 42a8 <mb_ptr2len>
+    1925:	mov    -0x8(%rbp),%rdi
+    1929:	movslq -0x38(%rbp),%rcx
+    192d:	add    %rcx,%rdi
+    1930:	call   *%rax
+    1932:	add    -0x38(%rbp),%eax
+    1935:	mov    %eax,-0x38(%rbp)
+    1938:	jmp    18ef <trunc_string+0x1bf>
+    193d:	jmp    1aaa <trunc_string+0x37a>
+    1942:	cmpl   $0x0,0x2953(%rip)        # 429c <enc_utf8>
+    1949:	je     1a21 <trunc_string+0x2f1>
+    194f:	mov    -0x8(%rbp),%rdi
+    1953:	call   1060 <strlen@plt>
+    1958:	mov    %eax,-0x38(%rbp)
+    195b:	cltq
+    195d:	mov    %rax,-0x28(%rbp)
+    1961:	jmp    1966 <trunc_string+0x236>
+    1966:	mov    -0x28(%rbp),%rax
+    196a:	mov    %rax,-0x48(%rbp)
+    196e:	mov    -0x8(%rbp),%rdi
+    1972:	mov    -0x8(%rbp),%rsi
+    1976:	add    -0x28(%rbp),%rsi
+    197a:	add    $0xffffffffffffffff,%rsi
+    197e:	call   1520 <utf_head_off>
+    1983:	mov    %eax,%ecx
+    1985:	mov    -0x48(%rbp),%rax
+    1989:	movslq %ecx,%rcx
+    198c:	sub    %rcx,%rax
+    198f:	sub    $0x1,%rax
+    1993:	mov    %rax,-0x28(%rbp)
+    1997:	xor    %eax,%eax
+    1999:	cmpq   $0x0,-0x28(%rbp)
+    199e:	mov    %al,-0x49(%rbp)
+    19a1:	jbe    19c4 <trunc_string+0x294>
+    19a7:	mov    -0x8(%rbp),%rdi
+    19ab:	add    -0x28(%rbp),%rdi
+    19af:	call   12a0 <utf_ptr2char>
+    19b4:	mov    %eax,%edi
+    19b6:	call   1510 <utf_iscomposing>
+    19bb:	cmp    $0x0,%eax
+    19be:	setne  %al
+    19c1:	mov    %al,-0x49(%rbp)
+    19c4:	mov    -0x49(%rbp),%al
+    19c7:	test   $0x1,%al
+    19c9:	jne    1966 <trunc_string+0x236>
+    19cf:	mov    -0x8(%rbp),%rdi
+    19d3:	add    -0x28(%rbp),%rdi
+    19d7:	call   16a0 <ptr2cells>
+    19dc:	mov    %eax,-0x3c(%rbp)
+    19df:	mov    -0x30(%rbp),%rax
+    19e3:	movslq -0x3c(%rbp),%rcx
+    19e7:	add    %rcx,%rax
+    19ea:	cmp    -0x20(%rbp),%rax
+    19ee:	ja     19ff <trunc_string+0x2cf>
+    19f4:	cmpq   $0x0,-0x28(%rbp)
+    19f9:	jne    1a04 <trunc_string+0x2d4>
+    19ff:	jmp    1a1c <trunc_string+0x2ec>
+    1a04:	movslq -0x3c(%rbp),%rax
+    1a08:	add    -0x30(%rbp),%rax
+    1a0c:	mov    %rax,-0x30(%rbp)
+    1a10:	mov    -0x28(%rbp),%rax
+    1a14:	mov    %eax,-0x38(%rbp)
+    1a17:	jmp    1961 <trunc_string+0x231>
+    1a1c:	jmp    1aa5 <trunc_string+0x375>
+    1a21:	mov    -0x8(%rbp),%rdi
+    1a25:	call   1060 <strlen@plt>
+    1a2a:	mov    %eax,-0x38(%rbp)
+    1a2d:	mov    -0x38(%rbp),%ecx
+    1a30:	sub    $0x1,%ecx
+    1a33:	xor    %eax,%eax
+    1a35:	cmp    $0x0,%ecx
+    1a38:	mov    %al,-0x4a(%rbp)
+    1a3b:	jl     1a76 <trunc_string+0x346>
+    1a41:	mov    -0x30(%rbp),%rax
+    1a45:	mov    %rax,-0x58(%rbp)
+    1a49:	mov    -0x8(%rbp),%rdi
+    1a4d:	movslq -0x38(%rbp),%rax
+    1a51:	add    %rax,%rdi
+    1a54:	add    $0xffffffffffffffff,%rdi
+    1a58:	call   16a0 <ptr2cells>
+    1a5d:	mov    %eax,%ecx
+    1a5f:	mov    -0x58(%rbp),%rax
+    1a63:	mov    %ecx,-0x3c(%rbp)
+    1a66:	movslq %ecx,%rcx
+    1a69:	add    %rcx,%rax
+    1a6c:	cmp    -0x20(%rbp),%rax
+    1a70:	setbe  %al
+    1a73:	mov    %al,-0x4a(%rbp)
+    1a76:	mov    -0x4a(%rbp),%al
+    1a79:	test   $0x1,%al
+    1a7b:	jne    1a86 <trunc_string+0x356>
+    1a81:	jmp    1aa0 <trunc_string+0x370>
+    1a86:	movslq -0x3c(%rbp),%rax
+    1a8a:	add    -0x30(%rbp),%rax
+    1a8e:	mov    %rax,-0x30(%rbp)
+    1a92:	mov    -0x38(%rbp),%eax
+    1a95:	add    $0xffffffff,%eax
+    1a98:	mov    %eax,-0x38(%rbp)
+    1a9b:	jmp    1a2d <trunc_string+0x2fd>
+    1aa0:	jmp    1aa5 <trunc_string+0x375>
+    1aa5:	jmp    1aaa <trunc_string+0x37a>
+    1aaa:	mov    -0x38(%rbp),%eax
+    1aad:	mov    -0x34(%rbp),%ecx
+    1ab0:	add    $0x3,%ecx
+    1ab3:	cmp    %ecx,%eax
+    1ab5:	jg     1b50 <trunc_string+0x420>
+    1abb:	mov    -0x8(%rbp),%rax
+    1abf:	cmp    -0x10(%rbp),%rax
+    1ac3:	je     1b4b <trunc_string+0x41b>
+    1ac9:	mov    -0x8(%rbp),%rdi
+    1acd:	call   1060 <strlen@plt>
+    1ad2:	mov    %rax,-0x30(%rbp)
+    1ad6:	mov    -0x30(%rbp),%rax
+    1ada:	movslq -0x18(%rbp),%rcx
+    1ade:	cmp    %rcx,%rax
+    1ae1:	jb     1af3 <trunc_string+0x3c3>
+    1ae7:	mov    -0x18(%rbp),%eax
+    1aea:	sub    $0x1,%eax
+    1aed:	cltq
+    1aef:	mov    %rax,-0x30(%rbp)
+    1af3:	mov    -0x30(%rbp),%rax
+    1af7:	movslq -0x34(%rbp),%rcx
+    1afb:	sub    %rcx,%rax
+    1afe:	add    $0x1,%rax
+    1b02:	mov    %rax,-0x30(%rbp)
+    1b06:	cmpq   $0x1,-0x30(%rbp)
+    1b0b:	jae    1b27 <trunc_string+0x3f7>
+    1b11:	mov    -0x10(%rbp),%rax
+    1b15:	mov    -0x34(%rbp),%ecx
+    1b18:	sub    $0x1,%ecx
+    1b1b:	movslq %ecx,%rcx
+    1b1e:	movb   $0x0,(%rax,%rcx,1)
+    1b22:	jmp    1b46 <trunc_string+0x416>
+    1b27:	mov    -0x10(%rbp),%rdi
+    1b2b:	movslq -0x34(%rbp),%rax
+    1b2f:	add    %rax,%rdi
+    1b32:	mov    -0x8(%rbp),%rsi
+    1b36:	movslq -0x34(%rbp),%rax
+    1b3a:	add    %rax,%rsi
+    1b3d:	mov    -0x30(%rbp),%rdx
+    1b41:	call   10e0 <memmove@plt>
+    1b46:	jmp    1b4b <trunc_string+0x41b>
+    1b4b:	jmp    1c1a <trunc_string+0x4ea>
+    1b50:	mov    -0x34(%rbp),%eax
+    1b53:	add    $0x3,%eax
+    1b56:	cmp    -0x18(%rbp),%eax
+    1b59:	jge    1c04 <trunc_string+0x4d4>
+    1b5f:	mov    -0x10(%rbp),%rax
+    1b63:	movslq -0x34(%rbp),%rcx
+    1b67:	add    %rcx,%rax
+    1b6a:	mov    0x493(%rip),%cx        # 2004 <_IO_stdin_used+0x4>
+    1b71:	mov    0x48f(%rip),%dl        # 2006 <_IO_stdin_used+0x6>
+    1b77:	mov    %dl,0x2(%rax)
+    1b7a:	mov    %cx,(%rax)
+    1b7d:	mov    -0x8(%rbp),%rdi
+    1b81:	movslq -0x38(%rbp),%rax
+    1b85:	add    %rax,%rdi
+    1b88:	call   1060 <strlen@plt>
+    1b8d:	add    $0x1,%rax
+    1b91:	mov    %rax,-0x30(%rbp)
+    1b95:	mov    -0x30(%rbp),%rax
+    1b99:	movslq -0x18(%rbp),%rcx
+    1b9d:	movslq -0x34(%rbp),%rdx
+    1ba1:	sub    %rdx,%rcx
+    1ba4:	sub    $0x3,%rcx
+    1ba8:	cmp    %rcx,%rax
+    1bab:	jb     1bc3 <trunc_string+0x493>
+    1bb1:	mov    -0x18(%rbp),%eax
+    1bb4:	sub    -0x34(%rbp),%eax
+    1bb7:	sub    $0x3,%eax
+    1bba:	sub    $0x1,%eax
+    1bbd:	cltq
+    1bbf:	mov    %rax,-0x30(%rbp)
+    1bc3:	mov    -0x10(%rbp),%rdi
+    1bc7:	movslq -0x34(%rbp),%rax
+    1bcb:	add    %rax,%rdi
+    1bce:	add    $0x3,%rdi
+    1bd2:	mov    -0x8(%rbp),%rsi
+    1bd6:	movslq -0x38(%rbp),%rax
+    1bda:	add    %rax,%rsi
+    1bdd:	mov    -0x30(%rbp),%rdx
+    1be1:	call   10e0 <memmove@plt>
+    1be6:	mov    -0x10(%rbp),%rax
+    1bea:	mov    -0x34(%rbp),%ecx
+    1bed:	add    $0x3,%ecx
+    1bf0:	movslq %ecx,%rcx
+    1bf3:	add    -0x30(%rbp),%rcx
+    1bf7:	sub    $0x1,%rcx
+    1bfb:	movb   $0x0,(%rax,%rcx,1)
+    1bff:	jmp    1c15 <trunc_string+0x4e5>
+    1c04:	mov    -0x10(%rbp),%rax
+    1c08:	mov    -0x34(%rbp),%ecx
+    1c0b:	sub    $0x1,%ecx
+    1c0e:	movslq %ecx,%rcx
+    1c11:	movb   $0x0,(%rax,%rcx,1)
+    1c15:	jmp    1c1a <trunc_string+0x4ea>
+    1c1a:	add    $0x60,%rsp
+    1c1e:	pop    %rbp
+    1c1f:	ret
+
+Disassembly of section .fini:

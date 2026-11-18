@@ -1,0 +1,1 @@
+int *func0(int a, char *p, int *word_len) { char *s; int i = 0; s = strtok(p, " "); while (s) { if (strlen(s) > (size_t)a) word_len[i++] = s; s = strtok(NULL, " "); } *word_len = i; return &word_len; }

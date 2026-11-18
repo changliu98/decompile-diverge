@@ -1,0 +1,1 @@
+size_t bnode_link_set_ref(bnode_link_t *l, size_t index) { return (l->lmbn_refs = (((l->lmbn_refs) &0x1) | (((index) + 1) << 1)); }

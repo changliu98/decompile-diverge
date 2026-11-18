@@ -1,0 +1,1 @@
+__attribute__((no)) int func0(int *arr, int len) { for (int i = 0; i < len; i++) { if (!(arr[i] % 2)) return 1; } return 0; }

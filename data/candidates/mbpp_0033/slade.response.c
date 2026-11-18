@@ -1,0 +1,1 @@
+uint32_t func0(uint32_t x) { uint32_t ans = 0; int i = 0; while (x != 0) { uint32_t a = x % 2; uint32_t n = 1; for (int j = 0; j < i; j++) { n *= 10; } ans += a * n; x /= 2; i++; } return ans; }

@@ -1,0 +1,1 @@
+void cgi_store_get_action(int *p_store_action) { p_store_action[1] = 4; p_store_action[2] = 1; }

@@ -1,0 +1,19 @@
+#include <stdio.h>
+
+#include <stdlib.h>
+
+#include <string.h>
+
+#include <ctype.h>
+
+#include <unistd.h>	
+
+void
+ToRNA(char *seq)
+{
+  for (; *seq != '\0'; seq++)
+    {
+      if (*seq == 'T') *seq = 'U';
+      else if (*seq == 't') *seq = 'u';
+    }
+}

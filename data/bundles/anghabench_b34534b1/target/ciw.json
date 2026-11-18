@@ -1,0 +1,285 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nmov     [rbp+p], rdi\nmov     [rbp+basep], rsi\nmov     rax, [rbp+p]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 30h ; '0'\njnz     loc_127F\nmov     rax, [rbp+p]\nmovsx   eax, byte ptr [rax+1]\nadd     eax, 0FFFFFF92h; switch 11 cases\nmov     ecx, eax\nmov     [rbp+var_20], rcx\nsub     eax, 0Ah\nja      def_1228; jumptable 0000000000001228 default case, cases 112-115,117-119\nmov     rax, [rbp+var_20]\nlea     rcx, jpt_1228\nmovsxd  rax, ds:(jpt_1228 - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nmov     rax, [rbp+basep]; jumptable 0000000000001228 case 120\nmov     dword ptr [rax], 10h\njmp     loc_126E\nmov     rax, [rbp+basep]; jumptable 0000000000001228 cases 110,116\nmov     dword ptr [rax], 0Ah\njmp     loc_126E\nmov     rax, [rbp+basep]; jumptable 0000000000001228 case 111\nmov     dword ptr [rax], 8\njmp     loc_126E\nmov     rax, [rbp+basep]; jumptable 0000000000001228 default case, cases 112-115,117-119\nmov     dword ptr [rax], 0Ah\nmov     rax, [rbp+p]\nmov     [rbp+var_8], rax\njmp     loc_1291\nmov     rax, [rbp+p]\nadd     rax, 2\nmov     [rbp+var_8], rax\njmp     loc_1291\nmov     rax, [rbp+basep]\nmov     dword ptr [rax], 0Ah\nmov     rax, [rbp+p]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 10,
+  "edges": [
+   [
+    "start",
+    "loc_11FC"
+   ],
+   [
+    "start",
+    "loc_127F"
+   ],
+   [
+    "loc_11FC",
+    "loc_1216"
+   ],
+   [
+    "loc_11FC",
+    "loc_1257"
+   ],
+   [
+    "loc_1216",
+    "loc_122A"
+   ],
+   [
+    "loc_1216",
+    "loc_1239"
+   ],
+   [
+    "loc_1216",
+    "loc_1248"
+   ],
+   [
+    "loc_1216",
+    "loc_1257"
+   ],
+   [
+    "loc_122A",
+    "loc_126E"
+   ],
+   [
+    "loc_1239",
+    "loc_126E"
+   ],
+   [
+    "loc_1248",
+    "loc_126E"
+   ],
+   [
+    "loc_1257",
+    "loc_1291"
+   ],
+   [
+    "loc_126E",
+    "loc_1291"
+   ],
+   [
+    "loc_127F",
+    "loc_1291"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nmov     [rbp+p], rdi\nmov     [rbp+basep], rsi\nmov     rax, [rbp+p]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 30h ; '0'\njnz     loc_127F",
+   "loc_11FC": "mov     rax, [rbp+p]\nmovsx   eax, byte ptr [rax+1]\nadd     eax, 0FFFFFF92h; switch 11 cases\nmov     ecx, eax\nmov     [rbp+var_20], rcx\nsub     eax, 0Ah\nja      def_1228; jumptable 0000000000001228 default case, cases 112-115,117-119",
+   "loc_1216": "mov     rax, [rbp+var_20]\nlea     rcx, jpt_1228\nmovsxd  rax, ds:(jpt_1228 - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_122A": "mov     rax, [rbp+basep]; jumptable 0000000000001228 case 120\nmov     dword ptr [rax], 10h\njmp     loc_126E",
+   "loc_1239": "mov     rax, [rbp+basep]; jumptable 0000000000001228 cases 110,116\nmov     dword ptr [rax], 0Ah\njmp     loc_126E",
+   "loc_1248": "mov     rax, [rbp+basep]; jumptable 0000000000001228 case 111\nmov     dword ptr [rax], 8\njmp     loc_126E",
+   "loc_1257": "mov     rax, [rbp+basep]; jumptable 0000000000001228 default case, cases 112-115,117-119\nmov     dword ptr [rax], 0Ah\nmov     rax, [rbp+p]\nmov     [rbp+var_8], rax\njmp     loc_1291",
+   "loc_126E": "mov     rax, [rbp+p]\nadd     rax, 2\nmov     [rbp+var_8], rax\njmp     loc_1291",
+   "loc_127F": "mov     rax, [rbp+basep]\nmov     dword ptr [rax], 0Ah\nmov     rax, [rbp+p]\nmov     [rbp+var_8], rax",
+   "loc_1291": "mov     rax, [rbp+var_8]\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_20": "qword ptr -20h",
+   "basep": "qword ptr -18h",
+   "p": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {
+   "jpt_1228": "dword offset loc_1239 - 2004h; jump table for switch statement"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4576,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868110
+ }
+}

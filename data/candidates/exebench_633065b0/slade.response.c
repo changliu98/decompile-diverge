@@ -1,0 +1,1 @@
+int read_data(int fd, void *buf, int size) { if (fd < 0) return -1; int remaining = size; char *p = buf; while (remaining) { int ret = read(fd, p, remaining); if (ret <= 0) return -1; p += ret; remaining -= ret; } return size - remaining; }

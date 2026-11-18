@@ -1,0 +1,1 @@
+void geom_matTvec2d(const GLdouble *mat, const GLdouble *vec, GLdouble *mat2d) { mat2d[0] = mat[0]*vec[0] + mat[1]*vec[1]; mat2d[1] = mat[2]*vec[0] + mat[3]*vec[1]; }

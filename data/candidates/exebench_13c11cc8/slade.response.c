@@ -1,0 +1,1 @@
+void sort_three(int *x, int *y, int *z) { int temp; if (*x > *y) { temp = *y; *y = *x; *x = temp; } if (*x > *z) { temp = *z; *z = *x; *x = temp; } if (*y > *z) { temp = *y; *y = *z; *z = temp; } return ; }

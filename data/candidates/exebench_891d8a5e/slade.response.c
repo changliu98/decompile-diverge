@@ -1,0 +1,1 @@
+void decdms(double d, int *x, int *y, float *f) { int ix; double dx; dx = d; ix = dx; *x = ix; dx -= ix; if (dx < 0) dx = -dx; dx *= 10; *y = ix; dx -= ix; dx *= 10; *f = dx; }

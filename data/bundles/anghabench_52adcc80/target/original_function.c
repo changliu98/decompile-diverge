@@ -1,0 +1,9 @@
+unsigned short   BigUnsignedShort (unsigned short l)
+{
+	byte    b1,b2;
+
+	b1 = l&255;
+	b2 = (l>>8)&255;
+
+	return (b1<<8) + b2;
+}

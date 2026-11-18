@@ -1,0 +1,6 @@
+void MPI_Comm_rank(MPI_Comm comm, int *rank) {
+  ;
+  *rank = 0;
+  ;
+  return;
+}

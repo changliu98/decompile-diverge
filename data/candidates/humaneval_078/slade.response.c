@@ -1,0 +1,1 @@
+int func0(char *str) { char *space = "2357BD"; int count = 0; for (int i = 0; i < strlen(str); i++) { if (strchr(space, str[i])) count++; } return count; }

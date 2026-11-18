@@ -1,0 +1,1 @@
+void add_a_vector ( double x, int n, double *a, double *b) { do { *b++ += x * *a++; } while (--n); }

@@ -1,0 +1,6 @@
+void myArrayDiv(float *a, float b, float *c)
+{
+ int i;
+ for(i=0;i<6;i++)
+  c[i] = a[i]/b;
+}

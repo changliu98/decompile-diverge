@@ -1,0 +1,1 @@
+double func0(int a, int b, int x) { double ans; ans = (double)a * pow((double)(x - 1), (double)(a)); return ans; }

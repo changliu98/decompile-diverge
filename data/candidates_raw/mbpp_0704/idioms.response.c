@@ -1,0 +1,7 @@
+double sum(int n)
+{
+  if ( n < 2 )
+    return 1.0;
+  else
+    return (1.0 / (double)n) + sum( n - 1 );
+}

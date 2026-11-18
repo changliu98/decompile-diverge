@@ -1,0 +1,1 @@
+int helloworld_c_init(int *a, int *b, int *c, int *d, int *e) { *a = 0; *b = 0; *c = 1; return 0; }

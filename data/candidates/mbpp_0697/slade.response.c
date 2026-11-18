@@ -1,0 +1,1 @@
+__attribute__((no, noclone)) int func0(const int *array, int len) { int ret = 0; for (int i = 0; i < len; i++) { if ((array[i] % 2) == 0) ret++; } return ret; }

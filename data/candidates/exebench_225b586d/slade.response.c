@@ -1,0 +1,1 @@
+int endPearson(const char *p, int *error) { *error = 0; return p[0] == '>'; }

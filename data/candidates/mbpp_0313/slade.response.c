@@ -1,0 +1,1 @@
+int func0(int* arr, size_t len) { for (int i = 0; i < len; ++i) { if (arr[i] >= 0) { return arr[i]; } } return -1; }

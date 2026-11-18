@@ -1,0 +1,1 @@
+void convert2ASCII(char ch, unsigned char *out) { unsigned char high = ch >> 4; if (high < 10) out[0] = high + '0'; else out[0] = high + 'a' - 10; ch &= 15; if (ch < 10) out[1] = ch + '0'; else out[1] = ch + 'a' - 10; }

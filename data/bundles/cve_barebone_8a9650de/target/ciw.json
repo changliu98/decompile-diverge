@@ -1,0 +1,324 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 80h\nmov     [rbp+log_ctx], rdi\nmov     [rbp+upd], rsi\nmov     rax, [rbp+log_ctx]\nmov     rax, [rax+8]\nmov     [rbp+ulog], rax\nmov     rax, [rbp+log_ctx]\nmov     eax, [rax+10h]\nmov     [rbp+ulogentries], eax\nmov     rsi, [rbp+upd]; data\nlea     rdi, xdr_kdb_incr_update_t; func\ncall    xdr_sizeof\nmov     [rbp+upd_size], rax\nmov     rax, [rbp+upd_size]\nadd     rax, 1Ch\nmov     [rbp+recsize], eax\nmov     eax, [rbp+recsize]\nmov     rcx, [rbp+ulog]\nmovzx   ecx, word ptr [rcx+26h]\ncmp     eax, ecx\njbe     loc_32DE\nmov     rdi, [rbp+ulog]; ulog\nmov     esi, [rbp+ulogentries]; ulogentries\nmov     rax, [rbp+log_ctx]\nmov     edx, [rax+14h]; ulogfd\nmov     ecx, [rbp+recsize]; recsize\ncall    resize\nmov     [rbp+retval], eax\ncmp     [rbp+retval], 0\njz      loc_32D9\nmov     eax, [rbp+retval]\nmov     [rbp+var_4], eax\njmp     loc_34A9\njmp     $+5\nmov     rax, [rbp+ulog]\nmov     word ptr [rax+24h], 2\nmov     rax, [rbp+upd]\nmov     eax, [rax+10h]\nsub     eax, 1\nxor     edx, edx\ndiv     [rbp+ulogentries]\nmov     [rbp+i], edx\nmov     rax, [rbp+ulog]\nadd     rax, 28h ; '('\nmov     ecx, [rbp+i]\nmov     rdx, [rbp+ulog]\nmovzx   edx, word ptr [rdx+26h]\nimul    ecx, edx\nmov     ecx, ecx\nadd     rax, rcx\nmov     [rbp+indx_log], rax\nmov     rdi, [rbp+indx_log]; s\nmov     rax, [rbp+ulog]\nmovzx   eax, word ptr [rax+26h]\nmov     edx, eax; n\nxor     esi, esi; c\ncall    memset\nmov     rax, [rbp+indx_log]\nmov     dword ptr [rax], 6661212h\nmov     rax, [rbp+upd_size]\nmov     ecx, eax\nmov     rax, [rbp+indx_log]\nmov     [rax+14h], ecx\nmov     rax, [rbp+upd]\nmov     ecx, [rax+10h]\nmov     rax, [rbp+indx_log]\nmov     [rax+4], ecx\nmov     rax, [rbp+indx_log]\nmov     rcx, [rbp+upd]\nmov     rcx, [rcx+14h]\nmov     [rax+8], rcx\nmov     rax, [rbp+indx_log]\nmov     dword ptr [rax+10h], 0\nmov     rsi, [rbp+indx_log]\nadd     rsi, 18h; addr\nmov     rax, [rbp+indx_log]\nmov     edx, [rax+14h]; size\nlea     rdi, [rbp+xdrs]; xdrs\nxor     ecx, ecx; op\ncall    xdrmem_create\nmov     rsi, [rbp+upd]; objp\nlea     rdi, [rbp+xdrs]; xdrs\ncall    xdr_kdb_incr_update_t\ncmp     eax, 0\njnz     loc_33AA\nmov     [rbp+var_4], 95E4FAFEh\njmp     loc_34A9\nmov     rax, [rbp+indx_log]\nmov     dword ptr [rax+10h], 1\nmov     rdi, [rbp+ulog]; ulog\nmov     rsi, [rbp+indx_log]; upd\ncall    sync_update\nmov     rax, [rbp+upd]\nmov     ecx, [rax+10h]\nmov     rax, [rbp+ulog]\nmov     [rax+20h], ecx\nmov     rax, [rbp+ulog]\nmov     rcx, [rbp+upd]\nmov     rcx, [rcx+14h]\nmov     [rax+14h], rcx\nmov     rax, [rbp+ulog]\ncmp     dword ptr [rax+8], 0\njnz     loc_341C\nmov     rax, [rbp+ulog]\nmov     dword ptr [rax+8], 1\nmov     rax, [rbp+upd]\nmov     ecx, [rax+10h]\nmov     rax, [rbp+ulog]\nmov     [rax+1Ch], ecx\nmov     rax, [rbp+ulog]\nmov     rcx, [rbp+upd]\nmov     rcx, [rcx+14h]\nmov     [rax+0Ch], rcx\njmp     loc_348F\nmov     rax, [rbp+ulog]\nmov     eax, [rax+8]\ncmp     eax, [rbp+ulogentries]\njnb     loc_343E\nmov     rax, [rbp+ulog]\nmov     ecx, [rax+8]\nadd     ecx, 1\nmov     [rax+8], ecx\njmp     loc_348A\nmov     rax, [rbp+upd]\nmov     eax, [rax+10h]\nxor     edx, edx\ndiv     [rbp+ulogentries]\nmov     [rbp+i], edx\nmov     rax, [rbp+ulog]\nadd     rax, 28h ; '('\nmov     ecx, [rbp+i]\nmov     rdx, [rbp+ulog]\nmovzx   edx, word ptr [rdx+26h]\nimul    ecx, edx\nmov     ecx, ecx\nadd     rax, rcx\nmov     [rbp+indx_log], rax\nmov     rax, [rbp+indx_log]\nmov     ecx, [rax+4]\nmov     rax, [rbp+ulog]\nmov     [rax+1Ch], ecx\nmov     rax, [rbp+ulog]\nmov     rcx, [rbp+indx_log]\nmov     rcx, [rcx+8]\nmov     [rax+0Ch], rcx\njmp     $+5\nmov     rax, [rbp+ulog]\nmov     word ptr [rax+24h], 1\nmov     rdi, [rbp+ulog]; ulog\ncall    sync_header\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 80h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 14,
+  "edges": [
+   [
+    "start",
+    "loc_32AB"
+   ],
+   [
+    "start",
+    "loc_32DE"
+   ],
+   [
+    "loc_32AB",
+    "loc_32CE"
+   ],
+   [
+    "loc_32AB",
+    "loc_32D9"
+   ],
+   [
+    "loc_32CE",
+    "loc_34A9"
+   ],
+   [
+    "loc_32D9",
+    "loc_32DE"
+   ],
+   [
+    "loc_32DE",
+    "loc_339E"
+   ],
+   [
+    "loc_32DE",
+    "loc_33AA"
+   ],
+   [
+    "loc_339E",
+    "loc_34A9"
+   ],
+   [
+    "loc_33AA",
+    "loc_33EE"
+   ],
+   [
+    "loc_33AA",
+    "loc_341C"
+   ],
+   [
+    "loc_33EE",
+    "loc_348F"
+   ],
+   [
+    "loc_341C",
+    "loc_342C"
+   ],
+   [
+    "loc_341C",
+    "loc_343E"
+   ],
+   [
+    "loc_342C",
+    "loc_348A"
+   ],
+   [
+    "loc_343E",
+    "loc_348A"
+   ],
+   [
+    "loc_348A",
+    "loc_348F"
+   ],
+   [
+    "loc_348F",
+    "loc_34A9"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 80h\nmov     [rbp+log_ctx], rdi\nmov     [rbp+upd], rsi\nmov     rax, [rbp+log_ctx]\nmov     rax, [rax+8]\nmov     [rbp+ulog], rax\nmov     rax, [rbp+log_ctx]\nmov     eax, [rax+10h]\nmov     [rbp+ulogentries], eax\nmov     rsi, [rbp+upd]; data\nlea     rdi, xdr_kdb_incr_update_t; func\ncall    xdr_sizeof\nmov     [rbp+upd_size], rax\nmov     rax, [rbp+upd_size]\nadd     rax, 1Ch\nmov     [rbp+recsize], eax\nmov     eax, [rbp+recsize]\nmov     rcx, [rbp+ulog]\nmovzx   ecx, word ptr [rcx+26h]\ncmp     eax, ecx\njbe     loc_32DE",
+   "loc_32AB": "mov     rdi, [rbp+ulog]; ulog\nmov     esi, [rbp+ulogentries]; ulogentries\nmov     rax, [rbp+log_ctx]\nmov     edx, [rax+14h]; ulogfd\nmov     ecx, [rbp+recsize]; recsize\ncall    resize\nmov     [rbp+retval], eax\ncmp     [rbp+retval], 0\njz      loc_32D9",
+   "loc_32CE": "mov     eax, [rbp+retval]\nmov     [rbp+var_4], eax\njmp     loc_34A9",
+   "loc_32D9": "jmp     $+5",
+   "loc_32DE": "mov     rax, [rbp+ulog]\nmov     word ptr [rax+24h], 2\nmov     rax, [rbp+upd]\nmov     eax, [rax+10h]\nsub     eax, 1\nxor     edx, edx\ndiv     [rbp+ulogentries]\nmov     [rbp+i], edx\nmov     rax, [rbp+ulog]\nadd     rax, 28h ; '('\nmov     ecx, [rbp+i]\nmov     rdx, [rbp+ulog]\nmovzx   edx, word ptr [rdx+26h]\nimul    ecx, edx\nmov     ecx, ecx\nadd     rax, rcx\nmov     [rbp+indx_log], rax\nmov     rdi, [rbp+indx_log]; s\nmov     rax, [rbp+ulog]\nmovzx   eax, word ptr [rax+26h]\nmov     edx, eax; n\nxor     esi, esi; c\ncall    memset\nmov     rax, [rbp+indx_log]\nmov     dword ptr [rax], 6661212h\nmov     rax, [rbp+upd_size]\nmov     ecx, eax\nmov     rax, [rbp+indx_log]\nmov     [rax+14h], ecx\nmov     rax, [rbp+upd]\nmov     ecx, [rax+10h]\nmov     rax, [rbp+indx_log]\nmov     [rax+4], ecx\nmov     rax, [rbp+indx_log]\nmov     rcx, [rbp+upd]\nmov     rcx, [rcx+14h]\nmov     [rax+8], rcx\nmov     rax, [rbp+indx_log]\nmov     dword ptr [rax+10h], 0\nmov     rsi, [rbp+indx_log]\nadd     rsi, 18h; addr\nmov     rax, [rbp+indx_log]\nmov     edx, [rax+14h]; size\nlea     rdi, [rbp+xdrs]; xdrs\nxor     ecx, ecx; op\ncall    xdrmem_create\nmov     rsi, [rbp+upd]; objp\nlea     rdi, [rbp+xdrs]; xdrs\ncall    xdr_kdb_incr_update_t\ncmp     eax, 0\njnz     loc_33AA",
+   "loc_339E": "mov     [rbp+var_4], 95E4FAFEh\njmp     loc_34A9",
+   "loc_33AA": "mov     rax, [rbp+indx_log]\nmov     dword ptr [rax+10h], 1\nmov     rdi, [rbp+ulog]; ulog\nmov     rsi, [rbp+indx_log]; upd\ncall    sync_update\nmov     rax, [rbp+upd]\nmov     ecx, [rax+10h]\nmov     rax, [rbp+ulog]\nmov     [rax+20h], ecx\nmov     rax, [rbp+ulog]\nmov     rcx, [rbp+upd]\nmov     rcx, [rcx+14h]\nmov     [rax+14h], rcx\nmov     rax, [rbp+ulog]\ncmp     dword ptr [rax+8], 0\njnz     loc_341C",
+   "loc_33EE": "mov     rax, [rbp+ulog]\nmov     dword ptr [rax+8], 1\nmov     rax, [rbp+upd]\nmov     ecx, [rax+10h]\nmov     rax, [rbp+ulog]\nmov     [rax+1Ch], ecx\nmov     rax, [rbp+ulog]\nmov     rcx, [rbp+upd]\nmov     rcx, [rcx+14h]\nmov     [rax+0Ch], rcx\njmp     loc_348F",
+   "loc_341C": "mov     rax, [rbp+ulog]\nmov     eax, [rax+8]\ncmp     eax, [rbp+ulogentries]\njnb     loc_343E",
+   "loc_342C": "mov     rax, [rbp+ulog]\nmov     ecx, [rax+8]\nadd     ecx, 1\nmov     [rax+8], ecx\njmp     loc_348A",
+   "loc_343E": "mov     rax, [rbp+upd]\nmov     eax, [rax+10h]\nxor     edx, edx\ndiv     [rbp+ulogentries]\nmov     [rbp+i], edx\nmov     rax, [rbp+ulog]\nadd     rax, 28h ; '('\nmov     ecx, [rbp+i]\nmov     rdx, [rbp+ulog]\nmovzx   edx, word ptr [rdx+26h]\nimul    ecx, edx\nmov     ecx, ecx\nadd     rax, rcx\nmov     [rbp+indx_log], rax\nmov     rax, [rbp+indx_log]\nmov     ecx, [rax+4]\nmov     rax, [rbp+ulog]\nmov     [rax+1Ch], ecx\nmov     rax, [rbp+ulog]\nmov     rcx, [rbp+indx_log]\nmov     rcx, [rcx+8]\nmov     [rax+0Ch], rcx",
+   "loc_348A": "jmp     $+5",
+   "loc_348F": "mov     rax, [rbp+ulog]\nmov     word ptr [rax+24h], 1\nmov     rdi, [rbp+ulog]; ulog\ncall    sync_header\nmov     [rbp+var_4], 0",
+   "loc_34A9": "mov     eax, [rbp+var_4]\nadd     rsp, 80h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "ulogentries": "dword ptr -74h",
+   "ulog": "qword ptr -70h",
+   "retval": "dword ptr -64h",
+   "upd_size": "qword ptr -60h",
+   "recsize": "dword ptr -58h",
+   "i": "dword ptr -54h",
+   "indx_log": "qword ptr -50h",
+   "xdrs": "XDR ptr -48h",
+   "upd": "qword ptr -18h",
+   "log_ctx": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 12880,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".htonl": "htonl",
+  "_htonl": "htonl",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".ntohl": "ntohl",
+  "_ntohl": "ntohl"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".htonl",
+   ".plt",
+   true,
+   "htonl"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".ntohl",
+   ".plt",
+   true,
+   "ntohl"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "htonl",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memmove",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ntohl",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868475
+ }
+}

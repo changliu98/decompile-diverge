@@ -1,0 +1,367 @@
+{
+ "kind": "exebench",
+ "real_deps": "\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_37cr7t5h9e.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(int* red, int* pacman, int* target) {\n  json output_json;\n  std::vector<json> output_temp_4;\n  for (unsigned int i5 = 0; i5 < 3; i5++) {\n    int output_temp_6 = red[i5];\n\n    output_temp_4.push_back(output_temp_6);\n  }\n  output_json[\"red\"] = output_temp_4;\n  std::vector<json> output_temp_7;\n  for (unsigned int i8 = 0; i8 < 3; i8++) {\n    int output_temp_9 = pacman[i8];\n\n    output_temp_7.push_back(output_temp_9);\n  }\n  output_json[\"pacman\"] = output_temp_7;\n  std::vector<json> output_temp_10;\n  for (unsigned int i11 = 0; i11 < 2; i11++) {\n    int output_temp_12 = target[i11];\n\n    output_temp_10.push_back(output_temp_12);\n  }\n  output_json[\"target\"] = output_temp_10;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  std::vector<int> input_temp_1_vec;\n  for (auto& elem : input_json[\"red\"]) {\n    int input_temp_1_inner = elem;\n    input_temp_1_vec.push_back(input_temp_1_inner);\n  }\n  int* red = &input_temp_1_vec[0];\n  std::vector<int> input_temp_2_vec;\n  for (auto& elem : input_json[\"pacman\"]) {\n    int input_temp_2_inner = elem;\n    input_temp_2_vec.push_back(input_temp_2_inner);\n  }\n  int* pacman = &input_temp_2_vec[0];\n  std::vector<int> input_temp_3_vec;\n  for (auto& elem : input_json[\"target\"]) {\n    int input_temp_3_inner = elem;\n    input_temp_3_vec.push_back(input_temp_3_inner);\n  }\n  int* target = &input_temp_3_vec[0];\n  clock_t begin = clock();\n  calcula_target(red, pacman, target);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(red, pacman, target);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "red": [
+     83,
+     119,
+     92
+    ],
+    "pacman": [
+     34,
+     126,
+     118
+    ],
+    "target": [
+     87,
+     68
+    ]
+   },
+   "output": {
+    "pacman": [
+     34,
+     126,
+     118
+    ],
+    "red": [
+     83,
+     119,
+     92
+    ],
+    "target": [
+     -15,
+     133
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "red": [
+     26,
+     85,
+     122
+    ],
+    "pacman": [
+     26,
+     120,
+     16
+    ],
+    "target": [
+     118,
+     18
+    ]
+   },
+   "output": {
+    "pacman": [
+     26,
+     120,
+     16
+    ],
+    "red": [
+     26,
+     85,
+     122
+    ],
+    "target": [
+     26,
+     155
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "red": [
+     6,
+     29,
+     126
+    ],
+    "pacman": [
+     115,
+     71,
+     120
+    ],
+    "target": [
+     28,
+     88
+    ]
+   },
+   "output": {
+    "pacman": [
+     115,
+     71,
+     120
+    ],
+    "red": [
+     6,
+     29,
+     126
+    ],
+    "target": [
+     224,
+     113
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "red": [
+     80,
+     123,
+     49
+    ],
+    "pacman": [
+     47,
+     57,
+     12
+    ],
+    "target": [
+     87,
+     76
+    ]
+   },
+   "output": {
+    "pacman": [
+     47,
+     57,
+     12
+    ],
+    "red": [
+     80,
+     123,
+     49
+    ],
+    "target": [
+     14,
+     -9
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "red": [
+     87,
+     54,
+     0
+    ],
+    "pacman": [
+     93,
+     1,
+     82
+    ],
+    "target": [
+     18,
+     94
+    ]
+   },
+   "output": {
+    "pacman": [
+     93,
+     1,
+     82
+    ],
+    "red": [
+     87,
+     54,
+     0
+    ],
+    "target": [
+     99,
+     -52
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "red": [
+     88,
+     103,
+     81
+    ],
+    "pacman": [
+     3,
+     20,
+     114
+    ],
+    "target": [
+     5,
+     27
+    ]
+   },
+   "output": {
+    "pacman": [
+     3,
+     20,
+     114
+    ],
+    "red": [
+     88,
+     103,
+     81
+    ],
+    "target": [
+     -82,
+     -63
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "red": [
+     92,
+     38,
+     39
+    ],
+    "pacman": [
+     105,
+     110,
+     96
+    ],
+    "target": [
+     23,
+     4
+    ]
+   },
+   "output": {
+    "pacman": [
+     105,
+     110,
+     96
+    ],
+    "red": [
+     92,
+     38,
+     39
+    ],
+    "target": [
+     118,
+     182
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "red": [
+     81,
+     122,
+     102
+    ],
+    "pacman": [
+     34,
+     51,
+     54
+    ],
+    "target": [
+     42,
+     87
+    ]
+   },
+   "output": {
+    "pacman": [
+     34,
+     51,
+     54
+    ],
+    "red": [
+     81,
+     122,
+     102
+    ],
+    "target": [
+     -13,
+     -20
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "red": [
+     111,
+     0,
+     45
+    ],
+    "pacman": [
+     96,
+     17,
+     122
+    ],
+    "target": [
+     98,
+     40
+    ]
+   },
+   "output": {
+    "pacman": [
+     96,
+     17,
+     122
+    ],
+    "red": [
+     111,
+     0,
+     45
+    ],
+    "target": [
+     81,
+     34
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "red": [
+     4,
+     97,
+     109
+    ],
+    "pacman": [
+     13,
+     120,
+     4
+    ],
+    "target": [
+     98,
+     31
+    ]
+   },
+   "output": {
+    "pacman": [
+     13,
+     120,
+     4
+    ],
+    "red": [
+     4,
+     97,
+     109
+    ],
+    "target": [
+     22,
+     143
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

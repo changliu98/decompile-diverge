@@ -1,0 +1,429 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 1030h\nmov     [rbp+c], rdi\nmov     [rbp+af_0], esi\nmov     [rbp+addr], rdx\nmov     [rbp+sock_addr], rcx\nmov     [rbp+addr_text], 0\nlea     rax, asc_2020; \"?\"\nmov     [rbp+protoname], rax\nmov     [rbp+port], 0\nmov     eax, [rbp+af_0]\nmov     [rbp+var_1030], eax\nsub     eax, 1\njz      loc_1AD4\njmp     $+5\nmov     eax, [rbp+var_1030]\nsub     eax, 2\njz      loc_19F7\njmp     $+5\nmov     eax, [rbp+var_1030]\nsub     eax, 0Ah\njz      loc_1A4E\njmp     loc_1AFF\nmov     edi, [rbp+af_0]; af\nmov     rsi, [rbp+sock_addr]\nadd     rsi, 4; cp\nlea     rdx, [rbp+addr_text]; buf\nmov     ecx, 0FFFh; len\ncall    inet_ntop\nmov     rax, [rbp+sock_addr]\nmovzx   edi, word ptr [rax+2]; netshort\ncall    ntohs\nmov     [rbp+port], ax\nmov     rax, [rbp+c]\nmov     edx, [rax]\nlea     rax, aTcp; \"tcp\"\nlea     rcx, aUdp; \"udp\"\ncmp     edx, 2\ncmovz   rax, rcx\nmov     [rbp+protoname], rax\njmp     loc_1AFF\nmov     [rbp+addr_text], 5Bh ; '['\nmov     [rbp+addr_text+1], 0\nmov     edi, [rbp+af_0]; af\nmov     rsi, [rbp+sock_addr]\nadd     rsi, 8; cp\nlea     rdx, [rbp+addr_text]\nadd     rdx, 1; buf\nmov     ecx, 0FFEh; len\ncall    inet_ntop\ncmp     rax, 0\njz      loc_1A99\nlea     rdi, [rbp+addr_text]; dest\nlea     rsi, src; \"]\"\ncall    strcat\nmov     rax, [rbp+sock_addr]\nmovzx   edi, word ptr [rax+2]; netshort\ncall    ntohs\nmov     [rbp+port], ax\nmov     rax, [rbp+c]\nmov     edx, [rax]\nlea     rax, aTcp6; \"tcp6\"\nlea     rcx, aUdp6; \"udp6\"\ncmp     edx, 2\ncmovz   rax, rcx\nmov     [rbp+protoname], rax\njmp     loc_1AFF\nlea     rdi, [rbp+addr_text]; dest\nmov     rsi, [rbp+sock_addr]\nadd     rsi, 2; src\nmov     edx, 0FFFh; n\ncall    strncpy\nmov     [rbp+addr_text+0FFFh], 0\nlea     rax, aUnix; \"unix\"\nmov     [rbp+protoname], rax\nlea     rdi, [rbp+addr_text]; s\ncall    strlen\ncmp     rax, 2\njnb     loc_1B2D\nlea     rdi, [rbp+addr_text]; s\nmov     edx, [rbp+af_0]\nlea     rsi, aAfD; \"<AF %d>\"\nmov     al, 0\ncall    sprintf\ncmp     [rbp+port], 0\njz      loc_1B68\nmov     rdi, [rbp+addr]; s\nmov     rdx, [rbp+protoname]\nlea     rcx, [rbp+addr_text]\nmovzx   r8d, [rbp+port]\nlea     rsi, aSSU; \"%s:%s:%u\"\nmov     al, 0\ncall    sprintf\njmp     loc_1B88\nmov     rdi, [rbp+addr]; s\nmov     rdx, [rbp+protoname]\nlea     rcx, [rbp+addr_text]\nlea     rsi, aSS; \"%s:%s\"\nmov     al, 0\ncall    sprintf\nadd     rsp, 1030h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 17,
+  "edges": [
+   [
+    "start",
+    "loc_19CA"
+   ],
+   [
+    "start",
+    "loc_1AD4"
+   ],
+   [
+    "loc_19CA",
+    "loc_19CF"
+   ],
+   [
+    "loc_19CF",
+    "loc_19DE"
+   ],
+   [
+    "loc_19CF",
+    "loc_19F7"
+   ],
+   [
+    "loc_19DE",
+    "loc_19E3"
+   ],
+   [
+    "loc_19E3",
+    "loc_19F2"
+   ],
+   [
+    "loc_19E3",
+    "loc_1A4E"
+   ],
+   [
+    "loc_19F2",
+    "loc_1AFF"
+   ],
+   [
+    "loc_19F7",
+    "loc_1AFF"
+   ],
+   [
+    "loc_1A4E",
+    "loc_1A86"
+   ],
+   [
+    "loc_1A4E",
+    "loc_1A99"
+   ],
+   [
+    "loc_1A86",
+    "loc_1A99"
+   ],
+   [
+    "loc_1A99",
+    "loc_1AFF"
+   ],
+   [
+    "loc_1AD4",
+    "loc_1AFF"
+   ],
+   [
+    "loc_1AFF",
+    "loc_1B15"
+   ],
+   [
+    "loc_1AFF",
+    "loc_1B2D"
+   ],
+   [
+    "loc_1B15",
+    "loc_1B2D"
+   ],
+   [
+    "loc_1B2D",
+    "loc_1B3B"
+   ],
+   [
+    "loc_1B2D",
+    "loc_1B68"
+   ],
+   [
+    "loc_1B3B",
+    "loc_1B88"
+   ],
+   [
+    "loc_1B68",
+    "loc_1B88"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 1030h\nmov     [rbp+c], rdi\nmov     [rbp+af_0], esi\nmov     [rbp+addr], rdx\nmov     [rbp+sock_addr], rcx\nmov     [rbp+addr_text], 0\nlea     rax, asc_2020; \"?\"\nmov     [rbp+protoname], rax\nmov     [rbp+port], 0\nmov     eax, [rbp+af_0]\nmov     [rbp+var_1030], eax\nsub     eax, 1\njz      loc_1AD4",
+   "loc_19CA": "jmp     $+5",
+   "loc_19CF": "mov     eax, [rbp+var_1030]\nsub     eax, 2\njz      loc_19F7",
+   "loc_19DE": "jmp     $+5",
+   "loc_19E3": "mov     eax, [rbp+var_1030]\nsub     eax, 0Ah\njz      loc_1A4E",
+   "loc_19F2": "jmp     loc_1AFF",
+   "loc_19F7": "mov     edi, [rbp+af_0]; af\nmov     rsi, [rbp+sock_addr]\nadd     rsi, 4; cp\nlea     rdx, [rbp+addr_text]; buf\nmov     ecx, 0FFFh; len\ncall    inet_ntop\nmov     rax, [rbp+sock_addr]\nmovzx   edi, word ptr [rax+2]; netshort\ncall    ntohs\nmov     [rbp+port], ax\nmov     rax, [rbp+c]\nmov     edx, [rax]\nlea     rax, aTcp; \"tcp\"\nlea     rcx, aUdp; \"udp\"\ncmp     edx, 2\ncmovz   rax, rcx\nmov     [rbp+protoname], rax\njmp     loc_1AFF",
+   "loc_1A4E": "mov     [rbp+addr_text], 5Bh ; '['\nmov     [rbp+addr_text+1], 0\nmov     edi, [rbp+af_0]; af\nmov     rsi, [rbp+sock_addr]\nadd     rsi, 8; cp\nlea     rdx, [rbp+addr_text]\nadd     rdx, 1; buf\nmov     ecx, 0FFEh; len\ncall    inet_ntop\ncmp     rax, 0\njz      loc_1A99",
+   "loc_1A86": "lea     rdi, [rbp+addr_text]; dest\nlea     rsi, src; \"]\"\ncall    strcat",
+   "loc_1A99": "mov     rax, [rbp+sock_addr]\nmovzx   edi, word ptr [rax+2]; netshort\ncall    ntohs\nmov     [rbp+port], ax\nmov     rax, [rbp+c]\nmov     edx, [rax]\nlea     rax, aTcp6; \"tcp6\"\nlea     rcx, aUdp6; \"udp6\"\ncmp     edx, 2\ncmovz   rax, rcx\nmov     [rbp+protoname], rax\njmp     loc_1AFF",
+   "loc_1AD4": "lea     rdi, [rbp+addr_text]; dest\nmov     rsi, [rbp+sock_addr]\nadd     rsi, 2; src\nmov     edx, 0FFFh; n\ncall    strncpy\nmov     [rbp+addr_text+0FFFh], 0\nlea     rax, aUnix; \"unix\"\nmov     [rbp+protoname], rax",
+   "loc_1AFF": "lea     rdi, [rbp+addr_text]; s\ncall    strlen\ncmp     rax, 2\njnb     loc_1B2D",
+   "loc_1B15": "lea     rdi, [rbp+addr_text]; s\nmov     edx, [rbp+af_0]\nlea     rsi, aAfD; \"<AF %d>\"\nmov     al, 0\ncall    sprintf",
+   "loc_1B2D": "cmp     [rbp+port], 0\njz      loc_1B68",
+   "loc_1B3B": "mov     rdi, [rbp+addr]; s\nmov     rdx, [rbp+protoname]\nlea     rcx, [rbp+addr_text]\nmovzx   r8d, [rbp+port]\nlea     rsi, aSSU; \"%s:%s:%u\"\nmov     al, 0\ncall    sprintf\njmp     loc_1B88",
+   "loc_1B68": "mov     rdi, [rbp+addr]; s\nmov     rdx, [rbp+protoname]\nlea     rcx, [rbp+addr_text]\nlea     rsi, aSS; \"%s:%s\"\nmov     al, 0\ncall    sprintf",
+   "loc_1B88": "add     rsp, 1030h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_1030": "dword ptr -1030h",
+   "port": "word ptr -102Ah",
+   "protoname": "qword ptr -1028h",
+   "addr_text": "byte ptr -1020h",
+   "sock_addr": "qword ptr -20h",
+   "addr": "qword ptr -18h",
+   "af_0": "dword ptr -0Ch",
+   "c": "qword ptr -8"
+  },
+  ".rodata": {
+   "asc_2020": "byte '?',0",
+   "aTcp": "byte 'tcp',0",
+   "aUdp": "byte 'udp',0",
+   "src": "byte ']',0",
+   "aTcp6": "byte 'tcp6',0",
+   "aUdp6": "byte 'udp6',0",
+   "aUnix": "byte 'unix',0",
+   "aAfD": "byte '<AF %d>',0",
+   "aSSU": "byte '%s:%s:%u',0",
+   "aSS": "byte '%s:%s',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6528,
+ "thunk_map": {
+  ".inet_ntop": "inet_ntop",
+  "_inet_ntop": "inet_ntop",
+  ".free": "free",
+  "_free": "free",
+  ".strncpy": "strncpy",
+  "_strncpy": "strncpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".htons": "htons",
+  "_htons": "htons",
+  ".htonl": "htonl",
+  "_htonl": "htonl",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".ntohs": "ntohs",
+  "_ntohs": "ntohs",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".strcat": "strcat",
+  "_strcat": "strcat",
+  ".sprintf": "sprintf",
+  "_sprintf": "sprintf"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".inet_ntop",
+   ".plt",
+   true,
+   "inet_ntop"
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".strncpy",
+   ".plt",
+   true,
+   "strncpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".htons",
+   ".plt",
+   true,
+   "htons"
+  ],
+  [
+   ".htonl",
+   ".plt",
+   true,
+   "htonl"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".ntohs",
+   ".plt",
+   true,
+   "ntohs"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".strcat",
+   ".plt",
+   true,
+   "strcat"
+  ],
+  [
+   ".sprintf",
+   ".plt",
+   true,
+   "sprintf"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "inet_ntop",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "htons",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "htonl",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ntohs",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcat",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "sprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868479
+ }
+}

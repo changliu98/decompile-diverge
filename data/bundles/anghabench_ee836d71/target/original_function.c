@@ -1,0 +1,1 @@
+uint32_t REG_A4XX_RBBM_CLOCK_CTL_RB(uint32_t i0) { return 0x00000078 + 0x1*i0; }

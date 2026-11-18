@@ -1,0 +1,1 @@
+int sht21_temp_ticks_to_millicelsius(int ticks) { return ((ticks * 21965) >> 13) - 46850; }

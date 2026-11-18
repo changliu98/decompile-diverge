@@ -1,0 +1,177 @@
+0000000000003430 <stage1>:
+    3430:	push   %rbp
+    3431:	mov    %rsp,%rbp
+    3434:	sub    $0xa0,%rsp
+    343b:	mov    %rdi,-0x10(%rbp)
+    343f:	mov    %rsi,-0x18(%rbp)
+    3443:	mov    %rdx,-0x20(%rbp)
+    3447:	mov    -0x20(%rbp),%rsi
+    344b:	lea    -0x90(%rbp),%rdi
+    3452:	call   3770 <stage1_init>
+    3457:	mov    %eax,-0x28(%rbp)
+    345a:	cmp    $0x0,%eax
+    345d:	jge    346e <stage1+0x3e>
+    3463:	mov    -0x28(%rbp),%eax
+    3466:	mov    %eax,-0x4(%rbp)
+    3469:	jmp    3755 <stage1+0x325>
+    346e:	mov    -0x10(%rbp),%rax
+    3472:	movl   $0x0,0x1c(%rax)
+    3479:	mov    -0x10(%rbp),%rax
+    347d:	movl   $0x0,0x18(%rax)
+    3484:	mov    -0x18(%rbp),%rax
+    3488:	mov    %rax,-0x40(%rbp)
+    348c:	movl   $0x0,-0x24(%rbp)
+    3493:	call   1210 <lex_init>
+    3498:	lea    -0x18(%rbp),%rdi
+    349c:	call   1230 <lex>
+    34a1:	mov    %eax,-0x38(%rbp)
+    34a4:	cmp    $0xa,%eax
+    34a7:	jne    34ba <stage1+0x8a>
+    34ad:	mov    -0x18(%rbp),%rax
+    34b1:	mov    %rax,-0x48(%rbp)
+    34b5:	jmp    3498 <stage1+0x68>
+    34ba:	cmpl   $0xf,-0x38(%rbp)
+    34be:	jne    350c <stage1+0xdc>
+    34c4:	mov    -0x10(%rbp),%rdi
+    34c8:	mov    -0x40(%rbp),%rsi
+    34cc:	call   3380 <check_simple_for_lfix>
+    34d1:	mov    -0x40(%rbp),%rax
+    34d5:	mov    %rax,-0x48(%rbp)
+    34d9:	lea    -0x90(%rbp),%rdi
+    34e0:	call   3880 <stage1_cleanup>
+    34e5:	mov    -0x60(%rbp),%rdi
+    34e9:	lea    0x3e0(%rip),%rsi        # 38d0 <inst_stack_cleanup>
+    34f0:	call   1f00 <stack_free>
+    34f5:	mov    -0x20(%rbp),%rax
+    34f9:	movq   $0x0,(%rax)
+    3500:	movl   $0x0,-0x4(%rbp)
+    3507:	jmp    3755 <stage1+0x325>
+    350c:	cmpq   $0x0,-0x48(%rbp)
+    3511:	je     3540 <stage1+0x110>
+    3517:	lea    -0x90(%rbp),%rdi
+    351e:	call   3910 <compile_simple_backlog>
+    3523:	cmp    $0x0,%eax
+    3526:	jge    3538 <stage1+0x108>
+    352c:	movl   $0xfffffff2,-0x4(%rbp)
+    3533:	jmp    3755 <stage1+0x325>
+    3538:	movq   $0x0,-0x48(%rbp)
+    3540:	jmp    3545 <stage1+0x115>
+    3545:	jmp    354a <stage1+0x11a>
+    354a:	cmpl   $0x0,-0x38(%rbp)
+    354e:	jge    356b <stage1+0x13b>
+    3554:	lea    -0x90(%rbp),%rdi
+    355b:	call   3a50 <stage1_err_cleanup>
+    3560:	mov    -0x38(%rbp),%eax
+    3563:	mov    %eax,-0x4(%rbp)
+    3566:	jmp    3755 <stage1+0x325>
+    356b:	mov    -0x24(%rbp),%eax
+    356e:	mov    %eax,-0x94(%rbp)
+    3574:	test   %eax,%eax
+    3576:	je     3595 <stage1+0x165>
+    357c:	jmp    3581 <stage1+0x151>
+    3581:	mov    -0x94(%rbp),%eax
+    3587:	sub    $0x1,%eax
+    358a:	je     35cd <stage1+0x19d>
+    3590:	jmp    3605 <stage1+0x1d5>
+    3595:	lea    -0x90(%rbp),%rdi
+    359c:	lea    -0x24(%rbp),%rsi
+    35a0:	call   3aa0 <stage1_main_state>
+    35a5:	mov    %eax,-0x28(%rbp)
+    35a8:	cmp    $0x0,%eax
+    35ab:	jge    35c8 <stage1+0x198>
+    35b1:	lea    -0x90(%rbp),%rdi
+    35b8:	call   3a50 <stage1_err_cleanup>
+    35bd:	mov    -0x28(%rbp),%eax
+    35c0:	mov    %eax,-0x4(%rbp)
+    35c3:	jmp    3755 <stage1+0x325>
+    35c8:	jmp    3605 <stage1+0x1d5>
+    35cd:	lea    -0x90(%rbp),%rdi
+    35d4:	lea    -0x24(%rbp),%rsi
+    35d8:	call   3e00 <stage1_charc_state>
+    35dd:	mov    %eax,-0x28(%rbp)
+    35e0:	cmp    $0x0,%eax
+    35e3:	jge    3600 <stage1+0x1d0>
+    35e9:	lea    -0x90(%rbp),%rdi
+    35f0:	call   3a50 <stage1_err_cleanup>
+    35f5:	mov    -0x28(%rbp),%eax
+    35f8:	mov    %eax,-0x4(%rbp)
+    35fb:	jmp    3755 <stage1+0x325>
+    3600:	jmp    3605 <stage1+0x1d5>
+    3605:	mov    -0x38(%rbp),%eax
+    3608:	mov    %eax,-0x34(%rbp)
+    360b:	lea    -0x18(%rbp),%rdi
+    360f:	call   1230 <lex>
+    3614:	mov    %eax,-0x38(%rbp)
+    3617:	cmp    $0xf,%eax
+    361a:	jne    354a <stage1+0x11a>
+    3620:	cmpl   $0x4,-0x34(%rbp)
+    3624:	jne    3657 <stage1+0x227>
+    362a:	mov    -0x68(%rbp),%rax
+    362e:	cmpl   $0x0,0x18(%rax)
+    3632:	jle    3657 <stage1+0x227>
+    3638:	mov    -0x60(%rbp),%rdi
+    363c:	mov    -0x68(%rbp),%rsi
+    3640:	call   1e40 <stack_cat>
+    3645:	mov    -0x68(%rbp),%rdi
+    3649:	call   1030 <free@plt>
+    364e:	mov    -0x50(%rbp),%rdi
+    3652:	call   1cb0 <stack_free_head>
+    3657:	cmpl   $0x1,-0x24(%rbp)
+    365b:	jne    3679 <stage1+0x249>
+    3661:	lea    -0x90(%rbp),%rdi
+    3668:	call   3a50 <stage1_err_cleanup>
+    366d:	movl   $0xfffffffa,-0x4(%rbp)
+    3674:	jmp    3755 <stage1+0x325>
+    3679:	mov    -0x50(%rbp),%rax
+    367d:	mov    (%rax),%rax
+    3680:	mov    -0x50(%rbp),%rcx
+    3684:	cmp    0x8(%rcx),%rax
+    3688:	je     36a6 <stage1+0x276>
+    368e:	lea    -0x90(%rbp),%rdi
+    3695:	call   3a50 <stage1_err_cleanup>
+    369a:	movl   $0xfffffffb,-0x4(%rbp)
+    36a1:	jmp    3755 <stage1+0x325>
+    36a6:	jmp    36ab <stage1+0x27b>
+    36ab:	call   32b0 <lfix_stop>
+    36b0:	mov    -0x60(%rbp),%rdi
+    36b4:	mov    -0x50(%rbp),%rax
+    36b8:	mov    0x8(%rax),%rax
+    36bc:	mov    (%rax),%rsi
+    36bf:	call   1e40 <stack_cat>
+    36c4:	lea    -0x90(%rbp),%rdi
+    36cb:	call   2670 <attach_dangling_alt>
+    36d0:	lea    -0x90(%rbp),%rdi
+    36d7:	call   3120 <code_match>
+    36dc:	mov    %eax,-0x28(%rbp)
+    36df:	cmp    $0x0,%eax
+    36e2:	jge    36f3 <stage1+0x2c3>
+    36e8:	mov    -0x28(%rbp),%eax
+    36eb:	mov    %eax,-0x4(%rbp)
+    36ee:	jmp    3755 <stage1+0x325>
+    36f3:	cmpl   $0x0,0x49da(%rip)        # 80d4 <alt_seen>
+    36fa:	je     371b <stage1+0x2eb>
+    3700:	mov    -0x10(%rbp),%rax
+    3704:	movl   $0x0,0x18(%rax)
+    370b:	mov    -0x10(%rbp),%rax
+    370f:	movl   $0x0,0x1c(%rax)
+    3716:	jmp    3737 <stage1+0x307>
+    371b:	call   3310 <get_lfix0>
+    3720:	mov    %eax,%ecx
+    3722:	mov    -0x10(%rbp),%rax
+    3726:	mov    %ecx,0x18(%rax)
+    3729:	call   3320 <get_lfixn>
+    372e:	mov    %eax,%ecx
+    3730:	mov    -0x10(%rbp),%rax
+    3734:	mov    %ecx,0x1c(%rax)
+    3737:	movzbl -0x2c(%rbp),%ecx
+    373b:	mov    -0x60(%rbp),%rax
+    373f:	mov    %ecx,0x1c(%rax)
+    3742:	lea    -0x90(%rbp),%rdi
+    3749:	call   3880 <stage1_cleanup>
+    374e:	movl   $0x0,-0x4(%rbp)
+    3755:	mov    -0x4(%rbp),%eax
+    3758:	add    $0xa0,%rsp
+    375f:	pop    %rbp
+    3760:	ret
+
+Disassembly of section .fini:

@@ -1,0 +1,587 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <math.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_39j8qoygmr.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(int* ijkn, int* current_ijk, int* face_sect, double* vv, int* next_ijk) {\n  json output_json;\n  std::vector<json> output_temp_6;\n  for (unsigned int i7 = 0; i7 < 3; i7++) {\n    int output_temp_8 = ijkn[i7];\n\n    output_temp_6.push_back(output_temp_8);\n  }\n  output_json[\"ijkn\"] = output_temp_6;\n  std::vector<json> output_temp_9;\n  for (unsigned int i10 = 0; i10 < 3; i10++) {\n    int output_temp_11 = current_ijk[i10];\n\n    output_temp_9.push_back(output_temp_11);\n  }\n  output_json[\"current_ijk\"] = output_temp_9;\n  std::vector<json> output_temp_12;\n  for (unsigned int i13 = 0; i13 < 3; i13++) {\n    int output_temp_14 = face_sect[i13];\n\n    output_temp_12.push_back(output_temp_14);\n  }\n  output_json[\"face_sect\"] = output_temp_12;\n  std::vector<json> output_temp_15;\n  for (unsigned int i16 = 0; i16 < 3; i16++) {\n    double output_temp_17 = vv[i16];\n\n    output_temp_15.push_back(output_temp_17);\n  }\n  output_json[\"vv\"] = output_temp_15;\n  std::vector<json> output_temp_18;\n  for (unsigned int i19 = 0; i19 < 3; i19++) {\n    int output_temp_20 = next_ijk[i19];\n\n    output_temp_18.push_back(output_temp_20);\n  }\n  output_json[\"next_ijk\"] = output_temp_18;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  std::vector<int> input_temp_1_vec;\n  for (auto& elem : input_json[\"ijkn\"]) {\n    int input_temp_1_inner = elem;\n    input_temp_1_vec.push_back(input_temp_1_inner);\n  }\n  int* ijkn = &input_temp_1_vec[0];\n  std::vector<int> input_temp_2_vec;\n  for (auto& elem : input_json[\"current_ijk\"]) {\n    int input_temp_2_inner = elem;\n    input_temp_2_vec.push_back(input_temp_2_inner);\n  }\n  int* current_ijk = &input_temp_2_vec[0];\n  std::vector<int> input_temp_3_vec;\n  for (auto& elem : input_json[\"face_sect\"]) {\n    int input_temp_3_inner = elem;\n    input_temp_3_vec.push_back(input_temp_3_inner);\n  }\n  int* face_sect = &input_temp_3_vec[0];\n  std::vector<double> input_temp_4_vec;\n  for (auto& elem : input_json[\"vv\"]) {\n    double input_temp_4_inner = elem;\n    input_temp_4_vec.push_back(input_temp_4_inner);\n  }\n  double* vv = &input_temp_4_vec[0];\n  std::vector<int> input_temp_5_vec;\n  for (auto& elem : input_json[\"next_ijk\"]) {\n    int input_temp_5_inner = elem;\n    input_temp_5_vec.push_back(input_temp_5_inner);\n  }\n  int* next_ijk = &input_temp_5_vec[0];\n  clock_t begin = clock();\n  find_next_cell(ijkn, current_ijk, face_sect, vv, next_ijk);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(ijkn, current_ijk, face_sect, vv, next_ijk);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "ijkn": [
+     79,
+     101,
+     107
+    ],
+    "current_ijk": [
+     5,
+     75,
+     113
+    ],
+    "face_sect": [
+     65,
+     76,
+     9
+    ],
+    "vv": [
+     30.3194419021,
+     55.562571474,
+     85.7125100513
+    ],
+    "next_ijk": [
+     24,
+     64,
+     98
+    ]
+   },
+   "output": {
+    "current_ijk": [
+     5,
+     75,
+     113
+    ],
+    "face_sect": [
+     65,
+     76,
+     9
+    ],
+    "ijkn": [
+     79,
+     101,
+     107
+    ],
+    "next_ijk": [
+     5,
+     75,
+     113
+    ],
+    "vv": [
+     30.3194419021,
+     55.562571474,
+     85.7125100513
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "ijkn": [
+     61,
+     10,
+     39
+    ],
+    "current_ijk": [
+     97,
+     61,
+     62
+    ],
+    "face_sect": [
+     102,
+     14,
+     48
+    ],
+    "vv": [
+     28.7703216012,
+     41.1610181158,
+     53.7406212694
+    ],
+    "next_ijk": [
+     120,
+     60,
+     96
+    ]
+   },
+   "output": {
+    "current_ijk": [
+     97,
+     61,
+     62
+    ],
+    "face_sect": [
+     102,
+     14,
+     48
+    ],
+    "ijkn": [
+     61,
+     10,
+     39
+    ],
+    "next_ijk": [
+     97,
+     61,
+     62
+    ],
+    "vv": [
+     28.7703216012,
+     41.1610181158,
+     53.7406212694
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "ijkn": [
+     48,
+     113,
+     49
+    ],
+    "current_ijk": [
+     93,
+     28,
+     81
+    ],
+    "face_sect": [
+     39,
+     60,
+     114
+    ],
+    "vv": [
+     68.716356251,
+     91.7016496734,
+     16.965060342
+    ],
+    "next_ijk": [
+     124,
+     23,
+     70
+    ]
+   },
+   "output": {
+    "current_ijk": [
+     93,
+     28,
+     81
+    ],
+    "face_sect": [
+     39,
+     60,
+     114
+    ],
+    "ijkn": [
+     48,
+     113,
+     49
+    ],
+    "next_ijk": [
+     93,
+     28,
+     81
+    ],
+    "vv": [
+     68.716356251,
+     91.7016496734,
+     16.965060342
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "ijkn": [
+     27,
+     112,
+     41
+    ],
+    "current_ijk": [
+     78,
+     48,
+     65
+    ],
+    "face_sect": [
+     66,
+     29,
+     111
+    ],
+    "vv": [
+     88.7210505907,
+     0.656995521343,
+     11.571179379
+    ],
+    "next_ijk": [
+     43,
+     9,
+     89
+    ]
+   },
+   "output": {
+    "current_ijk": [
+     78,
+     48,
+     65
+    ],
+    "face_sect": [
+     66,
+     29,
+     111
+    ],
+    "ijkn": [
+     27,
+     112,
+     41
+    ],
+    "next_ijk": [
+     78,
+     48,
+     65
+    ],
+    "vv": [
+     88.7210505907,
+     0.656995521343,
+     11.571179379
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "ijkn": [
+     31,
+     102,
+     123
+    ],
+    "current_ijk": [
+     65,
+     86,
+     95
+    ],
+    "face_sect": [
+     124,
+     123,
+     61
+    ],
+    "vv": [
+     87.322797994,
+     72.8800666898,
+     60.3899499
+    ],
+    "next_ijk": [
+     78,
+     62,
+     63
+    ]
+   },
+   "output": {
+    "current_ijk": [
+     65,
+     86,
+     95
+    ],
+    "face_sect": [
+     124,
+     123,
+     61
+    ],
+    "ijkn": [
+     31,
+     102,
+     123
+    ],
+    "next_ijk": [
+     65,
+     86,
+     95
+    ],
+    "vv": [
+     87.322797994,
+     72.8800666898,
+     60.3899499
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "ijkn": [
+     98,
+     60,
+     48
+    ],
+    "current_ijk": [
+     57,
+     113,
+     46
+    ],
+    "face_sect": [
+     75,
+     106,
+     54
+    ],
+    "vv": [
+     46.4650468012,
+     4.94810710252,
+     34.1786612145
+    ],
+    "next_ijk": [
+     51,
+     27,
+     24
+    ]
+   },
+   "output": {
+    "current_ijk": [
+     57,
+     113,
+     46
+    ],
+    "face_sect": [
+     75,
+     106,
+     54
+    ],
+    "ijkn": [
+     98,
+     60,
+     48
+    ],
+    "next_ijk": [
+     57,
+     113,
+     46
+    ],
+    "vv": [
+     46.4650468012,
+     4.94810710252,
+     34.1786612145
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "ijkn": [
+     45,
+     62,
+     27
+    ],
+    "current_ijk": [
+     97,
+     87,
+     36
+    ],
+    "face_sect": [
+     55,
+     80,
+     39
+    ],
+    "vv": [
+     51.1995961923,
+     74.9549810825,
+     36.0167448614
+    ],
+    "next_ijk": [
+     93,
+     13,
+     73
+    ]
+   },
+   "output": {
+    "current_ijk": [
+     97,
+     87,
+     36
+    ],
+    "face_sect": [
+     55,
+     80,
+     39
+    ],
+    "ijkn": [
+     45,
+     62,
+     27
+    ],
+    "next_ijk": [
+     97,
+     87,
+     36
+    ],
+    "vv": [
+     51.1995961923,
+     74.9549810825,
+     36.0167448614
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "ijkn": [
+     50,
+     22,
+     17
+    ],
+    "current_ijk": [
+     13,
+     18,
+     66
+    ],
+    "face_sect": [
+     19,
+     56,
+     24
+    ],
+    "vv": [
+     21.17543129,
+     86.5954483911,
+     75.8961248484
+    ],
+    "next_ijk": [
+     30,
+     96,
+     1
+    ]
+   },
+   "output": {
+    "current_ijk": [
+     13,
+     18,
+     66
+    ],
+    "face_sect": [
+     19,
+     56,
+     24
+    ],
+    "ijkn": [
+     50,
+     22,
+     17
+    ],
+    "next_ijk": [
+     13,
+     18,
+     66
+    ],
+    "vv": [
+     21.17543129,
+     86.5954483911,
+     75.8961248484
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "ijkn": [
+     41,
+     14,
+     37
+    ],
+    "current_ijk": [
+     115,
+     67,
+     57
+    ],
+    "face_sect": [
+     110,
+     3,
+     43
+    ],
+    "vv": [
+     92.2074029969,
+     46.6544465666,
+     75.2536734867
+    ],
+    "next_ijk": [
+     80,
+     57,
+     10
+    ]
+   },
+   "output": {
+    "current_ijk": [
+     115,
+     67,
+     57
+    ],
+    "face_sect": [
+     110,
+     2,
+     43
+    ],
+    "ijkn": [
+     41,
+     14,
+     37
+    ],
+    "next_ijk": [
+     115,
+     68,
+     57
+    ],
+    "vv": [
+     92.2074029969,
+     46.6544465666,
+     75.2536734867
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "ijkn": [
+     81,
+     57,
+     51
+    ],
+    "current_ijk": [
+     17,
+     108,
+     108
+    ],
+    "face_sect": [
+     85,
+     9,
+     81
+    ],
+    "vv": [
+     82.3291796987,
+     5.76809310608,
+     41.1006312366
+    ],
+    "next_ijk": [
+     123,
+     67,
+     27
+    ]
+   },
+   "output": {
+    "current_ijk": [
+     17,
+     108,
+     108
+    ],
+    "face_sect": [
+     85,
+     9,
+     81
+    ],
+    "ijkn": [
+     81,
+     57,
+     51
+    ],
+    "next_ijk": [
+     17,
+     108,
+     108
+    ],
+    "vv": [
+     82.3291796987,
+     5.76809310608,
+     41.1006312366
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

@@ -1,0 +1,1 @@
+char * truncate_string_at_char(char *string, char ch) { char *s = NULL; for (s = string; *s != '\0'; s++) { if (*s == ch) { *s = '\0'; } } return string; }

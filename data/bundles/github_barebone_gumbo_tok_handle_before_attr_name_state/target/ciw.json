@@ -1,0 +1,400 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+parser], rdi\nmov     [rbp+tokenizer], rsi\nmov     [rbp+c], edx\nmov     [rbp+output], rcx\nmov     eax, [rbp+c]\nadd     eax, 1; switch 64 cases\nmov     ecx, eax\nmov     [rbp+var_30], rcx\nsub     eax, 3Fh\nja      def_1C52E; jumptable 000000000001C52E default case, cases 1-8,11,13-31,33,35-38,40-46,48-59\nmov     rax, [rbp+var_30]\nlea     rcx, jpt_1C52E\nmovsxd  rax, ds:(jpt_1C52E - 263F8h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nmov     [rbp+var_4], 2; jumptable 000000000001C52E cases 9,10,12,32\njmp     loc_1C61D\nmov     rdi, [rbp+parser]; jumptable 000000000001C52E case 47\nmov     esi, 2Ah ; '*'; state\ncall    gumbo_tokenizer_set_state\nmov     [rbp+var_4], 2\njmp     loc_1C61D\nmov     rdi, [rbp+parser]; jumptable 000000000001C52E case 62\nxor     esi, esi; state\ncall    gumbo_tokenizer_set_state\nmov     rdi, [rbp+parser]; parser\nmov     rsi, [rbp+output]; output\ncall    emit_current_tag\nmov     [rbp+var_4], eax\njmp     loc_1C61D\nmov     rdi, [rbp+parser]; jumptable 000000000001C52E case 0\nmov     esi, 2; type\ncall    tokenizer_add_parse_error\nmov     rdi, [rbp+parser]; parser\nmov     esi, 22h ; '\"'; state\ncall    gumbo_tokenizer_set_state\nmov     rdi, [rbp+parser]; parser\nmov     esi, 0FFFDh; codepoint\ncall    append_char_to_temporary_buffer\nmov     [rbp+var_4], 2\njmp     loc_1C61D\nmov     rdi, [rbp+parser]; jumptable 000000000001C52E case -1\nmov     esi, 0Fh; type\ncall    tokenizer_add_parse_error\nmov     rdi, [rbp+parser]; parser\nxor     esi, esi; state\ncall    gumbo_tokenizer_set_state\nmov     rdi, [rbp+parser]; parser\ncall    abandon_current_tag\nmov     [rbp+var_4], 2\njmp     loc_1C61D\nmov     rdi, [rbp+parser]; jumptable 000000000001C52E cases 34,39,60,61\nmov     esi, 10h; type\ncall    tokenizer_add_parse_error\nmov     rdi, [rbp+parser]; jumptable 000000000001C52E default case, cases 1-8,11,13-31,33,35-38,40-46,48-59\nmov     esi, 22h ; '\"'; state\ncall    gumbo_tokenizer_set_state\nmov     rax, [rbp+parser]\nmov     [rbp+var_38], rax\nmov     edi, [rbp+c]; c\ncall    ensure_lowercase\nmov     rdi, [rbp+var_38]; parser\nmov     esi, eax; codepoint\nmov     edx, 1; reinitilize_position_on_first\ncall    append_char_to_tag_buffer\nmov     [rbp+var_4], 2\nmov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 10,
+  "edges": [
+   [
+    "start",
+    "loc_1C51C"
+   ],
+   [
+    "start",
+    "loc_1C5E8"
+   ],
+   [
+    "loc_1C51C",
+    "loc_1C530"
+   ],
+   [
+    "loc_1C51C",
+    "loc_1C53C"
+   ],
+   [
+    "loc_1C51C",
+    "loc_1C556"
+   ],
+   [
+    "loc_1C51C",
+    "loc_1C576"
+   ],
+   [
+    "loc_1C51C",
+    "loc_1C5AC"
+   ],
+   [
+    "loc_1C51C",
+    "loc_1C5DA"
+   ],
+   [
+    "loc_1C51C",
+    "loc_1C5E8"
+   ],
+   [
+    "loc_1C530",
+    "loc_1C61D"
+   ],
+   [
+    "loc_1C53C",
+    "loc_1C61D"
+   ],
+   [
+    "loc_1C556",
+    "loc_1C61D"
+   ],
+   [
+    "loc_1C576",
+    "loc_1C61D"
+   ],
+   [
+    "loc_1C5AC",
+    "loc_1C61D"
+   ],
+   [
+    "loc_1C5DA",
+    "loc_1C5E8"
+   ],
+   [
+    "loc_1C5E8",
+    "loc_1C61D"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+parser], rdi\nmov     [rbp+tokenizer], rsi\nmov     [rbp+c], edx\nmov     [rbp+output], rcx\nmov     eax, [rbp+c]\nadd     eax, 1; switch 64 cases\nmov     ecx, eax\nmov     [rbp+var_30], rcx\nsub     eax, 3Fh\nja      def_1C52E; jumptable 000000000001C52E default case, cases 1-8,11,13-31,33,35-38,40-46,48-59",
+   "loc_1C51C": "mov     rax, [rbp+var_30]\nlea     rcx, jpt_1C52E\nmovsxd  rax, ds:(jpt_1C52E - 263F8h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_1C530": "mov     [rbp+var_4], 2; jumptable 000000000001C52E cases 9,10,12,32\njmp     loc_1C61D",
+   "loc_1C53C": "mov     rdi, [rbp+parser]; jumptable 000000000001C52E case 47\nmov     esi, 2Ah ; '*'; state\ncall    gumbo_tokenizer_set_state\nmov     [rbp+var_4], 2\njmp     loc_1C61D",
+   "loc_1C556": "mov     rdi, [rbp+parser]; jumptable 000000000001C52E case 62\nxor     esi, esi; state\ncall    gumbo_tokenizer_set_state\nmov     rdi, [rbp+parser]; parser\nmov     rsi, [rbp+output]; output\ncall    emit_current_tag\nmov     [rbp+var_4], eax\njmp     loc_1C61D",
+   "loc_1C576": "mov     rdi, [rbp+parser]; jumptable 000000000001C52E case 0\nmov     esi, 2; type\ncall    tokenizer_add_parse_error\nmov     rdi, [rbp+parser]; parser\nmov     esi, 22h ; '\"'; state\ncall    gumbo_tokenizer_set_state\nmov     rdi, [rbp+parser]; parser\nmov     esi, 0FFFDh; codepoint\ncall    append_char_to_temporary_buffer\nmov     [rbp+var_4], 2\njmp     loc_1C61D",
+   "loc_1C5AC": "mov     rdi, [rbp+parser]; jumptable 000000000001C52E case -1\nmov     esi, 0Fh; type\ncall    tokenizer_add_parse_error\nmov     rdi, [rbp+parser]; parser\nxor     esi, esi; state\ncall    gumbo_tokenizer_set_state\nmov     rdi, [rbp+parser]; parser\ncall    abandon_current_tag\nmov     [rbp+var_4], 2\njmp     loc_1C61D",
+   "loc_1C5DA": "mov     rdi, [rbp+parser]; jumptable 000000000001C52E cases 34,39,60,61\nmov     esi, 10h; type\ncall    tokenizer_add_parse_error",
+   "loc_1C5E8": "mov     rdi, [rbp+parser]; jumptable 000000000001C52E default case, cases 1-8,11,13-31,33,35-38,40-46,48-59\nmov     esi, 22h ; '\"'; state\ncall    gumbo_tokenizer_set_state\nmov     rax, [rbp+parser]\nmov     [rbp+var_38], rax\nmov     edi, [rbp+c]; c\ncall    ensure_lowercase\nmov     rdi, [rbp+var_38]; parser\nmov     esi, eax; codepoint\nmov     edx, 1; reinitilize_position_on_first\ncall    append_char_to_tag_buffer\nmov     [rbp+var_4], 2",
+   "loc_1C61D": "mov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_38": "qword ptr -38h",
+   "var_30": "qword ptr -30h",
+   "output": "qword ptr -28h",
+   "c": "dword ptr -1Ch",
+   "tokenizer": "qword ptr -18h",
+   "parser": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "jpt_1C52E": "dword offset loc_1C5AC - 263F8h, offset loc_1C576 - 263F8h; jump table for switch statement"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 115952,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".strcasecmp": "strcasecmp",
+  "_strcasecmp": "strcasecmp",
+  ".strncmp": "strncmp",
+  "_strncmp": "strncmp",
+  ".strcpy": "strcpy",
+  "_strcpy": "strcpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".vsnprintf": "vsnprintf",
+  "_vsnprintf": "vsnprintf",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".memcmp": "memcmp",
+  "_memcmp": "memcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".tolower": "tolower",
+  "_tolower": "tolower",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".strncasecmp": "strncasecmp",
+  "_strncasecmp": "strncasecmp",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".__ctype_b_loc": "__ctype_b_loc",
+  "_ctype_b_loc": "__ctype_b_loc"
+ },
+ "thunk_debug": [
+  [
+   "sub_3020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".strcasecmp",
+   ".plt",
+   true,
+   "strcasecmp"
+  ],
+  [
+   ".strncmp",
+   ".plt",
+   true,
+   "strncmp"
+  ],
+  [
+   ".strcpy",
+   ".plt",
+   true,
+   "strcpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".vsnprintf",
+   ".plt",
+   true,
+   "vsnprintf"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".memcmp",
+   ".plt",
+   true,
+   "memcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".tolower",
+   ".plt",
+   true,
+   "tolower"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".strncasecmp",
+   ".plt",
+   true,
+   "strncasecmp"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   ".__ctype_b_loc",
+   ".plt",
+   true,
+   "__ctype_b_loc"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcasecmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "vsnprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "printf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868528
+ }
+}

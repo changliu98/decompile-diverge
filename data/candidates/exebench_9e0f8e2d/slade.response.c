@@ -1,0 +1,1 @@
+void h(int *x, int k) { if (*x > k) h(x, *x); else *x = *x - k; }

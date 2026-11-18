@@ -1,0 +1,1 @@
+int openI2CBus(int *bus, const char *dev) { if ((*bus = open(dev,0x02)) < 0) return (1); return (0); }

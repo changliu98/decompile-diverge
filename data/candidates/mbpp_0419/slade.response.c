@@ -1,0 +1,1 @@
+int func0(double *ptr, int n) { int i; int sum; sum = 0; for (i = 0; i < n; i++) sum = sum + round(ptr[i]); return sum * n; }

@@ -1,0 +1,328 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+pSockConnection], rdi\nmov     [rbp+serverIP], rsi\nmov     [rbp+serverPort], edx\nmov     edi, 2; domain\nmov     esi, 1; type\nxor     edx, edx; protocol\ncall    socket\nmov     rcx, [rbp+pSockConnection]\nmov     [rcx], eax\ncmp     eax, 0FFFFFFFFh\njnz     loc_126F\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_12CB\nmov     [rbp+sAddr.sin_family], 2\nmov     rdi, [rbp+serverIP]; cp\ncall    inet_addr\nmov     [rbp+sAddr.sin_addr.s_addr], eax\nmov     eax, [rbp+serverPort]\nmovzx   edi, ax; hostshort\ncall    htons\nmov     [rbp+sAddr.sin_port], ax\nmov     rax, [rbp+pSockConnection]\nmov     edi, [rax]; fd\nlea     rsi, [rbp+sAddr]; addr\nmov     edx, 10h; len\ncall    connect\ncmp     eax, 0FFFFFFFFh\njnz     loc_12C4\nmov     rax, [rbp+pSockConnection]\nmov     edi, [rax]; fd\ncall    close\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_12CB\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 6,
+  "edges": [
+   [
+    "start",
+    "loc_1263"
+   ],
+   [
+    "start",
+    "loc_126F"
+   ],
+   [
+    "loc_1263",
+    "loc_12CB"
+   ],
+   [
+    "loc_126F",
+    "loc_12AD"
+   ],
+   [
+    "loc_126F",
+    "loc_12C4"
+   ],
+   [
+    "loc_12AD",
+    "loc_12CB"
+   ],
+   [
+    "loc_12C4",
+    "loc_12CB"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+pSockConnection], rdi\nmov     [rbp+serverIP], rsi\nmov     [rbp+serverPort], edx\nmov     edi, 2; domain\nmov     esi, 1; type\nxor     edx, edx; protocol\ncall    socket\nmov     rcx, [rbp+pSockConnection]\nmov     [rcx], eax\ncmp     eax, 0FFFFFFFFh\njnz     loc_126F",
+   "loc_1263": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_12CB",
+   "loc_126F": "mov     [rbp+sAddr.sin_family], 2\nmov     rdi, [rbp+serverIP]; cp\ncall    inet_addr\nmov     [rbp+sAddr.sin_addr.s_addr], eax\nmov     eax, [rbp+serverPort]\nmovzx   edi, ax; hostshort\ncall    htons\nmov     [rbp+sAddr.sin_port], ax\nmov     rax, [rbp+pSockConnection]\nmov     edi, [rax]; fd\nlea     rsi, [rbp+sAddr]; addr\nmov     edx, 10h; len\ncall    connect\ncmp     eax, 0FFFFFFFFh\njnz     loc_12C4",
+   "loc_12AD": "mov     rax, [rbp+pSockConnection]\nmov     edi, [rax]; fd\ncall    close\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_12CB",
+   "loc_12C4": "mov     [rbp+var_4], 0",
+   "loc_12CB": "mov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "sAddr": "sockaddr_in ptr -30h",
+   "serverPort": "dword ptr -1Ch",
+   "serverIP": "qword ptr -18h",
+   "pSockConnection": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4656,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".htons": "htons",
+  "_htons": "htons",
+  ".close": "close",
+  "_close": "close",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".inet_addr": "inet_addr",
+  "_inet_addr": "inet_addr",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".connect": "connect",
+  "_connect": "connect",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".socket": "socket",
+  "_socket": "socket"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".htons",
+   ".plt",
+   true,
+   "htons"
+  ],
+  [
+   ".close",
+   ".plt",
+   true,
+   "close"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".inet_addr",
+   ".plt",
+   true,
+   "inet_addr"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".connect",
+   ".plt",
+   true,
+   "connect"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   ".socket",
+   ".plt",
+   true,
+   "socket"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "htons",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "close",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "inet_addr",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "connect",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "socket",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868342
+ }
+}

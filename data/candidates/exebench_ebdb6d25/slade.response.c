@@ -1,0 +1,1 @@
+void swi_0xD3(double *p1, double *p2, double x1, double x2) { double pm[2]; pm[0] = p1[0]; pm[1] = p1[1] * x2 + p1[2] * x1; pm[2] = -p1[1] * x1 + p1[2] * x2; p2[0] = pm[0]; p2[1] = pm[1]; p2[2] = pm[2]; }

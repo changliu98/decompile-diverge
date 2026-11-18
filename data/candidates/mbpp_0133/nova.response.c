@@ -1,0 +1,10 @@
+int func0(int *arr, int n) {
+    int sum = 0;
+    for (int i = 0;; i++) {
+        if (i >= n)
+            break;
+        if (arr[i] >= 0)
+            sum += arr[i];
+    }
+    return sum;
+}

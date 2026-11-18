@@ -1,0 +1,1 @@
+int max(float *x) { int i; int result = 0; float max = x[0]; for (i = 0; i < sizeof(x)/sizeof(x[0]); i++) { if (x[i] > max) { result = i; max = x[i]; } } return result; }

@@ -1,0 +1,1 @@
+char *func0(char *s1, char *s2) { if (strstr(s1, s2)) { char substr[100] = "\r"; char substr[200]; regex_t re; strcat(substr, s2); regcomp(&re, substr, 0); regmatch(&re, s1, 0, 0, 0); regfree(&re); if (re == 0) { return "string starts with the given substring"; } else { return "entered string isnt a substring"; } } else { return "entered string isnt a substring"; } }

@@ -1,0 +1,1 @@
+int getPossibleCount(int arr[], int *count) { int i; int size = sizeof(arr) / sizeof(arr[0]); int count2 = 0; for (i = 0; i < size; i++) { if (arr[i] != 0) { count2++; if (count != NULL) { *count = arr[i]; } } } return count2; }

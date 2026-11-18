@@ -1,0 +1,31 @@
+00000000000011e0 <mult_add_into_cpu>:
+    11e0:	push   %rbp
+    11e1:	mov    %rsp,%rbp
+    11e4:	mov    %edi,-0x4(%rbp)
+    11e7:	mov    %rsi,-0x10(%rbp)
+    11eb:	mov    %rdx,-0x18(%rbp)
+    11ef:	mov    %rcx,-0x20(%rbp)
+    11f3:	movl   $0x0,-0x24(%rbp)
+    11fa:	mov    -0x24(%rbp),%eax
+    11fd:	cmp    -0x4(%rbp),%eax
+    1200:	jge    1248 <mult_add_into_cpu+0x68>
+    1206:	mov    -0x10(%rbp),%rax
+    120a:	movslq -0x24(%rbp),%rcx
+    120e:	movss  (%rax,%rcx,4),%xmm0
+    1213:	mov    -0x18(%rbp),%rax
+    1217:	movslq -0x24(%rbp),%rcx
+    121b:	movss  (%rax,%rcx,4),%xmm2
+    1220:	mov    -0x20(%rbp),%rax
+    1224:	movslq -0x24(%rbp),%rcx
+    1228:	movss  (%rax,%rcx,4),%xmm1
+    122d:	mulss  %xmm2,%xmm0
+    1231:	addss  %xmm1,%xmm0
+    1235:	movss  %xmm0,(%rax,%rcx,4)
+    123a:	mov    -0x24(%rbp),%eax
+    123d:	add    $0x1,%eax
+    1240:	mov    %eax,-0x24(%rbp)
+    1243:	jmp    11fa <mult_add_into_cpu+0x1a>
+    1248:	pop    %rbp
+    1249:	ret
+
+Disassembly of section .fini:

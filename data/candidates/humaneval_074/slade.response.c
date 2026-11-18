@@ -1,0 +1,1 @@
+char *func0(char *argv[], int argc, char *argv2[], int n) { int i; int len = 0; int sum = 0; for (i = 0; i < argc; i++) { len += strlen(argv[i]); } for (i = 0; i < n; i++) { sum += strlen(argv2[i]); } if (len < sum) { return argv; } else if (len > sum) { return argv2; } else { return argv; } }

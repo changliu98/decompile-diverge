@@ -1,0 +1,1 @@
+void func0(int *input, int *output, int n) { for (int i = 0; i < n; ++i) output[i] = input[i] * input[i]; }

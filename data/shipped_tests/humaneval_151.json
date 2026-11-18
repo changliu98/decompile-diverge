@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n#include <math.h>\n\nlong long func0(float lst[], int lst_size) {\n    long long sum = 0;\n    for (int i = 0; i < lst_size; i++) {\n        if (fabs(lst[i] - round(lst[i])) < 1e-4) {\n            if (lst[i] > 0 && (int)(round(lst[i])) % 2 == 1) {\n                sum += (int)(round(lst[i])) * (int)(round(lst[i]));\n            }\n        }\n    }\n    return sum;\n}",
+ "c_test": "#include <assert.h>\n\nint main() {\n    assert(func0((const float[]){}, 0) == 0);\n    assert(func0((const float[]){5, 4}, 2) == 25);\n    assert(func0((const float[]){0.1, 0.2, 0.3}, 3) == 0);\n    assert(func0((const float[]){-10, -20, -30}, 3) == 0);\n    assert(func0((const float[]){-1, -2, 8}, 3) == 0);\n    assert(func0((const float[]){0.2, 3, 5}, 3) == 34);\n    \n    long long odd_sum = 0;\n    float lst[200];\n    int lst_size = 0;\n\n    for (int i = -99; i < 100; i += 2) {\n        lst[lst_size++] = i + 0.0f;\n        if (i > 0 && i % 2 == 1) odd_sum += i * i;\n    }\n\n    assert(func0(lst, lst_size) == odd_sum);\n\n    return 0;\n}"
+}

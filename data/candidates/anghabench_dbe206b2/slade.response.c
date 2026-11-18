@@ -1,0 +1,1 @@
+int get_opcode(unsigned char *addr, unsigned int *opcode) { int res; if (*addr ==0x0f) { *opcode = *addr; res = 2; } else { *opcode = *addr; res = 1; } return res; }

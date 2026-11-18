@@ -1,0 +1,1 @@
+int val_seg(int val) { int seg = 0; val >>= 7; if (val &0xf0) { val >>= 4; seg += 4; } if (val &0xc) { val >>= 2; seg += 2; } if (val &0x2) seg += 1; return seg; }

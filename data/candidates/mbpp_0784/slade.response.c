@@ -1,0 +1,1 @@
+int func0(int *ptr, int N) { int a = -1, b = -1; for(int i = 0; i < N; ++i) { if((ptr[i] % 2 == 0) && a == -1) a = ptr[i]; if((ptr[i] % 2 != 0) && b == -1) b = ptr[i]; if(a != -1 && b != -1) break; } return a * b; }

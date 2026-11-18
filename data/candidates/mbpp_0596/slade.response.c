@@ -1,0 +1,1 @@
+size_t func0(int8_t *x, size_t n) { size_t m = 0; size_t i; for (i = 0; i < n; i++) m += 8; return m; }

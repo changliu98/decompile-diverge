@@ -1,0 +1,1 @@
+int wfaCtrlRecv(int sock, struct sockaddr_in *from) { int len=0; len = recv(sock, (char *)from, 1024 -1, 0); return len; }

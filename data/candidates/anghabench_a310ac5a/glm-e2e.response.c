@@ -1,0 +1,4 @@
+int is_special_type(int type) {
+    type = type & 0xf;
+    return type == SNDRV_SFNT_PAT_TYPE_GUS || type == SNDRV_SFNT_PAT_TYPE_MAP;
+}

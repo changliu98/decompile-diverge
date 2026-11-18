@@ -1,0 +1,1 @@
+int OS_file_open(OS_file *file, const char *filename) { file->fd = open(filename, 0); if (file->fd == ((OS_fd)-1)) return 0x1004; return 0; }

@@ -1,0 +1,1 @@
+void compute_matrix_T(double *matrix, double a, double b, double c, double d) { matrix[0] = a; matrix[1] = a * b; matrix[2] = -2 * a * d; matrix[3] = -2 * b * d + a * c; }

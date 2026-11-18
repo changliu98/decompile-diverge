@@ -1,0 +1,413 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 80h\nmov     [rbp+c], rdi\nmov     rax, [rbp+c]\nmov     rax, [rax+20h]\nmov     rax, [rax+18h]\nmov     rax, [rax+8]\nmov     [rbp+value], rax\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+c]\nmov     rax, [rax+20h]\nmov     rsi, [rax+10h]; o\nlea     rdx, [rbp+offset]; target\nxor     eax, eax\nmov     ecx, eax; msg\ncall    getLongFromObjectOrReply\ncmp     eax, 0\njz      loc_222E\njmp     loc_24C0\ncmp     [rbp+offset], 0\njge     loc_224E\nmov     rdi, [rbp+c]; c\nlea     rsi, aOffsetIsOutOfR; \"offset is out of range\"\ncall    addReplyError\njmp     loc_24C0\nmov     rax, [rbp+c]\nmov     rdi, [rax+10h]; db\nmov     rax, [rbp+c]\nmov     rax, [rax+20h]\nmov     rsi, [rax+8]; key\ncall    lookupKeyWrite\nmov     [rbp+o], rax\ncmp     [rbp+o], 0\njnz     loc_2326\nmov     rdi, [rbp+value]; s\ncall    sdslen\ncmp     rax, 0\njnz     loc_229E\nmov     rdi, [rbp+c]; c\nmov     rsi, cs:shared; obj\ncall    addReply\njmp     loc_24C0\nmov     rax, [rbp+c]\nmov     [rbp+var_30], rax\nmov     rax, [rbp+offset]\nmov     [rbp+var_38], rax\nmov     rdi, [rbp+value]; s\ncall    sdslen\nmov     rsi, [rbp+var_38]\nmov     rdi, [rbp+var_30]; c\nadd     rsi, rax; size\ncall    checkStringLength\ncmp     eax, 0\njz      loc_22D5\njmp     loc_24C0\nmov     rax, [rbp+offset]\nmov     [rbp+var_40], rax\nmov     rdi, [rbp+value]; s\ncall    sdslen\nmov     rsi, [rbp+var_40]\nadd     rsi, rax; initlen\nxor     eax, eax\nmov     edi, eax; init\ncall    _ZNSt3__212basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6resizeB8nn200000Em; std::string::resize(ulong)\nmov     rsi, rax; ptr\nxor     edi, edi; type\ncall    createObject\nmov     [rbp+o], rax\nmov     rax, [rbp+c]\nmov     rdi, [rax+10h]; db\nmov     rax, [rbp+c]\nmov     rax, [rax+20h]\nmov     rsi, [rax+8]; key\nmov     rdx, [rbp+o]; val\ncall    dbAdd\njmp     loc_23CD\nmov     rdi, [rbp+c]; c\nmov     rsi, [rbp+o]; o\nxor     edx, edx; type\ncall    checkType\ncmp     eax, 0\njz      loc_2343\njmp     loc_24C0\nmov     rdi, [rbp+o]; o\ncall    stringObjectLen\nmov     [rbp+olen], rax\nmov     rdi, [rbp+value]; s\ncall    sdslen\ncmp     rax, 0\njnz     loc_2375\nmov     rdi, [rbp+c]; c\nmov     rsi, [rbp+olen]; ll\ncall    addReplyLongLong\njmp     loc_24C0\nmov     rax, [rbp+c]\nmov     [rbp+var_48], rax\nmov     rax, [rbp+offset]\nmov     [rbp+var_50], rax\nmov     rdi, [rbp+value]; s\ncall    sdslen\nmov     rsi, [rbp+var_50]\nmov     rdi, [rbp+var_48]; c\nadd     rsi, rax; size\ncall    checkStringLength\ncmp     eax, 0\njz      loc_23AC\njmp     loc_24C0\nmov     rax, [rbp+c]\nmov     rdi, [rax+10h]; db\nmov     rax, [rbp+c]\nmov     rax, [rax+20h]\nmov     rsi, [rax+8]; key\nmov     rdx, [rbp+o]; o\ncall    dbUnshareStringValue\nmov     [rbp+o], rax\nmov     rdi, [rbp+value]; s\ncall    sdslen\ncmp     rax, 0\njbe     loc_249F\nmov     rax, [rbp+o]\nmov     rax, [rax+8]\nmov     [rbp+s], rax\nmov     rax, [rbp+offset]\nmov     [rbp+var_70], rax\nmov     rdi, [rbp+value]; s\ncall    sdslen\nmov     rsi, [rbp+var_70]\nmov     rdi, [rbp+s]; s\nadd     rsi, rax; len\ncall    sdsgrowzero\nmov     rcx, rax\nmov     rax, [rbp+o]\nmov     [rax+8], rcx\nmov     rax, [rbp+o]\nmov     rax, [rax+8]\nadd     rax, [rbp+offset]\nmov     [rbp+dest], rax\nmov     rax, [rbp+value]\nmov     [rbp+src], rax\nmov     rdi, [rbp+value]; s\ncall    sdslen\nmov     rdi, [rbp+dest]; dest\nmov     rsi, [rbp+src]; src\nmov     rdx, rax; n\ncall    memcpy\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+c]\nmov     rsi, [rax+10h]; db\nmov     rax, [rbp+c]\nmov     rax, [rax+20h]\nmov     rdx, [rax+8]; key\ncall    signalModifiedKey\nmov     rax, [rbp+c]\nmov     rax, [rax+20h]\nmov     rdx, [rax+8]; key\nmov     rax, [rbp+c]\nmov     rax, [rax+10h]\nmov     ecx, [rax]; dbid\nmov     edi, 8; type\nlea     rsi, bytes; \"setrange\"\ncall    notifyKeyspaceEvent\nmov     rax, cs:qword_50C8\nadd     rax, 1\nmov     cs:qword_50C8, rax\nmov     rax, [rbp+c]\nmov     [rbp+var_78], rax\nmov     rax, [rbp+o]\nmov     rdi, [rax+8]; s\ncall    sdslen\nmov     rdi, [rbp+var_78]; c\nmov     rsi, rax; ll\ncall    addReplyLongLong\nadd     rsp, 80h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 21,
+  "edges": [
+   [
+    "start",
+    "loc_2229"
+   ],
+   [
+    "start",
+    "loc_222E"
+   ],
+   [
+    "loc_2229",
+    "loc_24C0"
+   ],
+   [
+    "loc_222E",
+    "loc_2239"
+   ],
+   [
+    "loc_222E",
+    "loc_224E"
+   ],
+   [
+    "loc_2239",
+    "loc_24C0"
+   ],
+   [
+    "loc_224E",
+    "loc_2276"
+   ],
+   [
+    "loc_224E",
+    "loc_2326"
+   ],
+   [
+    "loc_2276",
+    "loc_2289"
+   ],
+   [
+    "loc_2276",
+    "loc_229E"
+   ],
+   [
+    "loc_2289",
+    "loc_24C0"
+   ],
+   [
+    "loc_229E",
+    "loc_22D0"
+   ],
+   [
+    "loc_229E",
+    "loc_22D5"
+   ],
+   [
+    "loc_22D0",
+    "loc_24C0"
+   ],
+   [
+    "loc_22D5",
+    "loc_23CD"
+   ],
+   [
+    "loc_2326",
+    "loc_233E"
+   ],
+   [
+    "loc_2326",
+    "loc_2343"
+   ],
+   [
+    "loc_233E",
+    "loc_24C0"
+   ],
+   [
+    "loc_2343",
+    "loc_2363"
+   ],
+   [
+    "loc_2343",
+    "loc_2375"
+   ],
+   [
+    "loc_2363",
+    "loc_24C0"
+   ],
+   [
+    "loc_2375",
+    "loc_23A7"
+   ],
+   [
+    "loc_2375",
+    "loc_23AC"
+   ],
+   [
+    "loc_23A7",
+    "loc_24C0"
+   ],
+   [
+    "loc_23AC",
+    "loc_23CD"
+   ],
+   [
+    "loc_23CD",
+    "loc_23E0"
+   ],
+   [
+    "loc_23CD",
+    "loc_249F"
+   ],
+   [
+    "loc_23E0",
+    "loc_249F"
+   ],
+   [
+    "loc_249F",
+    "loc_24C0"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 80h\nmov     [rbp+c], rdi\nmov     rax, [rbp+c]\nmov     rax, [rax+20h]\nmov     rax, [rax+18h]\nmov     rax, [rax+8]\nmov     [rbp+value], rax\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+c]\nmov     rax, [rax+20h]\nmov     rsi, [rax+10h]; o\nlea     rdx, [rbp+offset]; target\nxor     eax, eax\nmov     ecx, eax; msg\ncall    getLongFromObjectOrReply\ncmp     eax, 0\njz      loc_222E",
+   "loc_2229": "jmp     loc_24C0",
+   "loc_222E": "cmp     [rbp+offset], 0\njge     loc_224E",
+   "loc_2239": "mov     rdi, [rbp+c]; c\nlea     rsi, aOffsetIsOutOfR; \"offset is out of range\"\ncall    addReplyError\njmp     loc_24C0",
+   "loc_224E": "mov     rax, [rbp+c]\nmov     rdi, [rax+10h]; db\nmov     rax, [rbp+c]\nmov     rax, [rax+20h]\nmov     rsi, [rax+8]; key\ncall    lookupKeyWrite\nmov     [rbp+o], rax\ncmp     [rbp+o], 0\njnz     loc_2326",
+   "loc_2276": "mov     rdi, [rbp+value]; s\ncall    sdslen\ncmp     rax, 0\njnz     loc_229E",
+   "loc_2289": "mov     rdi, [rbp+c]; c\nmov     rsi, cs:shared; obj\ncall    addReply\njmp     loc_24C0",
+   "loc_229E": "mov     rax, [rbp+c]\nmov     [rbp+var_30], rax\nmov     rax, [rbp+offset]\nmov     [rbp+var_38], rax\nmov     rdi, [rbp+value]; s\ncall    sdslen\nmov     rsi, [rbp+var_38]\nmov     rdi, [rbp+var_30]; c\nadd     rsi, rax; size\ncall    checkStringLength\ncmp     eax, 0\njz      loc_22D5",
+   "loc_22D0": "jmp     loc_24C0",
+   "loc_22D5": "mov     rax, [rbp+offset]\nmov     [rbp+var_40], rax\nmov     rdi, [rbp+value]; s\ncall    sdslen\nmov     rsi, [rbp+var_40]\nadd     rsi, rax; initlen\nxor     eax, eax\nmov     edi, eax; init\ncall    _ZNSt3__212basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6resizeB8nn200000Em; std::string::resize(ulong)\nmov     rsi, rax; ptr\nxor     edi, edi; type\ncall    createObject\nmov     [rbp+o], rax\nmov     rax, [rbp+c]\nmov     rdi, [rax+10h]; db\nmov     rax, [rbp+c]\nmov     rax, [rax+20h]\nmov     rsi, [rax+8]; key\nmov     rdx, [rbp+o]; val\ncall    dbAdd\njmp     loc_23CD",
+   "loc_2326": "mov     rdi, [rbp+c]; c\nmov     rsi, [rbp+o]; o\nxor     edx, edx; type\ncall    checkType\ncmp     eax, 0\njz      loc_2343",
+   "loc_233E": "jmp     loc_24C0",
+   "loc_2343": "mov     rdi, [rbp+o]; o\ncall    stringObjectLen\nmov     [rbp+olen], rax\nmov     rdi, [rbp+value]; s\ncall    sdslen\ncmp     rax, 0\njnz     loc_2375",
+   "loc_2363": "mov     rdi, [rbp+c]; c\nmov     rsi, [rbp+olen]; ll\ncall    addReplyLongLong\njmp     loc_24C0",
+   "loc_2375": "mov     rax, [rbp+c]\nmov     [rbp+var_48], rax\nmov     rax, [rbp+offset]\nmov     [rbp+var_50], rax\nmov     rdi, [rbp+value]; s\ncall    sdslen\nmov     rsi, [rbp+var_50]\nmov     rdi, [rbp+var_48]; c\nadd     rsi, rax; size\ncall    checkStringLength\ncmp     eax, 0\njz      loc_23AC",
+   "loc_23A7": "jmp     loc_24C0",
+   "loc_23AC": "mov     rax, [rbp+c]\nmov     rdi, [rax+10h]; db\nmov     rax, [rbp+c]\nmov     rax, [rax+20h]\nmov     rsi, [rax+8]; key\nmov     rdx, [rbp+o]; o\ncall    dbUnshareStringValue\nmov     [rbp+o], rax",
+   "loc_23CD": "mov     rdi, [rbp+value]; s\ncall    sdslen\ncmp     rax, 0\njbe     loc_249F",
+   "loc_23E0": "mov     rax, [rbp+o]\nmov     rax, [rax+8]\nmov     [rbp+s], rax\nmov     rax, [rbp+offset]\nmov     [rbp+var_70], rax\nmov     rdi, [rbp+value]; s\ncall    sdslen\nmov     rsi, [rbp+var_70]\nmov     rdi, [rbp+s]; s\nadd     rsi, rax; len\ncall    sdsgrowzero\nmov     rcx, rax\nmov     rax, [rbp+o]\nmov     [rax+8], rcx\nmov     rax, [rbp+o]\nmov     rax, [rax+8]\nadd     rax, [rbp+offset]\nmov     [rbp+dest], rax\nmov     rax, [rbp+value]\nmov     [rbp+src], rax\nmov     rdi, [rbp+value]; s\ncall    sdslen\nmov     rdi, [rbp+dest]; dest\nmov     rsi, [rbp+src]; src\nmov     rdx, rax; n\ncall    memcpy\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+c]\nmov     rsi, [rax+10h]; db\nmov     rax, [rbp+c]\nmov     rax, [rax+20h]\nmov     rdx, [rax+8]; key\ncall    signalModifiedKey\nmov     rax, [rbp+c]\nmov     rax, [rax+20h]\nmov     rdx, [rax+8]; key\nmov     rax, [rbp+c]\nmov     rax, [rax+10h]\nmov     ecx, [rax]; dbid\nmov     edi, 8; type\nlea     rsi, bytes; \"setrange\"\ncall    notifyKeyspaceEvent\nmov     rax, cs:qword_50C8\nadd     rax, 1\nmov     cs:qword_50C8, rax",
+   "loc_249F": "mov     rax, [rbp+c]\nmov     [rbp+var_78], rax\nmov     rax, [rbp+o]\nmov     rdi, [rax+8]; s\ncall    sdslen\nmov     rdi, [rbp+var_78]; c\nmov     rsi, rax; ll\ncall    addReplyLongLong",
+   "loc_24C0": "add     rsp, 80h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_78": "qword ptr -78h",
+   "var_70": "qword ptr -70h",
+   "s": "qword ptr -68h",
+   "dest": "qword ptr -60h",
+   "src": "qword ptr -58h",
+   "var_50": "qword ptr -50h",
+   "var_48": "qword ptr -48h",
+   "var_40": "qword ptr -40h",
+   "var_38": "qword ptr -38h",
+   "var_30": "qword ptr -30h",
+   "olen": "qword ptr -28h",
+   "value": "qword ptr -20h",
+   "offset": "qword ptr -18h",
+   "o": "qword ptr -10h",
+   "c": "qword ptr -8"
+  },
+  ".rodata": {
+   "aOffsetIsOutOfR": "byte 'offset is out of range',0",
+   "bytes": "byte 'setrange',0"
+  },
+  ".data": {},
+  ".bss": {
+   "shared": "[]",
+   "qword_50C8": "[]"
+  }
+ },
+ "func_ea": 8672,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".abort": "abort",
+  "_abort": "abort",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fflush": "fflush",
+  "_fflush": "fflush",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".exit": "exit",
+  "_exit": "exit"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".abort",
+   ".plt",
+   true,
+   "abort"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fflush",
+   ".plt",
+   true,
+   "fflush"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".exit",
+   ".plt",
+   true,
+   "exit"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "abort",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fflush",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "exit",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868455
+ }
+}

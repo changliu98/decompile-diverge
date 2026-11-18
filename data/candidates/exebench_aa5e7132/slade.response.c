@@ -1,0 +1,1 @@
+void GetWord(char *dst, char *src, int n) { int i; i = 0; while ((*src <= ' ') && (*src > 0)) src++; while ((*src <= ' ') && (*src >= 0) ) { *dst++ = *src++; i++; } *dst = 0; }

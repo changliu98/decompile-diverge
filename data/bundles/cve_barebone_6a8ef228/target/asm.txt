@@ -1,0 +1,160 @@
+0000000000001690 <ssdp_recv>:
+    1690:	push   %rbp
+    1691:	mov    %rsp,%rbp
+    1694:	sub    $0x280,%rsp
+    169b:	mov    %edi,-0x4(%rbp)
+    169e:	lea    -0x230(%rbp),%rdi
+    16a5:	xor    %esi,%esi
+    16a7:	mov    $0x200,%edx
+    16ac:	call   10a0 <memset@plt>
+    16b1:	mov    -0x4(%rbp),%edi
+    16b4:	lea    -0x230(%rbp),%rsi
+    16bb:	lea    -0x20(%rbp),%rax
+    16bf:	mov    %rax,-0x238(%rbp)
+    16c6:	mov    -0x238(%rbp),%r8
+    16cd:	mov    $0x200,%edx
+    16d2:	mov    $0x40,%ecx
+    16d7:	lea    -0x24(%rbp),%r9
+    16db:	call   1120 <recvfrom@plt>
+    16e0:	mov    %rax,-0x10(%rbp)
+    16e4:	cmpq   $0x0,-0x10(%rbp)
+    16e9:	jle    19d4 <ssdp_recv+0x344>
+    16ef:	mov    -0x10(%rbp),%rax
+    16f3:	movb   $0x0,-0x230(%rbp,%rax,1)
+    16fb:	movzwl -0x20(%rbp),%eax
+    16ff:	cmp    $0x2,%eax
+    1702:	je     170d <ssdp_recv+0x7d>
+    1708:	jmp    19d4 <ssdp_recv+0x344>
+    170d:	lea    -0x230(%rbp),%rdi
+    1714:	lea    0x931(%rip),%rsi        # 204c <_IO_stdin_used+0x4c>
+    171b:	call   11a0 <strstr@plt>
+    1720:	cmp    $0x0,%rax
+    1724:	je     19cf <ssdp_recv+0x33f>
+    172a:	lea    -0x20(%rbp),%rax
+    172e:	mov    %rax,-0x260(%rbp)
+    1735:	lea    -0x20(%rbp),%rdi
+    1739:	call   19e0 <find_outbound>
+    173e:	mov    %rax,-0x258(%rbp)
+    1745:	cmpq   $0x0,-0x258(%rbp)
+    174d:	jne    177d <ssdp_recv+0xed>
+    1753:	mov    -0x260(%rbp),%rax
+    175a:	mov    0x4(%rax),%edi
+    175d:	call   1050 <inet_ntoa@plt>
+    1762:	mov    %rax,%rdx
+    1765:	mov    $0x7,%edi
+    176a:	lea    0x8e6(%rip),%rsi        # 2057 <_IO_stdin_used+0x57>
+    1771:	mov    $0x0,%al
+    1773:	call   1110 <syslog@plt>
+    1778:	jmp    19d4 <ssdp_recv+0x344>
+    177d:	mov    -0x260(%rbp),%rax
+    1784:	mov    0x4(%rax),%edi
+    1787:	call   1050 <inet_ntoa@plt>
+    178c:	mov    %rax,%rdx
+    178f:	mov    $0x7,%edi
+    1794:	lea    0x8dd(%rip),%rsi        # 2078 <_IO_stdin_used+0x78>
+    179b:	mov    $0x0,%al
+    179d:	call   1110 <syslog@plt>
+    17a2:	lea    -0x230(%rbp),%rdi
+    17a9:	lea    0x8e6(%rip),%rsi        # 2096 <_IO_stdin_used+0x96>
+    17b0:	call   1180 <strcasestr@plt>
+    17b5:	mov    %rax,-0x250(%rbp)
+    17bc:	cmpq   $0x0,-0x250(%rbp)
+    17c4:	jne    1807 <ssdp_recv+0x177>
+    17ca:	mov    $0x7,%edi
+    17cf:	lea    0x8c6(%rip),%rsi        # 209c <_IO_stdin_used+0x9c>
+    17d6:	mov    $0x0,%al
+    17d8:	call   1110 <syslog@plt>
+    17dd:	lea    0x8eb(%rip),%rax        # 20cf <_IO_stdin_used+0xcf>
+    17e4:	mov    %rax,-0x250(%rbp)
+    17eb:	mov    -0x258(%rbp),%rdi
+    17f2:	mov    -0x250(%rbp),%rsi
+    17f9:	lea    -0x20(%rbp),%rdx
+    17fd:	call   1ab0 <send_message>
+    1802:	jmp    19d4 <ssdp_recv+0x344>
+    1807:	mov    -0x250(%rbp),%rdi
+    180e:	mov    $0x3a,%esi
+    1813:	call   1080 <strchr@plt>
+    1818:	mov    %rax,-0x250(%rbp)
+    181f:	cmpq   $0x0,-0x250(%rbp)
+    1827:	jne    1832 <ssdp_recv+0x1a2>
+    182d:	jmp    19d4 <ssdp_recv+0x344>
+    1832:	mov    -0x250(%rbp),%rax
+    1839:	add    $0x1,%rax
+    183d:	mov    %rax,-0x250(%rbp)
+    1844:	call   11b0 <__ctype_b_loc@plt>
+    1849:	mov    (%rax),%rax
+    184c:	mov    -0x250(%rbp),%rcx
+    1853:	movsbl (%rcx),%ecx
+    1856:	movslq %ecx,%rcx
+    1859:	movzwl (%rax,%rcx,2),%eax
+    185d:	and    $0x2000,%eax
+    1862:	cmp    $0x0,%eax
+    1865:	je     1882 <ssdp_recv+0x1f2>
+    186b:	mov    -0x250(%rbp),%rax
+    1872:	add    $0x1,%rax
+    1876:	mov    %rax,-0x250(%rbp)
+    187d:	jmp    1844 <ssdp_recv+0x1b4>
+    1882:	mov    -0x250(%rbp),%rdi
+    1889:	lea    0x848(%rip),%rsi        # 20d8 <_IO_stdin_used+0xd8>
+    1890:	call   11a0 <strstr@plt>
+    1895:	mov    %rax,-0x248(%rbp)
+    189c:	cmpq   $0x0,-0x248(%rbp)
+    18a4:	jne    18af <ssdp_recv+0x21f>
+    18aa:	jmp    19d4 <ssdp_recv+0x344>
+    18af:	mov    -0x248(%rbp),%rax
+    18b6:	movb   $0x0,(%rax)
+    18b9:	movq   $0x0,-0x240(%rbp)
+    18c4:	mov    -0x240(%rbp),%rcx
+    18cb:	lea    0x282e(%rip),%rax        # 4100 <supported_types>
+    18d2:	cmpq   $0x0,(%rax,%rcx,8)
+    18d7:	je     1995 <ssdp_recv+0x305>
+    18dd:	mov    -0x240(%rbp),%rcx
+    18e4:	lea    0x2815(%rip),%rax        # 4100 <supported_types>
+    18eb:	mov    (%rax,%rcx,8),%rdi
+    18ef:	mov    -0x250(%rbp),%rsi
+    18f6:	call   10d0 <strcmp@plt>
+    18fb:	cmp    $0x0,%eax
+    18fe:	jne    1979 <ssdp_recv+0x2e9>
+    1904:	mov    -0x250(%rbp),%rax
+    190b:	mov    %rax,-0x270(%rbp)
+    1912:	mov    -0x260(%rbp),%rax
+    1919:	mov    0x4(%rax),%edi
+    191c:	call   1050 <inet_ntoa@plt>
+    1921:	mov    %rax,-0x268(%rbp)
+    1928:	mov    -0x260(%rbp),%rax
+    192f:	movzwl 0x2(%rax),%edi
+    1933:	call   1140 <ntohs@plt>
+    1938:	mov    -0x270(%rbp),%rdx
+    193f:	mov    -0x268(%rbp),%rcx
+    1946:	movzwl %ax,%r8d
+    194a:	mov    $0x7,%edi
+    194f:	lea    0x785(%rip),%rsi        # 20db <_IO_stdin_used+0xdb>
+    1956:	mov    $0x0,%al
+    1958:	call   1110 <syslog@plt>
+    195d:	mov    -0x258(%rbp),%rdi
+    1964:	mov    -0x250(%rbp),%rsi
+    196b:	lea    -0x20(%rbp),%rdx
+    196f:	call   1ab0 <send_message>
+    1974:	jmp    19d4 <ssdp_recv+0x344>
+    1979:	jmp    197e <ssdp_recv+0x2ee>
+    197e:	mov    -0x240(%rbp),%rax
+    1985:	add    $0x1,%rax
+    1989:	mov    %rax,-0x240(%rbp)
+    1990:	jmp    18c4 <ssdp_recv+0x234>
+    1995:	mov    -0x250(%rbp),%rax
+    199c:	mov    %rax,-0x278(%rbp)
+    19a3:	mov    -0x260(%rbp),%rax
+    19aa:	mov    0x4(%rax),%edi
+    19ad:	call   1050 <inet_ntoa@plt>
+    19b2:	mov    -0x278(%rbp),%rdx
+    19b9:	mov    %rax,%rcx
+    19bc:	mov    $0x7,%edi
+    19c1:	lea    0x735(%rip),%rsi        # 20fd <_IO_stdin_used+0xfd>
+    19c8:	mov    $0x0,%al
+    19ca:	call   1110 <syslog@plt>
+    19cf:	jmp    19d4 <ssdp_recv+0x344>
+    19d4:	add    $0x280,%rsp
+    19db:	pop    %rbp
+    19dc:	ret
+
+Disassembly of section .fini:

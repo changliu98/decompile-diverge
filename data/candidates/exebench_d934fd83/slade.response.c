@@ -1,0 +1,1 @@
+double sqrt_df(float *x) { double y = *x; y = y; return sqrt(y); }

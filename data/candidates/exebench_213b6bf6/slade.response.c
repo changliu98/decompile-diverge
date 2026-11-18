@@ -1,0 +1,1 @@
+void r3cpsc(double *r, const double *p, double x) { r[0] = p[0] * x; r[1] = p[1] * x; r[2] = p[2] * x; }

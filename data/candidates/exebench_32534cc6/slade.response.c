@@ -1,0 +1,1 @@
+__attribute__ ((visibility ("hidden"))) void default_init_int (modern_library *library) { library->int_lib = (0); }

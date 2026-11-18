@@ -1,0 +1,1 @@
+void heaviside(double *a, double *b, double *x) { int i, n; *x = 1.0; n = b - a + 1; for (i = 0; i < n; i++) { *x = *x == 1.0 && a[i] >= 0.0; } }

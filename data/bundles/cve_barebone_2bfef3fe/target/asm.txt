@@ -1,0 +1,179 @@
+00000000000021e0 <setrangeCommand>:
+    21e0:	push   %rbp
+    21e1:	mov    %rsp,%rbp
+    21e4:	sub    $0x80,%rsp
+    21eb:	mov    %rdi,-0x8(%rbp)
+    21ef:	mov    -0x8(%rbp),%rax
+    21f3:	mov    0x20(%rax),%rax
+    21f7:	mov    0x18(%rax),%rax
+    21fb:	mov    0x8(%rax),%rax
+    21ff:	mov    %rax,-0x20(%rbp)
+    2203:	mov    -0x8(%rbp),%rdi
+    2207:	mov    -0x8(%rbp),%rax
+    220b:	mov    0x20(%rax),%rax
+    220f:	mov    0x10(%rax),%rsi
+    2213:	lea    -0x18(%rbp),%rdx
+    2217:	xor    %eax,%eax
+    2219:	mov    %eax,%ecx
+    221b:	call   19a0 <getLongFromObjectOrReply>
+    2220:	cmp    $0x0,%eax
+    2223:	je     222e <setrangeCommand+0x4e>
+    2229:	jmp    24c0 <setrangeCommand+0x2e0>
+    222e:	cmpq   $0x0,-0x18(%rbp)
+    2233:	jge    224e <setrangeCommand+0x6e>
+    2239:	mov    -0x8(%rbp),%rdi
+    223d:	lea    0xec4(%rip),%rsi        # 3108 <_IO_stdin_used+0x108>
+    2244:	call   1230 <addReplyError>
+    2249:	jmp    24c0 <setrangeCommand+0x2e0>
+    224e:	mov    -0x8(%rbp),%rax
+    2252:	mov    0x10(%rax),%rdi
+    2256:	mov    -0x8(%rbp),%rax
+    225a:	mov    0x20(%rax),%rax
+    225e:	mov    0x8(%rax),%rsi
+    2262:	call   1250 <lookupKeyWrite>
+    2267:	mov    %rax,-0x10(%rbp)
+    226b:	cmpq   $0x0,-0x10(%rbp)
+    2270:	jne    2326 <setrangeCommand+0x146>
+    2276:	mov    -0x20(%rbp),%rdi
+    227a:	call   1320 <sdslen>
+    227f:	cmp    $0x0,%rax
+    2283:	jne    229e <setrangeCommand+0xbe>
+    2289:	mov    -0x8(%rbp),%rdi
+    228d:	mov    0x2e14(%rip),%rsi        # 50a8 <shared>
+    2294:	call   1210 <addReply>
+    2299:	jmp    24c0 <setrangeCommand+0x2e0>
+    229e:	mov    -0x8(%rbp),%rax
+    22a2:	mov    %rax,-0x30(%rbp)
+    22a6:	mov    -0x18(%rbp),%rax
+    22aa:	mov    %rax,-0x38(%rbp)
+    22ae:	mov    -0x20(%rbp),%rdi
+    22b2:	call   1320 <sdslen>
+    22b7:	mov    -0x38(%rbp),%rsi
+    22bb:	mov    -0x30(%rbp),%rdi
+    22bf:	add    %rax,%rsi
+    22c2:	call   24d0 <checkStringLength>
+    22c7:	cmp    $0x0,%eax
+    22ca:	je     22d5 <setrangeCommand+0xf5>
+    22d0:	jmp    24c0 <setrangeCommand+0x2e0>
+    22d5:	mov    -0x18(%rbp),%rax
+    22d9:	mov    %rax,-0x40(%rbp)
+    22dd:	mov    -0x20(%rbp),%rdi
+    22e1:	call   1320 <sdslen>
+    22e6:	mov    -0x40(%rbp),%rsi
+    22ea:	add    %rax,%rsi
+    22ed:	xor    %eax,%eax
+    22ef:	mov    %eax,%edi
+    22f1:	call   1fe0 <sdsnewlen>
+    22f6:	mov    %rax,%rsi
+    22f9:	xor    %edi,%edi
+    22fb:	call   2160 <createObject>
+    2300:	mov    %rax,-0x10(%rbp)
+    2304:	mov    -0x8(%rbp),%rax
+    2308:	mov    0x10(%rax),%rdi
+    230c:	mov    -0x8(%rbp),%rax
+    2310:	mov    0x20(%rax),%rax
+    2314:	mov    0x8(%rax),%rsi
+    2318:	mov    -0x10(%rbp),%rdx
+    231c:	call   1260 <dbAdd>
+    2321:	jmp    23cd <setrangeCommand+0x1ed>
+    2326:	mov    -0x8(%rbp),%rdi
+    232a:	mov    -0x10(%rbp),%rsi
+    232e:	xor    %edx,%edx
+    2330:	call   1440 <checkType>
+    2335:	cmp    $0x0,%eax
+    2338:	je     2343 <setrangeCommand+0x163>
+    233e:	jmp    24c0 <setrangeCommand+0x2e0>
+    2343:	mov    -0x10(%rbp),%rdi
+    2347:	call   12c0 <stringObjectLen>
+    234c:	mov    %rax,-0x28(%rbp)
+    2350:	mov    -0x20(%rbp),%rdi
+    2354:	call   1320 <sdslen>
+    2359:	cmp    $0x0,%rax
+    235d:	jne    2375 <setrangeCommand+0x195>
+    2363:	mov    -0x8(%rbp),%rdi
+    2367:	mov    -0x28(%rbp),%rsi
+    236b:	call   1240 <addReplyLongLong>
+    2370:	jmp    24c0 <setrangeCommand+0x2e0>
+    2375:	mov    -0x8(%rbp),%rax
+    2379:	mov    %rax,-0x48(%rbp)
+    237d:	mov    -0x18(%rbp),%rax
+    2381:	mov    %rax,-0x50(%rbp)
+    2385:	mov    -0x20(%rbp),%rdi
+    2389:	call   1320 <sdslen>
+    238e:	mov    -0x50(%rbp),%rsi
+    2392:	mov    -0x48(%rbp),%rdi
+    2396:	add    %rax,%rsi
+    2399:	call   24d0 <checkStringLength>
+    239e:	cmp    $0x0,%eax
+    23a1:	je     23ac <setrangeCommand+0x1cc>
+    23a7:	jmp    24c0 <setrangeCommand+0x2e0>
+    23ac:	mov    -0x8(%rbp),%rax
+    23b0:	mov    0x10(%rax),%rdi
+    23b4:	mov    -0x8(%rbp),%rax
+    23b8:	mov    0x20(%rax),%rax
+    23bc:	mov    0x8(%rax),%rsi
+    23c0:	mov    -0x10(%rbp),%rdx
+    23c4:	call   13c0 <dbUnshareStringValue>
+    23c9:	mov    %rax,-0x10(%rbp)
+    23cd:	mov    -0x20(%rbp),%rdi
+    23d1:	call   1320 <sdslen>
+    23d6:	cmp    $0x0,%rax
+    23da:	jbe    249f <setrangeCommand+0x2bf>
+    23e0:	mov    -0x10(%rbp),%rax
+    23e4:	mov    0x8(%rax),%rax
+    23e8:	mov    %rax,-0x68(%rbp)
+    23ec:	mov    -0x18(%rbp),%rax
+    23f0:	mov    %rax,-0x70(%rbp)
+    23f4:	mov    -0x20(%rbp),%rdi
+    23f8:	call   1320 <sdslen>
+    23fd:	mov    -0x70(%rbp),%rsi
+    2401:	mov    -0x68(%rbp),%rdi
+    2405:	add    %rax,%rsi
+    2408:	call   2010 <sdsgrowzero>
+    240d:	mov    %rax,%rcx
+    2410:	mov    -0x10(%rbp),%rax
+    2414:	mov    %rcx,0x8(%rax)
+    2418:	mov    -0x10(%rbp),%rax
+    241c:	mov    0x8(%rax),%rax
+    2420:	add    -0x18(%rbp),%rax
+    2424:	mov    %rax,-0x60(%rbp)
+    2428:	mov    -0x20(%rbp),%rax
+    242c:	mov    %rax,-0x58(%rbp)
+    2430:	mov    -0x20(%rbp),%rdi
+    2434:	call   1320 <sdslen>
+    2439:	mov    -0x60(%rbp),%rdi
+    243d:	mov    -0x58(%rbp),%rsi
+    2441:	mov    %rax,%rdx
+    2444:	call   10b0 <memcpy@plt>
+    2449:	mov    -0x8(%rbp),%rdi
+    244d:	mov    -0x8(%rbp),%rax
+    2451:	mov    0x10(%rax),%rsi
+    2455:	mov    -0x8(%rbp),%rax
+    2459:	mov    0x20(%rax),%rax
+    245d:	mov    0x8(%rax),%rdx
+    2461:	call   1280 <signalModifiedKey>
+    2466:	mov    -0x8(%rbp),%rax
+    246a:	mov    0x20(%rax),%rax
+    246e:	mov    0x8(%rax),%rdx
+    2472:	mov    -0x8(%rbp),%rax
+    2476:	mov    0x10(%rax),%rax
+    247a:	mov    (%rax),%ecx
+    247c:	mov    $0x8,%edi
+    2481:	lea    0xc97(%rip),%rsi        # 311f <_IO_stdin_used+0x11f>
+    2488:	call   12a0 <notifyKeyspaceEvent>
+    248d:	mov    0x2c34(%rip),%rax        # 50c8 <server+0x8>
+    2494:	add    $0x1,%rax
+    2498:	mov    %rax,0x2c29(%rip)        # 50c8 <server+0x8>
+    249f:	mov    -0x8(%rbp),%rax
+    24a3:	mov    %rax,-0x78(%rbp)
+    24a7:	mov    -0x10(%rbp),%rax
+    24ab:	mov    0x8(%rax),%rdi
+    24af:	call   1320 <sdslen>
+    24b4:	mov    -0x78(%rbp),%rdi
+    24b8:	mov    %rax,%rsi
+    24bb:	call   1240 <addReplyLongLong>
+    24c0:	add    $0x80,%rsp
+    24c7:	pop    %rbp
+    24c8:	ret
+
+Disassembly of section .fini:

@@ -1,0 +1,1 @@
+int shape_tria3 (const double x[3], double tr[3]) { tr[0] = x[0]; tr[1] = x[1]; tr[2] = 1.0 - x[0] - x[1]; return 0; }

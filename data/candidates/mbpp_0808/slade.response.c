@@ -1,0 +1,1 @@
+__attribute__((no, noclone)) char func0(int *x, int a, int b) { char found = 0; for (int i = 0; i < a; ++i) { if (x[i] == b) { found = 1; break; } } return found; }

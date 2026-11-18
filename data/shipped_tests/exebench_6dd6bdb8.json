@@ -1,0 +1,297 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <stdio.h>\n\n#include <stddef.h>\n\n#include <assert.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_621u35tm6b.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(long int* address, long int grid_index, long int* D_diag) {\n  json output_json;\n  std::vector<json> output_temp_3;\n  for (unsigned int i4 = 0; i4 < 3; i4++) {\n    long int output_temp_5 = address[i4];\n\n    output_temp_3.push_back(output_temp_5);\n  }\n  output_json[\"address\"] = output_temp_3;\n  std::vector<json> output_temp_6;\n  for (unsigned int i7 = 0; i7 < 3; i7++) {\n    long int output_temp_8 = D_diag[i7];\n\n    output_temp_6.push_back(output_temp_8);\n  }\n  output_json[\"D_diag\"] = output_temp_6;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  std::vector<long int> input_temp_1_vec;\n  for (auto& elem : input_json[\"address\"]) {\n    long int input_temp_1_inner = elem;\n    input_temp_1_vec.push_back(input_temp_1_inner);\n  }\n  long int* address = &input_temp_1_vec[0];\n  long int grid_index = input_json[\"grid_index\"];\n  std::vector<long int> input_temp_2_vec;\n  for (auto& elem : input_json[\"D_diag\"]) {\n    long int input_temp_2_inner = elem;\n    input_temp_2_vec.push_back(input_temp_2_inner);\n  }\n  long int* D_diag = &input_temp_2_vec[0];\n  clock_t begin = clock();\n  get_grid_address_from_index(address, grid_index, D_diag);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(address, grid_index, D_diag);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "address": [
+     108,
+     15,
+     37
+    ],
+    "grid_index": 36,
+    "D_diag": [
+     59,
+     75,
+     58
+    ]
+   },
+   "output": {
+    "D_diag": [
+     59,
+     75,
+     58
+    ],
+    "address": [
+     36,
+     0,
+     0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "address": [
+     47,
+     58,
+     80
+    ],
+    "grid_index": 98,
+    "D_diag": [
+     105,
+     106,
+     82
+    ]
+   },
+   "output": {
+    "D_diag": [
+     105,
+     106,
+     82
+    ],
+    "address": [
+     98,
+     0,
+     0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "address": [
+     124,
+     14,
+     48
+    ],
+    "grid_index": 123,
+    "D_diag": [
+     30,
+     95,
+     74
+    ]
+   },
+   "output": {
+    "D_diag": [
+     30,
+     95,
+     74
+    ],
+    "address": [
+     3,
+     4,
+     0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "address": [
+     103,
+     4,
+     112
+    ],
+    "grid_index": 117,
+    "D_diag": [
+     99,
+     21,
+     41
+    ]
+   },
+   "output": {
+    "D_diag": [
+     99,
+     21,
+     41
+    ],
+    "address": [
+     18,
+     1,
+     0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "address": [
+     17,
+     99,
+     102
+    ],
+    "grid_index": 125,
+    "D_diag": [
+     55,
+     5,
+     67
+    ]
+   },
+   "output": {
+    "D_diag": [
+     55,
+     5,
+     67
+    ],
+    "address": [
+     15,
+     2,
+     0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "address": [
+     77,
+     114,
+     60
+    ],
+    "grid_index": 114,
+    "D_diag": [
+     95,
+     20,
+     107
+    ]
+   },
+   "output": {
+    "D_diag": [
+     95,
+     20,
+     107
+    ],
+    "address": [
+     19,
+     1,
+     0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "address": [
+     17,
+     37,
+     1
+    ],
+    "grid_index": 77,
+    "D_diag": [
+     45,
+     71,
+     115
+    ]
+   },
+   "output": {
+    "D_diag": [
+     45,
+     71,
+     115
+    ],
+    "address": [
+     32,
+     1,
+     0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "address": [
+     6,
+     36,
+     15
+    ],
+    "grid_index": 5,
+    "D_diag": [
+     63,
+     81,
+     65
+    ]
+   },
+   "output": {
+    "D_diag": [
+     63,
+     81,
+     65
+    ],
+    "address": [
+     5,
+     0,
+     0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "address": [
+     74,
+     116,
+     13
+    ],
+    "grid_index": 49,
+    "D_diag": [
+     69,
+     118,
+     2
+    ]
+   },
+   "output": {
+    "D_diag": [
+     69,
+     118,
+     2
+    ],
+    "address": [
+     49,
+     0,
+     0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "address": [
+     23,
+     74,
+     93
+    ],
+    "grid_index": 58,
+    "D_diag": [
+     98,
+     95,
+     27
+    ]
+   },
+   "output": {
+    "D_diag": [
+     98,
+     95,
+     27
+    ],
+    "address": [
+     58,
+     0,
+     0
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

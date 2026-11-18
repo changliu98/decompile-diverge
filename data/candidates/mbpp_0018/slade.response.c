@@ -1,0 +1,1 @@
+char *func0(char *c, int *count) { int *arr = get_char_count_array(count); char *str; int i = 0, j = 0; str = str_to_list(c); while (str[i] != 0) { char c = str[i]; if (arr[(int)c] == 0) { str[j++] = c; } i++; } return lst_to_string(str, j); }

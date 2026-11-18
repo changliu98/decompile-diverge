@@ -1,0 +1,362 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+lp], rdi\nmov     [rbp+fmt], rsi\nmov     [rbp+v], edx\nmov     [rbp+sep], rcx\nmov     [rbp+buflen], 0\nlea     rax, format+12h; \"\"\nmov     [rbp+sepstr], rax\nxor     eax, eax\ncmp     [rbp+lp], 0\nmov     [rbp+var_39], al\njz      loc_1698\nmov     rax, [rbp+lp]\ncmp     qword ptr [rax+8], 0\nsetnz   al\nmov     [rbp+var_39], al\nmov     al, [rbp+var_39]\ntest    al, 1\njnz     loc_16A8\njmp     loc_1739\nmov     rax, [rbp+lp]\nmov     eax, [rax]\nmov     [rbp+tokval], eax\nmov     [rbp+rotbit], 1\ncmp     [rbp+rotbit], 0\njz      loc_1728\nmov     eax, [rbp+tokval]\nmov     ecx, [rbp+v]\nand     ecx, [rbp+rotbit]\ncmp     eax, ecx\njnz     loc_171A\nmovsxd  rax, [rbp+buflen]\nlea     rdi, bittok2str_internal_buf\nadd     rdi, rax; s\nmovsxd  rax, [rbp+buflen]\nmov     esi, 100h\nsub     rsi, rax; maxlen\nmov     rcx, [rbp+sepstr]\nmov     rax, [rbp+lp]\nmov     r8, [rax+8]\nlea     rdx, aSS; \"%s%s\"\nmov     al, 0\ncall    snprintf\nadd     eax, [rbp+buflen]\nmov     [rbp+buflen], eax\nmov     rax, [rbp+sep]\nmov     [rbp+sepstr], rax\njmp     loc_1728\nmov     eax, [rbp+rotbit]\nshl     eax, 1\nmov     [rbp+rotbit], eax\njmp     loc_16B8\nmov     rax, [rbp+lp]\nadd     rax, 10h\nmov     [rbp+lp], rax\njmp     loc_1679\ncmp     [rbp+buflen], 0\njnz     loc_1780\ncmp     [rbp+fmt], 0\njnz     loc_175E\nlea     rax, a08x; \"#%08x\"\nmov     [rbp+format], rax\njmp     loc_1766\nmov     rax, [rbp+fmt]\nmov     [rbp+format], rax\nmov     rdx, [rbp+format]; format\nmov     ecx, [rbp+v]\nlea     rdi, bittok2str_internal_buf; s\nmov     esi, 100h; maxlen\nmov     al, 0\ncall    snprintf\nlea     rax, bittok2str_internal_buf\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 17,
+  "edges": [
+   [
+    "start",
+    "loc_1679"
+   ],
+   [
+    "loc_1679",
+    "loc_1689"
+   ],
+   [
+    "loc_1679",
+    "loc_1698"
+   ],
+   [
+    "loc_1689",
+    "loc_1698"
+   ],
+   [
+    "loc_1698",
+    "loc_16A3"
+   ],
+   [
+    "loc_1698",
+    "loc_16A8"
+   ],
+   [
+    "loc_16A3",
+    "loc_1739"
+   ],
+   [
+    "loc_16A8",
+    "loc_16B8"
+   ],
+   [
+    "loc_16B8",
+    "loc_16C2"
+   ],
+   [
+    "loc_16B8",
+    "loc_1728"
+   ],
+   [
+    "loc_16C2",
+    "loc_16D3"
+   ],
+   [
+    "loc_16C2",
+    "loc_171A"
+   ],
+   [
+    "loc_16D3",
+    "loc_1728"
+   ],
+   [
+    "loc_171A",
+    "loc_16B8"
+   ],
+   [
+    "loc_1728",
+    "loc_1679"
+   ],
+   [
+    "loc_1739",
+    "loc_1743"
+   ],
+   [
+    "loc_1739",
+    "loc_1780"
+   ],
+   [
+    "loc_1743",
+    "loc_174E"
+   ],
+   [
+    "loc_1743",
+    "loc_175E"
+   ],
+   [
+    "loc_174E",
+    "loc_1766"
+   ],
+   [
+    "loc_175E",
+    "loc_1766"
+   ],
+   [
+    "loc_1766",
+    "loc_1780"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+lp], rdi\nmov     [rbp+fmt], rsi\nmov     [rbp+v], edx\nmov     [rbp+sep], rcx\nmov     [rbp+buflen], 0\nlea     rax, format+12h; \"\"\nmov     [rbp+sepstr], rax",
+   "loc_1679": "xor     eax, eax\ncmp     [rbp+lp], 0\nmov     [rbp+var_39], al\njz      loc_1698",
+   "loc_1689": "mov     rax, [rbp+lp]\ncmp     qword ptr [rax+8], 0\nsetnz   al\nmov     [rbp+var_39], al",
+   "loc_1698": "mov     al, [rbp+var_39]\ntest    al, 1\njnz     loc_16A8",
+   "loc_16A3": "jmp     loc_1739",
+   "loc_16A8": "mov     rax, [rbp+lp]\nmov     eax, [rax]\nmov     [rbp+tokval], eax\nmov     [rbp+rotbit], 1",
+   "loc_16B8": "cmp     [rbp+rotbit], 0\njz      loc_1728",
+   "loc_16C2": "mov     eax, [rbp+tokval]\nmov     ecx, [rbp+v]\nand     ecx, [rbp+rotbit]\ncmp     eax, ecx\njnz     loc_171A",
+   "loc_16D3": "movsxd  rax, [rbp+buflen]\nlea     rdi, bittok2str_internal_buf\nadd     rdi, rax; s\nmovsxd  rax, [rbp+buflen]\nmov     esi, 100h\nsub     rsi, rax; maxlen\nmov     rcx, [rbp+sepstr]\nmov     rax, [rbp+lp]\nmov     r8, [rax+8]\nlea     rdx, aSS; \"%s%s\"\nmov     al, 0\ncall    snprintf\nadd     eax, [rbp+buflen]\nmov     [rbp+buflen], eax\nmov     rax, [rbp+sep]\nmov     [rbp+sepstr], rax\njmp     loc_1728",
+   "loc_171A": "mov     eax, [rbp+rotbit]\nshl     eax, 1\nmov     [rbp+rotbit], eax\njmp     loc_16B8",
+   "loc_1728": "mov     rax, [rbp+lp]\nadd     rax, 10h\nmov     [rbp+lp], rax\njmp     loc_1679",
+   "loc_1739": "cmp     [rbp+buflen], 0\njnz     loc_1780",
+   "loc_1743": "cmp     [rbp+fmt], 0\njnz     loc_175E",
+   "loc_174E": "lea     rax, a08x; \"#%08x\"\nmov     [rbp+format], rax\njmp     loc_1766",
+   "loc_175E": "mov     rax, [rbp+fmt]\nmov     [rbp+format], rax",
+   "loc_1766": "mov     rdx, [rbp+format]; format\nmov     ecx, [rbp+v]\nlea     rdi, bittok2str_internal_buf; s\nmov     esi, 100h; maxlen\nmov     al, 0\ncall    snprintf",
+   "loc_1780": "lea     rax, bittok2str_internal_buf\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "format": "qword ptr -48h",
+   "var_39": "byte ptr -39h",
+   "sepstr": "qword ptr -38h",
+   "tokval": "dword ptr -2Ch",
+   "rotbit": "dword ptr -28h",
+   "buflen": "dword ptr -24h",
+   "sep": "qword ptr -20h",
+   "v": "dword ptr -14h",
+   "fmt": "qword ptr -10h",
+   "lp": "qword ptr -8"
+  },
+  ".rodata": {
+   "unk_2016": "byte 'usage: %s <input>',0Ah,0",
+   "aSS": "byte '%s%s',0",
+   "a08x": "byte '#%08x',0"
+  },
+  ".data": {},
+  ".bss": {
+   "bittok2str_internal.buf": "[]"
+  }
+ },
+ "func_ea": 5712,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "snprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868475
+ }
+}

@@ -1,0 +1,1 @@
+int func0(int *a, int *b, int n) { qsort(a, (size_t)n, sizeof(int), &compare); qsort(b, (size_t)n, sizeof(int), &compare); int i = 1, j = 1, k = 1; for (k = 0; k < n && k < n; ) { if (a[k] <= b[k]) { i++; k++; if (i > j) j = i; } else { i--; k++; } } return j; }

@@ -1,0 +1,1 @@
+u16 mul_poly(u16 poly, u16 x, u16 y) { u16 c; c = 0; while (poly) { if (poly & 1) c ^= x; poly >>= 1; x <<= 1; if (x &0x10000) x ^= y; } return c; }

@@ -1,0 +1,1 @@
+void cpuid(uint32_t eax, uint32_t *ebx, uint32_t *ecx, uint32_t *edx, uint32_t *esi) { __asm__ __volatile__ ("cpuid" : "=a" (*eax), "=b" (*ebx), "=c" (*ecx), "=d" (*edx) : "a" (0), "c" (eax), "d" (ecx)); }

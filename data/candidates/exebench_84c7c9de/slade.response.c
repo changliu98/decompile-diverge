@@ -1,0 +1,1 @@
+void geom_cross3d(const double x[3], const double y[3], double z[3]) { z[0] = x[1]*y[2] - x[2]*y[1]; z[1] = x[2]*y[0] - x[0]*y[2]; z[2] = x[0]*y[1] - x[1]*y[0]; }

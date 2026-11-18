@@ -1,0 +1,1 @@
+double func0(int x, int y, int z) { return ((x * 2 + z * (y - 1)) * y) / 2; }

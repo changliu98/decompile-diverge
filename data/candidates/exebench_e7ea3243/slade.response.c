@@ -1,0 +1,1 @@
+void rifft2pt(float *p, float s) { float i1, i2, i3, i4, i5, i6; i1 = 2.0f; i2 = p[0]; i3 = p[1]; i4 = s[2]*i1; i5 = s[3]*i1; i6 = i2 + i3; i4 = i2 - i3; i2 = i6 + i4; i3 = i4 - i5; i5 = i5 + i4; s[0] = s * i2; p[1] = s * i3; p[2] = s * i4; p[3] = s * i5; }

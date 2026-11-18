@@ -1,0 +1,1 @@
+int func0(const char *p1, const char *s2, int *res, int *val) { regex_t re; regmatch_t pmatch[1]; int ret; if (regcomp(&re, p1, 1) != 0) return -1; ret = regexec(&re, s2, 1, &pmatch, 0); regfree(&re); if (ret != 0) return -1; *res = pmatch[0].rm_so; *val = pmatch[0].rm_eo; return 0; }

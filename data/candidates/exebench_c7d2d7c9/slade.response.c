@@ -1,0 +1,1 @@
+void passByPointer(int *a) { *a = 4; *a = *a * 4; }

@@ -1,0 +1,1 @@
+float vec_dot_prodf(const float* x, const float* y, int n) { int i; float result = 0.0f; for (i = 0; i < n; ++i) result += x[i] * y[i]; return result; }

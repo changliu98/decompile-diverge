@@ -1,0 +1,6 @@
+void swap_l(long *a, long *b)
+{
+    long tmp = *a;
+    *a = *b;
+    *b = tmp;
+}

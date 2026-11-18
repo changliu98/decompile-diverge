@@ -1,0 +1,1 @@
+__attribute__((always_)) int _safe_calloc_check_add(size_t n, size_t size, char * p) { char dummy[(size_t)n+size]; *(char *)p = p == 0 ? dummy : (char *)dummy; return (dummy[0] &0x01) ^0x01; }

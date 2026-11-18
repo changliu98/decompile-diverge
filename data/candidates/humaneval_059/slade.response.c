@@ -1,0 +1,1 @@
+uint32_t func0(uint32_t x) { for (uint32_t i = 2; i * i <= x; i++) { while (!(x % i) && x > i) x /= i; } return x; }

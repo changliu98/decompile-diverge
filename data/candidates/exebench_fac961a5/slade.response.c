@@ -1,0 +1,1 @@
+void rfft1pt(float *rp) { float tmp1, tmp2, tmp3; tmp1 = rp[0]; tmp2 = rp[1]; tmp3 = tmp1 + tmp2; tmp2 = tmp1 - tmp2; rp[0] = tmp3; rp[1] = tmp2; }

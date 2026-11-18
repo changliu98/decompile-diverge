@@ -1,0 +1,1 @@
+void limit2_i32(int32_t *a, int b, int w) { if(*a >= w) *a = w; else if(*a <= b) *a = b; }

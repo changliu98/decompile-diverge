@@ -1,0 +1,1 @@
+double func0(int N) { double x=1.0, y=1.0; int i; for (i=1;i<=N;i++) { x = (N+1-i)*x/i; y += x*x; } return y; }

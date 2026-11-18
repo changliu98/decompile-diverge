@@ -1,0 +1,1 @@
+long atomic_fetch_and(long* pval, long val) { long oldval = *pval; *pval = *pval & val; return oldval; }

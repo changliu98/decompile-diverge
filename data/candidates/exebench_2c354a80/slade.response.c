@@ -1,0 +1,1 @@
+void entry_clr_protected(entry_t* entry) { entry->vt = ((entry->vt) & ~((1UL<<(9))-1)); entry->vt = entry->vt; }

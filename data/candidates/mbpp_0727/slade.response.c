@@ -1,0 +1,1 @@
+char* func0 (char* input) { int index = 0; for (int i = 0; i < strlen (input); i++) { if ((__ctype_b_loc (*) [(int) input[i]] & ((unsigned short) 8))) { result [index++] = input[i]; } } result [index] = '\0'; return result; }

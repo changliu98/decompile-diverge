@@ -1,0 +1,1 @@
+static inline uint32_t xen_pcibios_err_to_errno(enum mdp5_pipe i0) { return 0x00000004 + __offset_PIPE(i0); }

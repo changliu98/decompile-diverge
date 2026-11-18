@@ -1,0 +1,246 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+S], rdi\nmov     [rbp+outlen], rsi\ncmp     [rbp+outlen], 0\njz      loc_1396\ncmp     [rbp+outlen], 40h ; '@'\njbe     loc_13A2\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_1436\nmov     rax, [rbp+outlen]\nmov     [rbp+P.digest_length], al\nmov     [rbp+P.key_length], 0\nmov     [rbp+P.fanout], 1\nmov     [rbp+P.depth], 1\nlea     rdi, [rbp+P]\nadd     rdi, 4; dst\nxor     esi, esi; w\ncall    store32\nlea     rdi, [rbp+P]\nadd     rdi, 8; dst\nxor     esi, esi; w\ncall    store32\nlea     rdi, [rbp+P]\nadd     rdi, 0Ch; dst\nxor     esi, esi; w\ncall    store32\nmov     [rbp+P.node_depth], 0\nmov     [rbp+P.inner_length], 0\nlea     rdi, [rbp+P]\nadd     rdi, 12h; s\nxor     esi, esi; c\nmov     edx, 0Eh; n\ncall    memset\nlea     rdi, [rbp+P]\nadd     rdi, 20h ; ' '; s\nxor     esi, esi; c\nmov     edx, 10h; n\ncall    memset\nlea     rdi, [rbp+P]\nadd     rdi, 30h ; '0'; s\nxor     esi, esi; c\nmov     edx, 10h; n\ncall    memset\nmov     rdi, [rbp+S]; S\nlea     rsi, [rbp+P]; P\ncall    blake2b_init_param\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\nadd     rsp, 60h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 5,
+  "edges": [
+   [
+    "start",
+    "loc_138B"
+   ],
+   [
+    "start",
+    "loc_1396"
+   ],
+   [
+    "loc_138B",
+    "loc_1396"
+   ],
+   [
+    "loc_138B",
+    "loc_13A2"
+   ],
+   [
+    "loc_1396",
+    "loc_1436"
+   ],
+   [
+    "loc_13A2",
+    "loc_1436"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+S], rdi\nmov     [rbp+outlen], rsi\ncmp     [rbp+outlen], 0\njz      loc_1396",
+   "loc_138B": "cmp     [rbp+outlen], 40h ; '@'\njbe     loc_13A2",
+   "loc_1396": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_1436",
+   "loc_13A2": "mov     rax, [rbp+outlen]\nmov     [rbp+P.digest_length], al\nmov     [rbp+P.key_length], 0\nmov     [rbp+P.fanout], 1\nmov     [rbp+P.depth], 1\nlea     rdi, [rbp+P]\nadd     rdi, 4; dst\nxor     esi, esi; w\ncall    store32\nlea     rdi, [rbp+P]\nadd     rdi, 8; dst\nxor     esi, esi; w\ncall    store32\nlea     rdi, [rbp+P]\nadd     rdi, 0Ch; dst\nxor     esi, esi; w\ncall    store32\nmov     [rbp+P.node_depth], 0\nmov     [rbp+P.inner_length], 0\nlea     rdi, [rbp+P]\nadd     rdi, 12h; s\nxor     esi, esi; c\nmov     edx, 0Eh; n\ncall    memset\nlea     rdi, [rbp+P]\nadd     rdi, 20h ; ' '; s\nxor     esi, esi; c\nmov     edx, 10h; n\ncall    memset\nlea     rdi, [rbp+P]\nadd     rdi, 30h ; '0'; s\nxor     esi, esi; c\nmov     edx, 10h; n\ncall    memset\nmov     rdi, [rbp+S]; S\nlea     rsi, [rbp+P]; P\ncall    blake2b_init_param\nmov     [rbp+var_4], eax",
+   "loc_1436": "mov     eax, [rbp+var_4]\nadd     rsp, 60h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "P": "blake2b_param ptr -60h",
+   "outlen": "qword ptr -18h",
+   "S": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4976,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872653
+ }
+}

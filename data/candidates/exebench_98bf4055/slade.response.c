@@ -1,0 +1,1 @@
+void reverseIntRange(int *x, int *y, int n) { int b = *x; *x = n - *y; *y = n - b; }

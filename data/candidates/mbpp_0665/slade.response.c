@@ -1,0 +1,1 @@
+void func0(int *x, int N, int *y) { int m = x[0]; int n = 0; int j = 0; for (int i = 0; i < N; i++) { if (x[i] == m) { n++; } } for (int i = 0; i < N; i++) { if (x[i] != m) { y[j++] = x[i]; } } for (int i = 0; i < n; i++) { y[j++] = m; } }

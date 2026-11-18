@@ -1,0 +1,1 @@
+int SCALE(long a, int b, int c) { if (a < 0) return (a * b - c / 2) / c; return (a * b + c / 2) / c; }

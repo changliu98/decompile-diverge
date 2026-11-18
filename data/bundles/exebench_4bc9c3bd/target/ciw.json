@@ -1,0 +1,497 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nmov     [rbp+fmt], rdi\nmov     [rbp+percent], esi\nmov     [rbp+len], rdx\nmov     rax, [rbp+fmt]\nmov     [rbp+store], rax\nmov     [rbp+save], rax\nmov     rax, [rbp+fmt]\nmov     al, [rax]\nmov     [rbp+c], al\nmovsx   eax, al\ncmp     eax, 0\njz      loc_1A7C\nmovsx   eax, [rbp+c]\ncmp     eax, 5Ch ; '\\'\njz      loc_183B\nmov     cl, [rbp+c]\nmov     rax, [rbp+store]\nmov     [rax], cl\njmp     loc_1A5F\nmov     rax, [rbp+fmt]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+fmt], rcx\nmovsx   eax, byte ptr [rax+1]\nmov     ecx, eax\nmov     [rbp+var_40], rcx\nsub     eax, 76h; switch 119 cases\nja      def_186F; jumptable 000000000000186F default case, cases 1-38,40-47,56-91,93-96,100,101,103-109,111-113,115,117\nmov     rax, [rbp+var_40]\nlea     rcx, jpt_186F\nmovsxd  rax, ds:(jpt_186F - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nmov     rax, [rbp+store]; jumptable 000000000000186F case 0\nmov     byte ptr [rax], 5Ch ; '\\'\nmov     rax, [rbp+store]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+store], rcx\nmov     byte ptr [rax+1], 0\nmov     rcx, [rbp+store]\nmov     rax, [rbp+save]\nsub     rcx, rax\nmov     rax, [rbp+len]\nmov     [rax], rcx\nmov     [rbp+var_4], 0\njmp     loc_1A9C\nmov     rax, [rbp+fmt]; jumptable 000000000000186F cases 39,92\nmov     cl, [rax]\nmov     rax, [rbp+store]\nmov     [rax], cl\njmp     loc_1A5A\nmov     rax, [rbp+store]; jumptable 000000000000186F case 97\nmov     byte ptr [rax], 7\njmp     loc_1A5A\nmov     rax, [rbp+store]; jumptable 000000000000186F case 98\nmov     byte ptr [rax], 8\njmp     loc_1A5A\ncmp     [rbp+percent], 0; jumptable 000000000000186F case 99\njnz     loc_1901\nmov     rax, [rbp+store]\nmov     byte ptr [rax], 0\nmov     rcx, [rbp+store]\nmov     rax, [rbp+save]\nsub     rcx, rax\nmov     rax, [rbp+len]\nmov     [rax], rcx\nmov     [rbp+var_4], 1\njmp     loc_1A9C\nmov     rax, [rbp+store]\nmov     byte ptr [rax], 63h ; 'c'\njmp     loc_1A5A\nmov     rax, [rbp+store]; jumptable 000000000000186F case 102\nmov     byte ptr [rax], 0Ch\njmp     loc_1A5A\nmov     rax, [rbp+store]; jumptable 000000000000186F case 110\nmov     byte ptr [rax], 0Ah\njmp     loc_1A5A\nmov     rax, [rbp+store]; jumptable 000000000000186F case 114\nmov     byte ptr [rax], 0Dh\njmp     loc_1A5A\nmov     rax, [rbp+store]; jumptable 000000000000186F case 116\nmov     byte ptr [rax], 9\njmp     loc_1A5A\nmov     rax, [rbp+store]; jumptable 000000000000186F case 118\nmov     byte ptr [rax], 0Bh\njmp     loc_1A5A\nxor     eax, eax; jumptable 000000000000186F cases 48-55\ncmp     [rbp+percent], 0\nmov     [rbp+var_41], al\njnz     loc_1968\nmov     rax, [rbp+fmt]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 30h ; '0'\nsetz    al\nmov     [rbp+var_41], al\nmov     dl, [rbp+var_41]\nmov     eax, 3\nmov     ecx, 4\ntest    dl, 1\ncmovnz  eax, ecx\nmov     [rbp+c], al\nmov     [rbp+value], 0\nmov     al, [rbp+c]\nmov     cl, al\nadd     cl, 0FFh\nmov     [rbp+c], cl\nmovsx   ecx, al\nxor     eax, eax\ncmp     ecx, 0\nmov     [rbp+var_42], al\njz      loc_19C6\nmov     rax, [rbp+fmt]\nmovsx   ecx, byte ptr [rax]\nxor     eax, eax\ncmp     ecx, 30h ; '0'\nmov     [rbp+var_42], al\njl      loc_19C6\nmov     rax, [rbp+fmt]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 37h ; '7'\nsetle   al\nmov     [rbp+var_42], al\nmov     al, [rbp+var_42]\ntest    al, 1\njnz     loc_19D6\njmp     loc_1A00\nmov     eax, [rbp+value]\nshl     eax, 3\nmov     [rbp+value], eax\nmov     rax, [rbp+fmt]\nmovsx   eax, byte ptr [rax]\nsub     eax, 30h ; '0'\nadd     eax, [rbp+value]\nmov     [rbp+value], eax\nmov     rax, [rbp+fmt]\nadd     rax, 1\nmov     [rbp+fmt], rax\njmp     loc_1985\nmov     rax, [rbp+fmt]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+fmt], rax\ncmp     [rbp+percent], 0\njz      loc_1A3E\ncmp     [rbp+value], 25h ; '%'\njnz     loc_1A3E\nmov     rax, [rbp+store]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+store], rcx\nmov     byte ptr [rax], 25h ; '%'\nmov     rax, [rbp+store]\nmov     byte ptr [rax], 25h ; '%'\njmp     loc_1A49\nmov     eax, [rbp+value]\nmov     cl, al\nmov     rax, [rbp+store]\nmov     [rax], cl\njmp     loc_1A5A\nmov     rax, [rbp+fmt]; jumptable 000000000000186F default case, cases 1-38,40-47,56-91,93-96,100,101,103-109,111-113,115,117\nmov     cl, [rax]\nmov     rax, [rbp+store]\nmov     [rax], cl\njmp     $+5\nmov     rax, [rbp+fmt]\nadd     rax, 1\nmov     [rbp+fmt], rax\nmov     rax, [rbp+store]\nadd     rax, 1\nmov     [rbp+store], rax\njmp     loc_180B\nmov     rax, [rbp+store]\nmov     byte ptr [rax], 0\nmov     rcx, [rbp+store]\nmov     rax, [rbp+save]\nsub     rcx, rax\nmov     rax, [rbp+len]\nmov     [rax], rcx\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 37,
+  "edges": [
+   [
+    "start",
+    "loc_180B"
+   ],
+   [
+    "loc_180B",
+    "loc_1820"
+   ],
+   [
+    "loc_180B",
+    "loc_1A7C"
+   ],
+   [
+    "loc_1820",
+    "loc_182D"
+   ],
+   [
+    "loc_1820",
+    "loc_183B"
+   ],
+   [
+    "loc_182D",
+    "loc_1A5F"
+   ],
+   [
+    "loc_183B",
+    "loc_185D"
+   ],
+   [
+    "loc_183B",
+    "loc_1A4E"
+   ],
+   [
+    "loc_185D",
+    "loc_1871"
+   ],
+   [
+    "loc_185D",
+    "loc_18A9"
+   ],
+   [
+    "loc_185D",
+    "loc_18BA"
+   ],
+   [
+    "loc_185D",
+    "loc_18C6"
+   ],
+   [
+    "loc_185D",
+    "loc_18D2"
+   ],
+   [
+    "loc_185D",
+    "loc_190D"
+   ],
+   [
+    "loc_185D",
+    "loc_1919"
+   ],
+   [
+    "loc_185D",
+    "loc_1925"
+   ],
+   [
+    "loc_185D",
+    "loc_1931"
+   ],
+   [
+    "loc_185D",
+    "loc_193D"
+   ],
+   [
+    "loc_185D",
+    "loc_1949"
+   ],
+   [
+    "loc_185D",
+    "loc_1A4E"
+   ],
+   [
+    "loc_1871",
+    "loc_1A9C"
+   ],
+   [
+    "loc_18A9",
+    "loc_1A5A"
+   ],
+   [
+    "loc_18BA",
+    "loc_1A5A"
+   ],
+   [
+    "loc_18C6",
+    "loc_1A5A"
+   ],
+   [
+    "loc_18D2",
+    "loc_18DC"
+   ],
+   [
+    "loc_18D2",
+    "loc_1901"
+   ],
+   [
+    "loc_18DC",
+    "loc_1A9C"
+   ],
+   [
+    "loc_1901",
+    "loc_1A5A"
+   ],
+   [
+    "loc_190D",
+    "loc_1A5A"
+   ],
+   [
+    "loc_1919",
+    "loc_1A5A"
+   ],
+   [
+    "loc_1925",
+    "loc_1A5A"
+   ],
+   [
+    "loc_1931",
+    "loc_1A5A"
+   ],
+   [
+    "loc_193D",
+    "loc_1A5A"
+   ],
+   [
+    "loc_1949",
+    "loc_1958"
+   ],
+   [
+    "loc_1949",
+    "loc_1968"
+   ],
+   [
+    "loc_1958",
+    "loc_1968"
+   ],
+   [
+    "loc_1968",
+    "loc_1985"
+   ],
+   [
+    "loc_1985",
+    "loc_19A1"
+   ],
+   [
+    "loc_1985",
+    "loc_19C6"
+   ],
+   [
+    "loc_19A1",
+    "loc_19B6"
+   ],
+   [
+    "loc_19A1",
+    "loc_19C6"
+   ],
+   [
+    "loc_19B6",
+    "loc_19C6"
+   ],
+   [
+    "loc_19C6",
+    "loc_19D1"
+   ],
+   [
+    "loc_19C6",
+    "loc_19D6"
+   ],
+   [
+    "loc_19D1",
+    "loc_1A00"
+   ],
+   [
+    "loc_19D6",
+    "loc_1985"
+   ],
+   [
+    "loc_1A00",
+    "loc_1A16"
+   ],
+   [
+    "loc_1A00",
+    "loc_1A3E"
+   ],
+   [
+    "loc_1A16",
+    "loc_1A20"
+   ],
+   [
+    "loc_1A16",
+    "loc_1A3E"
+   ],
+   [
+    "loc_1A20",
+    "loc_1A49"
+   ],
+   [
+    "loc_1A3E",
+    "loc_1A49"
+   ],
+   [
+    "loc_1A49",
+    "loc_1A5A"
+   ],
+   [
+    "loc_1A4E",
+    "loc_1A5A"
+   ],
+   [
+    "loc_1A5A",
+    "loc_1A5F"
+   ],
+   [
+    "loc_1A5F",
+    "loc_180B"
+   ],
+   [
+    "loc_1A7C",
+    "loc_1A9C"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nmov     [rbp+fmt], rdi\nmov     [rbp+percent], esi\nmov     [rbp+len], rdx\nmov     rax, [rbp+fmt]\nmov     [rbp+store], rax\nmov     [rbp+save], rax",
+   "loc_180B": "mov     rax, [rbp+fmt]\nmov     al, [rax]\nmov     [rbp+c], al\nmovsx   eax, al\ncmp     eax, 0\njz      loc_1A7C",
+   "loc_1820": "movsx   eax, [rbp+c]\ncmp     eax, 5Ch ; '\\'\njz      loc_183B",
+   "loc_182D": "mov     cl, [rbp+c]\nmov     rax, [rbp+store]\nmov     [rax], cl\njmp     loc_1A5F",
+   "loc_183B": "mov     rax, [rbp+fmt]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+fmt], rcx\nmovsx   eax, byte ptr [rax+1]\nmov     ecx, eax\nmov     [rbp+var_40], rcx\nsub     eax, 76h; switch 119 cases\nja      def_186F; jumptable 000000000000186F default case, cases 1-38,40-47,56-91,93-96,100,101,103-109,111-113,115,117",
+   "loc_185D": "mov     rax, [rbp+var_40]\nlea     rcx, jpt_186F\nmovsxd  rax, ds:(jpt_186F - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_1871": "mov     rax, [rbp+store]; jumptable 000000000000186F case 0\nmov     byte ptr [rax], 5Ch ; '\\'\nmov     rax, [rbp+store]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+store], rcx\nmov     byte ptr [rax+1], 0\nmov     rcx, [rbp+store]\nmov     rax, [rbp+save]\nsub     rcx, rax\nmov     rax, [rbp+len]\nmov     [rax], rcx\nmov     [rbp+var_4], 0\njmp     loc_1A9C",
+   "loc_18A9": "mov     rax, [rbp+fmt]; jumptable 000000000000186F cases 39,92\nmov     cl, [rax]\nmov     rax, [rbp+store]\nmov     [rax], cl\njmp     loc_1A5A",
+   "loc_18BA": "mov     rax, [rbp+store]; jumptable 000000000000186F case 97\nmov     byte ptr [rax], 7\njmp     loc_1A5A",
+   "loc_18C6": "mov     rax, [rbp+store]; jumptable 000000000000186F case 98\nmov     byte ptr [rax], 8\njmp     loc_1A5A",
+   "loc_18D2": "cmp     [rbp+percent], 0; jumptable 000000000000186F case 99\njnz     loc_1901",
+   "loc_18DC": "mov     rax, [rbp+store]\nmov     byte ptr [rax], 0\nmov     rcx, [rbp+store]\nmov     rax, [rbp+save]\nsub     rcx, rax\nmov     rax, [rbp+len]\nmov     [rax], rcx\nmov     [rbp+var_4], 1\njmp     loc_1A9C",
+   "loc_1901": "mov     rax, [rbp+store]\nmov     byte ptr [rax], 63h ; 'c'\njmp     loc_1A5A",
+   "loc_190D": "mov     rax, [rbp+store]; jumptable 000000000000186F case 102\nmov     byte ptr [rax], 0Ch\njmp     loc_1A5A",
+   "loc_1919": "mov     rax, [rbp+store]; jumptable 000000000000186F case 110\nmov     byte ptr [rax], 0Ah\njmp     loc_1A5A",
+   "loc_1925": "mov     rax, [rbp+store]; jumptable 000000000000186F case 114\nmov     byte ptr [rax], 0Dh\njmp     loc_1A5A",
+   "loc_1931": "mov     rax, [rbp+store]; jumptable 000000000000186F case 116\nmov     byte ptr [rax], 9\njmp     loc_1A5A",
+   "loc_193D": "mov     rax, [rbp+store]; jumptable 000000000000186F case 118\nmov     byte ptr [rax], 0Bh\njmp     loc_1A5A",
+   "loc_1949": "xor     eax, eax; jumptable 000000000000186F cases 48-55\ncmp     [rbp+percent], 0\nmov     [rbp+var_41], al\njnz     loc_1968",
+   "loc_1958": "mov     rax, [rbp+fmt]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 30h ; '0'\nsetz    al\nmov     [rbp+var_41], al",
+   "loc_1968": "mov     dl, [rbp+var_41]\nmov     eax, 3\nmov     ecx, 4\ntest    dl, 1\ncmovnz  eax, ecx\nmov     [rbp+c], al\nmov     [rbp+value], 0",
+   "loc_1985": "mov     al, [rbp+c]\nmov     cl, al\nadd     cl, 0FFh\nmov     [rbp+c], cl\nmovsx   ecx, al\nxor     eax, eax\ncmp     ecx, 0\nmov     [rbp+var_42], al\njz      loc_19C6",
+   "loc_19A1": "mov     rax, [rbp+fmt]\nmovsx   ecx, byte ptr [rax]\nxor     eax, eax\ncmp     ecx, 30h ; '0'\nmov     [rbp+var_42], al\njl      loc_19C6",
+   "loc_19B6": "mov     rax, [rbp+fmt]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 37h ; '7'\nsetle   al\nmov     [rbp+var_42], al",
+   "loc_19C6": "mov     al, [rbp+var_42]\ntest    al, 1\njnz     loc_19D6",
+   "loc_19D1": "jmp     loc_1A00",
+   "loc_19D6": "mov     eax, [rbp+value]\nshl     eax, 3\nmov     [rbp+value], eax\nmov     rax, [rbp+fmt]\nmovsx   eax, byte ptr [rax]\nsub     eax, 30h ; '0'\nadd     eax, [rbp+value]\nmov     [rbp+value], eax\nmov     rax, [rbp+fmt]\nadd     rax, 1\nmov     [rbp+fmt], rax\njmp     loc_1985",
+   "loc_1A00": "mov     rax, [rbp+fmt]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+fmt], rax\ncmp     [rbp+percent], 0\njz      loc_1A3E",
+   "loc_1A16": "cmp     [rbp+value], 25h ; '%'\njnz     loc_1A3E",
+   "loc_1A20": "mov     rax, [rbp+store]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+store], rcx\nmov     byte ptr [rax], 25h ; '%'\nmov     rax, [rbp+store]\nmov     byte ptr [rax], 25h ; '%'\njmp     loc_1A49",
+   "loc_1A3E": "mov     eax, [rbp+value]\nmov     cl, al\nmov     rax, [rbp+store]\nmov     [rax], cl",
+   "loc_1A49": "jmp     loc_1A5A",
+   "loc_1A4E": "mov     rax, [rbp+fmt]; jumptable 000000000000186F default case, cases 1-38,40-47,56-91,93-96,100,101,103-109,111-113,115,117\nmov     cl, [rax]\nmov     rax, [rbp+store]\nmov     [rax], cl",
+   "loc_1A5A": "jmp     $+5",
+   "loc_1A5F": "mov     rax, [rbp+fmt]\nadd     rax, 1\nmov     [rbp+fmt], rax\nmov     rax, [rbp+store]\nadd     rax, 1\nmov     [rbp+store], rax\njmp     loc_180B",
+   "loc_1A7C": "mov     rax, [rbp+store]\nmov     byte ptr [rax], 0\nmov     rcx, [rbp+store]\nmov     rax, [rbp+save]\nsub     rcx, rax\nmov     rax, [rbp+len]\nmov     [rax], rcx\nmov     [rbp+var_4], 0",
+   "loc_1A9C": "mov     eax, [rbp+var_4]\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_42": "byte ptr -42h",
+   "var_41": "byte ptr -41h",
+   "var_40": "qword ptr -40h",
+   "value": "dword ptr -38h",
+   "c": "byte ptr -31h",
+   "store": "qword ptr -30h",
+   "save": "qword ptr -28h",
+   "len": "qword ptr -20h",
+   "percent": "dword ptr -14h",
+   "fmt": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "jpt_186F": "dword offset loc_1871 - 2004h, offset def_186F - 2004h, offset def_186F - 2004h; jump table for switch statement"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6128,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868215
+ }
+}

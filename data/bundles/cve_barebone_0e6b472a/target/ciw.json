@@ -1,0 +1,307 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+AVI], rdi\nmov     [rbp+audbuf], rsi\nmov     [rbp+bytes], edx\nmov     [rbp+continuous], rcx\nmov     rax, [rbp+AVI]\ncmp     dword ptr [rax+8], 0\njnz     loc_11DB\nmov     cs:AVI_errno, 7\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_14D3\nmov     rax, [rbp+AVI]\nadd     rax, 80h\nmov     rcx, [rbp+AVI]\nmov     ecx, [rcx+3A0h]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\ncmp     qword ptr [rax+48h], 0\njnz     loc_1217\nmov     cs:AVI_errno, 0Dh\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_14D3\nmov     [rbp+nr], 0\ncmp     [rbp+bytes], 0\njnz     loc_126E\nmov     rax, [rbp+AVI]\nadd     rax, 80h\nmov     rcx, [rbp+AVI]\nmov     ecx, [rcx+3A0h]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     ecx, [rax+30h]\nadd     ecx, 1\nmov     [rax+30h], ecx\nmov     rax, [rbp+AVI]\nadd     rax, 80h\nmov     rcx, [rbp+AVI]\nmov     ecx, [rcx+3A0h]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     dword ptr [rax+34h], 0\nmov     rax, [rbp+continuous]\nmov     dword ptr [rax], 1\ncmp     [rbp+bytes], 0\njle     loc_14CD\nmov     rax, [rbp+AVI]\nadd     rax, 80h\nmov     rcx, [rbp+AVI]\nmov     ecx, [rcx+3A0h]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     rax, [rax+48h]\nmov     rcx, [rbp+AVI]\nadd     rcx, 80h\nmov     rdx, [rbp+AVI]\nmov     edx, [rdx+3A0h]\nimul    rdx, 58h ; 'X'\nadd     rcx, rdx\nmovsxd  rcx, dword ptr [rcx+30h]\nimul    rcx, 18h\nadd     rax, rcx\nmov     rax, [rax+8]\nmov     rcx, [rbp+AVI]\nadd     rcx, 80h\nmov     rdx, [rbp+AVI]\nmov     edx, [rdx+3A0h]\nimul    rdx, 58h ; 'X'\nadd     rcx, rdx\nmovsxd  rcx, dword ptr [rcx+34h]\nsub     rax, rcx\nmov     [rbp+left], eax\ncmp     [rbp+left], 0\njnz     loc_13A4\nmov     rax, [rbp+AVI]\nadd     rax, 80h\nmov     rcx, [rbp+AVI]\nmov     ecx, [rcx+3A0h]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     eax, [rax+30h]\nmov     rcx, [rbp+AVI]\nadd     rcx, 80h\nmov     rdx, [rbp+AVI]\nmov     edx, [rdx+3A0h]\nimul    rdx, 58h ; 'X'\nadd     rcx, rdx\nmov     ecx, [rcx+28h]\nsub     ecx, 1\ncmp     eax, ecx\njl      loc_134F\nmov     eax, [rbp+nr]\nmov     [rbp+var_4], eax\njmp     loc_14D3\nmov     rax, [rbp+AVI]\nadd     rax, 80h\nmov     rcx, [rbp+AVI]\nmov     ecx, [rcx+3A0h]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     ecx, [rax+30h]\nadd     ecx, 1\nmov     [rax+30h], ecx\nmov     rax, [rbp+AVI]\nadd     rax, 80h\nmov     rcx, [rbp+AVI]\nmov     ecx, [rcx+3A0h]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     dword ptr [rax+34h], 0\nmov     rax, [rbp+continuous]\nmov     dword ptr [rax], 0\njmp     loc_1278\nmov     eax, [rbp+bytes]\ncmp     eax, [rbp+left]\njge     loc_13BB\nmov     eax, [rbp+bytes]\nmov     [rbp+todo], eax\njmp     loc_13C1\nmov     eax, [rbp+left]\nmov     [rbp+todo], eax\nmov     rax, [rbp+AVI]\nadd     rax, 80h\nmov     rcx, [rbp+AVI]\nmov     ecx, [rcx+3A0h]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     rax, [rax+48h]\nmov     rcx, [rbp+AVI]\nadd     rcx, 80h\nmov     rdx, [rbp+AVI]\nmov     edx, [rdx+3A0h]\nimul    rdx, 58h ; 'X'\nadd     rcx, rdx\nmovsxd  rcx, dword ptr [rcx+30h]\nimul    rcx, 18h\nadd     rax, rcx\nmov     rax, [rax]\nmov     rcx, [rbp+AVI]\nadd     rcx, 80h\nmov     rdx, [rbp+AVI]\nmov     edx, [rdx+3A0h]\nimul    rdx, 58h ; 'X'\nadd     rcx, rdx\nmovsxd  rcx, dword ptr [rcx+34h]\nadd     rax, rcx\nmov     [rbp+pos], rax\nmov     rax, [rbp+AVI]\nmov     rdi, [rax]; fp\nmov     rsi, [rbp+pos]; offset\nxor     edx, edx; whence\ncall    gf_fseek\nmov     rax, [rbp+AVI]\nmov     rdi, [rax]; fd\nmov     rsi, [rbp+audbuf]\nmovsxd  rax, [rbp+nr]\nadd     rsi, rax; buf\nmov     edx, [rbp+todo]; len\ncall    avi_read\nmov     eax, eax\nmov     [rbp+ret], rax\nmovsxd  rcx, [rbp+todo]\ncmp     rax, rcx\njz      loc_1490\njmp     $+5\njmp     $+5\nmov     cs:AVI_errno, 3\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_14D3\nmov     ecx, [rbp+todo]\nmov     eax, [rbp+bytes]\nsub     eax, ecx\nmov     [rbp+bytes], eax\nmov     eax, [rbp+todo]\nadd     eax, [rbp+nr]\nmov     [rbp+nr], eax\nmov     ecx, [rbp+todo]\nmov     rax, [rbp+AVI]\nadd     rax, 80h\nmov     rdx, [rbp+AVI]\nmov     edx, [rdx+3A0h]\nimul    rdx, 58h ; 'X'\nadd     rax, rdx\nadd     ecx, [rax+34h]\nmov     [rax+34h], ecx\njmp     loc_1278\nmov     eax, [rbp+nr]\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 22,
+  "edges": [
+   [
+    "start",
+    "loc_11C5"
+   ],
+   [
+    "start",
+    "loc_11DB"
+   ],
+   [
+    "loc_11C5",
+    "loc_14D3"
+   ],
+   [
+    "loc_11DB",
+    "loc_1201"
+   ],
+   [
+    "loc_11DB",
+    "loc_1217"
+   ],
+   [
+    "loc_1201",
+    "loc_14D3"
+   ],
+   [
+    "loc_1217",
+    "loc_1228"
+   ],
+   [
+    "loc_1217",
+    "loc_126E"
+   ],
+   [
+    "loc_1228",
+    "loc_126E"
+   ],
+   [
+    "loc_126E",
+    "loc_1278"
+   ],
+   [
+    "loc_1278",
+    "loc_1282"
+   ],
+   [
+    "loc_1278",
+    "loc_14CD"
+   ],
+   [
+    "loc_1282",
+    "loc_12FC"
+   ],
+   [
+    "loc_1282",
+    "loc_13A4"
+   ],
+   [
+    "loc_12FC",
+    "loc_1344"
+   ],
+   [
+    "loc_12FC",
+    "loc_134F"
+   ],
+   [
+    "loc_1344",
+    "loc_14D3"
+   ],
+   [
+    "loc_134F",
+    "loc_1278"
+   ],
+   [
+    "loc_13A4",
+    "loc_13B0"
+   ],
+   [
+    "loc_13A4",
+    "loc_13BB"
+   ],
+   [
+    "loc_13B0",
+    "loc_13C1"
+   ],
+   [
+    "loc_13BB",
+    "loc_13C1"
+   ],
+   [
+    "loc_13C1",
+    "loc_1470"
+   ],
+   [
+    "loc_13C1",
+    "loc_1490"
+   ],
+   [
+    "loc_1470",
+    "loc_1475"
+   ],
+   [
+    "loc_1475",
+    "loc_147A"
+   ],
+   [
+    "loc_147A",
+    "loc_14D3"
+   ],
+   [
+    "loc_1490",
+    "loc_1278"
+   ],
+   [
+    "loc_14CD",
+    "loc_14D3"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+AVI], rdi\nmov     [rbp+audbuf], rsi\nmov     [rbp+bytes], edx\nmov     [rbp+continuous], rcx\nmov     rax, [rbp+AVI]\ncmp     dword ptr [rax+8], 0\njnz     loc_11DB",
+   "loc_11C5": "mov     cs:AVI_errno, 7\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_14D3",
+   "loc_11DB": "mov     rax, [rbp+AVI]\nadd     rax, 80h\nmov     rcx, [rbp+AVI]\nmov     ecx, [rcx+3A0h]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\ncmp     qword ptr [rax+48h], 0\njnz     loc_1217",
+   "loc_1201": "mov     cs:AVI_errno, 0Dh\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_14D3",
+   "loc_1217": "mov     [rbp+nr], 0\ncmp     [rbp+bytes], 0\njnz     loc_126E",
+   "loc_1228": "mov     rax, [rbp+AVI]\nadd     rax, 80h\nmov     rcx, [rbp+AVI]\nmov     ecx, [rcx+3A0h]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     ecx, [rax+30h]\nadd     ecx, 1\nmov     [rax+30h], ecx\nmov     rax, [rbp+AVI]\nadd     rax, 80h\nmov     rcx, [rbp+AVI]\nmov     ecx, [rcx+3A0h]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     dword ptr [rax+34h], 0",
+   "loc_126E": "mov     rax, [rbp+continuous]\nmov     dword ptr [rax], 1",
+   "loc_1278": "cmp     [rbp+bytes], 0\njle     loc_14CD",
+   "loc_1282": "mov     rax, [rbp+AVI]\nadd     rax, 80h\nmov     rcx, [rbp+AVI]\nmov     ecx, [rcx+3A0h]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     rax, [rax+48h]\nmov     rcx, [rbp+AVI]\nadd     rcx, 80h\nmov     rdx, [rbp+AVI]\nmov     edx, [rdx+3A0h]\nimul    rdx, 58h ; 'X'\nadd     rcx, rdx\nmovsxd  rcx, dword ptr [rcx+30h]\nimul    rcx, 18h\nadd     rax, rcx\nmov     rax, [rax+8]\nmov     rcx, [rbp+AVI]\nadd     rcx, 80h\nmov     rdx, [rbp+AVI]\nmov     edx, [rdx+3A0h]\nimul    rdx, 58h ; 'X'\nadd     rcx, rdx\nmovsxd  rcx, dword ptr [rcx+34h]\nsub     rax, rcx\nmov     [rbp+left], eax\ncmp     [rbp+left], 0\njnz     loc_13A4",
+   "loc_12FC": "mov     rax, [rbp+AVI]\nadd     rax, 80h\nmov     rcx, [rbp+AVI]\nmov     ecx, [rcx+3A0h]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     eax, [rax+30h]\nmov     rcx, [rbp+AVI]\nadd     rcx, 80h\nmov     rdx, [rbp+AVI]\nmov     edx, [rdx+3A0h]\nimul    rdx, 58h ; 'X'\nadd     rcx, rdx\nmov     ecx, [rcx+28h]\nsub     ecx, 1\ncmp     eax, ecx\njl      loc_134F",
+   "loc_1344": "mov     eax, [rbp+nr]\nmov     [rbp+var_4], eax\njmp     loc_14D3",
+   "loc_134F": "mov     rax, [rbp+AVI]\nadd     rax, 80h\nmov     rcx, [rbp+AVI]\nmov     ecx, [rcx+3A0h]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     ecx, [rax+30h]\nadd     ecx, 1\nmov     [rax+30h], ecx\nmov     rax, [rbp+AVI]\nadd     rax, 80h\nmov     rcx, [rbp+AVI]\nmov     ecx, [rcx+3A0h]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     dword ptr [rax+34h], 0\nmov     rax, [rbp+continuous]\nmov     dword ptr [rax], 0\njmp     loc_1278",
+   "loc_13A4": "mov     eax, [rbp+bytes]\ncmp     eax, [rbp+left]\njge     loc_13BB",
+   "loc_13B0": "mov     eax, [rbp+bytes]\nmov     [rbp+todo], eax\njmp     loc_13C1",
+   "loc_13BB": "mov     eax, [rbp+left]\nmov     [rbp+todo], eax",
+   "loc_13C1": "mov     rax, [rbp+AVI]\nadd     rax, 80h\nmov     rcx, [rbp+AVI]\nmov     ecx, [rcx+3A0h]\nimul    rcx, 58h ; 'X'\nadd     rax, rcx\nmov     rax, [rax+48h]\nmov     rcx, [rbp+AVI]\nadd     rcx, 80h\nmov     rdx, [rbp+AVI]\nmov     edx, [rdx+3A0h]\nimul    rdx, 58h ; 'X'\nadd     rcx, rdx\nmovsxd  rcx, dword ptr [rcx+30h]\nimul    rcx, 18h\nadd     rax, rcx\nmov     rax, [rax]\nmov     rcx, [rbp+AVI]\nadd     rcx, 80h\nmov     rdx, [rbp+AVI]\nmov     edx, [rdx+3A0h]\nimul    rdx, 58h ; 'X'\nadd     rcx, rdx\nmovsxd  rcx, dword ptr [rcx+34h]\nadd     rax, rcx\nmov     [rbp+pos], rax\nmov     rax, [rbp+AVI]\nmov     rdi, [rax]; fp\nmov     rsi, [rbp+pos]; offset\nxor     edx, edx; whence\ncall    gf_fseek\nmov     rax, [rbp+AVI]\nmov     rdi, [rax]; fd\nmov     rsi, [rbp+audbuf]\nmovsxd  rax, [rbp+nr]\nadd     rsi, rax; buf\nmov     edx, [rbp+todo]; len\ncall    avi_read\nmov     eax, eax\nmov     [rbp+ret], rax\nmovsxd  rcx, [rbp+todo]\ncmp     rax, rcx\njz      loc_1490",
+   "loc_1470": "jmp     $+5",
+   "loc_1475": "jmp     $+5",
+   "loc_147A": "mov     cs:AVI_errno, 3\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_14D3",
+   "loc_1490": "mov     ecx, [rbp+todo]\nmov     eax, [rbp+bytes]\nsub     eax, ecx\nmov     [rbp+bytes], eax\nmov     eax, [rbp+todo]\nadd     eax, [rbp+nr]\nmov     [rbp+nr], eax\nmov     ecx, [rbp+todo]\nmov     rax, [rbp+AVI]\nadd     rax, 80h\nmov     rdx, [rbp+AVI]\nmov     edx, [rdx+3A0h]\nimul    rdx, 58h ; 'X'\nadd     rax, rdx\nadd     ecx, [rax+34h]\nmov     [rax+34h], ecx\njmp     loc_1278",
+   "loc_14CD": "mov     eax, [rbp+nr]\nmov     [rbp+var_4], eax",
+   "loc_14D3": "mov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "left": "dword ptr -44h",
+   "ret": "qword ptr -40h",
+   "pos": "qword ptr -38h",
+   "todo": "dword ptr -30h",
+   "nr": "dword ptr -2Ch",
+   "continuous": "qword ptr -28h",
+   "bytes": "dword ptr -1Ch",
+   "audbuf": "qword ptr -18h",
+   "AVI": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {
+   "AVI_errno": "[]"
+  }
+ },
+ "func_ea": 4512,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseeko64": "fseeko64",
+  "_fseeko64": "fseeko64",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseeko64",
+   ".plt",
+   true,
+   "fseeko64"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseeko64",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868447
+ }
+}

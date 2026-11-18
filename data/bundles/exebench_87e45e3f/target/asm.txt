@@ -1,0 +1,69 @@
+0000000000001500 <encode_int>:
+    1500:	push   %rbp
+    1501:	mov    %rsp,%rbp
+    1504:	mov    %rdi,-0x8(%rbp)
+    1508:	mov    %esi,-0xc(%rbp)
+    150b:	movl   $0x0,-0x10(%rbp)
+    1512:	cmpl   $0x0,-0xc(%rbp)
+    1516:	jle    1581 <encode_int+0x81>
+    151c:	mov    -0xc(%rbp),%eax
+    151f:	and    $0x7c00,%eax
+    1524:	cmp    $0x0,%eax
+    1527:	je     154c <encode_int+0x4c>
+    152d:	mov    -0xc(%rbp),%eax
+    1530:	sar    $0xa,%eax
+    1533:	and    $0x1f,%eax
+    1536:	or     $0x40,%eax
+    1539:	mov    %al,%cl
+    153b:	mov    -0x8(%rbp),%rax
+    153f:	mov    %rax,%rdx
+    1542:	add    $0x1,%rdx
+    1546:	mov    %rdx,-0x8(%rbp)
+    154a:	mov    %cl,(%rax)
+    154c:	mov    -0xc(%rbp),%eax
+    154f:	and    $0x3f0,%eax
+    1554:	cmp    $0x0,%eax
+    1557:	je     157c <encode_int+0x7c>
+    155d:	mov    -0xc(%rbp),%eax
+    1560:	sar    $0x4,%eax
+    1563:	and    $0x3f,%eax
+    1566:	or     $0x40,%eax
+    1569:	mov    %al,%cl
+    156b:	mov    -0x8(%rbp),%rax
+    156f:	mov    %rax,%rdx
+    1572:	add    $0x1,%rdx
+    1576:	mov    %rdx,-0x8(%rbp)
+    157a:	mov    %cl,(%rax)
+    157c:	jmp    1590 <encode_int+0x90>
+    1581:	xor    %eax,%eax
+    1583:	sub    -0xc(%rbp),%eax
+    1586:	mov    %eax,-0xc(%rbp)
+    1589:	movl   $0x1,-0x10(%rbp)
+    1590:	mov    -0xc(%rbp),%eax
+    1593:	and    $0xf,%eax
+    1596:	cmp    $0x0,%eax
+    1599:	je     15b5 <encode_int+0xb5>
+    159f:	mov    -0xc(%rbp),%eax
+    15a2:	and    $0xf,%eax
+    15a5:	or     $0x20,%eax
+    15a8:	mov    %al,%cl
+    15aa:	mov    -0x8(%rbp),%rax
+    15ae:	mov    %cl,(%rax)
+    15b0:	jmp    15bc <encode_int+0xbc>
+    15b5:	mov    -0x8(%rbp),%rax
+    15b9:	movb   $0x20,(%rax)
+    15bc:	cmpl   $0x0,-0x10(%rbp)
+    15c0:	jne    15d2 <encode_int+0xd2>
+    15c6:	mov    -0x8(%rbp),%rax
+    15ca:	movsbl (%rax),%ecx
+    15cd:	or     $0x10,%ecx
+    15d0:	mov    %cl,(%rax)
+    15d2:	mov    -0x8(%rbp),%rax
+    15d6:	add    $0x1,%rax
+    15da:	mov    %rax,-0x8(%rbp)
+    15de:	mov    -0x8(%rbp),%rax
+    15e2:	movb   $0x0,(%rax)
+    15e5:	pop    %rbp
+    15e6:	ret
+
+Disassembly of section .fini:

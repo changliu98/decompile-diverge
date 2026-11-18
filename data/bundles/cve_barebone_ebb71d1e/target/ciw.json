@@ -1,0 +1,510 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 70h\nmov     [rbp+p], rdi\nmov     [rbp+size], rsi\nmov     [rbp+comp_Prebuf.size], 0CFh\nmov     eax, [rbp+comp_Prebuf.size]\nadd     eax, 1\nmovsxd  rdi, eax; nmemb\nmov     esi, 1; size\ncall    calloc\nmov     [rbp+comp_Prebuf.data], rax\ncmp     [rbp+comp_Prebuf.data], 0\njnz     loc_12C0\nlea     rdi, format; \"Out of Memory at %s : %i\\n\"\nlea     rsi, aHarnessC; \"harness.c\"\nmov     edx, 4Fh ; 'O'\nmov     al, 0\ncall    printf\nmov     [rbp+var_8], 0\njmp     loc_174B\nmov     rdi, [rbp+comp_Prebuf.data]; dest\nmovsxd  rdx, [rbp+comp_Prebuf.size]; n\nlea     rsi, aRtf1AnsiMacDef; \"{\\\\rtf1\\\\ansi\\\\mac\\\\deff0\\\\deftab720{\\\\\"...\ncall    memcpy\nmov     rax, [rbp+p]\nmov     rax, [rax]\nmov     [rbp+src], rax\nmov     [rbp+in], 0\nmov     rax, [rbp+p]\ncmp     dword ptr [rax+8], 14h\njge     loc_130F\nlea     rdi, aFileTooSmall; \"File too small\\n\"\nmov     al, 0\ncall    printf\nmov     [rbp+var_8], 0\njmp     loc_174B\nmov     rdi, [rbp+src]\nmov     eax, [rbp+in]\nadd     rdi, rax; p\nmov     esi, 4; size\ncall    SwapDWord\nmov     [rbp+compressedSize], eax\nmov     eax, [rbp+in]\nadd     eax, 4\nmov     [rbp+in], eax\nmov     rdi, [rbp+src]\nmov     eax, [rbp+in]\nadd     rdi, rax; p\nmov     esi, 4; size\ncall    SwapDWord\nmov     [rbp+uncompressedSize], eax\nmov     eax, [rbp+in]\nadd     eax, 4\nmov     [rbp+in], eax\nmov     rdi, [rbp+src]\nmov     eax, [rbp+in]\nadd     rdi, rax; p\nmov     esi, 4; size\ncall    SwapDWord\nmov     [rbp+magic], eax\nmov     eax, [rbp+in]\nadd     eax, 4\nmov     [rbp+in], eax\nmov     eax, [rbp+in]\nadd     eax, 4\nmov     [rbp+in], eax\nmov     eax, [rbp+compressedSize]\nmov     rcx, [rbp+p]\nmov     ecx, [rcx+8]\nsub     ecx, 4\ncmp     eax, ecx\njz      loc_13BE\nmov     esi, [rbp+compressedSize]\nmov     rax, [rbp+p]\nmov     edx, [rax+8]\nsub     edx, 4\nlea     rdi, aSizeMismatchUI; \" Size Mismatch: %u != %i\\n\"\nmov     al, 0\ncall    printf\nmov     rdi, [rbp+comp_Prebuf.data]; ptr\ncall    free\nmov     [rbp+var_8], 0\njmp     loc_174B\ncmp     [rbp+magic], 414C454Dh\njnz     loc_142B\nmov     eax, [rbp+uncompressedSize]\nmov     edi, eax; nmemb\nmov     esi, 1; size\ncall    calloc\nmov     [rbp+dst], rax\ncmp     [rbp+dst], 0\njnz     loc_1410\nlea     rdi, format; \"Out of Memory at %s : %i\\n\"\nlea     rsi, aHarnessC; \"harness.c\"\nmov     edx, 6Ch ; 'l'\nmov     al, 0\ncall    printf\nmov     [rbp+var_8], 0\njmp     loc_174B\nmov     rdi, [rbp+dst]; dest\nmov     rsi, [rbp+src]\nadd     rsi, 4; src\nmov     eax, [rbp+uncompressedSize]\nmov     edx, eax; n\ncall    memcpy\njmp     loc_173A\ncmp     [rbp+magic], 75465A4Ch\njnz     loc_1724\nmov     [rbp+flagCount], 0\nmov     [rbp+flags], 0\nmov     eax, [rbp+comp_Prebuf.size]\nmov     ecx, 7FFFFFFFh\nsub     ecx, [rbp+uncompressedSize]\ncmp     eax, ecx\njb      loc_1471\nlea     rdi, aCorruptedFile; \"Corrupted file\\n\"\nmov     al, 0\ncall    printf\nmov     edi, 0FFFFFFFFh; status\ncall    exit\nmov     eax, [rbp+comp_Prebuf.size]\nadd     eax, [rbp+uncompressedSize]\nmov     eax, eax\nmov     edi, eax; nmemb\nmov     esi, 1; size\ncall    calloc\nmov     [rbp+dst], rax\ncmp     [rbp+dst], 0\njnz     loc_14BB\nlea     rdi, format; \"Out of Memory at %s : %i\\n\"\nlea     rsi, aHarnessC; \"harness.c\"\nmov     edx, 78h ; 'x'\nmov     al, 0\ncall    printf\nmov     [rbp+var_8], 0\njmp     loc_174B\nmov     rdi, [rbp+dst]; dest\nmov     rsi, [rbp+comp_Prebuf.data]; src\nmovsxd  rdx, [rbp+comp_Prebuf.size]; n\ncall    memcpy\nmov     eax, [rbp+comp_Prebuf.size]\nmov     [rbp+out], eax\nmov     eax, [rbp+out]\nmov     ecx, [rbp+comp_Prebuf.size]\nadd     ecx, [rbp+uncompressedSize]\ncmp     eax, ecx\njnb     loc_1696\nmov     eax, [rbp+flagCount]\nmov     ecx, eax\nadd     ecx, 1\nmov     [rbp+flagCount], ecx\nmov     ecx, 8\ncdq\nidiv    ecx\ncmp     edx, 0\njnz     loc_151C\nmov     rax, [rbp+src]\nmov     ecx, [rbp+in]\nmov     edx, ecx\nadd     edx, 1\nmov     [rbp+in], edx\nmov     ecx, ecx\nmovzx   eax, byte ptr [rax+rcx]\nmov     [rbp+var_64], eax\njmp     loc_1525\nmov     eax, [rbp+flags]\nsar     eax, 1\nmov     [rbp+var_64], eax\nmov     eax, [rbp+var_64]\nmov     [rbp+flags], eax\nmov     eax, [rbp+flags]\nand     eax, 1\ncmp     eax, 1\njnz     loc_1630\nmov     rax, [rbp+src]\nmov     ecx, [rbp+in]\nmov     edx, ecx\nadd     edx, 1\nmov     [rbp+in], edx\nmov     ecx, ecx\nmovzx   eax, byte ptr [rax+rcx]\nmov     [rbp+offset], eax\nmov     rax, [rbp+src]\nmov     ecx, [rbp+in]\nmov     edx, ecx\nadd     edx, 1\nmov     [rbp+in], edx\nmov     ecx, ecx\nmovzx   eax, byte ptr [rax+rcx]\nmov     [rbp+length], eax\nmov     eax, [rbp+offset]\nshl     eax, 4\nmov     ecx, [rbp+length]\nshr     ecx, 4\nor      eax, ecx\nmov     [rbp+offset], eax\nmov     eax, [rbp+length]\nand     eax, 0Fh\nadd     eax, 2\nmov     [rbp+length], eax\nmov     eax, [rbp+out]\nshr     eax, 0Ch\nshl     eax, 0Ch\nadd     eax, [rbp+offset]\nmov     [rbp+offset], eax\nmov     eax, [rbp+offset]\ncmp     eax, [rbp+out]\njb      loc_15AD\nmov     eax, [rbp+offset]\nsub     eax, 1000h\nmov     [rbp+offset], eax\nmov     eax, [rbp+offset]\nadd     eax, [rbp+length]\nmov     [rbp+end], eax\nmov     ecx, [rbp+offset]\nxor     eax, eax\ncmp     ecx, [rbp+end]\nmov     [rbp+var_65], al\njnb     loc_15EE\nmov     ecx, [rbp+out]\nmov     edx, [rbp+comp_Prebuf.size]\nadd     edx, [rbp+uncompressedSize]\nxor     eax, eax\ncmp     ecx, edx\nmov     [rbp+var_65], al\njnb     loc_15EE\nmov     eax, [rbp+offset]\nmov     ecx, [rbp+comp_Prebuf.size]\nadd     ecx, [rbp+uncompressedSize]\ncmp     eax, ecx\nsetb    al\nmov     [rbp+var_65], al\nmov     al, [rbp+var_65]\ntest    al, 1\njnz     loc_15FE\njmp     loc_162B\nmov     rax, [rbp+dst]\nmov     ecx, [rbp+offset]\nmov     edx, ecx\nadd     edx, 1\nmov     [rbp+offset], edx\nmov     ecx, ecx\nmov     dl, [rax+rcx]\nmov     rax, [rbp+dst]\nmov     ecx, [rbp+out]\nmov     esi, ecx\nadd     esi, 1\nmov     [rbp+out], esi\nmov     ecx, ecx\nmov     [rax+rcx], dl\njmp     loc_15B6\njmp     loc_1691\nmov     eax, [rbp+out]\nmov     ecx, [rbp+comp_Prebuf.size]\nadd     ecx, [rbp+uncompressedSize]\ncmp     eax, ecx\njnb     loc_1651\nmov     eax, [rbp+in]\nmov     rcx, [rbp+p]\ncmp     eax, [rcx+8]\njb      loc_1669\nlea     rdi, aCorruptedStrea; \"Corrupted stream\\n\"\nmov     al, 0\ncall    printf\nmov     edi, 0FFFFFFFFh; status\ncall    exit\nmov     rax, [rbp+src]\nmov     ecx, [rbp+in]\nmov     edx, ecx\nadd     edx, 1\nmov     [rbp+in], edx\nmov     ecx, ecx\nmov     dl, [rax+rcx]\nmov     rax, [rbp+dst]\nmov     ecx, [rbp+out]\nmov     esi, ecx\nadd     esi, 1\nmov     [rbp+out], esi\nmov     ecx, ecx\nmov     [rax+rcx], dl\njmp     loc_14D2\nmov     rax, [rbp+dst]\nmov     [rbp+src], rax\nmov     eax, [rbp+uncompressedSize]\nmov     edi, eax; nmemb\nmov     esi, 1; size\ncall    calloc\nmov     [rbp+dst], rax\ncmp     [rbp+dst], 0\njnz     loc_16E3\nlea     rdi, format; \"Out of Memory at %s : %i\\n\"\nlea     rsi, aHarnessC; \"harness.c\"\nmov     edx, 9Eh\nmov     al, 0\ncall    printf\nmov     [rbp+var_8], 0\njmp     loc_174B\nmov     rdi, [rbp+dst]; dest\nmov     rsi, [rbp+src]\nmovsxd  rax, [rbp+comp_Prebuf.size]\nadd     rsi, rax; src\nmov     eax, [rbp+uncompressedSize]\nmov     edx, eax; n\ncall    memcpy\nmov     rdi, [rbp+src]; ptr\ncall    free\nmov     ecx, [rbp+uncompressedSize]\nmov     rax, [rbp+size]\nmov     [rax], ecx\nmov     rdi, [rbp+comp_Prebuf.data]; ptr\ncall    free\nmov     rax, [rbp+dst]\nmov     [rbp+var_8], rax\njmp     loc_174B\nmov     esi, [rbp+magic]\nlea     rdi, aUnknownCompres; \"Unknown compression type (magic number \"...\nmov     al, 0\ncall    printf\njmp     $+5\nmov     rdi, [rbp+comp_Prebuf.data]; ptr\ncall    free\nmov     [rbp+var_8], 0\nmov     rax, [rbp+var_8]\nadd     rsp, 70h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 42,
+  "edges": [
+   [
+    "start",
+    "loc_1299"
+   ],
+   [
+    "start",
+    "loc_12C0"
+   ],
+   [
+    "loc_1299",
+    "loc_174B"
+   ],
+   [
+    "loc_12C0",
+    "loc_12F4"
+   ],
+   [
+    "loc_12C0",
+    "loc_130F"
+   ],
+   [
+    "loc_12F4",
+    "loc_174B"
+   ],
+   [
+    "loc_130F",
+    "loc_138D"
+   ],
+   [
+    "loc_130F",
+    "loc_13BE"
+   ],
+   [
+    "loc_138D",
+    "loc_174B"
+   ],
+   [
+    "loc_13BE",
+    "loc_13CB"
+   ],
+   [
+    "loc_13BE",
+    "loc_142B"
+   ],
+   [
+    "loc_13CB",
+    "loc_13E9"
+   ],
+   [
+    "loc_13CB",
+    "loc_1410"
+   ],
+   [
+    "loc_13E9",
+    "loc_174B"
+   ],
+   [
+    "loc_1410",
+    "loc_173A"
+   ],
+   [
+    "loc_142B",
+    "loc_1438"
+   ],
+   [
+    "loc_142B",
+    "loc_1724"
+   ],
+   [
+    "loc_1438",
+    "loc_1459"
+   ],
+   [
+    "loc_1438",
+    "loc_1471"
+   ],
+   [
+    "loc_1471",
+    "loc_1494"
+   ],
+   [
+    "loc_1471",
+    "loc_14BB"
+   ],
+   [
+    "loc_1494",
+    "loc_174B"
+   ],
+   [
+    "loc_14BB",
+    "loc_14D2"
+   ],
+   [
+    "loc_14D2",
+    "loc_14E3"
+   ],
+   [
+    "loc_14D2",
+    "loc_1696"
+   ],
+   [
+    "loc_14E3",
+    "loc_14FF"
+   ],
+   [
+    "loc_14E3",
+    "loc_151C"
+   ],
+   [
+    "loc_14FF",
+    "loc_1525"
+   ],
+   [
+    "loc_151C",
+    "loc_1525"
+   ],
+   [
+    "loc_1525",
+    "loc_153A"
+   ],
+   [
+    "loc_1525",
+    "loc_1630"
+   ],
+   [
+    "loc_153A",
+    "loc_15A2"
+   ],
+   [
+    "loc_153A",
+    "loc_15AD"
+   ],
+   [
+    "loc_15A2",
+    "loc_15AD"
+   ],
+   [
+    "loc_15AD",
+    "loc_15B6"
+   ],
+   [
+    "loc_15B6",
+    "loc_15C7"
+   ],
+   [
+    "loc_15B6",
+    "loc_15EE"
+   ],
+   [
+    "loc_15C7",
+    "loc_15DD"
+   ],
+   [
+    "loc_15C7",
+    "loc_15EE"
+   ],
+   [
+    "loc_15DD",
+    "loc_15EE"
+   ],
+   [
+    "loc_15EE",
+    "loc_15F9"
+   ],
+   [
+    "loc_15EE",
+    "loc_15FE"
+   ],
+   [
+    "loc_15F9",
+    "loc_162B"
+   ],
+   [
+    "loc_15FE",
+    "loc_15B6"
+   ],
+   [
+    "loc_162B",
+    "loc_1691"
+   ],
+   [
+    "loc_1630",
+    "loc_1641"
+   ],
+   [
+    "loc_1630",
+    "loc_1651"
+   ],
+   [
+    "loc_1641",
+    "loc_1651"
+   ],
+   [
+    "loc_1641",
+    "loc_1669"
+   ],
+   [
+    "loc_1669",
+    "loc_1691"
+   ],
+   [
+    "loc_1691",
+    "loc_14D2"
+   ],
+   [
+    "loc_1696",
+    "loc_16BC"
+   ],
+   [
+    "loc_1696",
+    "loc_16E3"
+   ],
+   [
+    "loc_16BC",
+    "loc_174B"
+   ],
+   [
+    "loc_16E3",
+    "loc_174B"
+   ],
+   [
+    "loc_1724",
+    "loc_173A"
+   ],
+   [
+    "loc_173A",
+    "loc_174B"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 70h\nmov     [rbp+p], rdi\nmov     [rbp+size], rsi\nmov     [rbp+comp_Prebuf.size], 0CFh\nmov     eax, [rbp+comp_Prebuf.size]\nadd     eax, 1\nmovsxd  rdi, eax; nmemb\nmov     esi, 1; size\ncall    calloc\nmov     [rbp+comp_Prebuf.data], rax\ncmp     [rbp+comp_Prebuf.data], 0\njnz     loc_12C0",
+   "loc_1299": "lea     rdi, format; \"Out of Memory at %s : %i\\n\"\nlea     rsi, aHarnessC; \"harness.c\"\nmov     edx, 4Fh ; 'O'\nmov     al, 0\ncall    printf\nmov     [rbp+var_8], 0\njmp     loc_174B",
+   "loc_12C0": "mov     rdi, [rbp+comp_Prebuf.data]; dest\nmovsxd  rdx, [rbp+comp_Prebuf.size]; n\nlea     rsi, aRtf1AnsiMacDef; \"{\\\\rtf1\\\\ansi\\\\mac\\\\deff0\\\\deftab720{\\\\\"...\ncall    memcpy\nmov     rax, [rbp+p]\nmov     rax, [rax]\nmov     [rbp+src], rax\nmov     [rbp+in], 0\nmov     rax, [rbp+p]\ncmp     dword ptr [rax+8], 14h\njge     loc_130F",
+   "loc_12F4": "lea     rdi, aFileTooSmall; \"File too small\\n\"\nmov     al, 0\ncall    printf\nmov     [rbp+var_8], 0\njmp     loc_174B",
+   "loc_130F": "mov     rdi, [rbp+src]\nmov     eax, [rbp+in]\nadd     rdi, rax; p\nmov     esi, 4; size\ncall    SwapDWord\nmov     [rbp+compressedSize], eax\nmov     eax, [rbp+in]\nadd     eax, 4\nmov     [rbp+in], eax\nmov     rdi, [rbp+src]\nmov     eax, [rbp+in]\nadd     rdi, rax; p\nmov     esi, 4; size\ncall    SwapDWord\nmov     [rbp+uncompressedSize], eax\nmov     eax, [rbp+in]\nadd     eax, 4\nmov     [rbp+in], eax\nmov     rdi, [rbp+src]\nmov     eax, [rbp+in]\nadd     rdi, rax; p\nmov     esi, 4; size\ncall    SwapDWord\nmov     [rbp+magic], eax\nmov     eax, [rbp+in]\nadd     eax, 4\nmov     [rbp+in], eax\nmov     eax, [rbp+in]\nadd     eax, 4\nmov     [rbp+in], eax\nmov     eax, [rbp+compressedSize]\nmov     rcx, [rbp+p]\nmov     ecx, [rcx+8]\nsub     ecx, 4\ncmp     eax, ecx\njz      loc_13BE",
+   "loc_138D": "mov     esi, [rbp+compressedSize]\nmov     rax, [rbp+p]\nmov     edx, [rax+8]\nsub     edx, 4\nlea     rdi, aSizeMismatchUI; \" Size Mismatch: %u != %i\\n\"\nmov     al, 0\ncall    printf\nmov     rdi, [rbp+comp_Prebuf.data]; ptr\ncall    free\nmov     [rbp+var_8], 0\njmp     loc_174B",
+   "loc_13BE": "cmp     [rbp+magic], 414C454Dh\njnz     loc_142B",
+   "loc_13CB": "mov     eax, [rbp+uncompressedSize]\nmov     edi, eax; nmemb\nmov     esi, 1; size\ncall    calloc\nmov     [rbp+dst], rax\ncmp     [rbp+dst], 0\njnz     loc_1410",
+   "loc_13E9": "lea     rdi, format; \"Out of Memory at %s : %i\\n\"\nlea     rsi, aHarnessC; \"harness.c\"\nmov     edx, 6Ch ; 'l'\nmov     al, 0\ncall    printf\nmov     [rbp+var_8], 0\njmp     loc_174B",
+   "loc_1410": "mov     rdi, [rbp+dst]; dest\nmov     rsi, [rbp+src]\nadd     rsi, 4; src\nmov     eax, [rbp+uncompressedSize]\nmov     edx, eax; n\ncall    memcpy\njmp     loc_173A",
+   "loc_142B": "cmp     [rbp+magic], 75465A4Ch\njnz     loc_1724",
+   "loc_1438": "mov     [rbp+flagCount], 0\nmov     [rbp+flags], 0\nmov     eax, [rbp+comp_Prebuf.size]\nmov     ecx, 7FFFFFFFh\nsub     ecx, [rbp+uncompressedSize]\ncmp     eax, ecx\njb      loc_1471",
+   "loc_1459": "lea     rdi, aCorruptedFile; \"Corrupted file\\n\"\nmov     al, 0\ncall    printf\nmov     edi, 0FFFFFFFFh; status\ncall    exit",
+   "loc_1471": "mov     eax, [rbp+comp_Prebuf.size]\nadd     eax, [rbp+uncompressedSize]\nmov     eax, eax\nmov     edi, eax; nmemb\nmov     esi, 1; size\ncall    calloc\nmov     [rbp+dst], rax\ncmp     [rbp+dst], 0\njnz     loc_14BB",
+   "loc_1494": "lea     rdi, format; \"Out of Memory at %s : %i\\n\"\nlea     rsi, aHarnessC; \"harness.c\"\nmov     edx, 78h ; 'x'\nmov     al, 0\ncall    printf\nmov     [rbp+var_8], 0\njmp     loc_174B",
+   "loc_14BB": "mov     rdi, [rbp+dst]; dest\nmov     rsi, [rbp+comp_Prebuf.data]; src\nmovsxd  rdx, [rbp+comp_Prebuf.size]; n\ncall    memcpy\nmov     eax, [rbp+comp_Prebuf.size]\nmov     [rbp+out], eax",
+   "loc_14D2": "mov     eax, [rbp+out]\nmov     ecx, [rbp+comp_Prebuf.size]\nadd     ecx, [rbp+uncompressedSize]\ncmp     eax, ecx\njnb     loc_1696",
+   "loc_14E3": "mov     eax, [rbp+flagCount]\nmov     ecx, eax\nadd     ecx, 1\nmov     [rbp+flagCount], ecx\nmov     ecx, 8\ncdq\nidiv    ecx\ncmp     edx, 0\njnz     loc_151C",
+   "loc_14FF": "mov     rax, [rbp+src]\nmov     ecx, [rbp+in]\nmov     edx, ecx\nadd     edx, 1\nmov     [rbp+in], edx\nmov     ecx, ecx\nmovzx   eax, byte ptr [rax+rcx]\nmov     [rbp+var_64], eax\njmp     loc_1525",
+   "loc_151C": "mov     eax, [rbp+flags]\nsar     eax, 1\nmov     [rbp+var_64], eax",
+   "loc_1525": "mov     eax, [rbp+var_64]\nmov     [rbp+flags], eax\nmov     eax, [rbp+flags]\nand     eax, 1\ncmp     eax, 1\njnz     loc_1630",
+   "loc_153A": "mov     rax, [rbp+src]\nmov     ecx, [rbp+in]\nmov     edx, ecx\nadd     edx, 1\nmov     [rbp+in], edx\nmov     ecx, ecx\nmovzx   eax, byte ptr [rax+rcx]\nmov     [rbp+offset], eax\nmov     rax, [rbp+src]\nmov     ecx, [rbp+in]\nmov     edx, ecx\nadd     edx, 1\nmov     [rbp+in], edx\nmov     ecx, ecx\nmovzx   eax, byte ptr [rax+rcx]\nmov     [rbp+length], eax\nmov     eax, [rbp+offset]\nshl     eax, 4\nmov     ecx, [rbp+length]\nshr     ecx, 4\nor      eax, ecx\nmov     [rbp+offset], eax\nmov     eax, [rbp+length]\nand     eax, 0Fh\nadd     eax, 2\nmov     [rbp+length], eax\nmov     eax, [rbp+out]\nshr     eax, 0Ch\nshl     eax, 0Ch\nadd     eax, [rbp+offset]\nmov     [rbp+offset], eax\nmov     eax, [rbp+offset]\ncmp     eax, [rbp+out]\njb      loc_15AD",
+   "loc_15A2": "mov     eax, [rbp+offset]\nsub     eax, 1000h\nmov     [rbp+offset], eax",
+   "loc_15AD": "mov     eax, [rbp+offset]\nadd     eax, [rbp+length]\nmov     [rbp+end], eax",
+   "loc_15B6": "mov     ecx, [rbp+offset]\nxor     eax, eax\ncmp     ecx, [rbp+end]\nmov     [rbp+var_65], al\njnb     loc_15EE",
+   "loc_15C7": "mov     ecx, [rbp+out]\nmov     edx, [rbp+comp_Prebuf.size]\nadd     edx, [rbp+uncompressedSize]\nxor     eax, eax\ncmp     ecx, edx\nmov     [rbp+var_65], al\njnb     loc_15EE",
+   "loc_15DD": "mov     eax, [rbp+offset]\nmov     ecx, [rbp+comp_Prebuf.size]\nadd     ecx, [rbp+uncompressedSize]\ncmp     eax, ecx\nsetb    al\nmov     [rbp+var_65], al",
+   "loc_15EE": "mov     al, [rbp+var_65]\ntest    al, 1\njnz     loc_15FE",
+   "loc_15F9": "jmp     loc_162B",
+   "loc_15FE": "mov     rax, [rbp+dst]\nmov     ecx, [rbp+offset]\nmov     edx, ecx\nadd     edx, 1\nmov     [rbp+offset], edx\nmov     ecx, ecx\nmov     dl, [rax+rcx]\nmov     rax, [rbp+dst]\nmov     ecx, [rbp+out]\nmov     esi, ecx\nadd     esi, 1\nmov     [rbp+out], esi\nmov     ecx, ecx\nmov     [rax+rcx], dl\njmp     loc_15B6",
+   "loc_162B": "jmp     loc_1691",
+   "loc_1630": "mov     eax, [rbp+out]\nmov     ecx, [rbp+comp_Prebuf.size]\nadd     ecx, [rbp+uncompressedSize]\ncmp     eax, ecx\njnb     loc_1651",
+   "loc_1641": "mov     eax, [rbp+in]\nmov     rcx, [rbp+p]\ncmp     eax, [rcx+8]\njb      loc_1669",
+   "loc_1651": "lea     rdi, aCorruptedStrea; \"Corrupted stream\\n\"\nmov     al, 0\ncall    printf\nmov     edi, 0FFFFFFFFh; status\ncall    exit",
+   "loc_1669": "mov     rax, [rbp+src]\nmov     ecx, [rbp+in]\nmov     edx, ecx\nadd     edx, 1\nmov     [rbp+in], edx\nmov     ecx, ecx\nmov     dl, [rax+rcx]\nmov     rax, [rbp+dst]\nmov     ecx, [rbp+out]\nmov     esi, ecx\nadd     esi, 1\nmov     [rbp+out], esi\nmov     ecx, ecx\nmov     [rax+rcx], dl",
+   "loc_1691": "jmp     loc_14D2",
+   "loc_1696": "mov     rax, [rbp+dst]\nmov     [rbp+src], rax\nmov     eax, [rbp+uncompressedSize]\nmov     edi, eax; nmemb\nmov     esi, 1; size\ncall    calloc\nmov     [rbp+dst], rax\ncmp     [rbp+dst], 0\njnz     loc_16E3",
+   "loc_16BC": "lea     rdi, format; \"Out of Memory at %s : %i\\n\"\nlea     rsi, aHarnessC; \"harness.c\"\nmov     edx, 9Eh\nmov     al, 0\ncall    printf\nmov     [rbp+var_8], 0\njmp     loc_174B",
+   "loc_16E3": "mov     rdi, [rbp+dst]; dest\nmov     rsi, [rbp+src]\nmovsxd  rax, [rbp+comp_Prebuf.size]\nadd     rsi, rax; src\nmov     eax, [rbp+uncompressedSize]\nmov     edx, eax; n\ncall    memcpy\nmov     rdi, [rbp+src]; ptr\ncall    free\nmov     ecx, [rbp+uncompressedSize]\nmov     rax, [rbp+size]\nmov     [rax], ecx\nmov     rdi, [rbp+comp_Prebuf.data]; ptr\ncall    free\nmov     rax, [rbp+dst]\nmov     [rbp+var_8], rax\njmp     loc_174B",
+   "loc_1724": "mov     esi, [rbp+magic]\nlea     rdi, aUnknownCompres; \"Unknown compression type (magic number \"...\nmov     al, 0\ncall    printf\njmp     $+5",
+   "loc_173A": "mov     rdi, [rbp+comp_Prebuf.data]; ptr\ncall    free\nmov     [rbp+var_8], 0",
+   "loc_174B": "mov     rax, [rbp+var_8]\nadd     rsp, 70h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_65": "byte ptr -65h",
+   "var_64": "dword ptr -64h",
+   "end": "dword ptr -60h",
+   "length": "dword ptr -5Ch",
+   "offset": "dword ptr -58h",
+   "flags": "dword ptr -54h",
+   "flagCount": "dword ptr -50h",
+   "magic": "dword ptr -4Ch",
+   "uncompressedSize": "dword ptr -48h",
+   "compressedSize": "dword ptr -44h",
+   "comp_Prebuf": "variableLength ptr -40h",
+   "out": "dword ptr -30h",
+   "in": "dword ptr -2Ch",
+   "src": "qword ptr -28h",
+   "dst": "qword ptr -20h",
+   "size": "qword ptr -18h",
+   "p": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {
+   "format": "byte 'Out of Memory at %s : %i',0Ah,0",
+   "aHarnessC": "byte 'harness.c',0",
+   "aRtf1AnsiMacDef": "byte '{\\rtf1\\ansi\\mac\\deff0\\deftab720{\\fonttbl",
+   "aFileTooSmall": "byte 'File too small',0Ah,0",
+   "aSizeMismatchUI": "byte ' Size Mismatch: %u != %i',0Ah,0",
+   "aCorruptedFile": "byte 'Corrupted file',0Ah,0",
+   "aCorruptedStrea": "byte 'Corrupted stream',0Ah,0",
+   "aUnknownCompres": "byte 'Unknown compression type (magic number %x)',0Ah,0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4704,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".exit": "exit",
+  "_exit": "exit"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".exit",
+   ".plt",
+   true,
+   "exit"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "printf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "exit",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868498
+ }
+}

@@ -1,0 +1,1 @@
+uint64_t func0(uint64_t x) { uint64_t y; if (x % 2) return 0; y = 1; for (uint64_t i = 2; i < (uint64_t)sqrt((double)x) + 2; i++) { uint64_t p = 0; uint64_t q = 1; uint64_t q2 = 1; while (x % i == 0) { p++; x /= i; if (i == 2 && p == 1) q = 0; q2 *= i; q += q2; } y *= q; } if (x > 1) y *= (uint64_t)(x + 1); return y; }

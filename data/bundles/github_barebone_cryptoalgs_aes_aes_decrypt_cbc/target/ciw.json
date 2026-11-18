@@ -1,0 +1,292 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 80h\nmov     [rbp+in], rdi\nmov     [rbp+in_len], rsi\nmov     [rbp+out], rdx\nmov     [rbp+key], rcx\nmov     [rbp+keysize], r8d\nmov     [rbp+iv], r9\nmov     rax, [rbp+in_len]\nand     rax, 0Fh\ncmp     rax, 0\njz      loc_1901\nmov     [rbp+var_4], 0\njmp     loc_19B9\nmov     rax, [rbp+in_len]\nshr     rax, 4\nmov     [rbp+blocks], eax\nmov     rax, [rbp+iv]\nmov     rcx, [rax]\nmov     qword ptr [rbp+iv_buf], rcx\nmov     rax, [rax+8]\nmov     qword ptr [rbp+iv_buf+8], rax\nmov     [rbp+idx], 0\nmov     eax, [rbp+idx]\ncmp     eax, [rbp+blocks]\njge     loc_19B2\nmov     rax, [rbp+in]\nmov     ecx, [rbp+idx]\nshl     ecx, 4\nmovsxd  rcx, ecx\nmov     rdx, [rax+rcx]\nmov     qword ptr [rbp+buf_in], rdx\nmov     rax, [rax+rcx+8]\nmov     qword ptr [rbp+buf_in+8], rax\nlea     rdi, [rbp+buf_in]; in\nlea     rsi, [rbp+buf_out]; out\nmov     rdx, [rbp+key]; key\nmov     ecx, [rbp+keysize]; keysize\ncall    aes_decrypt\nlea     rdi, [rbp+iv_buf]; in\nlea     rsi, [rbp+buf_out]; out\nmov     edx, 10h; len\ncall    xor_buf\nmov     rax, [rbp+out]\nmov     ecx, [rbp+idx]\nshl     ecx, 4\nmovsxd  rcx, ecx\nmov     rdx, qword ptr [rbp+buf_out]\nmov     [rax+rcx], rdx\nmov     rdx, qword ptr [rbp+buf_out+8]\nmov     [rax+rcx+8], rdx\nmov     rax, qword ptr [rbp+buf_in]\nmov     qword ptr [rbp+iv_buf], rax\nmov     rax, qword ptr [rbp+buf_in+8]\nmov     qword ptr [rbp+iv_buf+8], rax\nmov     eax, [rbp+idx]\nadd     eax, 1\nmov     [rbp+idx], eax\njmp     loc_1926\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 80h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 7,
+  "edges": [
+   [
+    "start",
+    "loc_18F5"
+   ],
+   [
+    "start",
+    "loc_1901"
+   ],
+   [
+    "loc_18F5",
+    "loc_19B9"
+   ],
+   [
+    "loc_1901",
+    "loc_1926"
+   ],
+   [
+    "loc_1926",
+    "loc_1932"
+   ],
+   [
+    "loc_1926",
+    "loc_19B2"
+   ],
+   [
+    "loc_1932",
+    "loc_1926"
+   ],
+   [
+    "loc_19B2",
+    "loc_19B9"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 80h\nmov     [rbp+in], rdi\nmov     [rbp+in_len], rsi\nmov     [rbp+out], rdx\nmov     [rbp+key], rcx\nmov     [rbp+keysize], r8d\nmov     [rbp+iv], r9\nmov     rax, [rbp+in_len]\nand     rax, 0Fh\ncmp     rax, 0\njz      loc_1901",
+   "loc_18F5": "mov     [rbp+var_4], 0\njmp     loc_19B9",
+   "loc_1901": "mov     rax, [rbp+in_len]\nshr     rax, 4\nmov     [rbp+blocks], eax\nmov     rax, [rbp+iv]\nmov     rcx, [rax]\nmov     qword ptr [rbp+iv_buf], rcx\nmov     rax, [rax+8]\nmov     qword ptr [rbp+iv_buf+8], rax\nmov     [rbp+idx], 0",
+   "loc_1926": "mov     eax, [rbp+idx]\ncmp     eax, [rbp+blocks]\njge     loc_19B2",
+   "loc_1932": "mov     rax, [rbp+in]\nmov     ecx, [rbp+idx]\nshl     ecx, 4\nmovsxd  rcx, ecx\nmov     rdx, [rax+rcx]\nmov     qword ptr [rbp+buf_in], rdx\nmov     rax, [rax+rcx+8]\nmov     qword ptr [rbp+buf_in+8], rax\nlea     rdi, [rbp+buf_in]; in\nlea     rsi, [rbp+buf_out]; out\nmov     rdx, [rbp+key]; key\nmov     ecx, [rbp+keysize]; keysize\ncall    aes_decrypt\nlea     rdi, [rbp+iv_buf]; in\nlea     rsi, [rbp+buf_out]; out\nmov     edx, 10h; len\ncall    xor_buf\nmov     rax, [rbp+out]\nmov     ecx, [rbp+idx]\nshl     ecx, 4\nmovsxd  rcx, ecx\nmov     rdx, qword ptr [rbp+buf_out]\nmov     [rax+rcx], rdx\nmov     rdx, qword ptr [rbp+buf_out+8]\nmov     [rax+rcx+8], rdx\nmov     rax, qword ptr [rbp+buf_in]\nmov     qword ptr [rbp+iv_buf], rax\nmov     rax, qword ptr [rbp+buf_in+8]\nmov     qword ptr [rbp+iv_buf+8], rax\nmov     eax, [rbp+idx]\nadd     eax, 1\nmov     [rbp+idx], eax\njmp     loc_1926",
+   "loc_19B2": "mov     [rbp+var_4], 1",
+   "loc_19B9": "mov     eax, [rbp+var_4]\nadd     rsp, 80h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "idx": "dword ptr -78h",
+   "blocks": "dword ptr -74h",
+   "iv_buf": "byte ptr -70h",
+   "buf_out": "byte ptr -60h",
+   "buf_in": "byte ptr -50h",
+   "iv": "qword ptr -38h",
+   "keysize": "dword ptr -2Ch",
+   "key": "qword ptr -28h",
+   "out": "qword ptr -20h",
+   "in_len": "qword ptr -18h",
+   "in": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6336,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".memcmp": "memcmp",
+  "_memcmp": "memcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".memcmp",
+   ".plt",
+   true,
+   "memcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868511
+ }
+}

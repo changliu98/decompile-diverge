@@ -1,0 +1,1 @@
+int guiResolveColor(GuiContext *ctx, float *re, float *green, float *blue) { *re = 0; *green = 0; *blue = 0; return -1; }

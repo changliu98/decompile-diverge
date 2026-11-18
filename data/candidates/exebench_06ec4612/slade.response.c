@@ -1,0 +1,1 @@
+void matrix2r(const double *m, double *r) { int i = 0; i++; i++; r[0] = m[i++]; i++; i++; i++; r[1] = m[i++]; i++; i++; r[2] = m[i++]; }

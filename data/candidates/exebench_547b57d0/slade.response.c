@@ -1,0 +1,1 @@
+void addthe(double a, double b, double c, double d, double* x1, double* x2) { *x1 = a*c - b*d; *x2 = b*c + a*d; }

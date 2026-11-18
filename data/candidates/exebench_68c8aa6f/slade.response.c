@@ -1,0 +1,1 @@
+void d_drop_wave(float *w) { w[0] = 1.0f; w[1] = 2.0f; }

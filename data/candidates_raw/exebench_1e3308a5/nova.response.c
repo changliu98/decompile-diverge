@@ -1,0 +1,1 @@
+void func0(float *x, float *y) { *y = *x ^ 0x80000000; }

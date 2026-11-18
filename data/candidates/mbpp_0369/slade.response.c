@@ -1,0 +1,1 @@
+__size32 func0(__size32 param1, __size32 param2, __size32 param3) { __size32 local0; local0 = 2 * (param1 + param2) * param3; return local0; }

@@ -1,0 +1,1 @@
+float FloatNoSwap(uint32_t *f) { return (*(float *)f); }

@@ -1,0 +1,1 @@
+void int_to_str(unsigned int num, char str[10]) { int i; for (i = 9; i >= 0; i--) { str[i] = (num % 10) + '0'; num /= 10; } str[10] = '\0'; }

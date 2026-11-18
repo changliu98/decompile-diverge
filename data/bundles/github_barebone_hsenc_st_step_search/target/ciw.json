@@ -1,0 +1,323 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+hse], rdi\nmov     rdi, [rbp+hse]; hse\ncall    get_input_buffer_size\nmov     [rbp+window_length], ax\nmov     rdi, [rbp+hse]; hse\ncall    get_lookahead_size\nmov     [rbp+lookahead_sz], ax\nmov     rax, [rbp+hse]\nmov     ax, [rax+2]\nmov     [rbp+msi], ax\nmov     rdi, [rbp+hse]; hse\ncall    is_finishing\ncmp     eax, 0\nsetnz   al\nand     al, 1\nmov     [rbp+fin], al\nmovzx   eax, [rbp+msi]\nmov     [rbp+var_2C], eax\nmov     rax, [rbp+hse]\nmovzx   eax, word ptr [rax]\nmov     [rbp+var_28], eax\ntest    [rbp+fin], 1\njz      loc_191E\nmov     eax, 1\nmov     [rbp+var_30], eax\njmp     loc_1925\nmovzx   eax, [rbp+lookahead_sz]\nmov     [rbp+var_30], eax\nmov     eax, [rbp+var_2C]\nmov     ecx, [rbp+var_28]\nmov     edx, [rbp+var_30]\nsub     ecx, edx\ncmp     eax, ecx\njle     loc_1953\nmov     dl, [rbp+fin]\nmov     eax, 7\nmov     ecx, 8\ntest    dl, 1\ncmovnz  eax, ecx\nmov     [rbp+var_4], eax\njmp     loc_1A2B\nmov     rdi, [rbp+hse]; hse\ncall    get_input_offset\nmov     [rbp+input_offset], ax\nmovzx   eax, [rbp+input_offset]\nmovzx   ecx, [rbp+msi]\nadd     eax, ecx\nmov     [rbp+end], ax\nmovzx   eax, [rbp+end]\nmovzx   ecx, [rbp+window_length]\nsub     eax, ecx\nmov     [rbp+start], ax\nmov     ax, [rbp+lookahead_sz]\nmov     [rbp+max_possible], ax\nmov     rax, [rbp+hse]\nmovzx   eax, word ptr [rax]\nmovzx   ecx, [rbp+msi]\nsub     eax, ecx\nmovzx   ecx, [rbp+lookahead_sz]\ncmp     eax, ecx\njge     loc_19AE\nmov     rax, [rbp+hse]\nmovzx   eax, word ptr [rax]\nmovzx   ecx, [rbp+msi]\nsub     eax, ecx\nmov     [rbp+max_possible], ax\nmov     [rbp+match_length], 0\nmov     rdi, [rbp+hse]; hse\nmov     cx, [rbp+start]\nmov     ax, [rbp+end]\nlea     r8, [rbp+match_length]; match_length\nmovzx   esi, cx; start\nmovzx   edx, ax; end\nmovzx   ecx, [rbp+max_possible]; maxlen\ncall    find_longest_match\nmov     [rbp+match_pos], ax\nmovzx   eax, [rbp+match_pos]\ncmp     eax, 0FFFFh\njnz     loc_1A0C\nmov     rax, [rbp+hse]\nmov     cx, [rax+2]\nadd     cx, 1\nmov     [rax+2], cx\nmov     rax, [rbp+hse]\nmov     word ptr [rax+4], 0\nmov     [rbp+var_4], 3\njmp     loc_1A2B\nmov     cx, [rbp+match_pos]\nmov     rax, [rbp+hse]\nmov     [rax+6], cx\nmov     cx, [rbp+match_length]\nmov     rax, [rbp+hse]\nmov     [rax+4], cx\nmov     [rbp+var_4], 3\nmov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 11,
+  "edges": [
+   [
+    "start",
+    "loc_1911"
+   ],
+   [
+    "start",
+    "loc_191E"
+   ],
+   [
+    "loc_1911",
+    "loc_1925"
+   ],
+   [
+    "loc_191E",
+    "loc_1925"
+   ],
+   [
+    "loc_1925",
+    "loc_1938"
+   ],
+   [
+    "loc_1925",
+    "loc_1953"
+   ],
+   [
+    "loc_1938",
+    "loc_1A2B"
+   ],
+   [
+    "loc_1953",
+    "loc_199D"
+   ],
+   [
+    "loc_1953",
+    "loc_19AE"
+   ],
+   [
+    "loc_199D",
+    "loc_19AE"
+   ],
+   [
+    "loc_19AE",
+    "loc_19E6"
+   ],
+   [
+    "loc_19AE",
+    "loc_1A0C"
+   ],
+   [
+    "loc_19E6",
+    "loc_1A2B"
+   ],
+   [
+    "loc_1A0C",
+    "loc_1A2B"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+hse], rdi\nmov     rdi, [rbp+hse]; hse\ncall    get_input_buffer_size\nmov     [rbp+window_length], ax\nmov     rdi, [rbp+hse]; hse\ncall    get_lookahead_size\nmov     [rbp+lookahead_sz], ax\nmov     rax, [rbp+hse]\nmov     ax, [rax+2]\nmov     [rbp+msi], ax\nmov     rdi, [rbp+hse]; hse\ncall    is_finishing\ncmp     eax, 0\nsetnz   al\nand     al, 1\nmov     [rbp+fin], al\nmovzx   eax, [rbp+msi]\nmov     [rbp+var_2C], eax\nmov     rax, [rbp+hse]\nmovzx   eax, word ptr [rax]\nmov     [rbp+var_28], eax\ntest    [rbp+fin], 1\njz      loc_191E",
+   "loc_1911": "mov     eax, 1\nmov     [rbp+var_30], eax\njmp     loc_1925",
+   "loc_191E": "movzx   eax, [rbp+lookahead_sz]\nmov     [rbp+var_30], eax",
+   "loc_1925": "mov     eax, [rbp+var_2C]\nmov     ecx, [rbp+var_28]\nmov     edx, [rbp+var_30]\nsub     ecx, edx\ncmp     eax, ecx\njle     loc_1953",
+   "loc_1938": "mov     dl, [rbp+fin]\nmov     eax, 7\nmov     ecx, 8\ntest    dl, 1\ncmovnz  eax, ecx\nmov     [rbp+var_4], eax\njmp     loc_1A2B",
+   "loc_1953": "mov     rdi, [rbp+hse]; hse\ncall    get_input_offset\nmov     [rbp+input_offset], ax\nmovzx   eax, [rbp+input_offset]\nmovzx   ecx, [rbp+msi]\nadd     eax, ecx\nmov     [rbp+end], ax\nmovzx   eax, [rbp+end]\nmovzx   ecx, [rbp+window_length]\nsub     eax, ecx\nmov     [rbp+start], ax\nmov     ax, [rbp+lookahead_sz]\nmov     [rbp+max_possible], ax\nmov     rax, [rbp+hse]\nmovzx   eax, word ptr [rax]\nmovzx   ecx, [rbp+msi]\nsub     eax, ecx\nmovzx   ecx, [rbp+lookahead_sz]\ncmp     eax, ecx\njge     loc_19AE",
+   "loc_199D": "mov     rax, [rbp+hse]\nmovzx   eax, word ptr [rax]\nmovzx   ecx, [rbp+msi]\nsub     eax, ecx\nmov     [rbp+max_possible], ax",
+   "loc_19AE": "mov     [rbp+match_length], 0\nmov     rdi, [rbp+hse]; hse\nmov     cx, [rbp+start]\nmov     ax, [rbp+end]\nlea     r8, [rbp+match_length]; match_length\nmovzx   esi, cx; start\nmovzx   edx, ax; end\nmovzx   ecx, [rbp+max_possible]; maxlen\ncall    find_longest_match\nmov     [rbp+match_pos], ax\nmovzx   eax, [rbp+match_pos]\ncmp     eax, 0FFFFh\njnz     loc_1A0C",
+   "loc_19E6": "mov     rax, [rbp+hse]\nmov     cx, [rax+2]\nadd     cx, 1\nmov     [rax+2], cx\nmov     rax, [rbp+hse]\nmov     word ptr [rax+4], 0\nmov     [rbp+var_4], 3\njmp     loc_1A2B",
+   "loc_1A0C": "mov     cx, [rbp+match_pos]\nmov     rax, [rbp+hse]\nmov     [rax+6], cx\nmov     cx, [rbp+match_length]\nmov     rax, [rbp+hse]\nmov     [rax+4], cx\nmov     [rbp+var_4], 3",
+   "loc_1A2B": "mov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_30": "dword ptr -30h",
+   "var_2C": "dword ptr -2Ch",
+   "var_28": "dword ptr -28h",
+   "match_pos": "word ptr -24h",
+   "match_length": "word ptr -22h",
+   "max_possible": "word ptr -20h",
+   "start": "word ptr -1Eh",
+   "end": "word ptr -1Ch",
+   "input_offset": "word ptr -1Ah",
+   "fin": "byte ptr -17h",
+   "msi": "word ptr -16h",
+   "lookahead_sz": "word ptr -14h",
+   "window_length": "word ptr -12h",
+   "hse": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6320,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memmove",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872668
+ }
+}

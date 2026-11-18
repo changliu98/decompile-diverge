@@ -1,0 +1,1 @@
+int func0(int x) { int y = (int)(floor(sqrt((double) x))) + 1; return y * y; }

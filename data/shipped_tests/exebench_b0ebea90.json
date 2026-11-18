@@ -1,0 +1,147 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <dlfcn.h>\n\n#include <stdarg.h>\n\n#include <stdlib.h>\n\n#include <string.h>\n\n#include <unistd.h>\n\n#include <fcntl.h>\n\n#include <sys/types.h>\n\n#include <sys/stat.h>\n\n#include <linux/dvb/ca.h>\n\n#include <linux/dvb/dmx.h>\n\n#include <linux/dvb/frontend.h>\n\n#include <linux/ioctl.h>\n\n#include <stdio.h>\n\n#include <time.h>\n\n#include <sys/socket.h>\n\n#include <netinet/in.h>\n\n#include <arpa/inet.h>\n\n#include <sys/un.h>\n\n#include <syslog.h>\n\n#include <errno.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_31nzrp1vmb.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(int fd, unsigned char buff, int returnv) {\n  json output_json;\n\n  output_json[\"buff\"] = buff;\n\n  output_json[\"LOG_ERR\"] = LOG_ERR;\n\n  output_json[\"errno\"] = errno;\n\n  output_json[\"returnv\"] = returnv;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  int fd = input_json[\"fd\"];\n  unsigned char buff = input_json[\"buff\"];\n  int LOG_ERR;\n  int errno;\n  clock_t begin = clock();\n  int returnv = sendcw(fd, buff);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(fd, buff, returnv);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "fd": 56,
+    "buff": 765
+   },
+   "output": {
+    "LOG_ERR": 0,
+    "buff": 253,
+    "errno": 9,
+    "returnv": 0
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fd": 29,
+    "buff": 852
+   },
+   "output": {
+    "LOG_ERR": 0,
+    "buff": 84,
+    "errno": 9,
+    "returnv": 0
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fd": 97,
+    "buff": 511
+   },
+   "output": {
+    "LOG_ERR": 0,
+    "buff": 255,
+    "errno": 9,
+    "returnv": 0
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fd": 72,
+    "buff": 411
+   },
+   "output": {
+    "LOG_ERR": 0,
+    "buff": 155,
+    "errno": 9,
+    "returnv": 0
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fd": 111,
+    "buff": 86
+   },
+   "output": {
+    "LOG_ERR": 0,
+    "buff": 86,
+    "errno": 9,
+    "returnv": 0
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fd": 33,
+    "buff": 815
+   },
+   "output": {
+    "LOG_ERR": 0,
+    "buff": 47,
+    "errno": 9,
+    "returnv": 0
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fd": 17,
+    "buff": 331
+   },
+   "output": {
+    "LOG_ERR": 0,
+    "buff": 75,
+    "errno": 9,
+    "returnv": 0
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fd": 102,
+    "buff": 795
+   },
+   "output": {
+    "LOG_ERR": 0,
+    "buff": 27,
+    "errno": 9,
+    "returnv": 0
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fd": 42,
+    "buff": 881
+   },
+   "output": {
+    "LOG_ERR": 0,
+    "buff": 113,
+    "errno": 9,
+    "returnv": 0
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fd": 54,
+    "buff": 973
+   },
+   "output": {
+    "LOG_ERR": 0,
+    "buff": 205,
+    "errno": 9,
+    "returnv": 0
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

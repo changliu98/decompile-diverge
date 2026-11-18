@@ -1,0 +1,1 @@
+int FABSQ(int64_t *a,int64_t *b) { a[0] &=0x7FFFFFFFFFFFFFFFULL; a[1] = b[1]; return 1; }

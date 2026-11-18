@@ -1,0 +1,1 @@
+void quant_u(float *i, int *e, float a, float b, int n) { register float *f = (float *) i; register float x; register float y; register int ii; x = (b-a)/(n-1); y = a + 0.5*a; for (ii = n-1; ii < y; ++ii) { if (*f < y) { x += y; } else { break; } } *f = a + ii*y; *e = ii; }

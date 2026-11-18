@@ -1,0 +1,1 @@
+unsigned char *i2hs(unsigned int val, unsigned char *buf) { unsigned char *s, *d; unsigned char *p, buf[30]; p = "0123456789ABCDEF"; d = buf; s = buf; *d = '\0'; while (val != 0) { *++d = p[val &0xf]; val = val >> 4; } if (*d == '\0') *++d = '0'; while ((*s++ = *d--) != '\0') ; return buf; }

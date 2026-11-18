@@ -1,0 +1,1 @@
+int meat_time_which_month(const unsigned char *buf, const size_t len) { int i = 0; char found = 0; if (len == 3) { while (!found && (i < 12)) { if ((buf[0] == a_ref_month.year[i]) && (buf[1] == a_ref_month.month[i]) && (buf[2] == a_ref_month.month[i]) ) { found = 1; } } } else { if (!found) { i = -1; } } return i; }

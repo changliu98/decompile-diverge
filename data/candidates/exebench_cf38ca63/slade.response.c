@@ -1,0 +1,1 @@
+int bitsToIp4AddrArr(unsigned int val, __u8 *ip) { ip[0] = (val>>24) &0xFF; ip[1] = (val>>16) &0xFF; ip[2] = (val>>8) &0xFF; ip[3] = val &0xFF; return 0; }

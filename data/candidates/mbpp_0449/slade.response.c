@@ -1,0 +1,1 @@
+char *func0(int a, int b, int c, int d, int e, int f) { int r = (d - f) * a + (e - b) * c + (b - d) * e; if (r == 0) return "No"; return "Yes"; }

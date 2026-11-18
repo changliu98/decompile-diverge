@@ -1,0 +1,277 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+clear], rdi\nmov     [rbp+vBarEntry], rsi\nmov     rax, [rbp+vBarEntry]\nmov     eax, [rax+4]\nmov     rcx, [rbp+vBarEntry]\ncmp     eax, [rcx]\njbe     loc_1A91\nmov     rax, [rbp+clear]\nmov     edi, [rax+30h]; format\ncall    FreeRDPGetBytesPerPixel\nmov     [rbp+bpp], eax\nmov     rax, [rbp+vBarEntry]\nmov     eax, [rax]\nimul    eax, [rbp+bpp]\nmov     [rbp+oldPos], eax\nmov     rax, [rbp+vBarEntry]\nmov     eax, [rax+4]\nmov     rcx, [rbp+vBarEntry]\nsub     eax, [rcx]\nimul    eax, [rbp+bpp]\nmov     [rbp+diffSize], eax\nmov     rax, [rbp+vBarEntry]\nmov     ecx, [rax+4]\nmov     rax, [rbp+vBarEntry]\nmov     [rax], ecx\nmov     rax, [rbp+vBarEntry]\nmov     rdi, [rax+8]; memblock\nmov     rax, [rbp+vBarEntry]\nmov     eax, [rax+4]\nmov     esi, eax; num\nmov     eax, [rbp+bpp]\nmov     edx, eax\nshl     rdx, 0; size\nmov     ecx, 20h ; ' '; alignment\ncall    _ZN4chip9ArgParser11HelpOptionsC2EPKcS3_S3_; chip::ArgParser::HelpOptions::HelpOptions(char const*,char const*,char const*)\nmov     [rbp+tmp], rax\ncmp     [rbp+tmp], 0\njnz     loc_1A6F\nmov     [rbp+var_4], 0\njmp     loc_1AC0\nmov     rdi, [rbp+tmp]\nmov     eax, [rbp+oldPos]\nadd     rdi, rax; s\nmov     eax, [rbp+diffSize]\nmov     edx, eax; n\nxor     esi, esi; c\ncall    memset\nmov     rcx, [rbp+tmp]\nmov     rax, [rbp+vBarEntry]\nmov     [rax+8], rcx\nmov     rax, [rbp+vBarEntry]\ncmp     qword ptr [rax+8], 0\njnz     loc_1AB9\nmov     rax, [rbp+vBarEntry]\ncmp     dword ptr [rax], 0\njz      loc_1AB9\nmov     [rbp+var_4], 0\njmp     loc_1AC0\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 9,
+  "edges": [
+   [
+    "start",
+    "loc_19F3"
+   ],
+   [
+    "start",
+    "loc_1A91"
+   ],
+   [
+    "loc_19F3",
+    "loc_1A63"
+   ],
+   [
+    "loc_19F3",
+    "loc_1A6F"
+   ],
+   [
+    "loc_1A63",
+    "loc_1AC0"
+   ],
+   [
+    "loc_1A6F",
+    "loc_1A91"
+   ],
+   [
+    "loc_1A91",
+    "loc_1AA0"
+   ],
+   [
+    "loc_1A91",
+    "loc_1AB9"
+   ],
+   [
+    "loc_1AA0",
+    "loc_1AAD"
+   ],
+   [
+    "loc_1AA0",
+    "loc_1AB9"
+   ],
+   [
+    "loc_1AAD",
+    "loc_1AC0"
+   ],
+   [
+    "loc_1AB9",
+    "loc_1AC0"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+clear], rdi\nmov     [rbp+vBarEntry], rsi\nmov     rax, [rbp+vBarEntry]\nmov     eax, [rax+4]\nmov     rcx, [rbp+vBarEntry]\ncmp     eax, [rcx]\njbe     loc_1A91",
+   "loc_19F3": "mov     rax, [rbp+clear]\nmov     edi, [rax+30h]; format\ncall    FreeRDPGetBytesPerPixel\nmov     [rbp+bpp], eax\nmov     rax, [rbp+vBarEntry]\nmov     eax, [rax]\nimul    eax, [rbp+bpp]\nmov     [rbp+oldPos], eax\nmov     rax, [rbp+vBarEntry]\nmov     eax, [rax+4]\nmov     rcx, [rbp+vBarEntry]\nsub     eax, [rcx]\nimul    eax, [rbp+bpp]\nmov     [rbp+diffSize], eax\nmov     rax, [rbp+vBarEntry]\nmov     ecx, [rax+4]\nmov     rax, [rbp+vBarEntry]\nmov     [rax], ecx\nmov     rax, [rbp+vBarEntry]\nmov     rdi, [rax+8]; memblock\nmov     rax, [rbp+vBarEntry]\nmov     eax, [rax+4]\nmov     esi, eax; num\nmov     eax, [rbp+bpp]\nmov     edx, eax\nshl     rdx, 0; size\nmov     ecx, 20h ; ' '; alignment\ncall    _ZN4chip9ArgParser11HelpOptionsC2EPKcS3_S3_; chip::ArgParser::HelpOptions::HelpOptions(char const*,char const*,char const*)\nmov     [rbp+tmp], rax\ncmp     [rbp+tmp], 0\njnz     loc_1A6F",
+   "loc_1A63": "mov     [rbp+var_4], 0\njmp     loc_1AC0",
+   "loc_1A6F": "mov     rdi, [rbp+tmp]\nmov     eax, [rbp+oldPos]\nadd     rdi, rax; s\nmov     eax, [rbp+diffSize]\nmov     edx, eax; n\nxor     esi, esi; c\ncall    memset\nmov     rcx, [rbp+tmp]\nmov     rax, [rbp+vBarEntry]\nmov     [rax+8], rcx",
+   "loc_1A91": "mov     rax, [rbp+vBarEntry]\ncmp     qword ptr [rax+8], 0\njnz     loc_1AB9",
+   "loc_1AA0": "mov     rax, [rbp+vBarEntry]\ncmp     dword ptr [rax], 0\njz      loc_1AB9",
+   "loc_1AAD": "mov     [rbp+var_4], 0\njmp     loc_1AC0",
+   "loc_1AB9": "mov     [rbp+var_4], 1",
+   "loc_1AC0": "mov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "tmp": "qword ptr -30h",
+   "diffSize": "dword ptr -24h",
+   "oldPos": "dword ptr -20h",
+   "bpp": "dword ptr -1Ch",
+   "vBarEntry": "qword ptr -18h",
+   "clear": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6608,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".posix_memalign": "posix_memalign",
+  "_posix_memalign": "posix_memalign"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".posix_memalign",
+   ".plt",
+   true,
+   "posix_memalign"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "posix_memalign",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868501
+ }
+}

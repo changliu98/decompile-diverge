@@ -1,0 +1,1 @@
+float func0(float a, float b) { return a + b; }

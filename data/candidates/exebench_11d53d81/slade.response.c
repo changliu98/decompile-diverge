@@ -1,0 +1,1 @@
+void eeval(double x1, double y1, double x2, double y2, double x3, double *x4, double *y4, double *x5, double *y5) { double y1 = y1 * x1; double y2 = y1 + x2; double y3 = y2 + y2 * x1; double y4 = y1 + y2 * x1 + y3; double x6 = y3 * x1 + x3; *x4 = x6; *y4 = y4; *x5 = y2; *y5 = y3; }

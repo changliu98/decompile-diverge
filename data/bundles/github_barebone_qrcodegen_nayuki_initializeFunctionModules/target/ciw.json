@@ -1,0 +1,426 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+version], edi\nmov     [rbp+qrcode], rsi\nmov     eax, [rbp+version]\nshl     eax, 2\nadd     eax, 11h\nmov     [rbp+qrsize], eax\nmov     rdi, [rbp+qrcode]; s\nmov     eax, [rbp+qrsize]\nimul    eax, [rbp+qrsize]\nadd     eax, 7\nmov     ecx, 8\ncdq\nidiv    ecx\nadd     eax, 1\nmovsxd  rdx, eax\nshl     rdx, 0; n\nxor     esi, esi; c\ncall    memset\nmov     eax, [rbp+qrsize]\nmov     cl, al\nmov     rax, [rbp+qrcode]\nmov     [rax], cl\nmov     ecx, [rbp+qrsize]; height\nmov     r8, [rbp+qrcode]; qrcode\nmov     edi, 6; left\nxor     esi, esi; top\nmov     edx, 1; width\ncall    fillRectangle\nmov     edx, [rbp+qrsize]; width\nmov     r8, [rbp+qrcode]; qrcode\nxor     edi, edi; left\nmov     esi, 6; top\nmov     ecx, 1; height\ncall    fillRectangle\nmov     r8, [rbp+qrcode]; qrcode\nxor     esi, esi; top\nmov     ecx, 9; height\nmov     edi, esi; left\nmov     edx, ecx; width\ncall    fillRectangle\nmov     edi, [rbp+qrsize]\nsub     edi, 8; left\nmov     r8, [rbp+qrcode]; qrcode\nxor     esi, esi; top\nmov     edx, 8; width\nmov     ecx, 9; height\ncall    fillRectangle\nmov     esi, [rbp+qrsize]\nsub     esi, 8; top\nmov     r8, [rbp+qrcode]; qrcode\nxor     edi, edi; left\nmov     edx, 9; width\nmov     ecx, 8; height\ncall    fillRectangle\nmov     edi, [rbp+version]; version\nlea     rsi, [rbp+alignPatPos]; result\ncall    getAlignmentPatternPositions\nmov     [rbp+numAlign], eax\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+numAlign]\njge     loc_2B84\nmov     [rbp+j], 0\nmov     eax, [rbp+j]\ncmp     eax, [rbp+numAlign]\njge     loc_2B71\ncmp     [rbp+i], 0\njnz     loc_2B00\ncmp     [rbp+j], 0\njz      loc_2B5E\ncmp     [rbp+i], 0\njnz     loc_2B1B\nmov     eax, [rbp+j]\nmov     ecx, [rbp+numAlign]\nsub     ecx, 1\ncmp     eax, ecx\njz      loc_2B5E\nmov     eax, [rbp+i]\nmov     ecx, [rbp+numAlign]\nsub     ecx, 1\ncmp     eax, ecx\njnz     loc_2B36\ncmp     [rbp+j], 0\njz      loc_2B5E\nmovsxd  rax, [rbp+i]\nmovzx   edi, [rbp+rax+alignPatPos]\nsub     edi, 2; left\nmovsxd  rax, [rbp+j]\nmovzx   esi, [rbp+rax+alignPatPos]\nsub     esi, 2; top\nmov     r8, [rbp+qrcode]; qrcode\nmov     ecx, 5; height\nmov     edx, ecx; width\ncall    fillRectangle\njmp     $+5\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_2AE0\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_2ACD\ncmp     [rbp+version], 7\njl      loc_2BC4\nmov     edi, [rbp+qrsize]\nsub     edi, 0Bh; left\nmov     r8, [rbp+qrcode]; qrcode\nxor     esi, esi; top\nmov     edx, 3; width\nmov     ecx, 6; height\ncall    fillRectangle\nmov     esi, [rbp+qrsize]\nsub     esi, 0Bh; top\nmov     r8, [rbp+qrcode]; qrcode\nxor     edi, edi; left\nmov     edx, 6; width\nmov     ecx, 3; height\ncall    fillRectangle\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 18,
+  "edges": [
+   [
+    "start",
+    "loc_2ACD"
+   ],
+   [
+    "loc_2ACD",
+    "loc_2AD9"
+   ],
+   [
+    "loc_2ACD",
+    "loc_2B84"
+   ],
+   [
+    "loc_2AD9",
+    "loc_2AE0"
+   ],
+   [
+    "loc_2AE0",
+    "loc_2AEC"
+   ],
+   [
+    "loc_2AE0",
+    "loc_2B71"
+   ],
+   [
+    "loc_2AEC",
+    "loc_2AF6"
+   ],
+   [
+    "loc_2AEC",
+    "loc_2B00"
+   ],
+   [
+    "loc_2AF6",
+    "loc_2B00"
+   ],
+   [
+    "loc_2AF6",
+    "loc_2B5E"
+   ],
+   [
+    "loc_2B00",
+    "loc_2B0A"
+   ],
+   [
+    "loc_2B00",
+    "loc_2B1B"
+   ],
+   [
+    "loc_2B0A",
+    "loc_2B1B"
+   ],
+   [
+    "loc_2B0A",
+    "loc_2B5E"
+   ],
+   [
+    "loc_2B1B",
+    "loc_2B2C"
+   ],
+   [
+    "loc_2B1B",
+    "loc_2B36"
+   ],
+   [
+    "loc_2B2C",
+    "loc_2B36"
+   ],
+   [
+    "loc_2B2C",
+    "loc_2B5E"
+   ],
+   [
+    "loc_2B36",
+    "loc_2B5E"
+   ],
+   [
+    "loc_2B5E",
+    "loc_2B63"
+   ],
+   [
+    "loc_2B63",
+    "loc_2AE0"
+   ],
+   [
+    "loc_2B71",
+    "loc_2B76"
+   ],
+   [
+    "loc_2B76",
+    "loc_2ACD"
+   ],
+   [
+    "loc_2B84",
+    "loc_2B8E"
+   ],
+   [
+    "loc_2B84",
+    "loc_2BC4"
+   ],
+   [
+    "loc_2B8E",
+    "loc_2BC4"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+version], edi\nmov     [rbp+qrcode], rsi\nmov     eax, [rbp+version]\nshl     eax, 2\nadd     eax, 11h\nmov     [rbp+qrsize], eax\nmov     rdi, [rbp+qrcode]; s\nmov     eax, [rbp+qrsize]\nimul    eax, [rbp+qrsize]\nadd     eax, 7\nmov     ecx, 8\ncdq\nidiv    ecx\nadd     eax, 1\nmovsxd  rdx, eax\nshl     rdx, 0; n\nxor     esi, esi; c\ncall    memset\nmov     eax, [rbp+qrsize]\nmov     cl, al\nmov     rax, [rbp+qrcode]\nmov     [rax], cl\nmov     ecx, [rbp+qrsize]; height\nmov     r8, [rbp+qrcode]; qrcode\nmov     edi, 6; left\nxor     esi, esi; top\nmov     edx, 1; width\ncall    fillRectangle\nmov     edx, [rbp+qrsize]; width\nmov     r8, [rbp+qrcode]; qrcode\nxor     edi, edi; left\nmov     esi, 6; top\nmov     ecx, 1; height\ncall    fillRectangle\nmov     r8, [rbp+qrcode]; qrcode\nxor     esi, esi; top\nmov     ecx, 9; height\nmov     edi, esi; left\nmov     edx, ecx; width\ncall    fillRectangle\nmov     edi, [rbp+qrsize]\nsub     edi, 8; left\nmov     r8, [rbp+qrcode]; qrcode\nxor     esi, esi; top\nmov     edx, 8; width\nmov     ecx, 9; height\ncall    fillRectangle\nmov     esi, [rbp+qrsize]\nsub     esi, 8; top\nmov     r8, [rbp+qrcode]; qrcode\nxor     edi, edi; left\nmov     edx, 9; width\nmov     ecx, 8; height\ncall    fillRectangle\nmov     edi, [rbp+version]; version\nlea     rsi, [rbp+alignPatPos]; result\ncall    getAlignmentPatternPositions\nmov     [rbp+numAlign], eax\nmov     [rbp+i], 0",
+   "loc_2ACD": "mov     eax, [rbp+i]\ncmp     eax, [rbp+numAlign]\njge     loc_2B84",
+   "loc_2AD9": "mov     [rbp+j], 0",
+   "loc_2AE0": "mov     eax, [rbp+j]\ncmp     eax, [rbp+numAlign]\njge     loc_2B71",
+   "loc_2AEC": "cmp     [rbp+i], 0\njnz     loc_2B00",
+   "loc_2AF6": "cmp     [rbp+j], 0\njz      loc_2B5E",
+   "loc_2B00": "cmp     [rbp+i], 0\njnz     loc_2B1B",
+   "loc_2B0A": "mov     eax, [rbp+j]\nmov     ecx, [rbp+numAlign]\nsub     ecx, 1\ncmp     eax, ecx\njz      loc_2B5E",
+   "loc_2B1B": "mov     eax, [rbp+i]\nmov     ecx, [rbp+numAlign]\nsub     ecx, 1\ncmp     eax, ecx\njnz     loc_2B36",
+   "loc_2B2C": "cmp     [rbp+j], 0\njz      loc_2B5E",
+   "loc_2B36": "movsxd  rax, [rbp+i]\nmovzx   edi, [rbp+rax+alignPatPos]\nsub     edi, 2; left\nmovsxd  rax, [rbp+j]\nmovzx   esi, [rbp+rax+alignPatPos]\nsub     esi, 2; top\nmov     r8, [rbp+qrcode]; qrcode\nmov     ecx, 5; height\nmov     edx, ecx; width\ncall    fillRectangle",
+   "loc_2B5E": "jmp     $+5",
+   "loc_2B63": "mov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_2AE0",
+   "loc_2B71": "jmp     $+5",
+   "loc_2B76": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_2ACD",
+   "loc_2B84": "cmp     [rbp+version], 7\njl      loc_2BC4",
+   "loc_2B8E": "mov     edi, [rbp+qrsize]\nsub     edi, 0Bh; left\nmov     r8, [rbp+qrcode]; qrcode\nxor     esi, esi; top\nmov     edx, 3; width\nmov     ecx, 6; height\ncall    fillRectangle\nmov     esi, [rbp+qrsize]\nsub     esi, 0Bh; top\nmov     r8, [rbp+qrcode]; qrcode\nxor     edi, edi; left\nmov     edx, 6; width\nmov     ecx, 3; height\ncall    fillRectangle",
+   "loc_2BC4": "add     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "j": "dword ptr -28h",
+   "i": "dword ptr -24h",
+   "numAlign": "dword ptr -20h",
+   "alignPatPos": "byte ptr -1Bh",
+   "qrsize": "dword ptr -14h",
+   "qrcode": "qword ptr -10h",
+   "version": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 10736,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".abs": "abs",
+  "_abs": "abs",
+  ".labs": "labs",
+  "_labs": "labs",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".strchr": "strchr",
+  "_strchr": "strchr",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".abs",
+   ".plt",
+   true,
+   "abs"
+  ],
+  [
+   ".labs",
+   ".plt",
+   true,
+   "labs"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".strchr",
+   ".plt",
+   true,
+   "strchr"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "abs",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "labs",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strchr",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memmove",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872680
+ }
+}

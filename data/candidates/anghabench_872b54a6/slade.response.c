@@ -1,0 +1,1 @@
+int byte_row_johab_hangul(u_char c) { if (0x83 <= c && c <=0xdf) return c -0x84; return -1; }

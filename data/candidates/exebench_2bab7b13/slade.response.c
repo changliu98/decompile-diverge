@@ -1,0 +1,1 @@
+void Swap8Bytes( unsigned char *p ) { unsigned char temp; temp = p[ 0 ]; p[ 0 ] = p[ 7 ]; p[ 7 ] = temp; temp = p[ 1 ]; p[ 1 ] = p[ 6 ]; p[ 6 ] = temp; temp = p[ 2 ]; p[ 2 ] = p[ 5 ]; p[ 5 ] = temp; temp = p[ 3 ]; p[ 3 ] = p[ 4 ]; p[ 4 ] = temp; }

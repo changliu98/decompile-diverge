@@ -1,0 +1,1 @@
+void int2str(int i, int base, char *buf) { int r; while (base) { r = (i / base) % 10; *buf++ = '0' + r; base /= 10; } }

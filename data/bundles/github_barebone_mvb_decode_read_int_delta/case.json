@@ -1,0 +1,53 @@
+{
+ "schema_version": 1,
+ "localId": "github_barebone_mvb_decode_read_int_delta",
+ "backend": "github",
+ "project": "mvb_decode",
+ "pname": "mvb_decode",
+ "language": "c",
+ "fuzz_target": "prog.bin",
+ "sanitizer": "asan_ubsan",
+ "oracle": "exit_memstate",
+ "n_inputs": 50,
+ "n_safe": 50,
+ "n_triggering": 0,
+ "signature": "static inline int read_int_delta(const uint8_t* in, uint32_t* out, uint32_t* prev)",
+ "harness": "custom",
+ "memstate_masked": true,
+ "memstate_symcanon": true,
+ "baseline": {
+  "crashed": false,
+  "status": "PASS",
+  "n_pass": 50,
+  "memstate": "data_bss_symbol_canonical_relocmasked",
+  "memstate_masked": true,
+  "memstate_symcanon": true
+ },
+ "target": {
+  "name": "read_int_delta",
+  "repo_relpath": "func.c",
+  "start_byte": 58372,
+  "end_byte": 58953,
+  "start_line": 824,
+  "end_line": 853,
+  "return_type": "int",
+  "signature": "static inline int read_int_delta(const uint8_t* in, uint32_t* out, uint32_t* prev)"
+ },
+ "provenance": {
+  "source": "github",
+  "repo": "https://github.com/lemire/MaskedVByte",
+  "path": "src/varintdecode.c",
+  "func": "read_int_delta",
+  "commit": "e2298b7a28002e08f3f74755353b7229bfe6475b",
+  "commit_verified": "exact"
+ },
+ "decompiler_input": [
+  "asm",
+  "ghidra",
+  "ida"
+ ],
+ "extra_cflags": "-I. -msse4.1 -mbmi2 -mavx2",
+ "group": "github_barebone",
+ "category": "functional",
+ "reexec_from": "githubrc_mvb_decode_read_int_delta"
+}

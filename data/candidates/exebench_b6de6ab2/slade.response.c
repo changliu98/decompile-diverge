@@ -1,0 +1,1 @@
+void reduce_grid_address(int * output_addr, int * input_addr) { int i; for (i = 0; i < 3; i++) { output_addr[i] -= output_addr[i] * (output_addr[i] / 2); } }

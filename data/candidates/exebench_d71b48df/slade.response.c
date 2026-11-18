@@ -1,0 +1,1 @@
+void trocar(TipoValor *p, TipoValor *q) { TipoValor t; t = *p; *p = *q; *q = t; }

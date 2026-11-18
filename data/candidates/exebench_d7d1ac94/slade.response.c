@@ -1,0 +1,1 @@
+bool_t imul_dbl(unsigned long m[2]) { bool_t rc; asm ( "imul %1; seto %b2" : "=a" (rc) : "d" (m[0]), "m" (m[1]), "c" (0)); return rc; }

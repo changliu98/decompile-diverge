@@ -1,0 +1,333 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+mdia], rdi\nmov     [rbp+dataEntryIndex], esi\ncmp     [rbp+mdia], 0\njz      loc_1520\ncmp     [rbp+dataEntryIndex], 0\njz      loc_1520\nmov     eax, [rbp+dataEntryIndex]\nmov     [rbp+var_30], eax\nmov     rax, [rbp+mdia]\nmov     rax, [rax+30h]\nmov     rax, [rax+28h]\nmov     rax, [rax+28h]\nmov     rdi, [rax+18h]; ptr\ncall    gf_list_count\nmov     ecx, eax\nmov     eax, [rbp+var_30]\ncmp     eax, ecx\njbe     loc_152C\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_1629\nmov     rax, [rbp+mdia]\nmov     rax, [rax+30h]\nmov     rax, [rax+28h]\nmov     rax, [rax+28h]\nmov     rdi, [rax+18h]; ptr\nmov     esi, [rbp+dataEntryIndex]\nsub     esi, 1; itemNumber\ncall    gf_list_get\nmov     [rbp+entry], rax\ncmp     [rbp+entry], 0\njnz     loc_1566\nmov     [rbp+var_4], 0FFFFFFECh\njmp     loc_1629\nmov     rax, [rbp+entry]\ncmp     dword ptr [rax+24h], 1\njnz     loc_1580\nmov     [rbp+var_4], 0\njmp     loc_1629\nmov     rax, [rbp+entry]\ncmp     dword ptr [rax], 75726E20h\njnz     loc_159C\nmov     [rbp+var_4], 0FFFFFFFCh\njmp     loc_1629\nmov     rax, [rbp+mdia]\nmov     rax, [rax+28h]\nmov     rax, [rax+28h]\nmov     rax, [rax+28h]\ncmp     dword ptr [rax], 2\njnz     loc_15D7\nmov     rax, [rbp+entry]\nmov     rdi, [rax+28h]; location\nxor     eax, eax\nmov     esi, eax; parentPath\nmov     edx, 1; mode\nlea     rcx, [rbp+map]; outDataMap\ncall    gf_isom_datamap_new\nmov     [rbp+e], eax\njmp     loc_1604\nmov     rax, [rbp+entry]\nmov     rdi, [rax+28h]; location\nmov     rax, [rbp+mdia]\nmov     rax, [rax+28h]\nmov     rax, [rax+28h]\nmov     rax, [rax+28h]\nmov     rsi, [rax+8]; parentPath\nmov     edx, 1; mode\nlea     rcx, [rbp+map]; outDataMap\ncall    gf_isom_datamap_new\nmov     [rbp+e], eax\ncmp     [rbp+e], 0\njz      loc_1619\nmov     eax, [rbp+e]\nmov     [rbp+var_4], eax\njmp     loc_1629\nmov     rdi, [rbp+map]; ptr\ncall    gf_isom_datamap_del\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 17,
+  "edges": [
+   [
+    "start",
+    "loc_14EA"
+   ],
+   [
+    "start",
+    "loc_1520"
+   ],
+   [
+    "loc_14EA",
+    "loc_14F4"
+   ],
+   [
+    "loc_14EA",
+    "loc_1520"
+   ],
+   [
+    "loc_14F4",
+    "loc_1520"
+   ],
+   [
+    "loc_14F4",
+    "loc_152C"
+   ],
+   [
+    "loc_1520",
+    "loc_1629"
+   ],
+   [
+    "loc_152C",
+    "loc_155A"
+   ],
+   [
+    "loc_152C",
+    "loc_1566"
+   ],
+   [
+    "loc_155A",
+    "loc_1629"
+   ],
+   [
+    "loc_1566",
+    "loc_1574"
+   ],
+   [
+    "loc_1566",
+    "loc_1580"
+   ],
+   [
+    "loc_1574",
+    "loc_1629"
+   ],
+   [
+    "loc_1580",
+    "loc_1590"
+   ],
+   [
+    "loc_1580",
+    "loc_159C"
+   ],
+   [
+    "loc_1590",
+    "loc_1629"
+   ],
+   [
+    "loc_159C",
+    "loc_15B5"
+   ],
+   [
+    "loc_159C",
+    "loc_15D7"
+   ],
+   [
+    "loc_15B5",
+    "loc_1604"
+   ],
+   [
+    "loc_15D7",
+    "loc_1604"
+   ],
+   [
+    "loc_1604",
+    "loc_160E"
+   ],
+   [
+    "loc_1604",
+    "loc_1619"
+   ],
+   [
+    "loc_160E",
+    "loc_1629"
+   ],
+   [
+    "loc_1619",
+    "loc_1629"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+mdia], rdi\nmov     [rbp+dataEntryIndex], esi\ncmp     [rbp+mdia], 0\njz      loc_1520",
+   "loc_14EA": "cmp     [rbp+dataEntryIndex], 0\njz      loc_1520",
+   "loc_14F4": "mov     eax, [rbp+dataEntryIndex]\nmov     [rbp+var_30], eax\nmov     rax, [rbp+mdia]\nmov     rax, [rax+30h]\nmov     rax, [rax+28h]\nmov     rax, [rax+28h]\nmov     rdi, [rax+18h]; ptr\ncall    gf_list_count\nmov     ecx, eax\nmov     eax, [rbp+var_30]\ncmp     eax, ecx\njbe     loc_152C",
+   "loc_1520": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_1629",
+   "loc_152C": "mov     rax, [rbp+mdia]\nmov     rax, [rax+30h]\nmov     rax, [rax+28h]\nmov     rax, [rax+28h]\nmov     rdi, [rax+18h]; ptr\nmov     esi, [rbp+dataEntryIndex]\nsub     esi, 1; itemNumber\ncall    gf_list_get\nmov     [rbp+entry], rax\ncmp     [rbp+entry], 0\njnz     loc_1566",
+   "loc_155A": "mov     [rbp+var_4], 0FFFFFFECh\njmp     loc_1629",
+   "loc_1566": "mov     rax, [rbp+entry]\ncmp     dword ptr [rax+24h], 1\njnz     loc_1580",
+   "loc_1574": "mov     [rbp+var_4], 0\njmp     loc_1629",
+   "loc_1580": "mov     rax, [rbp+entry]\ncmp     dword ptr [rax], 75726E20h\njnz     loc_159C",
+   "loc_1590": "mov     [rbp+var_4], 0FFFFFFFCh\njmp     loc_1629",
+   "loc_159C": "mov     rax, [rbp+mdia]\nmov     rax, [rax+28h]\nmov     rax, [rax+28h]\nmov     rax, [rax+28h]\ncmp     dword ptr [rax], 2\njnz     loc_15D7",
+   "loc_15B5": "mov     rax, [rbp+entry]\nmov     rdi, [rax+28h]; location\nxor     eax, eax\nmov     esi, eax; parentPath\nmov     edx, 1; mode\nlea     rcx, [rbp+map]; outDataMap\ncall    gf_isom_datamap_new\nmov     [rbp+e], eax\njmp     loc_1604",
+   "loc_15D7": "mov     rax, [rbp+entry]\nmov     rdi, [rax+28h]; location\nmov     rax, [rbp+mdia]\nmov     rax, [rax+28h]\nmov     rax, [rax+28h]\nmov     rax, [rax+28h]\nmov     rsi, [rax+8]; parentPath\nmov     edx, 1; mode\nlea     rcx, [rbp+map]; outDataMap\ncall    gf_isom_datamap_new\nmov     [rbp+e], eax",
+   "loc_1604": "cmp     [rbp+e], 0\njz      loc_1619",
+   "loc_160E": "mov     eax, [rbp+e]\nmov     [rbp+var_4], eax\njmp     loc_1629",
+   "loc_1619": "mov     rdi, [rbp+map]; ptr\ncall    gf_isom_datamap_del\nmov     [rbp+var_4], 0",
+   "loc_1629": "mov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_30": "dword ptr -30h",
+   "e": "dword ptr -2Ch",
+   "map": "qword ptr -28h",
+   "entry": "qword ptr -20h",
+   "dataEntryIndex": "dword ptr -14h",
+   "mdia": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5328,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868479
+ }
+}

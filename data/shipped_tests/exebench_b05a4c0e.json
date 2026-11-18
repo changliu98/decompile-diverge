@@ -1,0 +1,397 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <stdio.h>\n\n#include <stdlib.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_48n9xz9vrm.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(int* grid_double, int grid_point, int* mesh, int* is_shift) {\n  json output_json;\n  std::vector<json> output_temp_4;\n  for (unsigned int i5 = 0; i5 < 3; i5++) {\n    int output_temp_6 = grid_double[i5];\n\n    output_temp_4.push_back(output_temp_6);\n  }\n  output_json[\"grid_double\"] = output_temp_4;\n  std::vector<json> output_temp_7;\n  for (unsigned int i8 = 0; i8 < 3; i8++) {\n    int output_temp_9 = mesh[i8];\n\n    output_temp_7.push_back(output_temp_9);\n  }\n  output_json[\"mesh\"] = output_temp_7;\n  std::vector<json> output_temp_10;\n  for (unsigned int i11 = 0; i11 < 3; i11++) {\n    int output_temp_12 = is_shift[i11];\n\n    output_temp_10.push_back(output_temp_12);\n  }\n  output_json[\"is_shift\"] = output_temp_10;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  std::vector<int> input_temp_1_vec;\n  for (auto& elem : input_json[\"grid_double\"]) {\n    int input_temp_1_inner = elem;\n    input_temp_1_vec.push_back(input_temp_1_inner);\n  }\n  int* grid_double = &input_temp_1_vec[0];\n  int grid_point = input_json[\"grid_point\"];\n  std::vector<int> input_temp_2_vec;\n  for (auto& elem : input_json[\"mesh\"]) {\n    int input_temp_2_inner = elem;\n    input_temp_2_vec.push_back(input_temp_2_inner);\n  }\n  int* mesh = &input_temp_2_vec[0];\n  std::vector<int> input_temp_3_vec;\n  for (auto& elem : input_json[\"is_shift\"]) {\n    int input_temp_3_inner = elem;\n    input_temp_3_vec.push_back(input_temp_3_inner);\n  }\n  int* is_shift = &input_temp_3_vec[0];\n  clock_t begin = clock();\n  grid_point_to_grid_double(grid_double, grid_point, mesh, is_shift);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(grid_double, grid_point, mesh, is_shift);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "grid_double": [
+     92,
+     45,
+     89
+    ],
+    "grid_point": 91,
+    "mesh": [
+     115,
+     93,
+     91
+    ],
+    "is_shift": [
+     23,
+     87,
+     32
+    ]
+   },
+   "output": {
+    "grid_double": [
+     205,
+     87,
+     32
+    ],
+    "is_shift": [
+     23,
+     87,
+     32
+    ],
+    "mesh": [
+     115,
+     93,
+     91
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "grid_double": [
+     33,
+     110,
+     48
+    ],
+    "grid_point": 97,
+    "mesh": [
+     80,
+     64,
+     16
+    ],
+    "is_shift": [
+     14,
+     121,
+     32
+    ]
+   },
+   "output": {
+    "grid_double": [
+     48,
+     123,
+     32
+    ],
+    "is_shift": [
+     14,
+     121,
+     32
+    ],
+    "mesh": [
+     80,
+     64,
+     16
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "grid_double": [
+     39,
+     112,
+     109
+    ],
+    "grid_point": 60,
+    "mesh": [
+     106,
+     73,
+     6
+    ],
+    "is_shift": [
+     116,
+     9,
+     45
+    ]
+   },
+   "output": {
+    "grid_double": [
+     236,
+     9,
+     45
+    ],
+    "is_shift": [
+     116,
+     9,
+     45
+    ],
+    "mesh": [
+     106,
+     73,
+     6
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "grid_double": [
+     59,
+     91,
+     46
+    ],
+    "grid_point": 98,
+    "mesh": [
+     66,
+     56,
+     61
+    ],
+    "is_shift": [
+     5,
+     105,
+     118
+    ]
+   },
+   "output": {
+    "grid_double": [
+     69,
+     107,
+     118
+    ],
+    "is_shift": [
+     5,
+     105,
+     118
+    ],
+    "mesh": [
+     66,
+     56,
+     61
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "grid_double": [
+     31,
+     114,
+     33
+    ],
+    "grid_point": 95,
+    "mesh": [
+     98,
+     76,
+     6
+    ],
+    "is_shift": [
+     104,
+     87,
+     29
+    ]
+   },
+   "output": {
+    "grid_double": [
+     294,
+     87,
+     29
+    ],
+    "is_shift": [
+     104,
+     87,
+     29
+    ],
+    "mesh": [
+     98,
+     76,
+     6
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "grid_double": [
+     49,
+     110,
+     83
+    ],
+    "grid_point": 6,
+    "mesh": [
+     15,
+     114,
+     3
+    ],
+    "is_shift": [
+     73,
+     73,
+     31
+    ]
+   },
+   "output": {
+    "grid_double": [
+     85,
+     73,
+     31
+    ],
+    "is_shift": [
+     73,
+     73,
+     31
+    ],
+    "mesh": [
+     15,
+     114,
+     3
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "grid_double": [
+     120,
+     11,
+     26
+    ],
+    "grid_point": 4,
+    "mesh": [
+     96,
+     80,
+     122
+    ],
+    "is_shift": [
+     107,
+     35,
+     119
+    ]
+   },
+   "output": {
+    "grid_double": [
+     115,
+     35,
+     119
+    ],
+    "is_shift": [
+     107,
+     35,
+     119
+    ],
+    "mesh": [
+     96,
+     80,
+     122
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "grid_double": [
+     73,
+     14,
+     124
+    ],
+    "grid_point": 60,
+    "mesh": [
+     88,
+     57,
+     12
+    ],
+    "is_shift": [
+     111,
+     46,
+     42
+    ]
+   },
+   "output": {
+    "grid_double": [
+     231,
+     46,
+     42
+    ],
+    "is_shift": [
+     111,
+     46,
+     42
+    ],
+    "mesh": [
+     88,
+     57,
+     12
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "grid_double": [
+     100,
+     2,
+     125
+    ],
+    "grid_point": 20,
+    "mesh": [
+     79,
+     19,
+     39
+    ],
+    "is_shift": [
+     118,
+     97,
+     109
+    ]
+   },
+   "output": {
+    "grid_double": [
+     158,
+     97,
+     109
+    ],
+    "is_shift": [
+     118,
+     97,
+     109
+    ],
+    "mesh": [
+     79,
+     19,
+     39
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "grid_double": [
+     120,
+     84,
+     74
+    ],
+    "grid_point": 90,
+    "mesh": [
+     98,
+     22,
+     96
+    ],
+    "is_shift": [
+     19,
+     90,
+     61
+    ]
+   },
+   "output": {
+    "grid_double": [
+     199,
+     90,
+     61
+    ],
+    "is_shift": [
+     19,
+     90,
+     61
+    ],
+    "mesh": [
+     98,
+     22,
+     96
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

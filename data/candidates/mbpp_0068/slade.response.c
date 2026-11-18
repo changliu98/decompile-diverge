@@ -1,0 +1,1 @@
+char func0(int *x, int N) { char a = 1, b = 1, i; for (i = 0; i < N - 1; ++i) { if (x[i] > x[i + 1]) a = 0; if (x[i] < x[i + 1]) b = 0; } return 1 & (a || b); }

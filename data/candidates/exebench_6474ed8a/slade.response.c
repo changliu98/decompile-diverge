@@ -1,0 +1,1 @@
+int gen256(unsigned char *buffer, int val) { if (!(val &0x100)) return -1; int mask = val &0xff; buffer[0] = 0; buffer[1] = 1; int i; unsigned int val_mask = 1; for (i = 2; i < 256; i++) { val_mask <<= 1; if (val_mask &0x100) { val_mask &=0xff; val_mask ^= mask; } buffer[i] = val_mask; } return 0; }

@@ -1,0 +1,1 @@
+void UNLOCK(long *s) { int oldlock; *s = -1; switch (oldlock) { case 1: oldlock = *s; syscall(202, s, 1, 1); break; case 2: break; } }

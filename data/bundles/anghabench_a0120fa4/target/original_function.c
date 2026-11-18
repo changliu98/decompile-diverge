@@ -1,0 +1,1 @@
+uint32_t REG_A5XX_VFD_FETCH_BASE_HI(uint32_t i0) { return 0x0000e40b + 0x4*i0; }

@@ -1,0 +1,1 @@
+void icvDetMatrix3x3_64d( const double *src, double *dst ) { *dst = src[0] * ( src[4]*src[8] - src[5]*src[7] ) - src[1] * ( src[3]*src[8] - src[5]*src[6] ) + src[2] * ( src[3]*src[7] - src[4]*src[6] ); }

@@ -1,0 +1,24 @@
+00000000000011d0 <ramp_activate>:
+    11d0:	push   %rbp
+    11d1:	mov    %rsp,%rbp
+    11d4:	movss  %xmm0,-0x4(%rbp)
+    11d9:	movss  -0x4(%rbp),%xmm0
+    11de:	movss  -0x4(%rbp),%xmm1
+    11e3:	xorps  %xmm2,%xmm2
+    11e6:	ucomiss %xmm2,%xmm1
+    11e9:	seta   %al
+    11ec:	and    $0x1,%al
+    11ee:	movzbl %al,%eax
+    11f1:	cvtsi2ss %eax,%xmm1
+    11f5:	mulss  %xmm1,%xmm0
+    11f9:	cvtss2sd %xmm0,%xmm1
+    11fd:	movss  -0x4(%rbp),%xmm0
+    1202:	cvtss2sd %xmm0,%xmm0
+    1206:	movsd  0xdfa(%rip),%xmm2        # 2008 <_IO_stdin_used+0x8>
+    120e:	mulsd  %xmm2,%xmm0
+    1212:	addsd  %xmm1,%xmm0
+    1216:	cvtsd2ss %xmm0,%xmm0
+    121a:	pop    %rbp
+    121b:	ret
+
+Disassembly of section .fini:

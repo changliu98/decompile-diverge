@@ -1,0 +1,393 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+connection_prop], rdi\nmov     [rbp+post_param], rsi\nmov     [rbp+executor], rdx\nmov     [rbp+real_basedir], rcx\nmov     [rbp+wpipe], r8\nmov     [rbp+ipipe], r9\nmov     [rbp+errormsg], 0\nmov     rax, [rbp+wpipe]\nmov     edi, [rax]; fd\ncall    close\nmov     edi, 1; fd\ncall    close\nmov     rax, [rbp+wpipe]\nmov     edi, [rax+4]; fd\ncall    dup\ncmp     eax, 0FFFFFFFFh\njnz     loc_1AE2\nlea     rax, aDupFailed; \"dup() failed\"\nmov     [rbp+errormsg], rax\njmp     error\nmov     rax, [rbp+post_param]\ncmp     qword ptr [rax+8], 0\njz      loc_1B21\nxor     edi, edi; fd\ncall    close\nmov     rax, [rbp+ipipe]\nmov     edi, [rax]; fd\ncall    dup\ncmp     eax, 0FFFFFFFFh\njnz     loc_1B1C\nlea     rax, aDupFailed; \"dup() failed\"\nmov     [rbp+errormsg], rax\njmp     error\njmp     $+5\nmov     rax, cs:environ_ptr\nmov     qword ptr [rax], 0\nmov     rdi, [rbp+executor]; s\ncall    strlen\ncmp     rax, 0\njnz     loc_1B70\nmov     rax, [rbp+connection_prop]\nmov     rdi, [rax+50h]\nadd     rdi, 1; size\ncall    malloc\nmov     [rbp+executor], rax\nmov     rdi, [rbp+executor]; dest\nmov     rax, [rbp+connection_prop]\nmov     rsi, [rax+48h]; src\nmov     rax, [rbp+connection_prop]\nmov     rdx, [rax+50h]; n\ncall    strncpy\nmov     rax, [rbp+connection_prop]\nmov     rdi, [rax+28h]; http_param\ncall    cgi_set_http_env_vars\nmov     rax, [rbp+connection_prop]\nmov     edi, [rax]; fd\ncall    myio_getfd\nmov     edi, eax; sock\ncall    cgi_set_SERVER_ADDR_PORT\nmov     rdi, [rbp+connection_prop]; connection_prop\nmov     rsi, [rbp+real_basedir]; real_basedir\ncall    cgi_set_env_vars\ncall    cgi_set_env_content_length\nmov     rdi, [rbp+connection_prop]; connection_prop\ncall    cgi_child_chdir\nmov     [rbp+filename], rax\nmov     edi, 1Eh; seconds\ncall    alarm\nmov     rdi, [rbp+executor]; path\nmov     rsi, [rbp+executor]; arg\nmov     rdx, [rbp+filename]\nxor     eax, eax\nmov     ecx, eax\nmov     al, 0\ncall    execl\nmov     edi, 1; status\ncall    exit",
+ "assemgraph_com": {
+  "nodenum": 10,
+  "edges": [
+   [
+    "start",
+    "loc_1AD2"
+   ],
+   [
+    "start",
+    "loc_1AE2"
+   ],
+   [
+    "loc_1AD2",
+    "loc_1BCF"
+   ],
+   [
+    "loc_1AE2",
+    "loc_1AF1"
+   ],
+   [
+    "loc_1AE2",
+    "loc_1B21"
+   ],
+   [
+    "loc_1AF1",
+    "loc_1B0C"
+   ],
+   [
+    "loc_1AF1",
+    "loc_1B1C"
+   ],
+   [
+    "loc_1B0C",
+    "loc_1BCF"
+   ],
+   [
+    "loc_1B1C",
+    "loc_1B21"
+   ],
+   [
+    "loc_1B21",
+    "loc_1B42"
+   ],
+   [
+    "loc_1B21",
+    "loc_1B70"
+   ],
+   [
+    "loc_1B42",
+    "loc_1B70"
+   ],
+   [
+    "loc_1B70",
+    "loc_1BCF"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+connection_prop], rdi\nmov     [rbp+post_param], rsi\nmov     [rbp+executor], rdx\nmov     [rbp+real_basedir], rcx\nmov     [rbp+wpipe], r8\nmov     [rbp+ipipe], r9\nmov     [rbp+errormsg], 0\nmov     rax, [rbp+wpipe]\nmov     edi, [rax]; fd\ncall    close\nmov     edi, 1; fd\ncall    close\nmov     rax, [rbp+wpipe]\nmov     edi, [rax+4]; fd\ncall    dup\ncmp     eax, 0FFFFFFFFh\njnz     loc_1AE2",
+   "loc_1AD2": "lea     rax, aDupFailed; \"dup() failed\"\nmov     [rbp+errormsg], rax\njmp     error",
+   "loc_1AE2": "mov     rax, [rbp+post_param]\ncmp     qword ptr [rax+8], 0\njz      loc_1B21",
+   "loc_1AF1": "xor     edi, edi; fd\ncall    close\nmov     rax, [rbp+ipipe]\nmov     edi, [rax]; fd\ncall    dup\ncmp     eax, 0FFFFFFFFh\njnz     loc_1B1C",
+   "loc_1B0C": "lea     rax, aDupFailed; \"dup() failed\"\nmov     [rbp+errormsg], rax\njmp     error",
+   "loc_1B1C": "jmp     $+5",
+   "loc_1B21": "mov     rax, cs:environ_ptr\nmov     qword ptr [rax], 0\nmov     rdi, [rbp+executor]; s\ncall    strlen\ncmp     rax, 0\njnz     loc_1B70",
+   "loc_1B42": "mov     rax, [rbp+connection_prop]\nmov     rdi, [rax+50h]\nadd     rdi, 1; size\ncall    malloc\nmov     [rbp+executor], rax\nmov     rdi, [rbp+executor]; dest\nmov     rax, [rbp+connection_prop]\nmov     rsi, [rax+48h]; src\nmov     rax, [rbp+connection_prop]\nmov     rdx, [rax+50h]; n\ncall    strncpy",
+   "loc_1B70": "mov     rax, [rbp+connection_prop]\nmov     rdi, [rax+28h]; http_param\ncall    cgi_set_http_env_vars\nmov     rax, [rbp+connection_prop]\nmov     edi, [rax]; fd\ncall    myio_getfd\nmov     edi, eax; sock\ncall    cgi_set_SERVER_ADDR_PORT\nmov     rdi, [rbp+connection_prop]; connection_prop\nmov     rsi, [rbp+real_basedir]; real_basedir\ncall    cgi_set_env_vars\ncall    cgi_set_env_content_length\nmov     rdi, [rbp+connection_prop]; connection_prop\ncall    cgi_child_chdir\nmov     [rbp+filename], rax\nmov     edi, 1Eh; seconds\ncall    alarm\nmov     rdi, [rbp+executor]; path\nmov     rsi, [rbp+executor]; arg\nmov     rdx, [rbp+filename]\nxor     eax, eax\nmov     ecx, eax\nmov     al, 0\ncall    execl",
+   "loc_1BCF": "mov     edi, 1; status\ncall    exit"
+  }
+ },
+ "data": {
+  "param": {
+   "filename": "qword ptr -40h",
+   "errormsg": "qword ptr -38h",
+   "ipipe": "qword ptr -30h",
+   "wpipe": "qword ptr -28h",
+   "real_basedir": "qword ptr -20h",
+   "executor": "qword ptr -18h",
+   "post_param": "qword ptr -10h",
+   "connection_prop": "qword ptr -8"
+  },
+  ".rodata": {
+   "aDupFailed": "byte 'dup() failed',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6784,
+ "thunk_map": {
+  ".inet_ntop": "inet_ntop",
+  "_inet_ntop": "inet_ntop",
+  ".getenv": "getenv",
+  "_getenv": "getenv",
+  ".strncpy": "strncpy",
+  "_strncpy": "strncpy",
+  ".toupper": "toupper",
+  "_toupper": "toupper",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".setenv": "setenv",
+  "_setenv": "setenv",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".chdir": "chdir",
+  "_chdir": "chdir",
+  ".dup": "dup",
+  "_dup": "dup",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".alarm": "alarm",
+  "_alarm": "alarm",
+  ".close": "close",
+  "_close": "close",
+  ".pipe": "pipe",
+  "_pipe": "pipe",
+  ".strtok_r": "strtok_r",
+  "_strtok_r": "strtok_r",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".rindex": "rindex",
+  "_rindex": "rindex",
+  ".getsockname": "getsockname",
+  "_getsockname": "getsockname",
+  ".exit": "exit",
+  "_exit": "exit",
+  ".memccpy": "memccpy",
+  "_memccpy": "memccpy",
+  ".execl": "execl",
+  "_execl": "execl",
+  ".strstr": "strstr",
+  "_strstr": "strstr"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".inet_ntop",
+   ".plt",
+   true,
+   "inet_ntop"
+  ],
+  [
+   ".getenv",
+   ".plt",
+   true,
+   "getenv"
+  ],
+  [
+   ".strncpy",
+   ".plt",
+   true,
+   "strncpy"
+  ],
+  [
+   ".toupper",
+   ".plt",
+   true,
+   "toupper"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".setenv",
+   ".plt",
+   true,
+   "setenv"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".chdir",
+   ".plt",
+   true,
+   "chdir"
+  ],
+  [
+   ".dup",
+   ".plt",
+   true,
+   "dup"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".alarm",
+   ".plt",
+   true,
+   "alarm"
+  ],
+  [
+   ".close",
+   ".plt",
+   true,
+   "close"
+  ],
+  [
+   ".pipe",
+   ".plt",
+   true,
+   "pipe"
+  ],
+  [
+   ".strtok_r",
+   ".plt",
+   true,
+   "strtok_r"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".rindex",
+   ".plt",
+   true,
+   "rindex"
+  ],
+  [
+   ".getsockname",
+   ".plt",
+   true,
+   "getsockname"
+  ],
+  [
+   ".exit",
+   ".plt",
+   true,
+   "exit"
+  ],
+  [
+   ".memccpy",
+   ".plt",
+   true,
+   "memccpy"
+  ],
+  [
+   ".execl",
+   ".plt",
+   true,
+   "execl"
+  ],
+  [
+   ".strstr",
+   ".plt",
+   true,
+   "strstr"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "inet_ntop",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "getenv",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "toupper",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "setenv",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "chdir",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "dup",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868486
+ }
+}

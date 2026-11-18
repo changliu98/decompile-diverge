@@ -1,0 +1,1 @@
+int func0(int* arr, int size, int x) { int a = 0; int b = size - 1; int m = -1; while (a <= b) { int mid = a + (b - a)/2; if (arr[mid] == x) { m = mid; b = mid - 1; } else if (arr[mid] > x) { b = mid - 1; } else { a = mid + 1; } } return m; }

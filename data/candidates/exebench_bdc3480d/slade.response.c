@@ -1,0 +1,1 @@
+float mmapGet(float* mmap, size_t index) { return mmap[index]; }

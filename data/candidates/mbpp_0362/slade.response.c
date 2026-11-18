@@ -1,0 +1,1 @@
+int func0(int *arr, int n) { int a = 0; int b = arr[0]; for (int i = 0; i < n; i++) { int count = 0; for (int j = 0; j < n; j++) { if (arr[j] == arr[i]) count++; } if (count > a) { a = count; b = arr[i]; } } return b; }

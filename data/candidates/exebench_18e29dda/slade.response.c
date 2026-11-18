@@ -1,0 +1,1 @@
+int SDL_imageFilterShiftRightAndMultByByteMMX(unsigned char *Src, unsigned char *Dest, int rows, unsigned char column, int type) { return -1; }

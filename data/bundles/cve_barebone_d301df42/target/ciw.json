@@ -1,0 +1,439 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\npush    r14\npush    rbx\nsub     rsp, 104B0h\nmov     [rbp+uri], rdi\nmov     [rbp+argc], esi\nmov     [rbp+argv], rdx\nmov     [rbp+filename], rcx\nlea     rdi, [rbp+scheme]; dest\nmov     rsi, [rbp+uri]; src\nmov     edx, 3FFh; n\ncall    strncpy\nmov     rdi, [rbp+uri]; s\ncall    strlen\ncmp     rax, 3FFh\njbe     loc_178B\nmov     [rbp+scheme+3FFh], 0\nlea     rdi, [rbp+scheme]; s\nmov     esi, 3Ah ; ':'; c\ncall    strchr\nmov     [rbp+ptr], rax\ncmp     rax, 0\njz      loc_17B7\nmov     rax, [rbp+ptr]\nmov     byte ptr [rax], 0\nlea     rdi, name; \"CUPS_SERVERBIN\"\ncall    getenv\nmov     [rbp+cups_serverbin], rax\ncmp     rax, 0\njnz     loc_17DC\nlea     rax, aUsrLibCups; \"/usr/lib/cups\"\nmov     [rbp+cups_serverbin], rax\nmov     rdi, [rbp+uri]; s1\nlea     rsi, s2; \"file:\"\nmov     edx, 5; n\ncall    strncasecmp\ncmp     eax, 0\njz      loc_180A\nmov     rax, [rbp+uri]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 2Fh ; '/'\njnz     loc_182C\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, aErrorBehDirect; \"ERROR: beh: Direct output into a file n\"...\nmov     al, 0\ncall    fprintf\nmov     edi, 1; status\ncall    exit\nlea     rax, [rbp+cmdline]\nmov     [rbp+s], rax\nmov     rax, [rbp+cups_serverbin]\nmov     [rbp+var_10480], rax\nlea     rax, [rbp+scheme]\nmov     [rbp+var_10478], rax\nmov     rax, [rbp+argv]\nmov     rax, [rax+8]\nmov     [rbp+var_10470], rax\nmov     rax, [rbp+argv]\nmov     rax, [rax+10h]\nmov     [rbp+var_10468], rax\nmov     rax, [rbp+argv]\nmov     rax, [rax+18h]\nmov     [rbp+var_10460], rax\ncmp     [rbp+argc], 6\njnz     loc_189D\nlea     rax, a1; \"1\"\nmov     [rbp+var_10490], rax\njmp     loc_18AC\nmov     rax, [rbp+argv]\nmov     rax, [rax+20h]\nmov     [rbp+var_10490], rax\nmov     rbx, [rbp+var_10460]\nmov     r14, [rbp+var_10468]\nmov     r9, [rbp+var_10470]\nmov     r8, [rbp+var_10478]\nmov     rcx, [rbp+var_10480]\nmov     rdi, [rbp+s]; s\nmov     r11, [rbp+var_10490]\nmov     rax, [rbp+argv]\nmov     r10, [rax+28h]\nmov     rax, [rbp+filename]\nmov     esi, 10000h; maxlen\nlea     rdx, aSBackendSSSSSS; \"%s/backend/%s '%s' '%s' '%s' '%s' '%s' \"...\nmov     [rsp+104C0h+var_104C0], r14\nmov     [rsp+104C0h+var_104B8], rbx\nmov     [rsp+104C0h+var_104B0], r11\nmov     [rsp+104C0h+var_104A8], r10\nmov     [rsp+104C0h+var_104A0], rax\nmov     al, 0\ncall    snprintf\nmov     rsi, [rbp+uri]; value\nlea     rdi, aDeviceUri; \"DEVICE_URI\"\nmov     edx, 1; replace\ncall    setenv\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rdx, [rbp+cmdline]\nlea     rsi, aDebugBehExecut; \"DEBUG: beh: Executing backend command l\"...\nmov     al, 0\ncall    fprintf\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nmov     rdx, [rbp+uri]\nlea     rsi, aDebugBehUsingD; \"DEBUG: beh: Using device URI: %s\\n\"\nmov     al, 0\ncall    fprintf\nlea     rdi, [rbp+cmdline]; command\ncall    system\nsar     eax, 8\nmov     [rbp+retval], eax\ncmp     [rbp+retval], 0FFFFFFFFh\njnz     loc_19BB\nmov     rax, cs:stderr_ptr\nmov     rax, [rax]\nmov     [rbp+stream], rax\ncall    ___errno_location\nmov     edi, [rax]; errnum\ncall    strerror\nmov     rdi, [rbp+stream]; stream\nmov     rdx, rax\nlea     rsi, aErrorUnableToE; \"ERROR: Unable to execute backend comman\"...\nmov     al, 0\ncall    fprintf\nmov     eax, [rbp+retval]\nadd     rsp, 104B0h\npop     rbx\npop     r14\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 15,
+  "edges": [
+   [
+    "start",
+    "loc_1787"
+   ],
+   [
+    "start",
+    "loc_178B"
+   ],
+   [
+    "loc_1787",
+    "loc_178B"
+   ],
+   [
+    "loc_178B",
+    "loc_17AD"
+   ],
+   [
+    "loc_178B",
+    "loc_17B7"
+   ],
+   [
+    "loc_17AD",
+    "loc_17B7"
+   ],
+   [
+    "loc_17B7",
+    "loc_17D1"
+   ],
+   [
+    "loc_17B7",
+    "loc_17DC"
+   ],
+   [
+    "loc_17D1",
+    "loc_17DC"
+   ],
+   [
+    "loc_17DC",
+    "loc_17FA"
+   ],
+   [
+    "loc_17DC",
+    "loc_180A"
+   ],
+   [
+    "loc_17FA",
+    "loc_180A"
+   ],
+   [
+    "loc_17FA",
+    "loc_182C"
+   ],
+   [
+    "loc_182C",
+    "loc_188A"
+   ],
+   [
+    "loc_182C",
+    "loc_189D"
+   ],
+   [
+    "loc_188A",
+    "loc_18AC"
+   ],
+   [
+    "loc_189D",
+    "loc_18AC"
+   ],
+   [
+    "loc_18AC",
+    "loc_1986"
+   ],
+   [
+    "loc_18AC",
+    "loc_19BB"
+   ],
+   [
+    "loc_1986",
+    "loc_19BB"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\npush    r14\npush    rbx\nsub     rsp, 104B0h\nmov     [rbp+uri], rdi\nmov     [rbp+argc], esi\nmov     [rbp+argv], rdx\nmov     [rbp+filename], rcx\nlea     rdi, [rbp+scheme]; dest\nmov     rsi, [rbp+uri]; src\nmov     edx, 3FFh; n\ncall    strncpy\nmov     rdi, [rbp+uri]; s\ncall    strlen\ncmp     rax, 3FFh\njbe     loc_178B",
+   "loc_1787": "mov     [rbp+scheme+3FFh], 0",
+   "loc_178B": "lea     rdi, [rbp+scheme]; s\nmov     esi, 3Ah ; ':'; c\ncall    strchr\nmov     [rbp+ptr], rax\ncmp     rax, 0\njz      loc_17B7",
+   "loc_17AD": "mov     rax, [rbp+ptr]\nmov     byte ptr [rax], 0",
+   "loc_17B7": "lea     rdi, name; \"CUPS_SERVERBIN\"\ncall    getenv\nmov     [rbp+cups_serverbin], rax\ncmp     rax, 0\njnz     loc_17DC",
+   "loc_17D1": "lea     rax, aUsrLibCups; \"/usr/lib/cups\"\nmov     [rbp+cups_serverbin], rax",
+   "loc_17DC": "mov     rdi, [rbp+uri]; s1\nlea     rsi, s2; \"file:\"\nmov     edx, 5; n\ncall    strncasecmp\ncmp     eax, 0\njz      loc_180A",
+   "loc_17FA": "mov     rax, [rbp+uri]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 2Fh ; '/'\njnz     loc_182C",
+   "loc_180A": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, aErrorBehDirect; \"ERROR: beh: Direct output into a file n\"...\nmov     al, 0\ncall    fprintf\nmov     edi, 1; status\ncall    exit",
+   "loc_182C": "lea     rax, [rbp+cmdline]\nmov     [rbp+s], rax\nmov     rax, [rbp+cups_serverbin]\nmov     [rbp+var_10480], rax\nlea     rax, [rbp+scheme]\nmov     [rbp+var_10478], rax\nmov     rax, [rbp+argv]\nmov     rax, [rax+8]\nmov     [rbp+var_10470], rax\nmov     rax, [rbp+argv]\nmov     rax, [rax+10h]\nmov     [rbp+var_10468], rax\nmov     rax, [rbp+argv]\nmov     rax, [rax+18h]\nmov     [rbp+var_10460], rax\ncmp     [rbp+argc], 6\njnz     loc_189D",
+   "loc_188A": "lea     rax, a1; \"1\"\nmov     [rbp+var_10490], rax\njmp     loc_18AC",
+   "loc_189D": "mov     rax, [rbp+argv]\nmov     rax, [rax+20h]\nmov     [rbp+var_10490], rax",
+   "loc_18AC": "mov     rbx, [rbp+var_10460]\nmov     r14, [rbp+var_10468]\nmov     r9, [rbp+var_10470]\nmov     r8, [rbp+var_10478]\nmov     rcx, [rbp+var_10480]\nmov     rdi, [rbp+s]; s\nmov     r11, [rbp+var_10490]\nmov     rax, [rbp+argv]\nmov     r10, [rax+28h]\nmov     rax, [rbp+filename]\nmov     esi, 10000h; maxlen\nlea     rdx, aSBackendSSSSSS; \"%s/backend/%s '%s' '%s' '%s' '%s' '%s' \"...\nmov     [rsp+104C0h+var_104C0], r14\nmov     [rsp+104C0h+var_104B8], rbx\nmov     [rsp+104C0h+var_104B0], r11\nmov     [rsp+104C0h+var_104A8], r10\nmov     [rsp+104C0h+var_104A0], rax\nmov     al, 0\ncall    snprintf\nmov     rsi, [rbp+uri]; value\nlea     rdi, aDeviceUri; \"DEVICE_URI\"\nmov     edx, 1; replace\ncall    setenv\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rdx, [rbp+cmdline]\nlea     rsi, aDebugBehExecut; \"DEBUG: beh: Executing backend command l\"...\nmov     al, 0\ncall    fprintf\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nmov     rdx, [rbp+uri]\nlea     rsi, aDebugBehUsingD; \"DEBUG: beh: Using device URI: %s\\n\"\nmov     al, 0\ncall    fprintf\nlea     rdi, [rbp+cmdline]; command\ncall    system\nsar     eax, 8\nmov     [rbp+retval], eax\ncmp     [rbp+retval], 0FFFFFFFFh\njnz     loc_19BB",
+   "loc_1986": "mov     rax, cs:stderr_ptr\nmov     rax, [rax]\nmov     [rbp+stream], rax\ncall    ___errno_location\nmov     edi, [rax]; errnum\ncall    strerror\nmov     rdi, [rbp+stream]; stream\nmov     rdx, rax\nlea     rsi, aErrorUnableToE; \"ERROR: Unable to execute backend comman\"...\nmov     al, 0\ncall    fprintf",
+   "loc_19BB": "mov     eax, [rbp+retval]\nadd     rsp, 104B0h\npop     rbx\npop     r14\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_104C0": "qword ptr -104C0h",
+   "var_104B8": "qword ptr -104B8h",
+   "var_104B0": "qword ptr -104B0h",
+   "var_104A8": "qword ptr -104A8h",
+   "var_104A0": "qword ptr -104A0h",
+   "stream": "qword ptr -10498h",
+   "var_10490": "qword ptr -10490h",
+   "s": "qword ptr -10488h",
+   "var_10480": "qword ptr -10480h",
+   "var_10478": "qword ptr -10478h",
+   "var_10470": "qword ptr -10470h",
+   "var_10468": "qword ptr -10468h",
+   "var_10460": "qword ptr -10460h",
+   "retval": "dword ptr -10454h",
+   "cmdline": "byte ptr -10450h",
+   "ptr": "qword ptr -448h",
+   "scheme": "byte ptr -440h",
+   "cups_serverbin": "qword ptr -38h",
+   "filename": "qword ptr -30h",
+   "argv": "qword ptr -28h",
+   "argc": "dword ptr -1Ch",
+   "uri": "qword ptr -18h"
+  },
+  ".rodata": {
+   "name": "byte 'CUPS_SERVERBIN',0",
+   "aUsrLibCups": "byte '/usr/lib/cups',0",
+   "s2": "byte 'file:',0",
+   "aErrorBehDirect": "byte 'ERROR: beh: Direct output into a file not supported.',0Ah,0",
+   "a1": "byte '1',0",
+   "aSBackendSSSSSS": "byte '%s/backend/%s ',27h,'%s',27h,' ',27h,'%s',27h,' ',27h,'%s',27h,' '",
+   "aDeviceUri": "byte 'DEVICE_URI',0",
+   "aDebugBehExecut": "byte 'DEBUG: beh: Executing backend command line \"%s\"...',0Ah,0",
+   "aDebugBehUsingD": "byte 'DEBUG: beh: Using device URI: %s',0Ah,0",
+   "aErrorUnableToE": "byte 'ERROR: Unable to execute backend command line: %s',0Ah,0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5952,
+ "thunk_map": {
+  ".getenv": "getenv",
+  "_getenv": "getenv",
+  ".free": "free",
+  "_free": "free",
+  ".__errno_location": "__errno_location",
+  "_errno_location": "__errno_location",
+  ".strncpy": "strncpy",
+  "_strncpy": "strncpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".setenv": "setenv",
+  "_setenv": "setenv",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".system": "system",
+  "_system": "system",
+  ".strchr": "strchr",
+  "_strchr": "strchr",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".strncasecmp": "strncasecmp",
+  "_strncasecmp": "strncasecmp",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".exit": "exit",
+  "_exit": "exit",
+  ".strerror": "strerror",
+  "_strerror": "strerror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".getenv",
+   ".plt",
+   true,
+   "getenv"
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".__errno_location",
+   ".plt",
+   true,
+   "__errno_location"
+  ],
+  [
+   ".strncpy",
+   ".plt",
+   true,
+   "strncpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".setenv",
+   ".plt",
+   true,
+   "setenv"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".system",
+   ".plt",
+   true,
+   "system"
+  ],
+  [
+   ".strchr",
+   ".plt",
+   true,
+   "strchr"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".strncasecmp",
+   ".plt",
+   true,
+   "strncasecmp"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".exit",
+   ".plt",
+   true,
+   "exit"
+  ],
+  [
+   ".strerror",
+   ".plt",
+   true,
+   "strerror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "getenv",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__errno_location",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "setenv",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "system",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strchr",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "snprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncasecmp",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868491
+ }
+}

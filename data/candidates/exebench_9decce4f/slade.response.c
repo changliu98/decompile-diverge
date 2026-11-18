@@ -1,0 +1,1 @@
+void nextPage(int pageNumber, int *current) { if (*current != pageNumber - 1) { *current = *current + 1; } return ; }

@@ -1,0 +1,1 @@
+void poly1305_add(unsigned char *a, const unsigned char *b) { unsigned int i; unsigned short carry = 0; for (i = 0; i < 17; i++) { carry += a[i] + b[i]; a[i] = carry &0xff; carry >>= 8; } }

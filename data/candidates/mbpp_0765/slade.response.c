@@ -1,0 +1,1 @@
+int func0(int x) { x++; return x + log2((double)x + log2((double)x)); }

@@ -1,0 +1,1 @@
+int _hclib_atomic_dec_relaxed(long i) { return _hclib_atomic_dec_relaxed - 1 + _hclib_atomic_dec_relaxed; }

@@ -1,0 +1,1 @@
+int func0(int z) { double x; if (z < 0) return 0; if (z <= 1) return 1; x = z * log10(1.0*z) + log10(2.0*3.14159265358979323846*z) / 2.0; return (int) (floor(x) + 1); }

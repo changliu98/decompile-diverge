@@ -1,0 +1,362 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+bim_profile], rdi\nmov     rdi, [rbp+bim_profile]; string_info\ncall    GetStringInfoLength\nmov     [rbp+length], rax\ncmp     [rbp+length], 10h\njnb     loc_13B9\njmp     loc_1533\nmov     rdi, [rbp+bim_profile]; string_info\ncall    GetStringInfoDatum\nmov     [rbp+datum], rax\nmov     rax, [rbp+datum]\nmov     [rbp+p], rax\nmov     rcx, [rbp+p]\nxor     eax, eax\ncmp     rcx, [rbp+datum]\nmov     [rbp+var_39], al\njb      loc_13FA\nmov     rax, [rbp+p]\nmov     rcx, [rbp+datum]\nadd     rcx, [rbp+length]\nadd     rcx, 0FFFFFFFFFFFFFFF0h\ncmp     rax, rcx\nsetb    al\nmov     [rbp+var_39], al\nmov     al, [rbp+var_39]\ntest    al, 1\njnz     loc_140A\njmp     loc_1533\nmov     rax, [rbp+p]\nmov     [rbp+q], rax\nmov     rdi, [rbp+p]; p\nlea     rsi, q; \"8BIM\"\nmov     edx, 4; length\ncall    LocaleNCompare\ncmp     eax, 0\njz      loc_1435\njmp     loc_1533\nmov     rsi, [rbp+p]; pixels\nmov     edi, 2; endian\nlea     rdx, [rbp+long_sans]; pixel\ncall    PushLongPixel\nmov     [rbp+p], rax\nmov     rsi, [rbp+p]; pixels\nmov     edi, 2; endian\nlea     rdx, [rbp+id]; pixel\ncall    PushShortPixel\nmov     [rbp+p], rax\nmov     rsi, [rbp+p]; pixels\nmov     edi, 2; endian\nlea     rdx, [rbp+short_sans]; pixel\ncall    PushShortPixel\nmov     [rbp+p], rax\nmov     rsi, [rbp+p]; pixels\nmov     edi, 2; endian\nlea     rdx, [rbp+count]; pixel\ncall    PushLongPixel\nmov     [rbp+p], rax\nmovzx   eax, [rbp+id]\ncmp     eax, 40Fh\njnz     loc_1503\nmov     rdi, [rbp+q]; destination\nmov     rsi, [rbp+q]\nmov     eax, [rbp+count]\nadd     rax, 1\nand     rax, 0FFFFFFFFFFFFFFFEh\nadd     rsi, rax\nadd     rsi, 0Ch; source\nmov     rdx, [rbp+length]\nmov     eax, [rbp+count]\nadd     rax, 1\nand     rax, 0FFFFFFFFFFFFFFFEh\nadd     rax, 0Ch\nsub     rdx, rax\nmov     rax, [rbp+q]\nmov     rcx, [rbp+datum]\nsub     rax, rcx\nsub     rdx, rax; size\ncall    CopyMagickMemory\nmov     rdi, [rbp+bim_profile]; string_info\nmov     rsi, [rbp+length]\nmov     eax, [rbp+count]\nadd     rax, 1\nand     rax, 0FFFFFFFFFFFFFFFEh\nadd     rax, 0Ch\nsub     rsi, rax; length\ncall    SetStringInfoLength\njmp     loc_1533\nmov     ecx, [rbp+count]\nmov     rax, [rbp+p]\nmov     ecx, ecx\nadd     rax, rcx\nmov     [rbp+p], rax\nmov     eax, [rbp+count]\nand     eax, 1\ncmp     eax, 0\njz      loc_152E\nmov     rax, [rbp+p]\nadd     rax, 1\nmov     [rbp+p], rax\njmp     loc_13CE\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 15,
+  "edges": [
+   [
+    "start",
+    "loc_13B4"
+   ],
+   [
+    "start",
+    "loc_13B9"
+   ],
+   [
+    "loc_13B4",
+    "loc_1533"
+   ],
+   [
+    "loc_13B9",
+    "loc_13CE"
+   ],
+   [
+    "loc_13CE",
+    "loc_13E1"
+   ],
+   [
+    "loc_13CE",
+    "loc_13FA"
+   ],
+   [
+    "loc_13E1",
+    "loc_13FA"
+   ],
+   [
+    "loc_13FA",
+    "loc_1405"
+   ],
+   [
+    "loc_13FA",
+    "loc_140A"
+   ],
+   [
+    "loc_1405",
+    "loc_1533"
+   ],
+   [
+    "loc_140A",
+    "loc_1430"
+   ],
+   [
+    "loc_140A",
+    "loc_1435"
+   ],
+   [
+    "loc_1430",
+    "loc_1533"
+   ],
+   [
+    "loc_1435",
+    "loc_149C"
+   ],
+   [
+    "loc_1435",
+    "loc_1503"
+   ],
+   [
+    "loc_149C",
+    "loc_1533"
+   ],
+   [
+    "loc_1503",
+    "loc_1522"
+   ],
+   [
+    "loc_1503",
+    "loc_152E"
+   ],
+   [
+    "loc_1522",
+    "loc_152E"
+   ],
+   [
+    "loc_152E",
+    "loc_13CE"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+bim_profile], rdi\nmov     rdi, [rbp+bim_profile]; string_info\ncall    GetStringInfoLength\nmov     [rbp+length], rax\ncmp     [rbp+length], 10h\njnb     loc_13B9",
+   "loc_13B4": "jmp     loc_1533",
+   "loc_13B9": "mov     rdi, [rbp+bim_profile]; string_info\ncall    GetStringInfoDatum\nmov     [rbp+datum], rax\nmov     rax, [rbp+datum]\nmov     [rbp+p], rax",
+   "loc_13CE": "mov     rcx, [rbp+p]\nxor     eax, eax\ncmp     rcx, [rbp+datum]\nmov     [rbp+var_39], al\njb      loc_13FA",
+   "loc_13E1": "mov     rax, [rbp+p]\nmov     rcx, [rbp+datum]\nadd     rcx, [rbp+length]\nadd     rcx, 0FFFFFFFFFFFFFFF0h\ncmp     rax, rcx\nsetb    al\nmov     [rbp+var_39], al",
+   "loc_13FA": "mov     al, [rbp+var_39]\ntest    al, 1\njnz     loc_140A",
+   "loc_1405": "jmp     loc_1533",
+   "loc_140A": "mov     rax, [rbp+p]\nmov     [rbp+q], rax\nmov     rdi, [rbp+p]; p\nlea     rsi, q; \"8BIM\"\nmov     edx, 4; length\ncall    LocaleNCompare\ncmp     eax, 0\njz      loc_1435",
+   "loc_1430": "jmp     loc_1533",
+   "loc_1435": "mov     rsi, [rbp+p]; pixels\nmov     edi, 2; endian\nlea     rdx, [rbp+long_sans]; pixel\ncall    PushLongPixel\nmov     [rbp+p], rax\nmov     rsi, [rbp+p]; pixels\nmov     edi, 2; endian\nlea     rdx, [rbp+id]; pixel\ncall    PushShortPixel\nmov     [rbp+p], rax\nmov     rsi, [rbp+p]; pixels\nmov     edi, 2; endian\nlea     rdx, [rbp+short_sans]; pixel\ncall    PushShortPixel\nmov     [rbp+p], rax\nmov     rsi, [rbp+p]; pixels\nmov     edi, 2; endian\nlea     rdx, [rbp+count]; pixel\ncall    PushLongPixel\nmov     [rbp+p], rax\nmovzx   eax, [rbp+id]\ncmp     eax, 40Fh\njnz     loc_1503",
+   "loc_149C": "mov     rdi, [rbp+q]; destination\nmov     rsi, [rbp+q]\nmov     eax, [rbp+count]\nadd     rax, 1\nand     rax, 0FFFFFFFFFFFFFFFEh\nadd     rsi, rax\nadd     rsi, 0Ch; source\nmov     rdx, [rbp+length]\nmov     eax, [rbp+count]\nadd     rax, 1\nand     rax, 0FFFFFFFFFFFFFFFEh\nadd     rax, 0Ch\nsub     rdx, rax\nmov     rax, [rbp+q]\nmov     rcx, [rbp+datum]\nsub     rax, rcx\nsub     rdx, rax; size\ncall    CopyMagickMemory\nmov     rdi, [rbp+bim_profile]; string_info\nmov     rsi, [rbp+length]\nmov     eax, [rbp+count]\nadd     rax, 1\nand     rax, 0FFFFFFFFFFFFFFFEh\nadd     rax, 0Ch\nsub     rsi, rax; length\ncall    SetStringInfoLength\njmp     loc_1533",
+   "loc_1503": "mov     ecx, [rbp+count]\nmov     rax, [rbp+p]\nmov     ecx, ecx\nadd     rax, rcx\nmov     [rbp+p], rax\nmov     eax, [rbp+count]\nand     eax, 1\ncmp     eax, 0\njz      loc_152E",
+   "loc_1522": "mov     rax, [rbp+p]\nadd     rax, 1\nmov     [rbp+p], rax",
+   "loc_152E": "jmp     loc_13CE",
+   "loc_1533": "add     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_39": "byte ptr -39h",
+   "q": "qword ptr -38h",
+   "short_sans": "word ptr -2Ch",
+   "id": "word ptr -2Ah",
+   "long_sans": "dword ptr -28h",
+   "count": "dword ptr -24h",
+   "datum": "qword ptr -20h",
+   "length": "qword ptr -18h",
+   "p": "qword ptr -10h",
+   "bim_profile": "qword ptr -8"
+  },
+  ".rodata": {
+   "q": "byte '8BIM',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5008,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".rewind": "rewind",
+  "_rewind": "rewind",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".strncasecmp": "strncasecmp",
+  "_strncasecmp": "strncasecmp",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".exit": "exit",
+  "_exit": "exit"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".rewind",
+   ".plt",
+   true,
+   "rewind"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".strncasecmp",
+   ".plt",
+   true,
+   "strncasecmp"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".exit",
+   ".plt",
+   true,
+   "exit"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "rewind",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncasecmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memmove",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "exit",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868472
+ }
+}

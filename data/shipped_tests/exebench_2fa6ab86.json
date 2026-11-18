@@ -1,0 +1,137 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <stdio.h>\n\n#include <fcntl.h>  \n\n#include <sys/types.h> \n\n#include <sys/select.h> \n\n#include <netdb.h> \n\n#include <string.h> \n\n#include <errno.h> \n\n#include <unistd.h>  \n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_37cgbp71tn.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(int fComPort, unsigned char pData, unsigned short nMaxLen, short returnv) {\n  json output_json;\n\n  output_json[\"pData\"] = pData;\n\n  output_json[\"returnv\"] = returnv;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  int fComPort = input_json[\"fComPort\"];\n  unsigned char pData = input_json[\"pData\"];\n  unsigned short nMaxLen = input_json[\"nMaxLen\"];\n  clock_t begin = clock();\n  short returnv = recv_data(fComPort, pData, nMaxLen);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(fComPort, pData, nMaxLen, returnv);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "fComPort": 68,
+    "pData": 599,
+    "nMaxLen": 193
+   },
+   "output": {
+    "pData": 87,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fComPort": 75,
+    "pData": 942,
+    "nMaxLen": 440
+   },
+   "output": {
+    "pData": 174,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fComPort": 114,
+    "pData": 914,
+    "nMaxLen": 172
+   },
+   "output": {
+    "pData": 146,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fComPort": 8,
+    "pData": 332,
+    "nMaxLen": 497
+   },
+   "output": {
+    "pData": 76,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fComPort": 47,
+    "pData": 273,
+    "nMaxLen": 973
+   },
+   "output": {
+    "pData": 17,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fComPort": 88,
+    "pData": 791,
+    "nMaxLen": 651
+   },
+   "output": {
+    "pData": 23,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fComPort": 41,
+    "pData": 772,
+    "nMaxLen": 380
+   },
+   "output": {
+    "pData": 4,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fComPort": 91,
+    "pData": 637,
+    "nMaxLen": 43
+   },
+   "output": {
+    "pData": 125,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fComPort": 21,
+    "pData": 842,
+    "nMaxLen": 721
+   },
+   "output": {
+    "pData": 74,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "fComPort": 55,
+    "pData": 437,
+    "nMaxLen": 604
+   },
+   "output": {
+    "pData": 181,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

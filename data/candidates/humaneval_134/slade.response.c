@@ -1,0 +1,1 @@
+char func0 (__const signed char *x) { int len = strlen (x); if (!len) return 0; unsigned char y = ((unsigned short *) x)[len-1]; if (!(__ctype_b_loc ()->width[(y) &0x0000400)) return 0; if (len == 1) return 1; unsigned char z = ((unsigned short *) x)[len-2]; if (((unsigned short *) __ctype_b_loc ()->width[(z) &0x0000400)) return 0; return 1; }

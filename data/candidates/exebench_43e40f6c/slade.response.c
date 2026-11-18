@@ -1,0 +1,1 @@
+int obdRevConvert_0C(float total, int *x, int *y, int *z, int *comp) { total *= 65536.0f; *x = total / 256; *y = total % 256; return 2; }

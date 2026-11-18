@@ -1,0 +1,1 @@
+double dst_transform_push(double *t, int *f, double to) { if (*f < 16) t[(*f)++] = to; return to; }

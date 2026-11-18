@@ -1,0 +1,1 @@
+int sha256_init_hash(struct sha256_state *sctx) { sctx->digest_length = 32; return 0; }

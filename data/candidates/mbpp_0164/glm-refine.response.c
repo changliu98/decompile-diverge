@@ -1,0 +1,4 @@
+int __cdecl func0(int num1, int num2)
+{
+  return divSum(num1) == divSum(num2);
+}

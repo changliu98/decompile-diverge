@@ -1,0 +1,1 @@
+void Q_ParseNewlines( char *dest, const char *src, int maxsize ) { while ( *src && maxsize > 1 ) { *dest++ = *src != '\\' || *++src != 'n' ? *src : '\n'; src++; maxsize--; } *dest++ = 0; }

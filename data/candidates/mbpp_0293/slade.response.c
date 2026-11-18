@@ -1,0 +1,1 @@
+double func0(int x, int y) { double v = sqrt((double) (x * x + y * y)); return v; }

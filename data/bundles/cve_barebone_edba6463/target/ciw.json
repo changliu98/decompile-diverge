@@ -1,0 +1,351 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 3EB0h\nmov     [rbp+Data], rdi\nmov     [rbp+length], esi\nmov     [rbp+nch], 0\ncmp     [rbp+length], 3E80h\njle     loc_1420\nmov     [rbp+length], 3E80h\nmov     [rbp+a], 2\nmov     eax, [rbp+a]\ncmp     eax, [rbp+length]\njge     loc_14ED\nmov     rax, [rbp+Data]\nmovsxd  rcx, [rbp+a]\nmovzx   eax, byte ptr [rax+rcx]\nmov     [rbp+ch_0], eax\ncmp     [rbp+ch_0], 0Dh\njnz     loc_1477\nmov     rax, [rbp+Data]\nmov     ecx, [rbp+a]\nadd     ecx, 1\nmovsxd  rcx, ecx\nmovzx   eax, byte ptr [rax+rcx]\ncmp     eax, 0Ah\njnz     loc_1477\njmp     loc_14D9\ncmp     [rbp+ch_0], 20h ; ' '\njge     loc_1495\ncmp     [rbp+ch_0], 0Ah\njz      loc_1495\ncmp     [rbp+ch_0], 9\njnz     loc_14B9\nmov     eax, [rbp+ch_0]\nmov     cl, al\nmov     eax, [rbp+nch]\nmov     edx, eax\nadd     edx, 1\nmov     [rbp+nch], edx\ncdqe\nmov     [rbp+rax+Comment], cl\njmp     loc_14D4\nmov     eax, [rbp+nch]\nmov     ecx, eax\nadd     ecx, 1\nmov     [rbp+nch], ecx\ncdqe\nmov     [rbp+rax+Comment], 3Fh ; '?'\njmp     $+5\nmov     eax, [rbp+a]\nadd     eax, 1\nmov     [rbp+a], eax\njmp     loc_142A\nmovsxd  rax, [rbp+nch]\nmov     [rbp+rax+Comment], 0\ncmp     cs:ShowTags, 0\njz      loc_151E\nlea     rsi, [rbp+Comment]\nlea     rdi, aComMarkerComme; \"COM marker comment: %s\\n\"\nmov     al, 0\ncall    printf\nlea     rsi, [rbp+Comment]; src\nlea     rdi, ImageInfo; dest\ncall    strcpy\nadd     rsp, 3EB0h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 17,
+  "edges": [
+   [
+    "start",
+    "loc_1419"
+   ],
+   [
+    "start",
+    "loc_1420"
+   ],
+   [
+    "loc_1419",
+    "loc_1420"
+   ],
+   [
+    "loc_1420",
+    "loc_142A"
+   ],
+   [
+    "loc_142A",
+    "loc_1439"
+   ],
+   [
+    "loc_142A",
+    "loc_14ED"
+   ],
+   [
+    "loc_1439",
+    "loc_1455"
+   ],
+   [
+    "loc_1439",
+    "loc_1477"
+   ],
+   [
+    "loc_1455",
+    "loc_1472"
+   ],
+   [
+    "loc_1455",
+    "loc_1477"
+   ],
+   [
+    "loc_1472",
+    "loc_14D9"
+   ],
+   [
+    "loc_1477",
+    "loc_1481"
+   ],
+   [
+    "loc_1477",
+    "loc_1495"
+   ],
+   [
+    "loc_1481",
+    "loc_148B"
+   ],
+   [
+    "loc_1481",
+    "loc_1495"
+   ],
+   [
+    "loc_148B",
+    "loc_1495"
+   ],
+   [
+    "loc_148B",
+    "loc_14B9"
+   ],
+   [
+    "loc_1495",
+    "loc_14D4"
+   ],
+   [
+    "loc_14B9",
+    "loc_14D4"
+   ],
+   [
+    "loc_14D4",
+    "loc_14D9"
+   ],
+   [
+    "loc_14D9",
+    "loc_142A"
+   ],
+   [
+    "loc_14ED",
+    "loc_1509"
+   ],
+   [
+    "loc_14ED",
+    "loc_151E"
+   ],
+   [
+    "loc_1509",
+    "loc_151E"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 3EB0h\nmov     [rbp+Data], rdi\nmov     [rbp+length], esi\nmov     [rbp+nch], 0\ncmp     [rbp+length], 3E80h\njle     loc_1420",
+   "loc_1419": "mov     [rbp+length], 3E80h",
+   "loc_1420": "mov     [rbp+a], 2",
+   "loc_142A": "mov     eax, [rbp+a]\ncmp     eax, [rbp+length]\njge     loc_14ED",
+   "loc_1439": "mov     rax, [rbp+Data]\nmovsxd  rcx, [rbp+a]\nmovzx   eax, byte ptr [rax+rcx]\nmov     [rbp+ch_0], eax\ncmp     [rbp+ch_0], 0Dh\njnz     loc_1477",
+   "loc_1455": "mov     rax, [rbp+Data]\nmov     ecx, [rbp+a]\nadd     ecx, 1\nmovsxd  rcx, ecx\nmovzx   eax, byte ptr [rax+rcx]\ncmp     eax, 0Ah\njnz     loc_1477",
+   "loc_1472": "jmp     loc_14D9",
+   "loc_1477": "cmp     [rbp+ch_0], 20h ; ' '\njge     loc_1495",
+   "loc_1481": "cmp     [rbp+ch_0], 0Ah\njz      loc_1495",
+   "loc_148B": "cmp     [rbp+ch_0], 9\njnz     loc_14B9",
+   "loc_1495": "mov     eax, [rbp+ch_0]\nmov     cl, al\nmov     eax, [rbp+nch]\nmov     edx, eax\nadd     edx, 1\nmov     [rbp+nch], edx\ncdqe\nmov     [rbp+rax+Comment], cl\njmp     loc_14D4",
+   "loc_14B9": "mov     eax, [rbp+nch]\nmov     ecx, eax\nadd     ecx, 1\nmov     [rbp+nch], ecx\ncdqe\nmov     [rbp+rax+Comment], 3Fh ; '?'",
+   "loc_14D4": "jmp     $+5",
+   "loc_14D9": "mov     eax, [rbp+a]\nadd     eax, 1\nmov     [rbp+a], eax\njmp     loc_142A",
+   "loc_14ED": "movsxd  rax, [rbp+nch]\nmov     [rbp+rax+Comment], 0\ncmp     cs:ShowTags, 0\njz      loc_151E",
+   "loc_1509": "lea     rsi, [rbp+Comment]\nlea     rdi, aComMarkerComme; \"COM marker comment: %s\\n\"\nmov     al, 0\ncall    printf",
+   "loc_151E": "lea     rsi, [rbp+Comment]; src\nlea     rdi, ImageInfo; dest\ncall    strcpy\nadd     rsp, 3EB0h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "a": "dword ptr -3EA8h",
+   "nch": "dword ptr -3EA4h",
+   "Comment": "byte ptr -3EA0h",
+   "ch_0": "dword ptr -10h",
+   "length": "dword ptr -0Ch",
+   "Data": "qword ptr -8"
+  },
+  ".rodata": {
+   "aComMarkerComme": "byte 'COM marker comment: %s',0Ah,0"
+  },
+  ".data": {},
+  ".bss": {
+   "ShowTags": "[]",
+   "ImageInfo": "[]"
+  }
+ },
+ "func_ea": 5104,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".strcpy": "strcpy",
+  "_strcpy": "strcpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".rewind": "rewind",
+  "_rewind": "rewind",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".strcpy",
+   ".plt",
+   true,
+   "strcpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".rewind",
+   ".plt",
+   true,
+   "rewind"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "printf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "rewind",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868498
+ }
+}

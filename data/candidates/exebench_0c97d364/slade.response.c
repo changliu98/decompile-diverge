@@ -1,0 +1,1 @@
+void doX(GBContext *cpu) { cpu->t_clock += 8; }

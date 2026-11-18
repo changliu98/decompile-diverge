@@ -1,0 +1,1 @@
+void reverse(char *str) { char *start, *end; start = end = str; while (*end) end++; end--; while (start < end) { *start ^= *end; *end ^= *end; *start ^= *start; start++; end--; } }

@@ -1,0 +1,1 @@
+void sum(const double *x, const int n, double *y) { double s = 0; int i; for (i = 0; i < n; i++) s += x[i]; *y = s; }

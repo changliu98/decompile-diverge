@@ -1,0 +1,306 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nmov     [rbp+pOut], rdi\nmov     [rbp+pIn], rsi\nmov     [rbp+sampleCount], rdx\ncmp     [rbp+pOut], 0\njz      loc_B076\ncmp     [rbp+pIn], 0\njnz     loc_B07B\njmp     loc_B0F7\nmov     [rbp+i], 0\nmov     rax, [rbp+i]\ncmp     rax, [rbp+sampleCount]\njnb     loc_B0F7\nmov     rax, [rbp+pIn]\nmov     rcx, [rbp+i]\nmovzx   eax, byte ptr [rax+rcx]\ncvtsi2ss xmm0, eax\nmovss   [rbp+x], xmm0\nmovss   xmm0, cs:dword_1408C\nmulss   xmm0, [rbp+x]\nmovss   [rbp+x], xmm0\nmovss   xmm0, [rbp+x]\nmovss   xmm1, cs:dword_14084\nsubss   xmm0, xmm1\nmovss   [rbp+x], xmm0\nmovss   xmm0, [rbp+x]\nmov     rax, [rbp+pOut]\nmov     rcx, rax\nadd     rcx, 4\nmov     [rbp+pOut], rcx\nmovss   dword ptr [rax], xmm0\nmov     rax, [rbp+i]\nadd     rax, 1\nmov     [rbp+i], rax\njmp     loc_B083\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 7,
+  "edges": [
+   [
+    "start",
+    "loc_B06B"
+   ],
+   [
+    "start",
+    "loc_B076"
+   ],
+   [
+    "loc_B06B",
+    "loc_B076"
+   ],
+   [
+    "loc_B06B",
+    "loc_B07B"
+   ],
+   [
+    "loc_B076",
+    "loc_B0F7"
+   ],
+   [
+    "loc_B07B",
+    "loc_B083"
+   ],
+   [
+    "loc_B083",
+    "loc_B091"
+   ],
+   [
+    "loc_B083",
+    "loc_B0F7"
+   ],
+   [
+    "loc_B091",
+    "loc_B083"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nmov     [rbp+pOut], rdi\nmov     [rbp+pIn], rsi\nmov     [rbp+sampleCount], rdx\ncmp     [rbp+pOut], 0\njz      loc_B076",
+   "loc_B06B": "cmp     [rbp+pIn], 0\njnz     loc_B07B",
+   "loc_B076": "jmp     loc_B0F7",
+   "loc_B07B": "mov     [rbp+i], 0",
+   "loc_B083": "mov     rax, [rbp+i]\ncmp     rax, [rbp+sampleCount]\njnb     loc_B0F7",
+   "loc_B091": "mov     rax, [rbp+pIn]\nmov     rcx, [rbp+i]\nmovzx   eax, byte ptr [rax+rcx]\ncvtsi2ss xmm0, eax\nmovss   [rbp+x], xmm0\nmovss   xmm0, cs:dword_1408C\nmulss   xmm0, [rbp+x]\nmovss   [rbp+x], xmm0\nmovss   xmm0, [rbp+x]\nmovss   xmm1, cs:dword_14084\nsubss   xmm0, xmm1\nmovss   [rbp+x], xmm0\nmovss   xmm0, [rbp+x]\nmov     rax, [rbp+pOut]\nmov     rcx, rax\nadd     rcx, 4\nmov     [rbp+pOut], rcx\nmovss   dword ptr [rax], xmm0\nmov     rax, [rbp+i]\nadd     rax, 1\nmov     [rbp+i], rax\njmp     loc_B083",
+   "loc_B0F7": "pop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "x": "dword ptr -24h",
+   "i": "qword ptr -20h",
+   "sampleCount": "qword ptr -18h",
+   "pIn": "qword ptr -10h",
+   "pOut": "qword ptr -8"
+  },
+  ".rodata": {
+   "dword_1408C": "dword 3C008081h",
+   "dword_14084": "dword 3F800000h"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 45136,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868523
+ }
+}

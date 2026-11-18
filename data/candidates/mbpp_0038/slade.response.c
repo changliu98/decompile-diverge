@@ -1,0 +1,1 @@
+double func0(int *ptr, int size) { int ret = -1; int ret2 = -1; for (int i = 0; i < size; ++i) { if ((ptr[i] % 2) == 0) { ret = ptr[i]; break; } } for (int i = 0; i < size; ++i) { if ((ptr[i] % 2) != 0) { ret2 = ptr[i]; break; } } if (ret != -1 && ret2 != -1) return (double)ret / ret2; else return -1; }

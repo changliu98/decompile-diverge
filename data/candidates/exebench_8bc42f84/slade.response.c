@@ -1,0 +1,1 @@
+void mpeg3video_calc_mv(mpeg3_t *file, int x, int y, int w, int vb) { int x2 = 16 << x; int y2 = vb ? (file->depth >> 1) : file->depth; if(y > 0) { y2 += ((y - 1) << x) + w + 1; if(y2 >= x2) y2 -= 2 * x2; } else if(y < 0) { y2 -= ((-y << 1) << x) + w + 1; if(y2 < -x2) y2 += 2 * x2; } file->depth = vb ? 2 * y2 : y2; }

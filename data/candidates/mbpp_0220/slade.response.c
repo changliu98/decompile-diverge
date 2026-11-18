@@ -1,0 +1,1 @@
+regex_t func0(const char *str, int len) { regex_t preg; strcpy( &new_text, str ); const char *src = "[ ,.]"; regmatch_t pmatch[18]; regcomp(&preg, src, 1); for (int i = 0; i < len && !regexec(preg, &new_text, 1, pmatch, 0); i++) { regmatch_t pmatch = pmatch.rm_so; new_text.rm_eo = ':'; } regfree(&preg); return &new_text; }

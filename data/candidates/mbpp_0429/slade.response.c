@@ -1,0 +1,1 @@
+void func0(byte *x, byte *y, byte *z, int m) { for (int i = 0; i < m; ++i) z[i] = x[i] & y[i]; }

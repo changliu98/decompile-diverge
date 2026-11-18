@@ -1,0 +1,335 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0A0h\nmov     [rbp+ctx], rdi\nmov     [rbp+gbc], rsi\nmov     [rbp+name], rdx\nmov     [rbp+write_to], rcx\nmov     [rbp+range_min], r8d\nmov     [rbp+range_max], r9d\nmov     rax, [rbp+ctx]\ncmp     dword ptr [rax+8], 0\njz      loc_143D\nmov     rdi, [rbp+gbc]; s\ncall    get_bits_count\nmov     [rbp+position], eax\nmov     [rbp+i], 0\nmov     [rbp+zeroes], 0\nmov     rdi, [rbp+gbc]; gb\ncall    get_bits_left\nmov     ecx, [rbp+zeroes]\nadd     ecx, 1\ncmp     eax, ecx\njge     loc_148C\nmov     rax, [rbp+ctx]\nmov     rdi, [rax]; avcl\nmov     rcx, [rbp+name]\nmov     esi, 10h; level\nlea     rdx, fmt; \"Invalid uvlc code at %s: bitstream ende\"...\nmov     al, 0\ncall    av_log\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_1606\nmov     rdi, [rbp+gbc]; s\ncall    get_bits1\ncmp     eax, 0\njz      loc_14B8\nmov     eax, [rbp+i]\nmov     ecx, eax\nadd     ecx, 1\nmov     [rbp+i], ecx\ncdqe\nmov     [rbp+rax+bits], 31h ; '1'\njmp     loc_14DB\nmov     eax, [rbp+i]\nmov     ecx, eax\nadd     ecx, 1\nmov     [rbp+i], ecx\ncdqe\nmov     [rbp+rax+bits], 30h ; '0'\nmov     eax, [rbp+zeroes]\nadd     eax, 1\nmov     [rbp+zeroes], eax\njmp     loc_144B\ncmp     [rbp+zeroes], 20h ; ' '\njl      loc_14F1\nmov     [rbp+value], 0FFFFFFFFh\njmp     loc_156B\nmov     rdi, [rbp+gbc]; s\nmov     esi, [rbp+zeroes]; n\ncall    get_bits_long\nmov     [rbp+value], eax\nmov     [rbp+j], 0\nmov     eax, [rbp+j]\ncmp     eax, [rbp+zeroes]\njge     loc_1558\nmov     edx, [rbp+value]\nmov     ecx, [rbp+zeroes]\nsub     ecx, [rbp+j]\nsub     ecx, 1\nshr     edx, cl\nand     edx, 1\nmov     eax, 30h ; '0'\nmov     ecx, 31h ; '1'\ncmp     edx, 0\ncmovnz  eax, ecx\nmov     cl, al\nmov     eax, [rbp+i]\nmov     edx, eax\nadd     edx, 1\nmov     [rbp+i], edx\ncdqe\nmov     [rbp+rax+bits], cl\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_1507\nmov     ecx, [rbp+zeroes]\nmov     eax, 1\nshl     eax, cl\nsub     eax, 1\nadd     eax, [rbp+value]\nmov     [rbp+value], eax\nmov     rax, [rbp+ctx]\ncmp     dword ptr [rax+8], 0\njz      loc_15A6\nmovsxd  rax, [rbp+i]\nmov     [rbp+rax+bits], 0\nmov     rdi, [rbp+ctx]; ctx\nmov     esi, [rbp+position]; position\nmov     rdx, [rbp+name]; str\nlea     r8, [rbp+bits]; bits\nmov     eax, [rbp+value]\nmov     r9d, eax; value\nxor     eax, eax\nmov     ecx, eax; subscripts\ncall    ff_cbs_trace_syntax_element\nmov     eax, [rbp+value]\ncmp     eax, [rbp+range_min]\njb      loc_15BE\nmov     eax, [rbp+value]\ncmp     eax, [rbp+range_max]\njbe     loc_15F6\nmov     rax, [rbp+ctx]\nmov     rdi, [rax]; avcl\nmov     rcx, [rbp+name]\nmov     r8d, [rbp+value]\nmov     r9d, [rbp+range_min]\nmov     eax, [rbp+range_max]\nmov     esi, 10h; level\nlea     rdx, aSOutOfRangeUBu; \"%s out of range: %u, but must be in [%u\"...\nmov     [rsp+0A0h+var_A0], eax\nmov     al, 0\ncall    av_log\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_1606\nmov     ecx, [rbp+value]\nmov     rax, [rbp+write_to]\nmov     [rax], ecx\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 0A0h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 21,
+  "edges": [
+   [
+    "start",
+    "loc_1431"
+   ],
+   [
+    "start",
+    "loc_143D"
+   ],
+   [
+    "loc_1431",
+    "loc_143D"
+   ],
+   [
+    "loc_143D",
+    "loc_144B"
+   ],
+   [
+    "loc_144B",
+    "loc_1462"
+   ],
+   [
+    "loc_144B",
+    "loc_148C"
+   ],
+   [
+    "loc_1462",
+    "loc_1606"
+   ],
+   [
+    "loc_148C",
+    "loc_149E"
+   ],
+   [
+    "loc_148C",
+    "loc_14B8"
+   ],
+   [
+    "loc_149E",
+    "loc_14DB"
+   ],
+   [
+    "loc_14B8",
+    "loc_144B"
+   ],
+   [
+    "loc_14DB",
+    "loc_14E5"
+   ],
+   [
+    "loc_14DB",
+    "loc_14F1"
+   ],
+   [
+    "loc_14E5",
+    "loc_156B"
+   ],
+   [
+    "loc_14F1",
+    "loc_1507"
+   ],
+   [
+    "loc_1507",
+    "loc_1513"
+   ],
+   [
+    "loc_1507",
+    "loc_1558"
+   ],
+   [
+    "loc_1513",
+    "loc_1507"
+   ],
+   [
+    "loc_1558",
+    "loc_156B"
+   ],
+   [
+    "loc_156B",
+    "loc_1579"
+   ],
+   [
+    "loc_156B",
+    "loc_15A6"
+   ],
+   [
+    "loc_1579",
+    "loc_15A6"
+   ],
+   [
+    "loc_15A6",
+    "loc_15B2"
+   ],
+   [
+    "loc_15A6",
+    "loc_15BE"
+   ],
+   [
+    "loc_15B2",
+    "loc_15BE"
+   ],
+   [
+    "loc_15B2",
+    "loc_15F6"
+   ],
+   [
+    "loc_15BE",
+    "loc_1606"
+   ],
+   [
+    "loc_15F6",
+    "loc_1606"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0A0h\nmov     [rbp+ctx], rdi\nmov     [rbp+gbc], rsi\nmov     [rbp+name], rdx\nmov     [rbp+write_to], rcx\nmov     [rbp+range_min], r8d\nmov     [rbp+range_max], r9d\nmov     rax, [rbp+ctx]\ncmp     dword ptr [rax+8], 0\njz      loc_143D",
+   "loc_1431": "mov     rdi, [rbp+gbc]; s\ncall    get_bits_count\nmov     [rbp+position], eax",
+   "loc_143D": "mov     [rbp+i], 0\nmov     [rbp+zeroes], 0",
+   "loc_144B": "mov     rdi, [rbp+gbc]; gb\ncall    get_bits_left\nmov     ecx, [rbp+zeroes]\nadd     ecx, 1\ncmp     eax, ecx\njge     loc_148C",
+   "loc_1462": "mov     rax, [rbp+ctx]\nmov     rdi, [rax]; avcl\nmov     rcx, [rbp+name]\nmov     esi, 10h; level\nlea     rdx, fmt; \"Invalid uvlc code at %s: bitstream ende\"...\nmov     al, 0\ncall    av_log\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_1606",
+   "loc_148C": "mov     rdi, [rbp+gbc]; s\ncall    get_bits1\ncmp     eax, 0\njz      loc_14B8",
+   "loc_149E": "mov     eax, [rbp+i]\nmov     ecx, eax\nadd     ecx, 1\nmov     [rbp+i], ecx\ncdqe\nmov     [rbp+rax+bits], 31h ; '1'\njmp     loc_14DB",
+   "loc_14B8": "mov     eax, [rbp+i]\nmov     ecx, eax\nadd     ecx, 1\nmov     [rbp+i], ecx\ncdqe\nmov     [rbp+rax+bits], 30h ; '0'\nmov     eax, [rbp+zeroes]\nadd     eax, 1\nmov     [rbp+zeroes], eax\njmp     loc_144B",
+   "loc_14DB": "cmp     [rbp+zeroes], 20h ; ' '\njl      loc_14F1",
+   "loc_14E5": "mov     [rbp+value], 0FFFFFFFFh\njmp     loc_156B",
+   "loc_14F1": "mov     rdi, [rbp+gbc]; s\nmov     esi, [rbp+zeroes]; n\ncall    get_bits_long\nmov     [rbp+value], eax\nmov     [rbp+j], 0",
+   "loc_1507": "mov     eax, [rbp+j]\ncmp     eax, [rbp+zeroes]\njge     loc_1558",
+   "loc_1513": "mov     edx, [rbp+value]\nmov     ecx, [rbp+zeroes]\nsub     ecx, [rbp+j]\nsub     ecx, 1\nshr     edx, cl\nand     edx, 1\nmov     eax, 30h ; '0'\nmov     ecx, 31h ; '1'\ncmp     edx, 0\ncmovnz  eax, ecx\nmov     cl, al\nmov     eax, [rbp+i]\nmov     edx, eax\nadd     edx, 1\nmov     [rbp+i], edx\ncdqe\nmov     [rbp+rax+bits], cl\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_1507",
+   "loc_1558": "mov     ecx, [rbp+zeroes]\nmov     eax, 1\nshl     eax, cl\nsub     eax, 1\nadd     eax, [rbp+value]\nmov     [rbp+value], eax",
+   "loc_156B": "mov     rax, [rbp+ctx]\ncmp     dword ptr [rax+8], 0\njz      loc_15A6",
+   "loc_1579": "movsxd  rax, [rbp+i]\nmov     [rbp+rax+bits], 0\nmov     rdi, [rbp+ctx]; ctx\nmov     esi, [rbp+position]; position\nmov     rdx, [rbp+name]; str\nlea     r8, [rbp+bits]; bits\nmov     eax, [rbp+value]\nmov     r9d, eax; value\nxor     eax, eax\nmov     ecx, eax; subscripts\ncall    ff_cbs_trace_syntax_element",
+   "loc_15A6": "mov     eax, [rbp+value]\ncmp     eax, [rbp+range_min]\njb      loc_15BE",
+   "loc_15B2": "mov     eax, [rbp+value]\ncmp     eax, [rbp+range_max]\njbe     loc_15F6",
+   "loc_15BE": "mov     rax, [rbp+ctx]\nmov     rdi, [rax]; avcl\nmov     rcx, [rbp+name]\nmov     r8d, [rbp+value]\nmov     r9d, [rbp+range_min]\nmov     eax, [rbp+range_max]\nmov     esi, 10h; level\nlea     rdx, aSOutOfRangeUBu; \"%s out of range: %u, but must be in [%u\"...\nmov     [rsp+0A0h+var_A0], eax\nmov     al, 0\ncall    av_log\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_1606",
+   "loc_15F6": "mov     ecx, [rbp+value]\nmov     rax, [rbp+write_to]\nmov     [rax], ecx\nmov     [rbp+var_4], 0",
+   "loc_1606": "mov     eax, [rbp+var_4]\nadd     rsp, 0A0h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_A0": "dword ptr -0A0h",
+   "bits": "byte ptr -90h",
+   "j": "dword ptr -44h",
+   "i": "dword ptr -40h",
+   "zeroes": "dword ptr -3Ch",
+   "position": "dword ptr -38h",
+   "value": "dword ptr -34h",
+   "range_max": "dword ptr -30h",
+   "range_min": "dword ptr -2Ch",
+   "write_to": "qword ptr -28h",
+   "name": "qword ptr -20h",
+   "gbc": "qword ptr -18h",
+   "ctx": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "fmt": "byte 'Invalid uvlc code at %s: bitstream ended.',0Ah,0",
+   "aSOutOfRangeUBu": "byte '%s out of range: %u, but must be in [%u,%u].',0Ah,0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5120,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868467
+ }
+}

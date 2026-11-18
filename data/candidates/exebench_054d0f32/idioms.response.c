@@ -1,0 +1,10 @@
+char *my_strupcase(char *str)
+{
+  int i = 0;
+  if (str == ((void *)0))
+    return ((void *)0);
+  for (i = 0; str[i]; i++)
+    if (str[i] >= 'a' && str[i] <= 'z')
+      str[i] -= 'a' - 'A';
+  return str;
+}

@@ -1,0 +1,1 @@
+double func0(int i) { double f; if (i < 0) exit(1); if (i < 3) f = 2.0 * i; else f = 21 + (i - 2) * 4; return f; }

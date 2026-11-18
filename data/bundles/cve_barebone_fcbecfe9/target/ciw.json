@@ -1,0 +1,380 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+ptr], rdi\nmov     [rbp+size], esi\ncmp     [rbp+ptr], 0\njz      loc_1C8A\ncmp     [rbp+size], 0\njnz     loc_1C8A\nmov     rdi, [rbp+ptr]; ptr\ncall    mrbc_raw_free\nmov     [rbp+var_8], 0\njmp     loc_1ED0\nmov     rax, cs:memory_pool\nmov     [rbp+pool], rax\nmov     rax, [rbp+ptr]\nadd     rax, 0FFFFFFFFFFFFFFFCh\nmov     [rbp+target], rax\nmov     eax, [rbp+size]\nadd     rax, 4\nmov     [rbp+alloc_size], eax\nxor     eax, eax\nsub     eax, [rbp+alloc_size]\nand     eax, 3\nadd     eax, [rbp+alloc_size]\nmov     [rbp+alloc_size], eax\nmov     eax, [rbp+alloc_size]\ncmp     rax, 20h ; ' '\njnb     loc_1CCD\nmov     [rbp+alloc_size], 20h ; ' '\nmov     eax, [rbp+alloc_size]\nmov     rcx, [rbp+target]\nmov     ecx, [rcx]\nand     ecx, 0FFFFFFh\nand     ecx, 0FFFFFFFCh\ncmp     eax, ecx\njbe     loc_1D67\nmov     rax, [rbp+target]\nmov     rcx, [rbp+target]\nmov     ecx, [rcx]\nand     ecx, 0FFFFFFh\nand     ecx, 0FFFFFFFCh\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+next], rax\nmov     rax, [rbp+next]\nmov     eax, [rax]\nand     eax, 0FFFFFFh\nand     eax, 1\ncmp     eax, 0\njz      loc_1D20\njmp     ALLOC_AND_COPY\nmov     rax, [rbp+target]\nmov     eax, [rax]\nand     eax, 0FFFFFFh\nand     eax, 0FFFFFFFCh\nmov     rcx, [rbp+next]\nmov     ecx, [rcx]\nand     ecx, 0FFFFFFh\nand     ecx, 0FFFFFFFCh\nadd     eax, ecx\ncmp     eax, [rbp+alloc_size]\njnb     loc_1D4D\njmp     ALLOC_AND_COPY\nmov     rdi, [rbp+pool]; pool\nmov     rsi, [rbp+next]; target\ncall    remove_free_block\nmov     rdi, [rbp+target]; target\nmov     rsi, [rbp+next]; next\ncall    merge_block\nmov     rax, [rbp+target]\nmov     rcx, [rbp+target]\nmov     ecx, [rcx]\nand     ecx, 0FFFFFFh\nand     ecx, 0FFFFFFFCh\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+next], rax\nmov     rdi, [rbp+target]; target\nmov     esi, [rbp+alloc_size]; size\ncall    split_block\nmov     [rbp+release], rax\ncmp     [rbp+release], 0\njz      loc_1DC5\nmov     rax, [rbp+release]\nmov     edx, [rax]\nand     edx, 0FFFFFFh\nor      edx, 2\nmov     ecx, [rax]\nand     edx, 0FFFFFFh\nand     ecx, 0FF000000h\nor      ecx, edx\nmov     [rax], ecx\njmp     loc_1DF3\nmov     rax, [rbp+next]\nmov     edx, [rax]\nand     edx, 0FFFFFFh\nor      edx, 2\nmov     ecx, [rax]\nand     edx, 0FFFFFFh\nand     ecx, 0FF000000h\nor      ecx, edx\nmov     [rax], ecx\nmov     rax, [rbp+ptr]\nmov     [rbp+var_8], rax\njmp     loc_1ED0\nmov     rax, [rbp+next]\nmov     eax, [rax]\nand     eax, 0FFFFFFh\nand     eax, 1\ncmp     eax, 0\njnz     loc_1E29\nmov     rdi, [rbp+pool]; pool\nmov     rsi, [rbp+next]; target\ncall    remove_free_block\nmov     rdi, [rbp+release]; target\nmov     rsi, [rbp+next]; next\ncall    merge_block\njmp     loc_1E4A\nmov     rax, [rbp+next]\nmov     edx, [rax]\nand     edx, 0FFFFFFh\nand     edx, 0FFFFFFFDh\nmov     ecx, [rax]\nand     edx, 0FFFFFFh\nand     ecx, 0FF000000h\nor      ecx, edx\nmov     [rax], ecx\nmov     rdi, [rbp+pool]; pool\nmov     rsi, [rbp+release]; target\ncall    add_free_block\nmov     rax, [rbp+ptr]\nmov     [rbp+var_8], rax\njmp     loc_1ED0\nmov     edi, [rbp+size]; size\ncall    mrbc_raw_alloc\nmov     [rbp+new_ptr], rax\ncmp     [rbp+new_ptr], 0\njnz     loc_1E88\nmov     [rbp+var_8], 0\njmp     loc_1ED0\nmov     rdi, [rbp+new_ptr]; dest\nmov     rsi, [rbp+ptr]; src\nmov     rax, [rbp+target]\nmov     eax, [rax]\nand     eax, 0FFFFFFh\nand     eax, 0FFFFFFFCh\nmovsxd  rdx, eax\nsub     rdx, 4; n\ncall    memcpy\nmov     rdi, [rbp+new_ptr]; ptr\nmov     rax, [rbp+target]\nmov     eax, [rax]\nshr     eax, 18h\nmovzx   esi, al; vm_id\ncall    mrbc_set_vm_id\nmov     rdi, [rbp+ptr]; ptr\ncall    mrbc_raw_free\nmov     rax, [rbp+new_ptr]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 22,
+  "edges": [
+   [
+    "start",
+    "loc_1C6A"
+   ],
+   [
+    "start",
+    "loc_1C8A"
+   ],
+   [
+    "loc_1C6A",
+    "loc_1C74"
+   ],
+   [
+    "loc_1C6A",
+    "loc_1C8A"
+   ],
+   [
+    "loc_1C74",
+    "loc_1ED0"
+   ],
+   [
+    "loc_1C8A",
+    "loc_1CC6"
+   ],
+   [
+    "loc_1C8A",
+    "loc_1CCD"
+   ],
+   [
+    "loc_1CC6",
+    "loc_1CCD"
+   ],
+   [
+    "loc_1CCD",
+    "loc_1CE7"
+   ],
+   [
+    "loc_1CCD",
+    "loc_1D67"
+   ],
+   [
+    "loc_1CE7",
+    "loc_1D1B"
+   ],
+   [
+    "loc_1CE7",
+    "loc_1D20"
+   ],
+   [
+    "loc_1D1B",
+    "loc_1E64"
+   ],
+   [
+    "loc_1D20",
+    "loc_1D48"
+   ],
+   [
+    "loc_1D20",
+    "loc_1D4D"
+   ],
+   [
+    "loc_1D48",
+    "loc_1E64"
+   ],
+   [
+    "loc_1D4D",
+    "loc_1D67"
+   ],
+   [
+    "loc_1D67",
+    "loc_1D9F"
+   ],
+   [
+    "loc_1D67",
+    "loc_1DC5"
+   ],
+   [
+    "loc_1D9F",
+    "loc_1DF3"
+   ],
+   [
+    "loc_1DC5",
+    "loc_1ED0"
+   ],
+   [
+    "loc_1DF3",
+    "loc_1E0A"
+   ],
+   [
+    "loc_1DF3",
+    "loc_1E29"
+   ],
+   [
+    "loc_1E0A",
+    "loc_1E4A"
+   ],
+   [
+    "loc_1E29",
+    "loc_1E4A"
+   ],
+   [
+    "loc_1E4A",
+    "loc_1ED0"
+   ],
+   [
+    "loc_1E64",
+    "loc_1E7B"
+   ],
+   [
+    "loc_1E64",
+    "loc_1E88"
+   ],
+   [
+    "loc_1E7B",
+    "loc_1ED0"
+   ],
+   [
+    "loc_1E88",
+    "loc_1ED0"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+ptr], rdi\nmov     [rbp+size], esi\ncmp     [rbp+ptr], 0\njz      loc_1C8A",
+   "loc_1C6A": "cmp     [rbp+size], 0\njnz     loc_1C8A",
+   "loc_1C74": "mov     rdi, [rbp+ptr]; ptr\ncall    mrbc_raw_free\nmov     [rbp+var_8], 0\njmp     loc_1ED0",
+   "loc_1C8A": "mov     rax, cs:memory_pool\nmov     [rbp+pool], rax\nmov     rax, [rbp+ptr]\nadd     rax, 0FFFFFFFFFFFFFFFCh\nmov     [rbp+target], rax\nmov     eax, [rbp+size]\nadd     rax, 4\nmov     [rbp+alloc_size], eax\nxor     eax, eax\nsub     eax, [rbp+alloc_size]\nand     eax, 3\nadd     eax, [rbp+alloc_size]\nmov     [rbp+alloc_size], eax\nmov     eax, [rbp+alloc_size]\ncmp     rax, 20h ; ' '\njnb     loc_1CCD",
+   "loc_1CC6": "mov     [rbp+alloc_size], 20h ; ' '",
+   "loc_1CCD": "mov     eax, [rbp+alloc_size]\nmov     rcx, [rbp+target]\nmov     ecx, [rcx]\nand     ecx, 0FFFFFFh\nand     ecx, 0FFFFFFFCh\ncmp     eax, ecx\njbe     loc_1D67",
+   "loc_1CE7": "mov     rax, [rbp+target]\nmov     rcx, [rbp+target]\nmov     ecx, [rcx]\nand     ecx, 0FFFFFFh\nand     ecx, 0FFFFFFFCh\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+next], rax\nmov     rax, [rbp+next]\nmov     eax, [rax]\nand     eax, 0FFFFFFh\nand     eax, 1\ncmp     eax, 0\njz      loc_1D20",
+   "loc_1D1B": "jmp     ALLOC_AND_COPY",
+   "loc_1D20": "mov     rax, [rbp+target]\nmov     eax, [rax]\nand     eax, 0FFFFFFh\nand     eax, 0FFFFFFFCh\nmov     rcx, [rbp+next]\nmov     ecx, [rcx]\nand     ecx, 0FFFFFFh\nand     ecx, 0FFFFFFFCh\nadd     eax, ecx\ncmp     eax, [rbp+alloc_size]\njnb     loc_1D4D",
+   "loc_1D48": "jmp     ALLOC_AND_COPY",
+   "loc_1D4D": "mov     rdi, [rbp+pool]; pool\nmov     rsi, [rbp+next]; target\ncall    remove_free_block\nmov     rdi, [rbp+target]; target\nmov     rsi, [rbp+next]; next\ncall    merge_block",
+   "loc_1D67": "mov     rax, [rbp+target]\nmov     rcx, [rbp+target]\nmov     ecx, [rcx]\nand     ecx, 0FFFFFFh\nand     ecx, 0FFFFFFFCh\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+next], rax\nmov     rdi, [rbp+target]; target\nmov     esi, [rbp+alloc_size]; size\ncall    split_block\nmov     [rbp+release], rax\ncmp     [rbp+release], 0\njz      loc_1DC5",
+   "loc_1D9F": "mov     rax, [rbp+release]\nmov     edx, [rax]\nand     edx, 0FFFFFFh\nor      edx, 2\nmov     ecx, [rax]\nand     edx, 0FFFFFFh\nand     ecx, 0FF000000h\nor      ecx, edx\nmov     [rax], ecx\njmp     loc_1DF3",
+   "loc_1DC5": "mov     rax, [rbp+next]\nmov     edx, [rax]\nand     edx, 0FFFFFFh\nor      edx, 2\nmov     ecx, [rax]\nand     edx, 0FFFFFFh\nand     ecx, 0FF000000h\nor      ecx, edx\nmov     [rax], ecx\nmov     rax, [rbp+ptr]\nmov     [rbp+var_8], rax\njmp     loc_1ED0",
+   "loc_1DF3": "mov     rax, [rbp+next]\nmov     eax, [rax]\nand     eax, 0FFFFFFh\nand     eax, 1\ncmp     eax, 0\njnz     loc_1E29",
+   "loc_1E0A": "mov     rdi, [rbp+pool]; pool\nmov     rsi, [rbp+next]; target\ncall    remove_free_block\nmov     rdi, [rbp+release]; target\nmov     rsi, [rbp+next]; next\ncall    merge_block\njmp     loc_1E4A",
+   "loc_1E29": "mov     rax, [rbp+next]\nmov     edx, [rax]\nand     edx, 0FFFFFFh\nand     edx, 0FFFFFFFDh\nmov     ecx, [rax]\nand     edx, 0FFFFFFh\nand     ecx, 0FF000000h\nor      ecx, edx\nmov     [rax], ecx",
+   "loc_1E4A": "mov     rdi, [rbp+pool]; pool\nmov     rsi, [rbp+release]; target\ncall    add_free_block\nmov     rax, [rbp+ptr]\nmov     [rbp+var_8], rax\njmp     loc_1ED0",
+   "loc_1E64": "mov     edi, [rbp+size]; size\ncall    mrbc_raw_alloc\nmov     [rbp+new_ptr], rax\ncmp     [rbp+new_ptr], 0\njnz     loc_1E88",
+   "loc_1E7B": "mov     [rbp+var_8], 0\njmp     loc_1ED0",
+   "loc_1E88": "mov     rdi, [rbp+new_ptr]; dest\nmov     rsi, [rbp+ptr]; src\nmov     rax, [rbp+target]\nmov     eax, [rax]\nand     eax, 0FFFFFFh\nand     eax, 0FFFFFFFCh\nmovsxd  rdx, eax\nsub     rdx, 4; n\ncall    memcpy\nmov     rdi, [rbp+new_ptr]; ptr\nmov     rax, [rbp+target]\nmov     eax, [rax]\nshr     eax, 18h\nmovzx   esi, al; vm_id\ncall    mrbc_set_vm_id\nmov     rdi, [rbp+ptr]; ptr\ncall    mrbc_raw_free\nmov     rax, [rbp+new_ptr]\nmov     [rbp+var_8], rax",
+   "loc_1ED0": "mov     rax, [rbp+var_8]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "new_ptr": "qword ptr -48h",
+   "release": "qword ptr -40h",
+   "next": "qword ptr -38h",
+   "alloc_size": "dword ptr -2Ch",
+   "target": "qword ptr -28h",
+   "pool": "qword ptr -20h",
+   "size": "dword ptr -14h",
+   "ptr": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {
+   "memory_pool": "[]"
+  }
+ },
+ "func_ea": 7248,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".write": "write",
+  "_write": "write",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".write",
+   ".plt",
+   true,
+   "write"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "write",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868503
+ }
+}

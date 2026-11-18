@@ -1,0 +1,1 @@
+int aligned(int n) { return (n + 63) & ~63; }

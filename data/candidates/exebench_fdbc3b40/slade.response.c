@@ -1,0 +1,1 @@
+void multiply_all(int32_t *a, int mul) { int i; for (i = 0; i < 10; i++) { a[i] *= mul; } }

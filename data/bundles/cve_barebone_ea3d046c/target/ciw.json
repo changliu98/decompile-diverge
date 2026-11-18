@@ -1,0 +1,324 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\npush    r14\npush    rbx\nsub     rsp, 70h\nmov     [rbp+s], rdi\nmov     edi, 4; c\nxor     esi, esi; lvl\nlea     rdx, aS; \"%s()\"\nlea     rcx, aProcessBitmapU; \"process_bitmap_updates\"\nmov     al, 0\ncall    logger\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+num_updates], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\nmovzx   ecx, [rbp+num_updates]\ncmp     eax, ecx\njge     loc_1667\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+left], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+top], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+right], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+bottom], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+width], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+height], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+bpp], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmovzx   eax, [rbp+bpp]\nadd     eax, 7\nmov     ecx, 8\ncdq\nidiv    ecx\nmov     [rbp+Bpp], ax\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+compress], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+bufsize], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmovzx   eax, [rbp+right]\nmovzx   ecx, [rbp+left]\nsub     eax, ecx\nadd     eax, 1\nmov     [rbp+cx_0], ax\nmovzx   eax, [rbp+bottom]\nmovzx   ecx, [rbp+top]\nsub     eax, ecx\nadd     eax, 1\nmov     [rbp+cy], ax\nmovzx   ecx, [rbp+left]\nmovzx   r8d, [rbp+top]\nmovzx   r9d, [rbp+right]\nmovzx   r14d, [rbp+bottom]\nmovzx   ebx, [rbp+width]\nmovzx   r11d, [rbp+height]\nmovzx   r10d, [rbp+Bpp]\nmovzx   eax, [rbp+compress]\nmov     edi, 5; c\nxor     esi, esi; lvl\nlea     rdx, aProcessBitmapU_0; \"process_bitmap_updates(), [%d,%d,%d,%d]\"...\nmov     dword ptr [rsp+80h+var_80], r14d\nmov     [rsp+80h+var_78], ebx\nmov     [rsp+80h+var_70], r11d\nmov     [rsp+80h+var_68], r10d\nmov     [rsp+80h+var_60], eax\nmov     al, 0\ncall    logger\ncmp     [rbp+compress], 0\njnz     loc_1553\nmovzx   edi, [rbp+width]\nmovzx   eax, [rbp+height]\nimul    edi, eax\nmovzx   eax, [rbp+Bpp]\nimul    edi, eax; size\ncall    xmalloc\nmov     [rbp+bmpdata], rax\nmov     [rbp+y], 0\nmov     eax, [rbp+y]\nmovzx   ecx, [rbp+height]\ncmp     eax, ecx\njge     loc_151E\nmov     rdi, [rbp+bmpdata]\nmovzx   eax, [rbp+height]\nsub     eax, [rbp+y]\nsub     eax, 1\nmovzx   ecx, [rbp+width]\nmovzx   edx, [rbp+Bpp]\nimul    ecx, edx\nimul    eax, ecx\ncdqe\nadd     rdi, rax; dest\nmov     rax, [rbp+s]\nmov     rsi, [rax]; src\nmovzx   eax, [rbp+width]\nmovzx   ecx, [rbp+Bpp]\nimul    eax, ecx\nmovsxd  rdx, eax; n\ncall    memcpy\nmovzx   edx, [rbp+width]\nmovzx   eax, [rbp+Bpp]\nimul    edx, eax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nmovsxd  rdx, edx\nadd     rcx, rdx\nmov     [rax], rcx\nmov     eax, [rbp+y]\nadd     eax, 1\nmov     [rbp+y], eax\njmp     loc_14AB\nmovzx   edi, [rbp+left]; x\nmovzx   esi, [rbp+top]; y\nmovzx   edx, [rbp+cx_0]; cx_0\nmovzx   ecx, [rbp+cy]; cy\nmovzx   r8d, [rbp+width]; width\nmovzx   r9d, [rbp+height]; height\nmov     rax, [rbp+bmpdata]\nmov     [rsp+80h+var_80], rax; data\ncall    ui_paint_bitmap\nmov     rdi, [rbp+bmpdata]; mem\ncall    xfree\njmp     loc_1659\nmovzx   eax, [rbp+compress]\nand     eax, 400h\ncmp     eax, 0\njz      loc_1572\nmov     ax, [rbp+bufsize]\nmov     [rbp+size], ax\njmp     loc_15AA\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+size], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 4\nmov     [rax], rcx\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     [rbp+data], rax\nmovzx   edx, [rbp+size]\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nmovsxd  rdx, edx\nadd     rcx, rdx\nmov     [rax], rcx\nmovzx   edi, [rbp+width]\nmovzx   eax, [rbp+height]\nimul    edi, eax\nmovzx   eax, [rbp+Bpp]\nimul    edi, eax; size\ncall    xmalloc\nmov     [rbp+bmpdata], rax\nmov     rdi, [rbp+bmpdata]; output\nmovzx   esi, [rbp+width]; width\nmovzx   edx, [rbp+height]; height\nmov     rcx, [rbp+data]; input\nmovzx   r8d, [rbp+size]; size\nmovzx   r9d, [rbp+Bpp]; Bpp\ncall    bitmap_decompress\ncmp     eax, 0\njz      loc_1638\nmovzx   edi, [rbp+left]; x\nmovzx   esi, [rbp+top]; y\nmovzx   edx, [rbp+cx_0]; cx_0\nmovzx   ecx, [rbp+cy]; cy\nmovzx   r8d, [rbp+width]; width\nmovzx   r9d, [rbp+height]; height\nmov     rax, [rbp+bmpdata]\nmov     [rsp+80h+var_80], rax; data\ncall    ui_paint_bitmap\njmp     loc_1650\nmov     edi, 5; c\nmov     esi, 2; lvl\nlea     rdx, aProcessBitmapU_1; \"process_bitmap_updates(), failed to dec\"...\nmov     al, 0\ncall    logger\nmov     rdi, [rbp+bmpdata]; mem\ncall    xfree\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_12EE\nadd     rsp, 70h\npop     rbx\npop     r14\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 16,
+  "edges": [
+   [
+    "start",
+    "loc_12EE"
+   ],
+   [
+    "loc_12EE",
+    "loc_12FD"
+   ],
+   [
+    "loc_12EE",
+    "loc_1667"
+   ],
+   [
+    "loc_12FD",
+    "loc_1489"
+   ],
+   [
+    "loc_12FD",
+    "loc_1553"
+   ],
+   [
+    "loc_1489",
+    "loc_14AB"
+   ],
+   [
+    "loc_14AB",
+    "loc_14BA"
+   ],
+   [
+    "loc_14AB",
+    "loc_151E"
+   ],
+   [
+    "loc_14BA",
+    "loc_14AB"
+   ],
+   [
+    "loc_151E",
+    "loc_1659"
+   ],
+   [
+    "loc_1553",
+    "loc_1565"
+   ],
+   [
+    "loc_1553",
+    "loc_1572"
+   ],
+   [
+    "loc_1565",
+    "loc_15AA"
+   ],
+   [
+    "loc_1572",
+    "loc_15AA"
+   ],
+   [
+    "loc_15AA",
+    "loc_160C"
+   ],
+   [
+    "loc_15AA",
+    "loc_1638"
+   ],
+   [
+    "loc_160C",
+    "loc_1650"
+   ],
+   [
+    "loc_1638",
+    "loc_1650"
+   ],
+   [
+    "loc_1650",
+    "loc_1659"
+   ],
+   [
+    "loc_1659",
+    "loc_12EE"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\npush    r14\npush    rbx\nsub     rsp, 70h\nmov     [rbp+s], rdi\nmov     edi, 4; c\nxor     esi, esi; lvl\nlea     rdx, aS; \"%s()\"\nlea     rcx, aProcessBitmapU; \"process_bitmap_updates\"\nmov     al, 0\ncall    logger\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+num_updates], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmov     [rbp+i], 0",
+   "loc_12EE": "mov     eax, [rbp+i]\nmovzx   ecx, [rbp+num_updates]\ncmp     eax, ecx\njge     loc_1667",
+   "loc_12FD": "mov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+left], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+top], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+right], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+bottom], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+width], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+height], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+bpp], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmovzx   eax, [rbp+bpp]\nadd     eax, 7\nmov     ecx, 8\ncdq\nidiv    ecx\nmov     [rbp+Bpp], ax\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+compress], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+bufsize], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmovzx   eax, [rbp+right]\nmovzx   ecx, [rbp+left]\nsub     eax, ecx\nadd     eax, 1\nmov     [rbp+cx_0], ax\nmovzx   eax, [rbp+bottom]\nmovzx   ecx, [rbp+top]\nsub     eax, ecx\nadd     eax, 1\nmov     [rbp+cy], ax\nmovzx   ecx, [rbp+left]\nmovzx   r8d, [rbp+top]\nmovzx   r9d, [rbp+right]\nmovzx   r14d, [rbp+bottom]\nmovzx   ebx, [rbp+width]\nmovzx   r11d, [rbp+height]\nmovzx   r10d, [rbp+Bpp]\nmovzx   eax, [rbp+compress]\nmov     edi, 5; c\nxor     esi, esi; lvl\nlea     rdx, aProcessBitmapU_0; \"process_bitmap_updates(), [%d,%d,%d,%d]\"...\nmov     dword ptr [rsp+80h+var_80], r14d\nmov     [rsp+80h+var_78], ebx\nmov     [rsp+80h+var_70], r11d\nmov     [rsp+80h+var_68], r10d\nmov     [rsp+80h+var_60], eax\nmov     al, 0\ncall    logger\ncmp     [rbp+compress], 0\njnz     loc_1553",
+   "loc_1489": "movzx   edi, [rbp+width]\nmovzx   eax, [rbp+height]\nimul    edi, eax\nmovzx   eax, [rbp+Bpp]\nimul    edi, eax; size\ncall    xmalloc\nmov     [rbp+bmpdata], rax\nmov     [rbp+y], 0",
+   "loc_14AB": "mov     eax, [rbp+y]\nmovzx   ecx, [rbp+height]\ncmp     eax, ecx\njge     loc_151E",
+   "loc_14BA": "mov     rdi, [rbp+bmpdata]\nmovzx   eax, [rbp+height]\nsub     eax, [rbp+y]\nsub     eax, 1\nmovzx   ecx, [rbp+width]\nmovzx   edx, [rbp+Bpp]\nimul    ecx, edx\nimul    eax, ecx\ncdqe\nadd     rdi, rax; dest\nmov     rax, [rbp+s]\nmov     rsi, [rax]; src\nmovzx   eax, [rbp+width]\nmovzx   ecx, [rbp+Bpp]\nimul    eax, ecx\nmovsxd  rdx, eax; n\ncall    memcpy\nmovzx   edx, [rbp+width]\nmovzx   eax, [rbp+Bpp]\nimul    edx, eax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nmovsxd  rdx, edx\nadd     rcx, rdx\nmov     [rax], rcx\nmov     eax, [rbp+y]\nadd     eax, 1\nmov     [rbp+y], eax\njmp     loc_14AB",
+   "loc_151E": "movzx   edi, [rbp+left]; x\nmovzx   esi, [rbp+top]; y\nmovzx   edx, [rbp+cx_0]; cx_0\nmovzx   ecx, [rbp+cy]; cy\nmovzx   r8d, [rbp+width]; width\nmovzx   r9d, [rbp+height]; height\nmov     rax, [rbp+bmpdata]\nmov     [rsp+80h+var_80], rax; data\ncall    ui_paint_bitmap\nmov     rdi, [rbp+bmpdata]; mem\ncall    xfree\njmp     loc_1659",
+   "loc_1553": "movzx   eax, [rbp+compress]\nand     eax, 400h\ncmp     eax, 0\njz      loc_1572",
+   "loc_1565": "mov     ax, [rbp+bufsize]\nmov     [rbp+size], ax\njmp     loc_15AA",
+   "loc_1572": "mov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     ax, [rax]\nmov     [rbp+size], ax\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 2\nmov     [rax], rcx\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nadd     rcx, 4\nmov     [rax], rcx",
+   "loc_15AA": "mov     rax, [rbp+s]\nmov     rax, [rax]\nmov     [rbp+data], rax\nmovzx   edx, [rbp+size]\nmov     rax, [rbp+s]\nmov     rcx, [rax]\nmovsxd  rdx, edx\nadd     rcx, rdx\nmov     [rax], rcx\nmovzx   edi, [rbp+width]\nmovzx   eax, [rbp+height]\nimul    edi, eax\nmovzx   eax, [rbp+Bpp]\nimul    edi, eax; size\ncall    xmalloc\nmov     [rbp+bmpdata], rax\nmov     rdi, [rbp+bmpdata]; output\nmovzx   esi, [rbp+width]; width\nmovzx   edx, [rbp+height]; height\nmov     rcx, [rbp+data]; input\nmovzx   r8d, [rbp+size]; size\nmovzx   r9d, [rbp+Bpp]; Bpp\ncall    bitmap_decompress\ncmp     eax, 0\njz      loc_1638",
+   "loc_160C": "movzx   edi, [rbp+left]; x\nmovzx   esi, [rbp+top]; y\nmovzx   edx, [rbp+cx_0]; cx_0\nmovzx   ecx, [rbp+cy]; cy\nmovzx   r8d, [rbp+width]; width\nmovzx   r9d, [rbp+height]; height\nmov     rax, [rbp+bmpdata]\nmov     [rsp+80h+var_80], rax; data\ncall    ui_paint_bitmap\njmp     loc_1650",
+   "loc_1638": "mov     edi, 5; c\nmov     esi, 2; lvl\nlea     rdx, aProcessBitmapU_1; \"process_bitmap_updates(), failed to dec\"...\nmov     al, 0\ncall    logger",
+   "loc_1650": "mov     rdi, [rbp+bmpdata]; mem\ncall    xfree",
+   "loc_1659": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_12EE",
+   "loc_1667": "add     rsp, 70h\npop     rbx\npop     r14\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_80": "qword ptr -80h",
+   "var_78": "dword ptr -78h",
+   "var_70": "dword ptr -70h",
+   "var_68": "dword ptr -68h",
+   "var_60": "dword ptr -60h",
+   "y": "dword ptr -50h",
+   "i": "dword ptr -4Ch",
+   "bmpdata": "qword ptr -48h",
+   "data": "qword ptr -40h",
+   "size": "word ptr -34h",
+   "bufsize": "word ptr -32h",
+   "compress": "word ptr -30h",
+   "Bpp": "word ptr -2Eh",
+   "bpp": "word ptr -2Ch",
+   "cy": "word ptr -2Ah",
+   "cx_0": "word ptr -28h",
+   "height": "word ptr -26h",
+   "width": "word ptr -24h",
+   "bottom": "word ptr -22h",
+   "right": "word ptr -20h",
+   "top": "word ptr -1Eh",
+   "left": "word ptr -1Ch",
+   "num_updates": "word ptr -1Ah",
+   "s": "qword ptr -18h"
+  },
+  ".rodata": {
+   "aS": "byte '%s()',0",
+   "aProcessBitmapU": "byte 'process_bitmap_updates',0",
+   "aProcessBitmapU_0": "byte 'process_bitmap_updates(), [%d,%d,%d,%d], [%d,%d], bpp=%d, compres'",
+   "aProcessBitmapU_1": "byte 'process_bitmap_updates(), failed to decompress bitmap',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4768,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".exit": "exit",
+  "_exit": "exit"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".exit",
+   ".plt",
+   true,
+   "exit"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "exit",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868497
+ }
+}

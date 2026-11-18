@@ -1,0 +1,1 @@
+void cylinder(float h, float n, float *c, float *d, float *dd) { *c = 2 * h * n / 6.; *d = 2 * h * (n + h) / 6.; *dd = (h * h * n * 6.) / 6.; }

@@ -1,0 +1,1 @@
+int i2c_multiple_writes(int file_handle, int count, char *bytes) { int res = 0; res = write(file_handle, bytes, (size_t) count); if (res == -1 || res != count) return -1; return res; }

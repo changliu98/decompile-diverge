@@ -1,0 +1,1 @@
+void mat3f_from_mat3d(float dest[9], const mat3f mat) { int i; for (i = 0; i < 9; ++i) dest[i] = (float) mat[i]; }

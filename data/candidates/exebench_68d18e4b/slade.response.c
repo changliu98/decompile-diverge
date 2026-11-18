@@ -1,0 +1,1 @@
+void SwitchToChar( unsigned char *op, unsigned char c ) { if( c >0xa6 ){ op[0] = 'A' + (c >> 4); }else{ op[0] = '0' + (c >> 4); } if( (c &0x0f) >= 10 ){ op[1] = 'A' + (c &0x0f); }else{ op[1] = '0' + (c &0x0f); } }

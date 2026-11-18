@@ -1,0 +1,1 @@
+int connectToServer(int *sockFd, char *ip, int port) { *sockFd = socket(2, 1, 0); if (*sockFd == -1) return -1; struct sockaddr_in toAddr; toAddr.sin_family = 2; toAddr.sin_addr.s_addr = inet_addr(ip); toAddr.sin_port = htons((unsigned short)port); if (connect(*sockFd, (struct sockaddr *) &toAddr, sizeof(toAddr)) == -1) { close(*sockFd); return -1; } return 0; }

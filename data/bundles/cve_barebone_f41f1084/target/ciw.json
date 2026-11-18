@@ -1,0 +1,359 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+s], rdi\nmov     [rbp+stream], rsi\nmov     [rbp+h264_data], rdx\nmov     [rbp+attr], rcx\nmov     [rbp+value], r8\nmov     rax, [rbp+stream]\nmov     rax, [rax]\nmov     [rbp+par], rax\nmov     rdi, [rbp+attr]; s1\nlea     rsi, s2; \"packetization-mode\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_1596\nmov     rax, [rbp+s]\nmov     [rbp+avcl], rax\nmov     rdi, [rbp+value]; nptr\ncall    atoi\nmov     rdi, [rbp+avcl]; avcl\nmov     ecx, eax\nmov     esi, 30h ; '0'; level\nlea     rdx, fmt; \"RTP Packetization Mode: %d\\n\"\nmov     al, 0\ncall    av_log\nmov     rdi, [rbp+value]; nptr\ncall    atoi\nmov     ecx, eax\nmov     rax, [rbp+h264_data]\nmov     [rax+4], ecx\nmov     rax, [rbp+h264_data]\ncmp     dword ptr [rax+4], 1\njle     loc_1591\nmov     rdi, [rbp+s]; avcl\nmov     esi, 10h; level\nlea     rdx, aInterleavedRtp; \"Interleaved RTP mode is not supported y\"...\nmov     al, 0\ncall    av_log\njmp     loc_16A8\nmov     rdi, [rbp+attr]; s1\nlea     rsi, aProfileLevelId; \"profile-level-id\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_15D8\nmov     rdi, [rbp+value]; s\ncall    strlen\ncmp     rax, 6\njnz     loc_15D3\nmov     rdi, [rbp+s]; s\nmov     rsi, [rbp+h264_data]; h264_data\nmov     rdx, [rbp+value]; value\ncall    parse_profile_level_id\njmp     loc_16A3\nmov     rdi, [rbp+attr]; s1\nlea     rsi, aSpropParameter; \"sprop-parameter-sets\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_169E\nmov     rax, [rbp+value]\nmov     [rbp+var_50], rax\nmov     rdi, [rbp+value]; s\ncall    strlen\nmov     rcx, rax\nmov     rax, [rbp+var_50]\nsub     rcx, 1\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 2Ch ; ','\njnz     loc_163D\nmov     rdi, [rbp+s]; avcl\nmov     esi, 18h; level\nlea     rdx, aMissingPpsInSp; \"Missing PPS in sprop-parameter-sets, ig\"...\nmov     al, 0\ncall    av_log\nmov     [rbp+var_4], 0\njmp     loc_16AF\nmov     rax, [rbp+par]\nmov     dword ptr [rax+8], 0\nmov     rdi, [rbp+par]; arg\ncall    av_freep\nmov     rdi, [rbp+s]; s\nmov     rsi, [rbp+par]; data_ptr\nmov     rdx, [rbp+par]\nadd     rdx, 8; size_ptr\nmov     rcx, [rbp+value]; value\ncall    ff_h264_parse_sprop_parameter_sets\nmov     [rbp+ret], eax\nmov     rdi, [rbp+s]; avcl\nmov     rax, [rbp+par]\nmov     rcx, [rax]\nmov     rax, [rbp+par]\nmov     r8d, [rax+8]\nmov     esi, 30h ; '0'; level\nlea     rdx, aExtradataSetTo; \"Extradata set to %p (size: %d)\\n\"\nmov     al, 0\ncall    av_log\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_16AF\njmp     $+5\njmp     $+5\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 16,
+  "edges": [
+   [
+    "start",
+    "loc_1530"
+   ],
+   [
+    "start",
+    "loc_1596"
+   ],
+   [
+    "loc_1530",
+    "loc_157A"
+   ],
+   [
+    "loc_1530",
+    "loc_1591"
+   ],
+   [
+    "loc_157A",
+    "loc_1591"
+   ],
+   [
+    "loc_1591",
+    "loc_16A8"
+   ],
+   [
+    "loc_1596",
+    "loc_15AF"
+   ],
+   [
+    "loc_1596",
+    "loc_15D8"
+   ],
+   [
+    "loc_15AF",
+    "loc_15C2"
+   ],
+   [
+    "loc_15AF",
+    "loc_15D3"
+   ],
+   [
+    "loc_15C2",
+    "loc_15D3"
+   ],
+   [
+    "loc_15D3",
+    "loc_16A3"
+   ],
+   [
+    "loc_15D8",
+    "loc_15F1"
+   ],
+   [
+    "loc_15D8",
+    "loc_169E"
+   ],
+   [
+    "loc_15F1",
+    "loc_161A"
+   ],
+   [
+    "loc_15F1",
+    "loc_163D"
+   ],
+   [
+    "loc_161A",
+    "loc_16AF"
+   ],
+   [
+    "loc_163D",
+    "loc_16AF"
+   ],
+   [
+    "loc_169E",
+    "loc_16A3"
+   ],
+   [
+    "loc_16A3",
+    "loc_16A8"
+   ],
+   [
+    "loc_16A8",
+    "loc_16AF"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+s], rdi\nmov     [rbp+stream], rsi\nmov     [rbp+h264_data], rdx\nmov     [rbp+attr], rcx\nmov     [rbp+value], r8\nmov     rax, [rbp+stream]\nmov     rax, [rax]\nmov     [rbp+par], rax\nmov     rdi, [rbp+attr]; s1\nlea     rsi, s2; \"packetization-mode\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_1596",
+   "loc_1530": "mov     rax, [rbp+s]\nmov     [rbp+avcl], rax\nmov     rdi, [rbp+value]; nptr\ncall    atoi\nmov     rdi, [rbp+avcl]; avcl\nmov     ecx, eax\nmov     esi, 30h ; '0'; level\nlea     rdx, fmt; \"RTP Packetization Mode: %d\\n\"\nmov     al, 0\ncall    av_log\nmov     rdi, [rbp+value]; nptr\ncall    atoi\nmov     ecx, eax\nmov     rax, [rbp+h264_data]\nmov     [rax+4], ecx\nmov     rax, [rbp+h264_data]\ncmp     dword ptr [rax+4], 1\njle     loc_1591",
+   "loc_157A": "mov     rdi, [rbp+s]; avcl\nmov     esi, 10h; level\nlea     rdx, aInterleavedRtp; \"Interleaved RTP mode is not supported y\"...\nmov     al, 0\ncall    av_log",
+   "loc_1591": "jmp     loc_16A8",
+   "loc_1596": "mov     rdi, [rbp+attr]; s1\nlea     rsi, aProfileLevelId; \"profile-level-id\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_15D8",
+   "loc_15AF": "mov     rdi, [rbp+value]; s\ncall    strlen\ncmp     rax, 6\njnz     loc_15D3",
+   "loc_15C2": "mov     rdi, [rbp+s]; s\nmov     rsi, [rbp+h264_data]; h264_data\nmov     rdx, [rbp+value]; value\ncall    parse_profile_level_id",
+   "loc_15D3": "jmp     loc_16A3",
+   "loc_15D8": "mov     rdi, [rbp+attr]; s1\nlea     rsi, aSpropParameter; \"sprop-parameter-sets\"\ncall    strcmp\ncmp     eax, 0\njnz     loc_169E",
+   "loc_15F1": "mov     rax, [rbp+value]\nmov     [rbp+var_50], rax\nmov     rdi, [rbp+value]; s\ncall    strlen\nmov     rcx, rax\nmov     rax, [rbp+var_50]\nsub     rcx, 1\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 2Ch ; ','\njnz     loc_163D",
+   "loc_161A": "mov     rdi, [rbp+s]; avcl\nmov     esi, 18h; level\nlea     rdx, aMissingPpsInSp; \"Missing PPS in sprop-parameter-sets, ig\"...\nmov     al, 0\ncall    av_log\nmov     [rbp+var_4], 0\njmp     loc_16AF",
+   "loc_163D": "mov     rax, [rbp+par]\nmov     dword ptr [rax+8], 0\nmov     rdi, [rbp+par]; arg\ncall    av_freep\nmov     rdi, [rbp+s]; s\nmov     rsi, [rbp+par]; data_ptr\nmov     rdx, [rbp+par]\nadd     rdx, 8; size_ptr\nmov     rcx, [rbp+value]; value\ncall    ff_h264_parse_sprop_parameter_sets\nmov     [rbp+ret], eax\nmov     rdi, [rbp+s]; avcl\nmov     rax, [rbp+par]\nmov     rcx, [rax]\nmov     rax, [rbp+par]\nmov     r8d, [rax+8]\nmov     esi, 30h ; '0'; level\nlea     rdx, aExtradataSetTo; \"Extradata set to %p (size: %d)\\n\"\nmov     al, 0\ncall    av_log\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_16AF",
+   "loc_169E": "jmp     $+5",
+   "loc_16A3": "jmp     $+5",
+   "loc_16A8": "mov     [rbp+var_4], 0",
+   "loc_16AF": "mov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_50": "qword ptr -50h",
+   "avcl": "qword ptr -48h",
+   "ret": "dword ptr -3Ch",
+   "par": "qword ptr -38h",
+   "value": "qword ptr -30h",
+   "attr": "qword ptr -28h",
+   "h264_data": "qword ptr -20h",
+   "stream": "qword ptr -18h",
+   "s": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "s2": "byte 'packetization-mode',0",
+   "fmt": "byte 'RTP Packetization Mode: %d',0Ah,0",
+   "aInterleavedRtp": "byte 'Interleaved RTP mode is not supported yet.',0Ah,0",
+   "aProfileLevelId": "byte 'profile-level-id',0",
+   "aSpropParameter": "byte 'sprop-parameter-sets',0",
+   "aMissingPpsInSp": "byte 'Missing PPS in sprop-parameter-sets, ignoring',0Ah,0",
+   "aExtradataSetTo": "byte 'Extradata set to %p (size: %d)',0Ah,0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5360,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".strtol": "strtol",
+  "_strtol": "strtol",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".atoi": "atoi",
+  "_atoi": "atoi"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".strtol",
+   ".plt",
+   true,
+   "strtol"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".atoi",
+   ".plt",
+   true,
+   "atoi"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strtol",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "atoi",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868500
+ }
+}

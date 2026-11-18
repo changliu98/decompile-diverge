@@ -1,0 +1,78 @@
+00000000000011d0 <smb_com_flush>:
+    11d0:	push   %rbp
+    11d1:	mov    %rsp,%rbp
+    11d4:	sub    $0x30,%rsp
+    11d8:	mov    %rdi,-0x10(%rbp)
+    11dc:	cmpl   $0x0,0x2e95(%rip)        # 4078 <smb_flush_required>
+    11e3:	jne    120d <smb_com_flush+0x3d>
+    11e9:	mov    -0x10(%rbp),%rdi
+    11ed:	call   1310 <smbsr_encode_empty_result>
+    11f2:	mov    %eax,-0x24(%rbp)
+    11f5:	mov    -0x24(%rbp),%edx
+    11f8:	mov    $0x1,%eax
+    11fd:	xor    %ecx,%ecx
+    11ff:	cmp    $0x0,%edx
+    1202:	cmove  %ecx,%eax
+    1205:	mov    %eax,-0x4(%rbp)
+    1208:	jmp    12fd <smb_com_flush+0x12d>
+    120d:	mov    -0x10(%rbp),%rax
+    1211:	movzwl (%rax),%eax
+    1214:	cmp    $0xffff,%eax
+    1219:	je     1271 <smb_com_flush+0xa1>
+    121f:	mov    -0x10(%rbp),%rdi
+    1223:	call   1320 <smbsr_lookup_file>
+    1228:	mov    -0x10(%rbp),%rax
+    122c:	cmpq   $0x0,0x10(%rax)
+    1231:	jne    125b <smb_com_flush+0x8b>
+    1237:	mov    -0x10(%rbp),%rdi
+    123b:	mov    $0xc0000008,%esi
+    1240:	mov    $0x1,%edx
+    1245:	mov    $0x6,%ecx
+    124a:	call   1360 <smbsr_status>
+    124f:	movl   $0x1,-0x4(%rbp)
+    1256:	jmp    12fd <smb_com_flush+0x12d>
+    125b:	mov    -0x10(%rbp),%rdi
+    125f:	mov    -0x10(%rbp),%rax
+    1263:	mov    0x10(%rax),%rsi
+    1267:	call   1380 <smb_flush_file>
+    126c:	jmp    12de <smb_com_flush+0x10e>
+    1271:	mov    -0x10(%rbp),%rax
+    1275:	mov    0x8(%rax),%rax
+    1279:	mov    %rax,-0x20(%rbp)
+    127d:	mov    -0x20(%rbp),%rdi
+    1281:	xor    %esi,%esi
+    1283:	call   13e0 <smb_llist_enter>
+    1288:	mov    -0x20(%rbp),%rdi
+    128c:	call   13f0 <smb_llist_head>
+    1291:	mov    %rax,-0x18(%rbp)
+    1295:	cmpq   $0x0,-0x18(%rbp)
+    129a:	je     12d5 <smb_com_flush+0x105>
+    12a0:	mov    -0x18(%rbp),%rdi
+    12a4:	call   1400 <mutex_enter>
+    12a9:	mov    -0x10(%rbp),%rdi
+    12ad:	mov    -0x18(%rbp),%rsi
+    12b1:	call   1380 <smb_flush_file>
+    12b6:	mov    -0x18(%rbp),%rdi
+    12ba:	call   1410 <mutex_exit>
+    12bf:	mov    -0x20(%rbp),%rdi
+    12c3:	mov    -0x18(%rbp),%rsi
+    12c7:	call   1420 <smb_llist_next>
+    12cc:	mov    %rax,-0x18(%rbp)
+    12d0:	jmp    1295 <smb_com_flush+0xc5>
+    12d5:	mov    -0x20(%rbp),%rdi
+    12d9:	call   1430 <smb_llist_exit>
+    12de:	mov    -0x10(%rbp),%rdi
+    12e2:	call   1310 <smbsr_encode_empty_result>
+    12e7:	mov    %eax,-0x24(%rbp)
+    12ea:	mov    -0x24(%rbp),%edx
+    12ed:	mov    $0x1,%eax
+    12f2:	xor    %ecx,%ecx
+    12f4:	cmp    $0x0,%edx
+    12f7:	cmove  %ecx,%eax
+    12fa:	mov    %eax,-0x4(%rbp)
+    12fd:	mov    -0x4(%rbp),%eax
+    1300:	add    $0x30,%rsp
+    1304:	pop    %rbp
+    1305:	ret
+
+Disassembly of section .fini:

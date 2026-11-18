@@ -1,0 +1,1 @@
+int func0(int n) { if (n <= 2) return n; int a = 1, b = 2, i, temp; for (i = 3; i <= n; i++) { temp = a + b * 2; a = b; b = temp; } return b; }

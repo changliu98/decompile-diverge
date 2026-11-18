@@ -1,0 +1,1 @@
+void copy_dice(const uint8_t *src, uint8_t *dest) { int i; for (i = 0; i < 6; i++) dest[i] = src[i]; }

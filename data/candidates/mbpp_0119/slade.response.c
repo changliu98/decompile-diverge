@@ -1,0 +1,1 @@
+uint32_t func0(const uint32_t *input, int len) { uint32_t m = 0; for (int i = 0; i < len; ++i) m ^= input[i]; return m; }

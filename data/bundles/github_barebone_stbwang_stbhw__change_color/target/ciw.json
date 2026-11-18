@@ -1,0 +1,392 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+old_color], edi\nmov     [rbp+num_options], esi\nmov     [rbp+weights], rdx\ncmp     [rbp+weights], 0\njz      loc_2381\nmov     [rbp+total], 0\nmov     [rbp+k], 0\nmov     eax, [rbp+k]\ncmp     eax, [rbp+num_options]\njge     loc_22D7\nmov     eax, [rbp+k]\ncmp     eax, [rbp+old_color]\njz      loc_22C4\nmov     rax, [rbp+weights]\nmovsxd  rcx, [rbp+k]\nmov     eax, [rax+rcx*4]\nadd     eax, [rbp+total]\nmov     [rbp+total], eax\njmp     $+5\nmov     eax, [rbp+k]\nadd     eax, 1\nmov     [rbp+k], eax\njmp     loc_229B\ncall    rand\nsar     eax, 4\ncdq\nidiv    [rbp+total]\nmov     [rbp+choice], edx\nmov     [rbp+total], 0\nmov     [rbp+k], 0\nmov     eax, [rbp+k]\ncmp     eax, [rbp+num_options]\njge     loc_2346\nmov     eax, [rbp+k]\ncmp     eax, [rbp+old_color]\njz      loc_2333\nmov     rax, [rbp+weights]\nmovsxd  rcx, [rbp+k]\nmov     eax, [rax+rcx*4]\nadd     eax, [rbp+total]\nmov     [rbp+total], eax\nmov     eax, [rbp+choice]\ncmp     eax, [rbp+total]\njge     loc_232E\njmp     loc_2346\njmp     $+5\njmp     $+5\nmov     eax, [rbp+k]\nadd     eax, 1\nmov     [rbp+k], eax\njmp     loc_22F4\nmov     eax, [rbp+k]\ncmp     eax, [rbp+num_options]\njge     loc_2357\njmp     loc_2376\nlea     rdi, aKNumOptions; \"k < num_options\"\nlea     rsi, file; \"./func.c\"\nmov     edx, 2A9h; line\nlea     rcx, aIntStbhwChange; \"int stbhw__change_color(int, int, int *\"...\ncall    ___assert_fail\nmov     eax, [rbp+k]\nmov     [rbp+var_4], eax\njmp     loc_23A5\ncall    rand\nsar     eax, 4\nmov     ecx, [rbp+num_options]\nsub     ecx, 1\ncdq\nidiv    ecx\nadd     edx, 1\nmov     [rbp+offset], edx\nmov     eax, [rbp+old_color]\nadd     eax, [rbp+offset]\ncdq\nidiv    [rbp+num_options]\nmov     [rbp+var_4], edx\nmov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 21,
+  "edges": [
+   [
+    "start",
+    "loc_228D"
+   ],
+   [
+    "start",
+    "loc_2381"
+   ],
+   [
+    "loc_228D",
+    "loc_229B"
+   ],
+   [
+    "loc_229B",
+    "loc_22A7"
+   ],
+   [
+    "loc_229B",
+    "loc_22D7"
+   ],
+   [
+    "loc_22A7",
+    "loc_22B3"
+   ],
+   [
+    "loc_22A7",
+    "loc_22C4"
+   ],
+   [
+    "loc_22B3",
+    "loc_22C4"
+   ],
+   [
+    "loc_22C4",
+    "loc_22C9"
+   ],
+   [
+    "loc_22C9",
+    "loc_229B"
+   ],
+   [
+    "loc_22D7",
+    "loc_22F4"
+   ],
+   [
+    "loc_22F4",
+    "loc_2300"
+   ],
+   [
+    "loc_22F4",
+    "loc_2346"
+   ],
+   [
+    "loc_2300",
+    "loc_230C"
+   ],
+   [
+    "loc_2300",
+    "loc_2333"
+   ],
+   [
+    "loc_230C",
+    "loc_2329"
+   ],
+   [
+    "loc_230C",
+    "loc_232E"
+   ],
+   [
+    "loc_2329",
+    "loc_2346"
+   ],
+   [
+    "loc_232E",
+    "loc_2333"
+   ],
+   [
+    "loc_2333",
+    "loc_2338"
+   ],
+   [
+    "loc_2338",
+    "loc_22F4"
+   ],
+   [
+    "loc_2346",
+    "loc_2352"
+   ],
+   [
+    "loc_2346",
+    "loc_2357"
+   ],
+   [
+    "loc_2352",
+    "loc_2376"
+   ],
+   [
+    "loc_2376",
+    "loc_23A5"
+   ],
+   [
+    "loc_2381",
+    "loc_23A5"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+old_color], edi\nmov     [rbp+num_options], esi\nmov     [rbp+weights], rdx\ncmp     [rbp+weights], 0\njz      loc_2381",
+   "loc_228D": "mov     [rbp+total], 0\nmov     [rbp+k], 0",
+   "loc_229B": "mov     eax, [rbp+k]\ncmp     eax, [rbp+num_options]\njge     loc_22D7",
+   "loc_22A7": "mov     eax, [rbp+k]\ncmp     eax, [rbp+old_color]\njz      loc_22C4",
+   "loc_22B3": "mov     rax, [rbp+weights]\nmovsxd  rcx, [rbp+k]\nmov     eax, [rax+rcx*4]\nadd     eax, [rbp+total]\nmov     [rbp+total], eax",
+   "loc_22C4": "jmp     $+5",
+   "loc_22C9": "mov     eax, [rbp+k]\nadd     eax, 1\nmov     [rbp+k], eax\njmp     loc_229B",
+   "loc_22D7": "call    rand\nsar     eax, 4\ncdq\nidiv    [rbp+total]\nmov     [rbp+choice], edx\nmov     [rbp+total], 0\nmov     [rbp+k], 0",
+   "loc_22F4": "mov     eax, [rbp+k]\ncmp     eax, [rbp+num_options]\njge     loc_2346",
+   "loc_2300": "mov     eax, [rbp+k]\ncmp     eax, [rbp+old_color]\njz      loc_2333",
+   "loc_230C": "mov     rax, [rbp+weights]\nmovsxd  rcx, [rbp+k]\nmov     eax, [rax+rcx*4]\nadd     eax, [rbp+total]\nmov     [rbp+total], eax\nmov     eax, [rbp+choice]\ncmp     eax, [rbp+total]\njge     loc_232E",
+   "loc_2329": "jmp     loc_2346",
+   "loc_232E": "jmp     $+5",
+   "loc_2333": "jmp     $+5",
+   "loc_2338": "mov     eax, [rbp+k]\nadd     eax, 1\nmov     [rbp+k], eax\njmp     loc_22F4",
+   "loc_2346": "mov     eax, [rbp+k]\ncmp     eax, [rbp+num_options]\njge     loc_2357",
+   "loc_2352": "jmp     loc_2376",
+   "loc_2357": "lea     rdi, aKNumOptions; \"k < num_options\"\nlea     rsi, file; \"./func.c\"\nmov     edx, 2A9h; line\nlea     rcx, aIntStbhwChange; \"int stbhw__change_color(int, int, int *\"...\ncall    ___assert_fail",
+   "loc_2376": "mov     eax, [rbp+k]\nmov     [rbp+var_4], eax\njmp     loc_23A5",
+   "loc_2381": "call    rand\nsar     eax, 4\nmov     ecx, [rbp+num_options]\nsub     ecx, 1\ncdq\nidiv    ecx\nadd     edx, 1\nmov     [rbp+offset], edx\nmov     eax, [rbp+old_color]\nadd     eax, [rbp+offset]\ncdq\nidiv    [rbp+num_options]\nmov     [rbp+var_4], edx",
+   "loc_23A5": "mov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "offset": "dword ptr -28h",
+   "choice": "dword ptr -24h",
+   "total": "dword ptr -20h",
+   "k": "dword ptr -1Ch",
+   "weights": "qword ptr -18h",
+   "num_options": "dword ptr -0Ch",
+   "old_color": "dword ptr -8",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "aKNumOptions": "byte 'k < num_options',0",
+   "file": "byte './func.c',0",
+   "aIntStbhwChange": "byte 'int stbhw__change_color(int, int, int *)',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 8816,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".rand": "rand",
+  "_rand": "rand"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   ".rand",
+   ".plt",
+   true,
+   "rand"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "rand",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872686
+ }
+}

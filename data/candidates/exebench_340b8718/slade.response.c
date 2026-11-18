@@ -1,0 +1,1 @@
+char * strtoupper (char *s) { int i, len = 8; for (i = 0; i < len; i++) s[i] = (s[i] >= 'a' && s[i] <= 'z') ? s[i] - 32 : s[i]; return s; }

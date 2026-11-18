@@ -1,0 +1,1 @@
+void right_shift_str(char *str, int len) { char c; int i, j, l; char *p; l = 0; p = str; while (*p) { l++; p++; } for (j = 0; j < len; j++) { c = str[l - 1]; for (i = l - 1; i > 0; i--) { str[i] = str[i - 1]; } str[0] = c; } }

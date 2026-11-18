@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n#include <string.h>\n\nint func0(const char *str, const char *substring) {\n    int out = 0;\n    int str_len = strlen(str);\n    int sub_len = strlen(substring);\n    if (str_len == 0) return 0;\n    for (int i = 0; i <= str_len - sub_len; i++) {\n        if (strncmp(&str[i], substring, sub_len) == 0)\n            out++;\n    }\n    return out;\n}",
+ "c_test": "#include <assert.h>\n\nint main() {\n    assert(func0(\"\", \"x\") == 0);\n    assert(func0(\"xyxyxyx\", \"x\") == 4);\n    assert(func0(\"cacacacac\", \"cac\") == 4);\n    assert(func0(\"john doe\", \"john\") == 1);\n\n    return 0;\n}"
+}

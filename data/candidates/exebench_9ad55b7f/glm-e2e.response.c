@@ -1,0 +1,5 @@
+void warp_mat4_scale(float *out, const float *in, float scale) {
+    for (int i = 0; i < 16; i++) {
+        out[i] = in[i] * scale;
+    }
+}

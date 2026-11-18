@@ -1,0 +1,1 @@
+char* strcpy(char* __restrict s1, const char* __restrict s2) { char *s = s1; while(*s++ = *s2++); return s1; }

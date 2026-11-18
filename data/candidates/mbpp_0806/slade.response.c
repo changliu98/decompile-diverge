@@ -1,0 +1,1 @@
+int func0(signed char *x) { int max = 0; int p = 0; int l = strlen((char *)x); int i; for (i = 0; i < l; ++i) { if (((signed short)__ctype_b_loc((signed char *)x))[i]] &0x0100) { ++p; } else { if (p > max) { max = p; } p = 0; } } if (((signed short)__ctype_b_loc((signed char *)x))[l-1]] &0x0100) { if (p > max) { max = p; } } return max; }

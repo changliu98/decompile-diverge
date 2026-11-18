@@ -1,0 +1,1 @@
+int32_t atomic32_increment(int32_t* addr) { volatile int32_t result; asm volatile( "lock xaddl %0,%1" : "=a" (result) : "r" (1) ); result = 1 + result; return result; }

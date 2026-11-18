@@ -1,0 +1,1 @@
+void initializeStatesAndConstants(struct b_tonegen* t, struct b_inst* inst) { inst->state = 0.5; }

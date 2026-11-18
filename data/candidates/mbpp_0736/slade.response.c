@@ -1,0 +1,1 @@
+uint32_t func0(const int32_t *array, uint32_t size, int32_t value) { uint32_t low = 0; uint32_t high = size; while (low < high) { uint32_t mid = (low + high) / 2; if (value > array[mid]) { low = mid + 1; } else { high = mid; } } return low; }

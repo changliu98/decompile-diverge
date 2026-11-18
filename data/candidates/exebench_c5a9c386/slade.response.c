@@ -1,0 +1,1 @@
+void modify_int_refs_old_syntax(int *el1, int *el2) { ++*el1; --*el2; }

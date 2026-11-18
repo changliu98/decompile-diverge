@@ -1,0 +1,1 @@
+void toup(char *c) { char n = ' '; if (*c >= 'a' && *c <= 'z') *c -= n; }

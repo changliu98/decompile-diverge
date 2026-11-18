@@ -1,0 +1,542 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 4180h\nmov     [rbp+FileName], rdi\nmov     [rbp+ShowIt], esi\nmov     [rbp+TempUsed], 0\nmov     [rbp+e], 0\nmov     rdi, [rbp+FileName]; s\ncall    strlen\nsub     rax, 1\nmov     [rbp+a], eax\nxor     eax, eax\ncmp     [rbp+a], 0\nmov     [rbp+var_4171], al\njle     loc_1542\nmov     rax, [rbp+FileName]\nmov     ecx, [rbp+a]\nsub     ecx, 1\nmovsxd  rcx, ecx\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 2Fh ; '/'\nsetnz   al\nmov     [rbp+var_4171], al\nmov     al, [rbp+var_4171]\ntest    al, 1\njnz     loc_1555\njmp     loc_1563\nmov     eax, [rbp+a]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+a], eax\njmp     loc_1513\nlea     rdi, [rbp+TempName]; dest\nmov     rsi, [rbp+FileName]; src\nmovsxd  rdx, [rbp+a]; n\ncall    memcpy\nlea     rdi, [rbp+TempName]\nmovsxd  rax, [rbp+a]\nadd     rdi, rax; dest\nlea     rsi, src; \"XXXXXX\"\ncall    strcpy\nlea     rdi, [rbp+TempName]; template\ncall    mktemp\ncmp     [rbp+TempName], 0\njnz     loc_15B6\nlea     rdi, msg; \"Cannot find available temporary file na\"...\ncall    ErrFatal\nmov     [rbp+a], 0\nmov     rax, cs:ApplyCommand\nmovsxd  rcx, [rbp+a]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 26h ; '&'\njnz     loc_1677\nmov     rax, cs:ApplyCommand\nmov     ecx, [rbp+a]\nadd     ecx, 1\nmovsxd  rcx, ecx\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 69h ; 'i'\njnz     loc_161D\nlea     rdi, [rbp+ExecString]\nmovsxd  rax, [rbp+e]\nadd     rdi, rax; to\nmov     rsi, [rbp+FileName]; from\ncall    shellescape\nadd     eax, [rbp+e]\nmov     [rbp+e], eax\nmov     eax, [rbp+a]\nadd     eax, 1\nmov     [rbp+a], eax\njmp     loc_16BB\nmov     rax, cs:ApplyCommand\nmov     ecx, [rbp+a]\nadd     ecx, 1\nmovsxd  rcx, ecx\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 6Fh ; 'o'\njnz     loc_1672\nlea     rdi, [rbp+ExecString]\nmovsxd  rax, [rbp+e]\nadd     rdi, rax; to\nlea     rsi, [rbp+TempName]; from\ncall    shellescape\nadd     eax, [rbp+e]\nmov     [rbp+e], eax\nmov     eax, [rbp+a]\nadd     eax, 1\nmov     [rbp+a], eax\nmov     [rbp+TempUsed], 1\njmp     loc_16BB\njmp     $+5\nmov     rax, cs:ApplyCommand\nmovsxd  rcx, [rbp+a]\nmov     cl, [rax+rcx]\nmov     eax, [rbp+e]\nmov     edx, eax\nadd     edx, 1\nmov     [rbp+e], edx\ncdqe\nmov     [rbp+rax+ExecString], cl\nmov     rax, cs:ApplyCommand\nmovsxd  rcx, [rbp+a]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 0\njnz     loc_16B6\njmp     loc_16C9\njmp     $+5\nmov     eax, [rbp+a]\nadd     eax, 1\nmov     [rbp+a], eax\njmp     loc_15BD\ncmp     [rbp+ShowIt], 0\njz      loc_16E8\nlea     rsi, [rbp+ExecString]\nlea     rdi, aCmdS; \"Cmd:%s\\n\"\nmov     al, 0\ncall    printf\ncall    ___errno_location\nmov     dword ptr [rax], 0\nlea     rdi, [rbp+ExecString]; command\ncall    system\nmov     [rbp+a], eax\ncmp     [rbp+a], 0\njnz     loc_171A\ncall    ___errno_location\ncmp     dword ptr [rax], 0\njz      loc_1740\ncall    ___errno_location\ncmp     dword ptr [rax], 0\njz      loc_1734\nlea     rdi, aSystem_0; \"system\"\ncall    perror\nlea     rdi, aProblemExecuti; \"Problem executing specified command\"\ncall    ErrFatal\ncmp     [rbp+TempUsed], 0\njz      loc_17F6\nlea     rdi, [rbp+TempName]; file\nlea     rsi, [rbp+dummy]; buf\ncall    _stat\ncmp     eax, 0\njnz     loc_17E5\nmov     rdi, [rbp+FileName]; file\nlea     rsi, [rbp+buf]; buf\ncall    _stat\nmov     [rbp+stat_result], eax\nmov     rdi, [rbp+FileName]; name\ncall    unlink\nlea     rdi, [rbp+TempName]; old\nmov     rsi, [rbp+FileName]; new\ncall    rename\ncmp     [rbp+stat_result], 0\njnz     loc_17E0\nmov     rdi, [rbp+FileName]; file\nmov     esi, [rbp+buf.st_mode]; mode\ncall    chmod\nmov     rax, [rbp+buf.st_atim.tv_sec]\nmov     [rbp+mtime.actime], rax\nmov     rax, [rbp+buf.st_mtim.tv_sec]\nmov     [rbp+mtime.modtime], rax\nmov     rdi, [rbp+FileName]; file\nlea     rsi, [rbp+mtime]; file_times\ncall    utime\njmp     loc_17F1\nlea     rdi, aSpecifiedComma; \"specified command did not produce expec\"...\ncall    ErrFatal\njmp     $+5\nadd     rsp, 4180h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 34,
+  "edges": [
+   [
+    "start",
+    "loc_1513"
+   ],
+   [
+    "loc_1513",
+    "loc_1525"
+   ],
+   [
+    "loc_1513",
+    "loc_1542"
+   ],
+   [
+    "loc_1525",
+    "loc_1542"
+   ],
+   [
+    "loc_1542",
+    "loc_1550"
+   ],
+   [
+    "loc_1542",
+    "loc_1555"
+   ],
+   [
+    "loc_1550",
+    "loc_1563"
+   ],
+   [
+    "loc_1555",
+    "loc_1513"
+   ],
+   [
+    "loc_1563",
+    "loc_15AA"
+   ],
+   [
+    "loc_1563",
+    "loc_15B6"
+   ],
+   [
+    "loc_15B6",
+    "loc_15BD"
+   ],
+   [
+    "loc_15BD",
+    "loc_15D5"
+   ],
+   [
+    "loc_15BD",
+    "loc_1677"
+   ],
+   [
+    "loc_15D5",
+    "loc_15F2"
+   ],
+   [
+    "loc_15D5",
+    "loc_161D"
+   ],
+   [
+    "loc_15F2",
+    "loc_16BB"
+   ],
+   [
+    "loc_161D",
+    "loc_163A"
+   ],
+   [
+    "loc_161D",
+    "loc_1672"
+   ],
+   [
+    "loc_163A",
+    "loc_16BB"
+   ],
+   [
+    "loc_1672",
+    "loc_1677"
+   ],
+   [
+    "loc_1677",
+    "loc_16B1"
+   ],
+   [
+    "loc_1677",
+    "loc_16B6"
+   ],
+   [
+    "loc_16B1",
+    "loc_16C9"
+   ],
+   [
+    "loc_16B6",
+    "loc_16BB"
+   ],
+   [
+    "loc_16BB",
+    "loc_15BD"
+   ],
+   [
+    "loc_16C9",
+    "loc_16D3"
+   ],
+   [
+    "loc_16C9",
+    "loc_16E8"
+   ],
+   [
+    "loc_16D3",
+    "loc_16E8"
+   ],
+   [
+    "loc_16E8",
+    "loc_170C"
+   ],
+   [
+    "loc_16E8",
+    "loc_171A"
+   ],
+   [
+    "loc_170C",
+    "loc_171A"
+   ],
+   [
+    "loc_170C",
+    "loc_1740"
+   ],
+   [
+    "loc_171A",
+    "loc_1728"
+   ],
+   [
+    "loc_171A",
+    "loc_1734"
+   ],
+   [
+    "loc_1728",
+    "loc_1734"
+   ],
+   [
+    "loc_1740",
+    "loc_174D"
+   ],
+   [
+    "loc_1740",
+    "loc_17F6"
+   ],
+   [
+    "loc_174D",
+    "loc_1769"
+   ],
+   [
+    "loc_174D",
+    "loc_17E5"
+   ],
+   [
+    "loc_1769",
+    "loc_17A5"
+   ],
+   [
+    "loc_1769",
+    "loc_17E0"
+   ],
+   [
+    "loc_17A5",
+    "loc_17E0"
+   ],
+   [
+    "loc_17E0",
+    "loc_17F1"
+   ],
+   [
+    "loc_17F1",
+    "loc_17F6"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 4180h\nmov     [rbp+FileName], rdi\nmov     [rbp+ShowIt], esi\nmov     [rbp+TempUsed], 0\nmov     [rbp+e], 0\nmov     rdi, [rbp+FileName]; s\ncall    strlen\nsub     rax, 1\nmov     [rbp+a], eax",
+   "loc_1513": "xor     eax, eax\ncmp     [rbp+a], 0\nmov     [rbp+var_4171], al\njle     loc_1542",
+   "loc_1525": "mov     rax, [rbp+FileName]\nmov     ecx, [rbp+a]\nsub     ecx, 1\nmovsxd  rcx, ecx\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 2Fh ; '/'\nsetnz   al\nmov     [rbp+var_4171], al",
+   "loc_1542": "mov     al, [rbp+var_4171]\ntest    al, 1\njnz     loc_1555",
+   "loc_1550": "jmp     loc_1563",
+   "loc_1555": "mov     eax, [rbp+a]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+a], eax\njmp     loc_1513",
+   "loc_1563": "lea     rdi, [rbp+TempName]; dest\nmov     rsi, [rbp+FileName]; src\nmovsxd  rdx, [rbp+a]; n\ncall    memcpy\nlea     rdi, [rbp+TempName]\nmovsxd  rax, [rbp+a]\nadd     rdi, rax; dest\nlea     rsi, src; \"XXXXXX\"\ncall    strcpy\nlea     rdi, [rbp+TempName]; template\ncall    mktemp\ncmp     [rbp+TempName], 0\njnz     loc_15B6",
+   "loc_15AA": "lea     rdi, msg; \"Cannot find available temporary file na\"...\ncall    ErrFatal",
+   "loc_15B6": "mov     [rbp+a], 0",
+   "loc_15BD": "mov     rax, cs:ApplyCommand\nmovsxd  rcx, [rbp+a]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 26h ; '&'\njnz     loc_1677",
+   "loc_15D5": "mov     rax, cs:ApplyCommand\nmov     ecx, [rbp+a]\nadd     ecx, 1\nmovsxd  rcx, ecx\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 69h ; 'i'\njnz     loc_161D",
+   "loc_15F2": "lea     rdi, [rbp+ExecString]\nmovsxd  rax, [rbp+e]\nadd     rdi, rax; to\nmov     rsi, [rbp+FileName]; from\ncall    shellescape\nadd     eax, [rbp+e]\nmov     [rbp+e], eax\nmov     eax, [rbp+a]\nadd     eax, 1\nmov     [rbp+a], eax\njmp     loc_16BB",
+   "loc_161D": "mov     rax, cs:ApplyCommand\nmov     ecx, [rbp+a]\nadd     ecx, 1\nmovsxd  rcx, ecx\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 6Fh ; 'o'\njnz     loc_1672",
+   "loc_163A": "lea     rdi, [rbp+ExecString]\nmovsxd  rax, [rbp+e]\nadd     rdi, rax; to\nlea     rsi, [rbp+TempName]; from\ncall    shellescape\nadd     eax, [rbp+e]\nmov     [rbp+e], eax\nmov     eax, [rbp+a]\nadd     eax, 1\nmov     [rbp+a], eax\nmov     [rbp+TempUsed], 1\njmp     loc_16BB",
+   "loc_1672": "jmp     $+5",
+   "loc_1677": "mov     rax, cs:ApplyCommand\nmovsxd  rcx, [rbp+a]\nmov     cl, [rax+rcx]\nmov     eax, [rbp+e]\nmov     edx, eax\nadd     edx, 1\nmov     [rbp+e], edx\ncdqe\nmov     [rbp+rax+ExecString], cl\nmov     rax, cs:ApplyCommand\nmovsxd  rcx, [rbp+a]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 0\njnz     loc_16B6",
+   "loc_16B1": "jmp     loc_16C9",
+   "loc_16B6": "jmp     $+5",
+   "loc_16BB": "mov     eax, [rbp+a]\nadd     eax, 1\nmov     [rbp+a], eax\njmp     loc_15BD",
+   "loc_16C9": "cmp     [rbp+ShowIt], 0\njz      loc_16E8",
+   "loc_16D3": "lea     rsi, [rbp+ExecString]\nlea     rdi, aCmdS; \"Cmd:%s\\n\"\nmov     al, 0\ncall    printf",
+   "loc_16E8": "call    ___errno_location\nmov     dword ptr [rax], 0\nlea     rdi, [rbp+ExecString]; command\ncall    system\nmov     [rbp+a], eax\ncmp     [rbp+a], 0\njnz     loc_171A",
+   "loc_170C": "call    ___errno_location\ncmp     dword ptr [rax], 0\njz      loc_1740",
+   "loc_171A": "call    ___errno_location\ncmp     dword ptr [rax], 0\njz      loc_1734",
+   "loc_1728": "lea     rdi, aSystem_0; \"system\"\ncall    perror",
+   "loc_1734": "lea     rdi, aProblemExecuti; \"Problem executing specified command\"\ncall    ErrFatal",
+   "loc_1740": "cmp     [rbp+TempUsed], 0\njz      loc_17F6",
+   "loc_174D": "lea     rdi, [rbp+TempName]; file\nlea     rsi, [rbp+dummy]; buf\ncall    _stat\ncmp     eax, 0\njnz     loc_17E5",
+   "loc_1769": "mov     rdi, [rbp+FileName]; file\nlea     rsi, [rbp+buf]; buf\ncall    _stat\nmov     [rbp+stat_result], eax\nmov     rdi, [rbp+FileName]; name\ncall    unlink\nlea     rdi, [rbp+TempName]; old\nmov     rsi, [rbp+FileName]; new\ncall    rename\ncmp     [rbp+stat_result], 0\njnz     loc_17E0",
+   "loc_17A5": "mov     rdi, [rbp+FileName]; file\nmov     esi, [rbp+buf.st_mode]; mode\ncall    chmod\nmov     rax, [rbp+buf.st_atim.tv_sec]\nmov     [rbp+mtime.actime], rax\nmov     rax, [rbp+buf.st_mtim.tv_sec]\nmov     [rbp+mtime.modtime], rax\nmov     rdi, [rbp+FileName]; file\nlea     rsi, [rbp+mtime]; file_times\ncall    utime",
+   "loc_17E0": "jmp     loc_17F1",
+   "loc_17E5": "lea     rdi, aSpecifiedComma; \"specified command did not produce expec\"...\ncall    ErrFatal",
+   "loc_17F1": "jmp     $+5",
+   "loc_17F6": "add     rsp, 4180h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_4171": "byte ptr -4171h",
+   "mtime": "utimbuf ptr -4170h",
+   "stat_result": "dword ptr -415Ch",
+   "buf": "stat ptr -4158h",
+   "dummy": "stat ptr -40C8h",
+   "TempUsed": "dword ptr -4034h",
+   "TempName": "byte ptr -4030h",
+   "ExecString": "byte ptr -3020h",
+   "e": "dword ptr -14h",
+   "a": "dword ptr -10h",
+   "ShowIt": "dword ptr -0Ch",
+   "FileName": "qword ptr -8"
+  },
+  ".rodata": {
+   "src": "byte 'XXXXXX',0",
+   "msg": "byte 'Cannot find available temporary file name',0",
+   "aCmdS": "byte 'Cmd:%s',0Ah,0",
+   "aSystem_0": "byte 'system',0",
+   "aProblemExecuti": "byte 'Problem executing specified command',0",
+   "aSpecifiedComma": "byte 'specified command did not produce expected output file',0"
+  },
+  ".data": {},
+  ".bss": {
+   "ApplyCommand": "[]"
+  }
+ },
+ "func_ea": 5344,
+ "thunk_map": {
+  ".utime": "utime",
+  "_utime": "utime",
+  ".free": "free",
+  "_free": "free",
+  ".__errno_location": "__errno_location",
+  "_errno_location": "__errno_location",
+  ".unlink": "unlink",
+  "_unlink": "unlink",
+  ".strcpy": "strcpy",
+  "_strcpy": "strcpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".system": "system",
+  "_system": "system",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".chmod": "chmod",
+  "_chmod": "chmod",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".rename": "rename",
+  "_rename": "rename",
+  ".exit": "exit",
+  "_exit": "exit",
+  ".mktemp": "mktemp",
+  "_mktemp": "mktemp"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".utime",
+   ".plt",
+   true,
+   "utime"
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".__errno_location",
+   ".plt",
+   true,
+   "__errno_location"
+  ],
+  [
+   ".unlink",
+   ".plt",
+   true,
+   "unlink"
+  ],
+  [
+   ".strcpy",
+   ".plt",
+   true,
+   "strcpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".system",
+   ".plt",
+   true,
+   "system"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".stat",
+   ".plt",
+   true,
+   "stat_0"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".chmod",
+   ".plt",
+   true,
+   "chmod"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".rename",
+   ".plt",
+   true,
+   "rename"
+  ],
+  [
+   ".exit",
+   ".plt",
+   true,
+   "exit"
+  ],
+  [
+   ".mktemp",
+   ".plt",
+   true,
+   "mktemp"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "utime",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__errno_location",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "unlink",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "system",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "printf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "stat_0",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868484
+ }
+}

@@ -1,0 +1,1 @@
+int hmsra(int n, int m, float p, u_int *h) { *h = n + m / 127.0 + p / 2147483648.0; *h *= 127.0; if (*h < 0) return 1; if (*h > 127.0) return 1; return 0; }

@@ -1,0 +1,12 @@
+char *skip_longlong(char *str, int *have_longlong)
+{
+  *have_longlong = 0;
+  if ( *str == 'l' )
+  {
+    str++;
+    if ( *str == 'l' )
+      str++;
+    *have_longlong = 1;
+  }
+  return str;
+}

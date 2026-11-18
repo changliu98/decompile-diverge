@@ -1,0 +1,1 @@
+double func0(double x) { double f; f = 3.1415926535 * pow(x, 2.0) / 180.0; return f; }

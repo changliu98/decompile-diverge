@@ -1,0 +1,1 @@
+int func0(char* str1) { return str1[0]; }

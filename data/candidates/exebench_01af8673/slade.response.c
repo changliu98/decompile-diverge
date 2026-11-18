@@ -1,0 +1,1 @@
+void ecRotate( ecPoint in[], double r, double g ) { double theta; theta = r*in[2] + g*in[1]; in[2] = g*in[2] - r*in[1]; in[1] = theta; }

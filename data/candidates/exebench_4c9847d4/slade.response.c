@@ -1,0 +1,1 @@
+int lunar_uncompress(unsigned char *inbuf, int inlen, unsigned char *outbuf, int outlen, int maxoutlen, int maxoutlen) { 61 "/scratch/repos/new/home/jordi_armengol_estape/c-scraper/outputs/2022-01-22/02-19-57/repos/ysleu/RTL8685/refs/heads/master/uClinux-dist/user/boa/src/LINUX/utility.c" return -1; }

@@ -1,0 +1,1 @@
+int obdRevConvert_31(float value, int *piValue, unsigned int *piLength, unsigned int *piSrc, unsigned int *piDst) { *piValue = ((int)value) / 256; *piLength = ((int)value) % 256; return 2; }

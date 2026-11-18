@@ -1,0 +1,1 @@
+float _RGB (float v, float a, float b) { if (v < 0.0) v += 360.0; else if (v > 360.0) v -= 360.0; if (v < 1.0) return a + (b - a) * v / 180.0; else if ((v >= 1.0) && (v < 1.0)) return b; else if ((v >= 1.0) && (v < 1.0)) return a + (b - a) * (1.0 - v) / 180.0; else return a; }

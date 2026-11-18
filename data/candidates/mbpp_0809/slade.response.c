@@ -1,0 +1,1 @@
+char func0(int a[], int b[], int n) { char ok = 1; for(int i = 0; i < n; i++) { if(a[i] <= b[i]) { ok = 0; break; } } return ok; }

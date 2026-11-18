@@ -1,0 +1,1 @@
+uint64_t func0(int n) { uint64_t a; int i, j; j = 0; a = 0; for (i = 1; i <= n; i++) { j = 2 * i - 1; a = a + j * j * j * j * j; } return a; }

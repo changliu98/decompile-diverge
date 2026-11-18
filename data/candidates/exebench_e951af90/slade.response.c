@@ -1,0 +1,1 @@
+void SetULong(u_long *addr) { *addr = (u_long)777; }

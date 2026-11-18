@@ -1,0 +1,1 @@
+void get_payload_info(unsigned char *buf, int *p_addr, int *p_len) { int len; unsigned char nb_addr; nb_addr = buf[0x1f1] + 1; len = nb_addr * 512; *p_addr = buf[0x178] + len; *p_len = buf[0x172] + 18; }

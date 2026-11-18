@@ -1,0 +1,1 @@
+void atomic_clear_mask(unsigned long mask, atomic_t *v) { v->counter &= ~mask; }

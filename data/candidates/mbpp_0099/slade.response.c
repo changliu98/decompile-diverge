@@ -1,0 +1,1 @@
+char* func0(int x) { for (int i = 0; x > 0; x /= 2) { binary[i++] = x % 2 + '0'; } binary[i] = 0; for (int i = 0, j = i - 1; i < j; i++, j--) { char y = binary[i]; binary[i] = binary[j]; binary[j] = y; } return &binary[0]; }

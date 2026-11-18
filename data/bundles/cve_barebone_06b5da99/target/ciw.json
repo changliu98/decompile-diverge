@@ -1,0 +1,429 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+zgfx], rdi\nmov     [rbp+stream], rsi\nmov     [rbp+segmentSize], rdx\nmov     [rbp+extra], 0\nmov     rax, [rbp+segmentSize]\nsub     rax, 1\nmov     [rbp+cbSegment], rax\nmov     rdi, [rbp+stream]; _s\ncall    Stream_GetRemainingLength\ncmp     rax, [rbp+segmentSize]\njb      loc_1575\ncmp     [rbp+segmentSize], 1\njnb     loc_1581\nmov     [rbp+var_4], 0\njmp     loc_1A00\njmp     $+5\nmov     rax, [rbp+stream]\nmov     rax, [rax+8]\nmov     al, [rax]\nmov     [rbp+flags], al\nmov     rdi, [rbp+stream]; s\nmov     esi, 1; _offset\ncall    Stream_Seek\nmov     rax, [rbp+zgfx]\nmov     dword ptr [rax+10028h], 0\nmov     rdi, [rbp+stream]; _s\ncall    Stream_Pointer\nmov     [rbp+pbSegment], rax\nmov     rdi, [rbp+stream]; s\nmov     rsi, [rbp+cbSegment]; _offset\ncall    Stream_Seek\nmovzx   eax, [rbp+flags]\nand     eax, 20h\ncmp     eax, 0\njnz     loc_161B\nmov     rdi, [rbp+zgfx]; zgfx\nmov     rsi, [rbp+pbSegment]; src\nmov     rdx, [rbp+cbSegment]; count\ncall    zgfx_history_buffer_ring_write\nmov     rdi, [rbp+zgfx]\nadd     rdi, 28h ; '('; dest\nmov     rsi, [rbp+pbSegment]; src\nmov     rdx, [rbp+cbSegment]; n\ncall    memcpy\nmov     rax, [rbp+cbSegment]\nmov     ecx, eax\nmov     rax, [rbp+zgfx]\nmov     [rax+10028h], ecx\nmov     [rbp+var_4], 1\njmp     loc_1A00\nmov     rcx, [rbp+pbSegment]\nmov     rax, [rbp+zgfx]\nmov     [rax+8], rcx\nmov     rcx, [rbp+pbSegment]\nmov     rax, [rbp+cbSegment]\nsub     rax, 1\nadd     rcx, rax\nmov     rax, [rbp+zgfx]\nmov     [rax+10h], rcx\nmov     rax, [rbp+cbSegment]\nsub     rax, 1\nshl     rax, 3\nmov     rcx, [rbp+zgfx]\nmov     rcx, [rcx+10h]\nmovzx   ecx, byte ptr [rcx]\nsub     rax, rcx\nmov     ecx, eax\nmov     rax, [rbp+zgfx]\nmov     [rax+1Ch], ecx\nmov     rax, [rbp+zgfx]\nmov     dword ptr [rax+24h], 0\nmov     rax, [rbp+zgfx]\nmov     dword ptr [rax+20h], 0\nmov     rax, [rbp+zgfx]\ncmp     dword ptr [rax+1Ch], 0\njz      loc_19F9\nmov     [rbp+haveBits], 0\nmov     [rbp+inPrefix], 0\nmov     [rbp+opIndex], 0\nmovsxd  rcx, [rbp+opIndex]\nlea     rax, ZGFX_TOKEN_TABLE\nimul    rcx, 14h\nadd     rax, rcx\ncmp     dword ptr [rax], 0\njz      loc_19F4\njmp     $+5\nmov     eax, [rbp+haveBits]\nmovsxd  rdx, [rbp+opIndex]\nlea     rcx, ZGFX_TOKEN_TABLE\nimul    rdx, 14h\nadd     rcx, rdx\ncmp     eax, [rcx]\njnb     loc_1703\nmov     rdi, [rbp+zgfx]; _zgfx\nmov     esi, 1; _nbits\ncall    zgfx_GetBits\nmov     eax, [rbp+inPrefix]\nshl     eax, 1\nmov     rcx, [rbp+zgfx]\nadd     eax, [rcx+18h]\nmov     [rbp+inPrefix], eax\nmov     eax, [rbp+haveBits]\nadd     eax, 1\nmov     [rbp+haveBits], eax\njmp     loc_16BA\nmov     eax, [rbp+inPrefix]\nmovsxd  rdx, [rbp+opIndex]\nlea     rcx, ZGFX_TOKEN_TABLE\nimul    rdx, 14h\nadd     rcx, rdx\ncmp     eax, [rcx+4]\njnz     loc_19E1\nmovsxd  rcx, [rbp+opIndex]\nlea     rax, ZGFX_TOKEN_TABLE\nimul    rcx, 14h\nadd     rax, rcx\ncmp     dword ptr [rax+0Ch], 0\njnz     loc_17EA\nmov     rdi, [rbp+zgfx]; _zgfx\nmovsxd  rcx, [rbp+opIndex]\nlea     rax, ZGFX_TOKEN_TABLE\nimul    rcx, 14h\nadd     rax, rcx\nmov     esi, [rax+8]; _nbits\ncall    zgfx_GetBits\nmovsxd  rcx, [rbp+opIndex]\nlea     rax, ZGFX_TOKEN_TABLE\nimul    rcx, 14h\nadd     rax, rcx\nmov     eax, [rax+10h]\nmov     rcx, [rbp+zgfx]\nadd     eax, [rcx+18h]\nmov     [rbp+c], al\nmov     dl, [rbp+c]\nmov     rax, [rbp+zgfx]\nmov     rcx, [rbp+zgfx]\nmov     ecx, [rcx+2725CCh]\nmov     [rax+rcx+1002Ch], dl\nmov     rcx, [rbp+zgfx]\nmov     eax, [rcx+2725CCh]\nadd     eax, 1\nmov     [rcx+2725CCh], eax\nmov     rcx, [rbp+zgfx]\ncmp     eax, [rcx+2725D0h]\njnz     loc_17C3\nmov     rax, [rbp+zgfx]\nmov     dword ptr [rax+2725CCh], 0\nmov     dl, [rbp+c]\nmov     rax, [rbp+zgfx]\nmov     rsi, [rbp+zgfx]\nmov     ecx, [rsi+10028h]\nmov     edi, ecx\nadd     edi, 1\nmov     [rsi+10028h], edi\nmov     ecx, ecx\nmov     [rax+rcx+28h], dl\njmp     loc_19DC\nmov     rdi, [rbp+zgfx]; _zgfx\nmovsxd  rcx, [rbp+opIndex]\nlea     rax, ZGFX_TOKEN_TABLE\nimul    rcx, 14h\nadd     rax, rcx\nmov     esi, [rax+8]; _nbits\ncall    zgfx_GetBits\nmovsxd  rcx, [rbp+opIndex]\nlea     rax, ZGFX_TOKEN_TABLE\nimul    rcx, 14h\nadd     rax, rcx\nmov     eax, [rax+10h]\nmov     rcx, [rbp+zgfx]\nadd     eax, [rcx+18h]\nmov     [rbp+distance], eax\ncmp     [rbp+distance], 0\njz      loc_1920\nmov     rdi, [rbp+zgfx]; _zgfx\nmov     esi, 1; _nbits\ncall    zgfx_GetBits\nmov     rax, [rbp+zgfx]\ncmp     dword ptr [rax+18h], 0\njnz     loc_1859\nmov     [rbp+count], 3\njmp     loc_18C1\nmov     [rbp+count], 4\nmov     [rbp+extra], 2\nmov     rdi, [rbp+zgfx]; _zgfx\nmov     esi, 1; _nbits\ncall    zgfx_GetBits\nmov     rax, [rbp+zgfx]\ncmp     dword ptr [rax+18h], 1\njnz     loc_18A8\nmov     eax, [rbp+count]\nshl     eax, 1\nmov     [rbp+count], eax\nmov     eax, [rbp+extra]\nadd     eax, 1\nmov     [rbp+extra], eax\nmov     rdi, [rbp+zgfx]; _zgfx\nmov     esi, 1; _nbits\ncall    zgfx_GetBits\njmp     loc_1875\nmov     rdi, [rbp+zgfx]; _zgfx\nmov     esi, [rbp+extra]; _nbits\ncall    zgfx_GetBits\nmov     rax, [rbp+zgfx]\nmov     eax, [rax+18h]\nadd     eax, [rbp+count]\nmov     [rbp+count], eax\nmov     rdi, [rbp+zgfx]; zgfx\nmov     esi, [rbp+distance]; offset\nmov     rdx, [rbp+zgfx]\nadd     rdx, 28h ; '('\nmov     rax, [rbp+zgfx]\nmov     eax, [rax+10028h]\nadd     rdx, rax; dst\nmov     ecx, [rbp+count]; count\ncall    zgfx_history_buffer_ring_read\nmov     rdi, [rbp+zgfx]; zgfx\nmov     rsi, [rbp+zgfx]\nadd     rsi, 28h ; '('\nmov     rax, [rbp+zgfx]\nmov     eax, [rax+10028h]\nadd     rsi, rax; src\nmov     eax, [rbp+count]\nmov     edx, eax; count\ncall    zgfx_history_buffer_ring_write\nmov     ecx, [rbp+count]\nmov     rax, [rbp+zgfx]\nadd     ecx, [rax+10028h]\nmov     [rax+10028h], ecx\njmp     loc_19D7\nmov     rdi, [rbp+zgfx]; _zgfx\nmov     esi, 0Fh; _nbits\ncall    zgfx_GetBits\nmov     rax, [rbp+zgfx]\nmov     eax, [rax+18h]\nmov     [rbp+count], eax\nmov     rax, [rbp+zgfx]\nmov     edx, [rax+24h]\nmov     rax, [rbp+zgfx]\nmov     ecx, [rax+1Ch]\nsub     ecx, edx\nmov     [rax+1Ch], ecx\nmov     rax, [rbp+zgfx]\nmov     dword ptr [rax+24h], 0\nmov     rax, [rbp+zgfx]\nmov     dword ptr [rax+20h], 0\nmov     rdi, [rbp+zgfx]\nadd     rdi, 28h ; '('\nmov     rax, [rbp+zgfx]\nmov     eax, [rax+10028h]\nadd     rdi, rax; dest\nmov     rax, [rbp+zgfx]\nmov     rsi, [rax+8]; src\nmov     eax, [rbp+count]\nmov     edx, eax; n\ncall    memcpy\nmov     rdi, [rbp+zgfx]; zgfx\nmov     rax, [rbp+zgfx]\nmov     rsi, [rax+8]; src\nmov     eax, [rbp+count]\nmov     edx, eax; count\ncall    zgfx_history_buffer_ring_write\nmov     edx, [rbp+count]\nmov     rax, [rbp+zgfx]\nmov     rcx, [rax+8]\nmov     edx, edx\nadd     rcx, rdx\nmov     [rax+8], rcx\nmov     edx, [rbp+count]\nshl     edx, 3\nmov     rax, [rbp+zgfx]\nmov     ecx, [rax+1Ch]\nsub     ecx, edx\nmov     [rax+1Ch], ecx\nmov     ecx, [rbp+count]\nmov     rax, [rbp+zgfx]\nadd     ecx, [rax+10028h]\nmov     [rax+10028h], ecx\njmp     $+5\njmp     loc_19F4\njmp     $+5\nmov     eax, [rbp+opIndex]\nadd     eax, 1\nmov     [rbp+opIndex], eax\njmp     loc_169A\njmp     loc_1677\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 34,
+  "edges": [
+   [
+    "start",
+    "loc_156A"
+   ],
+   [
+    "start",
+    "loc_1575"
+   ],
+   [
+    "loc_156A",
+    "loc_1575"
+   ],
+   [
+    "loc_156A",
+    "loc_1581"
+   ],
+   [
+    "loc_1575",
+    "loc_1A00"
+   ],
+   [
+    "loc_1581",
+    "loc_1586"
+   ],
+   [
+    "loc_1586",
+    "loc_15D9"
+   ],
+   [
+    "loc_1586",
+    "loc_161B"
+   ],
+   [
+    "loc_15D9",
+    "loc_1A00"
+   ],
+   [
+    "loc_161B",
+    "loc_1677"
+   ],
+   [
+    "loc_1677",
+    "loc_1685"
+   ],
+   [
+    "loc_1677",
+    "loc_19F9"
+   ],
+   [
+    "loc_1685",
+    "loc_169A"
+   ],
+   [
+    "loc_169A",
+    "loc_16B5"
+   ],
+   [
+    "loc_169A",
+    "loc_19F4"
+   ],
+   [
+    "loc_16B5",
+    "loc_16BA"
+   ],
+   [
+    "loc_16BA",
+    "loc_16D7"
+   ],
+   [
+    "loc_16BA",
+    "loc_1703"
+   ],
+   [
+    "loc_16D7",
+    "loc_16BA"
+   ],
+   [
+    "loc_1703",
+    "loc_1721"
+   ],
+   [
+    "loc_1703",
+    "loc_19E1"
+   ],
+   [
+    "loc_1721",
+    "loc_173D"
+   ],
+   [
+    "loc_1721",
+    "loc_17EA"
+   ],
+   [
+    "loc_173D",
+    "loc_17B5"
+   ],
+   [
+    "loc_173D",
+    "loc_17C3"
+   ],
+   [
+    "loc_17B5",
+    "loc_17C3"
+   ],
+   [
+    "loc_17C3",
+    "loc_19DC"
+   ],
+   [
+    "loc_17EA",
+    "loc_1831"
+   ],
+   [
+    "loc_17EA",
+    "loc_1920"
+   ],
+   [
+    "loc_1831",
+    "loc_184D"
+   ],
+   [
+    "loc_1831",
+    "loc_1859"
+   ],
+   [
+    "loc_184D",
+    "loc_18C1"
+   ],
+   [
+    "loc_1859",
+    "loc_1875"
+   ],
+   [
+    "loc_1875",
+    "loc_1883"
+   ],
+   [
+    "loc_1875",
+    "loc_18A8"
+   ],
+   [
+    "loc_1883",
+    "loc_1875"
+   ],
+   [
+    "loc_18A8",
+    "loc_18C1"
+   ],
+   [
+    "loc_18C1",
+    "loc_19D7"
+   ],
+   [
+    "loc_1920",
+    "loc_19D7"
+   ],
+   [
+    "loc_19D7",
+    "loc_19DC"
+   ],
+   [
+    "loc_19DC",
+    "loc_19F4"
+   ],
+   [
+    "loc_19E1",
+    "loc_19E6"
+   ],
+   [
+    "loc_19E6",
+    "loc_169A"
+   ],
+   [
+    "loc_19F4",
+    "loc_1677"
+   ],
+   [
+    "loc_19F9",
+    "loc_1A00"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+zgfx], rdi\nmov     [rbp+stream], rsi\nmov     [rbp+segmentSize], rdx\nmov     [rbp+extra], 0\nmov     rax, [rbp+segmentSize]\nsub     rax, 1\nmov     [rbp+cbSegment], rax\nmov     rdi, [rbp+stream]; _s\ncall    Stream_GetRemainingLength\ncmp     rax, [rbp+segmentSize]\njb      loc_1575",
+   "loc_156A": "cmp     [rbp+segmentSize], 1\njnb     loc_1581",
+   "loc_1575": "mov     [rbp+var_4], 0\njmp     loc_1A00",
+   "loc_1581": "jmp     $+5",
+   "loc_1586": "mov     rax, [rbp+stream]\nmov     rax, [rax+8]\nmov     al, [rax]\nmov     [rbp+flags], al\nmov     rdi, [rbp+stream]; s\nmov     esi, 1; _offset\ncall    Stream_Seek\nmov     rax, [rbp+zgfx]\nmov     dword ptr [rax+10028h], 0\nmov     rdi, [rbp+stream]; _s\ncall    Stream_Pointer\nmov     [rbp+pbSegment], rax\nmov     rdi, [rbp+stream]; s\nmov     rsi, [rbp+cbSegment]; _offset\ncall    Stream_Seek\nmovzx   eax, [rbp+flags]\nand     eax, 20h\ncmp     eax, 0\njnz     loc_161B",
+   "loc_15D9": "mov     rdi, [rbp+zgfx]; zgfx\nmov     rsi, [rbp+pbSegment]; src\nmov     rdx, [rbp+cbSegment]; count\ncall    zgfx_history_buffer_ring_write\nmov     rdi, [rbp+zgfx]\nadd     rdi, 28h ; '('; dest\nmov     rsi, [rbp+pbSegment]; src\nmov     rdx, [rbp+cbSegment]; n\ncall    memcpy\nmov     rax, [rbp+cbSegment]\nmov     ecx, eax\nmov     rax, [rbp+zgfx]\nmov     [rax+10028h], ecx\nmov     [rbp+var_4], 1\njmp     loc_1A00",
+   "loc_161B": "mov     rcx, [rbp+pbSegment]\nmov     rax, [rbp+zgfx]\nmov     [rax+8], rcx\nmov     rcx, [rbp+pbSegment]\nmov     rax, [rbp+cbSegment]\nsub     rax, 1\nadd     rcx, rax\nmov     rax, [rbp+zgfx]\nmov     [rax+10h], rcx\nmov     rax, [rbp+cbSegment]\nsub     rax, 1\nshl     rax, 3\nmov     rcx, [rbp+zgfx]\nmov     rcx, [rcx+10h]\nmovzx   ecx, byte ptr [rcx]\nsub     rax, rcx\nmov     ecx, eax\nmov     rax, [rbp+zgfx]\nmov     [rax+1Ch], ecx\nmov     rax, [rbp+zgfx]\nmov     dword ptr [rax+24h], 0\nmov     rax, [rbp+zgfx]\nmov     dword ptr [rax+20h], 0",
+   "loc_1677": "mov     rax, [rbp+zgfx]\ncmp     dword ptr [rax+1Ch], 0\njz      loc_19F9",
+   "loc_1685": "mov     [rbp+haveBits], 0\nmov     [rbp+inPrefix], 0\nmov     [rbp+opIndex], 0",
+   "loc_169A": "movsxd  rcx, [rbp+opIndex]\nlea     rax, ZGFX_TOKEN_TABLE\nimul    rcx, 14h\nadd     rax, rcx\ncmp     dword ptr [rax], 0\njz      loc_19F4",
+   "loc_16B5": "jmp     $+5",
+   "loc_16BA": "mov     eax, [rbp+haveBits]\nmovsxd  rdx, [rbp+opIndex]\nlea     rcx, ZGFX_TOKEN_TABLE\nimul    rdx, 14h\nadd     rcx, rdx\ncmp     eax, [rcx]\njnb     loc_1703",
+   "loc_16D7": "mov     rdi, [rbp+zgfx]; _zgfx\nmov     esi, 1; _nbits\ncall    zgfx_GetBits\nmov     eax, [rbp+inPrefix]\nshl     eax, 1\nmov     rcx, [rbp+zgfx]\nadd     eax, [rcx+18h]\nmov     [rbp+inPrefix], eax\nmov     eax, [rbp+haveBits]\nadd     eax, 1\nmov     [rbp+haveBits], eax\njmp     loc_16BA",
+   "loc_1703": "mov     eax, [rbp+inPrefix]\nmovsxd  rdx, [rbp+opIndex]\nlea     rcx, ZGFX_TOKEN_TABLE\nimul    rdx, 14h\nadd     rcx, rdx\ncmp     eax, [rcx+4]\njnz     loc_19E1",
+   "loc_1721": "movsxd  rcx, [rbp+opIndex]\nlea     rax, ZGFX_TOKEN_TABLE\nimul    rcx, 14h\nadd     rax, rcx\ncmp     dword ptr [rax+0Ch], 0\njnz     loc_17EA",
+   "loc_173D": "mov     rdi, [rbp+zgfx]; _zgfx\nmovsxd  rcx, [rbp+opIndex]\nlea     rax, ZGFX_TOKEN_TABLE\nimul    rcx, 14h\nadd     rax, rcx\nmov     esi, [rax+8]; _nbits\ncall    zgfx_GetBits\nmovsxd  rcx, [rbp+opIndex]\nlea     rax, ZGFX_TOKEN_TABLE\nimul    rcx, 14h\nadd     rax, rcx\nmov     eax, [rax+10h]\nmov     rcx, [rbp+zgfx]\nadd     eax, [rcx+18h]\nmov     [rbp+c], al\nmov     dl, [rbp+c]\nmov     rax, [rbp+zgfx]\nmov     rcx, [rbp+zgfx]\nmov     ecx, [rcx+2725CCh]\nmov     [rax+rcx+1002Ch], dl\nmov     rcx, [rbp+zgfx]\nmov     eax, [rcx+2725CCh]\nadd     eax, 1\nmov     [rcx+2725CCh], eax\nmov     rcx, [rbp+zgfx]\ncmp     eax, [rcx+2725D0h]\njnz     loc_17C3",
+   "loc_17B5": "mov     rax, [rbp+zgfx]\nmov     dword ptr [rax+2725CCh], 0",
+   "loc_17C3": "mov     dl, [rbp+c]\nmov     rax, [rbp+zgfx]\nmov     rsi, [rbp+zgfx]\nmov     ecx, [rsi+10028h]\nmov     edi, ecx\nadd     edi, 1\nmov     [rsi+10028h], edi\nmov     ecx, ecx\nmov     [rax+rcx+28h], dl\njmp     loc_19DC",
+   "loc_17EA": "mov     rdi, [rbp+zgfx]; _zgfx\nmovsxd  rcx, [rbp+opIndex]\nlea     rax, ZGFX_TOKEN_TABLE\nimul    rcx, 14h\nadd     rax, rcx\nmov     esi, [rax+8]; _nbits\ncall    zgfx_GetBits\nmovsxd  rcx, [rbp+opIndex]\nlea     rax, ZGFX_TOKEN_TABLE\nimul    rcx, 14h\nadd     rax, rcx\nmov     eax, [rax+10h]\nmov     rcx, [rbp+zgfx]\nadd     eax, [rcx+18h]\nmov     [rbp+distance], eax\ncmp     [rbp+distance], 0\njz      loc_1920",
+   "loc_1831": "mov     rdi, [rbp+zgfx]; _zgfx\nmov     esi, 1; _nbits\ncall    zgfx_GetBits\nmov     rax, [rbp+zgfx]\ncmp     dword ptr [rax+18h], 0\njnz     loc_1859",
+   "loc_184D": "mov     [rbp+count], 3\njmp     loc_18C1",
+   "loc_1859": "mov     [rbp+count], 4\nmov     [rbp+extra], 2\nmov     rdi, [rbp+zgfx]; _zgfx\nmov     esi, 1; _nbits\ncall    zgfx_GetBits",
+   "loc_1875": "mov     rax, [rbp+zgfx]\ncmp     dword ptr [rax+18h], 1\njnz     loc_18A8",
+   "loc_1883": "mov     eax, [rbp+count]\nshl     eax, 1\nmov     [rbp+count], eax\nmov     eax, [rbp+extra]\nadd     eax, 1\nmov     [rbp+extra], eax\nmov     rdi, [rbp+zgfx]; _zgfx\nmov     esi, 1; _nbits\ncall    zgfx_GetBits\njmp     loc_1875",
+   "loc_18A8": "mov     rdi, [rbp+zgfx]; _zgfx\nmov     esi, [rbp+extra]; _nbits\ncall    zgfx_GetBits\nmov     rax, [rbp+zgfx]\nmov     eax, [rax+18h]\nadd     eax, [rbp+count]\nmov     [rbp+count], eax",
+   "loc_18C1": "mov     rdi, [rbp+zgfx]; zgfx\nmov     esi, [rbp+distance]; offset\nmov     rdx, [rbp+zgfx]\nadd     rdx, 28h ; '('\nmov     rax, [rbp+zgfx]\nmov     eax, [rax+10028h]\nadd     rdx, rax; dst\nmov     ecx, [rbp+count]; count\ncall    zgfx_history_buffer_ring_read\nmov     rdi, [rbp+zgfx]; zgfx\nmov     rsi, [rbp+zgfx]\nadd     rsi, 28h ; '('\nmov     rax, [rbp+zgfx]\nmov     eax, [rax+10028h]\nadd     rsi, rax; src\nmov     eax, [rbp+count]\nmov     edx, eax; count\ncall    zgfx_history_buffer_ring_write\nmov     ecx, [rbp+count]\nmov     rax, [rbp+zgfx]\nadd     ecx, [rax+10028h]\nmov     [rax+10028h], ecx\njmp     loc_19D7",
+   "loc_1920": "mov     rdi, [rbp+zgfx]; _zgfx\nmov     esi, 0Fh; _nbits\ncall    zgfx_GetBits\nmov     rax, [rbp+zgfx]\nmov     eax, [rax+18h]\nmov     [rbp+count], eax\nmov     rax, [rbp+zgfx]\nmov     edx, [rax+24h]\nmov     rax, [rbp+zgfx]\nmov     ecx, [rax+1Ch]\nsub     ecx, edx\nmov     [rax+1Ch], ecx\nmov     rax, [rbp+zgfx]\nmov     dword ptr [rax+24h], 0\nmov     rax, [rbp+zgfx]\nmov     dword ptr [rax+20h], 0\nmov     rdi, [rbp+zgfx]\nadd     rdi, 28h ; '('\nmov     rax, [rbp+zgfx]\nmov     eax, [rax+10028h]\nadd     rdi, rax; dest\nmov     rax, [rbp+zgfx]\nmov     rsi, [rax+8]; src\nmov     eax, [rbp+count]\nmov     edx, eax; n\ncall    memcpy\nmov     rdi, [rbp+zgfx]; zgfx\nmov     rax, [rbp+zgfx]\nmov     rsi, [rax+8]; src\nmov     eax, [rbp+count]\nmov     edx, eax; count\ncall    zgfx_history_buffer_ring_write\nmov     edx, [rbp+count]\nmov     rax, [rbp+zgfx]\nmov     rcx, [rax+8]\nmov     edx, edx\nadd     rcx, rdx\nmov     [rax+8], rcx\nmov     edx, [rbp+count]\nshl     edx, 3\nmov     rax, [rbp+zgfx]\nmov     ecx, [rax+1Ch]\nsub     ecx, edx\nmov     [rax+1Ch], ecx\nmov     ecx, [rbp+count]\nmov     rax, [rbp+zgfx]\nadd     ecx, [rax+10028h]\nmov     [rax+10028h], ecx",
+   "loc_19D7": "jmp     $+5",
+   "loc_19DC": "jmp     loc_19F4",
+   "loc_19E1": "jmp     $+5",
+   "loc_19E6": "mov     eax, [rbp+opIndex]\nadd     eax, 1\nmov     [rbp+opIndex], eax\njmp     loc_169A",
+   "loc_19F4": "jmp     loc_1677",
+   "loc_19F9": "mov     [rbp+var_4], 1",
+   "loc_1A00": "mov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "cbSegment": "qword ptr -50h",
+   "pbSegment": "qword ptr -48h",
+   "distance": "dword ptr -3Ch",
+   "count": "dword ptr -38h",
+   "inPrefix": "dword ptr -34h",
+   "haveBits": "dword ptr -30h",
+   "opIndex": "dword ptr -2Ch",
+   "extra": "dword ptr -28h",
+   "flags": "byte ptr -22h",
+   "c": "byte ptr -21h",
+   "segmentSize": "qword ptr -20h",
+   "stream": "qword ptr -18h",
+   "zgfx": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "ZGFX_TOKEN_TABLE": "byte 1"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5424,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868445
+ }
+}

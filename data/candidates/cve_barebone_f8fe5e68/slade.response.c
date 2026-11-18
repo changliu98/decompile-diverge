@@ -1,0 +1,1 @@
+int imcb_file_send_start(struct imcb *imcb, struct vnode *vp, struct ucred *cred, struct thread *td) { struct file *fp = imcb->imcb_file; struct imcb_node *node; node = bee_user_by_handle(fp, imcb, vp); return fp->f_ops->file_send_start ? fp->f_ops->file_send_start(fp, node, cred, td) : 0; }

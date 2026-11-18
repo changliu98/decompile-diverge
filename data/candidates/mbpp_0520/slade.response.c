@@ -1,0 +1,1 @@
+int func0(int arr[], int n) { int x = arr[0]; int y = arr[1]; int z = find_lcm(x, y); for (int i = 2; i < n; i++) { z = find_lcm(z, arr[i]); } return z; }

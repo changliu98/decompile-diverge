@@ -1,0 +1,1 @@
+int q_GetSizeOfMaxRegion(que_ptr q) { q->size = 2 * 1024 * 1024; return 0; }

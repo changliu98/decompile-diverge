@@ -1,0 +1,1 @@
+__attribute__((no, noclone)) int func0 (int N) { int i, j; if (N <= 0) return 0; if (N == 1) return 1; for (i = 18, j = 2; j < N; i++) i *= 10; return i; }

@@ -1,0 +1,681 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 80h\nmov     [rbp+dest], rdi\nmov     [rbp+src], rsi\nmov     [rbp+src_length], rdx\nmov     [rbp+insert], rcx\nmov     [rbp+need_slash], 0\nmov     [rbp+suffix_length], 63h ; 'c'\ncmp     [rbp+insert], 0\njnz     loc_1422\nmov     [rbp+insert_length], 0\njmp     loc_1433\nmov     rdi, [rbp+insert]; s\ncall    strlen\nadd     rax, 2\nmov     [rbp+insert_length], rax\ncmp     [rbp+src_length], 64h ; 'd'\njnb     loc_1473\ncmp     [rbp+insert], 0\njnz     loc_1473\nmov     rdi, [rbp+dest]; dest\nmov     rsi, [rbp+src]; src\nmov     rdx, [rbp+src_length]; n\ncall    strncpy\nmov     rax, [rbp+dest]\nmov     rcx, [rbp+src_length]\nmov     byte ptr [rax+rcx], 0\nmov     rax, [rbp+dest]\nmov     [rbp+var_8], rax\njmp     loc_1844\nmov     rax, [rbp+src]\nadd     rax, [rbp+src_length]\nmov     [rbp+filename_end], rax\nmov     rax, [rbp+filename_end]\ncmp     rax, [rbp+src]\njbe     loc_14B6\nmov     rax, [rbp+filename_end]\nmovsx   eax, byte ptr [rax-1]\ncmp     eax, 2Fh ; '/'\njnz     loc_14B6\nmov     rax, [rbp+filename_end]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+filename_end], rax\nmov     [rbp+need_slash], 1\njmp     loc_147F\nmov     rax, [rbp+filename_end]\nmov     rcx, [rbp+src]\nadd     rcx, 1\ncmp     rax, rcx\njbe     loc_1505\nmov     rax, [rbp+filename_end]\nmovsx   eax, byte ptr [rax-1]\ncmp     eax, 2Eh ; '.'\njnz     loc_1505\nmov     rax, [rbp+filename_end]\nmovsx   eax, byte ptr [rax-2]\ncmp     eax, 2Fh ; '/'\njnz     loc_1505\nmov     rax, [rbp+filename_end]\nadd     rax, 0FFFFFFFFFFFFFFFEh\nmov     [rbp+filename_end], rax\nmov     [rbp+need_slash], 1\njmp     loc_147F\njmp     $+5\ncmp     [rbp+need_slash], 0\njz      loc_1520\nmov     rax, [rbp+suffix_length]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+suffix_length], rax\nmov     rax, [rbp+filename_end]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+filename], rax\nmov     rcx, [rbp+filename]\nxor     eax, eax\ncmp     rcx, [rbp+src]\nmov     [rbp+var_79], al\njbe     loc_154F\nmov     rax, [rbp+filename]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 2Fh ; '/'\nsetnz   al\nmov     [rbp+var_79], al\nmov     al, [rbp+var_79]\ntest    al, 1\njnz     loc_155F\njmp     loc_1570\nmov     rax, [rbp+filename]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+filename], rax\njmp     loc_152C\nmov     rax, [rbp+filename]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 2Fh ; '/'\njnz     loc_15A1\nmov     rax, [rbp+filename]\nmov     rcx, [rbp+filename_end]\nadd     rcx, 0FFFFFFFFFFFFFFFFh\ncmp     rax, rcx\njnb     loc_15A1\nmov     rax, [rbp+filename]\nadd     rax, 1\nmov     [rbp+filename], rax\nmov     rcx, [rbp+insert_length]\nmov     rax, [rbp+suffix_length]\nsub     rax, rcx\nmov     [rbp+suffix_length], rax\nmov     rax, [rbp+filename_end]\nmov     rcx, [rbp+filename]\nadd     rcx, [rbp+suffix_length]\ncmp     rax, rcx\njbe     loc_15D1\nmov     rax, [rbp+filename]\nadd     rax, [rbp+suffix_length]\nmov     [rbp+filename_end], rax\nmov     rcx, [rbp+filename_end]\nmov     rax, [rbp+filename]\nsub     rcx, rax\nmov     rax, [rbp+suffix_length]\nsub     rax, rcx\nmov     [rbp+suffix_length], rax\nmov     rax, [rbp+src]\nmov     [rbp+prefix], rax\nmov     rax, [rbp+prefix]\nadd     rax, 9Bh\nmov     [rbp+prefix_end], rax\nmov     rax, [rbp+prefix_end]\ncmp     rax, [rbp+filename]\njbe     loc_1613\nmov     rax, [rbp+filename]\nmov     [rbp+prefix_end], rax\njmp     $+5\nmov     rcx, [rbp+prefix_end]\nxor     eax, eax\ncmp     rcx, [rbp+prefix]\nmov     [rbp+var_7A], al\njbe     loc_163B\nmov     rax, [rbp+prefix_end]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 2Fh ; '/'\nsetnz   al\nmov     [rbp+var_7A], al\nmov     al, [rbp+var_7A]\ntest    al, 1\njnz     loc_164B\njmp     loc_165C\nmov     rax, [rbp+prefix_end]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+prefix_end], rax\njmp     loc_1618\nmov     rax, [rbp+prefix_end]\ncmp     rax, [rbp+filename]\njnb     loc_1686\nmov     rax, [rbp+prefix_end]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 2Fh ; '/'\njnz     loc_1686\nmov     rax, [rbp+prefix_end]\nadd     rax, 1\nmov     [rbp+prefix_end], rax\nmov     rax, [rbp+prefix_end]\nmov     [rbp+suffix], rax\nmov     rax, [rbp+suffix]\nadd     rax, [rbp+suffix_length]\nmov     [rbp+suffix_end], rax\nmov     rax, [rbp+suffix_end]\ncmp     rax, [rbp+filename]\njbe     loc_16B0\nmov     rax, [rbp+filename]\nmov     [rbp+suffix_end], rax\nmov     rax, [rbp+suffix_end]\ncmp     rax, [rbp+suffix]\njnb     loc_16C6\nmov     rax, [rbp+suffix]\nmov     [rbp+suffix_end], rax\njmp     $+5\nmov     rcx, [rbp+suffix_end]\nxor     eax, eax\ncmp     rcx, [rbp+suffix]\nmov     [rbp+var_7B], al\njbe     loc_16EE\nmov     rax, [rbp+suffix_end]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 2Fh ; '/'\nsetnz   al\nmov     [rbp+var_7B], al\nmov     al, [rbp+var_7B]\ntest    al, 1\njnz     loc_16FE\njmp     loc_170F\nmov     rax, [rbp+suffix_end]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+suffix_end], rax\njmp     loc_16CB\nmov     rax, [rbp+suffix_end]\ncmp     rax, [rbp+filename]\njnb     loc_1739\nmov     rax, [rbp+suffix_end]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 2Fh ; '/'\njnz     loc_1739\nmov     rax, [rbp+suffix_end]\nadd     rax, 1\nmov     [rbp+suffix_end], rax\nmov     rax, [rbp+dest]\nmov     [rbp+p], rax\nmov     rax, [rbp+prefix_end]\ncmp     rax, [rbp+prefix]\njbe     loc_177A\nmov     rdi, [rbp+p]; dest\nmov     rsi, [rbp+prefix]; src\nmov     rdx, [rbp+prefix_end]\nmov     rax, [rbp+prefix]\nsub     rdx, rax; n\ncall    strncpy\nmov     rax, [rbp+prefix_end]\nmov     rcx, [rbp+prefix]\nsub     rax, rcx\nadd     rax, [rbp+p]\nmov     [rbp+p], rax\nmov     rax, [rbp+suffix_end]\ncmp     rax, [rbp+suffix]\njbe     loc_17B3\nmov     rdi, [rbp+p]; dest\nmov     rsi, [rbp+suffix]; src\nmov     rdx, [rbp+suffix_end]\nmov     rax, [rbp+suffix]\nsub     rdx, rax; n\ncall    strncpy\nmov     rax, [rbp+suffix_end]\nmov     rcx, [rbp+suffix]\nsub     rax, rcx\nadd     rax, [rbp+p]\nmov     [rbp+p], rax\ncmp     [rbp+insert], 0\njz      loc_17EE\nmov     rdi, [rbp+p]; dest\nmov     rsi, [rbp+insert]; src\ncall    strcpy\nmov     rdi, [rbp+insert]; s\ncall    strlen\nadd     rax, [rbp+p]\nmov     [rbp+p], rax\nmov     rax, [rbp+p]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+p], rcx\nmov     byte ptr [rax], 2Fh ; '/'\nmov     rdi, [rbp+p]; dest\nmov     rsi, [rbp+filename]; src\nmov     rdx, [rbp+filename_end]\nmov     rax, [rbp+filename]\nsub     rdx, rax; n\ncall    strncpy\nmov     rax, [rbp+filename_end]\nmov     rcx, [rbp+filename]\nsub     rax, rcx\nadd     rax, [rbp+p]\nmov     [rbp+p], rax\ncmp     [rbp+need_slash], 0\njz      loc_1835\nmov     rax, [rbp+p]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+p], rcx\nmov     byte ptr [rax], 2Fh ; '/'\nmov     rax, [rbp+p]\nmov     byte ptr [rax], 0\nmov     rax, [rbp+dest]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nadd     rsp, 80h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 62,
+  "edges": [
+   [
+    "start",
+    "loc_1415"
+   ],
+   [
+    "start",
+    "loc_1422"
+   ],
+   [
+    "loc_1415",
+    "loc_1433"
+   ],
+   [
+    "loc_1422",
+    "loc_1433"
+   ],
+   [
+    "loc_1433",
+    "loc_143E"
+   ],
+   [
+    "loc_1433",
+    "loc_1473"
+   ],
+   [
+    "loc_143E",
+    "loc_1449"
+   ],
+   [
+    "loc_143E",
+    "loc_1473"
+   ],
+   [
+    "loc_1449",
+    "loc_1844"
+   ],
+   [
+    "loc_1473",
+    "loc_147F"
+   ],
+   [
+    "loc_147F",
+    "loc_148D"
+   ],
+   [
+    "loc_147F",
+    "loc_14B6"
+   ],
+   [
+    "loc_148D",
+    "loc_149E"
+   ],
+   [
+    "loc_148D",
+    "loc_14B6"
+   ],
+   [
+    "loc_149E",
+    "loc_147F"
+   ],
+   [
+    "loc_14B6",
+    "loc_14CB"
+   ],
+   [
+    "loc_14B6",
+    "loc_1505"
+   ],
+   [
+    "loc_14CB",
+    "loc_14DC"
+   ],
+   [
+    "loc_14CB",
+    "loc_1505"
+   ],
+   [
+    "loc_14DC",
+    "loc_14ED"
+   ],
+   [
+    "loc_14DC",
+    "loc_1505"
+   ],
+   [
+    "loc_14ED",
+    "loc_147F"
+   ],
+   [
+    "loc_1505",
+    "loc_150A"
+   ],
+   [
+    "loc_150A",
+    "loc_1514"
+   ],
+   [
+    "loc_150A",
+    "loc_1520"
+   ],
+   [
+    "loc_1514",
+    "loc_1520"
+   ],
+   [
+    "loc_1520",
+    "loc_152C"
+   ],
+   [
+    "loc_152C",
+    "loc_153F"
+   ],
+   [
+    "loc_152C",
+    "loc_154F"
+   ],
+   [
+    "loc_153F",
+    "loc_154F"
+   ],
+   [
+    "loc_154F",
+    "loc_155A"
+   ],
+   [
+    "loc_154F",
+    "loc_155F"
+   ],
+   [
+    "loc_155A",
+    "loc_1570"
+   ],
+   [
+    "loc_155F",
+    "loc_152C"
+   ],
+   [
+    "loc_1570",
+    "loc_1580"
+   ],
+   [
+    "loc_1570",
+    "loc_15A1"
+   ],
+   [
+    "loc_1580",
+    "loc_1595"
+   ],
+   [
+    "loc_1580",
+    "loc_15A1"
+   ],
+   [
+    "loc_1595",
+    "loc_15A1"
+   ],
+   [
+    "loc_15A1",
+    "loc_15C5"
+   ],
+   [
+    "loc_15A1",
+    "loc_15D1"
+   ],
+   [
+    "loc_15C5",
+    "loc_15D1"
+   ],
+   [
+    "loc_15D1",
+    "loc_160B"
+   ],
+   [
+    "loc_15D1",
+    "loc_1613"
+   ],
+   [
+    "loc_160B",
+    "loc_1613"
+   ],
+   [
+    "loc_1613",
+    "loc_1618"
+   ],
+   [
+    "loc_1618",
+    "loc_162B"
+   ],
+   [
+    "loc_1618",
+    "loc_163B"
+   ],
+   [
+    "loc_162B",
+    "loc_163B"
+   ],
+   [
+    "loc_163B",
+    "loc_1646"
+   ],
+   [
+    "loc_163B",
+    "loc_164B"
+   ],
+   [
+    "loc_1646",
+    "loc_165C"
+   ],
+   [
+    "loc_164B",
+    "loc_1618"
+   ],
+   [
+    "loc_165C",
+    "loc_166A"
+   ],
+   [
+    "loc_165C",
+    "loc_1686"
+   ],
+   [
+    "loc_166A",
+    "loc_167A"
+   ],
+   [
+    "loc_166A",
+    "loc_1686"
+   ],
+   [
+    "loc_167A",
+    "loc_1686"
+   ],
+   [
+    "loc_1686",
+    "loc_16A8"
+   ],
+   [
+    "loc_1686",
+    "loc_16B0"
+   ],
+   [
+    "loc_16A8",
+    "loc_16B0"
+   ],
+   [
+    "loc_16B0",
+    "loc_16BE"
+   ],
+   [
+    "loc_16B0",
+    "loc_16C6"
+   ],
+   [
+    "loc_16BE",
+    "loc_16C6"
+   ],
+   [
+    "loc_16C6",
+    "loc_16CB"
+   ],
+   [
+    "loc_16CB",
+    "loc_16DE"
+   ],
+   [
+    "loc_16CB",
+    "loc_16EE"
+   ],
+   [
+    "loc_16DE",
+    "loc_16EE"
+   ],
+   [
+    "loc_16EE",
+    "loc_16F9"
+   ],
+   [
+    "loc_16EE",
+    "loc_16FE"
+   ],
+   [
+    "loc_16F9",
+    "loc_170F"
+   ],
+   [
+    "loc_16FE",
+    "loc_16CB"
+   ],
+   [
+    "loc_170F",
+    "loc_171D"
+   ],
+   [
+    "loc_170F",
+    "loc_1739"
+   ],
+   [
+    "loc_171D",
+    "loc_172D"
+   ],
+   [
+    "loc_171D",
+    "loc_1739"
+   ],
+   [
+    "loc_172D",
+    "loc_1739"
+   ],
+   [
+    "loc_1739",
+    "loc_174F"
+   ],
+   [
+    "loc_1739",
+    "loc_177A"
+   ],
+   [
+    "loc_174F",
+    "loc_177A"
+   ],
+   [
+    "loc_177A",
+    "loc_1788"
+   ],
+   [
+    "loc_177A",
+    "loc_17B3"
+   ],
+   [
+    "loc_1788",
+    "loc_17B3"
+   ],
+   [
+    "loc_17B3",
+    "loc_17BE"
+   ],
+   [
+    "loc_17B3",
+    "loc_17EE"
+   ],
+   [
+    "loc_17BE",
+    "loc_17EE"
+   ],
+   [
+    "loc_17EE",
+    "loc_1823"
+   ],
+   [
+    "loc_17EE",
+    "loc_1835"
+   ],
+   [
+    "loc_1823",
+    "loc_1835"
+   ],
+   [
+    "loc_1835",
+    "loc_1844"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 80h\nmov     [rbp+dest], rdi\nmov     [rbp+src], rsi\nmov     [rbp+src_length], rdx\nmov     [rbp+insert], rcx\nmov     [rbp+need_slash], 0\nmov     [rbp+suffix_length], 63h ; 'c'\ncmp     [rbp+insert], 0\njnz     loc_1422",
+   "loc_1415": "mov     [rbp+insert_length], 0\njmp     loc_1433",
+   "loc_1422": "mov     rdi, [rbp+insert]; s\ncall    strlen\nadd     rax, 2\nmov     [rbp+insert_length], rax",
+   "loc_1433": "cmp     [rbp+src_length], 64h ; 'd'\njnb     loc_1473",
+   "loc_143E": "cmp     [rbp+insert], 0\njnz     loc_1473",
+   "loc_1449": "mov     rdi, [rbp+dest]; dest\nmov     rsi, [rbp+src]; src\nmov     rdx, [rbp+src_length]; n\ncall    strncpy\nmov     rax, [rbp+dest]\nmov     rcx, [rbp+src_length]\nmov     byte ptr [rax+rcx], 0\nmov     rax, [rbp+dest]\nmov     [rbp+var_8], rax\njmp     loc_1844",
+   "loc_1473": "mov     rax, [rbp+src]\nadd     rax, [rbp+src_length]\nmov     [rbp+filename_end], rax",
+   "loc_147F": "mov     rax, [rbp+filename_end]\ncmp     rax, [rbp+src]\njbe     loc_14B6",
+   "loc_148D": "mov     rax, [rbp+filename_end]\nmovsx   eax, byte ptr [rax-1]\ncmp     eax, 2Fh ; '/'\njnz     loc_14B6",
+   "loc_149E": "mov     rax, [rbp+filename_end]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+filename_end], rax\nmov     [rbp+need_slash], 1\njmp     loc_147F",
+   "loc_14B6": "mov     rax, [rbp+filename_end]\nmov     rcx, [rbp+src]\nadd     rcx, 1\ncmp     rax, rcx\njbe     loc_1505",
+   "loc_14CB": "mov     rax, [rbp+filename_end]\nmovsx   eax, byte ptr [rax-1]\ncmp     eax, 2Eh ; '.'\njnz     loc_1505",
+   "loc_14DC": "mov     rax, [rbp+filename_end]\nmovsx   eax, byte ptr [rax-2]\ncmp     eax, 2Fh ; '/'\njnz     loc_1505",
+   "loc_14ED": "mov     rax, [rbp+filename_end]\nadd     rax, 0FFFFFFFFFFFFFFFEh\nmov     [rbp+filename_end], rax\nmov     [rbp+need_slash], 1\njmp     loc_147F",
+   "loc_1505": "jmp     $+5",
+   "loc_150A": "cmp     [rbp+need_slash], 0\njz      loc_1520",
+   "loc_1514": "mov     rax, [rbp+suffix_length]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+suffix_length], rax",
+   "loc_1520": "mov     rax, [rbp+filename_end]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+filename], rax",
+   "loc_152C": "mov     rcx, [rbp+filename]\nxor     eax, eax\ncmp     rcx, [rbp+src]\nmov     [rbp+var_79], al\njbe     loc_154F",
+   "loc_153F": "mov     rax, [rbp+filename]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 2Fh ; '/'\nsetnz   al\nmov     [rbp+var_79], al",
+   "loc_154F": "mov     al, [rbp+var_79]\ntest    al, 1\njnz     loc_155F",
+   "loc_155A": "jmp     loc_1570",
+   "loc_155F": "mov     rax, [rbp+filename]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+filename], rax\njmp     loc_152C",
+   "loc_1570": "mov     rax, [rbp+filename]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 2Fh ; '/'\njnz     loc_15A1",
+   "loc_1580": "mov     rax, [rbp+filename]\nmov     rcx, [rbp+filename_end]\nadd     rcx, 0FFFFFFFFFFFFFFFFh\ncmp     rax, rcx\njnb     loc_15A1",
+   "loc_1595": "mov     rax, [rbp+filename]\nadd     rax, 1\nmov     [rbp+filename], rax",
+   "loc_15A1": "mov     rcx, [rbp+insert_length]\nmov     rax, [rbp+suffix_length]\nsub     rax, rcx\nmov     [rbp+suffix_length], rax\nmov     rax, [rbp+filename_end]\nmov     rcx, [rbp+filename]\nadd     rcx, [rbp+suffix_length]\ncmp     rax, rcx\njbe     loc_15D1",
+   "loc_15C5": "mov     rax, [rbp+filename]\nadd     rax, [rbp+suffix_length]\nmov     [rbp+filename_end], rax",
+   "loc_15D1": "mov     rcx, [rbp+filename_end]\nmov     rax, [rbp+filename]\nsub     rcx, rax\nmov     rax, [rbp+suffix_length]\nsub     rax, rcx\nmov     [rbp+suffix_length], rax\nmov     rax, [rbp+src]\nmov     [rbp+prefix], rax\nmov     rax, [rbp+prefix]\nadd     rax, 9Bh\nmov     [rbp+prefix_end], rax\nmov     rax, [rbp+prefix_end]\ncmp     rax, [rbp+filename]\njbe     loc_1613",
+   "loc_160B": "mov     rax, [rbp+filename]\nmov     [rbp+prefix_end], rax",
+   "loc_1613": "jmp     $+5",
+   "loc_1618": "mov     rcx, [rbp+prefix_end]\nxor     eax, eax\ncmp     rcx, [rbp+prefix]\nmov     [rbp+var_7A], al\njbe     loc_163B",
+   "loc_162B": "mov     rax, [rbp+prefix_end]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 2Fh ; '/'\nsetnz   al\nmov     [rbp+var_7A], al",
+   "loc_163B": "mov     al, [rbp+var_7A]\ntest    al, 1\njnz     loc_164B",
+   "loc_1646": "jmp     loc_165C",
+   "loc_164B": "mov     rax, [rbp+prefix_end]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+prefix_end], rax\njmp     loc_1618",
+   "loc_165C": "mov     rax, [rbp+prefix_end]\ncmp     rax, [rbp+filename]\njnb     loc_1686",
+   "loc_166A": "mov     rax, [rbp+prefix_end]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 2Fh ; '/'\njnz     loc_1686",
+   "loc_167A": "mov     rax, [rbp+prefix_end]\nadd     rax, 1\nmov     [rbp+prefix_end], rax",
+   "loc_1686": "mov     rax, [rbp+prefix_end]\nmov     [rbp+suffix], rax\nmov     rax, [rbp+suffix]\nadd     rax, [rbp+suffix_length]\nmov     [rbp+suffix_end], rax\nmov     rax, [rbp+suffix_end]\ncmp     rax, [rbp+filename]\njbe     loc_16B0",
+   "loc_16A8": "mov     rax, [rbp+filename]\nmov     [rbp+suffix_end], rax",
+   "loc_16B0": "mov     rax, [rbp+suffix_end]\ncmp     rax, [rbp+suffix]\njnb     loc_16C6",
+   "loc_16BE": "mov     rax, [rbp+suffix]\nmov     [rbp+suffix_end], rax",
+   "loc_16C6": "jmp     $+5",
+   "loc_16CB": "mov     rcx, [rbp+suffix_end]\nxor     eax, eax\ncmp     rcx, [rbp+suffix]\nmov     [rbp+var_7B], al\njbe     loc_16EE",
+   "loc_16DE": "mov     rax, [rbp+suffix_end]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 2Fh ; '/'\nsetnz   al\nmov     [rbp+var_7B], al",
+   "loc_16EE": "mov     al, [rbp+var_7B]\ntest    al, 1\njnz     loc_16FE",
+   "loc_16F9": "jmp     loc_170F",
+   "loc_16FE": "mov     rax, [rbp+suffix_end]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+suffix_end], rax\njmp     loc_16CB",
+   "loc_170F": "mov     rax, [rbp+suffix_end]\ncmp     rax, [rbp+filename]\njnb     loc_1739",
+   "loc_171D": "mov     rax, [rbp+suffix_end]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 2Fh ; '/'\njnz     loc_1739",
+   "loc_172D": "mov     rax, [rbp+suffix_end]\nadd     rax, 1\nmov     [rbp+suffix_end], rax",
+   "loc_1739": "mov     rax, [rbp+dest]\nmov     [rbp+p], rax\nmov     rax, [rbp+prefix_end]\ncmp     rax, [rbp+prefix]\njbe     loc_177A",
+   "loc_174F": "mov     rdi, [rbp+p]; dest\nmov     rsi, [rbp+prefix]; src\nmov     rdx, [rbp+prefix_end]\nmov     rax, [rbp+prefix]\nsub     rdx, rax; n\ncall    strncpy\nmov     rax, [rbp+prefix_end]\nmov     rcx, [rbp+prefix]\nsub     rax, rcx\nadd     rax, [rbp+p]\nmov     [rbp+p], rax",
+   "loc_177A": "mov     rax, [rbp+suffix_end]\ncmp     rax, [rbp+suffix]\njbe     loc_17B3",
+   "loc_1788": "mov     rdi, [rbp+p]; dest\nmov     rsi, [rbp+suffix]; src\nmov     rdx, [rbp+suffix_end]\nmov     rax, [rbp+suffix]\nsub     rdx, rax; n\ncall    strncpy\nmov     rax, [rbp+suffix_end]\nmov     rcx, [rbp+suffix]\nsub     rax, rcx\nadd     rax, [rbp+p]\nmov     [rbp+p], rax",
+   "loc_17B3": "cmp     [rbp+insert], 0\njz      loc_17EE",
+   "loc_17BE": "mov     rdi, [rbp+p]; dest\nmov     rsi, [rbp+insert]; src\ncall    strcpy\nmov     rdi, [rbp+insert]; s\ncall    strlen\nadd     rax, [rbp+p]\nmov     [rbp+p], rax\nmov     rax, [rbp+p]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+p], rcx\nmov     byte ptr [rax], 2Fh ; '/'",
+   "loc_17EE": "mov     rdi, [rbp+p]; dest\nmov     rsi, [rbp+filename]; src\nmov     rdx, [rbp+filename_end]\nmov     rax, [rbp+filename]\nsub     rdx, rax; n\ncall    strncpy\nmov     rax, [rbp+filename_end]\nmov     rcx, [rbp+filename]\nsub     rax, rcx\nadd     rax, [rbp+p]\nmov     [rbp+p], rax\ncmp     [rbp+need_slash], 0\njz      loc_1835",
+   "loc_1823": "mov     rax, [rbp+p]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+p], rcx\nmov     byte ptr [rax], 2Fh ; '/'",
+   "loc_1835": "mov     rax, [rbp+p]\nmov     byte ptr [rax], 0\nmov     rax, [rbp+dest]\nmov     [rbp+var_8], rax",
+   "loc_1844": "mov     rax, [rbp+var_8]\nadd     rsp, 80h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_7B": "byte ptr -7Bh",
+   "var_7A": "byte ptr -7Ah",
+   "var_79": "byte ptr -79h",
+   "insert_length": "qword ptr -78h",
+   "suffix_length": "qword ptr -70h",
+   "need_slash": "dword ptr -64h",
+   "p": "qword ptr -60h",
+   "filename_end": "qword ptr -58h",
+   "filename": "qword ptr -50h",
+   "suffix_end": "qword ptr -48h",
+   "suffix": "qword ptr -40h",
+   "prefix_end": "qword ptr -38h",
+   "prefix": "qword ptr -30h",
+   "insert": "qword ptr -28h",
+   "src_length": "qword ptr -20h",
+   "src": "qword ptr -18h",
+   "dest": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5088,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".strncpy": "strncpy",
+  "_strncpy": "strncpy",
+  ".strcpy": "strcpy",
+  "_strcpy": "strcpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".strncpy",
+   ".plt",
+   true,
+   "strncpy"
+  ],
+  [
+   ".strcpy",
+   ".plt",
+   true,
+   "strcpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "printf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868452
+ }
+}

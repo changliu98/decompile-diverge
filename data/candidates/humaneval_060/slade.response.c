@@ -1,0 +1,1 @@
+int func0(int x) { return x * (x + 1) / 2; }

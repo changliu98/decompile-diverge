@@ -1,0 +1,1 @@
+int globlendGB(const unsigned char *D, int *S) {    *S = 0;     return strstr (D, " if (strstr (D, "LOCUS") || strstr (D, "LOCUS") == D) { return 1; } return 0; }

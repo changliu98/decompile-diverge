@@ -1,0 +1,1 @@
+char* stdimpl_strcpy(char* dst,const char* src) { char* d0 = dst; do { char c = *src; *dst = c; src++; dst++; } while (c); return d0; }

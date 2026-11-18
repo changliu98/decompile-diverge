@@ -1,0 +1,1 @@
+char* trim(char* s, char* t) { if (s == NULL) return s; char * end = strchr(s, 0); while (end >= s && index(t, *end)) { *end = 0; end--; } return s; }

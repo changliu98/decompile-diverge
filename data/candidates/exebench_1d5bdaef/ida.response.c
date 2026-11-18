@@ -1,0 +1,6 @@
+int __cdecl foo(float *dists, int k)
+{
+  if ( *dists > 0.0 != dists[1] > 0.0 )
+    return 0;
+  return k;
+}

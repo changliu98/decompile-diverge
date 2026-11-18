@@ -1,0 +1,1 @@
+void SN_set_residual(double *x, double y) { *x = y; }

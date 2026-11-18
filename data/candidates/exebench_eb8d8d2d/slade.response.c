@@ -1,0 +1,1 @@
+void algogas(TipoNodoAVL *raiz, double algo) { raiz->x += algo; return ; }

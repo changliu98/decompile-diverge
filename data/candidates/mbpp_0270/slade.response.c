@@ -1,0 +1,1 @@
+__attribute__((no, noclone)) int func0(int *array, int len) { int sum = 0; for (int i = 0; i < len; i += 2) { if ((array[i] % 2) == 0) sum += array[i]; } return sum; }

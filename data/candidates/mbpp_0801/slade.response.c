@@ -1,0 +1,1 @@
+int func0(int x, int y, int z) { int arr[3] = {x, y, z, 0}; int flag = 0; int i; int j; int is[4] = {0, 0, 0}; for (i = 0; i < 3; i++) { j = 0; for (j = 0; j < i; j++) { if (arr[j] == arr[i]) { j = 1; break; } } if (j == 0) flag += 1; } if (flag == 3) return 0; return 4 - flag; }

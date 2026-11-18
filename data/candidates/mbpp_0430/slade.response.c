@@ -1,0 +1,1 @@
+__attribute__((const, overloadable)) T2 func0(T a, T b, T c) { T v = c - 4 * a * (b * b + 1); return v; }

@@ -1,0 +1,1 @@
+void ee_readn(ee_int_t n,ee_byte_t* buf) { if (n>128) buf[0]=0x234; else { buf[0]=0x00; buf[1]=(n+24)<<8; } return ; }

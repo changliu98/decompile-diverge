@@ -1,0 +1,1 @@
+void decipher(uint32_t * c, uint32_t * k) { uint32_t c0 = c[0]; uint32_t c1 = c[1]; uint32_t i, k0, k1; k0 =0x9e3779b9; k1 =0x9e3779b9 + (k0 * 3); for (i = 0; i < 31; i++) { c1 -= ((c0 * 3) ^ (c0 >> 5)) + c0; k1 -= k0; c0 -= ((c1 * 3) ^ (c1 >> 5)) + c1; c0 -= ((c1 * 3) ^ (c1 + c0 * 3)) + k1; } c[0] = c0; c[1] = c1; }

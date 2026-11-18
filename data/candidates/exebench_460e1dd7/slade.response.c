@@ -1,0 +1,1 @@
+void BinaryFiles__swap_bytes32(struct BinaryFiles *bf) { uint64_t swap = ((bf->type &0x000000FF) << 24) + ((bf->type &0x0000FF00) << 8) + ((bf->type &0x00FF0000) >> 8) + ((bf->type &0xFF000000) >> 24); bf->type = swap; }

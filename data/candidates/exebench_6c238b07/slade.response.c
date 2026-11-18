@@ -1,0 +1,1 @@
+int genx(unsigned char *out, unsigned char *key) { int i, j, k; short buf[256]; k = 0; for (j = 0; j < 256; j++) buf[j] = 255; for (j = 0; j < 256; j++) { int ch; ch = key[j]; k = buf[ch]; if (k != -1) k = 1; else buf[ch] = j; } for (j = 0; j < 256; j++) out[j] = buf[j]; if (!k) return 0; return -1; }

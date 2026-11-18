@@ -1,0 +1,1 @@
+void mult(int a, int b, int c, int d, int *r, int *t) { *r = a * c; *t = b * d; }

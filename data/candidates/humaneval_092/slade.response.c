@@ -1,0 +1,1 @@
+int func0(float x, float y, float z) { if (roundf(x) != x) return 0; while (1) { if (roundf(y) != y) return 0; if (roundf(z) != z) return 0; if ((x+y) != z) if ((x+z) == y) break; if ((x+z) == x) return 1; } return 0; }

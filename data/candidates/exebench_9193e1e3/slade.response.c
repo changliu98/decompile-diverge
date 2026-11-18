@@ -1,0 +1,1 @@
+void clip_coord(struct coord *c, int x, int y) { int cx = c->x; cx = ((x) > (cx) ? (x) : (cx)); cx = ((y) < (cx) ? (y) : (cx)); c->x = cx; }

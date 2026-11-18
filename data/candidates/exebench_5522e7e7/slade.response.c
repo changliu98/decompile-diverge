@@ -1,0 +1,1 @@
+void cenitPolarCrypt(char *str) { char *pol = "CENITcenit"; char *poldCrypt = "POLARpolarCENITcenit"; for(int i = 0; str[i] != '\0'; i++) { for(int j = 0; pol[j] != '\0'; j++) { if(str[i] == pol[j]) { str[i] = poldCrypt[j]; break; } } } }

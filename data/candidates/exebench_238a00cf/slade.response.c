@@ -1,0 +1,1 @@
+void quad_2_grad(double grad[3], double x[2], double y[2], double z[2]) { grad[0] = x[0] + y[0]*z[0] + y[1]*z[1]; grad[1] = x[1] + y[1]*z[0] + y[2]*z[1]; }

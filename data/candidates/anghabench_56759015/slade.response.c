@@ -1,0 +1,1 @@
+unsigned int dac_convert_reg(unsigned int channel) { return 0x70 + (2 * (channel &0x1)); }

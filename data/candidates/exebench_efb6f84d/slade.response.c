@@ -1,0 +1,1 @@
+int obdRevConvert_2D(float value, uint8_t *target, uint8_t *attr, uint8_t *src, uint8_t *dest) { *target = (uint8_t)((value + 150.0f) / 1.0f); return 1; }

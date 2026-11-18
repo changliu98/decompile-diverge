@@ -1,0 +1,1 @@
+void uint_to_double(double* d, unsigned int* i) { *d = (double) * i; }

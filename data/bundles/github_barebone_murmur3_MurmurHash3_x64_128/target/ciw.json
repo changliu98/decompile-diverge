@@ -1,0 +1,398 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 70h\nmov     [rbp+key], rdi\nmov     [rbp+len], esi\nmov     [rbp+seed], edx\nmov     [rbp+out], rcx\nmov     rax, [rbp+key]\nmov     [rbp+data], rax\nmov     eax, [rbp+len]\nmov     ecx, 10h\ncdq\nidiv    ecx\nmov     [rbp+nblocks], eax\nmov     eax, [rbp+seed]\nmov     [rbp+h1], rax\nmov     eax, [rbp+seed]\nmov     [rbp+h2], rax\nmov     rax, 87C37B91114253D5h\nmov     [rbp+c1], rax\nmov     rax, 4CF5AD432745937Fh\nmov     [rbp+c2], rax\nmov     rax, [rbp+data]\nmov     [rbp+blocks], rax\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+nblocks]\njge     loc_2105\nmov     rax, [rbp+blocks]\nmov     ecx, [rbp+i]\nshl     ecx, 1\nadd     ecx, 0\nmovsxd  rcx, ecx\nmov     rax, [rax+rcx*8]\nmov     [rbp+k1_1], rax\nmov     rax, [rbp+blocks]\nmov     ecx, [rbp+i]\nshl     ecx, 1\nadd     ecx, 1\nmovsxd  rcx, ecx\nmov     rax, [rax+rcx*8]\nmov     [rbp+k2_1], rax\nmov     rax, [rbp+c1]\nimul    rax, [rbp+k1_1]\nmov     [rbp+k1_1], rax\nmov     rax, [rbp+k1_1]\nmov     [rbp+var_18], rax\nmov     [rbp+var_19], 1Fh\nmov     rax, [rbp+var_18]\nmovsx   ecx, [rbp+var_19]\nmov     ecx, ecx\nshl     rax, cl\nmov     rdx, [rbp+var_18]\nmovsx   esi, [rbp+var_19]\nmov     ecx, 40h ; '@'\nsub     ecx, esi\nmov     ecx, ecx\nshr     rdx, cl\nmov     rcx, rdx\nor      rax, rcx\nmov     [rbp+k1_1], rax\nmov     rax, [rbp+c2]\nimul    rax, [rbp+k1_1]\nmov     [rbp+k1_1], rax\nmov     rax, [rbp+k1_1]\nxor     rax, [rbp+h1]\nmov     [rbp+h1], rax\nmov     rax, [rbp+h1]\nmov     [rbp+var_28], rax\nmov     [rbp+var_29], 1Bh\nmov     rax, [rbp+var_28]\nmovsx   ecx, [rbp+var_29]\nmov     ecx, ecx\nshl     rax, cl\nmov     rdx, [rbp+var_28]\nmovsx   esi, [rbp+var_29]\nmov     ecx, 40h ; '@'\nsub     ecx, esi\nmov     ecx, ecx\nshr     rdx, cl\nmov     rcx, rdx\nor      rax, rcx\nmov     [rbp+h1], rax\nmov     rax, [rbp+h2]\nadd     rax, [rbp+h1]\nmov     [rbp+h1], rax\nimul    rax, [rbp+h1], 5\nadd     rax, 52DCE729h\nmov     [rbp+h1], rax\nmov     rax, [rbp+c2]\nimul    rax, [rbp+k2_1]\nmov     [rbp+k2_1], rax\nmov     rax, [rbp+k2_1]\nmov     [rbp+var_38], rax\nmov     [rbp+var_39], 21h ; '!'\nmov     rax, [rbp+var_38]\nmovsx   ecx, [rbp+var_39]\nmov     ecx, ecx\nshl     rax, cl\nmov     rdx, [rbp+var_38]\nmovsx   esi, [rbp+var_39]\nmov     ecx, 40h ; '@'\nsub     ecx, esi\nmov     ecx, ecx\nshr     rdx, cl\nmov     rcx, rdx\nor      rax, rcx\nmov     [rbp+k2_1], rax\nmov     rax, [rbp+c1]\nimul    rax, [rbp+k2_1]\nmov     [rbp+k2_1], rax\nmov     rax, [rbp+k2_1]\nxor     rax, [rbp+h2]\nmov     [rbp+h2], rax\nmov     rax, [rbp+h2]\nmov     [rbp+var_48], rax\nmov     [rbp+var_49], 1Fh\nmov     rax, [rbp+var_48]\nmovsx   ecx, [rbp+var_49]\nmov     ecx, ecx\nshl     rax, cl\nmov     rdx, [rbp+var_48]\nmovsx   esi, [rbp+var_49]\nmov     ecx, 40h ; '@'\nsub     ecx, esi\nmov     ecx, ecx\nshr     rdx, cl\nmov     rcx, rdx\nor      rax, rcx\nmov     [rbp+h2], rax\nmov     rax, [rbp+h1]\nadd     rax, [rbp+h2]\nmov     [rbp+h2], rax\nimul    rax, [rbp+h2], 5\nadd     rax, 38495AB5h\nmov     [rbp+h2], rax\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1ED3\nmov     rax, [rbp+data]\nmov     ecx, [rbp+nblocks]\nshl     ecx, 4\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+tail], rax\nmov     [rbp+k1_0], 0\nmov     [rbp+k2_0], 0\nmov     eax, [rbp+len]\nand     eax, 0Fh\nadd     eax, 0FFFFFFFFh; switch 15 cases\nmov     ecx, eax\nmov     [rbp+var_F0], rcx\nsub     eax, 0Eh\nja      def_2168; jumptable 0000000000002168 default case\nmov     rax, [rbp+var_F0]\nlea     rcx, jpt_2168\nmovsxd  rax, ds:(jpt_2168 - 3040h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nmov     rax, [rbp+tail]; jumptable 0000000000002168 case 15\nmovzx   eax, byte ptr [rax+0Eh]\nshl     rax, 30h\nxor     rax, [rbp+k2_0]\nmov     [rbp+k2_0], rax\nmov     rax, [rbp+tail]; jumptable 0000000000002168 case 14\nmovzx   eax, byte ptr [rax+0Dh]\nshl     rax, 28h\nxor     rax, [rbp+k2_0]\nmov     [rbp+k2_0], rax\nmov     rax, [rbp+tail]; jumptable 0000000000002168 case 13\nmovzx   eax, byte ptr [rax+0Ch]\nshl     rax, 20h\nxor     rax, [rbp+k2_0]\nmov     [rbp+k2_0], rax\nmov     rax, [rbp+tail]; jumptable 0000000000002168 case 12\nmovzx   eax, byte ptr [rax+0Bh]\nshl     rax, 18h\nxor     rax, [rbp+k2_0]\nmov     [rbp+k2_0], rax\nmov     rax, [rbp+tail]; jumptable 0000000000002168 case 11\nmovzx   eax, byte ptr [rax+0Ah]\nshl     rax, 10h\nxor     rax, [rbp+k2_0]\nmov     [rbp+k2_0], rax\nmov     rax, [rbp+tail]; jumptable 0000000000002168 case 10\nmovzx   eax, byte ptr [rax+9]\nshl     rax, 8\nxor     rax, [rbp+k2_0]\nmov     [rbp+k2_0], rax\nmov     rax, [rbp+tail]; jumptable 0000000000002168 case 9\nmovzx   eax, byte ptr [rax+8]\nshl     rax, 0\nxor     rax, [rbp+k2_0]\nmov     [rbp+k2_0], rax\nmov     rax, [rbp+c2]\nimul    rax, [rbp+k2_0]\nmov     [rbp+k2_0], rax\nmov     rax, [rbp+k2_0]\nmov     [rbp+var_58], rax\nmov     [rbp+var_59], 21h ; '!'\nmov     rax, [rbp+var_58]\nmovsx   ecx, [rbp+var_59]\nmov     ecx, ecx\nshl     rax, cl\nmov     rdx, [rbp+var_58]\nmovsx   esi, [rbp+var_59]\nmov     ecx, 40h ; '@'\nsub     ecx, esi\nmov     ecx, ecx\nshr     rdx, cl\nmov     rcx, rdx\nor      rax, rcx\nmov     [rbp+k2_0], rax\nmov     rax, [rbp+c1]\nimul    rax, [rbp+k2_0]\nmov     [rbp+k2_0], rax\nmov     rax, [rbp+k2_0]\nxor     rax, [rbp+h2]\nmov     [rbp+h2], rax\nmov     rax, [rbp+tail]; jumptable 0000000000002168 case 8\nmovzx   eax, byte ptr [rax+7]\nshl     rax, 38h\nxor     rax, [rbp+k1_0]\nmov     [rbp+k1_0], rax\nmov     rax, [rbp+tail]; jumptable 0000000000002168 case 7\nmovzx   eax, byte ptr [rax+6]\nshl     rax, 30h\nxor     rax, [rbp+k1_0]\nmov     [rbp+k1_0], rax\nmov     rax, [rbp+tail]; jumptable 0000000000002168 case 6\nmovzx   eax, byte ptr [rax+5]\nshl     rax, 28h\nxor     rax, [rbp+k1_0]\nmov     [rbp+k1_0], rax\nmov     rax, [rbp+tail]; jumptable 0000000000002168 case 5\nmovzx   eax, byte ptr [rax+4]\nshl     rax, 20h\nxor     rax, [rbp+k1_0]\nmov     [rbp+k1_0], rax\nmov     rax, [rbp+tail]; jumptable 0000000000002168 case 4\nmovzx   eax, byte ptr [rax+3]\nshl     rax, 18h\nxor     rax, [rbp+k1_0]\nmov     [rbp+k1_0], rax\nmov     rax, [rbp+tail]; jumptable 0000000000002168 case 3\nmovzx   eax, byte ptr [rax+2]\nshl     rax, 10h\nxor     rax, [rbp+k1_0]\nmov     [rbp+k1_0], rax\nmov     rax, [rbp+tail]; jumptable 0000000000002168 case 2\nmovzx   eax, byte ptr [rax+1]\nshl     rax, 8\nxor     rax, [rbp+k1_0]\nmov     [rbp+k1_0], rax\nmov     rax, [rbp+tail]; jumptable 0000000000002168 case 1\nmovzx   eax, byte ptr [rax]\nshl     rax, 0\nxor     rax, [rbp+k1_0]\nmov     [rbp+k1_0], rax\nmov     rax, [rbp+c1]\nimul    rax, [rbp+k1_0]\nmov     [rbp+k1_0], rax\nmov     rax, [rbp+k1_0]\nmov     [rbp+var_68], rax\nmov     [rbp+var_69], 1Fh\nmov     rax, [rbp+var_68]\nmovsx   ecx, [rbp+var_69]\nmov     ecx, ecx\nshl     rax, cl\nmov     rdx, [rbp+var_68]\nmovsx   esi, [rbp+var_69]\nmov     ecx, 40h ; '@'\nsub     ecx, esi\nmov     ecx, ecx\nshr     rdx, cl\nmov     rcx, rdx\nor      rax, rcx\nmov     [rbp+k1_0], rax\nmov     rax, [rbp+c2]\nimul    rax, [rbp+k1_0]\nmov     [rbp+k1_0], rax\nmov     rax, [rbp+k1_0]\nxor     rax, [rbp+h1]\nmov     [rbp+h1], rax\nmovsxd  rax, [rbp+len]; jumptable 0000000000002168 default case\nxor     rax, [rbp+h1]\nmov     [rbp+h1], rax\nmovsxd  rax, [rbp+len]\nxor     rax, [rbp+h2]\nmov     [rbp+h2], rax\nmov     rax, [rbp+h2]\nadd     rax, [rbp+h1]\nmov     [rbp+h1], rax\nmov     rax, [rbp+h1]\nadd     rax, [rbp+h2]\nmov     [rbp+h2], rax\nmov     rax, [rbp+h1]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nshr     rax, 21h\nxor     rax, [rbp+var_8]\nmov     [rbp+var_8], rax\nmov     rax, 0FF51AFD7ED558CCDh\nimul    rax, [rbp+var_8]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nshr     rax, 21h\nxor     rax, [rbp+var_8]\nmov     [rbp+var_8], rax\nmov     rax, 0C4CEB9FE1A85EC53h\nimul    rax, [rbp+var_8]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nshr     rax, 21h\nxor     rax, [rbp+var_8]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nmov     [rbp+h1], rax\nmov     rax, [rbp+h2]\nmov     [rbp+var_10], rax\nmov     rax, [rbp+var_10]\nshr     rax, 21h\nxor     rax, [rbp+var_10]\nmov     [rbp+var_10], rax\nmov     rax, 0FF51AFD7ED558CCDh\nimul    rax, [rbp+var_10]\nmov     [rbp+var_10], rax\nmov     rax, [rbp+var_10]\nshr     rax, 21h\nxor     rax, [rbp+var_10]\nmov     [rbp+var_10], rax\nmov     rax, 0C4CEB9FE1A85EC53h\nimul    rax, [rbp+var_10]\nmov     [rbp+var_10], rax\nmov     rax, [rbp+var_10]\nshr     rax, 21h\nxor     rax, [rbp+var_10]\nmov     [rbp+var_10], rax\nmov     rax, [rbp+var_10]\nmov     [rbp+h2], rax\nmov     rax, [rbp+h2]\nadd     rax, [rbp+h1]\nmov     [rbp+h1], rax\nmov     rax, [rbp+h1]\nadd     rax, [rbp+h2]\nmov     [rbp+h2], rax\nmov     rcx, [rbp+h1]\nmov     rax, [rbp+out]\nmov     [rax], rcx\nmov     rcx, [rbp+h2]\nmov     rax, [rbp+out]\nmov     [rax+8], rcx\nadd     rsp, 70h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 21,
+  "edges": [
+   [
+    "start",
+    "loc_1ED3"
+   ],
+   [
+    "loc_1ED3",
+    "loc_1EE5"
+   ],
+   [
+    "loc_1ED3",
+    "loc_2105"
+   ],
+   [
+    "loc_1EE5",
+    "loc_1ED3"
+   ],
+   [
+    "loc_2105",
+    "loc_2153"
+   ],
+   [
+    "loc_2105",
+    "loc_2418"
+   ],
+   [
+    "loc_2153",
+    "loc_216A"
+   ],
+   [
+    "loc_2153",
+    "loc_2187"
+   ],
+   [
+    "loc_2153",
+    "loc_21A4"
+   ],
+   [
+    "loc_2153",
+    "loc_21C1"
+   ],
+   [
+    "loc_2153",
+    "loc_21DE"
+   ],
+   [
+    "loc_2153",
+    "loc_21FB"
+   ],
+   [
+    "loc_2153",
+    "loc_2218"
+   ],
+   [
+    "loc_2153",
+    "loc_22B3"
+   ],
+   [
+    "loc_2153",
+    "loc_22D0"
+   ],
+   [
+    "loc_2153",
+    "loc_22ED"
+   ],
+   [
+    "loc_2153",
+    "loc_230A"
+   ],
+   [
+    "loc_2153",
+    "loc_2327"
+   ],
+   [
+    "loc_2153",
+    "loc_2344"
+   ],
+   [
+    "loc_2153",
+    "loc_2361"
+   ],
+   [
+    "loc_2153",
+    "loc_237E"
+   ],
+   [
+    "loc_216A",
+    "loc_2187"
+   ],
+   [
+    "loc_2187",
+    "loc_21A4"
+   ],
+   [
+    "loc_21A4",
+    "loc_21C1"
+   ],
+   [
+    "loc_21C1",
+    "loc_21DE"
+   ],
+   [
+    "loc_21DE",
+    "loc_21FB"
+   ],
+   [
+    "loc_21FB",
+    "loc_2218"
+   ],
+   [
+    "loc_2218",
+    "loc_22B3"
+   ],
+   [
+    "loc_22B3",
+    "loc_22D0"
+   ],
+   [
+    "loc_22D0",
+    "loc_22ED"
+   ],
+   [
+    "loc_22ED",
+    "loc_230A"
+   ],
+   [
+    "loc_230A",
+    "loc_2327"
+   ],
+   [
+    "loc_2327",
+    "loc_2344"
+   ],
+   [
+    "loc_2344",
+    "loc_2361"
+   ],
+   [
+    "loc_2361",
+    "loc_237E"
+   ],
+   [
+    "loc_237E",
+    "loc_2418"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 70h\nmov     [rbp+key], rdi\nmov     [rbp+len], esi\nmov     [rbp+seed], edx\nmov     [rbp+out], rcx\nmov     rax, [rbp+key]\nmov     [rbp+data], rax\nmov     eax, [rbp+len]\nmov     ecx, 10h\ncdq\nidiv    ecx\nmov     [rbp+nblocks], eax\nmov     eax, [rbp+seed]\nmov     [rbp+h1], rax\nmov     eax, [rbp+seed]\nmov     [rbp+h2], rax\nmov     rax, 87C37B91114253D5h\nmov     [rbp+c1], rax\nmov     rax, 4CF5AD432745937Fh\nmov     [rbp+c2], rax\nmov     rax, [rbp+data]\nmov     [rbp+blocks], rax\nmov     [rbp+i], 0",
+   "loc_1ED3": "mov     eax, [rbp+i]\ncmp     eax, [rbp+nblocks]\njge     loc_2105",
+   "loc_1EE5": "mov     rax, [rbp+blocks]\nmov     ecx, [rbp+i]\nshl     ecx, 1\nadd     ecx, 0\nmovsxd  rcx, ecx\nmov     rax, [rax+rcx*8]\nmov     [rbp+k1_1], rax\nmov     rax, [rbp+blocks]\nmov     ecx, [rbp+i]\nshl     ecx, 1\nadd     ecx, 1\nmovsxd  rcx, ecx\nmov     rax, [rax+rcx*8]\nmov     [rbp+k2_1], rax\nmov     rax, [rbp+c1]\nimul    rax, [rbp+k1_1]\nmov     [rbp+k1_1], rax\nmov     rax, [rbp+k1_1]\nmov     [rbp+var_18], rax\nmov     [rbp+var_19], 1Fh\nmov     rax, [rbp+var_18]\nmovsx   ecx, [rbp+var_19]\nmov     ecx, ecx\nshl     rax, cl\nmov     rdx, [rbp+var_18]\nmovsx   esi, [rbp+var_19]\nmov     ecx, 40h ; '@'\nsub     ecx, esi\nmov     ecx, ecx\nshr     rdx, cl\nmov     rcx, rdx\nor      rax, rcx\nmov     [rbp+k1_1], rax\nmov     rax, [rbp+c2]\nimul    rax, [rbp+k1_1]\nmov     [rbp+k1_1], rax\nmov     rax, [rbp+k1_1]\nxor     rax, [rbp+h1]\nmov     [rbp+h1], rax\nmov     rax, [rbp+h1]\nmov     [rbp+var_28], rax\nmov     [rbp+var_29], 1Bh\nmov     rax, [rbp+var_28]\nmovsx   ecx, [rbp+var_29]\nmov     ecx, ecx\nshl     rax, cl\nmov     rdx, [rbp+var_28]\nmovsx   esi, [rbp+var_29]\nmov     ecx, 40h ; '@'\nsub     ecx, esi\nmov     ecx, ecx\nshr     rdx, cl\nmov     rcx, rdx\nor      rax, rcx\nmov     [rbp+h1], rax\nmov     rax, [rbp+h2]\nadd     rax, [rbp+h1]\nmov     [rbp+h1], rax\nimul    rax, [rbp+h1], 5\nadd     rax, 52DCE729h\nmov     [rbp+h1], rax\nmov     rax, [rbp+c2]\nimul    rax, [rbp+k2_1]\nmov     [rbp+k2_1], rax\nmov     rax, [rbp+k2_1]\nmov     [rbp+var_38], rax\nmov     [rbp+var_39], 21h ; '!'\nmov     rax, [rbp+var_38]\nmovsx   ecx, [rbp+var_39]\nmov     ecx, ecx\nshl     rax, cl\nmov     rdx, [rbp+var_38]\nmovsx   esi, [rbp+var_39]\nmov     ecx, 40h ; '@'\nsub     ecx, esi\nmov     ecx, ecx\nshr     rdx, cl\nmov     rcx, rdx\nor      rax, rcx\nmov     [rbp+k2_1], rax\nmov     rax, [rbp+c1]\nimul    rax, [rbp+k2_1]\nmov     [rbp+k2_1], rax\nmov     rax, [rbp+k2_1]\nxor     rax, [rbp+h2]\nmov     [rbp+h2], rax\nmov     rax, [rbp+h2]\nmov     [rbp+var_48], rax\nmov     [rbp+var_49], 1Fh\nmov     rax, [rbp+var_48]\nmovsx   ecx, [rbp+var_49]\nmov     ecx, ecx\nshl     rax, cl\nmov     rdx, [rbp+var_48]\nmovsx   esi, [rbp+var_49]\nmov     ecx, 40h ; '@'\nsub     ecx, esi\nmov     ecx, ecx\nshr     rdx, cl\nmov     rcx, rdx\nor      rax, rcx\nmov     [rbp+h2], rax\nmov     rax, [rbp+h1]\nadd     rax, [rbp+h2]\nmov     [rbp+h2], rax\nimul    rax, [rbp+h2], 5\nadd     rax, 38495AB5h\nmov     [rbp+h2], rax\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1ED3",
+   "loc_2105": "mov     rax, [rbp+data]\nmov     ecx, [rbp+nblocks]\nshl     ecx, 4\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+tail], rax\nmov     [rbp+k1_0], 0\nmov     [rbp+k2_0], 0\nmov     eax, [rbp+len]\nand     eax, 0Fh\nadd     eax, 0FFFFFFFFh; switch 15 cases\nmov     ecx, eax\nmov     [rbp+var_F0], rcx\nsub     eax, 0Eh\nja      def_2168; jumptable 0000000000002168 default case",
+   "loc_2153": "mov     rax, [rbp+var_F0]\nlea     rcx, jpt_2168\nmovsxd  rax, ds:(jpt_2168 - 3040h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_216A": "mov     rax, [rbp+tail]; jumptable 0000000000002168 case 15\nmovzx   eax, byte ptr [rax+0Eh]\nshl     rax, 30h\nxor     rax, [rbp+k2_0]\nmov     [rbp+k2_0], rax",
+   "loc_2187": "mov     rax, [rbp+tail]; jumptable 0000000000002168 case 14\nmovzx   eax, byte ptr [rax+0Dh]\nshl     rax, 28h\nxor     rax, [rbp+k2_0]\nmov     [rbp+k2_0], rax",
+   "loc_21A4": "mov     rax, [rbp+tail]; jumptable 0000000000002168 case 13\nmovzx   eax, byte ptr [rax+0Ch]\nshl     rax, 20h\nxor     rax, [rbp+k2_0]\nmov     [rbp+k2_0], rax",
+   "loc_21C1": "mov     rax, [rbp+tail]; jumptable 0000000000002168 case 12\nmovzx   eax, byte ptr [rax+0Bh]\nshl     rax, 18h\nxor     rax, [rbp+k2_0]\nmov     [rbp+k2_0], rax",
+   "loc_21DE": "mov     rax, [rbp+tail]; jumptable 0000000000002168 case 11\nmovzx   eax, byte ptr [rax+0Ah]\nshl     rax, 10h\nxor     rax, [rbp+k2_0]\nmov     [rbp+k2_0], rax",
+   "loc_21FB": "mov     rax, [rbp+tail]; jumptable 0000000000002168 case 10\nmovzx   eax, byte ptr [rax+9]\nshl     rax, 8\nxor     rax, [rbp+k2_0]\nmov     [rbp+k2_0], rax",
+   "loc_2218": "mov     rax, [rbp+tail]; jumptable 0000000000002168 case 9\nmovzx   eax, byte ptr [rax+8]\nshl     rax, 0\nxor     rax, [rbp+k2_0]\nmov     [rbp+k2_0], rax\nmov     rax, [rbp+c2]\nimul    rax, [rbp+k2_0]\nmov     [rbp+k2_0], rax\nmov     rax, [rbp+k2_0]\nmov     [rbp+var_58], rax\nmov     [rbp+var_59], 21h ; '!'\nmov     rax, [rbp+var_58]\nmovsx   ecx, [rbp+var_59]\nmov     ecx, ecx\nshl     rax, cl\nmov     rdx, [rbp+var_58]\nmovsx   esi, [rbp+var_59]\nmov     ecx, 40h ; '@'\nsub     ecx, esi\nmov     ecx, ecx\nshr     rdx, cl\nmov     rcx, rdx\nor      rax, rcx\nmov     [rbp+k2_0], rax\nmov     rax, [rbp+c1]\nimul    rax, [rbp+k2_0]\nmov     [rbp+k2_0], rax\nmov     rax, [rbp+k2_0]\nxor     rax, [rbp+h2]\nmov     [rbp+h2], rax",
+   "loc_22B3": "mov     rax, [rbp+tail]; jumptable 0000000000002168 case 8\nmovzx   eax, byte ptr [rax+7]\nshl     rax, 38h\nxor     rax, [rbp+k1_0]\nmov     [rbp+k1_0], rax",
+   "loc_22D0": "mov     rax, [rbp+tail]; jumptable 0000000000002168 case 7\nmovzx   eax, byte ptr [rax+6]\nshl     rax, 30h\nxor     rax, [rbp+k1_0]\nmov     [rbp+k1_0], rax",
+   "loc_22ED": "mov     rax, [rbp+tail]; jumptable 0000000000002168 case 6\nmovzx   eax, byte ptr [rax+5]\nshl     rax, 28h\nxor     rax, [rbp+k1_0]\nmov     [rbp+k1_0], rax",
+   "loc_230A": "mov     rax, [rbp+tail]; jumptable 0000000000002168 case 5\nmovzx   eax, byte ptr [rax+4]\nshl     rax, 20h\nxor     rax, [rbp+k1_0]\nmov     [rbp+k1_0], rax",
+   "loc_2327": "mov     rax, [rbp+tail]; jumptable 0000000000002168 case 4\nmovzx   eax, byte ptr [rax+3]\nshl     rax, 18h\nxor     rax, [rbp+k1_0]\nmov     [rbp+k1_0], rax",
+   "loc_2344": "mov     rax, [rbp+tail]; jumptable 0000000000002168 case 3\nmovzx   eax, byte ptr [rax+2]\nshl     rax, 10h\nxor     rax, [rbp+k1_0]\nmov     [rbp+k1_0], rax",
+   "loc_2361": "mov     rax, [rbp+tail]; jumptable 0000000000002168 case 2\nmovzx   eax, byte ptr [rax+1]\nshl     rax, 8\nxor     rax, [rbp+k1_0]\nmov     [rbp+k1_0], rax",
+   "loc_237E": "mov     rax, [rbp+tail]; jumptable 0000000000002168 case 1\nmovzx   eax, byte ptr [rax]\nshl     rax, 0\nxor     rax, [rbp+k1_0]\nmov     [rbp+k1_0], rax\nmov     rax, [rbp+c1]\nimul    rax, [rbp+k1_0]\nmov     [rbp+k1_0], rax\nmov     rax, [rbp+k1_0]\nmov     [rbp+var_68], rax\nmov     [rbp+var_69], 1Fh\nmov     rax, [rbp+var_68]\nmovsx   ecx, [rbp+var_69]\nmov     ecx, ecx\nshl     rax, cl\nmov     rdx, [rbp+var_68]\nmovsx   esi, [rbp+var_69]\nmov     ecx, 40h ; '@'\nsub     ecx, esi\nmov     ecx, ecx\nshr     rdx, cl\nmov     rcx, rdx\nor      rax, rcx\nmov     [rbp+k1_0], rax\nmov     rax, [rbp+c2]\nimul    rax, [rbp+k1_0]\nmov     [rbp+k1_0], rax\nmov     rax, [rbp+k1_0]\nxor     rax, [rbp+h1]\nmov     [rbp+h1], rax",
+   "loc_2418": "movsxd  rax, [rbp+len]; jumptable 0000000000002168 default case\nxor     rax, [rbp+h1]\nmov     [rbp+h1], rax\nmovsxd  rax, [rbp+len]\nxor     rax, [rbp+h2]\nmov     [rbp+h2], rax\nmov     rax, [rbp+h2]\nadd     rax, [rbp+h1]\nmov     [rbp+h1], rax\nmov     rax, [rbp+h1]\nadd     rax, [rbp+h2]\nmov     [rbp+h2], rax\nmov     rax, [rbp+h1]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nshr     rax, 21h\nxor     rax, [rbp+var_8]\nmov     [rbp+var_8], rax\nmov     rax, 0FF51AFD7ED558CCDh\nimul    rax, [rbp+var_8]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nshr     rax, 21h\nxor     rax, [rbp+var_8]\nmov     [rbp+var_8], rax\nmov     rax, 0C4CEB9FE1A85EC53h\nimul    rax, [rbp+var_8]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nshr     rax, 21h\nxor     rax, [rbp+var_8]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nmov     [rbp+h1], rax\nmov     rax, [rbp+h2]\nmov     [rbp+var_10], rax\nmov     rax, [rbp+var_10]\nshr     rax, 21h\nxor     rax, [rbp+var_10]\nmov     [rbp+var_10], rax\nmov     rax, 0FF51AFD7ED558CCDh\nimul    rax, [rbp+var_10]\nmov     [rbp+var_10], rax\nmov     rax, [rbp+var_10]\nshr     rax, 21h\nxor     rax, [rbp+var_10]\nmov     [rbp+var_10], rax\nmov     rax, 0C4CEB9FE1A85EC53h\nimul    rax, [rbp+var_10]\nmov     [rbp+var_10], rax\nmov     rax, [rbp+var_10]\nshr     rax, 21h\nxor     rax, [rbp+var_10]\nmov     [rbp+var_10], rax\nmov     rax, [rbp+var_10]\nmov     [rbp+h2], rax\nmov     rax, [rbp+h2]\nadd     rax, [rbp+h1]\nmov     [rbp+h1], rax\nmov     rax, [rbp+h1]\nadd     rax, [rbp+h2]\nmov     [rbp+h2], rax\nmov     rcx, [rbp+h1]\nmov     rax, [rbp+out]\nmov     [rax], rcx\nmov     rcx, [rbp+h2]\nmov     rax, [rbp+out]\nmov     [rax+8], rcx\nadd     rsp, 70h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_F0": "qword ptr -0F0h",
+   "k2_0": "qword ptr -0E8h",
+   "k1_0": "qword ptr -0E0h",
+   "tail": "qword ptr -0D8h",
+   "k2_1": "qword ptr -0D0h",
+   "k1_1": "qword ptr -0C8h",
+   "blocks": "qword ptr -0C0h",
+   "c2": "qword ptr -0B8h",
+   "c1": "qword ptr -0B0h",
+   "h2": "qword ptr -0A8h",
+   "h1": "qword ptr -0A0h",
+   "i": "dword ptr -98h",
+   "nblocks": "dword ptr -94h",
+   "data": "qword ptr -90h",
+   "out": "qword ptr -88h",
+   "seed": "dword ptr -80h",
+   "len": "dword ptr -7Ch",
+   "key": "qword ptr -78h",
+   "var_69": "byte ptr -69h",
+   "var_68": "qword ptr -68h",
+   "var_59": "byte ptr -59h",
+   "var_58": "qword ptr -58h",
+   "var_49": "byte ptr -49h",
+   "var_48": "qword ptr -48h",
+   "var_39": "byte ptr -39h",
+   "var_38": "qword ptr -38h",
+   "var_29": "byte ptr -29h",
+   "var_28": "qword ptr -28h",
+   "var_19": "byte ptr -19h",
+   "var_18": "qword ptr -18h",
+   "var_10": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {
+   "jpt_2168": "dword offset loc_237E - 3040h; jump table for switch statement"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 7760,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868533
+ }
+}

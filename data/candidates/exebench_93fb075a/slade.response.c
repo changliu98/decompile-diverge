@@ -1,0 +1,1 @@
+void initializeStatesAndConstants( sampler *stateL, sampler *stateR) { stateL->x = 1.0; stateR->x = 1.0; }

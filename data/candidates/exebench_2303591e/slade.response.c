@@ -1,0 +1,1 @@
+void prod_vet(float v[3], float a[3], float b[3]) { v[2] = a[0]*b[1] - b[0]*a[1]; a[2] = b[0]*b[1] - v[0]*b[1]; b[2] = v[0]*a[1] - a[0]*b[1]; }

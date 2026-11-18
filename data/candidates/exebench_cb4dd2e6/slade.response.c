@@ -1,0 +1,1 @@
+int RGB565toRGB32 (unsigned char *dest_ptr, int dest_pitch, int dest_pitch, int dest_r, int dest_g, int dest_b, int dest_g, int dest_b) { return -1; }

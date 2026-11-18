@@ -1,0 +1,1 @@
+size_t incr(size_t* x, size_t incr) { size_t i = *x; size_t j = i + incr; *x = j; return i; }

@@ -1,0 +1,147 @@
+{
+ "kind": "exebench",
+ "real_deps": "\n\n\n\n\n\n\n\n\n\n\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_47jounmzol.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(char* target, char* source, int n, char* returnv) {\n  json output_json;\n\n  output_json[\"target\"] = target;\n\n  output_json[\"source\"] = source;\n\n  output_json[\"returnv\"] = returnv;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  char* target = strdup(input_json[\"target\"].get<std::string>().c_str());\n  char* source = strdup(input_json[\"source\"].get<std::string>().c_str());\n  int n = input_json[\"n\"];\n  clock_t begin = clock();\n  char* returnv = strncpy2(target, source, n);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(target, source, n, returnv);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "target": "ldsvgz",
+    "source": "bldl",
+    "n": 107
+   },
+   "output": {
+    "returnv": "bldl",
+    "source": "bldl",
+    "target": "bldl"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "target": "ibpsxoivtqxlbvhdeltwufiqiq",
+    "source": "drdyn",
+    "n": 83
+   },
+   "output": {
+    "returnv": "drdyn",
+    "source": "drdyn",
+    "target": "drdyn"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "target": "hxntdkqgcixjaxprqlxlvtens",
+    "source": "qvfwvoemqmg",
+    "n": 57
+   },
+   "output": {
+    "returnv": "qvfwvoemqmg",
+    "source": "qvfwvoemqmg",
+    "target": "qvfwvoemqmg"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "target": "fvnchqvunoqtmxznkdfmjkqyz",
+    "source": "v",
+    "n": 98
+   },
+   "output": {
+    "returnv": "v",
+    "source": "v",
+    "target": "v"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "target": "o",
+    "source": "fwnnckbhw",
+    "n": 80
+   },
+   "output": {
+    "returnv": "fwnnckbhw",
+    "source": "fwnnckbhw",
+    "target": "fwnnckbhw"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "target": "wtpwcmhsshjbog",
+    "source": "sfnuppcblvxlbwzlavpjkxua",
+    "n": 9
+   },
+   "output": {
+    "returnv": "sfnuppcbl",
+    "source": "sfnuppcblvxlbwzlavpjkxua",
+    "target": "sfnuppcbl"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "target": "vxpmevhjorcxeeuwgalu",
+    "source": "sjgn",
+    "n": 29
+   },
+   "output": {
+    "returnv": "sjgn",
+    "source": "sjgn",
+    "target": "sjgn"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "target": "j",
+    "source": "lervsmjrlheestbzoietbthqn",
+    "n": 113
+   },
+   "output": {
+    "returnv": "lervsmjrlheestbzoietbthqn",
+    "source": "lervsmjrlheestbzoietbthqn",
+    "target": "lervsmjrlheestbzoietbthqn"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "target": "xxckkxqtunrsgznqeo",
+    "source": "vvypqqtbnsyveo",
+    "n": 18
+   },
+   "output": {
+    "returnv": "vvypqqtbnsyveo",
+    "source": "vvypqqtbnsyveo",
+    "target": "vvypqqtbnsyveo"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "target": "hsnkgvaazan",
+    "source": "xowxshsyvfszuspwdv",
+    "n": 41
+   },
+   "output": {
+    "returnv": "xowxshsyvfszuspwdv",
+    "source": "xowxshsyvfszuspwdv",
+    "target": "xowxshsyvfszuspwdv"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

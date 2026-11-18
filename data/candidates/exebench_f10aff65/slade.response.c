@@ -1,0 +1,1 @@
+float dot(float *x, float *y, int n) { float result = 0; int i; for (i = 0; i < n; i++) result += x[i] * y[i]; return result; }

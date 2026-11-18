@@ -1,0 +1,1 @@
+char* mystrncpy(char *s1, char *s2, int n) { char *os1; int i; os1 = s1; for (i = 0; i < n && *s2 != '\0'; i++) *s1++ = *s2++; *s1 = '\0'; return os1; }

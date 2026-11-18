@@ -1,0 +1,1 @@
+int SDL_imageFilterClipToRangeMMX(unsigned char *Src, unsigned char *Dest, int rows, unsigned char columns, unsigned char alpha) { return -1; }

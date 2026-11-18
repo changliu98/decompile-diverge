@@ -1,0 +1,1 @@
+void toggle(bool *var) { *var = !*var; }

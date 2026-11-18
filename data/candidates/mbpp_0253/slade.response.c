@@ -1,0 +1,1 @@
+int func0(int32_t *ptr, int n) { int i = 0; int i2 = 0; while (i2 < n) { i++; i2++; } return i; }

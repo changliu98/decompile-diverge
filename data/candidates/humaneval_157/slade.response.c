@@ -1,0 +1,1 @@
+int func0(float x, float y, float z) { if (fabsf(x*x + y*y - z*z) < 0.0001 || fabsf(x*x + z*z - y*y) < 0.0001 || fabsf(y*y - z*z - x*x) < 0.0001) return 1; else return 0; }

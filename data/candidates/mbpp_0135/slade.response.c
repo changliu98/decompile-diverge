@@ -1,0 +1,1 @@
+__attribute__((no))  int func0(int i) { return i * (2 * i - 1); }

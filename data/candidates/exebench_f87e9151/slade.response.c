@@ -1,0 +1,1 @@
+void NearestNeighbor(int *out, float *in, float off, int count) { int i; float d, w; w = in[0] - off; d = w * w; *out = 0; for (i = 1; i < count; i++) { w = in[i] - off; w *= w; if (w < d) { d = w; *out = i; } } }

@@ -1,0 +1,1 @@
+void noise_est(float px, float *py, float lx, float ly, float rx, float ry) { if (px > lx + *py) *py += lx; else if (px < *py + ly) *py += ly; else *py = px; if (*py < rx) *py = rx; if (*py > ry) *py = ry; }

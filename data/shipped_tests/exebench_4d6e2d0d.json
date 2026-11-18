@@ -1,0 +1,137 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <stdio.h>\n\n#include <string.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_5247feohqo.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(char* dst, char* src, char* returnv) {\n  json output_json;\n\n  output_json[\"dst\"] = dst;\n\n  output_json[\"src\"] = src;\n\n  output_json[\"returnv\"] = returnv;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  char* dst = strdup(input_json[\"dst\"].get<std::string>().c_str());\n  char* src = strdup(input_json[\"src\"].get<std::string>().c_str());\n  clock_t begin = clock();\n  char* returnv = str_cpy(dst, src);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(dst, src, returnv);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "dst": "jlvkpxmgugb",
+    "src": "qyvsjdkzr"
+   },
+   "output": {
+    "dst": "qyvsjdkzr",
+    "returnv": "qyvsjdkzr",
+    "src": "qyvsjdkzr"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "dst": "lkbpfqevayhjsyjdnabcaabrbmqc",
+    "src": ""
+   },
+   "output": {
+    "dst": "",
+    "returnv": "",
+    "src": ""
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "dst": "hutszjrtlsnjigzgqehrwsvmfxaurz",
+    "src": "xhu"
+   },
+   "output": {
+    "dst": "xhu",
+    "returnv": "xhu",
+    "src": "xhu"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "dst": "",
+    "src": "wpimbmwrdjeupiadjzpeogz"
+   },
+   "output": {
+    "dst": "wpimbmwrdjeupiadjzpeogz",
+    "returnv": "wpimbmwrdjeupiadjzpeogz",
+    "src": "wpimbmwrdjeupiadjzpeogz"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "dst": "fpwerokelpbejteygxaqi",
+    "src": "nkwwlrelqjbmwnsitpuzpemqgyvwgm"
+   },
+   "output": {
+    "dst": "nkwwlrelqjbmwnsitpuzpemqgyvwgm",
+    "returnv": "nkwwlrelqjbmwnsitpuzpemqgyvwgm",
+    "src": "nkwwlrelqjbmwnsitpuzpemqgyvwgm"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "dst": "mprgnjyoanvibglu",
+    "src": "hfjhdzxbrxsbuettegnfrg"
+   },
+   "output": {
+    "dst": "hfjhdzxbrxsbuettegnfrg",
+    "returnv": "hfjhdzxbrxsbuettegnfrg",
+    "src": "hfjhdzxbrxsbuettegnfrg"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "dst": "dzaiafthdgkqgphxozwsdjp",
+    "src": "kvbfhltboo"
+   },
+   "output": {
+    "dst": "kvbfhltboo",
+    "returnv": "kvbfhltboo",
+    "src": "kvbfhltboo"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "dst": "kuqanypakeruygxyvrjggmbmuobyov",
+    "src": "tltwawvgrmtlhoqlwgdrynkfeu"
+   },
+   "output": {
+    "dst": "tltwawvgrmtlhoqlwgdrynkfeu",
+    "returnv": "tltwawvgrmtlhoqlwgdrynkfeu",
+    "src": "tltwawvgrmtlhoqlwgdrynkfeu"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "dst": "vdmjjwredzqvgvgr",
+    "src": "zvjsrgptivyddjaczytybie"
+   },
+   "output": {
+    "dst": "zvjsrgptivyddjaczytybie",
+    "returnv": "zvjsrgptivyddjaczytybie",
+    "src": "zvjsrgptivyddjaczytybie"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "dst": "ncahd",
+    "src": "fymrjcufztksrnezocsaybqiyoczz"
+   },
+   "output": {
+    "dst": "fymrjcufztksrnezocsaybqiyoczz",
+    "returnv": "fymrjcufztksrnezocsaybqiyoczz",
+    "src": "fymrjcufztksrnezocsaybqiyoczz"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

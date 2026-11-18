@@ -1,0 +1,4 @@
+void update_pointer(int *p) {
+
+  *p = 99;
+}

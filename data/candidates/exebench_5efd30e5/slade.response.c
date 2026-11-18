@@ -1,0 +1,1 @@
+int stringToInt(int *number, const char *string) { for (*number = 0; *string != '\0'; string++) { if (*string < '0' || *string > '9') { return -1; } *number = *number * 10 + *string - '0'; } return 0; }

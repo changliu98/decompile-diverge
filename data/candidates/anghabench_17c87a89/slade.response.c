@@ -1,0 +1,1 @@
+double KernelBessel_Q1(const double x) { double p, q; register long i;  const double Pone[] = { 1.0, 2.0, 3.0, 4.0, 6.0 }; p = Pone[5]; q = Qone[5]; for (i = 4; i >= 0; i--) { p = p * (8.0 / x) + Pone[i]; q = q * (8.0 / x) * (8.0 / x) + Qone[i]; } return (double)(p / q); }

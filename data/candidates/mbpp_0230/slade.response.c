@@ -1,0 +1,1 @@
+char *func0(char *str1, char *str2) { int i, j; i = 0; for (j = 0; str1[j] != '\0'; j++) { if (str1[j] == ' ') { str2[i++] = str2[0]; } else { str2[i++] = str1[j]; } } str2[i] = '\0'; return str2; }

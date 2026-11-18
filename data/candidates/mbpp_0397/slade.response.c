@@ -1,0 +1,1 @@
+int func0(int a, int b, int c) { int ret; if (a > b) { if (a < c) { ret = a; } else if (b > c) { ret = b; } else { ret = c; } } else { if (a > c) { ret = a; } else if (b < c) { ret = b; } else { ret = c; } } return ret; }

@@ -1,0 +1,1 @@
+void r3set(r3_t out, double in) { out[0] = in; out[1] = in; out[2] = in; }

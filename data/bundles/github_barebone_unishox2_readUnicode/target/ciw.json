@@ -1,0 +1,367 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+in], rdi\nmov     [rbp+bit_no_p], rsi\nmov     [rbp+len], edx\nmov     rdi, [rbp+in]; in\nmov     esi, [rbp+len]; len\nmov     rdx, [rbp+bit_no_p]; bit_no_p\nmov     ecx, 5; limit\ncall    getStepCodeIdx\nmov     [rbp+idx], eax\ncmp     [rbp+idx], 63h ; 'c'\njnz     loc_5511\nmov     [rbp+var_4], 7FFFFF63h\njmp     loc_563B\ncmp     [rbp+idx], 5\njnz     loc_5543\nmov     rdi, [rbp+in]; in\nmov     esi, [rbp+len]; len\nmov     rdx, [rbp+bit_no_p]; bit_no_p\nmov     ecx, 4; limit\ncall    getStepCodeIdx\nmov     [rbp+idx], eax\nmov     eax, [rbp+idx]\nadd     eax, 7FFFFF00h\nmov     [rbp+var_4], eax\njmp     loc_563B\ncmp     [rbp+idx], 0\njl      loc_5634\nmov     rax, [rbp+bit_no_p]\nmov     eax, [rax]\ncmp     eax, [rbp+len]\njge     loc_5573\nmov     rdi, [rbp+in]; in\nmov     rax, [rbp+bit_no_p]\nmov     esi, [rax]; bit_no\ncall    readBit\nmov     [rbp+var_2C], eax\njmp     loc_557D\nxor     eax, eax\nmov     [rbp+var_2C], eax\njmp     $+5\nmov     eax, [rbp+var_2C]\nmov     [rbp+sign], eax\nmov     rax, [rbp+bit_no_p]\nmov     ecx, [rax]\nadd     ecx, 1\nmov     [rax], ecx\nmov     rax, [rbp+bit_no_p]\nmov     eax, [rax]\nmovsxd  rdx, [rbp+idx]\nlea     rcx, uni_bit_len\nmovzx   ecx, byte ptr [rcx+rdx]\nadd     eax, ecx\nsub     eax, 1\ncmp     eax, [rbp+len]\njl      loc_55BD\nmov     [rbp+var_4], 7FFFFF63h\njmp     loc_563B\nmov     rdi, [rbp+in]; in\nmov     esi, [rbp+len]; len\nmov     rax, [rbp+bit_no_p]\nmov     edx, [rax]; bit_no\nmovsxd  rcx, [rbp+idx]\nlea     rax, uni_bit_len\nmovzx   ecx, byte ptr [rax+rcx]; count\ncall    getNumFromBits\nmov     [rbp+count], eax\nmovsxd  rcx, [rbp+idx]\nlea     rax, uni_adder\nmov     eax, [rax+rcx*4]\nadd     eax, [rbp+count]\nmov     [rbp+count], eax\nmovsxd  rcx, [rbp+idx]\nlea     rax, uni_bit_len\nmovzx   ecx, byte ptr [rax+rcx]\nmov     rax, [rbp+bit_no_p]\nadd     ecx, [rax]\nmov     [rax], ecx\ncmp     [rbp+sign], 0\njz      loc_5623\nxor     eax, eax\nsub     eax, [rbp+count]\nmov     [rbp+var_30], eax\njmp     loc_5629\nmov     eax, [rbp+count]\nmov     [rbp+var_30], eax\nmov     eax, [rbp+var_30]\nmov     [rbp+var_4], eax\njmp     loc_563B\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 16,
+  "edges": [
+   [
+    "start",
+    "loc_5505"
+   ],
+   [
+    "start",
+    "loc_5511"
+   ],
+   [
+    "loc_5505",
+    "loc_563B"
+   ],
+   [
+    "loc_5511",
+    "loc_551B"
+   ],
+   [
+    "loc_5511",
+    "loc_5543"
+   ],
+   [
+    "loc_551B",
+    "loc_563B"
+   ],
+   [
+    "loc_5543",
+    "loc_554D"
+   ],
+   [
+    "loc_5543",
+    "loc_5634"
+   ],
+   [
+    "loc_554D",
+    "loc_555C"
+   ],
+   [
+    "loc_554D",
+    "loc_5573"
+   ],
+   [
+    "loc_555C",
+    "loc_557D"
+   ],
+   [
+    "loc_5573",
+    "loc_557D"
+   ],
+   [
+    "loc_557D",
+    "loc_55B1"
+   ],
+   [
+    "loc_557D",
+    "loc_55BD"
+   ],
+   [
+    "loc_55B1",
+    "loc_563B"
+   ],
+   [
+    "loc_55BD",
+    "loc_5616"
+   ],
+   [
+    "loc_55BD",
+    "loc_5623"
+   ],
+   [
+    "loc_5616",
+    "loc_5629"
+   ],
+   [
+    "loc_5623",
+    "loc_5629"
+   ],
+   [
+    "loc_5629",
+    "loc_563B"
+   ],
+   [
+    "loc_5634",
+    "loc_563B"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+in], rdi\nmov     [rbp+bit_no_p], rsi\nmov     [rbp+len], edx\nmov     rdi, [rbp+in]; in\nmov     esi, [rbp+len]; len\nmov     rdx, [rbp+bit_no_p]; bit_no_p\nmov     ecx, 5; limit\ncall    getStepCodeIdx\nmov     [rbp+idx], eax\ncmp     [rbp+idx], 63h ; 'c'\njnz     loc_5511",
+   "loc_5505": "mov     [rbp+var_4], 7FFFFF63h\njmp     loc_563B",
+   "loc_5511": "cmp     [rbp+idx], 5\njnz     loc_5543",
+   "loc_551B": "mov     rdi, [rbp+in]; in\nmov     esi, [rbp+len]; len\nmov     rdx, [rbp+bit_no_p]; bit_no_p\nmov     ecx, 4; limit\ncall    getStepCodeIdx\nmov     [rbp+idx], eax\nmov     eax, [rbp+idx]\nadd     eax, 7FFFFF00h\nmov     [rbp+var_4], eax\njmp     loc_563B",
+   "loc_5543": "cmp     [rbp+idx], 0\njl      loc_5634",
+   "loc_554D": "mov     rax, [rbp+bit_no_p]\nmov     eax, [rax]\ncmp     eax, [rbp+len]\njge     loc_5573",
+   "loc_555C": "mov     rdi, [rbp+in]; in\nmov     rax, [rbp+bit_no_p]\nmov     esi, [rax]; bit_no\ncall    readBit\nmov     [rbp+var_2C], eax\njmp     loc_557D",
+   "loc_5573": "xor     eax, eax\nmov     [rbp+var_2C], eax\njmp     $+5",
+   "loc_557D": "mov     eax, [rbp+var_2C]\nmov     [rbp+sign], eax\nmov     rax, [rbp+bit_no_p]\nmov     ecx, [rax]\nadd     ecx, 1\nmov     [rax], ecx\nmov     rax, [rbp+bit_no_p]\nmov     eax, [rax]\nmovsxd  rdx, [rbp+idx]\nlea     rcx, uni_bit_len\nmovzx   ecx, byte ptr [rcx+rdx]\nadd     eax, ecx\nsub     eax, 1\ncmp     eax, [rbp+len]\njl      loc_55BD",
+   "loc_55B1": "mov     [rbp+var_4], 7FFFFF63h\njmp     loc_563B",
+   "loc_55BD": "mov     rdi, [rbp+in]; in\nmov     esi, [rbp+len]; len\nmov     rax, [rbp+bit_no_p]\nmov     edx, [rax]; bit_no\nmovsxd  rcx, [rbp+idx]\nlea     rax, uni_bit_len\nmovzx   ecx, byte ptr [rax+rcx]; count\ncall    getNumFromBits\nmov     [rbp+count], eax\nmovsxd  rcx, [rbp+idx]\nlea     rax, uni_adder\nmov     eax, [rax+rcx*4]\nadd     eax, [rbp+count]\nmov     [rbp+count], eax\nmovsxd  rcx, [rbp+idx]\nlea     rax, uni_bit_len\nmovzx   ecx, byte ptr [rax+rcx]\nmov     rax, [rbp+bit_no_p]\nadd     ecx, [rax]\nmov     [rax], ecx\ncmp     [rbp+sign], 0\njz      loc_5623",
+   "loc_5616": "xor     eax, eax\nsub     eax, [rbp+count]\nmov     [rbp+var_30], eax\njmp     loc_5629",
+   "loc_5623": "mov     eax, [rbp+count]\nmov     [rbp+var_30], eax",
+   "loc_5629": "mov     eax, [rbp+var_30]\nmov     [rbp+var_4], eax\njmp     loc_563B",
+   "loc_5634": "mov     [rbp+var_4], 0",
+   "loc_563B": "mov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_30": "dword ptr -30h",
+   "var_2C": "dword ptr -2Ch",
+   "count": "dword ptr -28h",
+   "sign": "dword ptr -24h",
+   "idx": "dword ptr -20h",
+   "len": "dword ptr -1Ch",
+   "bit_no_p": "qword ptr -18h",
+   "in": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "uni_bit_len": "byte 6",
+   "uni_adder": "byte 0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 21712,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".memcmp": "memcmp",
+  "_memcmp": "memcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".memcmp",
+   ".plt",
+   true,
+   "memcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memmove",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872690
+ }
+}

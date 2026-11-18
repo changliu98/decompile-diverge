@@ -1,0 +1,376 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+avctx], rdi\nmov     [rbp+extradata], rsi\nmov     [rbp+extradata_size], edx\nmov     rax, [rbp+avctx]\nmov     rax, [rax]\nmov     [rbp+s], rax\nmov     rdi, [rbp+extradata]; haystack\nmovsxd  rdx, [rbp+extradata_size]; hay_length\nlea     rsi, needle; \"Speex   \"\ncall    av_strnstr\nmov     [rbp+buf], rax\ncmp     [rbp+buf], 0\njnz     loc_152D\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_172A\nmov     rax, [rbp+buf]\nadd     rax, 1Ch\nmov     [rbp+buf], rax\nlea     rdi, [rbp+buf]; b\ncall    bytestream_get_le32\nmov     ecx, eax\nmov     rax, [rbp+s]\nmov     [rax], ecx\nmov     rax, [rbp+buf]\nadd     rax, 4\nmov     [rbp+buf], rax\nlea     rdi, [rbp+buf]; b\ncall    bytestream_get_le32\nmov     ecx, eax\nmov     rax, [rbp+s]\nmov     [rax+4], ecx\nmov     rax, [rbp+s]\ncmp     dword ptr [rax+4], 0\njg      loc_1582\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_172A\nlea     rdi, [rbp+buf]; b\ncall    bytestream_get_le32\nmov     ecx, eax\nmov     rax, [rbp+s]\nmov     [rax+8], ecx\nmov     rax, [rbp+s]\ncmp     dword ptr [rax+8], 0\njl      loc_15B0\nmov     rax, [rbp+s]\ncmp     dword ptr [rax+8], 3\njl      loc_15BC\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_172A\nlea     rdi, [rbp+buf]; b\ncall    bytestream_get_le32\nmov     ecx, eax\nmov     rax, [rbp+s]\nmov     [rax+0Ch], ecx\nmov     rax, [rbp+s]\ncmp     dword ptr [rax+0Ch], 4\njz      loc_15E8\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_172A\nlea     rdi, [rbp+buf]; b\ncall    bytestream_get_le32\nmov     ecx, eax\nmov     rax, [rbp+s]\nmov     [rax+10h], ecx\nmov     rax, [rbp+s]\ncmp     dword ptr [rax+10h], 0\njle     loc_1616\nmov     rax, [rbp+s]\ncmp     dword ptr [rax+10h], 2\njle     loc_1622\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_172A\nlea     rdi, [rbp+buf]; b\ncall    bytestream_get_le32\nmov     ecx, eax\nmov     rax, [rbp+s]\nmov     [rax+14h], ecx\nlea     rdi, [rbp+buf]; b\ncall    bytestream_get_le32\nmov     ecx, eax\nmov     rax, [rbp+s]\nmov     [rax+18h], ecx\nmov     rax, [rbp+s]\nmov     eax, [rax+18h]\nmov     rcx, [rbp+s]\ncmp     dword ptr [rcx+8], 0\nsetnle  cl\nand     cl, 1\nmovzx   ecx, cl\nmov     edx, 0A0h\nshl     edx, cl\nmov     ecx, edx\ncmp     eax, ecx\njge     loc_167B\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_172A\nmov     rax, [rbp+s]\ncmp     dword ptr [rax+8], 0\nsetnle  al\nand     al, 1\nmovzx   ecx, al\nadd     ecx, 1\nmov     rax, [rbp+s]\nimul    ecx, [rax+18h]\nmov     [rax+18h], ecx\nlea     rdi, [rbp+buf]; b\ncall    bytestream_get_le32\nmov     ecx, eax\nmov     rax, [rbp+s]\nmov     [rax+1Ch], ecx\nlea     rdi, [rbp+buf]; b\ncall    bytestream_get_le32\nmov     ecx, eax\nmov     rax, [rbp+s]\nmov     [rax+20h], ecx\nmov     rax, [rbp+s]\ncmp     dword ptr [rax+20h], 0\njle     loc_1705\nmov     rax, [rbp+s]\ncmp     dword ptr [rax+20h], 40h ; '@'\njg      loc_1705\nmov     rax, [rbp+s]\nmov     eax, [rax+20h]\nmov     [rbp+var_34], eax\nmov     rcx, [rbp+s]\nmov     eax, 7FFFFFFFh\ncdq\nidiv    dword ptr [rcx+10h]\nmov     rcx, [rbp+s]\ncdq\nidiv    dword ptr [rcx+18h]\nmov     ecx, eax\nmov     eax, [rbp+var_34]\ncmp     eax, ecx\njl      loc_1711\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_172A\nlea     rdi, [rbp+buf]; b\ncall    bytestream_get_le32\nmov     ecx, eax\nmov     rax, [rbp+s]\nmov     [rax+24h], ecx\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 20,
+  "edges": [
+   [
+    "start",
+    "loc_1521"
+   ],
+   [
+    "start",
+    "loc_152D"
+   ],
+   [
+    "loc_1521",
+    "loc_172A"
+   ],
+   [
+    "loc_152D",
+    "loc_1576"
+   ],
+   [
+    "loc_152D",
+    "loc_1582"
+   ],
+   [
+    "loc_1576",
+    "loc_172A"
+   ],
+   [
+    "loc_1582",
+    "loc_15A2"
+   ],
+   [
+    "loc_1582",
+    "loc_15B0"
+   ],
+   [
+    "loc_15A2",
+    "loc_15B0"
+   ],
+   [
+    "loc_15A2",
+    "loc_15BC"
+   ],
+   [
+    "loc_15B0",
+    "loc_172A"
+   ],
+   [
+    "loc_15BC",
+    "loc_15DC"
+   ],
+   [
+    "loc_15BC",
+    "loc_15E8"
+   ],
+   [
+    "loc_15DC",
+    "loc_172A"
+   ],
+   [
+    "loc_15E8",
+    "loc_1608"
+   ],
+   [
+    "loc_15E8",
+    "loc_1616"
+   ],
+   [
+    "loc_1608",
+    "loc_1616"
+   ],
+   [
+    "loc_1608",
+    "loc_1622"
+   ],
+   [
+    "loc_1616",
+    "loc_172A"
+   ],
+   [
+    "loc_1622",
+    "loc_166F"
+   ],
+   [
+    "loc_1622",
+    "loc_167B"
+   ],
+   [
+    "loc_166F",
+    "loc_172A"
+   ],
+   [
+    "loc_167B",
+    "loc_16CB"
+   ],
+   [
+    "loc_167B",
+    "loc_1705"
+   ],
+   [
+    "loc_16CB",
+    "loc_16D9"
+   ],
+   [
+    "loc_16CB",
+    "loc_1705"
+   ],
+   [
+    "loc_16D9",
+    "loc_1705"
+   ],
+   [
+    "loc_16D9",
+    "loc_1711"
+   ],
+   [
+    "loc_1705",
+    "loc_172A"
+   ],
+   [
+    "loc_1711",
+    "loc_172A"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+avctx], rdi\nmov     [rbp+extradata], rsi\nmov     [rbp+extradata_size], edx\nmov     rax, [rbp+avctx]\nmov     rax, [rax]\nmov     [rbp+s], rax\nmov     rdi, [rbp+extradata]; haystack\nmovsxd  rdx, [rbp+extradata_size]; hay_length\nlea     rsi, needle; \"Speex   \"\ncall    av_strnstr\nmov     [rbp+buf], rax\ncmp     [rbp+buf], 0\njnz     loc_152D",
+   "loc_1521": "mov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_172A",
+   "loc_152D": "mov     rax, [rbp+buf]\nadd     rax, 1Ch\nmov     [rbp+buf], rax\nlea     rdi, [rbp+buf]; b\ncall    bytestream_get_le32\nmov     ecx, eax\nmov     rax, [rbp+s]\nmov     [rax], ecx\nmov     rax, [rbp+buf]\nadd     rax, 4\nmov     [rbp+buf], rax\nlea     rdi, [rbp+buf]; b\ncall    bytestream_get_le32\nmov     ecx, eax\nmov     rax, [rbp+s]\nmov     [rax+4], ecx\nmov     rax, [rbp+s]\ncmp     dword ptr [rax+4], 0\njg      loc_1582",
+   "loc_1576": "mov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_172A",
+   "loc_1582": "lea     rdi, [rbp+buf]; b\ncall    bytestream_get_le32\nmov     ecx, eax\nmov     rax, [rbp+s]\nmov     [rax+8], ecx\nmov     rax, [rbp+s]\ncmp     dword ptr [rax+8], 0\njl      loc_15B0",
+   "loc_15A2": "mov     rax, [rbp+s]\ncmp     dword ptr [rax+8], 3\njl      loc_15BC",
+   "loc_15B0": "mov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_172A",
+   "loc_15BC": "lea     rdi, [rbp+buf]; b\ncall    bytestream_get_le32\nmov     ecx, eax\nmov     rax, [rbp+s]\nmov     [rax+0Ch], ecx\nmov     rax, [rbp+s]\ncmp     dword ptr [rax+0Ch], 4\njz      loc_15E8",
+   "loc_15DC": "mov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_172A",
+   "loc_15E8": "lea     rdi, [rbp+buf]; b\ncall    bytestream_get_le32\nmov     ecx, eax\nmov     rax, [rbp+s]\nmov     [rax+10h], ecx\nmov     rax, [rbp+s]\ncmp     dword ptr [rax+10h], 0\njle     loc_1616",
+   "loc_1608": "mov     rax, [rbp+s]\ncmp     dword ptr [rax+10h], 2\njle     loc_1622",
+   "loc_1616": "mov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_172A",
+   "loc_1622": "lea     rdi, [rbp+buf]; b\ncall    bytestream_get_le32\nmov     ecx, eax\nmov     rax, [rbp+s]\nmov     [rax+14h], ecx\nlea     rdi, [rbp+buf]; b\ncall    bytestream_get_le32\nmov     ecx, eax\nmov     rax, [rbp+s]\nmov     [rax+18h], ecx\nmov     rax, [rbp+s]\nmov     eax, [rax+18h]\nmov     rcx, [rbp+s]\ncmp     dword ptr [rcx+8], 0\nsetnle  cl\nand     cl, 1\nmovzx   ecx, cl\nmov     edx, 0A0h\nshl     edx, cl\nmov     ecx, edx\ncmp     eax, ecx\njge     loc_167B",
+   "loc_166F": "mov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_172A",
+   "loc_167B": "mov     rax, [rbp+s]\ncmp     dword ptr [rax+8], 0\nsetnle  al\nand     al, 1\nmovzx   ecx, al\nadd     ecx, 1\nmov     rax, [rbp+s]\nimul    ecx, [rax+18h]\nmov     [rax+18h], ecx\nlea     rdi, [rbp+buf]; b\ncall    bytestream_get_le32\nmov     ecx, eax\nmov     rax, [rbp+s]\nmov     [rax+1Ch], ecx\nlea     rdi, [rbp+buf]; b\ncall    bytestream_get_le32\nmov     ecx, eax\nmov     rax, [rbp+s]\nmov     [rax+20h], ecx\nmov     rax, [rbp+s]\ncmp     dword ptr [rax+20h], 0\njle     loc_1705",
+   "loc_16CB": "mov     rax, [rbp+s]\ncmp     dword ptr [rax+20h], 40h ; '@'\njg      loc_1705",
+   "loc_16D9": "mov     rax, [rbp+s]\nmov     eax, [rax+20h]\nmov     [rbp+var_34], eax\nmov     rcx, [rbp+s]\nmov     eax, 7FFFFFFFh\ncdq\nidiv    dword ptr [rcx+10h]\nmov     rcx, [rbp+s]\ncdq\nidiv    dword ptr [rcx+18h]\nmov     ecx, eax\nmov     eax, [rbp+var_34]\ncmp     eax, ecx\njl      loc_1711",
+   "loc_1705": "mov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_172A",
+   "loc_1711": "lea     rdi, [rbp+buf]; b\ncall    bytestream_get_le32\nmov     ecx, eax\nmov     rax, [rbp+s]\nmov     [rax+24h], ecx\nmov     [rbp+var_4], 0",
+   "loc_172A": "mov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_34": "dword ptr -34h",
+   "buf": "qword ptr -30h",
+   "s": "qword ptr -28h",
+   "extradata_size": "dword ptr -1Ch",
+   "extradata": "qword ptr -18h",
+   "avctx": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "needle": "byte 'Speex   ',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5344,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".memcmp": "memcmp",
+  "_memcmp": "memcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".memcmp",
+   ".plt",
+   true,
+   "memcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868469
+ }
+}

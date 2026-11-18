@@ -1,0 +1,1 @@
+unsigned char func0(int *arr, int size, int *values, int n) { unsigned char retval = 1; for (int i = 0; i < n; ++i) { unsigned char flag = 0; for (int j = 0; j < size; ++j) { if (values[i] == arr[j]) { flag = 1; break; } } if (flag ^ 1) { retval = 0; break; } } return retval; }

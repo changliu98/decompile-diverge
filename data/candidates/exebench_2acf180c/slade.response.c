@@ -1,0 +1,1 @@
+void unpackFloat(float f, int *_a, int *_b) { uint32_t u32; u32 = *(uint32_t*)&f; *_a = ((u32 >> 23) &0xFF) - 127; *_b = (u32 &0x007FFFFF) +0x00800000; if (u32 &0x80000000) *_b = -*_b; }

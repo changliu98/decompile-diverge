@@ -1,0 +1,1 @@
+void ref_add_double(double *sum, double a, double b) { *sum = a + b; }

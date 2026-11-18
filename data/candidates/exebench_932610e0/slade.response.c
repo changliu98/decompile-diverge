@@ -1,0 +1,1 @@
+double randlc(double *x, double *y) { long long m = 70368744177663; double c = 1.0; long long xi = *x; long long yi = *y; xi = (xi * yi) & m; double r = c * xi; *x = xi; return r; }

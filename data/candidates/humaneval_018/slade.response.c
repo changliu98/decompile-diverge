@@ -1,0 +1,1 @@
+int func0(char *str1, char *str2) { int count = 0; int len1 = strlen(str1); int len2 = strlen(str2); if (len1 == 0) return 0; for (int i = 0; i <= len1 - len2; i++) { if (!strncmp(str1 + i, str2, len2)) count++; } return count; }

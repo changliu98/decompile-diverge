@@ -1,0 +1,1 @@
+int mt76_incr(int val, int size) { return (val + 1) & (size - 1); }

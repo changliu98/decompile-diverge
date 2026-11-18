@@ -1,0 +1,69 @@
+00000000000019d0 <resize_vbar_entry>:
+    19d0:	push   %rbp
+    19d1:	mov    %rsp,%rbp
+    19d4:	sub    $0x30,%rsp
+    19d8:	mov    %rdi,-0x10(%rbp)
+    19dc:	mov    %rsi,-0x18(%rbp)
+    19e0:	mov    -0x18(%rbp),%rax
+    19e4:	mov    0x4(%rax),%eax
+    19e7:	mov    -0x18(%rbp),%rcx
+    19eb:	cmp    (%rcx),%eax
+    19ed:	jbe    1a91 <resize_vbar_entry+0xc1>
+    19f3:	mov    -0x10(%rbp),%rax
+    19f7:	mov    0x30(%rax),%edi
+    19fa:	call   1ad0 <FreeRDPGetBytesPerPixel>
+    19ff:	mov    %eax,-0x1c(%rbp)
+    1a02:	mov    -0x18(%rbp),%rax
+    1a06:	mov    (%rax),%eax
+    1a08:	imul   -0x1c(%rbp),%eax
+    1a0c:	mov    %eax,-0x20(%rbp)
+    1a0f:	mov    -0x18(%rbp),%rax
+    1a13:	mov    0x4(%rax),%eax
+    1a16:	mov    -0x18(%rbp),%rcx
+    1a1a:	sub    (%rcx),%eax
+    1a1c:	imul   -0x1c(%rbp),%eax
+    1a20:	mov    %eax,-0x24(%rbp)
+    1a23:	mov    -0x18(%rbp),%rax
+    1a27:	mov    0x4(%rax),%ecx
+    1a2a:	mov    -0x18(%rbp),%rax
+    1a2e:	mov    %ecx,(%rax)
+    1a30:	mov    -0x18(%rbp),%rax
+    1a34:	mov    0x8(%rax),%rdi
+    1a38:	mov    -0x18(%rbp),%rax
+    1a3c:	mov    0x4(%rax),%eax
+    1a3f:	mov    %eax,%esi
+    1a41:	mov    -0x1c(%rbp),%eax
+    1a44:	mov    %eax,%edx
+    1a46:	shl    $0x0,%rdx
+    1a4a:	mov    $0x20,%ecx
+    1a4f:	call   11e0 <winpr_aligned_recalloc>
+    1a54:	mov    %rax,-0x30(%rbp)
+    1a58:	cmpq   $0x0,-0x30(%rbp)
+    1a5d:	jne    1a6f <resize_vbar_entry+0x9f>
+    1a63:	movl   $0x0,-0x4(%rbp)
+    1a6a:	jmp    1ac0 <resize_vbar_entry+0xf0>
+    1a6f:	mov    -0x30(%rbp),%rdi
+    1a73:	mov    -0x20(%rbp),%eax
+    1a76:	add    %rax,%rdi
+    1a79:	mov    -0x24(%rbp),%eax
+    1a7c:	mov    %eax,%edx
+    1a7e:	xor    %esi,%esi
+    1a80:	call   1060 <memset@plt>
+    1a85:	mov    -0x30(%rbp),%rcx
+    1a89:	mov    -0x18(%rbp),%rax
+    1a8d:	mov    %rcx,0x8(%rax)
+    1a91:	mov    -0x18(%rbp),%rax
+    1a95:	cmpq   $0x0,0x8(%rax)
+    1a9a:	jne    1ab9 <resize_vbar_entry+0xe9>
+    1aa0:	mov    -0x18(%rbp),%rax
+    1aa4:	cmpl   $0x0,(%rax)
+    1aa7:	je     1ab9 <resize_vbar_entry+0xe9>
+    1aad:	movl   $0x0,-0x4(%rbp)
+    1ab4:	jmp    1ac0 <resize_vbar_entry+0xf0>
+    1ab9:	movl   $0x1,-0x4(%rbp)
+    1ac0:	mov    -0x4(%rbp),%eax
+    1ac3:	add    $0x30,%rsp
+    1ac7:	pop    %rbp
+    1ac8:	ret
+
+Disassembly of section .fini:

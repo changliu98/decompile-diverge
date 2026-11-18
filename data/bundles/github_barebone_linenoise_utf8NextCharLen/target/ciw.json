@@ -1,0 +1,461 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+buf], rdi\nmov     [rbp+pos], rsi\nmov     [rbp+len], rdx\nmov     rax, [rbp+pos]\ncmp     rax, [rbp+len]\njb      loc_28EF\nmov     [rbp+var_8], 0\njmp     loc_2A3E\nmov     [rbp+total], 0\nmov     rax, [rbp+pos]\nmov     [rbp+curpos], rax\nmov     rdi, [rbp+buf]\nadd     rdi, [rbp+curpos]; s\nlea     rsi, [rbp+cplen]; len\ncall    utf8DecodeChar\nmov     [rbp+cp], eax\nmov     rax, [rbp+cplen]\nadd     rax, [rbp+total]\nmov     [rbp+total], rax\nmov     rax, [rbp+cplen]\nadd     rax, [rbp+curpos]\nmov     [rbp+curpos], rax\nmov     edi, [rbp+cp]; cp\ncall    isRegionalIndicator\nmov     [rbp+isRI], eax\nmov     rax, [rbp+curpos]\ncmp     rax, [rbp+len]\njnb     loc_2A36\nmov     rdi, [rbp+buf]\nadd     rdi, [rbp+curpos]; s\nlea     rsi, [rbp+nextlen]; len\ncall    utf8DecodeChar\nmov     [rbp+nextcp], eax\nmov     edi, [rbp+nextcp]; cp\ncall    isZWJ\ncmp     eax, 0\njz      loc_29C4\nmov     rax, [rbp+curpos]\nadd     rax, [rbp+nextlen]\ncmp     rax, [rbp+len]\njnb     loc_29C4\nmov     rax, [rbp+nextlen]\nadd     rax, [rbp+total]\nmov     [rbp+total], rax\nmov     rax, [rbp+nextlen]\nadd     rax, [rbp+curpos]\nmov     [rbp+curpos], rax\nmov     rdi, [rbp+buf]\nadd     rdi, [rbp+curpos]; s\nlea     rsi, [rbp+nextlen]; len\ncall    utf8DecodeChar\nmov     [rbp+nextcp], eax\nmov     rax, [rbp+nextlen]\nadd     rax, [rbp+total]\nmov     [rbp+total], rax\nmov     rax, [rbp+nextlen]\nadd     rax, [rbp+curpos]\nmov     [rbp+curpos], rax\njmp     loc_2936\nmov     edi, [rbp+nextcp]; cp\ncall    isGraphemeExtend\ncmp     eax, 0\njz      loc_29F2\nmov     rax, [rbp+nextlen]\nadd     rax, [rbp+total]\nmov     [rbp+total], rax\nmov     rax, [rbp+nextlen]\nadd     rax, [rbp+curpos]\nmov     [rbp+curpos], rax\njmp     loc_2936\ncmp     [rbp+isRI], 0\njz      loc_2A31\nmov     edi, [rbp+nextcp]; cp\ncall    isRegionalIndicator\ncmp     eax, 0\njz      loc_2A31\nmov     rax, [rbp+nextlen]\nadd     rax, [rbp+total]\nmov     [rbp+total], rax\nmov     rax, [rbp+nextlen]\nadd     rax, [rbp+curpos]\nmov     [rbp+curpos], rax\nmov     [rbp+isRI], 0\njmp     loc_2936\njmp     $+5\nmov     rax, [rbp+total]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 15,
+  "edges": [
+   [
+    "start",
+    "loc_28E2"
+   ],
+   [
+    "start",
+    "loc_28EF"
+   ],
+   [
+    "loc_28E2",
+    "loc_2A3E"
+   ],
+   [
+    "loc_28EF",
+    "loc_2936"
+   ],
+   [
+    "loc_2936",
+    "loc_2944"
+   ],
+   [
+    "loc_2936",
+    "loc_2A36"
+   ],
+   [
+    "loc_2944",
+    "loc_2969"
+   ],
+   [
+    "loc_2944",
+    "loc_29C4"
+   ],
+   [
+    "loc_2969",
+    "loc_297B"
+   ],
+   [
+    "loc_2969",
+    "loc_29C4"
+   ],
+   [
+    "loc_297B",
+    "loc_2936"
+   ],
+   [
+    "loc_29C4",
+    "loc_29D5"
+   ],
+   [
+    "loc_29C4",
+    "loc_29F2"
+   ],
+   [
+    "loc_29D5",
+    "loc_2936"
+   ],
+   [
+    "loc_29F2",
+    "loc_29FC"
+   ],
+   [
+    "loc_29F2",
+    "loc_2A31"
+   ],
+   [
+    "loc_29FC",
+    "loc_2A0D"
+   ],
+   [
+    "loc_29FC",
+    "loc_2A31"
+   ],
+   [
+    "loc_2A0D",
+    "loc_2936"
+   ],
+   [
+    "loc_2A31",
+    "loc_2A36"
+   ],
+   [
+    "loc_2A36",
+    "loc_2A3E"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+buf], rdi\nmov     [rbp+pos], rsi\nmov     [rbp+len], rdx\nmov     rax, [rbp+pos]\ncmp     rax, [rbp+len]\njb      loc_28EF",
+   "loc_28E2": "mov     [rbp+var_8], 0\njmp     loc_2A3E",
+   "loc_28EF": "mov     [rbp+total], 0\nmov     rax, [rbp+pos]\nmov     [rbp+curpos], rax\nmov     rdi, [rbp+buf]\nadd     rdi, [rbp+curpos]; s\nlea     rsi, [rbp+cplen]; len\ncall    utf8DecodeChar\nmov     [rbp+cp], eax\nmov     rax, [rbp+cplen]\nadd     rax, [rbp+total]\nmov     [rbp+total], rax\nmov     rax, [rbp+cplen]\nadd     rax, [rbp+curpos]\nmov     [rbp+curpos], rax\nmov     edi, [rbp+cp]; cp\ncall    isRegionalIndicator\nmov     [rbp+isRI], eax",
+   "loc_2936": "mov     rax, [rbp+curpos]\ncmp     rax, [rbp+len]\njnb     loc_2A36",
+   "loc_2944": "mov     rdi, [rbp+buf]\nadd     rdi, [rbp+curpos]; s\nlea     rsi, [rbp+nextlen]; len\ncall    utf8DecodeChar\nmov     [rbp+nextcp], eax\nmov     edi, [rbp+nextcp]; cp\ncall    isZWJ\ncmp     eax, 0\njz      loc_29C4",
+   "loc_2969": "mov     rax, [rbp+curpos]\nadd     rax, [rbp+nextlen]\ncmp     rax, [rbp+len]\njnb     loc_29C4",
+   "loc_297B": "mov     rax, [rbp+nextlen]\nadd     rax, [rbp+total]\nmov     [rbp+total], rax\nmov     rax, [rbp+nextlen]\nadd     rax, [rbp+curpos]\nmov     [rbp+curpos], rax\nmov     rdi, [rbp+buf]\nadd     rdi, [rbp+curpos]; s\nlea     rsi, [rbp+nextlen]; len\ncall    utf8DecodeChar\nmov     [rbp+nextcp], eax\nmov     rax, [rbp+nextlen]\nadd     rax, [rbp+total]\nmov     [rbp+total], rax\nmov     rax, [rbp+nextlen]\nadd     rax, [rbp+curpos]\nmov     [rbp+curpos], rax\njmp     loc_2936",
+   "loc_29C4": "mov     edi, [rbp+nextcp]; cp\ncall    isGraphemeExtend\ncmp     eax, 0\njz      loc_29F2",
+   "loc_29D5": "mov     rax, [rbp+nextlen]\nadd     rax, [rbp+total]\nmov     [rbp+total], rax\nmov     rax, [rbp+nextlen]\nadd     rax, [rbp+curpos]\nmov     [rbp+curpos], rax\njmp     loc_2936",
+   "loc_29F2": "cmp     [rbp+isRI], 0\njz      loc_2A31",
+   "loc_29FC": "mov     edi, [rbp+nextcp]; cp\ncall    isRegionalIndicator\ncmp     eax, 0\njz      loc_2A31",
+   "loc_2A0D": "mov     rax, [rbp+nextlen]\nadd     rax, [rbp+total]\nmov     [rbp+total], rax\nmov     rax, [rbp+nextlen]\nadd     rax, [rbp+curpos]\nmov     [rbp+curpos], rax\nmov     [rbp+isRI], 0\njmp     loc_2936",
+   "loc_2A31": "jmp     $+5",
+   "loc_2A36": "mov     rax, [rbp+total]\nmov     [rbp+var_8], rax",
+   "loc_2A3E": "mov     rax, [rbp+var_8]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "nextcp": "dword ptr -4Ch",
+   "nextlen": "qword ptr -48h",
+   "isRI": "dword ptr -40h",
+   "cp": "dword ptr -3Ch",
+   "cplen": "qword ptr -38h",
+   "curpos": "qword ptr -30h",
+   "total": "qword ptr -28h",
+   "len": "qword ptr -20h",
+   "pos": "qword ptr -18h",
+   "buf": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 10432,
+ "thunk_map": {
+  ".getenv": "getenv",
+  "_getenv": "getenv",
+  ".free": "free",
+  "_free": "free",
+  ".strcasecmp": "strcasecmp",
+  "_strcasecmp": "strcasecmp",
+  ".__errno_location": "__errno_location",
+  "_errno_location": "__errno_location",
+  ".ferror": "ferror",
+  "_ferror": "ferror",
+  ".isatty": "isatty",
+  "_isatty": "isatty",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".write": "write",
+  "_write": "write",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".ioctl": "ioctl",
+  "_ioctl": "ioctl",
+  ".fgetc": "fgetc",
+  "_fgetc": "fgetc",
+  ".fputc": "fputc",
+  "_fputc": "fputc",
+  ".memchr": "memchr",
+  "_memchr": "memchr",
+  ".read": "read",
+  "_read": "read",
+  ".memcmp": "memcmp",
+  "_memcmp": "memcmp",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".umask": "umask",
+  "_umask": "umask",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".fileno": "fileno",
+  "_fileno": "fileno",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fflush": "fflush",
+  "_fflush": "fflush",
+  ".__isoc99_sscanf": "__isoc99_sscanf",
+  "_isoc99_sscanf": "__isoc99_sscanf",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fchmod": "fchmod",
+  "_fchmod": "fchmod",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".tcgetattr": "tcgetattr",
+  "_tcgetattr": "tcgetattr",
+  ".tcsetattr": "tcsetattr",
+  "_tcsetattr": "tcsetattr",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".__cxa_atexit": "__cxa_atexit",
+  "_cxa_atexit": "__cxa_atexit",
+  ".atoi": "atoi",
+  "_atoi": "atoi",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".strdup": "strdup",
+  "_strdup": "strdup",
+  ".__ctype_b_loc": "__ctype_b_loc",
+  "_ctype_b_loc": "__ctype_b_loc"
+ },
+ "thunk_debug": [
+  [
+   "sub_2020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".getenv",
+   ".plt",
+   true,
+   "getenv"
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".strcasecmp",
+   ".plt",
+   true,
+   "strcasecmp"
+  ],
+  [
+   ".__errno_location",
+   ".plt",
+   true,
+   "__errno_location"
+  ],
+  [
+   ".ferror",
+   ".plt",
+   true,
+   "ferror"
+  ],
+  [
+   ".isatty",
+   ".plt",
+   true,
+   "isatty"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".write",
+   ".plt",
+   true,
+   "write"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".ioctl",
+   ".plt",
+   true,
+   "ioctl"
+  ],
+  [
+   ".fgetc",
+   ".plt",
+   true,
+   "fgetc"
+  ],
+  [
+   ".fputc",
+   ".plt",
+   true,
+   "fputc"
+  ],
+  [
+   ".memchr",
+   ".plt",
+   true,
+   "memchr"
+  ],
+  [
+   ".read",
+   ".plt",
+   true,
+   "read"
+  ],
+  [
+   ".memcmp",
+   ".plt",
+   true,
+   "memcmp"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".umask",
+   ".plt",
+   true,
+   "umask"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".fileno",
+   ".plt",
+   true,
+   "fileno"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fflush",
+   ".plt",
+   true,
+   "fflush"
+  ],
+  [
+   ".__isoc99_sscanf",
+   ".plt",
+   true,
+   "__isoc99_sscanf"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fchmod",
+   ".plt",
+   true,
+   "fchmod"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".tcgetattr",
+   ".plt",
+   true,
+   "tcgetattr"
+  ],
+  [
+   ".tcsetattr",
+   ".plt",
+   true,
+   "tcsetattr"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".__cxa_atexit",
+   ".plt",
+   true,
+   "__cxa_atexit"
+  ],
+  [
+   ".atoi",
+   ".plt",
+   true,
+   "atoi"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872672
+ }
+}

@@ -1,0 +1,1 @@
+double sqrt_df(double *args) { return sqrt(*args); }

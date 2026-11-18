@@ -1,0 +1,451 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 4B0h\nmov     [rbp+pkt], rdi\nmov     [rbp+len], esi\njmp     $+5\nlea     rdi, [rbp+rpc_pkt]; dest\nmov     rsi, [rbp+pkt]; src\nmov     eax, [rbp+len]\nmov     edx, eax; n\ncall    memcpy\nmov     edi, dword ptr [rbp+rpc_pkt.u]; netlong\ncall    ntohl\nmov     eax, eax\ncmp     rax, cs:rpc_id\njbe     loc_13F2\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_15D7\nmov     edi, dword ptr [rbp+rpc_pkt.u]; netlong\ncall    ntohl\nmov     eax, eax\ncmp     rax, cs:rpc_id\njnb     loc_1418\nmov     [rbp+var_4], 0FFFFFF84h\njmp     loc_15D7\njmp     $+5\ncmp     dword ptr [rbp+rpc_pkt.u+8], 0\njnz     loc_1451\ncmp     dword ptr [rbp+rpc_pkt.u+0Ch], 0\njnz     loc_1451\ncmp     dword ptr [rbp+rpc_pkt.u+14h], 0\njnz     loc_1451\ncmp     dword ptr [rbp+rpc_pkt.u+18h], 0\njz      loc_1536\nmov     edi, dword ptr [rbp+rpc_pkt.u+14h]; netlong\ncall    ntohl\nmov     ecx, eax\nmov     [rbp+var_4A0], rcx\nsub     eax, 5; switch 6 cases\nja      def_1483; jumptable 0000000000001483 default case\nmov     rax, [rbp+var_4A0]\nlea     rcx, jpt_1483\nmovsxd  rax, ds:(jpt_1483 - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\njmp     loc_152A; jumptable 0000000000001483 case 0\nmov     edi, dword ptr [rbp+rpc_pkt.u+18h]; jumptable 0000000000001483 case 2\ncall    ntohl\nmov     ecx, eax\nmov     [rbp+var_4A4], ecx\nsub     eax, 3\njz      loc_14BF\njmp     $+5\nmov     eax, [rbp+var_4A4]\nsub     eax, 4\njz      loc_14EF\njmp     loc_14F4\njmp     $+5\njmp     $+5\njmp     $+5\njmp     $+5\nmovsx   eax, cs:supported_nfs_versions\nand     eax, 0FFFFFFFEh\nmov     cs:supported_nfs_versions, al\nmov     [rbp+var_4], 0FFFFFFFEh\njmp     loc_15D7\njmp     $+5\nlea     rdi, s; \"*** ERROR: NFS version not supported\"\ncall    puts\njmp     $+5\nlea     rdi, asc_2044; \"\\n\"\ncall    puts\njmp     loc_152A\njmp     $+5; jumptable 0000000000001483 cases 1,3-5\njmp     $+5; jumptable 0000000000001483 default case\njmp     $+5\njmp     $+5\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_15D7\nmovsx   eax, cs:supported_nfs_versions\nand     eax, 1\ncmp     eax, 0\njz      loc_1586\nmov     rax, qword ptr [rbp+rpc_pkt.u+1Ch]\nmov     cs:filefh, rax\nmov     rax, qword ptr [rbp+rpc_pkt.u+24h]\nmov     cs:qword_40B8, rax\nmov     rax, qword ptr [rbp+rpc_pkt.u+2Ch]\nmov     cs:qword_40C0, rax\nmov     rax, qword ptr [rbp+rpc_pkt.u+34h]\nmov     cs:qword_40C8, rax\njmp     loc_15D0\nmov     edi, dword ptr [rbp+rpc_pkt.u+1Ch]; netlong\ncall    ntohl\nmov     cs:filefh3_length, eax\ncmp     cs:filefh3_length, 40h ; '@'\njle     loc_15AE\nmov     cs:filefh3_length, 40h ; '@'\nlea     rsi, [rbp+rpc_pkt]\nadd     rsi, 18h\nadd     rsi, 8; src\nmovsxd  rdx, cs:filefh3_length; n\nlea     rdi, filefh; dest\ncall    memcpy\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 4B0h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 37,
+  "edges": [
+   [
+    "start",
+    "loc_13B7"
+   ],
+   [
+    "loc_13B7",
+    "loc_13E6"
+   ],
+   [
+    "loc_13B7",
+    "loc_13F2"
+   ],
+   [
+    "loc_13E6",
+    "loc_15D7"
+   ],
+   [
+    "loc_13F2",
+    "loc_140C"
+   ],
+   [
+    "loc_13F2",
+    "loc_1418"
+   ],
+   [
+    "loc_140C",
+    "loc_15D7"
+   ],
+   [
+    "loc_1418",
+    "loc_141D"
+   ],
+   [
+    "loc_141D",
+    "loc_142A"
+   ],
+   [
+    "loc_141D",
+    "loc_1451"
+   ],
+   [
+    "loc_142A",
+    "loc_1437"
+   ],
+   [
+    "loc_142A",
+    "loc_1451"
+   ],
+   [
+    "loc_1437",
+    "loc_1444"
+   ],
+   [
+    "loc_1437",
+    "loc_1451"
+   ],
+   [
+    "loc_1444",
+    "loc_1451"
+   ],
+   [
+    "loc_1444",
+    "loc_1536"
+   ],
+   [
+    "loc_1451",
+    "loc_146E"
+   ],
+   [
+    "loc_1451",
+    "loc_151B"
+   ],
+   [
+    "loc_146E",
+    "loc_1485"
+   ],
+   [
+    "loc_146E",
+    "loc_148A"
+   ],
+   [
+    "loc_146E",
+    "loc_1516"
+   ],
+   [
+    "loc_1485",
+    "loc_152A"
+   ],
+   [
+    "loc_148A",
+    "loc_14A6"
+   ],
+   [
+    "loc_148A",
+    "loc_14BF"
+   ],
+   [
+    "loc_14A6",
+    "loc_14AB"
+   ],
+   [
+    "loc_14AB",
+    "loc_14BA"
+   ],
+   [
+    "loc_14AB",
+    "loc_14EF"
+   ],
+   [
+    "loc_14BA",
+    "loc_14F4"
+   ],
+   [
+    "loc_14BF",
+    "loc_14C4"
+   ],
+   [
+    "loc_14C4",
+    "loc_14C9"
+   ],
+   [
+    "loc_14C9",
+    "loc_14CE"
+   ],
+   [
+    "loc_14CE",
+    "loc_14D3"
+   ],
+   [
+    "loc_14D3",
+    "loc_15D7"
+   ],
+   [
+    "loc_14EF",
+    "loc_14F4"
+   ],
+   [
+    "loc_14F4",
+    "loc_1505"
+   ],
+   [
+    "loc_1505",
+    "loc_152A"
+   ],
+   [
+    "loc_1516",
+    "loc_151B"
+   ],
+   [
+    "loc_151B",
+    "loc_1520"
+   ],
+   [
+    "loc_1520",
+    "loc_1525"
+   ],
+   [
+    "loc_1525",
+    "loc_152A"
+   ],
+   [
+    "loc_152A",
+    "loc_15D7"
+   ],
+   [
+    "loc_1536",
+    "loc_1549"
+   ],
+   [
+    "loc_1536",
+    "loc_1586"
+   ],
+   [
+    "loc_1549",
+    "loc_15D0"
+   ],
+   [
+    "loc_1586",
+    "loc_15A4"
+   ],
+   [
+    "loc_1586",
+    "loc_15AE"
+   ],
+   [
+    "loc_15A4",
+    "loc_15AE"
+   ],
+   [
+    "loc_15AE",
+    "loc_15D0"
+   ],
+   [
+    "loc_15D0",
+    "loc_15D7"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 4B0h\nmov     [rbp+pkt], rdi\nmov     [rbp+len], esi\njmp     $+5",
+   "loc_13B7": "lea     rdi, [rbp+rpc_pkt]; dest\nmov     rsi, [rbp+pkt]; src\nmov     eax, [rbp+len]\nmov     edx, eax; n\ncall    memcpy\nmov     edi, dword ptr [rbp+rpc_pkt.u]; netlong\ncall    ntohl\nmov     eax, eax\ncmp     rax, cs:rpc_id\njbe     loc_13F2",
+   "loc_13E6": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_15D7",
+   "loc_13F2": "mov     edi, dword ptr [rbp+rpc_pkt.u]; netlong\ncall    ntohl\nmov     eax, eax\ncmp     rax, cs:rpc_id\njnb     loc_1418",
+   "loc_140C": "mov     [rbp+var_4], 0FFFFFF84h\njmp     loc_15D7",
+   "loc_1418": "jmp     $+5",
+   "loc_141D": "cmp     dword ptr [rbp+rpc_pkt.u+8], 0\njnz     loc_1451",
+   "loc_142A": "cmp     dword ptr [rbp+rpc_pkt.u+0Ch], 0\njnz     loc_1451",
+   "loc_1437": "cmp     dword ptr [rbp+rpc_pkt.u+14h], 0\njnz     loc_1451",
+   "loc_1444": "cmp     dword ptr [rbp+rpc_pkt.u+18h], 0\njz      loc_1536",
+   "loc_1451": "mov     edi, dword ptr [rbp+rpc_pkt.u+14h]; netlong\ncall    ntohl\nmov     ecx, eax\nmov     [rbp+var_4A0], rcx\nsub     eax, 5; switch 6 cases\nja      def_1483; jumptable 0000000000001483 default case",
+   "loc_146E": "mov     rax, [rbp+var_4A0]\nlea     rcx, jpt_1483\nmovsxd  rax, ds:(jpt_1483 - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_1485": "jmp     loc_152A; jumptable 0000000000001483 case 0",
+   "loc_148A": "mov     edi, dword ptr [rbp+rpc_pkt.u+18h]; jumptable 0000000000001483 case 2\ncall    ntohl\nmov     ecx, eax\nmov     [rbp+var_4A4], ecx\nsub     eax, 3\njz      loc_14BF",
+   "loc_14A6": "jmp     $+5",
+   "loc_14AB": "mov     eax, [rbp+var_4A4]\nsub     eax, 4\njz      loc_14EF",
+   "loc_14BA": "jmp     loc_14F4",
+   "loc_14BF": "jmp     $+5",
+   "loc_14C4": "jmp     $+5",
+   "loc_14C9": "jmp     $+5",
+   "loc_14CE": "jmp     $+5",
+   "loc_14D3": "movsx   eax, cs:supported_nfs_versions\nand     eax, 0FFFFFFFEh\nmov     cs:supported_nfs_versions, al\nmov     [rbp+var_4], 0FFFFFFFEh\njmp     loc_15D7",
+   "loc_14EF": "jmp     $+5",
+   "loc_14F4": "lea     rdi, s; \"*** ERROR: NFS version not supported\"\ncall    puts\njmp     $+5",
+   "loc_1505": "lea     rdi, asc_2044; \"\\n\"\ncall    puts\njmp     loc_152A",
+   "loc_1516": "jmp     $+5; jumptable 0000000000001483 cases 1,3-5",
+   "loc_151B": "jmp     $+5; jumptable 0000000000001483 default case",
+   "loc_1520": "jmp     $+5",
+   "loc_1525": "jmp     $+5",
+   "loc_152A": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_15D7",
+   "loc_1536": "movsx   eax, cs:supported_nfs_versions\nand     eax, 1\ncmp     eax, 0\njz      loc_1586",
+   "loc_1549": "mov     rax, qword ptr [rbp+rpc_pkt.u+1Ch]\nmov     cs:filefh, rax\nmov     rax, qword ptr [rbp+rpc_pkt.u+24h]\nmov     cs:qword_40B8, rax\nmov     rax, qword ptr [rbp+rpc_pkt.u+2Ch]\nmov     cs:qword_40C0, rax\nmov     rax, qword ptr [rbp+rpc_pkt.u+34h]\nmov     cs:qword_40C8, rax\njmp     loc_15D0",
+   "loc_1586": "mov     edi, dword ptr [rbp+rpc_pkt.u+1Ch]; netlong\ncall    ntohl\nmov     cs:filefh3_length, eax\ncmp     cs:filefh3_length, 40h ; '@'\njle     loc_15AE",
+   "loc_15A4": "mov     cs:filefh3_length, 40h ; '@'",
+   "loc_15AE": "lea     rsi, [rbp+rpc_pkt]\nadd     rsi, 18h\nadd     rsi, 8; src\nmovsxd  rdx, cs:filefh3_length; n\nlea     rdi, filefh; dest\ncall    memcpy",
+   "loc_15D0": "mov     [rbp+var_4], 0",
+   "loc_15D7": "mov     eax, [rbp+var_4]\nadd     rsp, 4B0h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_4A4": "dword ptr -4A4h",
+   "var_4A0": "qword ptr -4A0h",
+   "rpc_pkt": "rpc_t ptr -498h",
+   "len": "dword ptr -14h",
+   "pkt": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "jpt_1483": "dword offset loc_1485 - 2004h; jump table for switch statement",
+   "s": "byte '*** ERROR: NFS version not supported',0",
+   "asc_2044": "byte 0Ah,0"
+  },
+  ".data": {
+   "supported_nfs_versions": "byte 3"
+  },
+  ".bss": {
+   "rpc_id": "[]",
+   "filefh": "[]",
+   "qword_40B8": "[]",
+   "qword_40C0": "[]",
+   "qword_40C8": "[]",
+   "filefh3_length": "[]"
+  }
+ },
+ "func_ea": 5024,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".puts": "puts",
+  "_puts": "puts",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".ntohl": "ntohl",
+  "_ntohl": "ntohl"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".puts",
+   ".plt",
+   true,
+   "puts"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".ntohl",
+   ".plt",
+   true,
+   "ntohl"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "puts",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ntohl",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868457
+ }
+}

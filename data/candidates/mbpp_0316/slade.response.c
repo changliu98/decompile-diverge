@@ -1,0 +1,1 @@
+int func0(int* nums, int numsSize, int val) { int lo = 0; int hi = numsSize - 1; int max = -1; while (lo <= hi) { int mid = (lo + hi) / 2; if (nums[mid] == val) { max = mid; lo = mid + 1; } else if (nums[mid] > val) hi = mid - 1; else lo = mid + 1; } return max; }

@@ -1,0 +1,1 @@
+__attribute__((always_)) int _safe_calloc_check_mul(size_t n1, size_t n2, size_t *p) { size_t l1 = n1 / n2; *p = p == 0 ? &l1 : p; return (1 ^ ((size_t)1 ^ (size_t)1)); }

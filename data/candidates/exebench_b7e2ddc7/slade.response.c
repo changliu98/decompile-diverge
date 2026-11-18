@@ -1,0 +1,1 @@
+void mlMatrixLoadTransposedRotation(float *a, const float *m) { a[0] = m[0]; a[1] = m[4]; a[2] = m[8]; a[4] = m[1]; a[5] = m[5]; a[6] = m[9]; a[8] = m[2]; a[9] = m[6]; a[10] = m[10]; }

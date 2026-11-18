@@ -1,0 +1,1 @@
+void outfname(char *p) { while(*p) p++; p--; *p = 's'; }

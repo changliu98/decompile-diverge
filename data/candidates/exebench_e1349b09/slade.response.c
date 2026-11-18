@@ -1,0 +1,1 @@
+char *strcpy(char *dest, const char *src) { uint64_t n0, n1; __asm__ __volatile__( "cld\n" "1: " "stodsb\n" "testb %%al,%%al\n" "or %%al,%%al\n" "jne 1b\n" : "=&S" (n0), "=&S" (n1), "=&c" (n1) : "0" (src)); return dest; }

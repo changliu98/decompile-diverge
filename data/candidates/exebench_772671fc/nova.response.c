@@ -1,0 +1,1 @@
+void set_autofs_type_any(int *p) { *p = 0; }

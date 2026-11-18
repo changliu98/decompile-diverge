@@ -1,0 +1,1 @@
+int func0(int *arr, int low, int high) { if (low > high) return low; int mid = low + (high - low) / 2; if (arr[mid] == mid) return func0(arr, mid + 1, high); return func0(arr, low, mid - 1); }

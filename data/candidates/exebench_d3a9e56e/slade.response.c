@@ -1,0 +1,1 @@
+void reverseInt(int *n) { for (int i = 0; i < 5; i++) { int tmp = n[i]; n[i] = n[10 - i - 1]; n[10 - i - 1] = tmp; } }

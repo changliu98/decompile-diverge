@@ -1,0 +1,1 @@
+void swap(float *a, float *b) { if(*a > *b) { float c = *b; *b = *a; *a = c; } }

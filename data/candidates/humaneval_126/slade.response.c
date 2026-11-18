@@ -1,0 +1,1 @@
+int func0(int *x, int N) { if (N == 0) return 1; for (int i = 1; i < N; i++) { if (x[i] < x[i - 1]) return 0; if (i > 1 && x[i] == x[i - 1] && x[i] == x[i - 2]) return 0; } return 1; }

@@ -1,0 +1,316 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+bc], rdi\nmov     [rbp+hc], rsi\nmov     [rbp+prefix], edx\nmov     [rbp+length], ecx\nmov     rdi, [rbp+bc]; bc\ncall    bitstream_read_bit\ncmp     eax, 0\njnz     loc_15DB\nmov     rax, [rbp+hc]\ncmp     dword ptr [rax+8], 100h\njl      loc_151C\nxor     eax, eax\nmov     edi, eax; avcl\nmov     esi, 10h; level\nlea     rdx, fmt; \"Tree size exceeded!\\n\"\nmov     al, 0\ncall    av_log\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_1634\ncmp     [rbp+length], 0\njz      loc_1557\nmov     edx, [rbp+prefix]\nmov     rax, [rbp+hc]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+hc]\nmovsxd  rcx, dword ptr [rcx+8]\nmov     [rax+rcx*4], edx\nmov     edx, [rbp+length]\nmov     rax, [rbp+hc]\nmov     rax, [rax+18h]\nmov     rcx, [rbp+hc]\nmovsxd  rcx, dword ptr [rcx+8]\nmov     [rax+rcx*4], edx\njmp     loc_1585\nmov     rax, [rbp+hc]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+hc]\nmovsxd  rcx, dword ptr [rcx+8]\nmov     dword ptr [rax+rcx*4], 0\nmov     rax, [rbp+hc]\nmov     rax, [rax+18h]\nmov     rcx, [rbp+hc]\nmovsxd  rcx, dword ptr [rcx+8]\nmov     dword ptr [rax+rcx*4], 0\nmov     rdi, [rbp+bc]; bc\nmov     esi, 8; n\ncall    bitstream_read\nmov     edx, eax\nmov     rax, [rbp+hc]\nmov     rax, [rax+20h]\nmov     rcx, [rbp+hc]\nmovsxd  rcx, dword ptr [rcx+8]\nmov     [rax+rcx*4], edx\nmov     rax, [rbp+hc]\nmov     ecx, [rax+8]\nadd     ecx, 1\nmov     [rax+8], ecx\nmov     rax, [rbp+hc]\nmov     eax, [rax+4]\ncmp     eax, [rbp+length]\njge     loc_15CF\nmov     ecx, [rbp+length]\nmov     rax, [rbp+hc]\nmov     [rax+4], ecx\nmov     [rbp+var_4], 0\njmp     loc_1634\nmov     eax, [rbp+length]\nadd     eax, 1\nmov     [rbp+length], eax\nmov     rdi, [rbp+bc]; bc\nmov     rsi, [rbp+hc]; hc\nmov     edx, [rbp+prefix]; prefix\nmov     ecx, [rbp+length]; length\ncall    smacker_decode_tree\nmov     [rbp+r], eax\ncmp     [rbp+r], 0\njz      loc_160F\nmov     eax, [rbp+r]\nmov     [rbp+var_4], eax\njmp     loc_1634\nmov     rdi, [rbp+bc]; bc\nmov     rsi, [rbp+hc]; hc\nmov     edx, [rbp+prefix]\nmov     ecx, [rbp+length]\nsub     ecx, 1\nmov     eax, 1\nshl     eax, cl\nor      edx, eax; prefix\nmov     ecx, [rbp+length]; length\ncall    smacker_decode_tree\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 13,
+  "edges": [
+   [
+    "start",
+    "loc_14E8"
+   ],
+   [
+    "start",
+    "loc_15DB"
+   ],
+   [
+    "loc_14E8",
+    "loc_14F9"
+   ],
+   [
+    "loc_14E8",
+    "loc_151C"
+   ],
+   [
+    "loc_14F9",
+    "loc_1634"
+   ],
+   [
+    "loc_151C",
+    "loc_1526"
+   ],
+   [
+    "loc_151C",
+    "loc_1557"
+   ],
+   [
+    "loc_1526",
+    "loc_1585"
+   ],
+   [
+    "loc_1557",
+    "loc_1585"
+   ],
+   [
+    "loc_1585",
+    "loc_15C5"
+   ],
+   [
+    "loc_1585",
+    "loc_15CF"
+   ],
+   [
+    "loc_15C5",
+    "loc_15CF"
+   ],
+   [
+    "loc_15CF",
+    "loc_1634"
+   ],
+   [
+    "loc_15DB",
+    "loc_1604"
+   ],
+   [
+    "loc_15DB",
+    "loc_160F"
+   ],
+   [
+    "loc_1604",
+    "loc_1634"
+   ],
+   [
+    "loc_160F",
+    "loc_1634"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+bc], rdi\nmov     [rbp+hc], rsi\nmov     [rbp+prefix], edx\nmov     [rbp+length], ecx\nmov     rdi, [rbp+bc]; bc\ncall    bitstream_read_bit\ncmp     eax, 0\njnz     loc_15DB",
+   "loc_14E8": "mov     rax, [rbp+hc]\ncmp     dword ptr [rax+8], 100h\njl      loc_151C",
+   "loc_14F9": "xor     eax, eax\nmov     edi, eax; avcl\nmov     esi, 10h; level\nlea     rdx, fmt; \"Tree size exceeded!\\n\"\nmov     al, 0\ncall    av_log\nmov     [rbp+var_4], 0BEBBB1B7h\njmp     loc_1634",
+   "loc_151C": "cmp     [rbp+length], 0\njz      loc_1557",
+   "loc_1526": "mov     edx, [rbp+prefix]\nmov     rax, [rbp+hc]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+hc]\nmovsxd  rcx, dword ptr [rcx+8]\nmov     [rax+rcx*4], edx\nmov     edx, [rbp+length]\nmov     rax, [rbp+hc]\nmov     rax, [rax+18h]\nmov     rcx, [rbp+hc]\nmovsxd  rcx, dword ptr [rcx+8]\nmov     [rax+rcx*4], edx\njmp     loc_1585",
+   "loc_1557": "mov     rax, [rbp+hc]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+hc]\nmovsxd  rcx, dword ptr [rcx+8]\nmov     dword ptr [rax+rcx*4], 0\nmov     rax, [rbp+hc]\nmov     rax, [rax+18h]\nmov     rcx, [rbp+hc]\nmovsxd  rcx, dword ptr [rcx+8]\nmov     dword ptr [rax+rcx*4], 0",
+   "loc_1585": "mov     rdi, [rbp+bc]; bc\nmov     esi, 8; n\ncall    bitstream_read\nmov     edx, eax\nmov     rax, [rbp+hc]\nmov     rax, [rax+20h]\nmov     rcx, [rbp+hc]\nmovsxd  rcx, dword ptr [rcx+8]\nmov     [rax+rcx*4], edx\nmov     rax, [rbp+hc]\nmov     ecx, [rax+8]\nadd     ecx, 1\nmov     [rax+8], ecx\nmov     rax, [rbp+hc]\nmov     eax, [rax+4]\ncmp     eax, [rbp+length]\njge     loc_15CF",
+   "loc_15C5": "mov     ecx, [rbp+length]\nmov     rax, [rbp+hc]\nmov     [rax+4], ecx",
+   "loc_15CF": "mov     [rbp+var_4], 0\njmp     loc_1634",
+   "loc_15DB": "mov     eax, [rbp+length]\nadd     eax, 1\nmov     [rbp+length], eax\nmov     rdi, [rbp+bc]; bc\nmov     rsi, [rbp+hc]; hc\nmov     edx, [rbp+prefix]; prefix\nmov     ecx, [rbp+length]; length\ncall    smacker_decode_tree\nmov     [rbp+r], eax\ncmp     [rbp+r], 0\njz      loc_160F",
+   "loc_1604": "mov     eax, [rbp+r]\nmov     [rbp+var_4], eax\njmp     loc_1634",
+   "loc_160F": "mov     rdi, [rbp+bc]; bc\nmov     rsi, [rbp+hc]; hc\nmov     edx, [rbp+prefix]\nmov     ecx, [rbp+length]\nsub     ecx, 1\nmov     eax, 1\nshl     eax, cl\nor      edx, eax; prefix\nmov     ecx, [rbp+length]; length\ncall    smacker_decode_tree\nmov     [rbp+var_4], eax",
+   "loc_1634": "mov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "r": "dword ptr -24h",
+   "length": "dword ptr -20h",
+   "prefix": "dword ptr -1Ch",
+   "hc": "qword ptr -18h",
+   "bc": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "fmt": "byte 'Tree size exceeded!',0Ah,0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5312,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".vfprintf": "vfprintf",
+  "_vfprintf": "vfprintf"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".vfprintf",
+   ".plt",
+   true,
+   "vfprintf"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "vfprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868445
+ }
+}

@@ -1,0 +1,1 @@
+char *func0(int *arr, int size, int flag) { int sum = 0; for (int i = 0; i < size; i++) { sum += arr[i]; } if (flag == 1) { if (sum % 2 == 0) { return "ODD"; } else { return "EVEN"; } } else { return "ODD"; } }

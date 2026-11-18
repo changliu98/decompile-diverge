@@ -1,0 +1,1 @@
+void enable(struct context *context) { context->enabled = 1; }

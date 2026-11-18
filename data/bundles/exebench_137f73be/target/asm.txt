@@ -1,0 +1,47 @@
+00000000000011f0 <I2CSensor_Read>:
+    11f0:	push   %rbp
+    11f1:	mov    %rsp,%rbp
+    11f4:	sub    $0x30,%rsp
+    11f8:	mov    %dl,%al
+    11fa:	mov    %sil,%dl
+    11fd:	mov    %rdi,-0x10(%rbp)
+    1201:	mov    %dl,-0x11(%rbp)
+    1204:	mov    %al,-0x12(%rbp)
+    1207:	mov    %rcx,-0x20(%rbp)
+    120b:	mov    %r8d,-0x24(%rbp)
+    120f:	mov    -0x10(%rbp),%rax
+    1213:	mov    (%rax),%edi
+    1215:	movzbl -0x11(%rbp),%edx
+    1219:	mov    $0x703,%esi
+    121e:	mov    $0x0,%al
+    1220:	call   1060 <ioctl@plt>
+    1225:	cmp    $0x0,%eax
+    1228:	jge    123a <I2CSensor_Read+0x4a>
+    122e:	movl   $0x3,-0x4(%rbp)
+    1235:	jmp    1297 <I2CSensor_Read+0xa7>
+    123a:	mov    -0x10(%rbp),%rax
+    123e:	mov    (%rax),%edi
+    1240:	lea    -0x12(%rbp),%rsi
+    1244:	mov    $0x1,%edx
+    1249:	call   1040 <write@plt>
+    124e:	cmp    $0x1,%rax
+    1252:	je     1264 <I2CSensor_Read+0x74>
+    1258:	movl   $0x3,-0x4(%rbp)
+    125f:	jmp    1297 <I2CSensor_Read+0xa7>
+    1264:	mov    -0x10(%rbp),%rax
+    1268:	mov    (%rax),%edi
+    126a:	mov    -0x20(%rbp),%rsi
+    126e:	movslq -0x24(%rbp),%rdx
+    1272:	call   1070 <read@plt>
+    1277:	movslq -0x24(%rbp),%rcx
+    127b:	cmp    %rcx,%rax
+    127e:	je     1290 <I2CSensor_Read+0xa0>
+    1284:	movl   $0x3,-0x4(%rbp)
+    128b:	jmp    1297 <I2CSensor_Read+0xa7>
+    1290:	movl   $0x0,-0x4(%rbp)
+    1297:	mov    -0x4(%rbp),%eax
+    129a:	add    $0x30,%rsp
+    129e:	pop    %rbp
+    129f:	ret
+
+Disassembly of section .fini:

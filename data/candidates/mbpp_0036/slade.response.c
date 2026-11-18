@@ -1,0 +1,1 @@
+int func0(int a, int b, int x) { int ret; while (x > 0) { x = x - 1; a *= 10; ret = a / b; a = a % b; } return ret; }

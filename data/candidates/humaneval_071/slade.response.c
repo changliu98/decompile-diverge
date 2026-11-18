@@ -1,0 +1,1 @@
+float func0(float x, float y, float z) { if ((x >= x + y) || (x >= x + z) || (y >= y + z)) { return -1; } float a = (x + y + z) / 2; float b = sqrtf(a * (a - x) * (a - y) * (a - z)); return roundf(100.0f * b) / 100.0f; }

@@ -1,0 +1,453 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+ctx], rdi\nmov     [rbp+render], rsi\nmov     [rbp+color], edx\nmov     ecx, cs:output_cs\nmov     rax, [rbp+render]\nmov     [rax+5Ch], ecx\nmov     ecx, cs:output_format\nmov     rax, [rbp+render]\nmov     [rax+60h], ecx\ncmp     [rbp+color], 0\njnz     loc_1671\nmov     rax, [rbp+render]\ncmp     dword ptr [rax+5Ch], 1\njnz     loc_1620\nmov     rax, [rbp+render]\nmov     dword ptr [rax+5Ch], 0\nmov     rax, [rbp+render]\nmov     dword ptr [rax+60h], 0\njmp     loc_166C\nmov     rax, [rbp+render]\ncmp     dword ptr [rax+5Ch], 2\njnz     loc_1667\nmov     rax, [rbp+render]\nmov     dword ptr [rax+5Ch], 0\nmov     rax, [rbp+render]\ncmp     dword ptr [rax+60h], 4\njnz     loc_1657\nmov     rax, [rbp+render]\nmov     dword ptr [rax+60h], 3\njmp     loc_1662\nmov     rax, [rbp+render]\nmov     dword ptr [rax+60h], 0\njmp     $+5\njmp     $+5\njmp     $+5\nmov     rax, [rbp+render]\nmov     eax, [rax+5Ch]\nmov     [rbp+var_3C], eax\ntest    eax, eax\njz      loc_16AA\njmp     $+5\nmov     eax, [rbp+var_3C]\nsub     eax, 1\njz      loc_16B6\njmp     $+5\nmov     eax, [rbp+var_3C]\nsub     eax, 2\njz      loc_16C7\njmp     loc_16C2\nmov     [rbp+bpp], 1\njmp     loc_16CE\nmov     [rbp+bpp], 2\njmp     loc_16CE\njmp     $+5\nmov     [rbp+bpp], 3\nmov     rax, [rbp+render]\nmov     eax, [rax+38h]\nmov     rcx, [rbp+render]\nsub     eax, [rcx+30h]\nmov     [rbp+w], eax\nmovsxd  rax, [rbp+bpp]\nmovsxd  rcx, [rbp+w]\nimul    rax, rcx\nmovsxd  rcx, cs:min_band_height\nimul    rax, rcx\nmov     [rbp+min_band_mem], rax\nmov     rax, cs:max_band_memory\nxor     ecx, ecx\nmov     edx, ecx\ndiv     [rbp+min_band_mem]\nmov     [rbp+reps], eax\ncmp     [rbp+reps], 1\njge     loc_171D\nmov     [rbp+reps], 1\nmov     rax, [rbp+render]\ncmp     dword ptr [rax+68h], 0\njle     loc_1792\nmov     rax, [rbp+render]\nmov     eax, [rax+3Ch]\nmov     rcx, [rbp+render]\nsub     eax, [rcx+34h]\nmov     [rbp+h], eax\nmov     eax, [rbp+h]\nadd     eax, cs:min_band_height\nsub     eax, 1\ncdq\nidiv    cs:min_band_height\nmov     [rbp+num_bands], eax\nmov     eax, [rbp+num_bands]\nadd     eax, [rbp+reps]\nsub     eax, 1\ncdq\nidiv    [rbp+reps]\nmov     [rbp+runs], eax\nmov     eax, [rbp+runs]\nmov     rcx, [rbp+render]\nadd     eax, [rcx+68h]\nsub     eax, 1\nmov     rcx, [rbp+render]\ncdq\nidiv    dword ptr [rcx+68h]\nmov     rcx, [rbp+render]\nimul    eax, [rcx+68h]\nmov     [rbp+runs], eax\nmov     eax, [rbp+num_bands]\nadd     eax, [rbp+runs]\nsub     eax, 1\ncdq\nidiv    [rbp+runs]\nmov     [rbp+reps], eax\nmov     ecx, [rbp+reps]\nmov     rax, [rbp+render]\nmov     [rax+58h], ecx\nmov     rax, [rbp+render]\nmov     dword ptr [rax+64h], 0\ncmp     cs:output_format, 0\njz      loc_17C1\ncmp     cs:output_format, 1\njnz     loc_17FE\nmov     rdi, [rbp+ctx]; ctx\nmov     rsi, cs:out; out_\ncall    fz_new_pnm_band_writer\nmov     rcx, rax\nmov     rax, [rbp+render]\nmov     [rax+70h], rcx\nmov     edx, cs:output_format\nmov     ecx, 3\nmov     eax, 1\ncmp     edx, 0\ncmovz   ecx, eax\nmov     rax, [rbp+render]\nmov     [rax+78h], ecx\njmp     loc_18B0\ncmp     cs:output_format, 2\njnz     loc_1836\nmov     rdi, [rbp+ctx]; ctx\nmov     rsi, cs:out; out_\ncall    fz_new_pam_band_writer\nmov     rcx, rax\nmov     rax, [rbp+render]\nmov     [rax+70h], rcx\nmov     rax, [rbp+render]\nmov     dword ptr [rax+78h], 4\njmp     loc_18AB\ncmp     cs:output_format, 3\njnz     loc_186E\nmov     rdi, [rbp+ctx]; ctx\nmov     rsi, cs:out; out_\ncall    fz_new_pbm_band_writer\nmov     rcx, rax\nmov     rax, [rbp+render]\nmov     [rax+70h], rcx\nmov     rax, [rbp+render]\nmov     dword ptr [rax+78h], 1\njmp     loc_18A6\ncmp     cs:output_format, 4\njnz     loc_18A1\nmov     rdi, [rbp+ctx]; ctx\nmov     rsi, cs:out; out_\ncall    fz_new_pkm_band_writer\nmov     rcx, rax\nmov     rax, [rbp+render]\nmov     [rax+70h], rcx\nmov     rax, [rbp+render]\nmov     dword ptr [rax+78h], 4\njmp     $+5\njmp     $+5\njmp     $+5\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 37,
+  "edges": [
+   [
+    "start",
+    "loc_15F7"
+   ],
+   [
+    "start",
+    "loc_1671"
+   ],
+   [
+    "loc_15F7",
+    "loc_1605"
+   ],
+   [
+    "loc_15F7",
+    "loc_1620"
+   ],
+   [
+    "loc_1605",
+    "loc_166C"
+   ],
+   [
+    "loc_1620",
+    "loc_162E"
+   ],
+   [
+    "loc_1620",
+    "loc_1667"
+   ],
+   [
+    "loc_162E",
+    "loc_1647"
+   ],
+   [
+    "loc_162E",
+    "loc_1657"
+   ],
+   [
+    "loc_1647",
+    "loc_1662"
+   ],
+   [
+    "loc_1657",
+    "loc_1662"
+   ],
+   [
+    "loc_1662",
+    "loc_1667"
+   ],
+   [
+    "loc_1667",
+    "loc_166C"
+   ],
+   [
+    "loc_166C",
+    "loc_1671"
+   ],
+   [
+    "loc_1671",
+    "loc_1683"
+   ],
+   [
+    "loc_1671",
+    "loc_16AA"
+   ],
+   [
+    "loc_1683",
+    "loc_1688"
+   ],
+   [
+    "loc_1688",
+    "loc_1694"
+   ],
+   [
+    "loc_1688",
+    "loc_16B6"
+   ],
+   [
+    "loc_1694",
+    "loc_1699"
+   ],
+   [
+    "loc_1699",
+    "loc_16A5"
+   ],
+   [
+    "loc_1699",
+    "loc_16C7"
+   ],
+   [
+    "loc_16A5",
+    "loc_16C2"
+   ],
+   [
+    "loc_16AA",
+    "loc_16CE"
+   ],
+   [
+    "loc_16B6",
+    "loc_16CE"
+   ],
+   [
+    "loc_16C2",
+    "loc_16C7"
+   ],
+   [
+    "loc_16C7",
+    "loc_16CE"
+   ],
+   [
+    "loc_16CE",
+    "loc_1716"
+   ],
+   [
+    "loc_16CE",
+    "loc_171D"
+   ],
+   [
+    "loc_1716",
+    "loc_171D"
+   ],
+   [
+    "loc_171D",
+    "loc_172B"
+   ],
+   [
+    "loc_171D",
+    "loc_1792"
+   ],
+   [
+    "loc_172B",
+    "loc_1792"
+   ],
+   [
+    "loc_1792",
+    "loc_17B4"
+   ],
+   [
+    "loc_1792",
+    "loc_17C1"
+   ],
+   [
+    "loc_17B4",
+    "loc_17C1"
+   ],
+   [
+    "loc_17B4",
+    "loc_17FE"
+   ],
+   [
+    "loc_17C1",
+    "loc_18B0"
+   ],
+   [
+    "loc_17FE",
+    "loc_180B"
+   ],
+   [
+    "loc_17FE",
+    "loc_1836"
+   ],
+   [
+    "loc_180B",
+    "loc_18AB"
+   ],
+   [
+    "loc_1836",
+    "loc_1843"
+   ],
+   [
+    "loc_1836",
+    "loc_186E"
+   ],
+   [
+    "loc_1843",
+    "loc_18A6"
+   ],
+   [
+    "loc_186E",
+    "loc_187B"
+   ],
+   [
+    "loc_186E",
+    "loc_18A1"
+   ],
+   [
+    "loc_187B",
+    "loc_18A1"
+   ],
+   [
+    "loc_18A1",
+    "loc_18A6"
+   ],
+   [
+    "loc_18A6",
+    "loc_18AB"
+   ],
+   [
+    "loc_18AB",
+    "loc_18B0"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+ctx], rdi\nmov     [rbp+render], rsi\nmov     [rbp+color], edx\nmov     ecx, cs:output_cs\nmov     rax, [rbp+render]\nmov     [rax+5Ch], ecx\nmov     ecx, cs:output_format\nmov     rax, [rbp+render]\nmov     [rax+60h], ecx\ncmp     [rbp+color], 0\njnz     loc_1671",
+   "loc_15F7": "mov     rax, [rbp+render]\ncmp     dword ptr [rax+5Ch], 1\njnz     loc_1620",
+   "loc_1605": "mov     rax, [rbp+render]\nmov     dword ptr [rax+5Ch], 0\nmov     rax, [rbp+render]\nmov     dword ptr [rax+60h], 0\njmp     loc_166C",
+   "loc_1620": "mov     rax, [rbp+render]\ncmp     dword ptr [rax+5Ch], 2\njnz     loc_1667",
+   "loc_162E": "mov     rax, [rbp+render]\nmov     dword ptr [rax+5Ch], 0\nmov     rax, [rbp+render]\ncmp     dword ptr [rax+60h], 4\njnz     loc_1657",
+   "loc_1647": "mov     rax, [rbp+render]\nmov     dword ptr [rax+60h], 3\njmp     loc_1662",
+   "loc_1657": "mov     rax, [rbp+render]\nmov     dword ptr [rax+60h], 0",
+   "loc_1662": "jmp     $+5",
+   "loc_1667": "jmp     $+5",
+   "loc_166C": "jmp     $+5",
+   "loc_1671": "mov     rax, [rbp+render]\nmov     eax, [rax+5Ch]\nmov     [rbp+var_3C], eax\ntest    eax, eax\njz      loc_16AA",
+   "loc_1683": "jmp     $+5",
+   "loc_1688": "mov     eax, [rbp+var_3C]\nsub     eax, 1\njz      loc_16B6",
+   "loc_1694": "jmp     $+5",
+   "loc_1699": "mov     eax, [rbp+var_3C]\nsub     eax, 2\njz      loc_16C7",
+   "loc_16A5": "jmp     loc_16C2",
+   "loc_16AA": "mov     [rbp+bpp], 1\njmp     loc_16CE",
+   "loc_16B6": "mov     [rbp+bpp], 2\njmp     loc_16CE",
+   "loc_16C2": "jmp     $+5",
+   "loc_16C7": "mov     [rbp+bpp], 3",
+   "loc_16CE": "mov     rax, [rbp+render]\nmov     eax, [rax+38h]\nmov     rcx, [rbp+render]\nsub     eax, [rcx+30h]\nmov     [rbp+w], eax\nmovsxd  rax, [rbp+bpp]\nmovsxd  rcx, [rbp+w]\nimul    rax, rcx\nmovsxd  rcx, cs:min_band_height\nimul    rax, rcx\nmov     [rbp+min_band_mem], rax\nmov     rax, cs:max_band_memory\nxor     ecx, ecx\nmov     edx, ecx\ndiv     [rbp+min_band_mem]\nmov     [rbp+reps], eax\ncmp     [rbp+reps], 1\njge     loc_171D",
+   "loc_1716": "mov     [rbp+reps], 1",
+   "loc_171D": "mov     rax, [rbp+render]\ncmp     dword ptr [rax+68h], 0\njle     loc_1792",
+   "loc_172B": "mov     rax, [rbp+render]\nmov     eax, [rax+3Ch]\nmov     rcx, [rbp+render]\nsub     eax, [rcx+34h]\nmov     [rbp+h], eax\nmov     eax, [rbp+h]\nadd     eax, cs:min_band_height\nsub     eax, 1\ncdq\nidiv    cs:min_band_height\nmov     [rbp+num_bands], eax\nmov     eax, [rbp+num_bands]\nadd     eax, [rbp+reps]\nsub     eax, 1\ncdq\nidiv    [rbp+reps]\nmov     [rbp+runs], eax\nmov     eax, [rbp+runs]\nmov     rcx, [rbp+render]\nadd     eax, [rcx+68h]\nsub     eax, 1\nmov     rcx, [rbp+render]\ncdq\nidiv    dword ptr [rcx+68h]\nmov     rcx, [rbp+render]\nimul    eax, [rcx+68h]\nmov     [rbp+runs], eax\nmov     eax, [rbp+num_bands]\nadd     eax, [rbp+runs]\nsub     eax, 1\ncdq\nidiv    [rbp+runs]\nmov     [rbp+reps], eax",
+   "loc_1792": "mov     ecx, [rbp+reps]\nmov     rax, [rbp+render]\nmov     [rax+58h], ecx\nmov     rax, [rbp+render]\nmov     dword ptr [rax+64h], 0\ncmp     cs:output_format, 0\njz      loc_17C1",
+   "loc_17B4": "cmp     cs:output_format, 1\njnz     loc_17FE",
+   "loc_17C1": "mov     rdi, [rbp+ctx]; ctx\nmov     rsi, cs:out; out_\ncall    fz_new_pnm_band_writer\nmov     rcx, rax\nmov     rax, [rbp+render]\nmov     [rax+70h], rcx\nmov     edx, cs:output_format\nmov     ecx, 3\nmov     eax, 1\ncmp     edx, 0\ncmovz   ecx, eax\nmov     rax, [rbp+render]\nmov     [rax+78h], ecx\njmp     loc_18B0",
+   "loc_17FE": "cmp     cs:output_format, 2\njnz     loc_1836",
+   "loc_180B": "mov     rdi, [rbp+ctx]; ctx\nmov     rsi, cs:out; out_\ncall    fz_new_pam_band_writer\nmov     rcx, rax\nmov     rax, [rbp+render]\nmov     [rax+70h], rcx\nmov     rax, [rbp+render]\nmov     dword ptr [rax+78h], 4\njmp     loc_18AB",
+   "loc_1836": "cmp     cs:output_format, 3\njnz     loc_186E",
+   "loc_1843": "mov     rdi, [rbp+ctx]; ctx\nmov     rsi, cs:out; out_\ncall    fz_new_pbm_band_writer\nmov     rcx, rax\nmov     rax, [rbp+render]\nmov     [rax+70h], rcx\nmov     rax, [rbp+render]\nmov     dword ptr [rax+78h], 1\njmp     loc_18A6",
+   "loc_186E": "cmp     cs:output_format, 4\njnz     loc_18A1",
+   "loc_187B": "mov     rdi, [rbp+ctx]; ctx\nmov     rsi, cs:out; out_\ncall    fz_new_pkm_band_writer\nmov     rcx, rax\nmov     rax, [rbp+render]\nmov     [rax+70h], rcx\nmov     rax, [rbp+render]\nmov     dword ptr [rax+78h], 4",
+   "loc_18A1": "jmp     $+5",
+   "loc_18A6": "jmp     $+5",
+   "loc_18AB": "jmp     $+5",
+   "loc_18B0": "add     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_3C": "dword ptr -3Ch",
+   "num_bands": "dword ptr -38h",
+   "runs": "dword ptr -34h",
+   "reps": "dword ptr -30h",
+   "w": "dword ptr -2Ch",
+   "h": "dword ptr -28h",
+   "bpp": "dword ptr -24h",
+   "min_band_mem": "qword ptr -20h",
+   "color": "dword ptr -14h",
+   "render": "qword ptr -10h",
+   "ctx": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {
+   "output_cs": "[]",
+   "output_format": "[]",
+   "min_band_height": "[]",
+   "max_band_memory": "[]",
+   "out": "[]"
+  }
+ },
+ "func_ea": 5568,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868461
+ }
+}

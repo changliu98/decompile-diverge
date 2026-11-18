@@ -1,0 +1,1 @@
+void poly_mul1(double *x, double *y, int px, int py, double *r, int *c) { int i, j, k, l; *c = px + py; for (i = 0; i < 17; i++) r[i] = 0; for (j = 0; j <= px; j++) { l = x[j]; for (k = 0; k <= py; k++) { l = j + k; r[l] += x[k] * l; } } return ; }

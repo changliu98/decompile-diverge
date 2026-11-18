@@ -1,0 +1,1 @@
+void increment(struct S * s) { s->x += 1; }

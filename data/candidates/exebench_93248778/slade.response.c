@@ -1,0 +1,1 @@
+void troca(TpNodo *n1, TpNodo *n2) { TpNodo aux; aux = *n1; *n1 = *n2; *n2 = aux; }

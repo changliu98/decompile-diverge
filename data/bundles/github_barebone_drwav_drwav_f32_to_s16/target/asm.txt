@@ -1,0 +1,56 @@
+0000000000009f60 <drwav_f32_to_s16>:
+    9f60:	push   %rbp
+    9f61:	mov    %rsp,%rbp
+    9f64:	mov    %rdi,-0x8(%rbp)
+    9f68:	mov    %rsi,-0x10(%rbp)
+    9f6c:	mov    %rdx,-0x18(%rbp)
+    9f70:	movq   $0x0,-0x28(%rbp)
+    9f78:	mov    -0x28(%rbp),%rax
+    9f7c:	cmp    -0x18(%rbp),%rax
+    9f80:	jae    a056 <drwav_f32_to_s16+0xf6>
+    9f86:	mov    -0x10(%rbp),%rax
+    9f8a:	mov    -0x28(%rbp),%rcx
+    9f8e:	movss  (%rax,%rcx,4),%xmm0
+    9f93:	movss  %xmm0,-0x2c(%rbp)
+    9f98:	movss  0xa0e0(%rip),%xmm0        # 14080 <_IO_stdin_used+0x80>
+    9fa0:	ucomiss -0x2c(%rbp),%xmm0
+    9fa4:	jbe    9fbc <drwav_f32_to_s16+0x5c>
+    9faa:	movss  0xa0ce(%rip),%xmm0        # 14080 <_IO_stdin_used+0x80>
+    9fb2:	movss  %xmm0,-0x34(%rbp)
+    9fb7:	jmp    9ff8 <drwav_f32_to_s16+0x98>
+    9fbc:	movss  -0x2c(%rbp),%xmm0
+    9fc1:	movss  0xa0bb(%rip),%xmm1        # 14084 <_IO_stdin_used+0x84>
+    9fc9:	ucomiss %xmm1,%xmm0
+    9fcc:	jbe    9fe4 <drwav_f32_to_s16+0x84>
+    9fd2:	movss  0xa0aa(%rip),%xmm0        # 14084 <_IO_stdin_used+0x84>
+    9fda:	movss  %xmm0,-0x38(%rbp)
+    9fdf:	jmp    9fee <drwav_f32_to_s16+0x8e>
+    9fe4:	movss  -0x2c(%rbp),%xmm0
+    9fe9:	movss  %xmm0,-0x38(%rbp)
+    9fee:	movss  -0x38(%rbp),%xmm0
+    9ff3:	movss  %xmm0,-0x34(%rbp)
+    9ff8:	movss  -0x34(%rbp),%xmm0
+    9ffd:	movss  %xmm0,-0x30(%rbp)
+    a002:	movss  0xa07a(%rip),%xmm0        # 14084 <_IO_stdin_used+0x84>
+    a00a:	addss  -0x30(%rbp),%xmm0
+    a00f:	movss  %xmm0,-0x30(%rbp)
+    a014:	movss  0xa06c(%rip),%xmm0        # 14088 <_IO_stdin_used+0x88>
+    a01c:	mulss  -0x30(%rbp),%xmm0
+    a021:	cvttss2si %xmm0,%eax
+    a025:	mov    %eax,-0x1c(%rbp)
+    a028:	mov    -0x1c(%rbp),%eax
+    a02b:	sub    $0x8000,%eax
+    a030:	mov    %eax,-0x1c(%rbp)
+    a033:	mov    -0x1c(%rbp),%eax
+    a036:	mov    %ax,%dx
+    a039:	mov    -0x8(%rbp),%rax
+    a03d:	mov    -0x28(%rbp),%rcx
+    a041:	mov    %dx,(%rax,%rcx,2)
+    a045:	mov    -0x28(%rbp),%rax
+    a049:	add    $0x1,%rax
+    a04d:	mov    %rax,-0x28(%rbp)
+    a051:	jmp    9f78 <drwav_f32_to_s16+0x18>
+    a056:	pop    %rbp
+    a057:	ret
+
+Disassembly of section .fini:

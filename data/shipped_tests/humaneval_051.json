@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n#include <string.h>\n#include <stdlib.h>\n\nvoid func0(char *text) {\n    const char *vowels = \"AEIOUaeiou\";\n    char *out = text;\n    while (*text != '\\0') {\n        if (strchr(vowels, *text) == NULL) {\n            *out++ = *text;\n        }\n        text++;\n    }\n    *out = '\\0';\n}",
+ "c_test": "#include <stdio.h>\n#include <assert.h>\n#include <string.h>\n\nint main() {\n    char test1[] = \"\";\n    func0(test1);\n    assert(strcmp(test1, \"\") == 0);\n    \n    char test2[] = \"abcdef\\nghijklm\";\n    func0(test2);\n    assert(strcmp(test2, \"bcdf\\nghjklm\") == 0);\n    \n    char test3[] = \"fedcba\";\n    func0(test3);\n    assert(strcmp(test3, \"fdcb\") == 0);\n    \n    char test4[] = \"eeeee\";\n    func0(test4);\n    assert(strcmp(test4, \"\") == 0);\n    \n    char test5[] = \"acBAA\";\n    func0(test5);\n    assert(strcmp(test5, \"cB\") == 0);\n    \n    char test6[] = \"EcBOO\";\n    func0(test6);\n    assert(strcmp(test6, \"cB\") == 0);\n    \n    char test7[] = \"ybcd\";\n    func0(test7);\n    assert(strcmp(test7, \"ybcd\") == 0);\n\n    return 0;\n}"
+}

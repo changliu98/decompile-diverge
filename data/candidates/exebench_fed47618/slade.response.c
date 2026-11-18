@@ -1,0 +1,1 @@
+int atomicDecrement(atomic_t *p) { int i; __asm__ __volatile__("lock; xaddl %0,%1" : "=a" (i) : "m" (*(p)), "0" (-1)); return i - 1; }

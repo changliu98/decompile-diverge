@@ -1,0 +1,48 @@
+00000000000017f0 <compile_get_env>:
+    17f0:	push   %rbp
+    17f1:	mov    %rsp,%rbp
+    17f4:	sub    $0x30,%rsp
+    17f8:	mov    %rdi,-0x10(%rbp)
+    17fc:	mov    %rsi,-0x18(%rbp)
+    1800:	mov    -0x10(%rbp),%rax
+    1804:	mov    (%rax),%rax
+    1807:	mov    %rax,-0x20(%rbp)
+    180b:	mov    -0x10(%rbp),%rax
+    180f:	mov    (%rax),%rcx
+    1812:	add    $0x1,%rcx
+    1816:	mov    %rcx,(%rax)
+    1819:	mov    -0x10(%rbp),%rdi
+    181d:	call   1260 <get_env_len>
+    1822:	mov    %eax,-0x24(%rbp)
+    1825:	cmpl   $0x0,-0x24(%rbp)
+    1829:	jne    1851 <compile_get_env+0x61>
+    182f:	mov    -0x20(%rbp),%rsi
+    1833:	add    $0xffffffffffffffff,%rsi
+    1837:	lea    0x2852(%rip),%rdi        # 4090 <e_syntax_error_at_str>
+    183e:	mov    $0x0,%al
+    1840:	call   1370 <semsg>
+    1845:	movl   $0x0,-0x4(%rbp)
+    184c:	jmp    1891 <compile_get_env+0xa1>
+    1851:	mov    -0x20(%rbp),%rdi
+    1855:	mov    -0x24(%rbp),%eax
+    1858:	add    $0x1,%eax
+    185b:	movslq %eax,%rsi
+    185e:	call   12f0 <vim_strnsave>
+    1863:	mov    %rax,-0x30(%rbp)
+    1867:	mov    -0x18(%rbp),%rdi
+    186b:	mov    -0x30(%rbp),%rcx
+    186f:	xor    %edx,%edx
+    1871:	lea    0x2950(%rip),%r8        # 41c8 <t_string>
+    1878:	mov    %edx,%esi
+    187a:	call   1480 <generate_LOAD>
+    187f:	mov    %eax,-0x28(%rbp)
+    1882:	mov    -0x30(%rbp),%rdi
+    1886:	call   11f0 <vim_free>
+    188b:	mov    -0x28(%rbp),%eax
+    188e:	mov    %eax,-0x4(%rbp)
+    1891:	mov    -0x4(%rbp),%eax
+    1894:	add    $0x30,%rsp
+    1898:	pop    %rbp
+    1899:	ret
+
+Disassembly of section .fini:

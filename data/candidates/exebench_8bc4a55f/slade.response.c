@@ -1,0 +1,1 @@
+short popPriorityQueue(Queue q, short a[]) { q->nPriority--; return a[q->nPriority * 2]; }

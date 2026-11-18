@@ -1,0 +1,1 @@
+void ulimit_stack(long *basep, long *limitp, int *residp) { struct rlimit rl; int s; rl.rlim_cur = -1; rl.rlim_max = -1; s = setrlimit(3, &rl); if (s == -1 && !getrlimit(3, &rl)) { rl.rlim_cur = rl.rlim_max; s = setrlimit(3, &rl); } *residp = s; *basep = -1; *limitp = -1; if (!getrlimit(3, &rl)) { *basep = rl.rlim_cur; *limitp = rl.rlim_max; } }

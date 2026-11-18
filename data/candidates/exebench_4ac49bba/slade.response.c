@@ -1,0 +1,1 @@
+int SDL_imageFilterAddUintMMX(unsigned char *Src, unsigned char *Dest, int rows, int columns, int channels) { return -1; }

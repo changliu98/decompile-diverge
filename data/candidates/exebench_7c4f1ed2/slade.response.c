@@ -1,0 +1,1 @@
+void decode_dir(short dir, int *x, int *y) { *x = (dir &0xff) - 2; *y = ((dir &0xff00) >> 8) - 2; }

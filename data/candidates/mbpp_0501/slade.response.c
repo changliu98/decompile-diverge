@@ -1,0 +1,1 @@
+int func0(int n, int m) { int q = ngcd(n, m), r = 0; int N = sqrt((double)q); for (int i = 1; i <= N; i++) { if (q % i == 0) { r += 2; if (i == q / i) { r -= 1; } } } return r; }

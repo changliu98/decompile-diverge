@@ -1,0 +1,343 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     rax, [rbp+level]\nmov     rax, [rbp+model]\nmov     [rbp+oidIndex], rdi\nmov     [rbp+oidLen], rsi\nmov     [rbp+groupName], rdx\nmov     [rbp+groupNameLen], rcx\nmov     [rbp+contextPrefix], r8\nmov     [rbp+contextPrefixLen], r9\ncmp     [rbp+oidLen], 0\njbe     loc_11EE\ncmp     [rbp+oidIndex], 0\njnz     loc_11FA\nmov     [rbp+var_4], 1\njmp     loc_1446\nmov     rax, [rbp+oidIndex]\nmov     rax, [rax]\nmov     [rbp+groupNameL], eax\nmov     rax, [rbp+oidIndex]\nmov     ecx, [rbp+groupNameL]\nadd     ecx, 1\nmovsxd  rcx, ecx\nmov     rax, [rax+rcx*8]\nmov     [rbp+contextPrefixL], eax\nmov     rax, [rbp+oidLen]\nmov     ecx, [rbp+groupNameL]\nadd     ecx, [rbp+contextPrefixL]\nadd     ecx, 4\ncmp     eax, ecx\njz      loc_1239\nmov     [rbp+var_4], 1\njmp     loc_1446\ncmp     [rbp+contextPrefix], 0\njz      loc_124F\ncmp     [rbp+groupName], 0\njnz     loc_125B\nmov     [rbp+var_4], 1\njmp     loc_1446\nmov     eax, [rbp+groupNameL]\nadd     eax, 1\nmovsxd  rdi, eax; size\ncall    malloc\nmov     rcx, rax\nmov     rax, [rbp+groupName]\nmov     [rax], rcx\nmov     rax, [rbp+groupName]\ncmp     qword ptr [rax], 0\njnz     loc_128D\nmov     [rbp+var_4], 1\njmp     loc_1446\nmov     eax, [rbp+contextPrefixL]\nadd     eax, 1\nmovsxd  rdi, eax; size\ncall    malloc\nmov     rcx, rax\nmov     rax, [rbp+contextPrefix]\nmov     [rax], rcx\nmov     rax, [rbp+contextPrefix]\ncmp     qword ptr [rax], 0\njnz     loc_12CB\nmov     rax, [rbp+groupName]\nmov     rdi, [rax]; ptr\ncall    free\nmov     [rbp+var_4], 1\njmp     loc_1446\nmovsxd  rcx, [rbp+contextPrefixL]\nmov     rax, [rbp+contextPrefixLen]\nmov     [rax], rcx\nmovsxd  rcx, [rbp+groupNameL]\nmov     rax, [rbp+groupNameLen]\nmov     [rax], rcx\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+groupNameL]\njge     loc_1362\nmov     rax, [rbp+oidIndex]\nmov     ecx, [rbp+i]\nadd     ecx, 1\nmovsxd  rcx, ecx\ncmp     qword ptr [rax+rcx*8], 0FFh\njbe     loc_1333\nmov     rax, [rbp+groupName]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rax, [rbp+contextPrefix]\nmov     rdi, [rax]; ptr\ncall    free\nmov     [rbp+var_4], 1\njmp     loc_1446\nmov     rax, [rbp+oidIndex]\nmov     ecx, [rbp+i]\nadd     ecx, 1\nmovsxd  rcx, ecx\nmov     rax, [rax+rcx*8]\nmov     dl, al\nmov     rax, [rbp+groupName]\nmov     rax, [rax]\nmovsxd  rcx, [rbp+i]\nmov     [rax+rcx], dl\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_12E8\nmov     rax, [rbp+groupName]\nmov     rax, [rax]\nmovsxd  rcx, [rbp+groupNameL]\nmov     byte ptr [rax+rcx], 0\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+contextPrefixL]\njge     loc_13F8\nmov     rax, [rbp+oidIndex]\nmov     ecx, [rbp+i]\nadd     ecx, [rbp+groupNameL]\nadd     ecx, 2\nmovsxd  rcx, ecx\ncmp     qword ptr [rax+rcx*8], 0FFh\njbe     loc_13C6\nmov     rax, [rbp+groupName]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rax, [rbp+contextPrefix]\nmov     rdi, [rax]; ptr\ncall    free\nmov     [rbp+var_4], 1\njmp     loc_1446\nmov     rax, [rbp+oidIndex]\nmov     ecx, [rbp+i]\nadd     ecx, [rbp+groupNameL]\nadd     ecx, 2\nmovsxd  rcx, ecx\nmov     rax, [rax+rcx*8]\nmov     dl, al\nmov     rax, [rbp+contextPrefix]\nmov     rax, [rax]\nmovsxd  rcx, [rbp+i]\nmov     [rax+rcx], dl\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1378\nmov     rax, [rbp+contextPrefix]\nmov     rax, [rax]\nmovsxd  rcx, [rbp+contextPrefixL]\nmov     byte ptr [rax+rcx], 0\nmov     rax, [rbp+oidIndex]\nmov     ecx, [rbp+groupNameL]\nadd     ecx, [rbp+contextPrefixL]\nadd     ecx, 2\nmovsxd  rcx, ecx\nmov     rax, [rax+rcx*8]\nmov     ecx, eax\nmov     rax, [rbp+model]\nmov     [rax], ecx\nmov     rax, [rbp+oidIndex]\nmov     ecx, [rbp+groupNameL]\nadd     ecx, [rbp+contextPrefixL]\nadd     ecx, 3\nmovsxd  rcx, ecx\nmov     rax, [rax+rcx*8]\nmov     ecx, eax\nmov     rax, [rbp+level]\nmov     [rax], ecx\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 24,
+  "edges": [
+   [
+    "start",
+    "loc_11E3"
+   ],
+   [
+    "start",
+    "loc_11EE"
+   ],
+   [
+    "loc_11E3",
+    "loc_11EE"
+   ],
+   [
+    "loc_11E3",
+    "loc_11FA"
+   ],
+   [
+    "loc_11EE",
+    "loc_1446"
+   ],
+   [
+    "loc_11FA",
+    "loc_122D"
+   ],
+   [
+    "loc_11FA",
+    "loc_1239"
+   ],
+   [
+    "loc_122D",
+    "loc_1446"
+   ],
+   [
+    "loc_1239",
+    "loc_1244"
+   ],
+   [
+    "loc_1239",
+    "loc_124F"
+   ],
+   [
+    "loc_1244",
+    "loc_124F"
+   ],
+   [
+    "loc_1244",
+    "loc_125B"
+   ],
+   [
+    "loc_124F",
+    "loc_1446"
+   ],
+   [
+    "loc_125B",
+    "loc_1281"
+   ],
+   [
+    "loc_125B",
+    "loc_128D"
+   ],
+   [
+    "loc_1281",
+    "loc_1446"
+   ],
+   [
+    "loc_128D",
+    "loc_12B3"
+   ],
+   [
+    "loc_128D",
+    "loc_12CB"
+   ],
+   [
+    "loc_12B3",
+    "loc_1446"
+   ],
+   [
+    "loc_12CB",
+    "loc_12E8"
+   ],
+   [
+    "loc_12E8",
+    "loc_12F4"
+   ],
+   [
+    "loc_12E8",
+    "loc_1362"
+   ],
+   [
+    "loc_12F4",
+    "loc_130F"
+   ],
+   [
+    "loc_12F4",
+    "loc_1333"
+   ],
+   [
+    "loc_130F",
+    "loc_1446"
+   ],
+   [
+    "loc_1333",
+    "loc_12E8"
+   ],
+   [
+    "loc_1362",
+    "loc_1378"
+   ],
+   [
+    "loc_1378",
+    "loc_1384"
+   ],
+   [
+    "loc_1378",
+    "loc_13F8"
+   ],
+   [
+    "loc_1384",
+    "loc_13A2"
+   ],
+   [
+    "loc_1384",
+    "loc_13C6"
+   ],
+   [
+    "loc_13A2",
+    "loc_1446"
+   ],
+   [
+    "loc_13C6",
+    "loc_1378"
+   ],
+   [
+    "loc_13F8",
+    "loc_1446"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     rax, [rbp+level]\nmov     rax, [rbp+model]\nmov     [rbp+oidIndex], rdi\nmov     [rbp+oidLen], rsi\nmov     [rbp+groupName], rdx\nmov     [rbp+groupNameLen], rcx\nmov     [rbp+contextPrefix], r8\nmov     [rbp+contextPrefixLen], r9\ncmp     [rbp+oidLen], 0\njbe     loc_11EE",
+   "loc_11E3": "cmp     [rbp+oidIndex], 0\njnz     loc_11FA",
+   "loc_11EE": "mov     [rbp+var_4], 1\njmp     loc_1446",
+   "loc_11FA": "mov     rax, [rbp+oidIndex]\nmov     rax, [rax]\nmov     [rbp+groupNameL], eax\nmov     rax, [rbp+oidIndex]\nmov     ecx, [rbp+groupNameL]\nadd     ecx, 1\nmovsxd  rcx, ecx\nmov     rax, [rax+rcx*8]\nmov     [rbp+contextPrefixL], eax\nmov     rax, [rbp+oidLen]\nmov     ecx, [rbp+groupNameL]\nadd     ecx, [rbp+contextPrefixL]\nadd     ecx, 4\ncmp     eax, ecx\njz      loc_1239",
+   "loc_122D": "mov     [rbp+var_4], 1\njmp     loc_1446",
+   "loc_1239": "cmp     [rbp+contextPrefix], 0\njz      loc_124F",
+   "loc_1244": "cmp     [rbp+groupName], 0\njnz     loc_125B",
+   "loc_124F": "mov     [rbp+var_4], 1\njmp     loc_1446",
+   "loc_125B": "mov     eax, [rbp+groupNameL]\nadd     eax, 1\nmovsxd  rdi, eax; size\ncall    malloc\nmov     rcx, rax\nmov     rax, [rbp+groupName]\nmov     [rax], rcx\nmov     rax, [rbp+groupName]\ncmp     qword ptr [rax], 0\njnz     loc_128D",
+   "loc_1281": "mov     [rbp+var_4], 1\njmp     loc_1446",
+   "loc_128D": "mov     eax, [rbp+contextPrefixL]\nadd     eax, 1\nmovsxd  rdi, eax; size\ncall    malloc\nmov     rcx, rax\nmov     rax, [rbp+contextPrefix]\nmov     [rax], rcx\nmov     rax, [rbp+contextPrefix]\ncmp     qword ptr [rax], 0\njnz     loc_12CB",
+   "loc_12B3": "mov     rax, [rbp+groupName]\nmov     rdi, [rax]; ptr\ncall    free\nmov     [rbp+var_4], 1\njmp     loc_1446",
+   "loc_12CB": "movsxd  rcx, [rbp+contextPrefixL]\nmov     rax, [rbp+contextPrefixLen]\nmov     [rax], rcx\nmovsxd  rcx, [rbp+groupNameL]\nmov     rax, [rbp+groupNameLen]\nmov     [rax], rcx\nmov     [rbp+i], 0",
+   "loc_12E8": "mov     eax, [rbp+i]\ncmp     eax, [rbp+groupNameL]\njge     loc_1362",
+   "loc_12F4": "mov     rax, [rbp+oidIndex]\nmov     ecx, [rbp+i]\nadd     ecx, 1\nmovsxd  rcx, ecx\ncmp     qword ptr [rax+rcx*8], 0FFh\njbe     loc_1333",
+   "loc_130F": "mov     rax, [rbp+groupName]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rax, [rbp+contextPrefix]\nmov     rdi, [rax]; ptr\ncall    free\nmov     [rbp+var_4], 1\njmp     loc_1446",
+   "loc_1333": "mov     rax, [rbp+oidIndex]\nmov     ecx, [rbp+i]\nadd     ecx, 1\nmovsxd  rcx, ecx\nmov     rax, [rax+rcx*8]\nmov     dl, al\nmov     rax, [rbp+groupName]\nmov     rax, [rax]\nmovsxd  rcx, [rbp+i]\nmov     [rax+rcx], dl\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_12E8",
+   "loc_1362": "mov     rax, [rbp+groupName]\nmov     rax, [rax]\nmovsxd  rcx, [rbp+groupNameL]\nmov     byte ptr [rax+rcx], 0\nmov     [rbp+i], 0",
+   "loc_1378": "mov     eax, [rbp+i]\ncmp     eax, [rbp+contextPrefixL]\njge     loc_13F8",
+   "loc_1384": "mov     rax, [rbp+oidIndex]\nmov     ecx, [rbp+i]\nadd     ecx, [rbp+groupNameL]\nadd     ecx, 2\nmovsxd  rcx, ecx\ncmp     qword ptr [rax+rcx*8], 0FFh\njbe     loc_13C6",
+   "loc_13A2": "mov     rax, [rbp+groupName]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rax, [rbp+contextPrefix]\nmov     rdi, [rax]; ptr\ncall    free\nmov     [rbp+var_4], 1\njmp     loc_1446",
+   "loc_13C6": "mov     rax, [rbp+oidIndex]\nmov     ecx, [rbp+i]\nadd     ecx, [rbp+groupNameL]\nadd     ecx, 2\nmovsxd  rcx, ecx\nmov     rax, [rax+rcx*8]\nmov     dl, al\nmov     rax, [rbp+contextPrefix]\nmov     rax, [rax]\nmovsxd  rcx, [rbp+i]\nmov     [rax+rcx], dl\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1378",
+   "loc_13F8": "mov     rax, [rbp+contextPrefix]\nmov     rax, [rax]\nmovsxd  rcx, [rbp+contextPrefixL]\nmov     byte ptr [rax+rcx], 0\nmov     rax, [rbp+oidIndex]\nmov     ecx, [rbp+groupNameL]\nadd     ecx, [rbp+contextPrefixL]\nadd     ecx, 2\nmovsxd  rcx, ecx\nmov     rax, [rax+rcx*8]\nmov     ecx, eax\nmov     rax, [rbp+model]\nmov     [rax], ecx\nmov     rax, [rbp+oidIndex]\nmov     ecx, [rbp+groupNameL]\nadd     ecx, [rbp+contextPrefixL]\nadd     ecx, 3\nmovsxd  rcx, ecx\nmov     rax, [rax+rcx*8]\nmov     ecx, eax\nmov     rax, [rbp+level]\nmov     [rax], ecx\nmov     [rbp+var_4], 0",
+   "loc_1446": "mov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "i": "dword ptr -44h",
+   "contextPrefixL": "dword ptr -40h",
+   "groupNameL": "dword ptr -3Ch",
+   "contextPrefixLen": "qword ptr -38h",
+   "contextPrefix": "qword ptr -30h",
+   "groupNameLen": "qword ptr -28h",
+   "groupName": "qword ptr -20h",
+   "oidLen": "qword ptr -18h",
+   "oidIndex": "qword ptr -10h",
+   "var_4": "dword ptr -4",
+   "model": "qword ptr 10h",
+   "level": "qword ptr 18h"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4528,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868495
+ }
+}

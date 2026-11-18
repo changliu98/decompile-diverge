@@ -1,0 +1,1 @@
+int obdRevConvert_2C(float value, float *p_x, float *p_y, float *p_z, char *format) { *p_x = value * 255.0f / 100.0f; return (1); }

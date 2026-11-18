@@ -1,0 +1,1 @@
+int func0(uint32_t x) { int i = 0; while (x) { x &= x - 1; i++; } return i % 2 == 1; }

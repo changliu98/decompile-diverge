@@ -1,0 +1,1 @@
+int transF(int xa, int xb, float *x, int xl, int xh, float *y) { int i, j; if (xa != xh || xb != xl) return 2000; for (i = 0; i < xl; i++) for (j = 0; j < xh; j++) y[i*xh+j] = x[j*xb+i]; return 0; }

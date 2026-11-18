@@ -1,0 +1,1 @@
+void goertzel_filter_v1(short *v, short a, short b) { short x; x = (v[1] * b) >> 14 - v[2]; v[3] = v[7]; v[1] = x + (a >> 7); }

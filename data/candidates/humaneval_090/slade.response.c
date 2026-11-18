@@ -1,0 +1,1 @@
+int func0(int *x, int n) { if (n <= 1) { return -1; } int a =0x7fffffff; int b =0x7fffffff; for (int i = 0; i < n; ++i) { if (a > x[i]) { b = a; a = x[i]; } else if (b > x[i] && a != x[i]) { b = x[i]; } } if (b ==0x7fffffff) { return -1; } return b; }

@@ -1,0 +1,10 @@
+double __cdecl func0(int *numbers, int size)
+{
+  int i; // [rsp+0h] [rbp-1Ch]
+  double total; // [rsp+4h] [rbp-18h]
+
+  total = 1.0;
+  for ( i = 0; i < size; ++i )
+    total = (double)numbers[i] * total;
+  return total / (double)size;
+}

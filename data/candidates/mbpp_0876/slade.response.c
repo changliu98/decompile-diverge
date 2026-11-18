@@ -1,0 +1,1 @@
+int func0(int a, int b) { int x; if (a > b) x = a; else x = b; for (;; x++) { if (x % a == 0 && x % b == 0) return x; } }

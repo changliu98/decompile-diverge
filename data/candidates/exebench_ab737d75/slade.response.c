@@ -1,0 +1,1 @@
+float sub_sf(float *a, float *b) { float aa,bb; aa = *a; bb = *b; bb = bb; return (aa-bb); }

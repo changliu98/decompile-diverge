@@ -1,0 +1,1 @@
+uint32_t REG_A4XX_SP_DS_OUT_REG(uint32_t i0) { return 0x0000231b + 0x1*i0; }

@@ -1,0 +1,1 @@
+static int func0(int row) { return 0x10000 + 0x7 * row; }

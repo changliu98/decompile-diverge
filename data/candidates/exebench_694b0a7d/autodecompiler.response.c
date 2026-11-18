@@ -1,0 +1,1 @@
+void dpaa_clear_bits(long long x, long long *y) { *y &= ~x; }

@@ -1,0 +1,372 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+stream], rdi\nmov     [rbp+in], rsi\nmov     [rbp+oldSampleRate], edx\nmov     [rbp+newSampleRate], ecx\nmov     [rbp+total], 0\nmov     rax, [rbp+stream]\nmov     eax, [rax+48h]\nimul    eax, [rbp+oldSampleRate]\nmov     [rbp+position], eax\nmov     rax, [rbp+stream]\nmov     eax, [rax+44h]\nimul    eax, [rbp+newSampleRate]\nmov     [rbp+leftPosition], eax\nmov     rax, [rbp+stream]\nmov     eax, [rax+44h]\nadd     eax, 1\nimul    eax, [rbp+newSampleRate]\nmov     [rbp+rightPosition], eax\nmov     eax, [rbp+rightPosition]\nsub     eax, [rbp+position]\nsub     eax, 1\nmov     [rbp+ratio], eax\nmov     eax, [rbp+rightPosition]\nsub     eax, [rbp+leftPosition]\nmov     [rbp+width], eax\nmov     [rbp+overflowCount], 0\nmov     [rbp+i], 0\ncmp     [rbp+i], 0Ch\njge     loc_2C61\nmov     edi, [rbp+i]; i\nmov     esi, [rbp+ratio]; ratio\nmov     edx, [rbp+width]; width\ncall    findSincCoefficient\nmov     [rbp+weight], eax\nmov     rax, [rbp+in]\nmov     ecx, [rbp+i]\nmov     rdx, [rbp+stream]\nimul    ecx, [rdx+50h]\nmovsxd  rcx, ecx\nmovsx   eax, word ptr [rax+rcx*2]\nimul    eax, [rbp+weight]\nmov     [rbp+value], eax\nmov     edi, [rbp+total]; value\ncall    getSign\nmov     [rbp+oldSign], eax\nmov     eax, [rbp+value]\nadd     eax, [rbp+total]\nmov     [rbp+total], eax\nmov     eax, [rbp+oldSign]\nmov     [rbp+var_50], eax\nmov     edi, [rbp+total]; value\ncall    getSign\nmov     ecx, eax\nmov     eax, [rbp+var_50]\ncmp     eax, ecx\njz      loc_2C4E\nmov     edi, [rbp+value]; value\ncall    getSign\ncmp     eax, [rbp+oldSign]\njnz     loc_2C4E\nmov     eax, [rbp+oldSign]\nadd     eax, [rbp+overflowCount]\nmov     [rbp+overflowCount], eax\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_2BCD\ncmp     [rbp+overflowCount], 0\njle     loc_2C76\nmov     [rbp+var_2], 7FFFh\njmp     loc_2C9A\ncmp     [rbp+overflowCount], 0\njge     loc_2C8B\nmov     [rbp+var_2], 8000h\njmp     loc_2C9A\njmp     $+5\nmov     eax, [rbp+total]\nsar     eax, 10h\nmov     [rbp+var_2], ax\nmovsx   eax, [rbp+var_2]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 14,
+  "edges": [
+   [
+    "start",
+    "loc_2BCD"
+   ],
+   [
+    "loc_2BCD",
+    "loc_2BD7"
+   ],
+   [
+    "loc_2BCD",
+    "loc_2C61"
+   ],
+   [
+    "loc_2BD7",
+    "loc_2C34"
+   ],
+   [
+    "loc_2BD7",
+    "loc_2C4E"
+   ],
+   [
+    "loc_2C34",
+    "loc_2C45"
+   ],
+   [
+    "loc_2C34",
+    "loc_2C4E"
+   ],
+   [
+    "loc_2C45",
+    "loc_2C4E"
+   ],
+   [
+    "loc_2C4E",
+    "loc_2C53"
+   ],
+   [
+    "loc_2C53",
+    "loc_2BCD"
+   ],
+   [
+    "loc_2C61",
+    "loc_2C6B"
+   ],
+   [
+    "loc_2C61",
+    "loc_2C76"
+   ],
+   [
+    "loc_2C6B",
+    "loc_2C9A"
+   ],
+   [
+    "loc_2C76",
+    "loc_2C80"
+   ],
+   [
+    "loc_2C76",
+    "loc_2C8B"
+   ],
+   [
+    "loc_2C80",
+    "loc_2C9A"
+   ],
+   [
+    "loc_2C8B",
+    "loc_2C90"
+   ],
+   [
+    "loc_2C90",
+    "loc_2C9A"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+stream], rdi\nmov     [rbp+in], rsi\nmov     [rbp+oldSampleRate], edx\nmov     [rbp+newSampleRate], ecx\nmov     [rbp+total], 0\nmov     rax, [rbp+stream]\nmov     eax, [rax+48h]\nimul    eax, [rbp+oldSampleRate]\nmov     [rbp+position], eax\nmov     rax, [rbp+stream]\nmov     eax, [rax+44h]\nimul    eax, [rbp+newSampleRate]\nmov     [rbp+leftPosition], eax\nmov     rax, [rbp+stream]\nmov     eax, [rax+44h]\nadd     eax, 1\nimul    eax, [rbp+newSampleRate]\nmov     [rbp+rightPosition], eax\nmov     eax, [rbp+rightPosition]\nsub     eax, [rbp+position]\nsub     eax, 1\nmov     [rbp+ratio], eax\nmov     eax, [rbp+rightPosition]\nsub     eax, [rbp+leftPosition]\nmov     [rbp+width], eax\nmov     [rbp+overflowCount], 0\nmov     [rbp+i], 0",
+   "loc_2BCD": "cmp     [rbp+i], 0Ch\njge     loc_2C61",
+   "loc_2BD7": "mov     edi, [rbp+i]; i\nmov     esi, [rbp+ratio]; ratio\nmov     edx, [rbp+width]; width\ncall    findSincCoefficient\nmov     [rbp+weight], eax\nmov     rax, [rbp+in]\nmov     ecx, [rbp+i]\nmov     rdx, [rbp+stream]\nimul    ecx, [rdx+50h]\nmovsxd  rcx, ecx\nmovsx   eax, word ptr [rax+rcx*2]\nimul    eax, [rbp+weight]\nmov     [rbp+value], eax\nmov     edi, [rbp+total]; value\ncall    getSign\nmov     [rbp+oldSign], eax\nmov     eax, [rbp+value]\nadd     eax, [rbp+total]\nmov     [rbp+total], eax\nmov     eax, [rbp+oldSign]\nmov     [rbp+var_50], eax\nmov     edi, [rbp+total]; value\ncall    getSign\nmov     ecx, eax\nmov     eax, [rbp+var_50]\ncmp     eax, ecx\njz      loc_2C4E",
+   "loc_2C34": "mov     edi, [rbp+value]; value\ncall    getSign\ncmp     eax, [rbp+oldSign]\njnz     loc_2C4E",
+   "loc_2C45": "mov     eax, [rbp+oldSign]\nadd     eax, [rbp+overflowCount]\nmov     [rbp+overflowCount], eax",
+   "loc_2C4E": "jmp     $+5",
+   "loc_2C53": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_2BCD",
+   "loc_2C61": "cmp     [rbp+overflowCount], 0\njle     loc_2C76",
+   "loc_2C6B": "mov     [rbp+var_2], 7FFFh\njmp     loc_2C9A",
+   "loc_2C76": "cmp     [rbp+overflowCount], 0\njge     loc_2C8B",
+   "loc_2C80": "mov     [rbp+var_2], 8000h\njmp     loc_2C9A",
+   "loc_2C8B": "jmp     $+5",
+   "loc_2C90": "mov     eax, [rbp+total]\nsar     eax, 10h\nmov     [rbp+var_2], ax",
+   "loc_2C9A": "movsx   eax, [rbp+var_2]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_50": "dword ptr -50h",
+   "overflowCount": "dword ptr -4Ch",
+   "oldSign": "dword ptr -48h",
+   "value": "dword ptr -44h",
+   "weight": "dword ptr -40h",
+   "width": "dword ptr -3Ch",
+   "ratio": "dword ptr -38h",
+   "rightPosition": "dword ptr -34h",
+   "leftPosition": "dword ptr -30h",
+   "position": "dword ptr -2Ch",
+   "total": "dword ptr -28h",
+   "i": "dword ptr -24h",
+   "newSampleRate": "dword ptr -20h",
+   "oldSampleRate": "dword ptr -1Ch",
+   "in": "qword ptr -18h",
+   "stream": "qword ptr -10h",
+   "var_2": "word ptr -2"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 11104,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memmove",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872682
+ }
+}

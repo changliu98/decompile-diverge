@@ -1,0 +1,1 @@
+void sBitwiseXor_process(float a, float b, float *c) { *c = (float)((int)a ^ (int)b); }

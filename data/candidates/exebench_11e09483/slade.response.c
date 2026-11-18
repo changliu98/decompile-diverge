@@ -1,0 +1,1 @@
+int pos2ddd(long nb, long ne, double *x, double *y) { *x = nb / 12; *x += (nb - 12 * *x) / 12; *y = ne / 12; *y += (ne - 12 * *y) / 12; return (0); }

@@ -1,0 +1,1 @@
+void clearDflag(struct s *s) { s->a[1] = '0'; }

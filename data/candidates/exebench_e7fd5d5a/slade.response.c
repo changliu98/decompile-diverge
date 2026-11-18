@@ -1,0 +1,1 @@
+void basename_discriminant(char *string, size_t *dlength, size_t *dlength) { char *s = strrchr(string, '/'); if (s == NULL) s = string; else s++; *dlength = 0; for (*dlength = 0; *s; *dlength++) { *dlength *= 33; *dlength += *s++; } }

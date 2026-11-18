@@ -1,0 +1,205 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+out], rdi\nmov     [rbp+key], rsi\nmov     [rbp+in], rdx\nlea     rdi, [rbp+block]; dst\nmov     rsi, cs:chacha20_constant; src\nmov     edx, 4; size\ncall    load32_le_buf\nlea     rdi, [rbp+block]\nadd     rdi, 10h; dst\nmov     rsi, [rbp+key]; src\nmov     edx, 8; size\ncall    load32_le_buf\nlea     rdi, [rbp+block]\nadd     rdi, 30h ; '0'; dst\nmov     rsi, [rbp+in]; src\nmov     edx, 4; size\ncall    load32_le_buf\nlea     rdi, [rbp+block]; out\nlea     rsi, [rbp+block]; in\ncall    chacha20_rounds\nmov     rdi, [rbp+out]; dst\nlea     rsi, [rbp+block]; src\nmov     edx, 4; size\ncall    store32_le_buf\nmov     rdi, [rbp+out]\nadd     rdi, 10h; dst\nlea     rsi, [rbp+block]\nadd     rsi, 30h ; '0'; src\nmov     edx, 4; size\ncall    store32_le_buf\nlea     rdi, [rbp+block]; secret\nmov     esi, 40h ; '@'; size\ncall    crypto_wipe\nadd     rsp, 60h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 1,
+  "edges": [],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+out], rdi\nmov     [rbp+key], rsi\nmov     [rbp+in], rdx\nlea     rdi, [rbp+block]; dst\nmov     rsi, cs:chacha20_constant; src\nmov     edx, 4; size\ncall    load32_le_buf\nlea     rdi, [rbp+block]\nadd     rdi, 10h; dst\nmov     rsi, [rbp+key]; src\nmov     edx, 8; size\ncall    load32_le_buf\nlea     rdi, [rbp+block]\nadd     rdi, 30h ; '0'; dst\nmov     rsi, [rbp+in]; src\nmov     edx, 4; size\ncall    load32_le_buf\nlea     rdi, [rbp+block]; out\nlea     rsi, [rbp+block]; in\ncall    chacha20_rounds\nmov     rdi, [rbp+out]; dst\nlea     rsi, [rbp+block]; src\nmov     edx, 4; size\ncall    store32_le_buf\nmov     rdi, [rbp+out]\nadd     rdi, 10h; dst\nlea     rsi, [rbp+block]\nadd     rsi, 30h ; '0'; src\nmov     edx, 4; size\ncall    store32_le_buf\nlea     rdi, [rbp+block]; secret\nmov     esi, 40h ; '@'; size\ncall    crypto_wipe\nadd     rsp, 60h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "block": "dword ptr -60h",
+   "in": "qword ptr -18h",
+   "key": "qword ptr -10h",
+   "out": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {
+   "chacha20_constant": "qword offset aExpand32ByteK"
+  },
+  ".bss": {}
+ },
+ "func_ea": 5120,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868533
+ }
+}

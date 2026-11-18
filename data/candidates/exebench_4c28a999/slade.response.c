@@ -1,0 +1,1 @@
+void fb_hFixCoordsOrder( int *x, int *y, int *h, int *s ) { if( *h < *x ) { *x ^= *h; *h ^= *x; *x ^= *h; } if( *s < *y ) { *y ^= *s; *s ^= *y; *y ^= *s; } }

@@ -1,0 +1,1 @@
+void intToBin(uint8_t value, uint8_t* bin) { uint8_t mask =0x80; for (uint_fast8_t i = 0; i < 8; i++) { bin[i] = (value & mask) ? 1 : 0; value = value << 1; } }

@@ -1,0 +1,1 @@
+int clip_wh(int *x, int *y, int w, int h) { if (*x < w) { int l = w - *x; *y += *x; *x = w; return l; } if (*x + *y >= h) *y = h - *x; return 0; }

@@ -1,0 +1,1 @@
+int sync_test_and_change_bit(int index, void *addr) { int ret; __asm__ __volatile__ ( "lock; btcl %0, %1\n" "sbbl %2,%0" : "=r" (ret) : "m" (*(unsigned int *)addr), "0" (index) ); return ret; }

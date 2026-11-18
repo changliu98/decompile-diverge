@@ -1,0 +1,1 @@
+void split(int a, int b, int a_length, int b_length, int *i_out, int *o_out, int *o_in, int *o_out) { int length = a_length - a + 1; if (length <= 0) { return ; } int i = o_out / length; *i_out = b; *o_out = b + i - 1; *o_in = b + i; *o_out = b_length; }

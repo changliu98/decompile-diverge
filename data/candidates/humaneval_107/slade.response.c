@@ -1,0 +1,1 @@
+int* func0(int n) { int* res = malloc(sizeof(int) * 2); res[0] = 0; res[1] = 0; for (int i = 1; i <= n; ++i) { int a = 0, b = i, temp = i; while (temp) { a = a * 10 + temp % 10; temp /= 10; } if (b == a) { if (b % 2 == 0) ++res[0]; else res[1]++; } } return res; }

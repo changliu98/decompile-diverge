@@ -1,0 +1,40 @@
+00000000000014a0 <crc16_b>:
+    14a0:	push   %rbp
+    14a1:	mov    %rsp,%rbp
+    14a4:	mov    %sil,%al
+    14a7:	mov    %rdi,-0x8(%rbp)
+    14ab:	mov    %al,-0x9(%rbp)
+    14ae:	movl   $0x0,-0x10(%rbp)
+    14b5:	cmpl   $0x8,-0x10(%rbp)
+    14b9:	jge    150b <crc16_b+0x6b>
+    14bf:	mov    -0x8(%rbp),%rax
+    14c3:	mov    (%rax),%ecx
+    14c5:	shl    $0x1,%ecx
+    14c8:	mov    %ecx,(%rax)
+    14ca:	movzbl -0x9(%rbp),%eax
+    14ce:	mov    -0x8(%rbp),%rcx
+    14d2:	mov    (%rcx),%ecx
+    14d4:	shr    $0x10,%ecx
+    14d7:	xor    %ecx,%eax
+    14d9:	and    $0x1,%eax
+    14dc:	cmp    $0x0,%eax
+    14df:	je     14f3 <crc16_b+0x53>
+    14e5:	mov    -0x8(%rbp),%rax
+    14e9:	mov    (%rax),%ecx
+    14eb:	xor    $0x8005,%ecx
+    14f1:	mov    %ecx,(%rax)
+    14f3:	movzbl -0x9(%rbp),%eax
+    14f7:	sar    $0x1,%eax
+    14fa:	mov    %al,-0x9(%rbp)
+    14fd:	mov    -0x10(%rbp),%eax
+    1500:	add    $0x1,%eax
+    1503:	mov    %eax,-0x10(%rbp)
+    1506:	jmp    14b5 <crc16_b+0x15>
+    150b:	mov    -0x8(%rbp),%rax
+    150f:	mov    (%rax),%ecx
+    1511:	and    $0xffff,%ecx
+    1517:	mov    %ecx,(%rax)
+    1519:	pop    %rbp
+    151a:	ret
+
+Disassembly of section .fini:

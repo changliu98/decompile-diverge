@@ -1,0 +1,39 @@
+000000000000b410 <drwav_mulaw_to_f32>:
+    b410:	push   %rbp
+    b411:	mov    %rsp,%rbp
+    b414:	mov    %rdi,-0x10(%rbp)
+    b418:	mov    %rsi,-0x18(%rbp)
+    b41c:	mov    %rdx,-0x20(%rbp)
+    b420:	cmpq   $0x0,-0x10(%rbp)
+    b425:	je     b436 <drwav_mulaw_to_f32+0x26>
+    b42b:	cmpq   $0x0,-0x18(%rbp)
+    b430:	jne    b43b <drwav_mulaw_to_f32+0x2b>
+    b436:	jmp    b4a4 <drwav_mulaw_to_f32+0x94>
+    b43b:	movq   $0x0,-0x28(%rbp)
+    b443:	mov    -0x28(%rbp),%rax
+    b447:	cmp    -0x20(%rbp),%rax
+    b44b:	jae    b4a4 <drwav_mulaw_to_f32+0x94>
+    b451:	mov    -0x18(%rbp),%rax
+    b455:	mov    -0x28(%rbp),%rcx
+    b459:	mov    (%rax,%rcx,1),%al
+    b45c:	mov    %al,-0x1(%rbp)
+    b45f:	movzbl -0x1(%rbp),%eax
+    b463:	mov    %eax,%ecx
+    b465:	lea    0xa994(%rip),%rax        # 15e00 <g_drwavMulawTable>
+    b46c:	movswl (%rax,%rcx,2),%eax
+    b470:	cvtsi2ss %eax,%xmm0
+    b474:	movss  0x8c18(%rip),%xmm1        # 14094 <_IO_stdin_used+0x94>
+    b47c:	divss  %xmm1,%xmm0
+    b480:	mov    -0x10(%rbp),%rax
+    b484:	mov    %rax,%rcx
+    b487:	add    $0x4,%rcx
+    b48b:	mov    %rcx,-0x10(%rbp)
+    b48f:	movss  %xmm0,(%rax)
+    b493:	mov    -0x28(%rbp),%rax
+    b497:	add    $0x1,%rax
+    b49b:	mov    %rax,-0x28(%rbp)
+    b49f:	jmp    b443 <drwav_mulaw_to_f32+0x33>
+    b4a4:	pop    %rbp
+    b4a5:	ret
+
+Disassembly of section .fini:

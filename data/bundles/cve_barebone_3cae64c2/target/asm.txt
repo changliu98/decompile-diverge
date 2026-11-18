@@ -1,0 +1,307 @@
+0000000000001960 <id3dmx_flush>:
+    1960:	push   %rbp
+    1961:	mov    %rsp,%rbp
+    1964:	sub    $0x510,%rsp
+    196b:	mov    %rdi,-0x8(%rbp)
+    196f:	mov    %rsi,-0x10(%rbp)
+    1973:	mov    %edx,-0x14(%rbp)
+    1976:	mov    %rcx,-0x20(%rbp)
+    197a:	mov    %r8,-0x28(%rbp)
+    197e:	mov    -0x10(%rbp),%rdi
+    1982:	mov    -0x14(%rbp),%eax
+    1985:	mov    %eax,%esi
+    1987:	xor    %edx,%edx
+    1989:	call   1290 <gf_bs_new>
+    198e:	mov    %rax,-0x30(%rbp)
+    1992:	movq   $0x0,-0x40(%rbp)
+    199a:	movl   $0x0,-0x44(%rbp)
+    19a1:	mov    -0x30(%rbp),%rdi
+    19a5:	mov    $0x3,%esi
+    19aa:	call   1620 <gf_bs_skip_bytes>
+    19af:	mov    -0x30(%rbp),%rdi
+    19b3:	call   1420 <gf_bs_read_u8>
+    19b8:	mov    -0x30(%rbp),%rdi
+    19bc:	call   1420 <gf_bs_read_u8>
+    19c1:	mov    -0x30(%rbp),%rdi
+    19c5:	mov    $0x1,%esi
+    19ca:	call   1350 <gf_bs_read_int>
+    19cf:	mov    -0x30(%rbp),%rdi
+    19d3:	mov    $0x1,%esi
+    19d8:	call   1350 <gf_bs_read_int>
+    19dd:	mov    %al,-0x45(%rbp)
+    19e0:	mov    -0x30(%rbp),%rdi
+    19e4:	mov    $0x6,%esi
+    19e9:	call   1350 <gf_bs_read_int>
+    19ee:	mov    -0x30(%rbp),%rdi
+    19f2:	call   1680 <gf_id3_read_size>
+    19f7:	mov    %eax,-0x4c(%rbp)
+    19fa:	cmpb   $0x0,-0x45(%rbp)
+    19fe:	je     1a09 <id3dmx_flush+0xa9>
+    1a04:	jmp    1a09 <id3dmx_flush+0xa9>
+    1a09:	jmp    1a0e <id3dmx_flush+0xae>
+    1a0e:	xor    %eax,%eax
+    1a10:	cmpl   $0x0,-0x4c(%rbp)
+    1a14:	mov    %al,-0x4e1(%rbp)
+    1a1a:	je     1a36 <id3dmx_flush+0xd6>
+    1a20:	mov    -0x30(%rbp),%rdi
+    1a24:	call   15d0 <gf_bs_available>
+    1a29:	cmp    $0xa,%rax
+    1a2d:	setae  %al
+    1a30:	mov    %al,-0x4e1(%rbp)
+    1a36:	mov    -0x4e1(%rbp),%al
+    1a3c:	test   $0x1,%al
+    1a3e:	jne    1a49 <id3dmx_flush+0xe9>
+    1a44:	jmp    1ef0 <id3dmx_flush+0x590>
+    1a49:	mov    -0x30(%rbp),%rdi
+    1a4d:	call   14d0 <gf_bs_read_u32>
+    1a52:	mov    %eax,-0x474(%rbp)
+    1a58:	mov    -0x30(%rbp),%rdi
+    1a5c:	call   1680 <gf_id3_read_size>
+    1a61:	mov    %eax,-0x478(%rbp)
+    1a67:	mov    -0x30(%rbp),%rdi
+    1a6b:	call   1490 <gf_bs_read_u16>
+    1a70:	mov    -0x4c(%rbp),%eax
+    1a73:	sub    $0xa,%eax
+    1a76:	mov    %eax,-0x4c(%rbp)
+    1a79:	cmpl   $0x0,-0x478(%rbp)
+    1a80:	jne    1a8b <id3dmx_flush+0x12b>
+    1a86:	jmp    1ef0 <id3dmx_flush+0x590>
+    1a8b:	mov    -0x4c(%rbp),%eax
+    1a8e:	cmp    -0x478(%rbp),%eax
+    1a94:	jae    1a9f <id3dmx_flush+0x13f>
+    1a9a:	jmp    1ef0 <id3dmx_flush+0x590>
+    1a9f:	mov    -0x44(%rbp),%eax
+    1aa2:	cmp    -0x478(%rbp),%eax
+    1aa8:	ja     1ad4 <id3dmx_flush+0x174>
+    1aae:	mov    -0x40(%rbp),%rdi
+    1ab2:	mov    -0x478(%rbp),%eax
+    1ab8:	add    $0x3,%eax
+    1abb:	mov    %eax,%eax
+    1abd:	mov    %eax,%esi
+    1abf:	call   1240 <gf_realloc>
+    1ac4:	mov    %rax,-0x40(%rbp)
+    1ac8:	mov    -0x478(%rbp),%eax
+    1ace:	add    $0x3,%eax
+    1ad1:	mov    %eax,-0x44(%rbp)
+    1ad4:	mov    -0x30(%rbp),%rdi
+    1ad8:	mov    -0x40(%rbp),%rsi
+    1adc:	add    $0x1,%rsi
+    1ae0:	mov    -0x478(%rbp),%edx
+    1ae6:	call   1550 <gf_bs_read_data>
+    1aeb:	mov    -0x40(%rbp),%rax
+    1aef:	mov    -0x478(%rbp),%ecx
+    1af5:	add    $0x1,%ecx
+    1af8:	mov    %ecx,%ecx
+    1afa:	movb   $0x0,(%rax,%rcx,1)
+    1afe:	mov    -0x40(%rbp),%rax
+    1b02:	mov    -0x478(%rbp),%ecx
+    1b08:	add    $0x2,%ecx
+    1b0b:	mov    %ecx,%ecx
+    1b0d:	movb   $0x0,(%rax,%rcx,1)
+    1b11:	mov    -0x40(%rbp),%rax
+    1b15:	add    $0x1,%rax
+    1b19:	mov    %rax,-0x58(%rbp)
+    1b1d:	mov    -0x474(%rbp),%edi
+    1b23:	call   1f20 <gf_itags_find_by_id3tag>
+    1b28:	mov    %eax,-0x46c(%rbp)
+    1b2e:	cmpl   $0x54585858,-0x474(%rbp)
+    1b38:	jne    1bfb <id3dmx_flush+0x29b>
+    1b3e:	mov    -0x58(%rbp),%rdi
+    1b42:	mov    -0x478(%rbp),%eax
+    1b48:	mov    %eax,%edx
+    1b4a:	xor    %esi,%esi
+    1b4c:	call   10a0 <memchr@plt>
+    1b51:	mov    %rax,-0x468(%rbp)
+    1b58:	cmpq   $0x0,-0x468(%rbp)
+    1b60:	je     1bf6 <id3dmx_flush+0x296>
+    1b66:	mov    -0x58(%rbp),%rdi
+    1b6a:	add    $0x1,%rdi
+    1b6e:	lea    0x14a3(%rip),%rsi        # 3018 <_IO_stdin_used+0x18>
+    1b75:	call   1040 <strcasecmp@plt>
+    1b7a:	cmp    $0x0,%eax
+    1b7d:	jne    1ba5 <id3dmx_flush+0x245>
+    1b83:	mov    -0x20(%rbp),%rdi
+    1b87:	mov    -0x468(%rbp),%rdx
+    1b8e:	add    $0x1,%rdx
+    1b92:	lea    0x147f(%rip),%rsi        # 3018 <_IO_stdin_used+0x18>
+    1b99:	xor    %ecx,%ecx
+    1b9b:	call   1f30 <id3dmx_set_string>
+    1ba0:	jmp    1bf1 <id3dmx_flush+0x291>
+    1ba5:	lea    -0x460(%rbp),%rdi
+    1bac:	lea    0x146d(%rip),%rsi        # 3020 <_IO_stdin_used+0x20>
+    1bb3:	call   1050 <strcpy@plt>
+    1bb8:	lea    -0x460(%rbp),%rdi
+    1bbf:	mov    -0x58(%rbp),%rsi
+    1bc3:	add    $0x1,%rsi
+    1bc7:	mov    $0x3fb,%edx
+    1bcc:	call   1090 <strncat@plt>
+    1bd1:	mov    -0x20(%rbp),%rdi
+    1bd5:	lea    -0x460(%rbp),%rsi
+    1bdc:	mov    -0x468(%rbp),%rdx
+    1be3:	add    $0x1,%rdx
+    1be7:	mov    $0x1,%ecx
+    1bec:	call   1f30 <id3dmx_set_string>
+    1bf1:	jmp    1bf6 <id3dmx_flush+0x296>
+    1bf6:	jmp    1edd <id3dmx_flush+0x57d>
+    1bfb:	cmpl   $0x41504943,-0x474(%rbp)
+    1c05:	jne    1df3 <id3dmx_flush+0x493>
+    1c0b:	mov    -0x58(%rbp),%rdi
+    1c0f:	add    $0x1,%rdi
+    1c13:	mov    -0x478(%rbp),%eax
+    1c19:	sub    $0x1,%eax
+    1c1c:	mov    %eax,%eax
+    1c1e:	mov    %eax,%edx
+    1c20:	xor    %esi,%esi
+    1c22:	call   10a0 <memchr@plt>
+    1c27:	mov    %rax,-0x468(%rbp)
+    1c2e:	mov    -0x468(%rbp),%rdi
+    1c35:	add    $0x2,%rdi
+    1c39:	mov    -0x478(%rbp),%eax
+    1c3f:	sub    $0x1,%eax
+    1c42:	mov    %eax,%eax
+    1c44:	mov    %eax,%edx
+    1c46:	xor    %esi,%esi
+    1c48:	call   10a0 <memchr@plt>
+    1c4d:	mov    %rax,-0x38(%rbp)
+    1c51:	cmpq   $0x0,-0x38(%rbp)
+    1c56:	je     1dee <id3dmx_flush+0x48e>
+    1c5c:	mov    -0x38(%rbp),%rax
+    1c60:	add    $0x1,%rax
+    1c64:	mov    -0x58(%rbp),%rcx
+    1c68:	sub    %rcx,%rax
+    1c6b:	mov    %eax,-0x470(%rbp)
+    1c71:	mov    -0x478(%rbp),%eax
+    1c77:	sub    -0x470(%rbp),%eax
+    1c7d:	mov    %eax,-0x470(%rbp)
+    1c83:	cmpq   $0x0,-0x28(%rbp)
+    1c88:	je     1daf <id3dmx_flush+0x44f>
+    1c8e:	mov    -0x8(%rbp),%rdi
+    1c92:	mov    -0x58(%rbp),%rcx
+    1c96:	add    $0x1,%rcx
+    1c9a:	mov    -0x38(%rbp),%r9
+    1c9e:	add    $0x1,%r9
+    1ca2:	mov    -0x470(%rbp),%r10d
+    1ca9:	mov    -0x28(%rbp),%rax
+    1cad:	xor    %edx,%edx
+    1caf:	mov    %edx,%r8d
+    1cb2:	xor    %edx,%edx
+    1cb4:	mov    %r8,%rsi
+    1cb7:	mov    %r8,%rdx
+    1cba:	mov    %r10d,(%rsp)
+    1cbe:	movl   $0x0,0x8(%rsp)
+    1cc6:	mov    %rax,0x10(%rsp)
+    1ccb:	call   1860 <gf_filter_pid_raw_new>
+    1cd0:	mov    %eax,-0x47c(%rbp)
+    1cd6:	cmpl   $0x0,-0x47c(%rbp)
+    1cdd:	je     1ce8 <id3dmx_flush+0x388>
+    1ce3:	jmp    1ce8 <id3dmx_flush+0x388>
+    1ce8:	mov    -0x28(%rbp),%rax
+    1cec:	cmpq   $0x0,(%rax)
+    1cf0:	je     1daa <id3dmx_flush+0x44a>
+    1cf6:	mov    -0x28(%rbp),%rax
+    1cfa:	mov    (%rax),%rdi
+    1cfd:	lea    0x1321(%rip),%rsi        # 3025 <_IO_stdin_used+0x25>
+    1d04:	call   18e0 <gf_filter_pid_set_name>
+    1d09:	mov    -0x28(%rbp),%rax
+    1d0d:	mov    (%rax),%rdi
+    1d10:	movl   $0x5,-0x4a8(%rbp)
+    1d1a:	movl   $0x1,-0x4a0(%rbp)
+    1d24:	mov    $0x50434f56,%esi
+    1d29:	lea    -0x4a8(%rbp),%rdx
+    1d30:	call   18a0 <gf_filter_pid_set_property>
+    1d35:	mov    -0x28(%rbp),%rax
+    1d39:	mov    (%rax),%rdi
+    1d3c:	mov    -0x470(%rbp),%esi
+    1d42:	lea    -0x488(%rbp),%rdx
+    1d49:	call   1900 <gf_filter_pck_new_alloc>
+    1d4e:	mov    %rax,-0x490(%rbp)
+    1d55:	cmpq   $0x0,-0x490(%rbp)
+    1d5d:	je     1d9e <id3dmx_flush+0x43e>
+    1d63:	mov    -0x490(%rbp),%rdi
+    1d6a:	mov    $0x1,%edx
+    1d6f:	mov    %edx,%esi
+    1d71:	call   1930 <gf_filter_pck_set_framing>
+    1d76:	mov    -0x488(%rbp),%rdi
+    1d7d:	mov    -0x38(%rbp),%rsi
+    1d81:	add    $0x1,%rsi
+    1d85:	mov    -0x470(%rbp),%eax
+    1d8b:	mov    %eax,%edx
+    1d8d:	call   10d0 <memcpy@plt>
+    1d92:	mov    -0x490(%rbp),%rdi
+    1d99:	call   1920 <gf_filter_pck_send>
+    1d9e:	mov    -0x28(%rbp),%rax
+    1da2:	mov    (%rax),%rdi
+    1da5:	call   18f0 <gf_filter_pid_set_eos>
+    1daa:	jmp    1de9 <id3dmx_flush+0x489>
+    1daf:	mov    -0x20(%rbp),%rdi
+    1db3:	movl   $0x10,-0x4c0(%rbp)
+    1dbd:	mov    -0x38(%rbp),%rax
+    1dc1:	add    $0x1,%rax
+    1dc5:	mov    %rax,-0x4b8(%rbp)
+    1dcc:	mov    -0x470(%rbp),%eax
+    1dd2:	mov    %eax,-0x4b0(%rbp)
+    1dd8:	mov    $0x50434f56,%esi
+    1ddd:	lea    -0x4c0(%rbp),%rdx
+    1de4:	call   18a0 <gf_filter_pid_set_property>
+    1de9:	jmp    1dee <id3dmx_flush+0x48e>
+    1dee:	jmp    1ed8 <id3dmx_flush+0x578>
+    1df3:	cmpl   $0x0,-0x46c(%rbp)
+    1dfa:	jl     1e31 <id3dmx_flush+0x4d1>
+    1e00:	mov    -0x46c(%rbp),%edi
+    1e06:	call   1f50 <gf_itags_get_name>
+    1e0b:	mov    %rax,-0x4c8(%rbp)
+    1e12:	mov    -0x20(%rbp),%rdi
+    1e16:	mov    -0x4c8(%rbp),%rsi
+    1e1d:	mov    -0x58(%rbp),%rdx
+    1e21:	add    $0x1,%rdx
+    1e25:	xor    %ecx,%ecx
+    1e27:	call   1f30 <id3dmx_set_string>
+    1e2c:	jmp    1ed3 <id3dmx_flush+0x573>
+    1e31:	lea    -0x460(%rbp),%rax
+    1e38:	mov    %rax,-0x4f0(%rbp)
+    1e3f:	mov    -0x474(%rbp),%edi
+    1e45:	call   1740 <gf_4cc_to_str>
+    1e4a:	mov    -0x4f0(%rbp),%rdi
+    1e51:	mov    %rax,%rdx
+    1e54:	lea    0x11d3(%rip),%rsi        # 302e <_IO_stdin_used+0x2e>
+    1e5b:	mov    $0x0,%al
+    1e5d:	call   1130 <sprintf@plt>
+    1e62:	mov    -0x474(%rbp),%eax
+    1e68:	shr    $0x18,%eax
+    1e6b:	cmp    $0x54,%eax
+    1e6e:	jne    1e96 <id3dmx_flush+0x536>
+    1e74:	mov    -0x20(%rbp),%rdi
+    1e78:	lea    -0x460(%rbp),%rsi
+    1e7f:	mov    -0x58(%rbp),%rdx
+    1e83:	add    $0x1,%rdx
+    1e87:	mov    $0x1,%ecx
+    1e8c:	call   1f30 <id3dmx_set_string>
+    1e91:	jmp    1ece <id3dmx_flush+0x56e>
+    1e96:	mov    -0x20(%rbp),%rdi
+    1e9a:	lea    -0x460(%rbp),%rsi
+    1ea1:	movl   $0x10,-0x4e0(%rbp)
+    1eab:	mov    -0x58(%rbp),%rax
+    1eaf:	mov    %rax,-0x4d8(%rbp)
+    1eb6:	mov    -0x478(%rbp),%eax
+    1ebc:	mov    %eax,-0x4d0(%rbp)
+    1ec2:	lea    -0x4e0(%rbp),%rdx
+    1ec9:	call   18c0 <gf_filter_pid_set_property_dyn>
+    1ece:	jmp    1ed3 <id3dmx_flush+0x573>
+    1ed3:	jmp    1ed8 <id3dmx_flush+0x578>
+    1ed8:	jmp    1edd <id3dmx_flush+0x57d>
+    1edd:	mov    -0x478(%rbp),%ecx
+    1ee3:	mov    -0x4c(%rbp),%eax
+    1ee6:	sub    %ecx,%eax
+    1ee8:	mov    %eax,-0x4c(%rbp)
+    1eeb:	jmp    1a0e <id3dmx_flush+0xae>
+    1ef0:	mov    -0x30(%rbp),%rdi
+    1ef4:	call   1320 <gf_bs_del>
+    1ef9:	cmpq   $0x0,-0x40(%rbp)
+    1efe:	je     1f0d <id3dmx_flush+0x5ad>
+    1f04:	mov    -0x40(%rbp),%rdi
+    1f08:	call   1270 <gf_free>
+    1f0d:	add    $0x510,%rsp
+    1f14:	pop    %rbp
+    1f15:	ret
+
+Disassembly of section .fini:

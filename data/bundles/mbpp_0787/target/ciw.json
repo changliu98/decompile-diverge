@@ -1,0 +1,306 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+text], rdi\nlea     rax, aAb3; \"ab{3}\"\nmov     [rbp+patterns], rax\nmov     rsi, [rbp+patterns]; pattern\nlea     rdi, [rbp+regex]; preg\nmov     edx, 1; cflags\ncall    regcomp\nmov     [rbp+reti], eax\ncmp     [rbp+reti], 0\njz      loc_126E\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"Could not compile regex\\n\"\nmov     al, 0\ncall    fprintf\nlea     rax, aRegexCompilati; \"Regex compilation error\"\nmov     [rbp+var_8], rax\njmp     loc_12B6\nmov     rsi, [rbp+text]; string\nlea     rdi, [rbp+regex]; preg\nxor     eax, eax\nmov     ecx, eax; pmatch\nxor     r8d, r8d; eflags\nmov     rdx, rcx; nmatch\ncall    regexec\nmov     [rbp+reti], eax\nlea     rdi, [rbp+regex]; preg\ncall    regfree\ncmp     [rbp+reti], 0\njnz     loc_12AB\nlea     rax, aFoundAMatch; \"Found a match!\"\nmov     [rbp+var_8], rax\njmp     loc_12B6\nlea     rax, aNotMatched; \"Not matched!\"\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nadd     rsp, 60h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 6,
+  "edges": [
+   [
+    "start",
+    "loc_1246"
+   ],
+   [
+    "start",
+    "loc_126E"
+   ],
+   [
+    "loc_1246",
+    "loc_12B6"
+   ],
+   [
+    "loc_126E",
+    "loc_129B"
+   ],
+   [
+    "loc_126E",
+    "loc_12AB"
+   ],
+   [
+    "loc_129B",
+    "loc_12B6"
+   ],
+   [
+    "loc_12AB",
+    "loc_12B6"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+text], rdi\nlea     rax, aAb3; \"ab{3}\"\nmov     [rbp+patterns], rax\nmov     rsi, [rbp+patterns]; pattern\nlea     rdi, [rbp+regex]; preg\nmov     edx, 1; cflags\ncall    regcomp\nmov     [rbp+reti], eax\ncmp     [rbp+reti], 0\njz      loc_126E",
+   "loc_1246": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"Could not compile regex\\n\"\nmov     al, 0\ncall    fprintf\nlea     rax, aRegexCompilati; \"Regex compilation error\"\nmov     [rbp+var_8], rax\njmp     loc_12B6",
+   "loc_126E": "mov     rsi, [rbp+text]; string\nlea     rdi, [rbp+regex]; preg\nxor     eax, eax\nmov     ecx, eax; pmatch\nxor     r8d, r8d; eflags\nmov     rdx, rcx; nmatch\ncall    regexec\nmov     [rbp+reti], eax\nlea     rdi, [rbp+regex]; preg\ncall    regfree\ncmp     [rbp+reti], 0\njnz     loc_12AB",
+   "loc_129B": "lea     rax, aFoundAMatch; \"Found a match!\"\nmov     [rbp+var_8], rax\njmp     loc_12B6",
+   "loc_12AB": "lea     rax, aNotMatched; \"Not matched!\"\nmov     [rbp+var_8], rax",
+   "loc_12B6": "mov     rax, [rbp+var_8]\nadd     rsp, 60h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "patterns": "qword ptr -60h",
+   "reti": "dword ptr -54h",
+   "regex": "regex_t ptr -50h",
+   "text": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {
+   "aAb3": "byte 'ab{3}',0",
+   "format": "byte 'Could not compile regex',0Ah,0",
+   "aRegexCompilati": "byte 'Regex compilation error',0",
+   "aFoundAMatch": "byte 'Found a match!',0",
+   "aNotMatched": "byte 'Not matched!',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4624,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".regfree": "regfree",
+  "_regfree": "regfree",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".regcomp": "regcomp",
+  "_regcomp": "regcomp",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".regexec": "regexec",
+  "_regexec": "regexec",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".regfree",
+   ".plt",
+   true,
+   "regfree"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".regcomp",
+   ".plt",
+   true,
+   "regcomp"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".regexec",
+   ".plt",
+   true,
+   "regexec"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "regfree",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "regcomp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "regexec",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868051
+ }
+}

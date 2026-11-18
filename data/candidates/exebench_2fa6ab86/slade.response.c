@@ -1,0 +1,1 @@
+unsigned short recv_data(int sock, void *buf, unsigned short len) { unsigned short ret = 0; ret = read(sock, buf, len); return ret; }

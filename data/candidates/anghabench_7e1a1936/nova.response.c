@@ -1,0 +1,1 @@
+static inline uint32_t REG_A4XX_RB_MRT_CONTROL(uint32_t i0) { return 0x000020c4 + 0x5*i0; }

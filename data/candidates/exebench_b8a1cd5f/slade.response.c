@@ -1,0 +1,1 @@
+int32_t atomic32_decrement(volatile atomic32_t* v) { int32_t res; __asm__ __volatile__ ("lock\n\t" "lock\n\t" " "lock\n\t" " "lock\n\t" " "lock\n\t" " "lock\n\t" " "%%ecx" : "=a" (res), "=" (v) : "d" (res) : "cc", "memory"); return res; }

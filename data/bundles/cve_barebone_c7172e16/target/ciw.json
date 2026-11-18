@@ -1,0 +1,363 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+rec_counter], edi\nmov     [rbp+pkt], rsi\nmov     [rbp+start], rdx\nmov     [rbp+max], rcx\nmov     [rbp+parsed_len], r8\nmov     [rbp+name_len], r9\ncmp     [rbp+rec_counter], 0Ah\njle     loc_1445\nmov     [rbp+var_4], 4E22Bh\njmp     loc_15FC\nmov     rax, [rbp+start]\ncmp     rax, [rbp+max]\njb      loc_145F\nmov     [rbp+var_4], 4E22Bh\njmp     loc_15FC\nmov     rax, [rbp+parsed_len]\nmov     dword ptr [rax], 0\nmov     rax, [rbp+name_len]\nmov     dword ptr [rax], 0\nmov     rax, [rbp+start]\nmov     [rbp+p], rax\nmov     rax, [rbp+p]\ncmp     byte ptr [rax], 0\njz      loc_15DE\nmov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax]\nand     eax, 0C0h\ncmp     eax, 0C0h\njnz     loc_1562\nmov     [rbp+ptr_len], 0\nlea     rdi, [rbp+offset]; dst\nmov     rsi, [rbp+p]; src\nmov     edx, 2; size\ncall    pj_memcpy\nmov     edi, 0C000h; hostshort\ncall    __ZL8foldCaset; foldCase(ushort)\nmovzx   ecx, ax\nmovzx   eax, [rbp+offset]\nxor     eax, ecx\nmov     [rbp+offset], ax\nmovzx   edi, [rbp+offset]; netshort\ncall    __ZL8foldCaset_0; foldCase(ushort)\nmov     [rbp+offset], ax\nmovzx   eax, [rbp+offset]\nmov     rcx, [rbp+max]\nmov     rdx, [rbp+pkt]\nsub     rcx, rdx\ncmp     rax, rcx\njl      loc_1500\nmov     [rbp+var_4], 4E22Bh\njmp     loc_15FC\nmov     edi, [rbp+rec_counter]\nadd     edi, 1; rec_counter\nmov     rsi, [rbp+pkt]; pkt\nmov     rdx, [rbp+pkt]\nmovzx   eax, [rbp+offset]\ncdqe\nadd     rdx, rax; start\nmov     rcx, [rbp+max]; max\nlea     r8, [rbp+dummy]; parsed_len\nlea     r9, [rbp+ptr_len]; name_len\ncall    get_name_len\nmov     [rbp+status], eax\ncmp     [rbp+status], 0\njz      loc_1540\nmov     eax, [rbp+status]\nmov     [rbp+var_4], eax\njmp     loc_15FC\nmov     rax, [rbp+parsed_len]\nmov     ecx, [rax]\nadd     ecx, 2\nmov     [rax], ecx\nmov     ecx, [rbp+ptr_len]\nmov     rax, [rbp+name_len]\nadd     ecx, [rax]\nmov     [rax], ecx\nmov     [rbp+var_4], 0\njmp     loc_15FC\nmov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax]\nmov     [rbp+label_len], eax\nmov     rax, [rbp+p]\nadd     rax, 1\nmov     ecx, [rbp+label_len]\nadd     rax, rcx\nadd     rax, 1\ncmp     rax, [rbp+max]\njbe     loc_1594\nmov     [rbp+var_4], 4E22Bh\njmp     loc_15FC\nmov     ecx, [rbp+label_len]\nadd     ecx, 1\nmov     rax, [rbp+p]\nmov     ecx, ecx\nadd     rax, rcx\nmov     [rbp+p], rax\nmov     ecx, [rbp+label_len]\nadd     ecx, 1\nmov     rax, [rbp+parsed_len]\nadd     ecx, [rax]\nmov     [rax], ecx\nmov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 0\njz      loc_15CE\nmov     eax, [rbp+label_len]\nadd     eax, 1\nmov     [rbp+label_len], eax\nmov     ecx, [rbp+label_len]\nmov     rax, [rbp+name_len]\nadd     ecx, [rax]\nmov     [rax], ecx\njmp     loc_147B\nmov     rax, [rbp+p]\nadd     rax, 1\nmov     [rbp+p], rax\nmov     rax, [rbp+parsed_len]\nmov     ecx, [rax]\nadd     ecx, 1\nmov     [rax], ecx\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 19,
+  "edges": [
+   [
+    "start",
+    "loc_1439"
+   ],
+   [
+    "start",
+    "loc_1445"
+   ],
+   [
+    "loc_1439",
+    "loc_15FC"
+   ],
+   [
+    "loc_1445",
+    "loc_1453"
+   ],
+   [
+    "loc_1445",
+    "loc_145F"
+   ],
+   [
+    "loc_1453",
+    "loc_15FC"
+   ],
+   [
+    "loc_145F",
+    "loc_147B"
+   ],
+   [
+    "loc_147B",
+    "loc_1488"
+   ],
+   [
+    "loc_147B",
+    "loc_15DE"
+   ],
+   [
+    "loc_1488",
+    "loc_149F"
+   ],
+   [
+    "loc_1488",
+    "loc_1562"
+   ],
+   [
+    "loc_149F",
+    "loc_14F4"
+   ],
+   [
+    "loc_149F",
+    "loc_1500"
+   ],
+   [
+    "loc_14F4",
+    "loc_15FC"
+   ],
+   [
+    "loc_1500",
+    "loc_1535"
+   ],
+   [
+    "loc_1500",
+    "loc_1540"
+   ],
+   [
+    "loc_1535",
+    "loc_15FC"
+   ],
+   [
+    "loc_1540",
+    "loc_15FC"
+   ],
+   [
+    "loc_1562",
+    "loc_1588"
+   ],
+   [
+    "loc_1562",
+    "loc_1594"
+   ],
+   [
+    "loc_1588",
+    "loc_15FC"
+   ],
+   [
+    "loc_1594",
+    "loc_15C5"
+   ],
+   [
+    "loc_1594",
+    "loc_15CE"
+   ],
+   [
+    "loc_15C5",
+    "loc_15CE"
+   ],
+   [
+    "loc_15CE",
+    "loc_147B"
+   ],
+   [
+    "loc_15DE",
+    "loc_15FC"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+rec_counter], edi\nmov     [rbp+pkt], rsi\nmov     [rbp+start], rdx\nmov     [rbp+max], rcx\nmov     [rbp+parsed_len], r8\nmov     [rbp+name_len], r9\ncmp     [rbp+rec_counter], 0Ah\njle     loc_1445",
+   "loc_1439": "mov     [rbp+var_4], 4E22Bh\njmp     loc_15FC",
+   "loc_1445": "mov     rax, [rbp+start]\ncmp     rax, [rbp+max]\njb      loc_145F",
+   "loc_1453": "mov     [rbp+var_4], 4E22Bh\njmp     loc_15FC",
+   "loc_145F": "mov     rax, [rbp+parsed_len]\nmov     dword ptr [rax], 0\nmov     rax, [rbp+name_len]\nmov     dword ptr [rax], 0\nmov     rax, [rbp+start]\nmov     [rbp+p], rax",
+   "loc_147B": "mov     rax, [rbp+p]\ncmp     byte ptr [rax], 0\njz      loc_15DE",
+   "loc_1488": "mov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax]\nand     eax, 0C0h\ncmp     eax, 0C0h\njnz     loc_1562",
+   "loc_149F": "mov     [rbp+ptr_len], 0\nlea     rdi, [rbp+offset]; dst\nmov     rsi, [rbp+p]; src\nmov     edx, 2; size\ncall    pj_memcpy\nmov     edi, 0C000h; hostshort\ncall    __ZL8foldCaset; foldCase(ushort)\nmovzx   ecx, ax\nmovzx   eax, [rbp+offset]\nxor     eax, ecx\nmov     [rbp+offset], ax\nmovzx   edi, [rbp+offset]; netshort\ncall    __ZL8foldCaset_0; foldCase(ushort)\nmov     [rbp+offset], ax\nmovzx   eax, [rbp+offset]\nmov     rcx, [rbp+max]\nmov     rdx, [rbp+pkt]\nsub     rcx, rdx\ncmp     rax, rcx\njl      loc_1500",
+   "loc_14F4": "mov     [rbp+var_4], 4E22Bh\njmp     loc_15FC",
+   "loc_1500": "mov     edi, [rbp+rec_counter]\nadd     edi, 1; rec_counter\nmov     rsi, [rbp+pkt]; pkt\nmov     rdx, [rbp+pkt]\nmovzx   eax, [rbp+offset]\ncdqe\nadd     rdx, rax; start\nmov     rcx, [rbp+max]; max\nlea     r8, [rbp+dummy]; parsed_len\nlea     r9, [rbp+ptr_len]; name_len\ncall    get_name_len\nmov     [rbp+status], eax\ncmp     [rbp+status], 0\njz      loc_1540",
+   "loc_1535": "mov     eax, [rbp+status]\nmov     [rbp+var_4], eax\njmp     loc_15FC",
+   "loc_1540": "mov     rax, [rbp+parsed_len]\nmov     ecx, [rax]\nadd     ecx, 2\nmov     [rax], ecx\nmov     ecx, [rbp+ptr_len]\nmov     rax, [rbp+name_len]\nadd     ecx, [rax]\nmov     [rax], ecx\nmov     [rbp+var_4], 0\njmp     loc_15FC",
+   "loc_1562": "mov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax]\nmov     [rbp+label_len], eax\nmov     rax, [rbp+p]\nadd     rax, 1\nmov     ecx, [rbp+label_len]\nadd     rax, rcx\nadd     rax, 1\ncmp     rax, [rbp+max]\njbe     loc_1594",
+   "loc_1588": "mov     [rbp+var_4], 4E22Bh\njmp     loc_15FC",
+   "loc_1594": "mov     ecx, [rbp+label_len]\nadd     ecx, 1\nmov     rax, [rbp+p]\nmov     ecx, ecx\nadd     rax, rcx\nmov     [rbp+p], rax\nmov     ecx, [rbp+label_len]\nadd     ecx, 1\nmov     rax, [rbp+parsed_len]\nadd     ecx, [rax]\nmov     [rax], ecx\nmov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 0\njz      loc_15CE",
+   "loc_15C5": "mov     eax, [rbp+label_len]\nadd     eax, 1\nmov     [rbp+label_len], eax",
+   "loc_15CE": "mov     ecx, [rbp+label_len]\nmov     rax, [rbp+name_len]\nadd     ecx, [rax]\nmov     [rax], ecx\njmp     loc_147B",
+   "loc_15DE": "mov     rax, [rbp+p]\nadd     rax, 1\nmov     [rbp+p], rax\nmov     rax, [rbp+parsed_len]\nmov     ecx, [rax]\nadd     ecx, 1\nmov     [rax], ecx\nmov     [rbp+var_4], 0",
+   "loc_15FC": "mov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "label_len": "dword ptr -4Ch",
+   "offset": "word ptr -46h",
+   "dummy": "dword ptr -44h",
+   "ptr_len": "dword ptr -40h",
+   "status": "dword ptr -3Ch",
+   "p": "qword ptr -38h",
+   "name_len": "qword ptr -30h",
+   "parsed_len": "qword ptr -28h",
+   "max": "qword ptr -20h",
+   "start": "qword ptr -18h",
+   "pkt": "qword ptr -10h",
+   "rec_counter": "dword ptr -8",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5136,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".htons": "htons",
+  "_htons": "htons",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".ntohs": "ntohs",
+  "_ntohs": "ntohs",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".htons",
+   ".plt",
+   true,
+   "htons"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".ntohs",
+   ".plt",
+   true,
+   "ntohs"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "htons",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ntohs",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868488
+ }
+}

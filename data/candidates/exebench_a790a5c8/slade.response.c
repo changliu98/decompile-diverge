@@ -1,0 +1,1 @@
+void change_params(int x, int y, long long w, long long *b){ x = 10; y = 10; w = 10; b[0] = 10; b = 10; }

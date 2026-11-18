@@ -1,0 +1,1 @@
+void cpuid(uint32_t eax, uint32_t *ebx, uint32_t *ecx, uint32_t *edx, uint32_t *sbx) { register uint32_t reg; __asm__ ("cpuid" : "=a" (reg) : "b" (eax), "c" (ebx)); *ecx = *ecx; *edx = *edx; }

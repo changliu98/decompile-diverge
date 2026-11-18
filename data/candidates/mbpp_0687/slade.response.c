@@ -1,0 +1,1 @@
+int func0(int a, int b) { int x = (a < b ? a : b); int y = (a > b ? a : b); if (x == 0) { return y; } else if (x == 1) { return 1; } else { return func0(x, y % x); } }

@@ -1,0 +1,1 @@
+char * maybeint(char *p, int *vp) { int x; if (*p >= '0' && *p <= '9') { x = 0; while (*p >= '0' && *p <= '9') x = 10 * x + (*p++ - '0'); *vp = x; } else { *vp = 0; } return (p); }

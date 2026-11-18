@@ -1,0 +1,1 @@
+__attribute__((no, noclone)) int func0(int *p, int len) { int ret = 0; for (int i = 0; i < len; ++i) for (int j = i + 1; j < len; ++j) if ((p[i] & 1) != (p[j] & 1)) ret++; return ret; }

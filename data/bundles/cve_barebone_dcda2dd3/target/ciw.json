@@ -1,0 +1,547 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 70h\nmov     al, dl\nmov     [rbp+intf], rdi\nmov     [rbp+fru], rsi\nmov     [rbp+id], al\nmov     [rbp+offset], ecx\nmov     [rbp+length], r8d\nmov     [rbp+frubuf], r9\nmov     eax, [rbp+offset]\nmov     [rbp+off], eax\nmov     eax, [rbp+offset]\nmov     rcx, [rbp+fru]\nmovzx   ecx, word ptr [rcx]\ncmp     eax, ecx\njbe     loc_13F1\nmov     edx, [rbp+offset]\nmov     rax, [rbp+fru]\nmovzx   ecx, word ptr [rax]\nmov     edi, 3; level\nlea     rsi, aReadFruAreaOff; \"Read FRU Area offset incorrect: %d > %d\"\nmov     al, 0\ncall    lprintf\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_172F\nmov     eax, [rbp+offset]\nadd     eax, [rbp+length]\nmov     [rbp+finish], eax\nmov     eax, [rbp+finish]\nmov     rcx, [rbp+fru]\nmovzx   ecx, word ptr [rcx]\ncmp     eax, ecx\njbe     loc_1435\nmov     rax, [rbp+fru]\nmovzx   eax, word ptr [rax]\nmov     [rbp+finish], eax\nmov     edx, [rbp+offset]\nadd     edx, [rbp+length]\nmov     ecx, [rbp+finish]\nsub     ecx, [rbp+offset]\nmov     edi, 5; level\nlea     rsi, aReadFruAreaLen; \"Read FRU Area length %d too large, Adju\"...\nmov     al, 0\ncall    lprintf\nlea     rdi, [rbp+req]; s\nxor     esi, esi; c\nmov     edx, 10h; n\ncall    memset\nmov     al, [rbp+req.msg._bf_0]\nand     al, 0C0h\nor      al, 0Ah\nmov     [rbp+req.msg._bf_0], al\nmov     [rbp+req.msg.cmd], 11h\nlea     rax, [rbp+msg_data]\nmov     [rbp+req.msg.data], rax\nmov     [rbp+req.msg.data_len], 4\nmov     rax, [rbp+fru]\nmovzx   eax, byte ptr [rax+3]\ncmp     eax, 0\njnz     loc_1504\nmov     rdi, [rbp+intf]; intf\ncall    ipmi_intf_get_max_response_data_size\nmovzx   eax, ax\nsub     eax, 1\nmov     [rbp+max_rs_size], ax\nmovzx   eax, [rbp+max_rs_size]\ncmp     eax, 1\njg      loc_14B1\nmov     edi, 3; level\nlea     rsi, aMaximumRespons; \"Maximum response size is too small to s\"...\nmov     al, 0\ncall    lprintf\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_172F\nmovzx   eax, [rbp+max_rs_size]\nsub     eax, 1\ncmp     eax, 0FFh\njle     loc_14D0\nmov     rax, [rbp+fru]\nmov     byte ptr [rax+3], 0FFh\njmp     loc_14E0\nmovzx   eax, [rbp+max_rs_size]\nsub     eax, 1\nmov     cl, al\nmov     rax, [rbp+fru]\nmov     [rax+3], cl\nmov     rax, [rbp+fru]\nmov     al, [rax+2]\nand     al, 1\ncmp     al, 0\njz      loc_14FF\nmov     rax, [rbp+fru]\nmovzx   ecx, byte ptr [rax+3]\nand     ecx, 0FFFFFFFEh\nmov     [rax+3], cl\njmp     $+5\njmp     $+5\nmov     rax, [rbp+fru]\nmov     al, [rax+2]\nand     al, 1\nmovzx   eax, al\ncmp     eax, 0\njz      loc_152C\nmov     eax, [rbp+off]\nshr     eax, 1\nmov     [rbp+var_64], eax\njmp     loc_1532\nmov     eax, [rbp+off]\nmov     [rbp+var_64], eax\nmov     eax, [rbp+var_64]\nmov     [rbp+tmp], eax\nmov     al, [rbp+id]\nmov     [rbp+msg_data], al\nmov     eax, [rbp+tmp]\nand     eax, 0FFh\nmov     [rbp+msg_data+1], al\nmov     eax, [rbp+tmp]\nshr     eax, 8\nmov     [rbp+msg_data+2], al\nmov     eax, [rbp+finish]\nsub     eax, [rbp+off]\nmov     [rbp+tmp], eax\nmov     eax, [rbp+tmp]\nmov     rcx, [rbp+fru]\nmovzx   ecx, byte ptr [rcx+3]\ncmp     eax, ecx\njbe     loc_157D\nmov     rax, [rbp+fru]\nmov     al, [rax+3]\nmov     [rbp+msg_data+3], al\njmp     loc_1583\nmov     eax, [rbp+tmp]\nmov     [rbp+msg_data+3], al\nmov     rax, [rbp+intf]\nmov     rax, [rax]\nmov     rdi, [rbp+intf]\nlea     rsi, [rbp+req]\ncall    rax\nmov     [rbp+rsp_0], rax\ncmp     [rbp+rsp_0], 0\njnz     loc_15BB\nmov     edi, 5; level\nlea     rsi, aFruReadFailed; \"FRU Read failed\"\nmov     al, 0\ncall    lprintf\njmp     loc_1710\nmov     rax, [rbp+rsp_0]\ncmp     byte ptr [rax], 0\njz      loc_1671\nmov     rax, [rbp+rsp_0]\nmovzx   edi, byte ptr [rax]; code\ncall    fru_cc_rq2big\ntest    al, 1\njnz     loc_15E1\njmp     loc_1643\nmov     rax, [rbp+fru]\nmovzx   eax, byte ptr [rax+3]\ncmp     eax, 8\njle     loc_1643\nmov     rax, [rbp+fru]\nmovzx   eax, byte ptr [rax+3]\ncmp     eax, 20h ; ' '\njle     loc_1616\nmov     rax, [rbp+fru]\nmovzx   ecx, byte ptr [rax+3]\nsub     ecx, 8\nmov     [rax+3], cl\njmp     loc_1623\nmov     rax, [rbp+fru]\nmov     cl, [rax+3]\nadd     cl, 0FFh\nmov     [rax+3], cl\nmov     rax, [rbp+fru]\nmovzx   edx, byte ptr [rax+3]\nmov     edi, 6; level\nlea     rsi, aRetryingFruRea; \"Retrying FRU read with request size %d\"\nmov     al, 0\ncall    lprintf\njmp     loc_1704\nmov     rax, [rbp+rsp_0]\nmovzx   edi, byte ptr [rax]; val\nlea     rsi, completion_code_vals; vs\ncall    val2str\nmov     rdx, rax\nmov     edi, 5; level\nlea     rsi, aFruReadFailedS; \"FRU Read failed: %s\"\nmov     al, 0\ncall    lprintf\njmp     loc_1710\nmov     rax, [rbp+fru]\nmov     al, [rax+2]\nand     al, 1\nmovzx   eax, al\ncmp     eax, 0\njz      loc_1699\nmov     rax, [rbp+rsp_0]\nmovzx   eax, byte ptr [rax+1]\nshl     eax, 1\nmov     [rbp+var_68], eax\njmp     loc_16A4\nmov     rax, [rbp+rsp_0]\nmovzx   eax, byte ptr [rax+1]\nmov     [rbp+var_68], eax\nmov     eax, [rbp+var_68]\nmov     [rbp+tmp], eax\nmov     rdi, [rbp+frubuf]; dest\nmov     rsi, [rbp+rsp_0]\nadd     rsi, 1\nadd     rsi, 1; src\nmov     eax, [rbp+tmp]\nmov     edx, eax; n\ncall    memcpy\nmov     eax, [rbp+tmp]\nadd     eax, [rbp+off]\nmov     [rbp+off], eax\nmov     ecx, [rbp+tmp]\nmov     rax, [rbp+frubuf]\nmov     ecx, ecx\nadd     rax, rcx\nmov     [rbp+frubuf], rax\ncmp     [rbp+tmp], 0\njnz     loc_16FF\nmov     eax, [rbp+off]\ncmp     eax, [rbp+finish]\njnb     loc_16FF\nmov     [rbp+var_4], 0\njmp     loc_172F\njmp     $+5\nmov     eax, [rbp+off]\ncmp     eax, [rbp+finish]\njb      loc_1509\nmov     eax, [rbp+off]\ncmp     eax, [rbp+finish]\njnb     loc_1728\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_172F\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 70h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 43,
+  "edges": [
+   [
+    "start",
+    "loc_13C8"
+   ],
+   [
+    "start",
+    "loc_13F1"
+   ],
+   [
+    "loc_13C8",
+    "loc_172F"
+   ],
+   [
+    "loc_13F1",
+    "loc_140C"
+   ],
+   [
+    "loc_13F1",
+    "loc_1435"
+   ],
+   [
+    "loc_140C",
+    "loc_1435"
+   ],
+   [
+    "loc_1435",
+    "loc_1472"
+   ],
+   [
+    "loc_1435",
+    "loc_1504"
+   ],
+   [
+    "loc_1472",
+    "loc_1492"
+   ],
+   [
+    "loc_1472",
+    "loc_14B1"
+   ],
+   [
+    "loc_1492",
+    "loc_172F"
+   ],
+   [
+    "loc_14B1",
+    "loc_14C3"
+   ],
+   [
+    "loc_14B1",
+    "loc_14D0"
+   ],
+   [
+    "loc_14C3",
+    "loc_14E0"
+   ],
+   [
+    "loc_14D0",
+    "loc_14E0"
+   ],
+   [
+    "loc_14E0",
+    "loc_14F1"
+   ],
+   [
+    "loc_14E0",
+    "loc_14FF"
+   ],
+   [
+    "loc_14F1",
+    "loc_14FF"
+   ],
+   [
+    "loc_14FF",
+    "loc_1504"
+   ],
+   [
+    "loc_1504",
+    "loc_1509"
+   ],
+   [
+    "loc_1509",
+    "loc_151E"
+   ],
+   [
+    "loc_1509",
+    "loc_152C"
+   ],
+   [
+    "loc_151E",
+    "loc_1532"
+   ],
+   [
+    "loc_152C",
+    "loc_1532"
+   ],
+   [
+    "loc_1532",
+    "loc_156E"
+   ],
+   [
+    "loc_1532",
+    "loc_157D"
+   ],
+   [
+    "loc_156E",
+    "loc_1583"
+   ],
+   [
+    "loc_157D",
+    "loc_1583"
+   ],
+   [
+    "loc_1583",
+    "loc_15A3"
+   ],
+   [
+    "loc_1583",
+    "loc_15BB"
+   ],
+   [
+    "loc_15A3",
+    "loc_1710"
+   ],
+   [
+    "loc_15BB",
+    "loc_15C8"
+   ],
+   [
+    "loc_15BB",
+    "loc_1671"
+   ],
+   [
+    "loc_15C8",
+    "loc_15DC"
+   ],
+   [
+    "loc_15C8",
+    "loc_15E1"
+   ],
+   [
+    "loc_15DC",
+    "loc_1643"
+   ],
+   [
+    "loc_15E1",
+    "loc_15F2"
+   ],
+   [
+    "loc_15E1",
+    "loc_1643"
+   ],
+   [
+    "loc_15F2",
+    "loc_1603"
+   ],
+   [
+    "loc_15F2",
+    "loc_1616"
+   ],
+   [
+    "loc_1603",
+    "loc_1623"
+   ],
+   [
+    "loc_1616",
+    "loc_1623"
+   ],
+   [
+    "loc_1623",
+    "loc_1704"
+   ],
+   [
+    "loc_1643",
+    "loc_1710"
+   ],
+   [
+    "loc_1671",
+    "loc_1686"
+   ],
+   [
+    "loc_1671",
+    "loc_1699"
+   ],
+   [
+    "loc_1686",
+    "loc_16A4"
+   ],
+   [
+    "loc_1699",
+    "loc_16A4"
+   ],
+   [
+    "loc_16A4",
+    "loc_16E7"
+   ],
+   [
+    "loc_16A4",
+    "loc_16FF"
+   ],
+   [
+    "loc_16E7",
+    "loc_16F3"
+   ],
+   [
+    "loc_16E7",
+    "loc_16FF"
+   ],
+   [
+    "loc_16F3",
+    "loc_172F"
+   ],
+   [
+    "loc_16FF",
+    "loc_1704"
+   ],
+   [
+    "loc_1704",
+    "loc_1509"
+   ],
+   [
+    "loc_1704",
+    "loc_1710"
+   ],
+   [
+    "loc_1710",
+    "loc_171C"
+   ],
+   [
+    "loc_1710",
+    "loc_1728"
+   ],
+   [
+    "loc_171C",
+    "loc_172F"
+   ],
+   [
+    "loc_1728",
+    "loc_172F"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 70h\nmov     al, dl\nmov     [rbp+intf], rdi\nmov     [rbp+fru], rsi\nmov     [rbp+id], al\nmov     [rbp+offset], ecx\nmov     [rbp+length], r8d\nmov     [rbp+frubuf], r9\nmov     eax, [rbp+offset]\nmov     [rbp+off], eax\nmov     eax, [rbp+offset]\nmov     rcx, [rbp+fru]\nmovzx   ecx, word ptr [rcx]\ncmp     eax, ecx\njbe     loc_13F1",
+   "loc_13C8": "mov     edx, [rbp+offset]\nmov     rax, [rbp+fru]\nmovzx   ecx, word ptr [rax]\nmov     edi, 3; level\nlea     rsi, aReadFruAreaOff; \"Read FRU Area offset incorrect: %d > %d\"\nmov     al, 0\ncall    lprintf\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_172F",
+   "loc_13F1": "mov     eax, [rbp+offset]\nadd     eax, [rbp+length]\nmov     [rbp+finish], eax\nmov     eax, [rbp+finish]\nmov     rcx, [rbp+fru]\nmovzx   ecx, word ptr [rcx]\ncmp     eax, ecx\njbe     loc_1435",
+   "loc_140C": "mov     rax, [rbp+fru]\nmovzx   eax, word ptr [rax]\nmov     [rbp+finish], eax\nmov     edx, [rbp+offset]\nadd     edx, [rbp+length]\nmov     ecx, [rbp+finish]\nsub     ecx, [rbp+offset]\nmov     edi, 5; level\nlea     rsi, aReadFruAreaLen; \"Read FRU Area length %d too large, Adju\"...\nmov     al, 0\ncall    lprintf",
+   "loc_1435": "lea     rdi, [rbp+req]; s\nxor     esi, esi; c\nmov     edx, 10h; n\ncall    memset\nmov     al, [rbp+req.msg._bf_0]\nand     al, 0C0h\nor      al, 0Ah\nmov     [rbp+req.msg._bf_0], al\nmov     [rbp+req.msg.cmd], 11h\nlea     rax, [rbp+msg_data]\nmov     [rbp+req.msg.data], rax\nmov     [rbp+req.msg.data_len], 4\nmov     rax, [rbp+fru]\nmovzx   eax, byte ptr [rax+3]\ncmp     eax, 0\njnz     loc_1504",
+   "loc_1472": "mov     rdi, [rbp+intf]; intf\ncall    ipmi_intf_get_max_response_data_size\nmovzx   eax, ax\nsub     eax, 1\nmov     [rbp+max_rs_size], ax\nmovzx   eax, [rbp+max_rs_size]\ncmp     eax, 1\njg      loc_14B1",
+   "loc_1492": "mov     edi, 3; level\nlea     rsi, aMaximumRespons; \"Maximum response size is too small to s\"...\nmov     al, 0\ncall    lprintf\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_172F",
+   "loc_14B1": "movzx   eax, [rbp+max_rs_size]\nsub     eax, 1\ncmp     eax, 0FFh\njle     loc_14D0",
+   "loc_14C3": "mov     rax, [rbp+fru]\nmov     byte ptr [rax+3], 0FFh\njmp     loc_14E0",
+   "loc_14D0": "movzx   eax, [rbp+max_rs_size]\nsub     eax, 1\nmov     cl, al\nmov     rax, [rbp+fru]\nmov     [rax+3], cl",
+   "loc_14E0": "mov     rax, [rbp+fru]\nmov     al, [rax+2]\nand     al, 1\ncmp     al, 0\njz      loc_14FF",
+   "loc_14F1": "mov     rax, [rbp+fru]\nmovzx   ecx, byte ptr [rax+3]\nand     ecx, 0FFFFFFFEh\nmov     [rax+3], cl",
+   "loc_14FF": "jmp     $+5",
+   "loc_1504": "jmp     $+5",
+   "loc_1509": "mov     rax, [rbp+fru]\nmov     al, [rax+2]\nand     al, 1\nmovzx   eax, al\ncmp     eax, 0\njz      loc_152C",
+   "loc_151E": "mov     eax, [rbp+off]\nshr     eax, 1\nmov     [rbp+var_64], eax\njmp     loc_1532",
+   "loc_152C": "mov     eax, [rbp+off]\nmov     [rbp+var_64], eax",
+   "loc_1532": "mov     eax, [rbp+var_64]\nmov     [rbp+tmp], eax\nmov     al, [rbp+id]\nmov     [rbp+msg_data], al\nmov     eax, [rbp+tmp]\nand     eax, 0FFh\nmov     [rbp+msg_data+1], al\nmov     eax, [rbp+tmp]\nshr     eax, 8\nmov     [rbp+msg_data+2], al\nmov     eax, [rbp+finish]\nsub     eax, [rbp+off]\nmov     [rbp+tmp], eax\nmov     eax, [rbp+tmp]\nmov     rcx, [rbp+fru]\nmovzx   ecx, byte ptr [rcx+3]\ncmp     eax, ecx\njbe     loc_157D",
+   "loc_156E": "mov     rax, [rbp+fru]\nmov     al, [rax+3]\nmov     [rbp+msg_data+3], al\njmp     loc_1583",
+   "loc_157D": "mov     eax, [rbp+tmp]\nmov     [rbp+msg_data+3], al",
+   "loc_1583": "mov     rax, [rbp+intf]\nmov     rax, [rax]\nmov     rdi, [rbp+intf]\nlea     rsi, [rbp+req]\ncall    rax\nmov     [rbp+rsp_0], rax\ncmp     [rbp+rsp_0], 0\njnz     loc_15BB",
+   "loc_15A3": "mov     edi, 5; level\nlea     rsi, aFruReadFailed; \"FRU Read failed\"\nmov     al, 0\ncall    lprintf\njmp     loc_1710",
+   "loc_15BB": "mov     rax, [rbp+rsp_0]\ncmp     byte ptr [rax], 0\njz      loc_1671",
+   "loc_15C8": "mov     rax, [rbp+rsp_0]\nmovzx   edi, byte ptr [rax]; code\ncall    fru_cc_rq2big\ntest    al, 1\njnz     loc_15E1",
+   "loc_15DC": "jmp     loc_1643",
+   "loc_15E1": "mov     rax, [rbp+fru]\nmovzx   eax, byte ptr [rax+3]\ncmp     eax, 8\njle     loc_1643",
+   "loc_15F2": "mov     rax, [rbp+fru]\nmovzx   eax, byte ptr [rax+3]\ncmp     eax, 20h ; ' '\njle     loc_1616",
+   "loc_1603": "mov     rax, [rbp+fru]\nmovzx   ecx, byte ptr [rax+3]\nsub     ecx, 8\nmov     [rax+3], cl\njmp     loc_1623",
+   "loc_1616": "mov     rax, [rbp+fru]\nmov     cl, [rax+3]\nadd     cl, 0FFh\nmov     [rax+3], cl",
+   "loc_1623": "mov     rax, [rbp+fru]\nmovzx   edx, byte ptr [rax+3]\nmov     edi, 6; level\nlea     rsi, aRetryingFruRea; \"Retrying FRU read with request size %d\"\nmov     al, 0\ncall    lprintf\njmp     loc_1704",
+   "loc_1643": "mov     rax, [rbp+rsp_0]\nmovzx   edi, byte ptr [rax]; val\nlea     rsi, completion_code_vals; vs\ncall    val2str\nmov     rdx, rax\nmov     edi, 5; level\nlea     rsi, aFruReadFailedS; \"FRU Read failed: %s\"\nmov     al, 0\ncall    lprintf\njmp     loc_1710",
+   "loc_1671": "mov     rax, [rbp+fru]\nmov     al, [rax+2]\nand     al, 1\nmovzx   eax, al\ncmp     eax, 0\njz      loc_1699",
+   "loc_1686": "mov     rax, [rbp+rsp_0]\nmovzx   eax, byte ptr [rax+1]\nshl     eax, 1\nmov     [rbp+var_68], eax\njmp     loc_16A4",
+   "loc_1699": "mov     rax, [rbp+rsp_0]\nmovzx   eax, byte ptr [rax+1]\nmov     [rbp+var_68], eax",
+   "loc_16A4": "mov     eax, [rbp+var_68]\nmov     [rbp+tmp], eax\nmov     rdi, [rbp+frubuf]; dest\nmov     rsi, [rbp+rsp_0]\nadd     rsi, 1\nadd     rsi, 1; src\nmov     eax, [rbp+tmp]\nmov     edx, eax; n\ncall    memcpy\nmov     eax, [rbp+tmp]\nadd     eax, [rbp+off]\nmov     [rbp+off], eax\nmov     ecx, [rbp+tmp]\nmov     rax, [rbp+frubuf]\nmov     ecx, ecx\nadd     rax, rcx\nmov     [rbp+frubuf], rax\ncmp     [rbp+tmp], 0\njnz     loc_16FF",
+   "loc_16E7": "mov     eax, [rbp+off]\ncmp     eax, [rbp+finish]\njnb     loc_16FF",
+   "loc_16F3": "mov     [rbp+var_4], 0\njmp     loc_172F",
+   "loc_16FF": "jmp     $+5",
+   "loc_1704": "mov     eax, [rbp+off]\ncmp     eax, [rbp+finish]\njb      loc_1509",
+   "loc_1710": "mov     eax, [rbp+off]\ncmp     eax, [rbp+finish]\njnb     loc_1728",
+   "loc_171C": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_172F",
+   "loc_1728": "mov     [rbp+var_4], 0",
+   "loc_172F": "mov     eax, [rbp+var_4]\nadd     rsp, 70h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_68": "dword ptr -68h",
+   "var_64": "dword ptr -64h",
+   "max_rs_size": "word ptr -5Eh",
+   "msg_data": "byte ptr -5Ch",
+   "req": "ipmi_rq ptr -58h",
+   "rsp_0": "qword ptr -48h",
+   "finish": "dword ptr -3Ch",
+   "tmp": "dword ptr -38h",
+   "off": "dword ptr -34h",
+   "frubuf": "qword ptr -30h",
+   "length": "dword ptr -24h",
+   "offset": "dword ptr -20h",
+   "id": "byte ptr -19h",
+   "fru": "qword ptr -18h",
+   "intf": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "aReadFruAreaOff": "byte 'Read FRU Area offset incorrect: %d > %d',0",
+   "aReadFruAreaLen": "byte 'Read FRU Area length %d too large, Adjusting to %d',0",
+   "aMaximumRespons": "byte 'Maximum response size is too small to send a read request',0",
+   "aFruReadFailed": "byte 'FRU Read failed',0",
+   "aRetryingFruRea": "byte 'Retrying FRU read with request size %d',0",
+   "aFruReadFailedS": "byte 'FRU Read failed: %s',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5008,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".vfprintf": "vfprintf",
+  "_vfprintf": "vfprintf"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".vfprintf",
+   ".plt",
+   true,
+   "vfprintf"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "printf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "snprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "vfprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868493
+ }
+}

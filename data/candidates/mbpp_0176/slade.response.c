@@ -1,0 +1,1 @@
+__attribute__((no, noclone)) int func0 (int a, int b, int c) { int sum = a + b + c; return sum; }

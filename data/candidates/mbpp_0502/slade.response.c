@@ -1,0 +1,1 @@
+uint128_t func0(uint128_t a, uint128_t b) { uint128_t ret; ret = a % b; return ret; }

@@ -1,0 +1,1 @@
+uint32_t a_swap(volatile uint32_t *mem, uint32_t val) { asm volatile ("xchg" : "+m" (*mem) = val); return val; }

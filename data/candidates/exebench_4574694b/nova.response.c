@@ -1,0 +1,1 @@
+int podnies_do_kwadratu(int *a) { return *a *= *a; }

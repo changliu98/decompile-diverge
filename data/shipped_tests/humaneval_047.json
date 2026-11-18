@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n#include <math.h>\n#include <stdlib.h>\n\nfloat func0(float *l, int size) {\n    for (int i = 0; i < size; i++) {\n        for (int j = i + 1; j < size; j++) {\n            if (l[i] > l[j]) {\n                float temp = l[i];\n                l[i] = l[j];\n                l[j] = temp;\n            }\n        }\n    }\n    if (size % 2 == 1) return l[size / 2];\n    return 0.5 * (l[size / 2] + l[size / 2 - 1]);\n}",
+ "c_test": "#include <stdio.h>\n#include <assert.h>\n#include <math.h>\n\nint main() {\n    float list1[] = {3, 1, 2, 4, 5};\n    assert(fabs(func0(list1, 5) - 3) < 1e-4);\n\n    float list2[] = {-10, 4, 6, 1000, 10, 20};\n    assert(fabs(func0(list2, 6) - 8.0) < 1e-4);\n\n    float list3[] = {5};\n    assert(fabs(func0(list3, 1) - 5) < 1e-4);\n\n    float list4[] = {6, 5};\n    assert(fabs(func0(list4, 2) - 5.5) < 1e-4);\n\n    float list5[] = {8, 1, 3, 9, 9, 2, 7};\n    assert(fabs(func0(list5, 7) - 7) < 1e-4);\n\n    return 0;\n}"
+}

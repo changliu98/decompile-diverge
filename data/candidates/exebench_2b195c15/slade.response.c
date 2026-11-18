@@ -1,0 +1,1 @@
+void swap(t_list **a, t_list **b) { t_list *tmp; t_list *tmp2; tmp = *a; tmp2 = *b; *a = tmp2; *b = tmp; }

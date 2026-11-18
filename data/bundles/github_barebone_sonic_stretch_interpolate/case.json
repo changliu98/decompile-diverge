@@ -1,0 +1,53 @@
+{
+ "schema_version": 1,
+ "localId": "github_barebone_sonic_stretch_interpolate",
+ "backend": "github",
+ "project": "sonic_stretch",
+ "pname": "sonic_stretch",
+ "language": "c",
+ "fuzz_target": "prog.bin",
+ "sanitizer": "asan_ubsan",
+ "oracle": "exit_memstate",
+ "n_inputs": 50,
+ "n_safe": 50,
+ "n_triggering": 0,
+ "signature": "static short interpolate(sonicStream stream, short* in, int oldSampleRate,\n                         int newSampleRate)",
+ "harness": "custom",
+ "memstate_masked": true,
+ "memstate_symcanon": true,
+ "baseline": {
+  "crashed": false,
+  "status": "PASS",
+  "n_pass": 50,
+  "memstate": "data_bss_symbol_canonical_relocmasked",
+  "memstate_masked": true,
+  "memstate_symcanon": true
+ },
+ "target": {
+  "name": "interpolate",
+  "repo_relpath": "func.c",
+  "start_byte": 33720,
+  "end_byte": 34855,
+  "start_line": 938,
+  "end_line": 969,
+  "return_type": "short",
+  "signature": "static short interpolate(sonicStream stream, short* in, int oldSampleRate,\n                         int newSampleRate)"
+ },
+ "provenance": {
+  "source": "github",
+  "repo": "https://github.com/waywardgeek/sonic",
+  "path": "sonic.c",
+  "func": "interpolate",
+  "commit": "b93885dcb70aae50c6f76b0fe4e0868f029a077e",
+  "commit_verified": "exact"
+ },
+ "decompiler_input": [
+  "asm",
+  "ghidra",
+  "ida"
+ ],
+ "extra_cflags": "-I.",
+ "group": "github_barebone",
+ "category": "functional",
+ "reexec_from": "githubrc_sonic_stretch_interpolate"
+}

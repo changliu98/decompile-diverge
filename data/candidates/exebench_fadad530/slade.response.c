@@ -1,0 +1,1 @@
+void ToIUPAC(char *p, int start) { if (start) { while (*p) { if (strchr("ACGTUNRYMKSWHBVDacgtunrymkswhbvd", *p) == NULL && *p != ' ' && *p != '.' && *p != '_' && *p != '-' && *p != '~') *p = 'N'; p++; } } else { while (*p) { if (!strchr("ACGTUNRYMKSWHBVDacgtunrymkswhbvd", *p)) *p = 'N'; p++; } } }

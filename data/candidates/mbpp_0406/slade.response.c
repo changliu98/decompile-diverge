@@ -1,0 +1,1 @@
+char* func0(unsigned int x0) { unsigned int x = x0 ^ (x0 >> 1); x ^= x >> 2; x ^= x >> 4; x ^= x >> 8; x ^= x >> 16; if (x % 2) return "Odd Parity"; else return "Even Parity"; }

@@ -1,0 +1,40 @@
+00000000000011d0 <readDummyArray>:
+    11d0:	push   %rbp
+    11d1:	mov    %rsp,%rbp
+    11d4:	mov    %rdi,-0x8(%rbp)
+    11d8:	mov    %rsi,-0x10(%rbp)
+    11dc:	mov    -0x10(%rbp),%rax
+    11e0:	shr    $0x3,%rax
+    11e4:	mov    %rax,-0x18(%rbp)
+    11e8:	xorps  %xmm0,%xmm0
+    11eb:	movsd  %xmm0,-0x28(%rbp)
+    11f0:	movq   $0x0,-0x20(%rbp)
+    11f8:	mov    -0x20(%rbp),%rax
+    11fc:	cmp    -0x18(%rbp),%rax
+    1200:	jae    122e <readDummyArray+0x5e>
+    1206:	mov    -0x8(%rbp),%rax
+    120a:	mov    -0x20(%rbp),%rcx
+    120e:	movsd  (%rax,%rcx,8),%xmm0
+    1213:	addsd  -0x28(%rbp),%xmm0
+    1218:	movsd  %xmm0,-0x28(%rbp)
+    121d:	mov    -0x20(%rbp),%rax
+    1221:	add    $0x1,%rax
+    1225:	mov    %rax,-0x20(%rbp)
+    1229:	jmp    11f8 <readDummyArray+0x28>
+    122e:	movsd  -0x28(%rbp),%xmm0
+    1233:	movaps 0xdd6(%rip),%xmm2        # 2010 <_IO_stdin_used+0x10>
+    123a:	movq   -0x18(%rbp),%xmm1
+    123f:	punpckldq %xmm2,%xmm1
+    1243:	movapd 0xdd5(%rip),%xmm2        # 2020 <_IO_stdin_used+0x20>
+    124b:	subpd  %xmm2,%xmm1
+    124f:	movaps %xmm1,%xmm2
+    1252:	unpckhpd %xmm1,%xmm1
+    1256:	addsd  %xmm2,%xmm1
+    125a:	divsd  %xmm1,%xmm0
+    125e:	mov    -0x8(%rbp),%rax
+    1262:	movsd  %xmm0,(%rax)
+    1266:	movsd  -0x28(%rbp),%xmm0
+    126b:	pop    %rbp
+    126c:	ret
+
+Disassembly of section .fini:

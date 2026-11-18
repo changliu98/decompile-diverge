@@ -1,0 +1,1 @@
+void avro_refcount_set(avro_refcount_t *ref, int i) { ref->i = i; }

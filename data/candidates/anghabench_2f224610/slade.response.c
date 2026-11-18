@@ -1,0 +1,1 @@
+int is_dup(const int *list, int len, int val) { int i; for (i = 0; i < len; i++) { if (list[i] == val) return 1; } return 0; }

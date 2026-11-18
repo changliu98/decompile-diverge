@@ -1,0 +1,1 @@
+void cmatrix_from_frame(double *frame, double *X, double *Y, double *Z) { int i; for (i = 0; i < 3; i++) { frame[3*i] = X[i]; frame[3*i+1] = Y[i]; frame[3*i+2] = Z[i]; } }

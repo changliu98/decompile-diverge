@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n#include <string.h>\n#include <stdlib.h>\n\nvoid func0(char *s, int encode) {\n    int shift = encode ? 5 : 21;\n    size_t len = strlen(s);\n    for (size_t i = 0; i < len; i++) {\n        int w = ((s[i] - 'a' + shift) % 26) + 'a';\n        s[i] = (char)w;\n    }\n}",
+ "c_test": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <assert.h>\n#include <time.h>\n\nint main() {\n    srand((unsigned int)time(NULL));\n\n    for (int i = 0; i < 100; i++) {\n        int l = 10 + rand() % 11;\n        char *str = (char *)malloc(l + 1);\n        for (int j = 0; j < l; j++) {\n            char chr = 'a' + rand() % 26;\n            str[j] = chr;\n        }\n        str[l] = '\\0';\n\n        char *encoded_str = (char *)malloc(l + 1);\n        strcpy(encoded_str, str);\n        func0(encoded_str, 1);\n        func0(encoded_str, 0);\n        assert(strcmp(encoded_str, str) == 0);\n\n        free(str);\n        free(encoded_str);\n    }\n\n    return 0;\n}"
+}

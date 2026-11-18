@@ -1,0 +1,1 @@
+charx86_t strcpy_x86_64_fast(charx86_t *dst, const charx86_t *src) { __asm__ volatile ("1: lodsb  ;stosb  ;testb al ;jne %%al, ;jne %1b; movl %1, %0" :"=r" (volatile __u64)" (dst), "=r" (volatile __u64)" (src) ); return dst; }

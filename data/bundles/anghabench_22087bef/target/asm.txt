@@ -1,0 +1,44 @@
+00000000000011c0 <linear2ulaw>:
+    11c0:	push   %rbp
+    11c1:	mov    %rsp,%rbp
+    11c4:	mov    %di,%ax
+    11c7:	mov    %ax,-0x2(%rbp)
+    11cb:	movswl -0x2(%rbp),%eax
+    11cf:	sar    $0x8,%eax
+    11d2:	and    $0x80,%eax
+    11d7:	mov    %eax,-0x8(%rbp)
+    11da:	cmpl   $0x0,-0x8(%rbp)
+    11de:	je     11f0 <linear2ulaw+0x30>
+    11e4:	movswl -0x2(%rbp),%ecx
+    11e8:	xor    %eax,%eax
+    11ea:	sub    %ecx,%eax
+    11ec:	mov    %ax,-0x2(%rbp)
+    11f0:	movswl -0x2(%rbp),%eax
+    11f4:	movswl 0x3285(%rip),%ecx        # 4480 <BIAS>
+    11fb:	add    %ecx,%eax
+    11fd:	mov    %ax,-0x2(%rbp)
+    1201:	movswl -0x2(%rbp),%eax
+    1205:	sar    $0x7,%eax
+    1208:	and    $0xff,%eax
+    120d:	movslq %eax,%rcx
+    1210:	lea    0x2e59(%rip),%rax        # 4070 <linear2ulaw.exp_lut>
+    1217:	mov    (%rax,%rcx,4),%eax
+    121a:	mov    %eax,-0xc(%rbp)
+    121d:	movswl -0x2(%rbp),%eax
+    1221:	mov    -0xc(%rbp),%ecx
+    1224:	add    $0x3,%ecx
+    1227:	sar    %cl,%eax
+    1229:	and    $0xf,%eax
+    122c:	mov    %eax,-0x10(%rbp)
+    122f:	mov    -0x8(%rbp),%eax
+    1232:	mov    -0xc(%rbp),%ecx
+    1235:	shl    $0x4,%ecx
+    1238:	or     %ecx,%eax
+    123a:	or     -0x10(%rbp),%eax
+    123d:	xor    $0xffffffff,%eax
+    1240:	mov    %al,-0x11(%rbp)
+    1243:	movzbl -0x11(%rbp),%eax
+    1247:	pop    %rbp
+    1248:	ret
+
+Disassembly of section .fini:

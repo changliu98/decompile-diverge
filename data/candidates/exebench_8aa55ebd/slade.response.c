@@ -1,0 +1,1 @@
+void run_cpuid(uint32_t eax, uint32_t ebx, uint32_t *res) { __asm__ __volatile__( "cpuid" : "=a" (eax), "=d" (res), "=c" (res) :"a" (eax), "b" (ebx), "c" (ecx), "=c" (res) :"a" (eax), "c" (ecx), "d" (edx) :"memory"); (*(res + 1) = (eax), "b" (res) :"a"); (*(res + 2) = (ebx)); (*(res + 3) = (ecx)); }

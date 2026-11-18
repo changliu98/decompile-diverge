@@ -1,0 +1,548 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 90h\nmov     [rbp+abuf], rdi\nmov     [rbp+alen], esi\nmov     [rbp+host], rdx\nmov     rax, [rbp+host]\nmov     qword ptr [rax], 0\ncmp     [rbp+alen], 0Ch\njge     loc_15D7\nmov     [rbp+var_4], 0Ah\njmp     loc_1A9B\nmov     rax, [rbp+abuf]\nmovzx   eax, byte ptr [rax+4]\nshl     eax, 8\nmov     rcx, [rbp+abuf]\nmovzx   ecx, byte ptr [rcx+5]\nor      eax, ecx\nmov     [rbp+qdcount], eax\nmov     rax, [rbp+abuf]\nmovzx   eax, byte ptr [rax+6]\nshl     eax, 8\nmov     rcx, [rbp+abuf]\nmovzx   ecx, byte ptr [rcx+7]\nor      eax, ecx\nmov     [rbp+ancount], eax\ncmp     [rbp+qdcount], 1\njz      loc_161D\nmov     [rbp+var_4], 0Ah\njmp     loc_1A9B\nmov     rax, [rbp+abuf]\nadd     rax, 0Ch\nmov     [rbp+aptr], rax\nmov     rdi, [rbp+aptr]; encoded\nmov     rsi, [rbp+abuf]; abuf\nmov     edx, [rbp+alen]; alen\nlea     rcx, [rbp+hostname]; s\nlea     r8, [rbp+len]; enclen\ncall    ares_expand_name\nmov     [rbp+status], eax\ncmp     [rbp+status], 0\njz      loc_1659\nmov     eax, [rbp+status]\nmov     [rbp+var_4], eax\njmp     loc_1A9B\nmov     rax, [rbp+aptr]\nadd     rax, [rbp+len]\nadd     rax, 4\nmov     rcx, [rbp+abuf]\nmovsxd  rdx, [rbp+alen]\nadd     rcx, rdx\ncmp     rax, rcx\njbe     loc_168E\nmov     rdi, [rbp+hostname]; ptr\ncall    free\nmov     [rbp+var_4], 0Ah\njmp     loc_1A9B\nmov     rax, [rbp+len]\nadd     rax, 4\nadd     rax, [rbp+aptr]\nmov     [rbp+aptr], rax\nmov     eax, [rbp+ancount]\nmov     edi, eax\nshl     rdi, 2; size\ncall    malloc\nmov     [rbp+addrs], rax\ncmp     [rbp+addrs], 0\njnz     loc_16D0\nmov     rdi, [rbp+hostname]; ptr\ncall    free\nmov     [rbp+var_4], 0Fh\njmp     loc_1A9B\nmov     eax, [rbp+ancount]\nadd     eax, 1\nmov     eax, eax\nmov     edi, eax\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+aliases], rax\ncmp     [rbp+aliases], 0\njnz     loc_1710\nmov     rdi, [rbp+hostname]; ptr\ncall    free\nmov     rdi, [rbp+addrs]; ptr\ncall    free\nmov     [rbp+var_4], 0Fh\njmp     loc_1A9B\nmov     [rbp+naddrs], 0\nmov     [rbp+naliases], 0\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+ancount]\njge     loc_1902\nmov     rdi, [rbp+aptr]; encoded\nmov     rsi, [rbp+abuf]; abuf\nmov     edx, [rbp+alen]; alen\nlea     rcx, [rbp+rr_name]; s\nlea     r8, [rbp+len]; enclen\ncall    ares_expand_name\nmov     [rbp+status], eax\ncmp     [rbp+status], 0\njz      loc_175B\njmp     loc_1902\nmov     rax, [rbp+len]\nadd     rax, [rbp+aptr]\nmov     [rbp+aptr], rax\nmov     rax, [rbp+aptr]\nadd     rax, 0Ah\nmov     rcx, [rbp+abuf]\nmovsxd  rdx, [rbp+alen]\nadd     rcx, rdx\ncmp     rax, rcx\njbe     loc_1798\nmov     rdi, [rbp+rr_name]; ptr\ncall    free\nmov     [rbp+status], 0Ah\njmp     loc_1902\nmov     rax, [rbp+aptr]\nmovzx   eax, byte ptr [rax]\nshl     eax, 8\nmov     rcx, [rbp+aptr]\nmovzx   ecx, byte ptr [rcx+1]\nor      eax, ecx\nmov     [rbp+rr_type], eax\nmov     rax, [rbp+aptr]\nmovzx   eax, byte ptr [rax+2]\nshl     eax, 8\nmov     rcx, [rbp+aptr]\nmovzx   ecx, byte ptr [rcx+3]\nor      eax, ecx\nmov     [rbp+rr_class], eax\nmov     rax, [rbp+aptr]\nmovzx   eax, byte ptr [rax+8]\nshl     eax, 8\nmov     rcx, [rbp+aptr]\nmovzx   ecx, byte ptr [rcx+9]\nor      eax, ecx\nmov     [rbp+rr_len], eax\nmov     rax, [rbp+aptr]\nadd     rax, 0Ah\nmov     [rbp+aptr], rax\ncmp     [rbp+rr_class], 1\njnz     loc_1844\ncmp     [rbp+rr_type], 1\njnz     loc_1844\nmovsxd  rax, [rbp+rr_len]\ncmp     rax, 4\njnz     loc_1844\nmov     rdi, [rbp+rr_name]; s1\nmov     rsi, [rbp+hostname]; s2\ncall    strcasecmp\ncmp     eax, 0\njnz     loc_1844\nmov     rax, [rbp+addrs]\nmovsxd  rcx, [rbp+naddrs]\nmov     rdx, [rbp+aptr]\nmov     edx, [rdx]\nmov     [rax+rcx*4], edx\nmov     eax, [rbp+naddrs]\nadd     eax, 1\nmov     [rbp+naddrs], eax\nmov     [rbp+status], 0\ncmp     [rbp+rr_class], 1\njnz     loc_18B1\ncmp     [rbp+rr_type], 5\njnz     loc_18B1\nmov     rdx, [rbp+rr_name]\nmov     rax, [rbp+aliases]\nmovsxd  rcx, [rbp+naliases]\nmov     [rax+rcx*8], rdx\nmov     eax, [rbp+naliases]\nadd     eax, 1\nmov     [rbp+naliases], eax\nmov     rdi, [rbp+aptr]; encoded\nmov     rsi, [rbp+abuf]; abuf\nmov     edx, [rbp+alen]; alen\nlea     rcx, [rbp+rr_data]; s\nlea     r8, [rbp+len]; enclen\ncall    ares_expand_name\nmov     [rbp+status], eax\ncmp     [rbp+status], 0\njz      loc_189B\njmp     loc_1902\nmov     rdi, [rbp+hostname]; ptr\ncall    free\nmov     rax, [rbp+rr_data]\nmov     [rbp+hostname], rax\njmp     loc_18BA\nmov     rdi, [rbp+rr_name]; ptr\ncall    free\nmov     ecx, [rbp+rr_len]\nmov     rax, [rbp+aptr]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+aptr], rax\nmov     rax, [rbp+aptr]\nmov     rcx, [rbp+abuf]\nmovsxd  rdx, [rbp+alen]\nadd     rcx, rdx\ncmp     rax, rcx\njbe     loc_18EF\nmov     [rbp+status], 0Ah\njmp     loc_1902\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1725\ncmp     [rbp+status], 0\njnz     loc_191D\ncmp     [rbp+naddrs], 0\njnz     loc_191D\nmov     [rbp+status], 1\ncmp     [rbp+status], 0\njnz     loc_1A48\nmov     rax, [rbp+aliases]\nmovsxd  rcx, [rbp+naliases]\nmov     qword ptr [rax+rcx*8], 0\nmov     edi, 20h ; ' '; size\ncall    malloc\nmov     [rbp+hostent], rax\ncmp     [rbp+hostent], 0\njz      loc_1A41\nmov     eax, [rbp+naddrs]\nadd     eax, 1\nmovsxd  rdi, eax\nshl     rdi, 3; size\ncall    malloc\nmov     rcx, rax\nmov     rax, [rbp+hostent]\nmov     [rax+18h], rcx\nmov     rax, [rbp+hostent]\ncmp     qword ptr [rax+18h], 0\njz      loc_1A35\nmov     rcx, [rbp+hostname]\nmov     rax, [rbp+hostent]\nmov     [rax], rcx\nmov     rcx, [rbp+aliases]\nmov     rax, [rbp+hostent]\nmov     [rax+8], rcx\nmov     rax, [rbp+hostent]\nmov     dword ptr [rax+10h], 2\nmov     rax, [rbp+hostent]\nmov     dword ptr [rax+14h], 4\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+naddrs]\njge     loc_1A04\nmov     rdx, [rbp+addrs]\nmovsxd  rax, [rbp+i]\nshl     rax, 2\nadd     rdx, rax\nmov     rax, [rbp+hostent]\nmov     rax, [rax+18h]\nmovsxd  rcx, [rbp+i]\nmov     [rax+rcx*8], rdx\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_19C8\nmov     rax, [rbp+hostent]\nmov     rax, [rax+18h]\nmovsxd  rcx, [rbp+naddrs]\nmov     qword ptr [rax+rcx*8], 0\nmov     rcx, [rbp+hostent]\nmov     rax, [rbp+host]\nmov     [rax], rcx\nmov     [rbp+var_4], 0\njmp     loc_1A9B\nmov     rdi, [rbp+hostent]; ptr\ncall    free\nmov     [rbp+status], 0Fh\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+naliases]\njge     loc_1A7A\nmov     rax, [rbp+aliases]\nmovsxd  rcx, [rbp+i]\nmov     rdi, [rax+rcx*8]; ptr\ncall    free\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1A4F\nmov     rdi, [rbp+aliases]; ptr\ncall    free\nmov     rdi, [rbp+addrs]; ptr\ncall    free\nmov     rdi, [rbp+hostname]; ptr\ncall    free\nmov     eax, [rbp+status]\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\nadd     rsp, 90h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 50,
+  "edges": [
+   [
+    "start",
+    "loc_15CB"
+   ],
+   [
+    "start",
+    "loc_15D7"
+   ],
+   [
+    "loc_15CB",
+    "loc_1A9B"
+   ],
+   [
+    "loc_15D7",
+    "loc_1611"
+   ],
+   [
+    "loc_15D7",
+    "loc_161D"
+   ],
+   [
+    "loc_1611",
+    "loc_1A9B"
+   ],
+   [
+    "loc_161D",
+    "loc_164E"
+   ],
+   [
+    "loc_161D",
+    "loc_1659"
+   ],
+   [
+    "loc_164E",
+    "loc_1A9B"
+   ],
+   [
+    "loc_1659",
+    "loc_1679"
+   ],
+   [
+    "loc_1659",
+    "loc_168E"
+   ],
+   [
+    "loc_1679",
+    "loc_1A9B"
+   ],
+   [
+    "loc_168E",
+    "loc_16BB"
+   ],
+   [
+    "loc_168E",
+    "loc_16D0"
+   ],
+   [
+    "loc_16BB",
+    "loc_1A9B"
+   ],
+   [
+    "loc_16D0",
+    "loc_16F2"
+   ],
+   [
+    "loc_16D0",
+    "loc_1710"
+   ],
+   [
+    "loc_16F2",
+    "loc_1A9B"
+   ],
+   [
+    "loc_1710",
+    "loc_1725"
+   ],
+   [
+    "loc_1725",
+    "loc_1731"
+   ],
+   [
+    "loc_1725",
+    "loc_1902"
+   ],
+   [
+    "loc_1731",
+    "loc_1756"
+   ],
+   [
+    "loc_1731",
+    "loc_175B"
+   ],
+   [
+    "loc_1756",
+    "loc_1902"
+   ],
+   [
+    "loc_175B",
+    "loc_1783"
+   ],
+   [
+    "loc_175B",
+    "loc_1798"
+   ],
+   [
+    "loc_1783",
+    "loc_1902"
+   ],
+   [
+    "loc_1798",
+    "loc_17F5"
+   ],
+   [
+    "loc_1798",
+    "loc_1844"
+   ],
+   [
+    "loc_17F5",
+    "loc_17FF"
+   ],
+   [
+    "loc_17F5",
+    "loc_1844"
+   ],
+   [
+    "loc_17FF",
+    "loc_180D"
+   ],
+   [
+    "loc_17FF",
+    "loc_1844"
+   ],
+   [
+    "loc_180D",
+    "loc_1823"
+   ],
+   [
+    "loc_180D",
+    "loc_1844"
+   ],
+   [
+    "loc_1823",
+    "loc_1844"
+   ],
+   [
+    "loc_1844",
+    "loc_184E"
+   ],
+   [
+    "loc_1844",
+    "loc_18B1"
+   ],
+   [
+    "loc_184E",
+    "loc_1858"
+   ],
+   [
+    "loc_184E",
+    "loc_18B1"
+   ],
+   [
+    "loc_1858",
+    "loc_1896"
+   ],
+   [
+    "loc_1858",
+    "loc_189B"
+   ],
+   [
+    "loc_1896",
+    "loc_1902"
+   ],
+   [
+    "loc_189B",
+    "loc_18BA"
+   ],
+   [
+    "loc_18B1",
+    "loc_18BA"
+   ],
+   [
+    "loc_18BA",
+    "loc_18E3"
+   ],
+   [
+    "loc_18BA",
+    "loc_18EF"
+   ],
+   [
+    "loc_18E3",
+    "loc_1902"
+   ],
+   [
+    "loc_18EF",
+    "loc_18F4"
+   ],
+   [
+    "loc_18F4",
+    "loc_1725"
+   ],
+   [
+    "loc_1902",
+    "loc_190C"
+   ],
+   [
+    "loc_1902",
+    "loc_191D"
+   ],
+   [
+    "loc_190C",
+    "loc_1916"
+   ],
+   [
+    "loc_190C",
+    "loc_191D"
+   ],
+   [
+    "loc_1916",
+    "loc_191D"
+   ],
+   [
+    "loc_191D",
+    "loc_1927"
+   ],
+   [
+    "loc_191D",
+    "loc_1A48"
+   ],
+   [
+    "loc_1927",
+    "loc_1956"
+   ],
+   [
+    "loc_1927",
+    "loc_1A41"
+   ],
+   [
+    "loc_1956",
+    "loc_1988"
+   ],
+   [
+    "loc_1956",
+    "loc_1A35"
+   ],
+   [
+    "loc_1988",
+    "loc_19C8"
+   ],
+   [
+    "loc_19C8",
+    "loc_19D4"
+   ],
+   [
+    "loc_19C8",
+    "loc_1A04"
+   ],
+   [
+    "loc_19D4",
+    "loc_19C8"
+   ],
+   [
+    "loc_1A04",
+    "loc_1A9B"
+   ],
+   [
+    "loc_1A35",
+    "loc_1A41"
+   ],
+   [
+    "loc_1A41",
+    "loc_1A48"
+   ],
+   [
+    "loc_1A48",
+    "loc_1A4F"
+   ],
+   [
+    "loc_1A4F",
+    "loc_1A5B"
+   ],
+   [
+    "loc_1A4F",
+    "loc_1A7A"
+   ],
+   [
+    "loc_1A5B",
+    "loc_1A4F"
+   ],
+   [
+    "loc_1A7A",
+    "loc_1A9B"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 90h\nmov     [rbp+abuf], rdi\nmov     [rbp+alen], esi\nmov     [rbp+host], rdx\nmov     rax, [rbp+host]\nmov     qword ptr [rax], 0\ncmp     [rbp+alen], 0Ch\njge     loc_15D7",
+   "loc_15CB": "mov     [rbp+var_4], 0Ah\njmp     loc_1A9B",
+   "loc_15D7": "mov     rax, [rbp+abuf]\nmovzx   eax, byte ptr [rax+4]\nshl     eax, 8\nmov     rcx, [rbp+abuf]\nmovzx   ecx, byte ptr [rcx+5]\nor      eax, ecx\nmov     [rbp+qdcount], eax\nmov     rax, [rbp+abuf]\nmovzx   eax, byte ptr [rax+6]\nshl     eax, 8\nmov     rcx, [rbp+abuf]\nmovzx   ecx, byte ptr [rcx+7]\nor      eax, ecx\nmov     [rbp+ancount], eax\ncmp     [rbp+qdcount], 1\njz      loc_161D",
+   "loc_1611": "mov     [rbp+var_4], 0Ah\njmp     loc_1A9B",
+   "loc_161D": "mov     rax, [rbp+abuf]\nadd     rax, 0Ch\nmov     [rbp+aptr], rax\nmov     rdi, [rbp+aptr]; encoded\nmov     rsi, [rbp+abuf]; abuf\nmov     edx, [rbp+alen]; alen\nlea     rcx, [rbp+hostname]; s\nlea     r8, [rbp+len]; enclen\ncall    ares_expand_name\nmov     [rbp+status], eax\ncmp     [rbp+status], 0\njz      loc_1659",
+   "loc_164E": "mov     eax, [rbp+status]\nmov     [rbp+var_4], eax\njmp     loc_1A9B",
+   "loc_1659": "mov     rax, [rbp+aptr]\nadd     rax, [rbp+len]\nadd     rax, 4\nmov     rcx, [rbp+abuf]\nmovsxd  rdx, [rbp+alen]\nadd     rcx, rdx\ncmp     rax, rcx\njbe     loc_168E",
+   "loc_1679": "mov     rdi, [rbp+hostname]; ptr\ncall    free\nmov     [rbp+var_4], 0Ah\njmp     loc_1A9B",
+   "loc_168E": "mov     rax, [rbp+len]\nadd     rax, 4\nadd     rax, [rbp+aptr]\nmov     [rbp+aptr], rax\nmov     eax, [rbp+ancount]\nmov     edi, eax\nshl     rdi, 2; size\ncall    malloc\nmov     [rbp+addrs], rax\ncmp     [rbp+addrs], 0\njnz     loc_16D0",
+   "loc_16BB": "mov     rdi, [rbp+hostname]; ptr\ncall    free\nmov     [rbp+var_4], 0Fh\njmp     loc_1A9B",
+   "loc_16D0": "mov     eax, [rbp+ancount]\nadd     eax, 1\nmov     eax, eax\nmov     edi, eax\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+aliases], rax\ncmp     [rbp+aliases], 0\njnz     loc_1710",
+   "loc_16F2": "mov     rdi, [rbp+hostname]; ptr\ncall    free\nmov     rdi, [rbp+addrs]; ptr\ncall    free\nmov     [rbp+var_4], 0Fh\njmp     loc_1A9B",
+   "loc_1710": "mov     [rbp+naddrs], 0\nmov     [rbp+naliases], 0\nmov     [rbp+i], 0",
+   "loc_1725": "mov     eax, [rbp+i]\ncmp     eax, [rbp+ancount]\njge     loc_1902",
+   "loc_1731": "mov     rdi, [rbp+aptr]; encoded\nmov     rsi, [rbp+abuf]; abuf\nmov     edx, [rbp+alen]; alen\nlea     rcx, [rbp+rr_name]; s\nlea     r8, [rbp+len]; enclen\ncall    ares_expand_name\nmov     [rbp+status], eax\ncmp     [rbp+status], 0\njz      loc_175B",
+   "loc_1756": "jmp     loc_1902",
+   "loc_175B": "mov     rax, [rbp+len]\nadd     rax, [rbp+aptr]\nmov     [rbp+aptr], rax\nmov     rax, [rbp+aptr]\nadd     rax, 0Ah\nmov     rcx, [rbp+abuf]\nmovsxd  rdx, [rbp+alen]\nadd     rcx, rdx\ncmp     rax, rcx\njbe     loc_1798",
+   "loc_1783": "mov     rdi, [rbp+rr_name]; ptr\ncall    free\nmov     [rbp+status], 0Ah\njmp     loc_1902",
+   "loc_1798": "mov     rax, [rbp+aptr]\nmovzx   eax, byte ptr [rax]\nshl     eax, 8\nmov     rcx, [rbp+aptr]\nmovzx   ecx, byte ptr [rcx+1]\nor      eax, ecx\nmov     [rbp+rr_type], eax\nmov     rax, [rbp+aptr]\nmovzx   eax, byte ptr [rax+2]\nshl     eax, 8\nmov     rcx, [rbp+aptr]\nmovzx   ecx, byte ptr [rcx+3]\nor      eax, ecx\nmov     [rbp+rr_class], eax\nmov     rax, [rbp+aptr]\nmovzx   eax, byte ptr [rax+8]\nshl     eax, 8\nmov     rcx, [rbp+aptr]\nmovzx   ecx, byte ptr [rcx+9]\nor      eax, ecx\nmov     [rbp+rr_len], eax\nmov     rax, [rbp+aptr]\nadd     rax, 0Ah\nmov     [rbp+aptr], rax\ncmp     [rbp+rr_class], 1\njnz     loc_1844",
+   "loc_17F5": "cmp     [rbp+rr_type], 1\njnz     loc_1844",
+   "loc_17FF": "movsxd  rax, [rbp+rr_len]\ncmp     rax, 4\njnz     loc_1844",
+   "loc_180D": "mov     rdi, [rbp+rr_name]; s1\nmov     rsi, [rbp+hostname]; s2\ncall    strcasecmp\ncmp     eax, 0\njnz     loc_1844",
+   "loc_1823": "mov     rax, [rbp+addrs]\nmovsxd  rcx, [rbp+naddrs]\nmov     rdx, [rbp+aptr]\nmov     edx, [rdx]\nmov     [rax+rcx*4], edx\nmov     eax, [rbp+naddrs]\nadd     eax, 1\nmov     [rbp+naddrs], eax\nmov     [rbp+status], 0",
+   "loc_1844": "cmp     [rbp+rr_class], 1\njnz     loc_18B1",
+   "loc_184E": "cmp     [rbp+rr_type], 5\njnz     loc_18B1",
+   "loc_1858": "mov     rdx, [rbp+rr_name]\nmov     rax, [rbp+aliases]\nmovsxd  rcx, [rbp+naliases]\nmov     [rax+rcx*8], rdx\nmov     eax, [rbp+naliases]\nadd     eax, 1\nmov     [rbp+naliases], eax\nmov     rdi, [rbp+aptr]; encoded\nmov     rsi, [rbp+abuf]; abuf\nmov     edx, [rbp+alen]; alen\nlea     rcx, [rbp+rr_data]; s\nlea     r8, [rbp+len]; enclen\ncall    ares_expand_name\nmov     [rbp+status], eax\ncmp     [rbp+status], 0\njz      loc_189B",
+   "loc_1896": "jmp     loc_1902",
+   "loc_189B": "mov     rdi, [rbp+hostname]; ptr\ncall    free\nmov     rax, [rbp+rr_data]\nmov     [rbp+hostname], rax\njmp     loc_18BA",
+   "loc_18B1": "mov     rdi, [rbp+rr_name]; ptr\ncall    free",
+   "loc_18BA": "mov     ecx, [rbp+rr_len]\nmov     rax, [rbp+aptr]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+aptr], rax\nmov     rax, [rbp+aptr]\nmov     rcx, [rbp+abuf]\nmovsxd  rdx, [rbp+alen]\nadd     rcx, rdx\ncmp     rax, rcx\njbe     loc_18EF",
+   "loc_18E3": "mov     [rbp+status], 0Ah\njmp     loc_1902",
+   "loc_18EF": "jmp     $+5",
+   "loc_18F4": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1725",
+   "loc_1902": "cmp     [rbp+status], 0\njnz     loc_191D",
+   "loc_190C": "cmp     [rbp+naddrs], 0\njnz     loc_191D",
+   "loc_1916": "mov     [rbp+status], 1",
+   "loc_191D": "cmp     [rbp+status], 0\njnz     loc_1A48",
+   "loc_1927": "mov     rax, [rbp+aliases]\nmovsxd  rcx, [rbp+naliases]\nmov     qword ptr [rax+rcx*8], 0\nmov     edi, 20h ; ' '; size\ncall    malloc\nmov     [rbp+hostent], rax\ncmp     [rbp+hostent], 0\njz      loc_1A41",
+   "loc_1956": "mov     eax, [rbp+naddrs]\nadd     eax, 1\nmovsxd  rdi, eax\nshl     rdi, 3; size\ncall    malloc\nmov     rcx, rax\nmov     rax, [rbp+hostent]\nmov     [rax+18h], rcx\nmov     rax, [rbp+hostent]\ncmp     qword ptr [rax+18h], 0\njz      loc_1A35",
+   "loc_1988": "mov     rcx, [rbp+hostname]\nmov     rax, [rbp+hostent]\nmov     [rax], rcx\nmov     rcx, [rbp+aliases]\nmov     rax, [rbp+hostent]\nmov     [rax+8], rcx\nmov     rax, [rbp+hostent]\nmov     dword ptr [rax+10h], 2\nmov     rax, [rbp+hostent]\nmov     dword ptr [rax+14h], 4\nmov     [rbp+i], 0",
+   "loc_19C8": "mov     eax, [rbp+i]\ncmp     eax, [rbp+naddrs]\njge     loc_1A04",
+   "loc_19D4": "mov     rdx, [rbp+addrs]\nmovsxd  rax, [rbp+i]\nshl     rax, 2\nadd     rdx, rax\nmov     rax, [rbp+hostent]\nmov     rax, [rax+18h]\nmovsxd  rcx, [rbp+i]\nmov     [rax+rcx*8], rdx\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_19C8",
+   "loc_1A04": "mov     rax, [rbp+hostent]\nmov     rax, [rax+18h]\nmovsxd  rcx, [rbp+naddrs]\nmov     qword ptr [rax+rcx*8], 0\nmov     rcx, [rbp+hostent]\nmov     rax, [rbp+host]\nmov     [rax], rcx\nmov     [rbp+var_4], 0\njmp     loc_1A9B",
+   "loc_1A35": "mov     rdi, [rbp+hostent]; ptr\ncall    free",
+   "loc_1A41": "mov     [rbp+status], 0Fh",
+   "loc_1A48": "mov     [rbp+i], 0",
+   "loc_1A4F": "mov     eax, [rbp+i]\ncmp     eax, [rbp+naliases]\njge     loc_1A7A",
+   "loc_1A5B": "mov     rax, [rbp+aliases]\nmovsxd  rcx, [rbp+i]\nmov     rdi, [rax+rcx*8]; ptr\ncall    free\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1A4F",
+   "loc_1A7A": "mov     rdi, [rbp+aliases]; ptr\ncall    free\nmov     rdi, [rbp+addrs]; ptr\ncall    free\nmov     rdi, [rbp+hostname]; ptr\ncall    free\nmov     eax, [rbp+status]\nmov     [rbp+var_4], eax",
+   "loc_1A9B": "mov     eax, [rbp+var_4]\nadd     rsp, 90h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "hostent": "qword ptr -88h",
+   "addrs": "qword ptr -80h",
+   "aliases": "qword ptr -78h",
+   "rr_data": "qword ptr -70h",
+   "rr_name": "qword ptr -68h",
+   "hostname": "qword ptr -60h",
+   "aptr": "qword ptr -58h",
+   "naliases": "dword ptr -4Ch",
+   "len": "qword ptr -48h",
+   "naddrs": "dword ptr -40h",
+   "rr_len": "dword ptr -3Ch",
+   "rr_class": "dword ptr -38h",
+   "rr_type": "dword ptr -34h",
+   "i": "dword ptr -30h",
+   "status": "dword ptr -2Ch",
+   "ancount": "dword ptr -28h",
+   "qdcount": "dword ptr -24h",
+   "host": "qword ptr -20h",
+   "alen": "dword ptr -14h",
+   "abuf": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5536,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".strcasecmp": "strcasecmp",
+  "_strcasecmp": "strcasecmp",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".strcasecmp",
+   ".plt",
+   true,
+   "strcasecmp"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcasecmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868448
+ }
+}

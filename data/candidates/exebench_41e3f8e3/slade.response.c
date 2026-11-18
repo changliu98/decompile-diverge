@@ -1,0 +1,1 @@
+void table_norm(double *x, int xlen, double *y, int ylen, long *z, int zlen) { int i, j; for (i = 0; i < ylen; i++) { for (j = 0; j < xlen; j++) { if (x[j] > y[i]) z[j]++; } } for (i = 0; i < zlen; i++) { if (z[i] == 0) z[i] = 1; } }

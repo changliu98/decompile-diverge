@@ -1,0 +1,1 @@
+int func0(char *str) { int count = 0; int i = 0; while (str[i] != '\0') { if (str[i] == '<') count++; if (str[i] == '>') count--; if (count < 0) return 0; i++; } if (count != 0) return 0; return 1; }

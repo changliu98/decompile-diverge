@@ -1,0 +1,1 @@
+void multiplyByConstant( realtype m[3][3], realtype c ) { int i, j; for( i = 0; i < 3; i++ ) for( j = 0; j < 3; j++ ) m[i][j] = c * m[i][j]; }

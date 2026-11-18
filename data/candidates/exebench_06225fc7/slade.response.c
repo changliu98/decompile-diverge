@@ -1,0 +1,1 @@
+void ref_div_double(double field1, double field2, double* result) { *result = field1 / field2; }

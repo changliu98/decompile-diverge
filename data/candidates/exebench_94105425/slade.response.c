@@ -1,0 +1,1 @@
+void strrev(char *str) { char *end = str; while (end && *end) end++; end--; while (str < end) { *str ^= *end; *end ^= *end; *str ^= *end; str++; end--; } }

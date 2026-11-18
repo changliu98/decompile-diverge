@@ -1,0 +1,1 @@
+int func0(char *str1, char *str2) { char *c1, *c2; int count = 0; c1 = str1; while (*c1 != '\0') { c2 = str2; while (*c2 != '\0') { if (*c1 == *c2) { count++; break; } c2++; } c1++; } return count; }

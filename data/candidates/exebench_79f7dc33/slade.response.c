@@ -1,0 +1,1 @@
+void bToHex0(char b[4], unsigned char n) { char *hex = "0123456789abcdef"; b[0] = hex[(n>>4) &0x0f]; b[1] = hex[n &0x0f]; b[2] = '\0'; }

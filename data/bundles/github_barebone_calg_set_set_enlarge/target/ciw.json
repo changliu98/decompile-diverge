@@ -1,0 +1,285 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+set], rdi\nmov     rax, [rbp+set]\nmov     rax, [rax]\nmov     [rbp+old_table], rax\nmov     rax, [rbp+set]\nmov     eax, [rax+0Ch]\nmov     [rbp+old_table_size], eax\nmov     rax, [rbp+set]\nmov     eax, [rax+10h]\nmov     [rbp+old_prime_index], eax\nmov     rax, [rbp+set]\nmov     ecx, [rax+10h]\nadd     ecx, 1\nmov     [rax+10h], ecx\nmov     rdi, [rbp+set]; set\ncall    set_allocate_table\ncmp     eax, 0\njnz     loc_15C5\nmov     rcx, [rbp+old_table]\nmov     rax, [rbp+set]\nmov     [rax], rcx\nmov     ecx, [rbp+old_table_size]\nmov     rax, [rbp+set]\nmov     [rax+0Ch], ecx\nmov     ecx, [rbp+old_prime_index]\nmov     rax, [rbp+set]\nmov     [rax+10h], ecx\nmov     [rbp+var_4], 0\njmp     loc_1673\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+old_table_size]\njnb     loc_1663\nmov     rax, [rbp+old_table]\nmov     ecx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmov     [rbp+rover], rax\ncmp     [rbp+rover], 0\njz      loc_1650\nmov     rax, [rbp+rover]\nmov     rax, [rax+8]\nmov     [rbp+next], rax\nmov     rax, [rbp+set]\nmov     rax, [rax+18h]\nmov     rcx, [rbp+rover]\nmov     rdi, [rcx]\ncall    rax\nmov     rcx, [rbp+set]\nxor     edx, edx\ndiv     dword ptr [rcx+0Ch]\nmov     [rbp+index], edx\nmov     rax, [rbp+set]\nmov     rax, [rax]\nmov     ecx, [rbp+index]\nmov     rcx, [rax+rcx*8]\nmov     rax, [rbp+rover]\nmov     [rax+8], rcx\nmov     rdx, [rbp+rover]\nmov     rax, [rbp+set]\nmov     rax, [rax]\nmov     ecx, [rbp+index]\nmov     [rax+rcx*8], rdx\nmov     rax, [rbp+next]\nmov     [rbp+rover], rax\njmp     loc_15E7\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_15CC\nmov     rdi, [rbp+old_table]; ptr\ncall    free\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 11,
+  "edges": [
+   [
+    "start",
+    "loc_159A"
+   ],
+   [
+    "start",
+    "loc_15C5"
+   ],
+   [
+    "loc_159A",
+    "loc_1673"
+   ],
+   [
+    "loc_15C5",
+    "loc_15CC"
+   ],
+   [
+    "loc_15CC",
+    "loc_15D8"
+   ],
+   [
+    "loc_15CC",
+    "loc_1663"
+   ],
+   [
+    "loc_15D8",
+    "loc_15E7"
+   ],
+   [
+    "loc_15E7",
+    "loc_15F2"
+   ],
+   [
+    "loc_15E7",
+    "loc_1650"
+   ],
+   [
+    "loc_15F2",
+    "loc_15E7"
+   ],
+   [
+    "loc_1650",
+    "loc_1655"
+   ],
+   [
+    "loc_1655",
+    "loc_15CC"
+   ],
+   [
+    "loc_1663",
+    "loc_1673"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+set], rdi\nmov     rax, [rbp+set]\nmov     rax, [rax]\nmov     [rbp+old_table], rax\nmov     rax, [rbp+set]\nmov     eax, [rax+0Ch]\nmov     [rbp+old_table_size], eax\nmov     rax, [rbp+set]\nmov     eax, [rax+10h]\nmov     [rbp+old_prime_index], eax\nmov     rax, [rbp+set]\nmov     ecx, [rax+10h]\nadd     ecx, 1\nmov     [rax+10h], ecx\nmov     rdi, [rbp+set]; set\ncall    set_allocate_table\ncmp     eax, 0\njnz     loc_15C5",
+   "loc_159A": "mov     rcx, [rbp+old_table]\nmov     rax, [rbp+set]\nmov     [rax], rcx\nmov     ecx, [rbp+old_table_size]\nmov     rax, [rbp+set]\nmov     [rax+0Ch], ecx\nmov     ecx, [rbp+old_prime_index]\nmov     rax, [rbp+set]\nmov     [rax+10h], ecx\nmov     [rbp+var_4], 0\njmp     loc_1673",
+   "loc_15C5": "mov     [rbp+i], 0",
+   "loc_15CC": "mov     eax, [rbp+i]\ncmp     eax, [rbp+old_table_size]\njnb     loc_1663",
+   "loc_15D8": "mov     rax, [rbp+old_table]\nmov     ecx, [rbp+i]\nmov     rax, [rax+rcx*8]\nmov     [rbp+rover], rax",
+   "loc_15E7": "cmp     [rbp+rover], 0\njz      loc_1650",
+   "loc_15F2": "mov     rax, [rbp+rover]\nmov     rax, [rax+8]\nmov     [rbp+next], rax\nmov     rax, [rbp+set]\nmov     rax, [rax+18h]\nmov     rcx, [rbp+rover]\nmov     rdi, [rcx]\ncall    rax\nmov     rcx, [rbp+set]\nxor     edx, edx\ndiv     dword ptr [rcx+0Ch]\nmov     [rbp+index], edx\nmov     rax, [rbp+set]\nmov     rax, [rax]\nmov     ecx, [rbp+index]\nmov     rcx, [rax+rcx*8]\nmov     rax, [rbp+rover]\nmov     [rax+8], rcx\nmov     rdx, [rbp+rover]\nmov     rax, [rbp+set]\nmov     rax, [rax]\nmov     ecx, [rbp+index]\nmov     [rax+rcx*8], rdx\nmov     rax, [rbp+next]\nmov     [rbp+rover], rax\njmp     loc_15E7",
+   "loc_1650": "jmp     $+5",
+   "loc_1655": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_15CC",
+   "loc_1663": "mov     rdi, [rbp+old_table]; ptr\ncall    free\nmov     [rbp+var_4], 1",
+   "loc_1673": "mov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "i": "dword ptr -38h",
+   "index": "dword ptr -34h",
+   "old_prime_index": "dword ptr -30h",
+   "old_table_size": "dword ptr -2Ch",
+   "old_table": "qword ptr -28h",
+   "next": "qword ptr -20h",
+   "rover": "qword ptr -18h",
+   "set": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5456,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872655
+ }
+}

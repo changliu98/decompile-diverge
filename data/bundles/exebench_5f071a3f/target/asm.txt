@@ -1,0 +1,26 @@
+00000000000011c0 <StoreUintptr>:
+    11c0:	push   %rbp
+    11c1:	mov    %rsp,%rbp
+    11c4:	mov    %rdi,-0x8(%rbp)
+    11c8:	mov    %rsi,-0x10(%rbp)
+    11cc:	mov    -0x8(%rbp),%rax
+    11d0:	mov    (%rax),%rax
+    11d3:	mov    %rax,-0x18(%rbp)
+    11d7:	mov    -0x8(%rbp),%rcx
+    11db:	mov    -0x18(%rbp),%rax
+    11df:	mov    -0x10(%rbp),%rdx
+    11e3:	lock cmpxchg %rdx,(%rcx)
+    11e8:	mov    %rax,%rcx
+    11eb:	sete   %al
+    11ee:	xor    $0xff,%al
+    11f0:	test   $0x1,%al
+    11f2:	jne    11fd <StoreUintptr+0x3d>
+    11f8:	jmp    120d <StoreUintptr+0x4d>
+    11fd:	mov    -0x8(%rbp),%rax
+    1201:	mov    (%rax),%rax
+    1204:	mov    %rax,-0x18(%rbp)
+    1208:	jmp    11d7 <StoreUintptr+0x17>
+    120d:	pop    %rbp
+    120e:	ret
+
+Disassembly of section .fini:

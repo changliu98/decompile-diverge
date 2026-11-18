@@ -1,0 +1,1 @@
+void advance_m1pos(struct vars *v) { v->m1pos = (v->m1pos + 1) % 61; }

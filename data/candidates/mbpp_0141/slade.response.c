@@ -1,0 +1,1 @@
+void func0(int a[], int n) { int i, j; for (i = n; i > 1; i--) { j = find_max_index(a, i); if (j != i - 1) { reverse(a, 0, j); reverse(a, 0, i - 1); } } }

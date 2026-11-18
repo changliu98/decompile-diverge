@@ -1,0 +1,1 @@
+bool next_arr_seq(int *arr, int len, int min) { for (int i = 0; i < len; i++) { arr[i]++; if (arr[i] <= min) return true; arr[i] = 0; } return false; }

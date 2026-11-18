@@ -1,0 +1,1 @@
+float LerpAngle( float from, float to, float t ) { float result; if ( to - from > 180 ) to -= 360; if ( to - from < -180 ) to += 360; result = from + t*( to - from ); return result; }

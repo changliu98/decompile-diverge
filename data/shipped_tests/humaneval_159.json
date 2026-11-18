@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n\nvoid func0(int number, int need, int remaining, int result[2]) {\n    if (need > remaining) {\n        result[0] = number + remaining;\n        result[1] = 0;\n    } else {\n        result[0] = number + need;\n        result[1] = remaining - need;\n    }\n}",
+ "c_test": "#include <assert.h>\n\nint issame(int a[2], int b[2]) {\n    return a[0] == b[0] && a[1] == b[1];\n}\n\nint main() {\n    int result[2];\n\n    func0(5, 6, 10, result);\n    assert(issame(result, (const int[]){11, 4}));\n\n    func0(4, 8, 9, result);\n    assert(issame(result, (const int[]){12, 1}));\n\n    func0(1, 10, 10, result);\n    assert(issame(result, (const int[]){11, 0}));\n\n    func0(2, 11, 5, result);\n    assert(issame(result, (const int[]){7, 0}));\n\n    func0(4, 5, 7, result);\n    assert(issame(result, (const int[]){9, 2}));\n\n    func0(4, 5, 1, result);\n    assert(issame(result, (const int[]){5, 0}));\n    \n    return 0;\n}"
+}

@@ -1,0 +1,625 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 510h\nmov     [rbp+filter], rdi\nmov     [rbp+id3_buf], rsi\nmov     [rbp+id3_buf_size], edx\nmov     [rbp+audio_pid], rcx\nmov     [rbp+video_pid_p], r8\nmov     rdi, [rbp+id3_buf]; buffer\nmov     eax, [rbp+id3_buf_size]\nmov     esi, eax; BufferSize\nxor     edx, edx; mode\ncall    gf_bs_new\nmov     [rbp+bs], rax\nmov     [rbp+_buf], 0\nmov     [rbp+buf_alloc], 0\nmov     rdi, [rbp+bs]; bs\nmov     esi, 3; nbBytes\ncall    gf_bs_skip_bytes\nmov     rdi, [rbp+bs]; bs\ncall    gf_bs_read_u8\nmov     rdi, [rbp+bs]; bs\ncall    gf_bs_read_u8\nmov     rdi, [rbp+bs]; bs\nmov     esi, 1; nBits\ncall    gf_bs_read_int\nmov     rdi, [rbp+bs]; bs\nmov     esi, 1; nBits\ncall    gf_bs_read_int\nmov     [rbp+ext_hdr], al\nmov     rdi, [rbp+bs]; bs\nmov     esi, 6; nBits\ncall    gf_bs_read_int\nmov     rdi, [rbp+bs]; bs\ncall    gf_id3_read_size\nmov     [rbp+size], eax\ncmp     [rbp+ext_hdr], 0\njz      loc_1A09\njmp     $+5\njmp     $+5\nxor     eax, eax\ncmp     [rbp+size], 0\nmov     [rbp+var_4E1], al\njz      loc_1A36\nmov     rdi, [rbp+bs]; bs\ncall    gf_bs_available\ncmp     rax, 0Ah\nsetnb   al\nmov     [rbp+var_4E1], al\nmov     al, [rbp+var_4E1]\ntest    al, 1\njnz     loc_1A49\njmp     loc_1EF0\nmov     rdi, [rbp+bs]; bs\ncall    gf_bs_read_u32\nmov     [rbp+ftag], eax\nmov     rdi, [rbp+bs]; bs\ncall    gf_id3_read_size\nmov     [rbp+fsize], eax\nmov     rdi, [rbp+bs]; bs\ncall    gf_bs_read_u16\nmov     eax, [rbp+size]\nsub     eax, 0Ah\nmov     [rbp+size], eax\ncmp     [rbp+fsize], 0\njnz     loc_1A8B\njmp     loc_1EF0\nmov     eax, [rbp+size]\ncmp     eax, [rbp+fsize]\njnb     loc_1A9F\njmp     loc_1EF0\nmov     eax, [rbp+buf_alloc]\ncmp     eax, [rbp+fsize]\nja      loc_1AD4\nmov     rdi, [rbp+_buf]; ptr\nmov     eax, [rbp+fsize]\nadd     eax, 3\nmov     eax, eax\nmov     esi, eax; size\ncall    _ZN4chip14BindingManager40RegisterBoundDeviceContextReleaseHandlerEPFvPvE; chip::BindingManager::RegisterBoundDeviceContextReleaseHandler(void (*)(void *))\nmov     [rbp+_buf], rax\nmov     eax, [rbp+fsize]\nadd     eax, 3\nmov     [rbp+buf_alloc], eax\nmov     rdi, [rbp+bs]; bs\nmov     rsi, [rbp+_buf]\nadd     rsi, 1; data\nmov     edx, [rbp+fsize]; nbBytes\ncall    gf_bs_read_data\nmov     rax, [rbp+_buf]\nmov     ecx, [rbp+fsize]\nadd     ecx, 1\nmov     ecx, ecx\nmov     byte ptr [rax+rcx], 0\nmov     rax, [rbp+_buf]\nmov     ecx, [rbp+fsize]\nadd     ecx, 2\nmov     ecx, ecx\nmov     byte ptr [rax+rcx], 0\nmov     rax, [rbp+_buf]\nadd     rax, 1\nmov     [rbp+buf], rax\nmov     edi, [rbp+ftag]; id3tag\ncall    gf_itags_find_by_id3tag\nmov     [rbp+tag_idx], eax\ncmp     [rbp+ftag], 54585858h\njnz     loc_1BFB\nmov     rdi, [rbp+buf]; s\nmov     eax, [rbp+fsize]\nmov     edx, eax; n\nxor     esi, esi; c\ncall    memchr\nmov     [rbp+sep], rax\ncmp     [rbp+sep], 0\njz      loc_1BF6\nmov     rdi, [rbp+buf]\nadd     rdi, 1; s1\nlea     rsi, name; \"comment\"\ncall    strcasecmp\ncmp     eax, 0\njnz     loc_1BA5\nmov     rdi, [rbp+audio_pid]; apid\nmov     rdx, [rbp+sep]\nadd     rdx, 1; buf\nlea     rsi, name; \"comment\"\nxor     ecx, ecx; is_dyn\ncall    id3dmx_set_string\njmp     loc_1BF1\nlea     rdi, [rbp+szTag]; dest\nlea     rsi, src; \"tag_\"\ncall    strcpy\nlea     rdi, [rbp+szTag]; dest\nmov     rsi, [rbp+buf]\nadd     rsi, 1; src\nmov     edx, 3FBh; n\ncall    strncat\nmov     rdi, [rbp+audio_pid]; apid\nlea     rsi, [rbp+szTag]; name\nmov     rdx, [rbp+sep]\nadd     rdx, 1; buf\nmov     ecx, 1; is_dyn\ncall    id3dmx_set_string\njmp     $+5\njmp     loc_1EDD\ncmp     [rbp+ftag], 41504943h\njnz     loc_1DF3\nmov     rdi, [rbp+buf]\nadd     rdi, 1; s\nmov     eax, [rbp+fsize]\nsub     eax, 1\nmov     eax, eax\nmov     edx, eax; n\nxor     esi, esi; c\ncall    memchr\nmov     [rbp+sep], rax\nmov     rdi, [rbp+sep]\nadd     rdi, 2; s\nmov     eax, [rbp+fsize]\nsub     eax, 1\nmov     eax, eax\nmov     edx, eax; n\nxor     esi, esi; c\ncall    memchr\nmov     [rbp+sep_desc], rax\ncmp     [rbp+sep_desc], 0\njz      loc_1DEE\nmov     rax, [rbp+sep_desc]\nadd     rax, 1\nmov     rcx, [rbp+buf]\nsub     rax, rcx\nmov     [rbp+pic_size], eax\nmov     eax, [rbp+fsize]\nsub     eax, [rbp+pic_size]\nmov     [rbp+pic_size], eax\ncmp     [rbp+video_pid_p], 0\njz      loc_1DAF\nmov     rdi, [rbp+filter]; filter\nmov     rcx, [rbp+buf]\nadd     rcx, 1; mime_type\nmov     r9, [rbp+sep_desc]\nadd     r9, 1; probe_data\nmov     r10d, [rbp+pic_size]\nmov     rax, [rbp+video_pid_p]\nxor     edx, edx\nmov     r8d, edx; fext\nxor     edx, edx\nmov     rsi, r8; url\nmov     rdx, r8; local_file\nmov     [rsp+510h+probe_size], r10d; probe_size\nmov     [rsp+510h+trust_mime], 0; trust_mime\nmov     [rsp+510h+out_pid], rax; out_pid\ncall    gf_filter_pid_raw_new\nmov     [rbp+e], eax\ncmp     [rbp+e], 0\njz      loc_1CE8\njmp     $+5\nmov     rax, [rbp+video_pid_p]\ncmp     qword ptr [rax], 0\njz      loc_1DAA\nmov     rax, [rbp+video_pid_p]\nmov     rdi, [rax]; PID\nlea     rsi, aCoverart; \"CoverArt\"\ncall    gf_filter_pid_set_name\nmov     rax, [rbp+video_pid_p]\nmov     rdi, [rax]; PID\nmov     [rbp+value.type], 5\nmov     dword ptr [rbp+value.value], 1\nmov     esi, 50434F56h; prop_4cc\nlea     rdx, [rbp+value]; value\ncall    gf_filter_pid_set_property\nmov     rax, [rbp+video_pid_p]\nmov     rdi, [rax]; PID\nmov     esi, [rbp+pic_size]; data_size\nlea     rdx, [rbp+out_buffer]; data\ncall    gf_filter_pck_new_alloc\nmov     [rbp+dst_pck], rax\ncmp     [rbp+dst_pck], 0\njz      loc_1D9E\nmov     rdi, [rbp+dst_pck]; pck\nmov     edx, 1; is_end\nmov     esi, edx; is_start\ncall    gf_filter_pck_set_framing\nmov     rdi, [rbp+out_buffer]; dest\nmov     rsi, [rbp+sep_desc]\nadd     rsi, 1; src\nmov     eax, [rbp+pic_size]\nmov     edx, eax; n\ncall    memcpy\nmov     rdi, [rbp+dst_pck]; pck\ncall    gf_filter_pck_send\nmov     rax, [rbp+video_pid_p]\nmov     rdi, [rax]; PID\ncall    gf_filter_pid_set_eos\njmp     loc_1DE9\nmov     rdi, [rbp+audio_pid]; PID\nmov     [rbp+var_4C0.type], 10h\nmov     rax, [rbp+sep_desc]\nadd     rax, 1\nmov     qword ptr [rbp+var_4C0.value], rax\nmov     eax, [rbp+pic_size]\nmov     dword ptr [rbp+var_4C0.value+8], eax\nmov     esi, 50434F56h; prop_4cc\nlea     rdx, [rbp+var_4C0]; value\ncall    gf_filter_pid_set_property\njmp     $+5\njmp     loc_1ED8\ncmp     [rbp+tag_idx], 0\njl      loc_1E31\nmov     edi, [rbp+tag_idx]; tag_idx\ncall    gf_itags_get_name\nmov     [rbp+tag_name], rax\nmov     rdi, [rbp+audio_pid]; apid\nmov     rsi, [rbp+tag_name]; name\nmov     rdx, [rbp+buf]\nadd     rdx, 1; buf\nxor     ecx, ecx; is_dyn\ncall    id3dmx_set_string\njmp     loc_1ED3\nlea     rax, [rbp+szTag]\nmov     [rbp+s], rax\nmov     edi, [rbp+ftag]; type\ncall    gf_4cc_to_str\nmov     rdi, [rbp+s]; s\nmov     rdx, rax\nlea     rsi, aTagS; \"tag_%s\"\nmov     al, 0\ncall    sprintf\nmov     eax, [rbp+ftag]\nshr     eax, 18h\ncmp     eax, 54h ; 'T'\njnz     loc_1E96\nmov     rdi, [rbp+audio_pid]; apid\nlea     rsi, [rbp+szTag]; name\nmov     rdx, [rbp+buf]\nadd     rdx, 1; buf\nmov     ecx, 1; is_dyn\ncall    id3dmx_set_string\njmp     loc_1ECE\nmov     rdi, [rbp+audio_pid]; PID\nlea     rsi, [rbp+szTag]; name\nmov     [rbp+var_4E0.type], 10h\nmov     rax, [rbp+buf]\nmov     qword ptr [rbp+var_4E0.value], rax\nmov     eax, [rbp+fsize]\nmov     dword ptr [rbp+var_4E0.value+8], eax\nlea     rdx, [rbp+var_4E0]; value\ncall    gf_filter_pid_set_property_dyn\njmp     $+5\njmp     $+5\njmp     $+5\nmov     ecx, [rbp+fsize]\nmov     eax, [rbp+size]\nsub     eax, ecx\nmov     [rbp+size], eax\njmp     loc_1A0E\nmov     rdi, [rbp+bs]; bs\ncall    __ZN24QScopedPointerPodDeleter7cleanupEPv; QScopedPointerPodDeleter::cleanup(void *)\ncmp     [rbp+_buf], 0\njz      loc_1F0D\nmov     rdi, [rbp+_buf]; ptr\ncall    gf_free\nadd     rsp, 510h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 45,
+  "edges": [
+   [
+    "start",
+    "loc_1A04"
+   ],
+   [
+    "start",
+    "loc_1A09"
+   ],
+   [
+    "loc_1A04",
+    "loc_1A09"
+   ],
+   [
+    "loc_1A09",
+    "loc_1A0E"
+   ],
+   [
+    "loc_1A0E",
+    "loc_1A20"
+   ],
+   [
+    "loc_1A0E",
+    "loc_1A36"
+   ],
+   [
+    "loc_1A20",
+    "loc_1A36"
+   ],
+   [
+    "loc_1A36",
+    "loc_1A44"
+   ],
+   [
+    "loc_1A36",
+    "loc_1A49"
+   ],
+   [
+    "loc_1A44",
+    "loc_1EF0"
+   ],
+   [
+    "loc_1A49",
+    "loc_1A86"
+   ],
+   [
+    "loc_1A49",
+    "loc_1A8B"
+   ],
+   [
+    "loc_1A86",
+    "loc_1EF0"
+   ],
+   [
+    "loc_1A8B",
+    "loc_1A9A"
+   ],
+   [
+    "loc_1A8B",
+    "loc_1A9F"
+   ],
+   [
+    "loc_1A9A",
+    "loc_1EF0"
+   ],
+   [
+    "loc_1A9F",
+    "loc_1AAE"
+   ],
+   [
+    "loc_1A9F",
+    "loc_1AD4"
+   ],
+   [
+    "loc_1AAE",
+    "loc_1AD4"
+   ],
+   [
+    "loc_1AD4",
+    "loc_1B3E"
+   ],
+   [
+    "loc_1AD4",
+    "loc_1BFB"
+   ],
+   [
+    "loc_1B3E",
+    "loc_1B66"
+   ],
+   [
+    "loc_1B3E",
+    "loc_1BF6"
+   ],
+   [
+    "loc_1B66",
+    "loc_1B83"
+   ],
+   [
+    "loc_1B66",
+    "loc_1BA5"
+   ],
+   [
+    "loc_1B83",
+    "loc_1BF1"
+   ],
+   [
+    "loc_1BA5",
+    "loc_1BF1"
+   ],
+   [
+    "loc_1BF1",
+    "loc_1BF6"
+   ],
+   [
+    "loc_1BF6",
+    "loc_1EDD"
+   ],
+   [
+    "loc_1BFB",
+    "loc_1C0B"
+   ],
+   [
+    "loc_1BFB",
+    "loc_1DF3"
+   ],
+   [
+    "loc_1C0B",
+    "loc_1C5C"
+   ],
+   [
+    "loc_1C0B",
+    "loc_1DEE"
+   ],
+   [
+    "loc_1C5C",
+    "loc_1C8E"
+   ],
+   [
+    "loc_1C5C",
+    "loc_1DAF"
+   ],
+   [
+    "loc_1C8E",
+    "loc_1CE3"
+   ],
+   [
+    "loc_1C8E",
+    "loc_1CE8"
+   ],
+   [
+    "loc_1CE3",
+    "loc_1CE8"
+   ],
+   [
+    "loc_1CE8",
+    "loc_1CF6"
+   ],
+   [
+    "loc_1CE8",
+    "loc_1DAA"
+   ],
+   [
+    "loc_1CF6",
+    "loc_1D63"
+   ],
+   [
+    "loc_1CF6",
+    "loc_1D9E"
+   ],
+   [
+    "loc_1D63",
+    "loc_1D9E"
+   ],
+   [
+    "loc_1D9E",
+    "loc_1DAA"
+   ],
+   [
+    "loc_1DAA",
+    "loc_1DE9"
+   ],
+   [
+    "loc_1DAF",
+    "loc_1DE9"
+   ],
+   [
+    "loc_1DE9",
+    "loc_1DEE"
+   ],
+   [
+    "loc_1DEE",
+    "loc_1ED8"
+   ],
+   [
+    "loc_1DF3",
+    "loc_1E00"
+   ],
+   [
+    "loc_1DF3",
+    "loc_1E31"
+   ],
+   [
+    "loc_1E00",
+    "loc_1ED3"
+   ],
+   [
+    "loc_1E31",
+    "loc_1E74"
+   ],
+   [
+    "loc_1E31",
+    "loc_1E96"
+   ],
+   [
+    "loc_1E74",
+    "loc_1ECE"
+   ],
+   [
+    "loc_1E96",
+    "loc_1ECE"
+   ],
+   [
+    "loc_1ECE",
+    "loc_1ED3"
+   ],
+   [
+    "loc_1ED3",
+    "loc_1ED8"
+   ],
+   [
+    "loc_1ED8",
+    "loc_1EDD"
+   ],
+   [
+    "loc_1EDD",
+    "loc_1A0E"
+   ],
+   [
+    "loc_1EF0",
+    "loc_1F04"
+   ],
+   [
+    "loc_1EF0",
+    "loc_1F0D"
+   ],
+   [
+    "loc_1F04",
+    "loc_1F0D"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 510h\nmov     [rbp+filter], rdi\nmov     [rbp+id3_buf], rsi\nmov     [rbp+id3_buf_size], edx\nmov     [rbp+audio_pid], rcx\nmov     [rbp+video_pid_p], r8\nmov     rdi, [rbp+id3_buf]; buffer\nmov     eax, [rbp+id3_buf_size]\nmov     esi, eax; BufferSize\nxor     edx, edx; mode\ncall    gf_bs_new\nmov     [rbp+bs], rax\nmov     [rbp+_buf], 0\nmov     [rbp+buf_alloc], 0\nmov     rdi, [rbp+bs]; bs\nmov     esi, 3; nbBytes\ncall    gf_bs_skip_bytes\nmov     rdi, [rbp+bs]; bs\ncall    gf_bs_read_u8\nmov     rdi, [rbp+bs]; bs\ncall    gf_bs_read_u8\nmov     rdi, [rbp+bs]; bs\nmov     esi, 1; nBits\ncall    gf_bs_read_int\nmov     rdi, [rbp+bs]; bs\nmov     esi, 1; nBits\ncall    gf_bs_read_int\nmov     [rbp+ext_hdr], al\nmov     rdi, [rbp+bs]; bs\nmov     esi, 6; nBits\ncall    gf_bs_read_int\nmov     rdi, [rbp+bs]; bs\ncall    gf_id3_read_size\nmov     [rbp+size], eax\ncmp     [rbp+ext_hdr], 0\njz      loc_1A09",
+   "loc_1A04": "jmp     $+5",
+   "loc_1A09": "jmp     $+5",
+   "loc_1A0E": "xor     eax, eax\ncmp     [rbp+size], 0\nmov     [rbp+var_4E1], al\njz      loc_1A36",
+   "loc_1A20": "mov     rdi, [rbp+bs]; bs\ncall    gf_bs_available\ncmp     rax, 0Ah\nsetnb   al\nmov     [rbp+var_4E1], al",
+   "loc_1A36": "mov     al, [rbp+var_4E1]\ntest    al, 1\njnz     loc_1A49",
+   "loc_1A44": "jmp     loc_1EF0",
+   "loc_1A49": "mov     rdi, [rbp+bs]; bs\ncall    gf_bs_read_u32\nmov     [rbp+ftag], eax\nmov     rdi, [rbp+bs]; bs\ncall    gf_id3_read_size\nmov     [rbp+fsize], eax\nmov     rdi, [rbp+bs]; bs\ncall    gf_bs_read_u16\nmov     eax, [rbp+size]\nsub     eax, 0Ah\nmov     [rbp+size], eax\ncmp     [rbp+fsize], 0\njnz     loc_1A8B",
+   "loc_1A86": "jmp     loc_1EF0",
+   "loc_1A8B": "mov     eax, [rbp+size]\ncmp     eax, [rbp+fsize]\njnb     loc_1A9F",
+   "loc_1A9A": "jmp     loc_1EF0",
+   "loc_1A9F": "mov     eax, [rbp+buf_alloc]\ncmp     eax, [rbp+fsize]\nja      loc_1AD4",
+   "loc_1AAE": "mov     rdi, [rbp+_buf]; ptr\nmov     eax, [rbp+fsize]\nadd     eax, 3\nmov     eax, eax\nmov     esi, eax; size\ncall    _ZN4chip14BindingManager40RegisterBoundDeviceContextReleaseHandlerEPFvPvE; chip::BindingManager::RegisterBoundDeviceContextReleaseHandler(void (*)(void *))\nmov     [rbp+_buf], rax\nmov     eax, [rbp+fsize]\nadd     eax, 3\nmov     [rbp+buf_alloc], eax",
+   "loc_1AD4": "mov     rdi, [rbp+bs]; bs\nmov     rsi, [rbp+_buf]\nadd     rsi, 1; data\nmov     edx, [rbp+fsize]; nbBytes\ncall    gf_bs_read_data\nmov     rax, [rbp+_buf]\nmov     ecx, [rbp+fsize]\nadd     ecx, 1\nmov     ecx, ecx\nmov     byte ptr [rax+rcx], 0\nmov     rax, [rbp+_buf]\nmov     ecx, [rbp+fsize]\nadd     ecx, 2\nmov     ecx, ecx\nmov     byte ptr [rax+rcx], 0\nmov     rax, [rbp+_buf]\nadd     rax, 1\nmov     [rbp+buf], rax\nmov     edi, [rbp+ftag]; id3tag\ncall    gf_itags_find_by_id3tag\nmov     [rbp+tag_idx], eax\ncmp     [rbp+ftag], 54585858h\njnz     loc_1BFB",
+   "loc_1B3E": "mov     rdi, [rbp+buf]; s\nmov     eax, [rbp+fsize]\nmov     edx, eax; n\nxor     esi, esi; c\ncall    memchr\nmov     [rbp+sep], rax\ncmp     [rbp+sep], 0\njz      loc_1BF6",
+   "loc_1B66": "mov     rdi, [rbp+buf]\nadd     rdi, 1; s1\nlea     rsi, name; \"comment\"\ncall    strcasecmp\ncmp     eax, 0\njnz     loc_1BA5",
+   "loc_1B83": "mov     rdi, [rbp+audio_pid]; apid\nmov     rdx, [rbp+sep]\nadd     rdx, 1; buf\nlea     rsi, name; \"comment\"\nxor     ecx, ecx; is_dyn\ncall    id3dmx_set_string\njmp     loc_1BF1",
+   "loc_1BA5": "lea     rdi, [rbp+szTag]; dest\nlea     rsi, src; \"tag_\"\ncall    strcpy\nlea     rdi, [rbp+szTag]; dest\nmov     rsi, [rbp+buf]\nadd     rsi, 1; src\nmov     edx, 3FBh; n\ncall    strncat\nmov     rdi, [rbp+audio_pid]; apid\nlea     rsi, [rbp+szTag]; name\nmov     rdx, [rbp+sep]\nadd     rdx, 1; buf\nmov     ecx, 1; is_dyn\ncall    id3dmx_set_string",
+   "loc_1BF1": "jmp     $+5",
+   "loc_1BF6": "jmp     loc_1EDD",
+   "loc_1BFB": "cmp     [rbp+ftag], 41504943h\njnz     loc_1DF3",
+   "loc_1C0B": "mov     rdi, [rbp+buf]\nadd     rdi, 1; s\nmov     eax, [rbp+fsize]\nsub     eax, 1\nmov     eax, eax\nmov     edx, eax; n\nxor     esi, esi; c\ncall    memchr\nmov     [rbp+sep], rax\nmov     rdi, [rbp+sep]\nadd     rdi, 2; s\nmov     eax, [rbp+fsize]\nsub     eax, 1\nmov     eax, eax\nmov     edx, eax; n\nxor     esi, esi; c\ncall    memchr\nmov     [rbp+sep_desc], rax\ncmp     [rbp+sep_desc], 0\njz      loc_1DEE",
+   "loc_1C5C": "mov     rax, [rbp+sep_desc]\nadd     rax, 1\nmov     rcx, [rbp+buf]\nsub     rax, rcx\nmov     [rbp+pic_size], eax\nmov     eax, [rbp+fsize]\nsub     eax, [rbp+pic_size]\nmov     [rbp+pic_size], eax\ncmp     [rbp+video_pid_p], 0\njz      loc_1DAF",
+   "loc_1C8E": "mov     rdi, [rbp+filter]; filter\nmov     rcx, [rbp+buf]\nadd     rcx, 1; mime_type\nmov     r9, [rbp+sep_desc]\nadd     r9, 1; probe_data\nmov     r10d, [rbp+pic_size]\nmov     rax, [rbp+video_pid_p]\nxor     edx, edx\nmov     r8d, edx; fext\nxor     edx, edx\nmov     rsi, r8; url\nmov     rdx, r8; local_file\nmov     [rsp+510h+probe_size], r10d; probe_size\nmov     [rsp+510h+trust_mime], 0; trust_mime\nmov     [rsp+510h+out_pid], rax; out_pid\ncall    gf_filter_pid_raw_new\nmov     [rbp+e], eax\ncmp     [rbp+e], 0\njz      loc_1CE8",
+   "loc_1CE3": "jmp     $+5",
+   "loc_1CE8": "mov     rax, [rbp+video_pid_p]\ncmp     qword ptr [rax], 0\njz      loc_1DAA",
+   "loc_1CF6": "mov     rax, [rbp+video_pid_p]\nmov     rdi, [rax]; PID\nlea     rsi, aCoverart; \"CoverArt\"\ncall    gf_filter_pid_set_name\nmov     rax, [rbp+video_pid_p]\nmov     rdi, [rax]; PID\nmov     [rbp+value.type], 5\nmov     dword ptr [rbp+value.value], 1\nmov     esi, 50434F56h; prop_4cc\nlea     rdx, [rbp+value]; value\ncall    gf_filter_pid_set_property\nmov     rax, [rbp+video_pid_p]\nmov     rdi, [rax]; PID\nmov     esi, [rbp+pic_size]; data_size\nlea     rdx, [rbp+out_buffer]; data\ncall    gf_filter_pck_new_alloc\nmov     [rbp+dst_pck], rax\ncmp     [rbp+dst_pck], 0\njz      loc_1D9E",
+   "loc_1D63": "mov     rdi, [rbp+dst_pck]; pck\nmov     edx, 1; is_end\nmov     esi, edx; is_start\ncall    gf_filter_pck_set_framing\nmov     rdi, [rbp+out_buffer]; dest\nmov     rsi, [rbp+sep_desc]\nadd     rsi, 1; src\nmov     eax, [rbp+pic_size]\nmov     edx, eax; n\ncall    memcpy\nmov     rdi, [rbp+dst_pck]; pck\ncall    gf_filter_pck_send",
+   "loc_1D9E": "mov     rax, [rbp+video_pid_p]\nmov     rdi, [rax]; PID\ncall    gf_filter_pid_set_eos",
+   "loc_1DAA": "jmp     loc_1DE9",
+   "loc_1DAF": "mov     rdi, [rbp+audio_pid]; PID\nmov     [rbp+var_4C0.type], 10h\nmov     rax, [rbp+sep_desc]\nadd     rax, 1\nmov     qword ptr [rbp+var_4C0.value], rax\nmov     eax, [rbp+pic_size]\nmov     dword ptr [rbp+var_4C0.value+8], eax\nmov     esi, 50434F56h; prop_4cc\nlea     rdx, [rbp+var_4C0]; value\ncall    gf_filter_pid_set_property",
+   "loc_1DE9": "jmp     $+5",
+   "loc_1DEE": "jmp     loc_1ED8",
+   "loc_1DF3": "cmp     [rbp+tag_idx], 0\njl      loc_1E31",
+   "loc_1E00": "mov     edi, [rbp+tag_idx]; tag_idx\ncall    gf_itags_get_name\nmov     [rbp+tag_name], rax\nmov     rdi, [rbp+audio_pid]; apid\nmov     rsi, [rbp+tag_name]; name\nmov     rdx, [rbp+buf]\nadd     rdx, 1; buf\nxor     ecx, ecx; is_dyn\ncall    id3dmx_set_string\njmp     loc_1ED3",
+   "loc_1E31": "lea     rax, [rbp+szTag]\nmov     [rbp+s], rax\nmov     edi, [rbp+ftag]; type\ncall    gf_4cc_to_str\nmov     rdi, [rbp+s]; s\nmov     rdx, rax\nlea     rsi, aTagS; \"tag_%s\"\nmov     al, 0\ncall    sprintf\nmov     eax, [rbp+ftag]\nshr     eax, 18h\ncmp     eax, 54h ; 'T'\njnz     loc_1E96",
+   "loc_1E74": "mov     rdi, [rbp+audio_pid]; apid\nlea     rsi, [rbp+szTag]; name\nmov     rdx, [rbp+buf]\nadd     rdx, 1; buf\nmov     ecx, 1; is_dyn\ncall    id3dmx_set_string\njmp     loc_1ECE",
+   "loc_1E96": "mov     rdi, [rbp+audio_pid]; PID\nlea     rsi, [rbp+szTag]; name\nmov     [rbp+var_4E0.type], 10h\nmov     rax, [rbp+buf]\nmov     qword ptr [rbp+var_4E0.value], rax\nmov     eax, [rbp+fsize]\nmov     dword ptr [rbp+var_4E0.value+8], eax\nlea     rdx, [rbp+var_4E0]; value\ncall    gf_filter_pid_set_property_dyn",
+   "loc_1ECE": "jmp     $+5",
+   "loc_1ED3": "jmp     $+5",
+   "loc_1ED8": "jmp     $+5",
+   "loc_1EDD": "mov     ecx, [rbp+fsize]\nmov     eax, [rbp+size]\nsub     eax, ecx\nmov     [rbp+size], eax\njmp     loc_1A0E",
+   "loc_1EF0": "mov     rdi, [rbp+bs]; bs\ncall    __ZN24QScopedPointerPodDeleter7cleanupEPv; QScopedPointerPodDeleter::cleanup(void *)\ncmp     [rbp+_buf], 0\njz      loc_1F0D",
+   "loc_1F04": "mov     rdi, [rbp+_buf]; ptr\ncall    gf_free",
+   "loc_1F0D": "add     rsp, 510h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "probe_size": "dword ptr -510h",
+   "trust_mime": "dword ptr -508h",
+   "out_pid": "qword ptr -500h",
+   "s": "qword ptr -4F0h",
+   "var_4E1": "byte ptr -4E1h",
+   "var_4E0": "GF_PropertyValue ptr -4E0h",
+   "tag_name": "qword ptr -4C8h",
+   "var_4C0": "GF_PropertyValue ptr -4C0h",
+   "value": "GF_PropertyValue ptr -4A8h",
+   "dst_pck": "qword ptr -490h",
+   "out_buffer": "qword ptr -488h",
+   "e": "dword ptr -47Ch",
+   "fsize": "dword ptr -478h",
+   "ftag": "dword ptr -474h",
+   "pic_size": "dword ptr -470h",
+   "tag_idx": "dword ptr -46Ch",
+   "sep": "qword ptr -468h",
+   "szTag": "byte ptr -460h",
+   "buf": "qword ptr -58h",
+   "size": "dword ptr -4Ch",
+   "ext_hdr": "byte ptr -45h",
+   "buf_alloc": "dword ptr -44h",
+   "_buf": "qword ptr -40h",
+   "sep_desc": "qword ptr -38h",
+   "bs": "qword ptr -30h",
+   "video_pid_p": "qword ptr -28h",
+   "audio_pid": "qword ptr -20h",
+   "id3_buf_size": "dword ptr -14h",
+   "id3_buf": "qword ptr -10h",
+   "filter": "qword ptr -8"
+  },
+  ".rodata": {
+   "name": "byte 'comment',0",
+   "src": "byte 'tag_',0",
+   "aCoverart": "byte 'CoverArt',0",
+   "aTagS": "byte 'tag_%s',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6496,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".strcasecmp": "strcasecmp",
+  "_strcasecmp": "strcasecmp",
+  ".strcpy": "strcpy",
+  "_strcpy": "strcpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".strncat": "strncat",
+  "_strncat": "strncat",
+  ".memchr": "memchr",
+  "_memchr": "memchr",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".sprintf": "sprintf",
+  "_sprintf": "sprintf"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".strcasecmp",
+   ".plt",
+   true,
+   "strcasecmp"
+  ],
+  [
+   ".strcpy",
+   ".plt",
+   true,
+   "strcpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".strncat",
+   ".plt",
+   true,
+   "strncat"
+  ],
+  [
+   ".memchr",
+   ".plt",
+   true,
+   "memchr"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".sprintf",
+   ".plt",
+   true,
+   "sprintf"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcasecmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncat",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memchr",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "sprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868459
+ }
+}

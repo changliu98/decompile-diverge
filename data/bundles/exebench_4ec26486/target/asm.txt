@@ -1,0 +1,58 @@
+00000000000011d0 <squeeze_all>:
+    11d0:	push   %rbp
+    11d1:	mov    %rsp,%rbp
+    11d4:	mov    %rdi,-0x8(%rbp)
+    11d8:	mov    %rsi,-0x10(%rbp)
+    11dc:	movl   $0x0,-0x20(%rbp)
+    11e3:	movl   $0x0,-0x1c(%rbp)
+    11ea:	movl   $0x0,-0x14(%rbp)
+    11f1:	mov    -0x8(%rbp),%rax
+    11f5:	movslq -0x14(%rbp),%rcx
+    11f9:	movsbl (%rax,%rcx,1),%eax
+    11fd:	cmp    $0x0,%eax
+    1200:	je     12a0 <squeeze_all+0xd0>
+    1206:	movl   $0x0,-0x20(%rbp)
+    120d:	movl   $0x0,-0x18(%rbp)
+    1214:	mov    -0x10(%rbp),%rax
+    1218:	movslq -0x18(%rbp),%rcx
+    121c:	movsbl (%rax,%rcx,1),%eax
+    1220:	cmp    $0x0,%eax
+    1223:	je     1263 <squeeze_all+0x93>
+    1229:	mov    -0x8(%rbp),%rax
+    122d:	movslq -0x14(%rbp),%rcx
+    1231:	movsbl (%rax,%rcx,1),%eax
+    1235:	mov    -0x10(%rbp),%rcx
+    1239:	movslq -0x18(%rbp),%rdx
+    123d:	movsbl (%rcx,%rdx,1),%ecx
+    1241:	cmp    %ecx,%eax
+    1243:	jne    1250 <squeeze_all+0x80>
+    1249:	movl   $0x1,-0x20(%rbp)
+    1250:	jmp    1255 <squeeze_all+0x85>
+    1255:	mov    -0x18(%rbp),%eax
+    1258:	add    $0x1,%eax
+    125b:	mov    %eax,-0x18(%rbp)
+    125e:	jmp    1214 <squeeze_all+0x44>
+    1263:	cmpl   $0x0,-0x20(%rbp)
+    1267:	jne    128d <squeeze_all+0xbd>
+    126d:	mov    -0x8(%rbp),%rax
+    1271:	movslq -0x14(%rbp),%rcx
+    1275:	mov    (%rax,%rcx,1),%dl
+    1278:	mov    -0x8(%rbp),%rax
+    127c:	mov    -0x1c(%rbp),%ecx
+    127f:	mov    %ecx,%esi
+    1281:	add    $0x1,%esi
+    1284:	mov    %esi,-0x1c(%rbp)
+    1287:	movslq %ecx,%rcx
+    128a:	mov    %dl,(%rax,%rcx,1)
+    128d:	jmp    1292 <squeeze_all+0xc2>
+    1292:	mov    -0x14(%rbp),%eax
+    1295:	add    $0x1,%eax
+    1298:	mov    %eax,-0x14(%rbp)
+    129b:	jmp    11f1 <squeeze_all+0x21>
+    12a0:	mov    -0x8(%rbp),%rax
+    12a4:	movslq -0x1c(%rbp),%rcx
+    12a8:	movb   $0x0,(%rax,%rcx,1)
+    12ac:	pop    %rbp
+    12ad:	ret
+
+Disassembly of section .fini:

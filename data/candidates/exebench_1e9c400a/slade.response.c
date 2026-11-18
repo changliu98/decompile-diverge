@@ -1,0 +1,1 @@
+void myArrayDiv(float *in1, float in2, float *out) { for (int i = 0; i < 5; i++) { out[i] = in1[i] / in2; } }

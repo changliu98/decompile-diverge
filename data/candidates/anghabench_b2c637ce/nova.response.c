@@ -1,0 +1,1 @@
+static inline uint32_t dac_lsb_4020_reg(uint32_t i0) { return 0x00000070 + 0x4*((i0 & 0x1)!= 0); }

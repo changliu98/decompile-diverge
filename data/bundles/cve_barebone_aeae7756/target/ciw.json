@@ -1,0 +1,741 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 90h\nmov     [rbp+eap], rdi\nmov     [rbp+histype1], 0\nmov     [rbp+histype2], 0\nmov     [rbp+hisidx1], 1\nmov     [rbp+hisidx2], 0FFFFFFFFh\nmov     rax, [rbp+eap]\nmov     rax, [rax]\nmov     [rbp+arg], rax\ncmp     cs:hislen, 0\njnz     loc_1284\nlea     rdi, s; \"'history' option is zero\"\ncall    msg\njmp     loc_1790\nmov     rax, [rbp+arg]\nmovzx   eax, byte ptr [rax]\nsub     eax, 30h ; '0'\ncmp     eax, 0Ah\njb      loc_13EB\nmov     rax, [rbp+arg]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 2Dh ; '-'\njz      loc_13EB\nmov     rax, [rbp+arg]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 2Ch ; ','\njz      loc_13EB\nmov     rax, [rbp+arg]\nmov     [rbp+end], rax\nmov     rax, [rbp+end]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 41h ; 'A'\njl      loc_12E4\nmov     rax, [rbp+end]\nmovzx   ecx, byte ptr [rax]\nmov     al, 1\ncmp     ecx, 5Ah ; 'Z'\nmov     [rbp+var_41], al\njle     loc_1326\nmov     rax, [rbp+end]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 61h ; 'a'\njl      loc_1309\nmov     rax, [rbp+end]\nmovzx   ecx, byte ptr [rax]\nmov     al, 1\ncmp     ecx, 7Ah ; 'z'\nmov     [rbp+var_41], al\njle     loc_1326\nmov     rax, [rbp+end]\nmovzx   esi, byte ptr [rax]; c\nlea     rdi, string; \":=@>/?\"\ncall    vim_strchr\ncmp     rax, 0\nsetnz   al\nmov     [rbp+var_41], al\nmov     al, [rbp+var_41]\ntest    al, 1\njnz     loc_1336\njmp     loc_1347\nmov     rax, [rbp+end]\nadd     rax, 1\nmov     [rbp+end], rax\njmp     loc_12BF\nmov     rax, [rbp+end]\nmovzx   eax, byte ptr [rax]\nmov     [rbp+i], eax\nmov     rax, [rbp+end]\nmov     byte ptr [rax], 0\nmov     rdi, [rbp+arg]; name\ncall    get_histtype\nmov     [rbp+histype1], eax\ncmp     [rbp+histype1], 0FFFFFFFFh\njnz     loc_13D5\nmov     rax, [rbp+arg]\nmov     [rbp+s1], rax\nmov     rdi, [rbp+arg]; s\ncall    strlen\nmov     rdi, [rbp+s1]; s1\nmov     rdx, rax; n\nlea     rsi, s2; \"all\"\ncall    strncasecmp\ncmp     eax, 0\njnz     loc_13AE\nmov     [rbp+histype1], 0\nmov     [rbp+histype2], 4\njmp     loc_13D0\nmov     eax, [rbp+i]\nmov     cl, al\nmov     rax, [rbp+end]\nmov     [rax], cl\nmov     rsi, [rbp+arg]\nlea     rdi, e_trailing_characters_str; \"E488: Trailing characters: %s\"\nmov     al, 0\ncall    semsg\njmp     loc_1790\njmp     loc_13DB\nmov     eax, [rbp+histype1]\nmov     [rbp+histype2], eax\nmov     eax, [rbp+i]\nmov     cl, al\nmov     rax, [rbp+end]\nmov     [rax], cl\njmp     loc_13F3\nmov     rax, [rbp+arg]\nmov     [rbp+end], rax\nlea     rdi, [rbp+end]; str\nlea     rsi, [rbp+hisidx1]; num1\nlea     rdx, [rbp+hisidx2]; num2\ncall    get_list_range\ncmp     eax, 0\njz      loc_141D\nmov     rax, [rbp+end]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 0\njz      loc_1434\nmov     rsi, [rbp+end]\nlea     rdi, e_trailing_characters_str; \"E488: Trailing characters: %s\"\nmov     al, 0\ncall    semsg\njmp     loc_1790\njmp     $+5\nmov     ecx, cs:got_int\nxor     eax, eax\ncmp     ecx, 0\nmov     [rbp+var_51], al\njnz     loc_1459\nmov     eax, [rbp+histype1]\ncmp     eax, [rbp+histype2]\nsetle   al\nmov     [rbp+var_51], al\nmov     al, [rbp+var_51]\ntest    al, 1\njnz     loc_1469\njmp     loc_1790\nmov     rdi, cs:IObuff; dest\nlea     rsi, src; \"\\n      #  \"\ncall    strcpy\nmov     rdi, cs:IObuff; dest\nmovsxd  rcx, [rbp+histype1]\nlea     rax, history_names\nmov     rsi, [rax+rcx*8]; src\ncall    strcat\nmov     rdi, rax; dest\nlea     rsi, aHistory; \" history\"\ncall    strcat\nmov     rdi, cs:IObuff; s\ncall    msg_puts_title\nmovsxd  rcx, [rbp+histype1]\nlea     rax, hisidx\nmov     eax, [rax+rcx*4]\nmov     [rbp+idx], eax\nmovsxd  rcx, [rbp+histype1]\nlea     rax, history\nmov     rax, [rax+rcx*8]\nmov     [rbp+hist], rax\nmov     eax, [rbp+hisidx1]\nmov     [rbp+j], eax\nmov     eax, [rbp+hisidx2]\nmov     [rbp+k], eax\ncmp     [rbp+j], 0\njge     loc_153E\nxor     eax, eax\nsub     eax, [rbp+j]\ncmp     eax, cs:hislen\njle     loc_1507\nxor     eax, eax\nmov     [rbp+var_58], eax\njmp     loc_1538\nmov     rax, [rbp+hist]\nmov     [rbp+var_60], rax\nmov     eax, cs:hislen\nadd     eax, [rbp+j]\nadd     eax, [rbp+idx]\nadd     eax, 1\ncdq\nidiv    cs:hislen\nmov     rax, [rbp+var_60]\nmovsxd  rcx, edx\nimul    rcx, 18h\nadd     rax, rcx\nmov     eax, [rax]\nmov     [rbp+var_58], eax\nmov     eax, [rbp+var_58]\nmov     [rbp+j], eax\ncmp     [rbp+k], 0\njge     loc_159A\nxor     eax, eax\nsub     eax, [rbp+k]\ncmp     eax, cs:hislen\njle     loc_1563\nxor     eax, eax\nmov     [rbp+var_64], eax\njmp     loc_1594\nmov     rax, [rbp+hist]\nmov     [rbp+var_70], rax\nmov     eax, cs:hislen\nadd     eax, [rbp+k]\nadd     eax, [rbp+idx]\nadd     eax, 1\ncdq\nidiv    cs:hislen\nmov     rax, [rbp+var_70]\nmovsxd  rcx, edx\nimul    rcx, 18h\nadd     rax, rcx\nmov     eax, [rax]\nmov     [rbp+var_64], eax\nmov     eax, [rbp+var_64]\nmov     [rbp+k], eax\ncmp     [rbp+idx], 0\njl      loc_177D\nmov     eax, [rbp+j]\ncmp     eax, [rbp+k]\njg      loc_177D\nmov     eax, [rbp+idx]\nadd     eax, 1\nmov     [rbp+i], eax\nmov     eax, cs:got_int\ncmp     eax, 0\nsetnz   al\nxor     al, 0FFh\ntest    al, 1\njnz     loc_15D4\njmp     loc_1778\nmov     eax, [rbp+i]\ncmp     eax, cs:hislen\njnz     loc_15EA\nmov     [rbp+i], 0\nmov     rax, [rbp+hist]\nmovsxd  rcx, [rbp+i]\nimul    rcx, 18h\nadd     rax, rcx\ncmp     qword ptr [rax+8], 0\njz      loc_1754\nmov     rax, [rbp+hist]\nmovsxd  rcx, [rbp+i]\nimul    rcx, 18h\nadd     rax, rcx\nmov     eax, [rax]\ncmp     eax, [rbp+j]\njl      loc_1754\nmov     rax, [rbp+hist]\nmovsxd  rcx, [rbp+i]\nimul    rcx, 18h\nadd     rax, rcx\nmov     eax, [rax]\ncmp     eax, [rbp+k]\njg      loc_1754\nmov     edi, 0Ah; c\ncall    msg_putchar\nmov     rdi, cs:IObuff; s\nmov     ecx, [rbp+i]\nmov     esi, [rbp+idx]\nmov     edx, 20h ; ' '\nmov     eax, 3Eh ; '>'\ncmp     ecx, esi\ncmovz   edx, eax\nmov     rax, [rbp+hist]\nmovsxd  rcx, [rbp+i]\nimul    rcx, 18h\nadd     rax, rcx\nmov     ecx, [rax]\nlea     rsi, format; \"%c%6d  \"\nmov     al, 0\ncall    sprintf\nmov     rax, [rbp+hist]\nmovsxd  rcx, [rbp+i]\nimul    rcx, 18h\nadd     rax, rcx\nmov     rdi, [rax+8]; s\ncall    vim_strsize\nmov     rcx, cs:Columns\nsub     ecx, 0Ah\ncmp     eax, ecx\njle     loc_1724\nmov     rax, [rbp+hist]\nmovsxd  rcx, [rbp+i]\nimul    rcx, 18h\nadd     rax, rcx\nmov     rax, [rax+8]\nmov     [rbp+s], rax\nmov     rax, cs:IObuff\nmov     [rbp+var_90], rax\nmov     rdi, cs:IObuff; s\ncall    strlen\nmov     rcx, rax\nmov     rax, [rbp+var_90]\nadd     rax, rcx\nmov     [rbp+buf], rax\nmov     rax, cs:Columns\nsub     eax, 0Ah\nmov     [rbp+room_in], eax\nmov     rdi, cs:IObuff; s\ncall    strlen\nmov     rdi, [rbp+s]; s\nmov     rsi, [rbp+buf]; buf\nmov     edx, [rbp+room_in]; room_in\nmov     ecx, 401h\nsub     ecx, eax; buflen\ncall    trunc_string\njmp     loc_1743\nmov     rdi, cs:IObuff; dest\nmov     rax, [rbp+hist]\nmovsxd  rcx, [rbp+i]\nimul    rcx, 18h\nadd     rax, rcx\nmov     rsi, [rax+8]; src\ncall    strcat\nmov     rdi, cs:IObuff; str\ncall    msg_outtrans\ncall    out_flush\nmov     eax, [rbp+i]\ncmp     eax, [rbp+idx]\njnz     loc_1765\njmp     loc_1778\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_15B9\njmp     $+5\njmp     $+5\nmov     eax, [rbp+histype1]\nadd     eax, 1\nmov     [rbp+histype1], eax\njmp     loc_1439\nadd     rsp, 90h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 62,
+  "edges": [
+   [
+    "start",
+    "loc_1273"
+   ],
+   [
+    "start",
+    "loc_1284"
+   ],
+   [
+    "loc_1273",
+    "loc_1790"
+   ],
+   [
+    "loc_1284",
+    "loc_1297"
+   ],
+   [
+    "loc_1284",
+    "loc_13EB"
+   ],
+   [
+    "loc_1297",
+    "loc_12A7"
+   ],
+   [
+    "loc_1297",
+    "loc_13EB"
+   ],
+   [
+    "loc_12A7",
+    "loc_12B7"
+   ],
+   [
+    "loc_12A7",
+    "loc_13EB"
+   ],
+   [
+    "loc_12B7",
+    "loc_12BF"
+   ],
+   [
+    "loc_12BF",
+    "loc_12CF"
+   ],
+   [
+    "loc_12BF",
+    "loc_12E4"
+   ],
+   [
+    "loc_12CF",
+    "loc_12E4"
+   ],
+   [
+    "loc_12CF",
+    "loc_1326"
+   ],
+   [
+    "loc_12E4",
+    "loc_12F4"
+   ],
+   [
+    "loc_12E4",
+    "loc_1309"
+   ],
+   [
+    "loc_12F4",
+    "loc_1309"
+   ],
+   [
+    "loc_12F4",
+    "loc_1326"
+   ],
+   [
+    "loc_1309",
+    "loc_1326"
+   ],
+   [
+    "loc_1326",
+    "loc_1331"
+   ],
+   [
+    "loc_1326",
+    "loc_1336"
+   ],
+   [
+    "loc_1331",
+    "loc_1347"
+   ],
+   [
+    "loc_1336",
+    "loc_12BF"
+   ],
+   [
+    "loc_1347",
+    "loc_136E"
+   ],
+   [
+    "loc_1347",
+    "loc_13D5"
+   ],
+   [
+    "loc_136E",
+    "loc_139B"
+   ],
+   [
+    "loc_136E",
+    "loc_13AE"
+   ],
+   [
+    "loc_139B",
+    "loc_13D0"
+   ],
+   [
+    "loc_13AE",
+    "loc_1790"
+   ],
+   [
+    "loc_13D0",
+    "loc_13DB"
+   ],
+   [
+    "loc_13D5",
+    "loc_13DB"
+   ],
+   [
+    "loc_13DB",
+    "loc_13F3"
+   ],
+   [
+    "loc_13EB",
+    "loc_13F3"
+   ],
+   [
+    "loc_13F3",
+    "loc_140D"
+   ],
+   [
+    "loc_13F3",
+    "loc_141D"
+   ],
+   [
+    "loc_140D",
+    "loc_141D"
+   ],
+   [
+    "loc_140D",
+    "loc_1434"
+   ],
+   [
+    "loc_141D",
+    "loc_1790"
+   ],
+   [
+    "loc_1434",
+    "loc_1439"
+   ],
+   [
+    "loc_1439",
+    "loc_144D"
+   ],
+   [
+    "loc_1439",
+    "loc_1459"
+   ],
+   [
+    "loc_144D",
+    "loc_1459"
+   ],
+   [
+    "loc_1459",
+    "loc_1464"
+   ],
+   [
+    "loc_1459",
+    "loc_1469"
+   ],
+   [
+    "loc_1464",
+    "loc_1790"
+   ],
+   [
+    "loc_1469",
+    "loc_14EC"
+   ],
+   [
+    "loc_1469",
+    "loc_153E"
+   ],
+   [
+    "loc_14EC",
+    "loc_14FD"
+   ],
+   [
+    "loc_14EC",
+    "loc_1507"
+   ],
+   [
+    "loc_14FD",
+    "loc_1538"
+   ],
+   [
+    "loc_1507",
+    "loc_1538"
+   ],
+   [
+    "loc_1538",
+    "loc_153E"
+   ],
+   [
+    "loc_153E",
+    "loc_1548"
+   ],
+   [
+    "loc_153E",
+    "loc_159A"
+   ],
+   [
+    "loc_1548",
+    "loc_1559"
+   ],
+   [
+    "loc_1548",
+    "loc_1563"
+   ],
+   [
+    "loc_1559",
+    "loc_1594"
+   ],
+   [
+    "loc_1563",
+    "loc_1594"
+   ],
+   [
+    "loc_1594",
+    "loc_159A"
+   ],
+   [
+    "loc_159A",
+    "loc_15A4"
+   ],
+   [
+    "loc_159A",
+    "loc_177D"
+   ],
+   [
+    "loc_15A4",
+    "loc_15B0"
+   ],
+   [
+    "loc_15A4",
+    "loc_177D"
+   ],
+   [
+    "loc_15B0",
+    "loc_15B9"
+   ],
+   [
+    "loc_15B9",
+    "loc_15CF"
+   ],
+   [
+    "loc_15B9",
+    "loc_15D4"
+   ],
+   [
+    "loc_15CF",
+    "loc_1778"
+   ],
+   [
+    "loc_15D4",
+    "loc_15E3"
+   ],
+   [
+    "loc_15D4",
+    "loc_15EA"
+   ],
+   [
+    "loc_15E3",
+    "loc_15EA"
+   ],
+   [
+    "loc_15EA",
+    "loc_1604"
+   ],
+   [
+    "loc_15EA",
+    "loc_1754"
+   ],
+   [
+    "loc_1604",
+    "loc_161E"
+   ],
+   [
+    "loc_1604",
+    "loc_1754"
+   ],
+   [
+    "loc_161E",
+    "loc_1638"
+   ],
+   [
+    "loc_161E",
+    "loc_1754"
+   ],
+   [
+    "loc_1638",
+    "loc_16A7"
+   ],
+   [
+    "loc_1638",
+    "loc_1724"
+   ],
+   [
+    "loc_16A7",
+    "loc_1743"
+   ],
+   [
+    "loc_1724",
+    "loc_1743"
+   ],
+   [
+    "loc_1743",
+    "loc_1754"
+   ],
+   [
+    "loc_1754",
+    "loc_1760"
+   ],
+   [
+    "loc_1754",
+    "loc_1765"
+   ],
+   [
+    "loc_1760",
+    "loc_1778"
+   ],
+   [
+    "loc_1765",
+    "loc_176A"
+   ],
+   [
+    "loc_176A",
+    "loc_15B9"
+   ],
+   [
+    "loc_1778",
+    "loc_177D"
+   ],
+   [
+    "loc_177D",
+    "loc_1782"
+   ],
+   [
+    "loc_1782",
+    "loc_1439"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 90h\nmov     [rbp+eap], rdi\nmov     [rbp+histype1], 0\nmov     [rbp+histype2], 0\nmov     [rbp+hisidx1], 1\nmov     [rbp+hisidx2], 0FFFFFFFFh\nmov     rax, [rbp+eap]\nmov     rax, [rax]\nmov     [rbp+arg], rax\ncmp     cs:hislen, 0\njnz     loc_1284",
+   "loc_1273": "lea     rdi, s; \"'history' option is zero\"\ncall    msg\njmp     loc_1790",
+   "loc_1284": "mov     rax, [rbp+arg]\nmovzx   eax, byte ptr [rax]\nsub     eax, 30h ; '0'\ncmp     eax, 0Ah\njb      loc_13EB",
+   "loc_1297": "mov     rax, [rbp+arg]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 2Dh ; '-'\njz      loc_13EB",
+   "loc_12A7": "mov     rax, [rbp+arg]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 2Ch ; ','\njz      loc_13EB",
+   "loc_12B7": "mov     rax, [rbp+arg]\nmov     [rbp+end], rax",
+   "loc_12BF": "mov     rax, [rbp+end]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 41h ; 'A'\njl      loc_12E4",
+   "loc_12CF": "mov     rax, [rbp+end]\nmovzx   ecx, byte ptr [rax]\nmov     al, 1\ncmp     ecx, 5Ah ; 'Z'\nmov     [rbp+var_41], al\njle     loc_1326",
+   "loc_12E4": "mov     rax, [rbp+end]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 61h ; 'a'\njl      loc_1309",
+   "loc_12F4": "mov     rax, [rbp+end]\nmovzx   ecx, byte ptr [rax]\nmov     al, 1\ncmp     ecx, 7Ah ; 'z'\nmov     [rbp+var_41], al\njle     loc_1326",
+   "loc_1309": "mov     rax, [rbp+end]\nmovzx   esi, byte ptr [rax]; c\nlea     rdi, string; \":=@>/?\"\ncall    vim_strchr\ncmp     rax, 0\nsetnz   al\nmov     [rbp+var_41], al",
+   "loc_1326": "mov     al, [rbp+var_41]\ntest    al, 1\njnz     loc_1336",
+   "loc_1331": "jmp     loc_1347",
+   "loc_1336": "mov     rax, [rbp+end]\nadd     rax, 1\nmov     [rbp+end], rax\njmp     loc_12BF",
+   "loc_1347": "mov     rax, [rbp+end]\nmovzx   eax, byte ptr [rax]\nmov     [rbp+i], eax\nmov     rax, [rbp+end]\nmov     byte ptr [rax], 0\nmov     rdi, [rbp+arg]; name\ncall    get_histtype\nmov     [rbp+histype1], eax\ncmp     [rbp+histype1], 0FFFFFFFFh\njnz     loc_13D5",
+   "loc_136E": "mov     rax, [rbp+arg]\nmov     [rbp+s1], rax\nmov     rdi, [rbp+arg]; s\ncall    strlen\nmov     rdi, [rbp+s1]; s1\nmov     rdx, rax; n\nlea     rsi, s2; \"all\"\ncall    strncasecmp\ncmp     eax, 0\njnz     loc_13AE",
+   "loc_139B": "mov     [rbp+histype1], 0\nmov     [rbp+histype2], 4\njmp     loc_13D0",
+   "loc_13AE": "mov     eax, [rbp+i]\nmov     cl, al\nmov     rax, [rbp+end]\nmov     [rax], cl\nmov     rsi, [rbp+arg]\nlea     rdi, e_trailing_characters_str; \"E488: Trailing characters: %s\"\nmov     al, 0\ncall    semsg\njmp     loc_1790",
+   "loc_13D0": "jmp     loc_13DB",
+   "loc_13D5": "mov     eax, [rbp+histype1]\nmov     [rbp+histype2], eax",
+   "loc_13DB": "mov     eax, [rbp+i]\nmov     cl, al\nmov     rax, [rbp+end]\nmov     [rax], cl\njmp     loc_13F3",
+   "loc_13EB": "mov     rax, [rbp+arg]\nmov     [rbp+end], rax",
+   "loc_13F3": "lea     rdi, [rbp+end]; str\nlea     rsi, [rbp+hisidx1]; num1\nlea     rdx, [rbp+hisidx2]; num2\ncall    get_list_range\ncmp     eax, 0\njz      loc_141D",
+   "loc_140D": "mov     rax, [rbp+end]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 0\njz      loc_1434",
+   "loc_141D": "mov     rsi, [rbp+end]\nlea     rdi, e_trailing_characters_str; \"E488: Trailing characters: %s\"\nmov     al, 0\ncall    semsg\njmp     loc_1790",
+   "loc_1434": "jmp     $+5",
+   "loc_1439": "mov     ecx, cs:got_int\nxor     eax, eax\ncmp     ecx, 0\nmov     [rbp+var_51], al\njnz     loc_1459",
+   "loc_144D": "mov     eax, [rbp+histype1]\ncmp     eax, [rbp+histype2]\nsetle   al\nmov     [rbp+var_51], al",
+   "loc_1459": "mov     al, [rbp+var_51]\ntest    al, 1\njnz     loc_1469",
+   "loc_1464": "jmp     loc_1790",
+   "loc_1469": "mov     rdi, cs:IObuff; dest\nlea     rsi, src; \"\\n      #  \"\ncall    strcpy\nmov     rdi, cs:IObuff; dest\nmovsxd  rcx, [rbp+histype1]\nlea     rax, history_names\nmov     rsi, [rax+rcx*8]; src\ncall    strcat\nmov     rdi, rax; dest\nlea     rsi, aHistory; \" history\"\ncall    strcat\nmov     rdi, cs:IObuff; s\ncall    msg_puts_title\nmovsxd  rcx, [rbp+histype1]\nlea     rax, hisidx\nmov     eax, [rax+rcx*4]\nmov     [rbp+idx], eax\nmovsxd  rcx, [rbp+histype1]\nlea     rax, history\nmov     rax, [rax+rcx*8]\nmov     [rbp+hist], rax\nmov     eax, [rbp+hisidx1]\nmov     [rbp+j], eax\nmov     eax, [rbp+hisidx2]\nmov     [rbp+k], eax\ncmp     [rbp+j], 0\njge     loc_153E",
+   "loc_14EC": "xor     eax, eax\nsub     eax, [rbp+j]\ncmp     eax, cs:hislen\njle     loc_1507",
+   "loc_14FD": "xor     eax, eax\nmov     [rbp+var_58], eax\njmp     loc_1538",
+   "loc_1507": "mov     rax, [rbp+hist]\nmov     [rbp+var_60], rax\nmov     eax, cs:hislen\nadd     eax, [rbp+j]\nadd     eax, [rbp+idx]\nadd     eax, 1\ncdq\nidiv    cs:hislen\nmov     rax, [rbp+var_60]\nmovsxd  rcx, edx\nimul    rcx, 18h\nadd     rax, rcx\nmov     eax, [rax]\nmov     [rbp+var_58], eax",
+   "loc_1538": "mov     eax, [rbp+var_58]\nmov     [rbp+j], eax",
+   "loc_153E": "cmp     [rbp+k], 0\njge     loc_159A",
+   "loc_1548": "xor     eax, eax\nsub     eax, [rbp+k]\ncmp     eax, cs:hislen\njle     loc_1563",
+   "loc_1559": "xor     eax, eax\nmov     [rbp+var_64], eax\njmp     loc_1594",
+   "loc_1563": "mov     rax, [rbp+hist]\nmov     [rbp+var_70], rax\nmov     eax, cs:hislen\nadd     eax, [rbp+k]\nadd     eax, [rbp+idx]\nadd     eax, 1\ncdq\nidiv    cs:hislen\nmov     rax, [rbp+var_70]\nmovsxd  rcx, edx\nimul    rcx, 18h\nadd     rax, rcx\nmov     eax, [rax]\nmov     [rbp+var_64], eax",
+   "loc_1594": "mov     eax, [rbp+var_64]\nmov     [rbp+k], eax",
+   "loc_159A": "cmp     [rbp+idx], 0\njl      loc_177D",
+   "loc_15A4": "mov     eax, [rbp+j]\ncmp     eax, [rbp+k]\njg      loc_177D",
+   "loc_15B0": "mov     eax, [rbp+idx]\nadd     eax, 1\nmov     [rbp+i], eax",
+   "loc_15B9": "mov     eax, cs:got_int\ncmp     eax, 0\nsetnz   al\nxor     al, 0FFh\ntest    al, 1\njnz     loc_15D4",
+   "loc_15CF": "jmp     loc_1778",
+   "loc_15D4": "mov     eax, [rbp+i]\ncmp     eax, cs:hislen\njnz     loc_15EA",
+   "loc_15E3": "mov     [rbp+i], 0",
+   "loc_15EA": "mov     rax, [rbp+hist]\nmovsxd  rcx, [rbp+i]\nimul    rcx, 18h\nadd     rax, rcx\ncmp     qword ptr [rax+8], 0\njz      loc_1754",
+   "loc_1604": "mov     rax, [rbp+hist]\nmovsxd  rcx, [rbp+i]\nimul    rcx, 18h\nadd     rax, rcx\nmov     eax, [rax]\ncmp     eax, [rbp+j]\njl      loc_1754",
+   "loc_161E": "mov     rax, [rbp+hist]\nmovsxd  rcx, [rbp+i]\nimul    rcx, 18h\nadd     rax, rcx\nmov     eax, [rax]\ncmp     eax, [rbp+k]\njg      loc_1754",
+   "loc_1638": "mov     edi, 0Ah; c\ncall    msg_putchar\nmov     rdi, cs:IObuff; s\nmov     ecx, [rbp+i]\nmov     esi, [rbp+idx]\nmov     edx, 20h ; ' '\nmov     eax, 3Eh ; '>'\ncmp     ecx, esi\ncmovz   edx, eax\nmov     rax, [rbp+hist]\nmovsxd  rcx, [rbp+i]\nimul    rcx, 18h\nadd     rax, rcx\nmov     ecx, [rax]\nlea     rsi, format; \"%c%6d  \"\nmov     al, 0\ncall    sprintf\nmov     rax, [rbp+hist]\nmovsxd  rcx, [rbp+i]\nimul    rcx, 18h\nadd     rax, rcx\nmov     rdi, [rax+8]; s\ncall    vim_strsize\nmov     rcx, cs:Columns\nsub     ecx, 0Ah\ncmp     eax, ecx\njle     loc_1724",
+   "loc_16A7": "mov     rax, [rbp+hist]\nmovsxd  rcx, [rbp+i]\nimul    rcx, 18h\nadd     rax, rcx\nmov     rax, [rax+8]\nmov     [rbp+s], rax\nmov     rax, cs:IObuff\nmov     [rbp+var_90], rax\nmov     rdi, cs:IObuff; s\ncall    strlen\nmov     rcx, rax\nmov     rax, [rbp+var_90]\nadd     rax, rcx\nmov     [rbp+buf], rax\nmov     rax, cs:Columns\nsub     eax, 0Ah\nmov     [rbp+room_in], eax\nmov     rdi, cs:IObuff; s\ncall    strlen\nmov     rdi, [rbp+s]; s\nmov     rsi, [rbp+buf]; buf\nmov     edx, [rbp+room_in]; room_in\nmov     ecx, 401h\nsub     ecx, eax; buflen\ncall    trunc_string\njmp     loc_1743",
+   "loc_1724": "mov     rdi, cs:IObuff; dest\nmov     rax, [rbp+hist]\nmovsxd  rcx, [rbp+i]\nimul    rcx, 18h\nadd     rax, rcx\nmov     rsi, [rax+8]; src\ncall    strcat",
+   "loc_1743": "mov     rdi, cs:IObuff; str\ncall    msg_outtrans\ncall    out_flush",
+   "loc_1754": "mov     eax, [rbp+i]\ncmp     eax, [rbp+idx]\njnz     loc_1765",
+   "loc_1760": "jmp     loc_1778",
+   "loc_1765": "jmp     $+5",
+   "loc_176A": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_15B9",
+   "loc_1778": "jmp     $+5",
+   "loc_177D": "jmp     $+5",
+   "loc_1782": "mov     eax, [rbp+histype1]\nadd     eax, 1\nmov     [rbp+histype1], eax\njmp     loc_1439",
+   "loc_1790": "add     rsp, 90h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_90": "qword ptr -90h",
+   "s": "qword ptr -88h",
+   "buf": "qword ptr -80h",
+   "room_in": "dword ptr -74h",
+   "var_70": "qword ptr -70h",
+   "var_64": "dword ptr -64h",
+   "var_60": "qword ptr -60h",
+   "var_58": "dword ptr -58h",
+   "var_51": "byte ptr -51h",
+   "s1": "qword ptr -50h",
+   "var_41": "byte ptr -41h",
+   "arg": "qword ptr -40h",
+   "end": "qword ptr -38h",
+   "k": "dword ptr -30h",
+   "j": "dword ptr -2Ch",
+   "i": "dword ptr -28h",
+   "idx": "dword ptr -24h",
+   "hisidx2": "dword ptr -20h",
+   "hisidx1": "dword ptr -1Ch",
+   "histype2": "dword ptr -18h",
+   "histype1": "dword ptr -14h",
+   "hist": "qword ptr -10h",
+   "eap": "qword ptr -8"
+  },
+  ".rodata": {
+   "s": "byte 27h,'history',27h,' option is zero',0",
+   "string": "byte ':=@>/?',0",
+   "s2": "byte 'all',0",
+   "src": "byte 0Ah",
+   "aHistory": "byte ' history',0",
+   "format": "byte '%c%6d  ',0"
+  },
+  ".data": {
+   "e_trailing_characters_str": "byte 'E488: Trailing characters: %s',0",
+   "history_names": "qword offset aCmd",
+   "Columns": "qword offset off_50"
+  },
+  ".bss": {
+   "hislen": "[]",
+   "got_int": "[]",
+   "IObuff": "[]",
+   "hisidx": "[]",
+   "history": "[]"
+  }
+ },
+ "func_ea": 4656,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".strcpy": "strcpy",
+  "_strcpy": "strcpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".rewind": "rewind",
+  "_rewind": "rewind",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".strncasecmp": "strncasecmp",
+  "_strncasecmp": "strncasecmp",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".strcat": "strcat",
+  "_strcat": "strcat",
+  ".sprintf": "sprintf",
+  "_sprintf": "sprintf",
+  ".strdup": "strdup",
+  "_strdup": "strdup"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".strcpy",
+   ".plt",
+   true,
+   "strcpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".rewind",
+   ".plt",
+   true,
+   "rewind"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".strncasecmp",
+   ".plt",
+   true,
+   "strncasecmp"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".strcat",
+   ".plt",
+   true,
+   "strcat"
+  ],
+  [
+   ".sprintf",
+   ".plt",
+   true,
+   "sprintf"
+  ],
+  [
+   ".strdup",
+   ".plt",
+   true,
+   "strdup"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "rewind",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncasecmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcat",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "sprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strdup",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868482
+ }
+}

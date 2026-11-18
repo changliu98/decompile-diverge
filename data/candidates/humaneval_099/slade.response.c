@@ -1,0 +1,1 @@
+int func0(const char *i) { double j = atof(i); return (j < 0.0) ? ceil(j - 0.5) : floor(j + 0.5); }

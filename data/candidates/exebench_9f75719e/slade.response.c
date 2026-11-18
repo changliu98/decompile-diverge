@@ -1,0 +1,1 @@
+void motorctrl_forward(motorctrl_t *m) { m->port +=0x80; }

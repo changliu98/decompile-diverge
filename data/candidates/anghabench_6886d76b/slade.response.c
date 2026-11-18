@@ -1,0 +1,1 @@
+int ilog2(unsigned long n) { int l = 0; while ((1UL << l) < n) l++; return l; }

@@ -1,0 +1,82 @@
+0000000000001470 <my_modf>:
+    1470:	push   %rbp
+    1471:	mov    %rsp,%rbp
+    1474:	sub    $0x50,%rsp
+    1478:	movsd  %xmm0,-0x10(%rbp)
+    147d:	mov    %rdi,-0x18(%rbp)
+    1481:	movsd  -0x10(%rbp),%xmm0
+    1486:	movsd  %xmm0,-0x30(%rbp)
+    148b:	movsd  0xb7d(%rip),%xmm0        # 2010 <_IO_stdin_used+0x10>
+    1493:	movsd  %xmm0,-0x38(%rbp)
+    1498:	movl   $0x0,-0x1c(%rbp)
+    149f:	cmpl   $0x64,-0x1c(%rbp)
+    14a3:	jge    1528 <my_modf+0xb8>
+    14a9:	cvttsd2si -0x30(%rbp),%rax
+    14af:	mov    %rax,-0x28(%rbp)
+    14b3:	cvtsi2sdq -0x28(%rbp),%xmm1
+    14b9:	movsd  0xb4f(%rip),%xmm0        # 2010 <_IO_stdin_used+0x10>
+    14c1:	addsd  -0x30(%rbp),%xmm0
+    14c6:	ucomisd %xmm1,%xmm0
+    14ca:	jb     14f6 <my_modf+0x86>
+    14d0:	cvtsi2sdq -0x28(%rbp),%xmm0
+    14d6:	movsd  -0x30(%rbp),%xmm1
+    14db:	movsd  0xb2d(%rip),%xmm2        # 2010 <_IO_stdin_used+0x10>
+    14e3:	subsd  %xmm2,%xmm1
+    14e7:	ucomisd %xmm1,%xmm0
+    14eb:	jb     14f6 <my_modf+0x86>
+    14f1:	jmp    1528 <my_modf+0xb8>
+    14f6:	movsd  0xb22(%rip),%xmm0        # 2020 <_IO_stdin_used+0x20>
+    14fe:	mulsd  -0x30(%rbp),%xmm0
+    1503:	movsd  %xmm0,-0x30(%rbp)
+    1508:	movsd  0xb08(%rip),%xmm0        # 2018 <_IO_stdin_used+0x18>
+    1510:	mulsd  -0x38(%rbp),%xmm0
+    1515:	movsd  %xmm0,-0x38(%rbp)
+    151a:	mov    -0x1c(%rbp),%eax
+    151d:	add    $0x1,%eax
+    1520:	mov    %eax,-0x1c(%rbp)
+    1523:	jmp    149f <my_modf+0x2f>
+    1528:	cmpl   $0x64,-0x1c(%rbp)
+    152c:	jne    154a <my_modf+0xda>
+    1532:	mov    -0x18(%rbp),%rax
+    1536:	xorps  %xmm0,%xmm0
+    1539:	movsd  %xmm0,(%rax)
+    153d:	xorps  %xmm0,%xmm0
+    1540:	movsd  %xmm0,-0x8(%rbp)
+    1545:	jmp    15e0 <my_modf+0x170>
+    154a:	cmpl   $0x0,-0x1c(%rbp)
+    154e:	je     15c0 <my_modf+0x150>
+    1554:	movsd  -0x10(%rbp),%xmm1
+    1559:	cvtsi2sdq -0x28(%rbp),%xmm0
+    155f:	movsd  -0x38(%rbp),%xmm2
+    1564:	movq   %xmm0,%rax
+    1569:	movabs $0x8000000000000000,%rcx
+    1573:	xor    %rcx,%rax
+    1576:	movq   %rax,%xmm0
+    157b:	mulsd  %xmm2,%xmm0
+    157f:	addsd  %xmm1,%xmm0
+    1583:	lea    -0x40(%rbp),%rdi
+    1587:	call   1470 <my_modf>
+    158c:	movsd  %xmm0,-0x48(%rbp)
+    1591:	cvtsi2sdq -0x28(%rbp),%xmm0
+    1597:	movsd  -0x38(%rbp),%xmm2
+    159c:	movsd  -0x40(%rbp),%xmm1
+    15a1:	mulsd  %xmm2,%xmm0
+    15a5:	addsd  %xmm1,%xmm0
+    15a9:	mov    -0x18(%rbp),%rax
+    15ad:	movsd  %xmm0,(%rax)
+    15b1:	movsd  -0x48(%rbp),%xmm0
+    15b6:	movsd  %xmm0,-0x8(%rbp)
+    15bb:	jmp    15e0 <my_modf+0x170>
+    15c0:	cvtsi2sdq -0x28(%rbp),%xmm0
+    15c6:	mov    -0x18(%rbp),%rax
+    15ca:	movsd  %xmm0,(%rax)
+    15ce:	movsd  -0x30(%rbp),%xmm0
+    15d3:	mov    -0x18(%rbp),%rax
+    15d7:	subsd  (%rax),%xmm0
+    15db:	movsd  %xmm0,-0x8(%rbp)
+    15e0:	movsd  -0x8(%rbp),%xmm0
+    15e5:	add    $0x50,%rsp
+    15e9:	pop    %rbp
+    15ea:	ret
+
+Disassembly of section .fini:

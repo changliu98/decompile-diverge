@@ -1,0 +1,301 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+a], edi\nmov     [rbp+b], esi\nmov     [rbp+c], edx\ncvtsi2sd xmm0, [rbp+a]; x\nmovsd   xmm1, cs:y; y\ncall    pow\ncvttsd2si eax, xmm0\nmov     [rbp+sqa], eax\ncvtsi2sd xmm0, [rbp+b]; x\nmovsd   xmm1, cs:y; y\ncall    pow\ncvttsd2si eax, xmm0\nmov     [rbp+sqb], eax\ncvtsi2sd xmm0, [rbp+c]; x\nmovsd   xmm1, cs:y; y\ncall    pow\ncvttsd2si eax, xmm0\nmov     [rbp+sqc], eax\nmov     eax, [rbp+sqa]\nmov     ecx, [rbp+sqb]\nadd     ecx, [rbp+sqc]\ncmp     eax, ecx\njz      loc_126F\nmov     eax, [rbp+sqb]\nmov     ecx, [rbp+sqa]\nadd     ecx, [rbp+sqc]\ncmp     eax, ecx\njz      loc_126F\nmov     eax, [rbp+sqc]\nmov     ecx, [rbp+sqa]\nadd     ecx, [rbp+sqb]\ncmp     eax, ecx\njnz     loc_127F\nlea     rax, aRightAngledTri; \"Right-angled Triangle\"\nmov     [rbp+var_8], rax\njmp     loc_12CD\nmov     eax, [rbp+sqa]\nmov     ecx, [rbp+sqc]\nadd     ecx, [rbp+sqb]\ncmp     eax, ecx\njg      loc_12B2\nmov     eax, [rbp+sqb]\nmov     ecx, [rbp+sqa]\nadd     ecx, [rbp+sqc]\ncmp     eax, ecx\njg      loc_12B2\nmov     eax, [rbp+sqc]\nmov     ecx, [rbp+sqa]\nadd     ecx, [rbp+sqb]\ncmp     eax, ecx\njle     loc_12C2\nlea     rax, aObtuseAngledTr; \"Obtuse-angled Triangle\"\nmov     [rbp+var_8], rax\njmp     loc_12CD\nlea     rax, aAcuteAngledTri; \"Acute-angled Triangle\"\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nadd     rsp, 20h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 10,
+  "edges": [
+   [
+    "start",
+    "loc_124D"
+   ],
+   [
+    "start",
+    "loc_126F"
+   ],
+   [
+    "loc_124D",
+    "loc_125E"
+   ],
+   [
+    "loc_124D",
+    "loc_126F"
+   ],
+   [
+    "loc_125E",
+    "loc_126F"
+   ],
+   [
+    "loc_125E",
+    "loc_127F"
+   ],
+   [
+    "loc_126F",
+    "loc_12CD"
+   ],
+   [
+    "loc_127F",
+    "loc_1290"
+   ],
+   [
+    "loc_127F",
+    "loc_12B2"
+   ],
+   [
+    "loc_1290",
+    "loc_12A1"
+   ],
+   [
+    "loc_1290",
+    "loc_12B2"
+   ],
+   [
+    "loc_12A1",
+    "loc_12B2"
+   ],
+   [
+    "loc_12A1",
+    "loc_12C2"
+   ],
+   [
+    "loc_12B2",
+    "loc_12CD"
+   ],
+   [
+    "loc_12C2",
+    "loc_12CD"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+a], edi\nmov     [rbp+b], esi\nmov     [rbp+c], edx\ncvtsi2sd xmm0, [rbp+a]; x\nmovsd   xmm1, cs:y; y\ncall    pow\ncvttsd2si eax, xmm0\nmov     [rbp+sqa], eax\ncvtsi2sd xmm0, [rbp+b]; x\nmovsd   xmm1, cs:y; y\ncall    pow\ncvttsd2si eax, xmm0\nmov     [rbp+sqb], eax\ncvtsi2sd xmm0, [rbp+c]; x\nmovsd   xmm1, cs:y; y\ncall    pow\ncvttsd2si eax, xmm0\nmov     [rbp+sqc], eax\nmov     eax, [rbp+sqa]\nmov     ecx, [rbp+sqb]\nadd     ecx, [rbp+sqc]\ncmp     eax, ecx\njz      loc_126F",
+   "loc_124D": "mov     eax, [rbp+sqb]\nmov     ecx, [rbp+sqa]\nadd     ecx, [rbp+sqc]\ncmp     eax, ecx\njz      loc_126F",
+   "loc_125E": "mov     eax, [rbp+sqc]\nmov     ecx, [rbp+sqa]\nadd     ecx, [rbp+sqb]\ncmp     eax, ecx\njnz     loc_127F",
+   "loc_126F": "lea     rax, aRightAngledTri; \"Right-angled Triangle\"\nmov     [rbp+var_8], rax\njmp     loc_12CD",
+   "loc_127F": "mov     eax, [rbp+sqa]\nmov     ecx, [rbp+sqc]\nadd     ecx, [rbp+sqb]\ncmp     eax, ecx\njg      loc_12B2",
+   "loc_1290": "mov     eax, [rbp+sqb]\nmov     ecx, [rbp+sqa]\nadd     ecx, [rbp+sqc]\ncmp     eax, ecx\njg      loc_12B2",
+   "loc_12A1": "mov     eax, [rbp+sqc]\nmov     ecx, [rbp+sqa]\nadd     ecx, [rbp+sqb]\ncmp     eax, ecx\njle     loc_12C2",
+   "loc_12B2": "lea     rax, aObtuseAngledTr; \"Obtuse-angled Triangle\"\nmov     [rbp+var_8], rax\njmp     loc_12CD",
+   "loc_12C2": "lea     rax, aAcuteAngledTri; \"Acute-angled Triangle\"\nmov     [rbp+var_8], rax",
+   "loc_12CD": "mov     rax, [rbp+var_8]\nadd     rsp, 20h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "sqc": "dword ptr -20h",
+   "sqb": "dword ptr -1Ch",
+   "sqa": "dword ptr -18h",
+   "c": "dword ptr -14h",
+   "b": "dword ptr -10h",
+   "a": "dword ptr -0Ch",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {
+   "y": "qword 4000000000000000h",
+   "aRightAngledTri": "byte 'Right-angled Triangle',0",
+   "aObtuseAngledTr": "byte 'Obtuse-angled Triangle',0",
+   "aAcuteAngledTri": "byte 'Acute-angled Triangle',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4576,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".pow": "pow",
+  "_pow": "pow",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".pow",
+   ".plt",
+   true,
+   "pow"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "pow",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868056
+ }
+}

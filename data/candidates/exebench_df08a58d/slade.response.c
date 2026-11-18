@@ -1,0 +1,1 @@
+float abs_sf(const struct Sfloat *s) { float x = s->x; x = x; return fabsf(x); }

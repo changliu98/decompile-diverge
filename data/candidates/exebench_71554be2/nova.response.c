@@ -1,0 +1,1 @@
+void ref_sub_double(double *x, double y, double z) { *x = *x - z; }

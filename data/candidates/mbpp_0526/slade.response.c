@@ -1,0 +1,1 @@
+char *func0(const char *str) { size_t len = strlen(str); char *ret = malloc(len + 1); if (!ret) return NULL; if (len) { ret[0] = (char) toupper(str[0]); for (size_t i = 1; i < len; ++i) { ret[i] = (char) tolower(str[i]); } ret[len - 1] = (char) toupper(ret[len - 1]); ret[len] = '\0'; } return ret; }

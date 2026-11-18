@@ -1,0 +1,1 @@
+char func0(char *str) { int i, j, k; char ch; int l = strlen(str); for (i = 0; i < l; i++) { ch = str[i]; j = 0; for (k = 0; k <= i; k++) { if (str[k] == ch) j++; } if (j > 1) return ch; } return '0'; }

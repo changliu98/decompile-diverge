@@ -1,0 +1,367 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <stdio.h>\n\n#include <math.h>\n\n#include <string.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_448ij9o8yj.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(float* m, float* x, float* y) {\n  json output_json;\n  std::vector<json> output_temp_4;\n  for (unsigned int i5 = 0; i5 < 4; i5++) {\n    float output_temp_6 = m[i5];\n\n    output_temp_4.push_back(output_temp_6);\n  }\n  output_json[\"m\"] = output_temp_4;\n  std::vector<json> output_temp_7;\n  for (unsigned int i8 = 0; i8 < 2; i8++) {\n    float output_temp_9 = x[i8];\n\n    output_temp_7.push_back(output_temp_9);\n  }\n  output_json[\"x\"] = output_temp_7;\n  std::vector<json> output_temp_10;\n  for (unsigned int i11 = 0; i11 < 2; i11++) {\n    float output_temp_12 = y[i11];\n\n    output_temp_10.push_back(output_temp_12);\n  }\n  output_json[\"y\"] = output_temp_10;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  std::vector<float> input_temp_1_vec;\n  for (auto& elem : input_json[\"m\"]) {\n    float input_temp_1_inner = elem;\n    input_temp_1_vec.push_back(input_temp_1_inner);\n  }\n  float* m = &input_temp_1_vec[0];\n  std::vector<float> input_temp_2_vec;\n  for (auto& elem : input_json[\"x\"]) {\n    float input_temp_2_inner = elem;\n    input_temp_2_vec.push_back(input_temp_2_inner);\n  }\n  float* x = &input_temp_2_vec[0];\n  std::vector<float> input_temp_3_vec;\n  for (auto& elem : input_json[\"y\"]) {\n    float input_temp_3_inner = elem;\n    input_temp_3_vec.push_back(input_temp_3_inner);\n  }\n  float* y = &input_temp_3_vec[0];\n  clock_t begin = clock();\n  geom_matvec2f(m, x, y);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(m, x, y);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "m": [
+     82.2385151131,
+     64.2346295436,
+     76.7525242605,
+     44.4719472788
+    ],
+    "x": [
+     82.2468172864,
+     73.3532691667
+    ],
+    "y": [
+     56.3792232101,
+     37.9968527784
+    ]
+   },
+   "output": {
+    "m": [
+     82.23851776123047,
+     64.23462677001953,
+     76.75252532958984,
+     44.471946716308594
+    ],
+    "x": [
+     82.24681854248047,
+     73.353271484375
+    ],
+    "y": [
+     12393.9052734375,
+     8545.2568359375
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "m": [
+     78.3058178709,
+     63.7873697927,
+     59.5270115634,
+     50.5444816571
+    ],
+    "x": [
+     0.19297103916,
+     6.79064738112
+    ],
+    "y": [
+     38.5764193203,
+     36.7889668082
+    ]
+   },
+   "output": {
+    "m": [
+     78.30581665039062,
+     63.78736877441406,
+     59.52701187133789,
+     50.54448318481445
+    ],
+    "x": [
+     0.19297103583812714,
+     6.790647506713867
+    ],
+    "y": [
+     419.33770751953125,
+     355.53887939453125
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "m": [
+     97.3042356881,
+     61.8083754537,
+     67.5019980932,
+     35.2697402796
+    ],
+    "x": [
+     37.0152364082,
+     49.21758588
+    ],
+    "y": [
+     0.44677715051,
+     42.6982249548
+    ]
+   },
+   "output": {
+    "m": [
+     97.30423736572266,
+     61.80837631225586,
+     67.50199890136719,
+     35.26974105834961
+    ],
+    "x": [
+     37.015235900878906,
+     49.217586517333984
+    ],
+    "y": [
+     6924.0244140625,
+     4023.7431640625
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "m": [
+     1.98904298438,
+     86.3835739491,
+     11.9695719368,
+     11.9264054601
+    ],
+    "x": [
+     40.2423277026,
+     81.7267731176
+    ],
+    "y": [
+     70.6404233546,
+     87.4822990956
+    ]
+   },
+   "output": {
+    "m": [
+     1.9890429973602295,
+     86.38357543945312,
+     11.969572067260742,
+     11.926405906677246
+    ],
+    "x": [
+     40.24232864379883,
+     81.72677612304688
+    ],
+    "y": [
+     1058.2783203125,
+     4450.98291015625
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "m": [
+     71.0500273808,
+     49.7256162999,
+     94.6972412546,
+     21.0691791565
+    ],
+    "x": [
+     4.2685806074,
+     99.4125530385
+    ],
+    "y": [
+     86.180569397,
+     6.68269084713
+    ]
+   },
+   "output": {
+    "m": [
+     71.0500259399414,
+     49.725616455078125,
+     94.6972427368164,
+     21.06917953491211
+    ],
+    "x": [
+     4.268580436706543,
+     99.41255187988281
+    ],
+    "y": [
+     9717.3779296875,
+     2306.798828125
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "m": [
+     52.5167734437,
+     36.226008282,
+     26.3296823683,
+     37.8045500638
+    ],
+    "x": [
+     18.6300524516,
+     3.71181976654
+    ],
+    "y": [
+     84.085982256,
+     76.0261372889
+    ]
+   },
+   "output": {
+    "m": [
+     52.51677322387695,
+     36.226009368896484,
+     26.329683303833008,
+     37.80455017089844
+    ],
+    "x": [
+     18.63005256652832,
+     3.711819648742676
+    ],
+    "y": [
+     1076.121337890625,
+     815.2161254882812
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "m": [
+     30.7276017138,
+     33.1959191838,
+     36.818487869,
+     22.6452136844
+    ],
+    "x": [
+     39.6694664772,
+     48.3988642245
+    ],
+    "y": [
+     61.5632895467,
+     38.7990984226
+    ]
+   },
+   "output": {
+    "m": [
+     30.727602005004883,
+     33.195919036865234,
+     36.81848907470703,
+     22.645214080810547
+    ],
+    "x": [
+     39.66946792602539,
+     48.39886474609375
+    ],
+    "y": [
+     3000.920654296875,
+     2412.8671875
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "m": [
+     87.6078919775,
+     79.6770220178,
+     16.1506784987,
+     20.6234220195
+    ],
+    "x": [
+     89.5431561383,
+     19.5244449126
+    ],
+    "y": [
+     77.5531817366,
+     14.6814966304
+    ]
+   },
+   "output": {
+    "m": [
+     87.60789489746094,
+     79.6770248413086,
+     16.150678634643555,
+     20.623422622680664
+    ],
+    "x": [
+     89.54315948486328,
+     19.524444580078125
+    ],
+    "y": [
+     8160.0205078125,
+     7537.193359375
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "m": [
+     11.0951393276,
+     6.96361793725,
+     82.7985881724,
+     9.58498047026
+    ],
+    "x": [
+     64.3866913065,
+     12.1431571034
+    ],
+    "y": [
+     15.6303112659,
+     35.0626564103
+    ]
+   },
+   "output": {
+    "m": [
+     11.095139503479004,
+     6.96361780166626,
+     82.79859161376953,
+     9.584980010986328
+    ],
+    "x": [
+     64.38668823242188,
+     12.143157005310059
+    ],
+    "y": [
+     1719.8155517578125,
+     564.7562255859375
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "m": [
+     27.9813184942,
+     39.8220040671,
+     93.7292648666,
+     74.7314695392
+    ],
+    "x": [
+     20.3844899406,
+     29.262325261
+    ],
+    "y": [
+     55.3529434336,
+     20.400834782
+    ]
+   },
+   "output": {
+    "m": [
+     27.981319427490234,
+     39.82200241088867,
+     93.72926330566406,
+     74.7314682006836
+    ],
+    "x": [
+     20.384489059448242,
+     29.262325286865234
+    ],
+    "y": [
+     3313.12109375,
+     2998.56787109375
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

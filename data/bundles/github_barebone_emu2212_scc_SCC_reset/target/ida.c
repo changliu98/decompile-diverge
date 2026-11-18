@@ -1,0 +1,32 @@
+void __cdecl SCC_reset(SCC *scc)
+{
+  int j; // [rsp+0h] [rbp-10h]
+  int i; // [rsp+4h] [rbp-Ch]
+
+  if ( scc )
+  {
+    scc->mode = 0;
+    scc->active = 0;
+    scc->base_adr = 36864;
+    for ( i = 0; i < 5; ++i )
+    {
+      for ( j = 0; j < 5; ++j )
+        scc->wave[i][j] = 0;
+      scc->count[i] = 0;
+      scc->freq[i] = 0;
+      scc->phase[i] = 0;
+      scc->volume[i] = 0;
+      scc->offset[i] = 0;
+      scc->rotate[i] = 0;
+      scc->ch_out[i] = 0;
+    }
+    memset(scc->reg, 0, sizeof(scc->reg));
+    scc->mask = 0;
+    scc->ch_enable = 255;
+    scc->ch_enable_next = 255;
+    scc->cycle_4bit = 0;
+    scc->cycle_8bit = 0;
+    scc->refresh = 0;
+    scc->out = 0;
+  }
+}

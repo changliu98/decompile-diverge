@@ -1,0 +1,400 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0A0h\nmov     [rbp+ndo], rdi\nmov     [rbp+tptr], rsi\nmov     [rbp+tlv_len], edx\nmov     [rbp+hexdump], 0\ncmp     [rbp+tlv_len], 4\njnb     loc_29B2\nmov     eax, [rbp+hexdump]\nmov     [rbp+var_4], eax\njmp     loc_2D21\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+3]\nmov     [rbp+subtype], eax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_40], rax\nmov     rax, [rax]\nmov     [rbp+var_38], rax\nmov     edx, [rbp+subtype]; v\nlea     rdi, lldp_8023_subtype_values; lp\nlea     rsi, fmt; \"unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_40]\nmov     r8, [rbp+var_38]\nmov     rdx, rax\nmov     ecx, [rbp+subtype]\nlea     rsi, aSSubtypeU; \"\\n\\t  %s Subtype (%u)\"\nxor     eax, eax\ncall    r8\nmov     eax, [rbp+subtype]\nadd     eax, 0FFFFFFFFh; switch 4 cases\nmov     ecx, eax\nmov     [rbp+var_30], rcx\nsub     eax, 3\nja      def_2A23; jumptable 0000000000002A23 default case\nmov     rax, [rbp+var_30]\nlea     rcx, jpt_2A23\nmovsxd  rax, ds:(jpt_2A23 - 3004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\ncmp     [rbp+tlv_len], 9; jumptable 0000000000002A23 case 1\njnb     loc_2A3A\nmov     eax, [rbp+hexdump]\nmov     [rbp+var_4], eax\njmp     loc_2D21\nmov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_68], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_70], rax\nmov     rax, [rbp+tptr]\nmovzx   edx, byte ptr [rax+4]; v\nlea     rdi, lldp_8023_autonegotiation_values; lp\nlea     rsi, aNone; \"none\"\ncall    bittok2str\nmov     rdi, [rbp+var_70]\nmov     r8, [rbp+var_68]\nmov     rdx, rax\nmov     rax, [rbp+tptr]\nmovzx   ecx, byte ptr [rax+4]\nlea     rsi, aAutonegotiatio; \"\\n\\t    autonegotiation [%s] (0x%02x)\"\nmov     al, 0\ncall    r8\nmov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_58], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_60], rax\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+5]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+tptr]\nmovzx   ecx, byte ptr [rcx+6]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmovzx   edx, ax; v\nlea     rdi, lldp_pmd_capability_values; lp\nlea     rsi, fmt; \"unknown\"\ncall    bittok2str\nmov     rdi, [rbp+var_60]\nmov     r8, [rbp+var_58]\nmov     rdx, rax\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+5]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+tptr]\nmovzx   ecx, byte ptr [rcx+6]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmovzx   ecx, ax\nlea     rsi, aPmdAutonegCapa; \"\\n\\t    PMD autoneg capability [%s] (0x\"...\nmov     al, 0\ncall    r8\nmov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_48], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_50], rax\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+7]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+tptr]\nmovzx   ecx, byte ptr [rcx+8]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmovzx   edx, ax; v\nlea     rdi, lldp_mau_types_values; lp\nlea     rsi, fmt; \"unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_50]\nmov     r8, [rbp+var_48]\nmov     rdx, rax\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+7]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+tptr]\nmovzx   ecx, byte ptr [rcx+8]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmovzx   ecx, ax\nlea     rsi, aMauTypeS0x04x; \"\\n\\t    MAU type %s (0x%04x)\"\nmov     al, 0\ncall    r8\njmp     loc_2D1B\ncmp     [rbp+tlv_len], 7; jumptable 0000000000002A23 case 2\njnb     loc_2B9F\nmov     eax, [rbp+hexdump]\nmov     [rbp+var_4], eax\njmp     loc_2D21\nmov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_78], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_90], rax\nmov     rax, [rbp+tptr]\nmovzx   edx, byte ptr [rax+4]; v\nlea     rdi, lldp_mdi_values; lp\nlea     rsi, aNone; \"none\"\ncall    bittok2str\nmov     [rbp+var_88], rax\nmov     rax, [rbp+tptr]\nmovzx   edx, byte ptr [rax+5]; v\nlea     rdi, lldp_mdi_power_pairs_values; lp\nlea     rsi, fmt; \"unknown\"\ncall    tok2str\nmov     [rbp+var_80], rax\nmov     rax, [rbp+tptr]\nmovzx   edx, byte ptr [rax+6]; v\nlea     rdi, lldp_mdi_power_class_values; lp\nlea     rsi, fmt; \"unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_90]\nmov     rdx, [rbp+var_88]\nmov     rcx, [rbp+var_80]\nmov     r9, [rbp+var_78]\nmov     r8, rax\nlea     rsi, aMdiPowerSuppor; \"\\n\\t    MDI power support [%s], power p\"...\nmov     al, 0\ncall    r9\njmp     loc_2D1B\ncmp     [rbp+tlv_len], 9; jumptable 0000000000002A23 case 3\njnb     loc_2C50\nmov     eax, [rbp+hexdump]\nmov     [rbp+var_4], eax\njmp     loc_2D21\nmov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_98], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_A0], rax\nmov     rax, [rbp+tptr]\nmovzx   edx, byte ptr [rax+4]; v\nlea     rdi, lldp_aggregation_values; lp\nlea     rsi, aNone; \"none\"\ncall    bittok2str\nmov     rdi, [rbp+var_A0]\nmov     r8, [rbp+var_98]\nmov     rdx, rax\nmov     rax, [rbp+tptr]\nmovzx   ecx, byte ptr [rax+5]\nshl     ecx, 18h\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+6]\nshl     eax, 10h\nor      ecx, eax\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+7]\nshl     eax, 8\nor      ecx, eax\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+8]\nshl     eax, 0\nor      ecx, eax\nlea     rsi, aAggregationSta; \"\\n\\t    aggregation status [%s], aggreg\"...\nmov     al, 0\ncall    r8\njmp     loc_2D1B\nmov     rax, [rbp+ndo]; jumptable 0000000000002A23 case 4\nmov     rcx, [rax]\nmov     rdi, [rbp+ndo]\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+4]\nmovzx   eax, ax\nshl     eax, 8\nmov     rdx, [rbp+tptr]\nmovzx   edx, byte ptr [rdx+5]\nmovzx   edx, dx\nshl     edx, 0\nor      eax, edx\nmovzx   edx, ax\nlea     rsi, aMtuSizeU; \"\\n\\t    MTU size %u\"\nmov     al, 0\ncall    rcx\njmp     loc_2D1B\nmov     [rbp+hexdump], 1; jumptable 0000000000002A23 default case\nmov     eax, [rbp+hexdump]\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\nadd     rsp, 0A0h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 17,
+  "edges": [
+   [
+    "start",
+    "loc_29A7"
+   ],
+   [
+    "start",
+    "loc_29B2"
+   ],
+   [
+    "loc_29A7",
+    "loc_2D21"
+   ],
+   [
+    "loc_29B2",
+    "loc_2A11"
+   ],
+   [
+    "loc_29B2",
+    "loc_2D14"
+   ],
+   [
+    "loc_2A11",
+    "loc_2A25"
+   ],
+   [
+    "loc_2A11",
+    "loc_2B8A"
+   ],
+   [
+    "loc_2A11",
+    "loc_2C3B"
+   ],
+   [
+    "loc_2A11",
+    "loc_2CD8"
+   ],
+   [
+    "loc_2A25",
+    "loc_2A2F"
+   ],
+   [
+    "loc_2A25",
+    "loc_2A3A"
+   ],
+   [
+    "loc_2A2F",
+    "loc_2D21"
+   ],
+   [
+    "loc_2A3A",
+    "loc_2D1B"
+   ],
+   [
+    "loc_2B8A",
+    "loc_2B94"
+   ],
+   [
+    "loc_2B8A",
+    "loc_2B9F"
+   ],
+   [
+    "loc_2B94",
+    "loc_2D21"
+   ],
+   [
+    "loc_2B9F",
+    "loc_2D1B"
+   ],
+   [
+    "loc_2C3B",
+    "loc_2C45"
+   ],
+   [
+    "loc_2C3B",
+    "loc_2C50"
+   ],
+   [
+    "loc_2C45",
+    "loc_2D21"
+   ],
+   [
+    "loc_2C50",
+    "loc_2D1B"
+   ],
+   [
+    "loc_2CD8",
+    "loc_2D1B"
+   ],
+   [
+    "loc_2D14",
+    "loc_2D1B"
+   ],
+   [
+    "loc_2D1B",
+    "loc_2D21"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0A0h\nmov     [rbp+ndo], rdi\nmov     [rbp+tptr], rsi\nmov     [rbp+tlv_len], edx\nmov     [rbp+hexdump], 0\ncmp     [rbp+tlv_len], 4\njnb     loc_29B2",
+   "loc_29A7": "mov     eax, [rbp+hexdump]\nmov     [rbp+var_4], eax\njmp     loc_2D21",
+   "loc_29B2": "mov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+3]\nmov     [rbp+subtype], eax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_40], rax\nmov     rax, [rax]\nmov     [rbp+var_38], rax\nmov     edx, [rbp+subtype]; v\nlea     rdi, lldp_8023_subtype_values; lp\nlea     rsi, fmt; \"unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_40]\nmov     r8, [rbp+var_38]\nmov     rdx, rax\nmov     ecx, [rbp+subtype]\nlea     rsi, aSSubtypeU; \"\\n\\t  %s Subtype (%u)\"\nxor     eax, eax\ncall    r8\nmov     eax, [rbp+subtype]\nadd     eax, 0FFFFFFFFh; switch 4 cases\nmov     ecx, eax\nmov     [rbp+var_30], rcx\nsub     eax, 3\nja      def_2A23; jumptable 0000000000002A23 default case",
+   "loc_2A11": "mov     rax, [rbp+var_30]\nlea     rcx, jpt_2A23\nmovsxd  rax, ds:(jpt_2A23 - 3004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_2A25": "cmp     [rbp+tlv_len], 9; jumptable 0000000000002A23 case 1\njnb     loc_2A3A",
+   "loc_2A2F": "mov     eax, [rbp+hexdump]\nmov     [rbp+var_4], eax\njmp     loc_2D21",
+   "loc_2A3A": "mov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_68], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_70], rax\nmov     rax, [rbp+tptr]\nmovzx   edx, byte ptr [rax+4]; v\nlea     rdi, lldp_8023_autonegotiation_values; lp\nlea     rsi, aNone; \"none\"\ncall    bittok2str\nmov     rdi, [rbp+var_70]\nmov     r8, [rbp+var_68]\nmov     rdx, rax\nmov     rax, [rbp+tptr]\nmovzx   ecx, byte ptr [rax+4]\nlea     rsi, aAutonegotiatio; \"\\n\\t    autonegotiation [%s] (0x%02x)\"\nmov     al, 0\ncall    r8\nmov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_58], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_60], rax\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+5]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+tptr]\nmovzx   ecx, byte ptr [rcx+6]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmovzx   edx, ax; v\nlea     rdi, lldp_pmd_capability_values; lp\nlea     rsi, fmt; \"unknown\"\ncall    bittok2str\nmov     rdi, [rbp+var_60]\nmov     r8, [rbp+var_58]\nmov     rdx, rax\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+5]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+tptr]\nmovzx   ecx, byte ptr [rcx+6]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmovzx   ecx, ax\nlea     rsi, aPmdAutonegCapa; \"\\n\\t    PMD autoneg capability [%s] (0x\"...\nmov     al, 0\ncall    r8\nmov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_48], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_50], rax\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+7]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+tptr]\nmovzx   ecx, byte ptr [rcx+8]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmovzx   edx, ax; v\nlea     rdi, lldp_mau_types_values; lp\nlea     rsi, fmt; \"unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_50]\nmov     r8, [rbp+var_48]\nmov     rdx, rax\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+7]\nmovzx   eax, ax\nshl     eax, 8\nmov     rcx, [rbp+tptr]\nmovzx   ecx, byte ptr [rcx+8]\nmovzx   ecx, cx\nshl     ecx, 0\nor      eax, ecx\nmovzx   ecx, ax\nlea     rsi, aMauTypeS0x04x; \"\\n\\t    MAU type %s (0x%04x)\"\nmov     al, 0\ncall    r8\njmp     loc_2D1B",
+   "loc_2B8A": "cmp     [rbp+tlv_len], 7; jumptable 0000000000002A23 case 2\njnb     loc_2B9F",
+   "loc_2B94": "mov     eax, [rbp+hexdump]\nmov     [rbp+var_4], eax\njmp     loc_2D21",
+   "loc_2B9F": "mov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_78], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_90], rax\nmov     rax, [rbp+tptr]\nmovzx   edx, byte ptr [rax+4]; v\nlea     rdi, lldp_mdi_values; lp\nlea     rsi, aNone; \"none\"\ncall    bittok2str\nmov     [rbp+var_88], rax\nmov     rax, [rbp+tptr]\nmovzx   edx, byte ptr [rax+5]; v\nlea     rdi, lldp_mdi_power_pairs_values; lp\nlea     rsi, fmt; \"unknown\"\ncall    tok2str\nmov     [rbp+var_80], rax\nmov     rax, [rbp+tptr]\nmovzx   edx, byte ptr [rax+6]; v\nlea     rdi, lldp_mdi_power_class_values; lp\nlea     rsi, fmt; \"unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_90]\nmov     rdx, [rbp+var_88]\nmov     rcx, [rbp+var_80]\nmov     r9, [rbp+var_78]\nmov     r8, rax\nlea     rsi, aMdiPowerSuppor; \"\\n\\t    MDI power support [%s], power p\"...\nmov     al, 0\ncall    r9\njmp     loc_2D1B",
+   "loc_2C3B": "cmp     [rbp+tlv_len], 9; jumptable 0000000000002A23 case 3\njnb     loc_2C50",
+   "loc_2C45": "mov     eax, [rbp+hexdump]\nmov     [rbp+var_4], eax\njmp     loc_2D21",
+   "loc_2C50": "mov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_98], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_A0], rax\nmov     rax, [rbp+tptr]\nmovzx   edx, byte ptr [rax+4]; v\nlea     rdi, lldp_aggregation_values; lp\nlea     rsi, aNone; \"none\"\ncall    bittok2str\nmov     rdi, [rbp+var_A0]\nmov     r8, [rbp+var_98]\nmov     rdx, rax\nmov     rax, [rbp+tptr]\nmovzx   ecx, byte ptr [rax+5]\nshl     ecx, 18h\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+6]\nshl     eax, 10h\nor      ecx, eax\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+7]\nshl     eax, 8\nor      ecx, eax\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+8]\nshl     eax, 0\nor      ecx, eax\nlea     rsi, aAggregationSta; \"\\n\\t    aggregation status [%s], aggreg\"...\nmov     al, 0\ncall    r8\njmp     loc_2D1B",
+   "loc_2CD8": "mov     rax, [rbp+ndo]; jumptable 0000000000002A23 case 4\nmov     rcx, [rax]\nmov     rdi, [rbp+ndo]\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+4]\nmovzx   eax, ax\nshl     eax, 8\nmov     rdx, [rbp+tptr]\nmovzx   edx, byte ptr [rdx+5]\nmovzx   edx, dx\nshl     edx, 0\nor      eax, edx\nmovzx   edx, ax\nlea     rsi, aMtuSizeU; \"\\n\\t    MTU size %u\"\nmov     al, 0\ncall    rcx\njmp     loc_2D1B",
+   "loc_2D14": "mov     [rbp+hexdump], 1; jumptable 0000000000002A23 default case",
+   "loc_2D1B": "mov     eax, [rbp+hexdump]\nmov     [rbp+var_4], eax",
+   "loc_2D21": "mov     eax, [rbp+var_4]\nadd     rsp, 0A0h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_A0": "qword ptr -0A0h",
+   "var_98": "qword ptr -98h",
+   "var_90": "qword ptr -90h",
+   "var_88": "qword ptr -88h",
+   "var_80": "qword ptr -80h",
+   "var_78": "qword ptr -78h",
+   "var_70": "qword ptr -70h",
+   "var_68": "qword ptr -68h",
+   "var_60": "qword ptr -60h",
+   "var_58": "qword ptr -58h",
+   "var_50": "qword ptr -50h",
+   "var_48": "qword ptr -48h",
+   "var_40": "qword ptr -40h",
+   "var_38": "qword ptr -38h",
+   "var_30": "qword ptr -30h",
+   "hexdump": "dword ptr -24h",
+   "subtype": "dword ptr -20h",
+   "tlv_len": "dword ptr -1Ch",
+   "tptr": "qword ptr -18h",
+   "ndo": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "fmt": "byte 'unknown',0",
+   "aSSubtypeU": "byte 0Ah",
+   "jpt_2A23": "dword offset loc_2A25 - 3004h; jump table for switch statement",
+   "aNone": "byte 'none',0",
+   "aAutonegotiatio": "byte 0Ah",
+   "aPmdAutonegCapa": "byte 0Ah",
+   "aMauTypeS0x04x": "byte 0Ah",
+   "aMdiPowerSuppor": "byte 0Ah",
+   "aAggregationSta": "byte 0Ah",
+   "aMtuSizeU": "byte 0Ah"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 10624,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".vsnprintf": "vsnprintf",
+  "_vsnprintf": "vsnprintf",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".rewind": "rewind",
+  "_rewind": "rewind",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_2020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".vsnprintf",
+   ".plt",
+   true,
+   "vsnprintf"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".rewind",
+   ".plt",
+   true,
+   "rewind"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "vsnprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "rewind",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "snprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868494
+ }
+}

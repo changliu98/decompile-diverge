@@ -1,0 +1,1 @@
+void maxind(double *in, int n, double *max, double *avg) { int i = 0; *max = in[0]; *avg = 0; for (i = 1; i < n; i++) { if (in[i] > *max) { *max = in[i]; *avg = (double)i; } } }

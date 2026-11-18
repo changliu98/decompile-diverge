@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n\nint func0(int n) {\n    int f1 = 1, f2 = 2, m;\n    int count = 0;\n    while (count < n) {\n        f1 = f1 + f2;\n        m = f1; f1 = f2; f2 = m;\n        int isprime = 1;\n        for (int w = 2; w * w <= f1; w++) {\n            if (f1 % w == 0) {\n                isprime = 0; break;\n            }\n        }\n        if (isprime) count += 1;\n        if (count == n) return f1;\n    }\n    return 0;\n}",
+ "c_test": "#include <stdio.h>\n#include <assert.h>\n\nint main() {\n    assert(func0(1) == 2);\n    assert(func0(2) == 3);\n    assert(func0(3) == 5);\n    assert(func0(4) == 13);\n    assert(func0(5) == 89);\n    assert(func0(6) == 233);\n    assert(func0(7) == 1597);\n    assert(func0(8) == 28657);\n    assert(func0(9) == 514229);\n    assert(func0(10) == 433494437);\n\n    return 0;\n}"
+}

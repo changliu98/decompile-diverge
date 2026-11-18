@@ -1,0 +1,1 @@
+double rel_stddev_stats(double mean, double stddev) { double count = 0.0; if (stddev != 0.0) count = 100.0 * mean / stddev; return count; }

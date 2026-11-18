@@ -1,0 +1,1 @@
+void ring (struct client *c) { c->ready = 1; }

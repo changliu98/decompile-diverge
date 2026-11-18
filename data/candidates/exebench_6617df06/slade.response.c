@@ -1,0 +1,1 @@
+int test_and_change_bit(unsigned int val, volatile void *addr) { int result; __asm__ volatile ("sbbl %0, %1, %2" : "=r" (result) : "r" (addr), "r" (val)); return result; }

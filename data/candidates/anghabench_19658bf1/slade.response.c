@@ -1,0 +1,1 @@
+int get_and_inc_gpu_processor_id(int hw_cpu_id) { int current_id = gpu_processor_id_low; gpu_processor_id_low += hw_cpu_id; return current_id; }

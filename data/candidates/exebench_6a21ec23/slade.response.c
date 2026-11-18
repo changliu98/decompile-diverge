@@ -1,0 +1,1 @@
+void set_mask(int *mask, int val, int min, int max) { int i = 0; if (min > 0) mask[i++] = -min; mask[i++] = max; mask[i++] = max - (val - min); mask[i] = 0; }

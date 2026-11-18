@@ -1,0 +1,27 @@
+//
+
+#define NULL ((void*)0)
+  // Customize by platform.
+ 
+typedef long scalar_t__;  // Either arithmetic or pointer type.
+/* By default, we understand bool (as a convenience). */
+typedef int bool;
+#define false 0
+#define true 1
+
+/* Forward declarations */
+
+/* Type definitions */
+typedef  int byte ;
+
+/* Variables and functions */
+
+unsigned short   BigUnsignedShort (unsigned short l)
+{
+	byte    b1,b2;
+
+	b1 = l&255;
+	b2 = (l>>8)&255;
+
+	return (b1<<8) + b2;
+}

@@ -1,0 +1,297 @@
+0000000000001530 <zgfx_decompress_segment>:
+    1530:	push   %rbp
+    1531:	mov    %rsp,%rbp
+    1534:	sub    $0x50,%rsp
+    1538:	mov    %rdi,-0x10(%rbp)
+    153c:	mov    %rsi,-0x18(%rbp)
+    1540:	mov    %rdx,-0x20(%rbp)
+    1544:	movl   $0x0,-0x28(%rbp)
+    154b:	mov    -0x20(%rbp),%rax
+    154f:	sub    $0x1,%rax
+    1553:	mov    %rax,-0x50(%rbp)
+    1557:	mov    -0x18(%rbp),%rdi
+    155b:	call   1a10 <Stream_GetRemainingLength>
+    1560:	cmp    -0x20(%rbp),%rax
+    1564:	jb     1575 <zgfx_decompress_segment+0x45>
+    156a:	cmpq   $0x1,-0x20(%rbp)
+    156f:	jae    1581 <zgfx_decompress_segment+0x51>
+    1575:	movl   $0x0,-0x4(%rbp)
+    157c:	jmp    1a00 <zgfx_decompress_segment+0x4d0>
+    1581:	jmp    1586 <zgfx_decompress_segment+0x56>
+    1586:	mov    -0x18(%rbp),%rax
+    158a:	mov    0x8(%rax),%rax
+    158e:	mov    (%rax),%al
+    1590:	mov    %al,-0x22(%rbp)
+    1593:	mov    -0x18(%rbp),%rdi
+    1597:	mov    $0x1,%esi
+    159c:	call   1a40 <Stream_Seek>
+    15a1:	mov    -0x10(%rbp),%rax
+    15a5:	movl   $0x0,0x10028(%rax)
+    15af:	mov    -0x18(%rbp),%rdi
+    15b3:	call   1a60 <Stream_Pointer>
+    15b8:	mov    %rax,-0x48(%rbp)
+    15bc:	mov    -0x18(%rbp),%rdi
+    15c0:	mov    -0x50(%rbp),%rsi
+    15c4:	call   1a40 <Stream_Seek>
+    15c9:	movzbl -0x22(%rbp),%eax
+    15cd:	and    $0x20,%eax
+    15d0:	cmp    $0x0,%eax
+    15d3:	jne    161b <zgfx_decompress_segment+0xeb>
+    15d9:	mov    -0x10(%rbp),%rdi
+    15dd:	mov    -0x48(%rbp),%rsi
+    15e1:	mov    -0x50(%rbp),%rdx
+    15e5:	call   1a80 <zgfx_history_buffer_ring_write>
+    15ea:	mov    -0x10(%rbp),%rdi
+    15ee:	add    $0x28,%rdi
+    15f2:	mov    -0x48(%rbp),%rsi
+    15f6:	mov    -0x50(%rbp),%rdx
+    15fa:	call   1090 <memcpy@plt>
+    15ff:	mov    -0x50(%rbp),%rax
+    1603:	mov    %eax,%ecx
+    1605:	mov    -0x10(%rbp),%rax
+    1609:	mov    %ecx,0x10028(%rax)
+    160f:	movl   $0x1,-0x4(%rbp)
+    1616:	jmp    1a00 <zgfx_decompress_segment+0x4d0>
+    161b:	mov    -0x48(%rbp),%rcx
+    161f:	mov    -0x10(%rbp),%rax
+    1623:	mov    %rcx,0x8(%rax)
+    1627:	mov    -0x48(%rbp),%rcx
+    162b:	mov    -0x50(%rbp),%rax
+    162f:	sub    $0x1,%rax
+    1633:	add    %rax,%rcx
+    1636:	mov    -0x10(%rbp),%rax
+    163a:	mov    %rcx,0x10(%rax)
+    163e:	mov    -0x50(%rbp),%rax
+    1642:	sub    $0x1,%rax
+    1646:	shl    $0x3,%rax
+    164a:	mov    -0x10(%rbp),%rcx
+    164e:	mov    0x10(%rcx),%rcx
+    1652:	movzbl (%rcx),%ecx
+    1655:	sub    %rcx,%rax
+    1658:	mov    %eax,%ecx
+    165a:	mov    -0x10(%rbp),%rax
+    165e:	mov    %ecx,0x1c(%rax)
+    1661:	mov    -0x10(%rbp),%rax
+    1665:	movl   $0x0,0x24(%rax)
+    166c:	mov    -0x10(%rbp),%rax
+    1670:	movl   $0x0,0x20(%rax)
+    1677:	mov    -0x10(%rbp),%rax
+    167b:	cmpl   $0x0,0x1c(%rax)
+    167f:	je     19f9 <zgfx_decompress_segment+0x4c9>
+    1685:	movl   $0x0,-0x30(%rbp)
+    168c:	movl   $0x0,-0x34(%rbp)
+    1693:	movl   $0x0,-0x2c(%rbp)
+    169a:	movslq -0x2c(%rbp),%rcx
+    169e:	lea    0x96b(%rip),%rax        # 2010 <ZGFX_TOKEN_TABLE>
+    16a5:	imul   $0x14,%rcx,%rcx
+    16a9:	add    %rcx,%rax
+    16ac:	cmpl   $0x0,(%rax)
+    16af:	je     19f4 <zgfx_decompress_segment+0x4c4>
+    16b5:	jmp    16ba <zgfx_decompress_segment+0x18a>
+    16ba:	mov    -0x30(%rbp),%eax
+    16bd:	movslq -0x2c(%rbp),%rdx
+    16c1:	lea    0x948(%rip),%rcx        # 2010 <ZGFX_TOKEN_TABLE>
+    16c8:	imul   $0x14,%rdx,%rdx
+    16cc:	add    %rdx,%rcx
+    16cf:	cmp    (%rcx),%eax
+    16d1:	jae    1703 <zgfx_decompress_segment+0x1d3>
+    16d7:	mov    -0x10(%rbp),%rdi
+    16db:	mov    $0x1,%esi
+    16e0:	call   1c10 <zgfx_GetBits>
+    16e5:	mov    -0x34(%rbp),%eax
+    16e8:	shl    $0x1,%eax
+    16eb:	mov    -0x10(%rbp),%rcx
+    16ef:	add    0x18(%rcx),%eax
+    16f2:	mov    %eax,-0x34(%rbp)
+    16f5:	mov    -0x30(%rbp),%eax
+    16f8:	add    $0x1,%eax
+    16fb:	mov    %eax,-0x30(%rbp)
+    16fe:	jmp    16ba <zgfx_decompress_segment+0x18a>
+    1703:	mov    -0x34(%rbp),%eax
+    1706:	movslq -0x2c(%rbp),%rdx
+    170a:	lea    0x8ff(%rip),%rcx        # 2010 <ZGFX_TOKEN_TABLE>
+    1711:	imul   $0x14,%rdx,%rdx
+    1715:	add    %rdx,%rcx
+    1718:	cmp    0x4(%rcx),%eax
+    171b:	jne    19e1 <zgfx_decompress_segment+0x4b1>
+    1721:	movslq -0x2c(%rbp),%rcx
+    1725:	lea    0x8e4(%rip),%rax        # 2010 <ZGFX_TOKEN_TABLE>
+    172c:	imul   $0x14,%rcx,%rcx
+    1730:	add    %rcx,%rax
+    1733:	cmpl   $0x0,0xc(%rax)
+    1737:	jne    17ea <zgfx_decompress_segment+0x2ba>
+    173d:	mov    -0x10(%rbp),%rdi
+    1741:	movslq -0x2c(%rbp),%rcx
+    1745:	lea    0x8c4(%rip),%rax        # 2010 <ZGFX_TOKEN_TABLE>
+    174c:	imul   $0x14,%rcx,%rcx
+    1750:	add    %rcx,%rax
+    1753:	mov    0x8(%rax),%esi
+    1756:	call   1c10 <zgfx_GetBits>
+    175b:	movslq -0x2c(%rbp),%rcx
+    175f:	lea    0x8aa(%rip),%rax        # 2010 <ZGFX_TOKEN_TABLE>
+    1766:	imul   $0x14,%rcx,%rcx
+    176a:	add    %rcx,%rax
+    176d:	mov    0x10(%rax),%eax
+    1770:	mov    -0x10(%rbp),%rcx
+    1774:	add    0x18(%rcx),%eax
+    1777:	mov    %al,-0x21(%rbp)
+    177a:	mov    -0x21(%rbp),%dl
+    177d:	mov    -0x10(%rbp),%rax
+    1781:	mov    -0x10(%rbp),%rcx
+    1785:	mov    0x2725cc(%rcx),%ecx
+    178b:	mov    %dl,0x1002c(%rax,%rcx,1)
+    1792:	mov    -0x10(%rbp),%rcx
+    1796:	mov    0x2725cc(%rcx),%eax
+    179c:	add    $0x1,%eax
+    179f:	mov    %eax,0x2725cc(%rcx)
+    17a5:	mov    -0x10(%rbp),%rcx
+    17a9:	cmp    0x2725d0(%rcx),%eax
+    17af:	jne    17c3 <zgfx_decompress_segment+0x293>
+    17b5:	mov    -0x10(%rbp),%rax
+    17b9:	movl   $0x0,0x2725cc(%rax)
+    17c3:	mov    -0x21(%rbp),%dl
+    17c6:	mov    -0x10(%rbp),%rax
+    17ca:	mov    -0x10(%rbp),%rsi
+    17ce:	mov    0x10028(%rsi),%ecx
+    17d4:	mov    %ecx,%edi
+    17d6:	add    $0x1,%edi
+    17d9:	mov    %edi,0x10028(%rsi)
+    17df:	mov    %ecx,%ecx
+    17e1:	mov    %dl,0x28(%rax,%rcx,1)
+    17e5:	jmp    19dc <zgfx_decompress_segment+0x4ac>
+    17ea:	mov    -0x10(%rbp),%rdi
+    17ee:	movslq -0x2c(%rbp),%rcx
+    17f2:	lea    0x817(%rip),%rax        # 2010 <ZGFX_TOKEN_TABLE>
+    17f9:	imul   $0x14,%rcx,%rcx
+    17fd:	add    %rcx,%rax
+    1800:	mov    0x8(%rax),%esi
+    1803:	call   1c10 <zgfx_GetBits>
+    1808:	movslq -0x2c(%rbp),%rcx
+    180c:	lea    0x7fd(%rip),%rax        # 2010 <ZGFX_TOKEN_TABLE>
+    1813:	imul   $0x14,%rcx,%rcx
+    1817:	add    %rcx,%rax
+    181a:	mov    0x10(%rax),%eax
+    181d:	mov    -0x10(%rbp),%rcx
+    1821:	add    0x18(%rcx),%eax
+    1824:	mov    %eax,-0x3c(%rbp)
+    1827:	cmpl   $0x0,-0x3c(%rbp)
+    182b:	je     1920 <zgfx_decompress_segment+0x3f0>
+    1831:	mov    -0x10(%rbp),%rdi
+    1835:	mov    $0x1,%esi
+    183a:	call   1c10 <zgfx_GetBits>
+    183f:	mov    -0x10(%rbp),%rax
+    1843:	cmpl   $0x0,0x18(%rax)
+    1847:	jne    1859 <zgfx_decompress_segment+0x329>
+    184d:	movl   $0x3,-0x38(%rbp)
+    1854:	jmp    18c1 <zgfx_decompress_segment+0x391>
+    1859:	movl   $0x4,-0x38(%rbp)
+    1860:	movl   $0x2,-0x28(%rbp)
+    1867:	mov    -0x10(%rbp),%rdi
+    186b:	mov    $0x1,%esi
+    1870:	call   1c10 <zgfx_GetBits>
+    1875:	mov    -0x10(%rbp),%rax
+    1879:	cmpl   $0x1,0x18(%rax)
+    187d:	jne    18a8 <zgfx_decompress_segment+0x378>
+    1883:	mov    -0x38(%rbp),%eax
+    1886:	shl    $0x1,%eax
+    1889:	mov    %eax,-0x38(%rbp)
+    188c:	mov    -0x28(%rbp),%eax
+    188f:	add    $0x1,%eax
+    1892:	mov    %eax,-0x28(%rbp)
+    1895:	mov    -0x10(%rbp),%rdi
+    1899:	mov    $0x1,%esi
+    189e:	call   1c10 <zgfx_GetBits>
+    18a3:	jmp    1875 <zgfx_decompress_segment+0x345>
+    18a8:	mov    -0x10(%rbp),%rdi
+    18ac:	mov    -0x28(%rbp),%esi
+    18af:	call   1c10 <zgfx_GetBits>
+    18b4:	mov    -0x10(%rbp),%rax
+    18b8:	mov    0x18(%rax),%eax
+    18bb:	add    -0x38(%rbp),%eax
+    18be:	mov    %eax,-0x38(%rbp)
+    18c1:	mov    -0x10(%rbp),%rdi
+    18c5:	mov    -0x3c(%rbp),%esi
+    18c8:	mov    -0x10(%rbp),%rdx
+    18cc:	add    $0x28,%rdx
+    18d0:	mov    -0x10(%rbp),%rax
+    18d4:	mov    0x10028(%rax),%eax
+    18da:	add    %rax,%rdx
+    18dd:	mov    -0x38(%rbp),%ecx
+    18e0:	call   1d00 <zgfx_history_buffer_ring_read>
+    18e5:	mov    -0x10(%rbp),%rdi
+    18e9:	mov    -0x10(%rbp),%rsi
+    18ed:	add    $0x28,%rsi
+    18f1:	mov    -0x10(%rbp),%rax
+    18f5:	mov    0x10028(%rax),%eax
+    18fb:	add    %rax,%rsi
+    18fe:	mov    -0x38(%rbp),%eax
+    1901:	mov    %eax,%edx
+    1903:	call   1a80 <zgfx_history_buffer_ring_write>
+    1908:	mov    -0x38(%rbp),%ecx
+    190b:	mov    -0x10(%rbp),%rax
+    190f:	add    0x10028(%rax),%ecx
+    1915:	mov    %ecx,0x10028(%rax)
+    191b:	jmp    19d7 <zgfx_decompress_segment+0x4a7>
+    1920:	mov    -0x10(%rbp),%rdi
+    1924:	mov    $0xf,%esi
+    1929:	call   1c10 <zgfx_GetBits>
+    192e:	mov    -0x10(%rbp),%rax
+    1932:	mov    0x18(%rax),%eax
+    1935:	mov    %eax,-0x38(%rbp)
+    1938:	mov    -0x10(%rbp),%rax
+    193c:	mov    0x24(%rax),%edx
+    193f:	mov    -0x10(%rbp),%rax
+    1943:	mov    0x1c(%rax),%ecx
+    1946:	sub    %edx,%ecx
+    1948:	mov    %ecx,0x1c(%rax)
+    194b:	mov    -0x10(%rbp),%rax
+    194f:	movl   $0x0,0x24(%rax)
+    1956:	mov    -0x10(%rbp),%rax
+    195a:	movl   $0x0,0x20(%rax)
+    1961:	mov    -0x10(%rbp),%rdi
+    1965:	add    $0x28,%rdi
+    1969:	mov    -0x10(%rbp),%rax
+    196d:	mov    0x10028(%rax),%eax
+    1973:	add    %rax,%rdi
+    1976:	mov    -0x10(%rbp),%rax
+    197a:	mov    0x8(%rax),%rsi
+    197e:	mov    -0x38(%rbp),%eax
+    1981:	mov    %eax,%edx
+    1983:	call   1090 <memcpy@plt>
+    1988:	mov    -0x10(%rbp),%rdi
+    198c:	mov    -0x10(%rbp),%rax
+    1990:	mov    0x8(%rax),%rsi
+    1994:	mov    -0x38(%rbp),%eax
+    1997:	mov    %eax,%edx
+    1999:	call   1a80 <zgfx_history_buffer_ring_write>
+    199e:	mov    -0x38(%rbp),%edx
+    19a1:	mov    -0x10(%rbp),%rax
+    19a5:	mov    0x8(%rax),%rcx
+    19a9:	mov    %edx,%edx
+    19ab:	add    %rdx,%rcx
+    19ae:	mov    %rcx,0x8(%rax)
+    19b2:	mov    -0x38(%rbp),%edx
+    19b5:	shl    $0x3,%edx
+    19b8:	mov    -0x10(%rbp),%rax
+    19bc:	mov    0x1c(%rax),%ecx
+    19bf:	sub    %edx,%ecx
+    19c1:	mov    %ecx,0x1c(%rax)
+    19c4:	mov    -0x38(%rbp),%ecx
+    19c7:	mov    -0x10(%rbp),%rax
+    19cb:	add    0x10028(%rax),%ecx
+    19d1:	mov    %ecx,0x10028(%rax)
+    19d7:	jmp    19dc <zgfx_decompress_segment+0x4ac>
+    19dc:	jmp    19f4 <zgfx_decompress_segment+0x4c4>
+    19e1:	jmp    19e6 <zgfx_decompress_segment+0x4b6>
+    19e6:	mov    -0x2c(%rbp),%eax
+    19e9:	add    $0x1,%eax
+    19ec:	mov    %eax,-0x2c(%rbp)
+    19ef:	jmp    169a <zgfx_decompress_segment+0x16a>
+    19f4:	jmp    1677 <zgfx_decompress_segment+0x147>
+    19f9:	movl   $0x1,-0x4(%rbp)
+    1a00:	mov    -0x4(%rbp),%eax
+    1a03:	add    $0x50,%rsp
+    1a07:	pop    %rbp
+    1a08:	ret
+
+Disassembly of section .fini:

@@ -1,0 +1,1 @@
+void func0(int16_t *x, int xlen, int16_t *y, int ylen, int16_t *z) { for (int i = 0; i < xlen - 1; i++) { z[i] = x[i]; } for (int i = 0; i < ylen; i++) { z[xlen - 1 + i] = y[i]; } }

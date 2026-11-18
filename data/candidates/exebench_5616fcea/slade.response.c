@@ -1,0 +1,1 @@
+void __attribute__((no)) do_something (struct parse *p) { p->i++; }

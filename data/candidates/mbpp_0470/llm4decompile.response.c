@@ -1,0 +1,1 @@
+void __attribute__ ((noinline, noclone)) func0(int *test_tup, int size, int *result) { int i; for (i = 0; i < size - 1; i++) { result[i] = test_tup[i] + test_tup[i + 1]; } }

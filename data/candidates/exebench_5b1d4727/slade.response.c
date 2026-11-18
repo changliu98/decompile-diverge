@@ -1,0 +1,1 @@
+float dotProduct(float *a, float *b, size_t size){ float result = 0; for(int i = 0; i < size; i++) result += a[i] * b[i]; return result; }

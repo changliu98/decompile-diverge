@@ -1,0 +1,1 @@
+void getCpuid(uint32_t* env, uint32_t cpuid) { env[0] = env[1]; env[3] = cpuid; }

@@ -1,0 +1,62 @@
+int matMultMV(double *m,double *v,double *r2)
+
+{
+  double dVar1;
+  double dVar2;
+  double dVar3;
+  double dVar4;
+  double dVar5;
+  double dVar6;
+  double dVar7;
+  double dVar8;
+  double dVar9;
+  double dVar10;
+  double dVar11;
+  double dVar12;
+  double dVar13;
+  double dVar14;
+  double dVar15;
+  double dVar16;
+  double dVar17;
+  double dVar18;
+  double dVar19;
+  double dVar20;
+  double dVar21;
+  double dVar22;
+  double dVar23;
+  double dVar24;
+  double r [4];
+  double *r2_local;
+  double *v_local;
+  double *m_local;
+  
+  dVar1 = m[4];
+  dVar2 = *v;
+  dVar3 = m[5];
+  dVar4 = v[1];
+  dVar5 = m[6];
+  dVar6 = v[2];
+  dVar7 = m[7];
+  dVar8 = v[3];
+  dVar9 = m[8];
+  dVar10 = *v;
+  dVar11 = m[9];
+  dVar12 = v[1];
+  dVar13 = m[10];
+  dVar14 = v[2];
+  dVar15 = m[0xb];
+  dVar16 = v[3];
+  dVar17 = m[0xc];
+  dVar18 = *v;
+  dVar19 = m[0xd];
+  dVar20 = v[1];
+  dVar21 = m[0xe];
+  dVar22 = v[2];
+  dVar23 = m[0xf];
+  dVar24 = v[3];
+  *r2 = m[3] * v[3] + m[2] * v[2] + *m * *v + m[1] * v[1];
+  r2[1] = dVar7 * dVar8 + dVar5 * dVar6 + dVar1 * dVar2 + dVar3 * dVar4;
+  r2[2] = dVar15 * dVar16 + dVar13 * dVar14 + dVar9 * dVar10 + dVar11 * dVar12;
+  r2[3] = dVar23 * dVar24 + dVar21 * dVar22 + dVar17 * dVar18 + dVar19 * dVar20;
+  return 0;
+}

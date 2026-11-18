@@ -1,0 +1,577 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+bs], rdi\nmov     [rbp+frame], rsi\nmov     [rbp+subframeIndex], edx\ncmp     [rbp+bs], 0\njz      loc_DE13\njmp     loc_DE32\nlea     rdi, aOggbsVoid0+3; assertion\nlea     rsi, file; \"./func.c\"\nmov     edx, 1547h; line\nlea     rcx, aDrflacBool32Dr_6; \"drflac_bool32 drflac__seek_subframe(drf\"...\ncall    ___assert_fail\ncmp     [rbp+frame], 0\njz      loc_DE42\njmp     loc_DE61\nlea     rdi, aFrameVoid0; \"frame != ((void*)0)\"\nlea     rsi, file; \"./func.c\"\nmov     edx, 1548h; line\nlea     rcx, aDrflacBool32Dr_6; \"drflac_bool32 drflac__seek_subframe(drf\"...\ncall    ___assert_fail\nmov     rax, [rbp+frame]\nadd     rax, 20h ; ' '\nmovsxd  rcx, [rbp+subframeIndex]\nshl     rcx, 4\nadd     rax, rcx\nmov     [rbp+pSubframe], rax\nmov     rdi, [rbp+bs]; bs\nmov     rsi, [rbp+pSubframe]; pSubframe\ncall    drflac__read_subframe_header\ncmp     eax, 0\njnz     loc_DE9A\nmov     [rbp+var_4], 0\njmp     loc_E128\nmov     rax, [rbp+frame]\nmovzx   eax, byte ptr [rax+13h]\nmov     [rbp+subframeBitsPerSample], eax\nmov     rax, [rbp+frame]\nmovzx   eax, byte ptr [rax+12h]\ncmp     eax, 8\njz      loc_DEC7\nmov     rax, [rbp+frame]\nmovzx   eax, byte ptr [rax+12h]\ncmp     eax, 0Ah\njnz     loc_DEDF\ncmp     [rbp+subframeIndex], 1\njnz     loc_DEDF\nmov     eax, [rbp+subframeBitsPerSample]\nadd     eax, 1\nmov     [rbp+subframeBitsPerSample], eax\njmp     loc_DF08\nmov     rax, [rbp+frame]\nmovzx   eax, byte ptr [rax+12h]\ncmp     eax, 9\njnz     loc_DF03\ncmp     [rbp+subframeIndex], 0\njnz     loc_DF03\nmov     eax, [rbp+subframeBitsPerSample]\nadd     eax, 1\nmov     [rbp+subframeBitsPerSample], eax\njmp     $+5\nmov     rax, [rbp+pSubframe]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, [rbp+subframeBitsPerSample]\njb      loc_DF25\nmov     [rbp+var_4], 0\njmp     loc_E128\nmov     rax, [rbp+pSubframe]\nmovzx   ecx, byte ptr [rax+1]\nmov     eax, [rbp+subframeBitsPerSample]\nsub     eax, ecx\nmov     [rbp+subframeBitsPerSample], eax\nmov     rax, [rbp+pSubframe]\nmov     qword ptr [rax+8], 0\nmov     rax, [rbp+pSubframe]\nmovzx   eax, byte ptr [rax]\nmov     [rbp+var_48], rax\nsub     rax, 20h; switch 33 cases\nja      def_DF68; jumptable 000000000000DF68 default case, cases 2-7,9-31\nmov     rax, [rbp+var_48]\nlea     rcx, jpt_DF68\nmovsxd  rax, ds:(jpt_DF68 - 2E0C8h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nmov     rdi, [rbp+bs]; jumptable 000000000000DF68 case 0\nmov     eax, [rbp+subframeBitsPerSample]\nmov     esi, eax; bitsToSeek\ncall    drflac__seek_bits\ncmp     eax, 0\njnz     loc_DF8D\nmov     [rbp+var_4], 0\njmp     loc_E128\njmp     loc_E121\nmov     rax, [rbp+frame]; jumptable 000000000000DF68 case 1\nmovzx   eax, word ptr [rax+10h]\nimul    eax, [rbp+subframeBitsPerSample]\nmov     [rbp+bitsToSeek], eax\nmov     rdi, [rbp+bs]; bs\nmov     eax, [rbp+bitsToSeek]\nmov     esi, eax; bitsToSeek\ncall    drflac__seek_bits\ncmp     eax, 0\njnz     loc_DFC4\nmov     [rbp+var_4], 0\njmp     loc_E128\njmp     loc_E121\nmov     rax, [rbp+pSubframe]; jumptable 000000000000DF68 case 8\nmovzx   eax, byte ptr [rax+2]\nimul    eax, [rbp+subframeBitsPerSample]\nmov     [rbp+bitsToSeek_0], eax\nmov     rdi, [rbp+bs]; bs\nmov     eax, [rbp+bitsToSeek_0]\nmov     esi, eax; bitsToSeek\ncall    drflac__seek_bits\ncmp     eax, 0\njnz     loc_DFFB\nmov     [rbp+var_4], 0\njmp     loc_E128\nmov     rdi, [rbp+bs]; bs\nmov     rax, [rbp+frame]\nmovzx   esi, word ptr [rax+10h]; blockSize\nmov     rax, [rbp+pSubframe]\nmovzx   edx, byte ptr [rax+2]; order\ncall    drflac__read_and_seek_residual\ncmp     eax, 0\njnz     loc_E029\nmov     [rbp+var_4], 0\njmp     loc_E128\njmp     loc_E121\nmov     rax, [rbp+pSubframe]; jumptable 000000000000DF68 case 32\nmovzx   eax, byte ptr [rax+2]\nimul    eax, [rbp+subframeBitsPerSample]\nmov     [rbp+bitsToSeek_1], eax\nmov     rdi, [rbp+bs]; bs\nmov     eax, [rbp+bitsToSeek_1]\nmov     esi, eax; bitsToSeek\ncall    drflac__seek_bits\ncmp     eax, 0\njnz     loc_E060\nmov     [rbp+var_4], 0\njmp     loc_E128\nmov     rdi, [rbp+bs]; bs\nmov     esi, 4; bitCount\nlea     rdx, [rbp+lpcPrecision]; pResult\ncall    drflac__read_uint8\ncmp     eax, 0\njnz     loc_E087\nmov     [rbp+var_4], 0\njmp     loc_E128\nmovzx   eax, [rbp+lpcPrecision]\ncmp     eax, 0Fh\njnz     loc_E0A0\nmov     [rbp+var_4], 0\njmp     loc_E128\nmovzx   eax, [rbp+lpcPrecision]\nadd     eax, 1\nmov     [rbp+lpcPrecision], al\nmov     rax, [rbp+pSubframe]\nmovzx   eax, byte ptr [rax+2]\nmovzx   ecx, [rbp+lpcPrecision]\nimul    eax, ecx\nadd     eax, 5\nmov     [rbp+bitsToSeek_1], eax\nmov     rdi, [rbp+bs]; bs\nmov     eax, [rbp+bitsToSeek_1]\nmov     esi, eax; bitsToSeek\ncall    drflac__seek_bits\ncmp     eax, 0\njnz     loc_E0E2\nmov     [rbp+var_4], 0\njmp     loc_E128\nmov     rdi, [rbp+bs]; bs\nmov     rax, [rbp+frame]\nmovzx   esi, word ptr [rax+10h]; blockSize\nmov     rax, [rbp+pSubframe]\nmovzx   edx, byte ptr [rax+2]; order\ncall    drflac__read_and_seek_residual\ncmp     eax, 0\njnz     loc_E110\nmov     [rbp+var_4], 0\njmp     loc_E128\njmp     loc_E121\nmov     [rbp+var_4], 0; jumptable 000000000000DF68 default case, cases 2-7,9-31\njmp     loc_E128\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 45,
+  "edges": [
+   [
+    "start",
+    "loc_DE0E"
+   ],
+   [
+    "start",
+    "loc_DE13"
+   ],
+   [
+    "loc_DE0E",
+    "loc_DE32"
+   ],
+   [
+    "loc_DE32",
+    "loc_DE3D"
+   ],
+   [
+    "loc_DE32",
+    "loc_DE42"
+   ],
+   [
+    "loc_DE3D",
+    "loc_DE61"
+   ],
+   [
+    "loc_DE61",
+    "loc_DE8E"
+   ],
+   [
+    "loc_DE61",
+    "loc_DE9A"
+   ],
+   [
+    "loc_DE8E",
+    "loc_E128"
+   ],
+   [
+    "loc_DE9A",
+    "loc_DEB6"
+   ],
+   [
+    "loc_DE9A",
+    "loc_DEC7"
+   ],
+   [
+    "loc_DEB6",
+    "loc_DEC7"
+   ],
+   [
+    "loc_DEB6",
+    "loc_DEDF"
+   ],
+   [
+    "loc_DEC7",
+    "loc_DED1"
+   ],
+   [
+    "loc_DEC7",
+    "loc_DEDF"
+   ],
+   [
+    "loc_DED1",
+    "loc_DF08"
+   ],
+   [
+    "loc_DEDF",
+    "loc_DEF0"
+   ],
+   [
+    "loc_DEDF",
+    "loc_DF03"
+   ],
+   [
+    "loc_DEF0",
+    "loc_DEFA"
+   ],
+   [
+    "loc_DEF0",
+    "loc_DF03"
+   ],
+   [
+    "loc_DEFA",
+    "loc_DF03"
+   ],
+   [
+    "loc_DF03",
+    "loc_DF08"
+   ],
+   [
+    "loc_DF08",
+    "loc_DF19"
+   ],
+   [
+    "loc_DF08",
+    "loc_DF25"
+   ],
+   [
+    "loc_DF19",
+    "loc_E128"
+   ],
+   [
+    "loc_DF25",
+    "loc_DF56"
+   ],
+   [
+    "loc_DF25",
+    "loc_E115"
+   ],
+   [
+    "loc_DF56",
+    "loc_DF6A"
+   ],
+   [
+    "loc_DF56",
+    "loc_DF92"
+   ],
+   [
+    "loc_DF56",
+    "loc_DFC9"
+   ],
+   [
+    "loc_DF56",
+    "loc_E02E"
+   ],
+   [
+    "loc_DF56",
+    "loc_E115"
+   ],
+   [
+    "loc_DF6A",
+    "loc_DF81"
+   ],
+   [
+    "loc_DF6A",
+    "loc_DF8D"
+   ],
+   [
+    "loc_DF81",
+    "loc_E128"
+   ],
+   [
+    "loc_DF8D",
+    "loc_E121"
+   ],
+   [
+    "loc_DF92",
+    "loc_DFB8"
+   ],
+   [
+    "loc_DF92",
+    "loc_DFC4"
+   ],
+   [
+    "loc_DFB8",
+    "loc_E128"
+   ],
+   [
+    "loc_DFC4",
+    "loc_E121"
+   ],
+   [
+    "loc_DFC9",
+    "loc_DFEF"
+   ],
+   [
+    "loc_DFC9",
+    "loc_DFFB"
+   ],
+   [
+    "loc_DFEF",
+    "loc_E128"
+   ],
+   [
+    "loc_DFFB",
+    "loc_E01D"
+   ],
+   [
+    "loc_DFFB",
+    "loc_E029"
+   ],
+   [
+    "loc_E01D",
+    "loc_E128"
+   ],
+   [
+    "loc_E029",
+    "loc_E121"
+   ],
+   [
+    "loc_E02E",
+    "loc_E054"
+   ],
+   [
+    "loc_E02E",
+    "loc_E060"
+   ],
+   [
+    "loc_E054",
+    "loc_E128"
+   ],
+   [
+    "loc_E060",
+    "loc_E07B"
+   ],
+   [
+    "loc_E060",
+    "loc_E087"
+   ],
+   [
+    "loc_E07B",
+    "loc_E128"
+   ],
+   [
+    "loc_E087",
+    "loc_E094"
+   ],
+   [
+    "loc_E087",
+    "loc_E0A0"
+   ],
+   [
+    "loc_E094",
+    "loc_E128"
+   ],
+   [
+    "loc_E0A0",
+    "loc_E0D6"
+   ],
+   [
+    "loc_E0A0",
+    "loc_E0E2"
+   ],
+   [
+    "loc_E0D6",
+    "loc_E128"
+   ],
+   [
+    "loc_E0E2",
+    "loc_E104"
+   ],
+   [
+    "loc_E0E2",
+    "loc_E110"
+   ],
+   [
+    "loc_E104",
+    "loc_E128"
+   ],
+   [
+    "loc_E110",
+    "loc_E121"
+   ],
+   [
+    "loc_E115",
+    "loc_E128"
+   ],
+   [
+    "loc_E121",
+    "loc_E128"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+bs], rdi\nmov     [rbp+frame], rsi\nmov     [rbp+subframeIndex], edx\ncmp     [rbp+bs], 0\njz      loc_DE13",
+   "loc_DE0E": "jmp     loc_DE32",
+   "loc_DE13": "lea     rdi, aOggbsVoid0+3; assertion\nlea     rsi, file; \"./func.c\"\nmov     edx, 1547h; line\nlea     rcx, aDrflacBool32Dr_6; \"drflac_bool32 drflac__seek_subframe(drf\"...\ncall    ___assert_fail",
+   "loc_DE32": "cmp     [rbp+frame], 0\njz      loc_DE42",
+   "loc_DE3D": "jmp     loc_DE61",
+   "loc_DE42": "lea     rdi, aFrameVoid0; \"frame != ((void*)0)\"\nlea     rsi, file; \"./func.c\"\nmov     edx, 1548h; line\nlea     rcx, aDrflacBool32Dr_6; \"drflac_bool32 drflac__seek_subframe(drf\"...\ncall    ___assert_fail",
+   "loc_DE61": "mov     rax, [rbp+frame]\nadd     rax, 20h ; ' '\nmovsxd  rcx, [rbp+subframeIndex]\nshl     rcx, 4\nadd     rax, rcx\nmov     [rbp+pSubframe], rax\nmov     rdi, [rbp+bs]; bs\nmov     rsi, [rbp+pSubframe]; pSubframe\ncall    drflac__read_subframe_header\ncmp     eax, 0\njnz     loc_DE9A",
+   "loc_DE8E": "mov     [rbp+var_4], 0\njmp     loc_E128",
+   "loc_DE9A": "mov     rax, [rbp+frame]\nmovzx   eax, byte ptr [rax+13h]\nmov     [rbp+subframeBitsPerSample], eax\nmov     rax, [rbp+frame]\nmovzx   eax, byte ptr [rax+12h]\ncmp     eax, 8\njz      loc_DEC7",
+   "loc_DEB6": "mov     rax, [rbp+frame]\nmovzx   eax, byte ptr [rax+12h]\ncmp     eax, 0Ah\njnz     loc_DEDF",
+   "loc_DEC7": "cmp     [rbp+subframeIndex], 1\njnz     loc_DEDF",
+   "loc_DED1": "mov     eax, [rbp+subframeBitsPerSample]\nadd     eax, 1\nmov     [rbp+subframeBitsPerSample], eax\njmp     loc_DF08",
+   "loc_DEDF": "mov     rax, [rbp+frame]\nmovzx   eax, byte ptr [rax+12h]\ncmp     eax, 9\njnz     loc_DF03",
+   "loc_DEF0": "cmp     [rbp+subframeIndex], 0\njnz     loc_DF03",
+   "loc_DEFA": "mov     eax, [rbp+subframeBitsPerSample]\nadd     eax, 1\nmov     [rbp+subframeBitsPerSample], eax",
+   "loc_DF03": "jmp     $+5",
+   "loc_DF08": "mov     rax, [rbp+pSubframe]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, [rbp+subframeBitsPerSample]\njb      loc_DF25",
+   "loc_DF19": "mov     [rbp+var_4], 0\njmp     loc_E128",
+   "loc_DF25": "mov     rax, [rbp+pSubframe]\nmovzx   ecx, byte ptr [rax+1]\nmov     eax, [rbp+subframeBitsPerSample]\nsub     eax, ecx\nmov     [rbp+subframeBitsPerSample], eax\nmov     rax, [rbp+pSubframe]\nmov     qword ptr [rax+8], 0\nmov     rax, [rbp+pSubframe]\nmovzx   eax, byte ptr [rax]\nmov     [rbp+var_48], rax\nsub     rax, 20h; switch 33 cases\nja      def_DF68; jumptable 000000000000DF68 default case, cases 2-7,9-31",
+   "loc_DF56": "mov     rax, [rbp+var_48]\nlea     rcx, jpt_DF68\nmovsxd  rax, ds:(jpt_DF68 - 2E0C8h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_DF6A": "mov     rdi, [rbp+bs]; jumptable 000000000000DF68 case 0\nmov     eax, [rbp+subframeBitsPerSample]\nmov     esi, eax; bitsToSeek\ncall    drflac__seek_bits\ncmp     eax, 0\njnz     loc_DF8D",
+   "loc_DF81": "mov     [rbp+var_4], 0\njmp     loc_E128",
+   "loc_DF8D": "jmp     loc_E121",
+   "loc_DF92": "mov     rax, [rbp+frame]; jumptable 000000000000DF68 case 1\nmovzx   eax, word ptr [rax+10h]\nimul    eax, [rbp+subframeBitsPerSample]\nmov     [rbp+bitsToSeek], eax\nmov     rdi, [rbp+bs]; bs\nmov     eax, [rbp+bitsToSeek]\nmov     esi, eax; bitsToSeek\ncall    drflac__seek_bits\ncmp     eax, 0\njnz     loc_DFC4",
+   "loc_DFB8": "mov     [rbp+var_4], 0\njmp     loc_E128",
+   "loc_DFC4": "jmp     loc_E121",
+   "loc_DFC9": "mov     rax, [rbp+pSubframe]; jumptable 000000000000DF68 case 8\nmovzx   eax, byte ptr [rax+2]\nimul    eax, [rbp+subframeBitsPerSample]\nmov     [rbp+bitsToSeek_0], eax\nmov     rdi, [rbp+bs]; bs\nmov     eax, [rbp+bitsToSeek_0]\nmov     esi, eax; bitsToSeek\ncall    drflac__seek_bits\ncmp     eax, 0\njnz     loc_DFFB",
+   "loc_DFEF": "mov     [rbp+var_4], 0\njmp     loc_E128",
+   "loc_DFFB": "mov     rdi, [rbp+bs]; bs\nmov     rax, [rbp+frame]\nmovzx   esi, word ptr [rax+10h]; blockSize\nmov     rax, [rbp+pSubframe]\nmovzx   edx, byte ptr [rax+2]; order\ncall    drflac__read_and_seek_residual\ncmp     eax, 0\njnz     loc_E029",
+   "loc_E01D": "mov     [rbp+var_4], 0\njmp     loc_E128",
+   "loc_E029": "jmp     loc_E121",
+   "loc_E02E": "mov     rax, [rbp+pSubframe]; jumptable 000000000000DF68 case 32\nmovzx   eax, byte ptr [rax+2]\nimul    eax, [rbp+subframeBitsPerSample]\nmov     [rbp+bitsToSeek_1], eax\nmov     rdi, [rbp+bs]; bs\nmov     eax, [rbp+bitsToSeek_1]\nmov     esi, eax; bitsToSeek\ncall    drflac__seek_bits\ncmp     eax, 0\njnz     loc_E060",
+   "loc_E054": "mov     [rbp+var_4], 0\njmp     loc_E128",
+   "loc_E060": "mov     rdi, [rbp+bs]; bs\nmov     esi, 4; bitCount\nlea     rdx, [rbp+lpcPrecision]; pResult\ncall    drflac__read_uint8\ncmp     eax, 0\njnz     loc_E087",
+   "loc_E07B": "mov     [rbp+var_4], 0\njmp     loc_E128",
+   "loc_E087": "movzx   eax, [rbp+lpcPrecision]\ncmp     eax, 0Fh\njnz     loc_E0A0",
+   "loc_E094": "mov     [rbp+var_4], 0\njmp     loc_E128",
+   "loc_E0A0": "movzx   eax, [rbp+lpcPrecision]\nadd     eax, 1\nmov     [rbp+lpcPrecision], al\nmov     rax, [rbp+pSubframe]\nmovzx   eax, byte ptr [rax+2]\nmovzx   ecx, [rbp+lpcPrecision]\nimul    eax, ecx\nadd     eax, 5\nmov     [rbp+bitsToSeek_1], eax\nmov     rdi, [rbp+bs]; bs\nmov     eax, [rbp+bitsToSeek_1]\nmov     esi, eax; bitsToSeek\ncall    drflac__seek_bits\ncmp     eax, 0\njnz     loc_E0E2",
+   "loc_E0D6": "mov     [rbp+var_4], 0\njmp     loc_E128",
+   "loc_E0E2": "mov     rdi, [rbp+bs]; bs\nmov     rax, [rbp+frame]\nmovzx   esi, word ptr [rax+10h]; blockSize\nmov     rax, [rbp+pSubframe]\nmovzx   edx, byte ptr [rax+2]; order\ncall    drflac__read_and_seek_residual\ncmp     eax, 0\njnz     loc_E110",
+   "loc_E104": "mov     [rbp+var_4], 0\njmp     loc_E128",
+   "loc_E110": "jmp     loc_E121",
+   "loc_E115": "mov     [rbp+var_4], 0; jumptable 000000000000DF68 default case, cases 2-7,9-31\njmp     loc_E128",
+   "loc_E121": "mov     [rbp+var_4], 1",
+   "loc_E128": "mov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_48": "qword ptr -48h",
+   "bitsToSeek_1": "dword ptr -3Ch",
+   "lpcPrecision": "byte ptr -35h",
+   "bitsToSeek_0": "dword ptr -34h",
+   "bitsToSeek": "dword ptr -30h",
+   "subframeBitsPerSample": "dword ptr -2Ch",
+   "pSubframe": "qword ptr -28h",
+   "subframeIndex": "dword ptr -1Ch",
+   "frame": "qword ptr -18h",
+   "bs": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "unk_2F062": "byte 'oggbs != ((void*)0)',0",
+   "file": "byte './func.c',0",
+   "aDrflacBool32Dr_6": "byte 'drflac_bool32 drflac__seek_subframe(drflac_bs *, drflac_frame *, '",
+   "aFrameVoid0": "byte 'frame != ((void*)0)',0",
+   "jpt_DF68": "dword offset loc_DF6A - 2E0C8h; jump table for switch statement"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 56816,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872663
+ }
+}

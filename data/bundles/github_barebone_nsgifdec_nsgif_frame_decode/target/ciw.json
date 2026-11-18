@@ -1,0 +1,395 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+gif], rdi\nmov     [rbp+frame], esi\nmov     [rbp+bitmap], rdx\nmov     [rbp+ret], 0\nmov     eax, [rbp+frame]\nmov     rcx, [rbp+gif]\ncmp     eax, [rcx+8]\njb      loc_2596\nmov     [rbp+var_4], 3\njmp     loc_2668\nmov     rax, [rbp+gif]\nmov     eax, [rax+64h]\ncmp     eax, [rbp+frame]\njnz     loc_25C1\nmov     rax, [rbp+gif]\nmov     rcx, [rax+68h]\nmov     rax, [rbp+bitmap]\nmov     [rax], rcx\nmov     [rbp+var_4], 0\njmp     loc_2668\nmov     rax, [rbp+gif]\nmov     eax, [rax+64h]\ncmp     eax, [rbp+frame]\njnb     loc_25DF\nmov     rax, [rbp+gif]\ncmp     dword ptr [rax+64h], 0FFFFFFFFh\njnz     loc_25EB\nmov     [rbp+start_frame], 0\njmp     loc_2600\nmov     rdi, [rbp+gif]; gif\nmov     rax, [rbp+gif]\nmov     edx, [rax+64h]; frame\nxor     esi, esi; partial\ncall    nsgif__frame_next\nmov     [rbp+start_frame], eax\njmp     $+5\nmov     eax, [rbp+start_frame]\nmov     [rbp+f], eax\nmov     eax, [rbp+f]\ncmp     eax, [rbp+frame]\nja      loc_2653\nmov     rdi, [rbp+gif]; gif\nmov     esi, [rbp+f]; frame_idx\nmov     edx, 1; decode\ncall    nsgif__process_frame\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njz      loc_2640\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_2668\njmp     $+5\nmov     eax, [rbp+f]\nadd     eax, 1\nmov     [rbp+f], eax\njmp     loc_260B\nmov     rax, [rbp+gif]\nmov     rcx, [rax+68h]\nmov     rax, [rbp+bitmap]\nmov     [rax], rcx\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 17,
+  "edges": [
+   [
+    "start",
+    "loc_258A"
+   ],
+   [
+    "start",
+    "loc_2596"
+   ],
+   [
+    "loc_258A",
+    "loc_2668"
+   ],
+   [
+    "loc_2596",
+    "loc_25A6"
+   ],
+   [
+    "loc_2596",
+    "loc_25C1"
+   ],
+   [
+    "loc_25A6",
+    "loc_2668"
+   ],
+   [
+    "loc_25C1",
+    "loc_25D1"
+   ],
+   [
+    "loc_25C1",
+    "loc_25DF"
+   ],
+   [
+    "loc_25D1",
+    "loc_25DF"
+   ],
+   [
+    "loc_25D1",
+    "loc_25EB"
+   ],
+   [
+    "loc_25DF",
+    "loc_2600"
+   ],
+   [
+    "loc_25EB",
+    "loc_2600"
+   ],
+   [
+    "loc_2600",
+    "loc_2605"
+   ],
+   [
+    "loc_2605",
+    "loc_260B"
+   ],
+   [
+    "loc_260B",
+    "loc_2617"
+   ],
+   [
+    "loc_260B",
+    "loc_2653"
+   ],
+   [
+    "loc_2617",
+    "loc_2635"
+   ],
+   [
+    "loc_2617",
+    "loc_2640"
+   ],
+   [
+    "loc_2635",
+    "loc_2668"
+   ],
+   [
+    "loc_2640",
+    "loc_2645"
+   ],
+   [
+    "loc_2645",
+    "loc_260B"
+   ],
+   [
+    "loc_2653",
+    "loc_2668"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+gif], rdi\nmov     [rbp+frame], esi\nmov     [rbp+bitmap], rdx\nmov     [rbp+ret], 0\nmov     eax, [rbp+frame]\nmov     rcx, [rbp+gif]\ncmp     eax, [rcx+8]\njb      loc_2596",
+   "loc_258A": "mov     [rbp+var_4], 3\njmp     loc_2668",
+   "loc_2596": "mov     rax, [rbp+gif]\nmov     eax, [rax+64h]\ncmp     eax, [rbp+frame]\njnz     loc_25C1",
+   "loc_25A6": "mov     rax, [rbp+gif]\nmov     rcx, [rax+68h]\nmov     rax, [rbp+bitmap]\nmov     [rax], rcx\nmov     [rbp+var_4], 0\njmp     loc_2668",
+   "loc_25C1": "mov     rax, [rbp+gif]\nmov     eax, [rax+64h]\ncmp     eax, [rbp+frame]\njnb     loc_25DF",
+   "loc_25D1": "mov     rax, [rbp+gif]\ncmp     dword ptr [rax+64h], 0FFFFFFFFh\njnz     loc_25EB",
+   "loc_25DF": "mov     [rbp+start_frame], 0\njmp     loc_2600",
+   "loc_25EB": "mov     rdi, [rbp+gif]; gif\nmov     rax, [rbp+gif]\nmov     edx, [rax+64h]; frame\nxor     esi, esi; partial\ncall    nsgif__frame_next\nmov     [rbp+start_frame], eax",
+   "loc_2600": "jmp     $+5",
+   "loc_2605": "mov     eax, [rbp+start_frame]\nmov     [rbp+f], eax",
+   "loc_260B": "mov     eax, [rbp+f]\ncmp     eax, [rbp+frame]\nja      loc_2653",
+   "loc_2617": "mov     rdi, [rbp+gif]; gif\nmov     esi, [rbp+f]; frame_idx\nmov     edx, 1; decode\ncall    nsgif__process_frame\nmov     [rbp+ret], eax\ncmp     [rbp+ret], 0\njz      loc_2640",
+   "loc_2635": "mov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\njmp     loc_2668",
+   "loc_2640": "jmp     $+5",
+   "loc_2645": "mov     eax, [rbp+f]\nadd     eax, 1\nmov     [rbp+f], eax\njmp     loc_260B",
+   "loc_2653": "mov     rax, [rbp+gif]\nmov     rcx, [rax+68h]\nmov     rax, [rbp+bitmap]\nmov     [rax], rcx\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax",
+   "loc_2668": "mov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "f": "dword ptr -2Ch",
+   "ret": "dword ptr -28h",
+   "start_frame": "dword ptr -24h",
+   "bitmap": "qword ptr -20h",
+   "frame": "dword ptr -14h",
+   "gif": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 9568,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".strncmp": "strncmp",
+  "_strncmp": "strncmp",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".strncmp",
+   ".plt",
+   true,
+   "strncmp"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868536
+ }
+}

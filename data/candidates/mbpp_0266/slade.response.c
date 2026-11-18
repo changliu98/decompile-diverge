@@ -1,0 +1,1 @@
+__attribute__((no)) __attribute__((stdcall)) uint func0(uint x) { uint y = x * x * 4; return y; }

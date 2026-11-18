@@ -1,0 +1,1 @@
+void charset_remove(char *dest, char c) { char *d = dest; char *s = dest; while (*s) { if (*s != c) *d++ = *s; s++; } *d++ = 0; }

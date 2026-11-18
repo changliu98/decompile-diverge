@@ -1,0 +1,52 @@
+00000000000011f0 <ulimit_stack>:
+    11f0:	push   %rbp
+    11f1:	mov    %rsp,%rbp
+    11f4:	sub    $0x30,%rsp
+    11f8:	mov    %rdi,-0x8(%rbp)
+    11fc:	mov    %rsi,-0x10(%rbp)
+    1200:	mov    %rdx,-0x18(%rbp)
+    1204:	mov    0xdfd(%rip),%rax        # 2008 <_IO_stdin_used+0x8>
+    120b:	mov    %rax,-0x30(%rbp)
+    120f:	mov    0xdfa(%rip),%rax        # 2010 <_IO_stdin_used+0x10>
+    1216:	mov    %rax,-0x28(%rbp)
+    121a:	mov    $0x3,%edi
+    121f:	lea    -0x30(%rbp),%rsi
+    1223:	call   10a0 <setrlimit@plt>
+    1228:	mov    %eax,-0x1c(%rbp)
+    122b:	cmpl   $0xffffffff,-0x1c(%rbp)
+    122f:	jne    126a <ulimit_stack+0x7a>
+    1235:	mov    $0x3,%edi
+    123a:	lea    -0x30(%rbp),%rsi
+    123e:	call   10e0 <getrlimit@plt>
+    1243:	cmp    $0x0,%eax
+    1246:	jne    1265 <ulimit_stack+0x75>
+    124c:	mov    -0x28(%rbp),%rax
+    1250:	mov    %rax,-0x30(%rbp)
+    1254:	mov    $0x3,%edi
+    1259:	lea    -0x30(%rbp),%rsi
+    125d:	call   10a0 <setrlimit@plt>
+    1262:	mov    %eax,-0x1c(%rbp)
+    1265:	jmp    126a <ulimit_stack+0x7a>
+    126a:	mov    -0x1c(%rbp),%ecx
+    126d:	mov    -0x18(%rbp),%rax
+    1271:	mov    %ecx,(%rax)
+    1273:	mov    -0x8(%rbp),%rax
+    1277:	movq   $0xffffffffffffffff,(%rax)
+    127e:	mov    -0x10(%rbp),%rax
+    1282:	movq   $0xffffffffffffffff,(%rax)
+    1289:	mov    $0x3,%edi
+    128e:	lea    -0x30(%rbp),%rsi
+    1292:	call   10e0 <getrlimit@plt>
+    1297:	cmp    $0x0,%eax
+    129a:	jne    12b6 <ulimit_stack+0xc6>
+    12a0:	mov    -0x30(%rbp),%rcx
+    12a4:	mov    -0x8(%rbp),%rax
+    12a8:	mov    %rcx,(%rax)
+    12ab:	mov    -0x28(%rbp),%rcx
+    12af:	mov    -0x10(%rbp),%rax
+    12b3:	mov    %rcx,(%rax)
+    12b6:	add    $0x30,%rsp
+    12ba:	pop    %rbp
+    12bb:	ret
+
+Disassembly of section .fini:

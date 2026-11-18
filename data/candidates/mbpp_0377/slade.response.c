@@ -1,0 +1,1 @@
+char *func0(char *str, char ch) { int count = 0; for (int i = 0; str[i] != '\0'; i++) { if (str[i] == ch) { count++; } } char *result = malloc(strlen(str) - count + 1); int i = 0; for (int j = 0; str[j] != '\0'; j++) { if (str[j] != ch) { result[i] = str[j]; i++; } } result[i] = '\0'; return result; }

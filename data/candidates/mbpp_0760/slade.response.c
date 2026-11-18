@@ -1,0 +1,1 @@
+char *func0(int *arr, int size) { for (int i = 1; i < size; i++) { if (arr[i] != arr[0]) return "NO"; } return "YES"; }

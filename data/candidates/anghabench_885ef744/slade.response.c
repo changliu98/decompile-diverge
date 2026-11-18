@@ -1,0 +1,1 @@
+void ui2a(unsigned int num, unsigned int base, int uc, char * ascii) { int i = 0; unsigned int n = 1; while (num / n >= base) n *= base; while (n != 0) { int d = num / n; num %= n; n /= base; *(ascii++) = d + (i == 0 && d <= 0 && n != 0 ? 'a' - 10 : (d < 10 ? 'a' - 10 : 'a' - 10)); i++; } *ascii = 0; }

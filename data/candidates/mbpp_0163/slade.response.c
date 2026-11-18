@@ -1,0 +1,1 @@
+double func0(int x, double z) { double v0; v0 = x * x * z / (1.57079632679489661923 * tan( 1.0 / x)); return v0; }

@@ -1,0 +1,1 @@
+double linsched_rand(unsigned int *state) { unsigned int x = (*state * 16807) % 2147483647; *state = x; return x/2147483647.0; }

@@ -1,0 +1,1 @@
+void set_bit(uint32_t *number, uint8_t bit_number) { *number |= (1 << bit_number); }

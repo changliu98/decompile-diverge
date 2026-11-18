@@ -1,0 +1,1 @@
+void func0(int *nums, int numsSize, int n, int *array) { int i; qsort(nums, (size_t)numsSize, sizeof(int), &compare); for (i = 0; i < n; i++) array[i] = nums[i]; }

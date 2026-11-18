@@ -1,0 +1,1 @@
+static char maya_pb_route_shift(int n) { return table[n % 10]; }

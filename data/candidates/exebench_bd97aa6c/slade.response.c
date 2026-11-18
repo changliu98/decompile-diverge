@@ -1,0 +1,1 @@
+void subpixels(unsigned long addr, unsigned long *x1, unsigned long *y1, unsigned long *x2, unsigned long *y2) { *x1 = (addr >> 24) &0xff; *y1 = (addr >> 16) &0xff; *x2 = (addr >> 8) &0xff; *y2 = addr &0xff; }

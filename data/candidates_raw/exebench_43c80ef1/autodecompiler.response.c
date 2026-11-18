@@ -1,0 +1,5 @@
+void Index2DToIndex2DCoord(int *iX, int *iY, int nIndex)
+{
+ *iY = nIndex & 3;
+ *iX = nIndex >> 2;
+}

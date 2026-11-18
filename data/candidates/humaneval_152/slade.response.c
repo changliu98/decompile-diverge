@@ -1,0 +1,1 @@
+void func0(int32_t *src1, int32_t *src2, int32_t *dest, int length) { for (int i = 0; i < length; i++) { dest[i] = abs(src1[i] - src2[i]); } }

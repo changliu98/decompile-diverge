@@ -1,0 +1,1 @@
+void vec4f_set(float out[4], float x, float y, float z, float w) { out[0] = x; out[1] = y; out[2] = z; out[3] = w;}

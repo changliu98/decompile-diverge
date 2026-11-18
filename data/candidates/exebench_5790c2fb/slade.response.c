@@ -1,0 +1,1 @@
+void strcpy2(char *s, char *t) { while ((*s = *t) != '\0') { s++; t++; } }

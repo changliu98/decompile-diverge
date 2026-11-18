@@ -1,0 +1,1 @@
+void func0(int *ptr, int size, int *array) { int i; qsort(ptr, (size_t)size, sizeof(int), &cmpfunc); for (i = 0; i < size; i++) array[i] = ptr[i]; }

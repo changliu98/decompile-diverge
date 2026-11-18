@@ -1,0 +1,1 @@
+unsigned scan_8long(const char *src, size_t *len) { size_t l; unsigned b = 0; size_t c = 0; while ((l = (unsigned)(src[b] - '0')) < 8) { c = l + c; b++; } *len = c; return b; }

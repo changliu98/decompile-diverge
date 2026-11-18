@@ -1,0 +1,300 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+username], rdi\nmov     [rbp+password], rsi\nmov     [rbp+errbuf], rdx\nmov     rdi, [rbp+username]; name\ncall    getpwnam\nmov     [rbp+user], rax\ncmp     rax, 0\njnz     loc_1A8E\nmov     rdi, [rbp+errbuf]; s\nmov     esi, 100h; maxlen\nlea     rdx, aAuthentication; \"Authentication failed: user name or pas\"...\nmov     al, 0\ncall    snprintf\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_1B35\nmov     rax, [rbp+user]\nmov     rax, [rax+8]\nmov     [rbp+user_password], rax\nmov     rax, [rbp+user_password]\nmov     [rbp+s1], rax\nmov     rdi, [rbp+password]; key\nmov     rsi, [rbp+user_password]; salt\ncall    crypt\nmov     rdi, [rbp+s1]; s1\nmov     rsi, rax; s2\ncall    strcmp\ncmp     eax, 0\njz      loc_1AE7\nmov     rdi, [rbp+errbuf]; s\nmov     esi, 100h; maxlen\nlea     rdx, aAuthentication; \"Authentication failed: user name or pas\"...\nmov     al, 0\ncall    snprintf\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_1B35\nmov     rax, [rbp+user]\nmov     edi, [rax+10h]; uid\ncall    setuid\ncmp     eax, 0\njz      loc_1B2E\nmov     rax, [rbp+errbuf]\nmov     [rbp+var_40], rax\ncall    ___errno_location\nmov     rdi, [rbp+var_40]; errbuf\nmov     edx, [rax]; errnum\nmov     esi, 100h; errbuflen\nlea     rcx, fmt; \"setuid\"\nmov     al, 0\ncall    pcap_fmt_errmsg_for_errno\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_1B35\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 8,
+  "edges": [
+   [
+    "start",
+    "loc_1A6B"
+   ],
+   [
+    "start",
+    "loc_1A8E"
+   ],
+   [
+    "loc_1A6B",
+    "loc_1B35"
+   ],
+   [
+    "loc_1A8E",
+    "loc_1AC4"
+   ],
+   [
+    "loc_1A8E",
+    "loc_1AE7"
+   ],
+   [
+    "loc_1AC4",
+    "loc_1B35"
+   ],
+   [
+    "loc_1AE7",
+    "loc_1AFC"
+   ],
+   [
+    "loc_1AE7",
+    "loc_1B2E"
+   ],
+   [
+    "loc_1AFC",
+    "loc_1B35"
+   ],
+   [
+    "loc_1B2E",
+    "loc_1B35"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+username], rdi\nmov     [rbp+password], rsi\nmov     [rbp+errbuf], rdx\nmov     rdi, [rbp+username]; name\ncall    getpwnam\nmov     [rbp+user], rax\ncmp     rax, 0\njnz     loc_1A8E",
+   "loc_1A6B": "mov     rdi, [rbp+errbuf]; s\nmov     esi, 100h; maxlen\nlea     rdx, aAuthentication; \"Authentication failed: user name or pas\"...\nmov     al, 0\ncall    snprintf\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_1B35",
+   "loc_1A8E": "mov     rax, [rbp+user]\nmov     rax, [rax+8]\nmov     [rbp+user_password], rax\nmov     rax, [rbp+user_password]\nmov     [rbp+s1], rax\nmov     rdi, [rbp+password]; key\nmov     rsi, [rbp+user_password]; salt\ncall    crypt\nmov     rdi, [rbp+s1]; s1\nmov     rsi, rax; s2\ncall    strcmp\ncmp     eax, 0\njz      loc_1AE7",
+   "loc_1AC4": "mov     rdi, [rbp+errbuf]; s\nmov     esi, 100h; maxlen\nlea     rdx, aAuthentication; \"Authentication failed: user name or pas\"...\nmov     al, 0\ncall    snprintf\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_1B35",
+   "loc_1AE7": "mov     rax, [rbp+user]\nmov     edi, [rax+10h]; uid\ncall    setuid\ncmp     eax, 0\njz      loc_1B2E",
+   "loc_1AFC": "mov     rax, [rbp+errbuf]\nmov     [rbp+var_40], rax\ncall    ___errno_location\nmov     rdi, [rbp+var_40]; errbuf\nmov     edx, [rax]; errnum\nmov     esi, 100h; errbuflen\nlea     rcx, fmt; \"setuid\"\nmov     al, 0\ncall    pcap_fmt_errmsg_for_errno\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_1B35",
+   "loc_1B2E": "mov     [rbp+var_4], 0",
+   "loc_1B35": "mov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_40": "qword ptr -40h",
+   "s1": "qword ptr -38h",
+   "user_password": "qword ptr -30h",
+   "user": "qword ptr -28h",
+   "errbuf": "qword ptr -20h",
+   "password": "qword ptr -18h",
+   "username": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "aAuthentication": "byte 'Authentication failed: user name or password incorrect',0",
+   "fmt": "byte 'setuid',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6720,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".__errno_location": "__errno_location",
+  "_errno_location": "__errno_location",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".strchr": "strchr",
+  "_strchr": "strchr",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".__errno_location",
+   ".plt",
+   true,
+   "__errno_location"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".strchr",
+   ".plt",
+   true,
+   "strchr"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__errno_location",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strchr",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "snprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868457
+ }
+}

@@ -1,0 +1,206 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+cipher_text], rdi\nmov     [rbp+plain_text], rsi\nmov     [rbp+text_size], rdx\nmov     [rbp+key], rcx\nmov     [rbp+nonce], r8\nmov     [rbp+ctr], r9\nlea     rdi, [rbp+sub_key]; out\nmov     rsi, [rbp+key]; key\nmov     rdx, [rbp+nonce]; in\ncall    crypto_chacha20_h\nmov     rdi, [rbp+cipher_text]; cipher_text\nmov     rsi, [rbp+plain_text]; plain_text\nmov     rdx, [rbp+text_size]; text_size\nlea     rcx, [rbp+sub_key]; key\nmov     r8, [rbp+nonce]\nadd     r8, 10h; nonce\nmov     r9, [rbp+ctr]; ctr\ncall    crypto_chacha20_djb\nmov     [rbp+ctr], rax\nlea     rdi, [rbp+sub_key]; secret\nmov     esi, 20h ; ' '; size\ncall    crypto_wipe\nmov     rax, [rbp+ctr]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 1,
+  "edges": [],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+cipher_text], rdi\nmov     [rbp+plain_text], rsi\nmov     [rbp+text_size], rdx\nmov     [rbp+key], rcx\nmov     [rbp+nonce], r8\nmov     [rbp+ctr], r9\nlea     rdi, [rbp+sub_key]; out\nmov     rsi, [rbp+key]; key\nmov     rdx, [rbp+nonce]; in\ncall    crypto_chacha20_h\nmov     rdi, [rbp+cipher_text]; cipher_text\nmov     rsi, [rbp+plain_text]; plain_text\nmov     rdx, [rbp+text_size]; text_size\nlea     rcx, [rbp+sub_key]; key\nmov     r8, [rbp+nonce]\nadd     r8, 10h; nonce\nmov     r9, [rbp+ctr]; ctr\ncall    crypto_chacha20_djb\nmov     [rbp+ctr], rax\nlea     rdi, [rbp+sub_key]; secret\nmov     esi, 20h ; ' '; size\ncall    crypto_wipe\nmov     rax, [rbp+ctr]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "sub_key": "byte ptr -50h",
+   "ctr": "qword ptr -30h",
+   "nonce": "qword ptr -28h",
+   "key": "qword ptr -20h",
+   "text_size": "qword ptr -18h",
+   "plain_text": "qword ptr -10h",
+   "cipher_text": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 7920,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868533
+ }
+}

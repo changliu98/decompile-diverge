@@ -1,0 +1,353 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+s], rdi\nmov     [rbp+t], rsi\nmov     [rbp+len], rdx\nmov     rdi, [rbp+s]; s\ncall    sdsalloc\ncmp     rax, [rbp+len]\njnb     loc_2401\nmov     rax, [rbp+s]\nmov     [rbp+var_28], rax\nmov     rax, [rbp+len]\nmov     [rbp+var_30], rax\nmov     rdi, [rbp+s]; s\ncall    sdslen\nmov     rsi, [rbp+var_30]\nmov     rdi, [rbp+var_28]; s\nsub     rsi, rax; addlen\ncall    sdsMakeRoomFor\nmov     [rbp+s], rax\ncmp     [rbp+s], 0\njnz     loc_23FC\nmov     [rbp+var_8], 0\njmp     loc_2433\njmp     $+5\nmov     rdi, [rbp+s]; dest\nmov     rsi, [rbp+t]; src\nmov     rdx, [rbp+len]; n\ncall    memcpy\nmov     rax, [rbp+s]\nmov     rcx, [rbp+len]\nmov     byte ptr [rax+rcx], 0\nmov     rdi, [rbp+s]; s\nmov     rsi, [rbp+len]; newlen\ncall    sdssetlen\nmov     rax, [rbp+s]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 6,
+  "edges": [
+   [
+    "start",
+    "loc_23B7"
+   ],
+   [
+    "start",
+    "loc_2401"
+   ],
+   [
+    "loc_23B7",
+    "loc_23EF"
+   ],
+   [
+    "loc_23B7",
+    "loc_23FC"
+   ],
+   [
+    "loc_23EF",
+    "loc_2433"
+   ],
+   [
+    "loc_23FC",
+    "loc_2401"
+   ],
+   [
+    "loc_2401",
+    "loc_2433"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+s], rdi\nmov     [rbp+t], rsi\nmov     [rbp+len], rdx\nmov     rdi, [rbp+s]; s\ncall    sdsalloc\ncmp     rax, [rbp+len]\njnb     loc_2401",
+   "loc_23B7": "mov     rax, [rbp+s]\nmov     [rbp+var_28], rax\nmov     rax, [rbp+len]\nmov     [rbp+var_30], rax\nmov     rdi, [rbp+s]; s\ncall    sdslen\nmov     rsi, [rbp+var_30]\nmov     rdi, [rbp+var_28]; s\nsub     rsi, rax; addlen\ncall    sdsMakeRoomFor\nmov     [rbp+s], rax\ncmp     [rbp+s], 0\njnz     loc_23FC",
+   "loc_23EF": "mov     [rbp+var_8], 0\njmp     loc_2433",
+   "loc_23FC": "jmp     $+5",
+   "loc_2401": "mov     rdi, [rbp+s]; dest\nmov     rsi, [rbp+t]; src\nmov     rdx, [rbp+len]; n\ncall    memcpy\nmov     rax, [rbp+s]\nmov     rcx, [rbp+len]\nmov     byte ptr [rax+rcx], 0\nmov     rdi, [rbp+s]; s\nmov     rsi, [rbp+len]; newlen\ncall    sdssetlen\nmov     rax, [rbp+s]\nmov     [rbp+var_8], rax",
+   "loc_2433": "mov     rax, [rbp+var_8]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_30": "qword ptr -30h",
+   "var_28": "qword ptr -28h",
+   "len": "qword ptr -20h",
+   "t": "qword ptr -18h",
+   "s": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 9104,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".toupper": "toupper",
+  "_toupper": "toupper",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".vsnprintf": "vsnprintf",
+  "_vsnprintf": "vsnprintf",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".strchr": "strchr",
+  "_strchr": "strchr",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".memcmp": "memcmp",
+  "_memcmp": "memcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".tolower": "tolower",
+  "_tolower": "tolower",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".__ctype_b_loc": "__ctype_b_loc",
+  "_ctype_b_loc": "__ctype_b_loc"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".toupper",
+   ".plt",
+   true,
+   "toupper"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".vsnprintf",
+   ".plt",
+   true,
+   "vsnprintf"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".strchr",
+   ".plt",
+   true,
+   "strchr"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".memcmp",
+   ".plt",
+   true,
+   "memcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".tolower",
+   ".plt",
+   true,
+   "tolower"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   ".__ctype_b_loc",
+   ".plt",
+   true,
+   "__ctype_b_loc"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "toupper",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "vsnprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strchr",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "tolower",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868543
+ }
+}

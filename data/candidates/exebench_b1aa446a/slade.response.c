@@ -1,0 +1,1 @@
+long get_mod_and_div(long *q, long *n, long *qq, long d) { if (d < 0) { *q = -d % 10; *n = d / 10; *qq = '-'; qq++; } else { *q = d % 10; *n = d / 10; } return qq; }

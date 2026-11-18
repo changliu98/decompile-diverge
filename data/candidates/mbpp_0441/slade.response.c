@@ -1,0 +1,1 @@
+int func0(int x) { int y = x * x * 6; return y; }

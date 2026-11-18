@@ -1,0 +1,1 @@
+void foo (struct S *s) { s->a = 5; s->a = 3; }

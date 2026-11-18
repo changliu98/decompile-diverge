@@ -1,0 +1,1 @@
+int compile_get_env(char_u *a, char_u *b) { char_u *p; char_u *q; int n, t; q = a[0]; a[0]++; n = get_env_len(a); if (n == 0) { semsg(e_syntax_error_at_str, q - 1); return 0; } p = vim_strnsave(q, (size_t)(n + 1)); t = generate_LOAD(b, NULL, NULL, p, &t_string); vim_free(p); return t; }

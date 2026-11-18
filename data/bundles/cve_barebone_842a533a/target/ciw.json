@@ -1,0 +1,442 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+tif], rdi\nmov     [rbp+strip], esi\nmov     [rbp+buf], rdx\nmov     [rbp+size], rcx\nmov     rax, [rbp+tif]\nadd     rax, 10h\nmov     [rbp+td], rax\nmov     rdi, [rbp+tif]; tif\nxor     esi, esi; tiles\ncall    TIFFCheckRead\ncmp     eax, 0\njnz     loc_1384\nmov     [rbp+var_8], 0FFFFFFFFFFFFFFFFh\njmp     loc_15E1\nmov     eax, [rbp+strip]\nmov     rcx, [rbp+td]\ncmp     eax, [rcx+0Ch]\njb      loc_13CD\nmov     rax, [rbp+tif]\nmov     rdi, [rax+20h]; fd\nmov     eax, [rbp+strip]\nmov     ecx, eax\nmov     rax, [rbp+td]\nmov     eax, [rax+0Ch]\nmov     r8d, eax\nlea     rsi, TIFFReadEncodedStrip_module; \"TIFFReadEncodedStrip\"\nlea     rdx, fmt; \"%lu: Strip out of range, max %lu\"\nmov     al, 0\ncall    TIFFErrorExt\nmov     [rbp+var_8], 0FFFFFFFFFFFFFFFFh\njmp     loc_15E1\nmov     rax, [rbp+td]\nmov     eax, [rax+4]\nmov     [rbp+rowsperstrip], eax\nmov     eax, [rbp+rowsperstrip]\nmov     rcx, [rbp+td]\ncmp     eax, [rcx+8]\njbe     loc_13F1\nmov     rax, [rbp+td]\nmov     eax, [rax+8]\nmov     [rbp+rowsperstrip], eax\nmov     rax, [rbp+td]\nmov     eax, [rax+8]\nadd     eax, [rbp+rowsperstrip]\nsub     eax, 1\nxor     edx, edx\ndiv     [rbp+rowsperstrip]\nmov     [rbp+stripsperplane], eax\nmov     eax, [rbp+strip]\nxor     edx, edx\ndiv     [rbp+stripsperplane]\nmov     [rbp+stripinplane], edx\nmov     eax, [rbp+strip]\nxor     edx, edx\ndiv     [rbp+stripsperplane]\nmov     [rbp+plane], ax\nmov     rax, [rbp+td]\nmov     eax, [rax+8]\nmov     ecx, [rbp+stripinplane]\nimul    ecx, [rbp+rowsperstrip]\nsub     eax, ecx\nmov     [rbp+rows], eax\nmov     eax, [rbp+rows]\ncmp     eax, [rbp+rowsperstrip]\njbe     loc_1442\nmov     eax, [rbp+rowsperstrip]\nmov     [rbp+rows], eax\nmov     rdi, [rbp+tif]; tif\nmov     esi, [rbp+rows]; nrows\ncall    TIFFVStripSize\nmov     [rbp+stripsize], rax\ncmp     [rbp+stripsize], 0\njnz     loc_146A\nmov     [rbp+var_8], 0FFFFFFFFFFFFFFFFh\njmp     loc_15E1\nmov     rax, [rbp+td]\nmovzx   eax, word ptr [rax]\ncmp     eax, 1\njnz     loc_1550\ncmp     [rbp+size], 0FFFFFFFFFFFFFFFFh\njz      loc_1550\nmov     rax, [rbp+size]\ncmp     rax, [rbp+stripsize]\njl      loc_1550\nmov     rax, [rbp+tif]\nmov     eax, [rax+0Ch]\nand     eax, 800h\ncmp     eax, 0\njnz     loc_1550\nmov     rax, [rbp+tif]\nmov     eax, [rax+0Ch]\nand     eax, 20000h\ncmp     eax, 0\njnz     loc_1550\nmov     rdi, [rbp+tif]; tif\nmov     esi, [rbp+strip]; strip\nmov     rdx, [rbp+buf]; buf\nmov     rcx, [rbp+stripsize]; size\nlea     r8, TIFFReadEncodedStrip_module; \"TIFFReadEncodedStrip\"\ncall    TIFFReadRawStrip1\ncdqe\ncmp     rax, [rbp+stripsize]\njz      loc_14F1\nmov     [rbp+var_8], 0FFFFFFFFFFFFFFFFh\njmp     loc_15E1\nmov     rax, [rbp+tif]\nmov     eax, [rax+0Ch]\nmov     rcx, [rbp+td]\nmovzx   ecx, word ptr [rcx+2]\nand     eax, ecx\ncmp     eax, 0\njnz     loc_152D\nmov     rax, [rbp+tif]\nmov     eax, [rax+0Ch]\nand     eax, 100h\ncmp     eax, 0\njnz     loc_152D\nmov     rdi, [rbp+buf]; cp\nmov     rsi, [rbp+stripsize]; n\ncall    TIFFReverseBits\nmov     rax, [rbp+tif]\nmov     rax, [rax+28h]\nmov     rdi, [rbp+tif]\nmov     rsi, [rbp+buf]\nmov     rdx, [rbp+stripsize]\ncall    rax\nmov     rax, [rbp+stripsize]\nmov     [rbp+var_8], rax\njmp     loc_15E1\ncmp     [rbp+size], 0FFFFFFFFFFFFFFFFh\njz      loc_1571\nmov     rax, [rbp+size]\ncmp     rax, [rbp+stripsize]\njge     loc_1571\nmov     rax, [rbp+size]\nmov     [rbp+stripsize], rax\nmov     rdi, [rbp+tif]; tif\nmov     esi, [rbp+strip]; strip\ncall    TIFFFillStrip\ncmp     eax, 0\njnz     loc_1593\nmov     [rbp+var_8], 0FFFFFFFFFFFFFFFFh\njmp     loc_15E1\nmov     rax, [rbp+tif]\nmov     rax, [rax+30h]\nmov     rdi, [rbp+tif]\nmov     rsi, [rbp+buf]\nmov     rdx, [rbp+stripsize]\nmovzx   ecx, [rbp+plane]\ncall    rax\ncmp     eax, 0\njg      loc_15C3\nmov     [rbp+var_8], 0FFFFFFFFFFFFFFFFh\njmp     loc_15E1\nmov     rax, [rbp+tif]\nmov     rax, [rax+28h]\nmov     rdi, [rbp+tif]\nmov     rsi, [rbp+buf]\nmov     rdx, [rbp+stripsize]\ncall    rax\nmov     rax, [rbp+stripsize]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 30,
+  "edges": [
+   [
+    "start",
+    "loc_1377"
+   ],
+   [
+    "start",
+    "loc_1384"
+   ],
+   [
+    "loc_1377",
+    "loc_15E1"
+   ],
+   [
+    "loc_1384",
+    "loc_1394"
+   ],
+   [
+    "loc_1384",
+    "loc_13CD"
+   ],
+   [
+    "loc_1394",
+    "loc_15E1"
+   ],
+   [
+    "loc_13CD",
+    "loc_13E7"
+   ],
+   [
+    "loc_13CD",
+    "loc_13F1"
+   ],
+   [
+    "loc_13E7",
+    "loc_13F1"
+   ],
+   [
+    "loc_13F1",
+    "loc_143C"
+   ],
+   [
+    "loc_13F1",
+    "loc_1442"
+   ],
+   [
+    "loc_143C",
+    "loc_1442"
+   ],
+   [
+    "loc_1442",
+    "loc_145D"
+   ],
+   [
+    "loc_1442",
+    "loc_146A"
+   ],
+   [
+    "loc_145D",
+    "loc_15E1"
+   ],
+   [
+    "loc_146A",
+    "loc_147A"
+   ],
+   [
+    "loc_146A",
+    "loc_1550"
+   ],
+   [
+    "loc_147A",
+    "loc_1485"
+   ],
+   [
+    "loc_147A",
+    "loc_1550"
+   ],
+   [
+    "loc_1485",
+    "loc_1493"
+   ],
+   [
+    "loc_1485",
+    "loc_1550"
+   ],
+   [
+    "loc_1493",
+    "loc_14A8"
+   ],
+   [
+    "loc_1493",
+    "loc_1550"
+   ],
+   [
+    "loc_14A8",
+    "loc_14BD"
+   ],
+   [
+    "loc_14A8",
+    "loc_1550"
+   ],
+   [
+    "loc_14BD",
+    "loc_14E4"
+   ],
+   [
+    "loc_14BD",
+    "loc_14F1"
+   ],
+   [
+    "loc_14E4",
+    "loc_15E1"
+   ],
+   [
+    "loc_14F1",
+    "loc_150B"
+   ],
+   [
+    "loc_14F1",
+    "loc_152D"
+   ],
+   [
+    "loc_150B",
+    "loc_1520"
+   ],
+   [
+    "loc_150B",
+    "loc_152D"
+   ],
+   [
+    "loc_1520",
+    "loc_152D"
+   ],
+   [
+    "loc_152D",
+    "loc_15E1"
+   ],
+   [
+    "loc_1550",
+    "loc_155B"
+   ],
+   [
+    "loc_1550",
+    "loc_1571"
+   ],
+   [
+    "loc_155B",
+    "loc_1569"
+   ],
+   [
+    "loc_155B",
+    "loc_1571"
+   ],
+   [
+    "loc_1569",
+    "loc_1571"
+   ],
+   [
+    "loc_1571",
+    "loc_1586"
+   ],
+   [
+    "loc_1571",
+    "loc_1593"
+   ],
+   [
+    "loc_1586",
+    "loc_15E1"
+   ],
+   [
+    "loc_1593",
+    "loc_15B6"
+   ],
+   [
+    "loc_1593",
+    "loc_15C3"
+   ],
+   [
+    "loc_15B6",
+    "loc_15E1"
+   ],
+   [
+    "loc_15C3",
+    "loc_15E1"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+tif], rdi\nmov     [rbp+strip], esi\nmov     [rbp+buf], rdx\nmov     [rbp+size], rcx\nmov     rax, [rbp+tif]\nadd     rax, 10h\nmov     [rbp+td], rax\nmov     rdi, [rbp+tif]; tif\nxor     esi, esi; tiles\ncall    TIFFCheckRead\ncmp     eax, 0\njnz     loc_1384",
+   "loc_1377": "mov     [rbp+var_8], 0FFFFFFFFFFFFFFFFh\njmp     loc_15E1",
+   "loc_1384": "mov     eax, [rbp+strip]\nmov     rcx, [rbp+td]\ncmp     eax, [rcx+0Ch]\njb      loc_13CD",
+   "loc_1394": "mov     rax, [rbp+tif]\nmov     rdi, [rax+20h]; fd\nmov     eax, [rbp+strip]\nmov     ecx, eax\nmov     rax, [rbp+td]\nmov     eax, [rax+0Ch]\nmov     r8d, eax\nlea     rsi, TIFFReadEncodedStrip_module; \"TIFFReadEncodedStrip\"\nlea     rdx, fmt; \"%lu: Strip out of range, max %lu\"\nmov     al, 0\ncall    TIFFErrorExt\nmov     [rbp+var_8], 0FFFFFFFFFFFFFFFFh\njmp     loc_15E1",
+   "loc_13CD": "mov     rax, [rbp+td]\nmov     eax, [rax+4]\nmov     [rbp+rowsperstrip], eax\nmov     eax, [rbp+rowsperstrip]\nmov     rcx, [rbp+td]\ncmp     eax, [rcx+8]\njbe     loc_13F1",
+   "loc_13E7": "mov     rax, [rbp+td]\nmov     eax, [rax+8]\nmov     [rbp+rowsperstrip], eax",
+   "loc_13F1": "mov     rax, [rbp+td]\nmov     eax, [rax+8]\nadd     eax, [rbp+rowsperstrip]\nsub     eax, 1\nxor     edx, edx\ndiv     [rbp+rowsperstrip]\nmov     [rbp+stripsperplane], eax\nmov     eax, [rbp+strip]\nxor     edx, edx\ndiv     [rbp+stripsperplane]\nmov     [rbp+stripinplane], edx\nmov     eax, [rbp+strip]\nxor     edx, edx\ndiv     [rbp+stripsperplane]\nmov     [rbp+plane], ax\nmov     rax, [rbp+td]\nmov     eax, [rax+8]\nmov     ecx, [rbp+stripinplane]\nimul    ecx, [rbp+rowsperstrip]\nsub     eax, ecx\nmov     [rbp+rows], eax\nmov     eax, [rbp+rows]\ncmp     eax, [rbp+rowsperstrip]\njbe     loc_1442",
+   "loc_143C": "mov     eax, [rbp+rowsperstrip]\nmov     [rbp+rows], eax",
+   "loc_1442": "mov     rdi, [rbp+tif]; tif\nmov     esi, [rbp+rows]; nrows\ncall    TIFFVStripSize\nmov     [rbp+stripsize], rax\ncmp     [rbp+stripsize], 0\njnz     loc_146A",
+   "loc_145D": "mov     [rbp+var_8], 0FFFFFFFFFFFFFFFFh\njmp     loc_15E1",
+   "loc_146A": "mov     rax, [rbp+td]\nmovzx   eax, word ptr [rax]\ncmp     eax, 1\njnz     loc_1550",
+   "loc_147A": "cmp     [rbp+size], 0FFFFFFFFFFFFFFFFh\njz      loc_1550",
+   "loc_1485": "mov     rax, [rbp+size]\ncmp     rax, [rbp+stripsize]\njl      loc_1550",
+   "loc_1493": "mov     rax, [rbp+tif]\nmov     eax, [rax+0Ch]\nand     eax, 800h\ncmp     eax, 0\njnz     loc_1550",
+   "loc_14A8": "mov     rax, [rbp+tif]\nmov     eax, [rax+0Ch]\nand     eax, 20000h\ncmp     eax, 0\njnz     loc_1550",
+   "loc_14BD": "mov     rdi, [rbp+tif]; tif\nmov     esi, [rbp+strip]; strip\nmov     rdx, [rbp+buf]; buf\nmov     rcx, [rbp+stripsize]; size\nlea     r8, TIFFReadEncodedStrip_module; \"TIFFReadEncodedStrip\"\ncall    TIFFReadRawStrip1\ncdqe\ncmp     rax, [rbp+stripsize]\njz      loc_14F1",
+   "loc_14E4": "mov     [rbp+var_8], 0FFFFFFFFFFFFFFFFh\njmp     loc_15E1",
+   "loc_14F1": "mov     rax, [rbp+tif]\nmov     eax, [rax+0Ch]\nmov     rcx, [rbp+td]\nmovzx   ecx, word ptr [rcx+2]\nand     eax, ecx\ncmp     eax, 0\njnz     loc_152D",
+   "loc_150B": "mov     rax, [rbp+tif]\nmov     eax, [rax+0Ch]\nand     eax, 100h\ncmp     eax, 0\njnz     loc_152D",
+   "loc_1520": "mov     rdi, [rbp+buf]; cp\nmov     rsi, [rbp+stripsize]; n\ncall    TIFFReverseBits",
+   "loc_152D": "mov     rax, [rbp+tif]\nmov     rax, [rax+28h]\nmov     rdi, [rbp+tif]\nmov     rsi, [rbp+buf]\nmov     rdx, [rbp+stripsize]\ncall    rax\nmov     rax, [rbp+stripsize]\nmov     [rbp+var_8], rax\njmp     loc_15E1",
+   "loc_1550": "cmp     [rbp+size], 0FFFFFFFFFFFFFFFFh\njz      loc_1571",
+   "loc_155B": "mov     rax, [rbp+size]\ncmp     rax, [rbp+stripsize]\njge     loc_1571",
+   "loc_1569": "mov     rax, [rbp+size]\nmov     [rbp+stripsize], rax",
+   "loc_1571": "mov     rdi, [rbp+tif]; tif\nmov     esi, [rbp+strip]; strip\ncall    TIFFFillStrip\ncmp     eax, 0\njnz     loc_1593",
+   "loc_1586": "mov     [rbp+var_8], 0FFFFFFFFFFFFFFFFh\njmp     loc_15E1",
+   "loc_1593": "mov     rax, [rbp+tif]\nmov     rax, [rax+30h]\nmov     rdi, [rbp+tif]\nmov     rsi, [rbp+buf]\nmov     rdx, [rbp+stripsize]\nmovzx   ecx, [rbp+plane]\ncall    rax\ncmp     eax, 0\njg      loc_15C3",
+   "loc_15B6": "mov     [rbp+var_8], 0FFFFFFFFFFFFFFFFh\njmp     loc_15E1",
+   "loc_15C3": "mov     rax, [rbp+tif]\nmov     rax, [rax+28h]\nmov     rdi, [rbp+tif]\nmov     rsi, [rbp+buf]\nmov     rdx, [rbp+stripsize]\ncall    rax\nmov     rax, [rbp+stripsize]\nmov     [rbp+var_8], rax",
+   "loc_15E1": "mov     rax, [rbp+var_8]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "stripsize": "qword ptr -50h",
+   "rows": "dword ptr -44h",
+   "plane": "word ptr -3Eh",
+   "stripinplane": "dword ptr -3Ch",
+   "stripsperplane": "dword ptr -38h",
+   "rowsperstrip": "dword ptr -34h",
+   "td": "qword ptr -30h",
+   "size": "qword ptr -28h",
+   "buf": "qword ptr -20h",
+   "strip": "dword ptr -14h",
+   "tif": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {
+   "TIFFReadEncodedStrip.module": "byte 'TIFFReadEncodedStrip',0",
+   "fmt": "byte '%lu: Strip out of range, max %lu',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4928,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".vfprintf": "vfprintf",
+  "_vfprintf": "vfprintf"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".vfprintf",
+   ".plt",
+   true,
+   "vfprintf"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "vfprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868474
+ }
+}

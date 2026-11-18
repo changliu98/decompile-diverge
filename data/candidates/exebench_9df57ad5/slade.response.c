@@ -1,0 +1,1 @@
+void a_store (volatile uint32_t *addr, uint32_t value) { *addr = value; do { *addr |= (0x00000000); } while (0); }

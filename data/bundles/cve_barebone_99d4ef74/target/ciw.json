@@ -1,0 +1,334 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+ndo], rdi\nmov     [rbp+pptr], rsi\nmov     [rbp+len], edx\nmov     eax, [rbp+len]\nmov     [rbp+tlen], eax\nmov     rax, [rbp+pptr]\nmov     [rbp+tptr], rax\ncmp     [rbp+tlen], 1\njnb     loc_1627\nmov     [rbp+var_4], 0\njmp     loc_17EB\nmov     rax, [rbp+tptr]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+tptr], rcx\nmov     al, [rax]\nmov     [rbp+mgmt_addr_len], al\nmov     eax, [rbp+tlen]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+tlen], eax\nmov     eax, [rbp+tlen]\nmovzx   ecx, [rbp+mgmt_addr_len]\ncmp     eax, ecx\njnb     loc_165F\nmov     [rbp+var_4], 0\njmp     loc_17EB\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+tptr]; tptr\nmovzx   edx, [rbp+mgmt_addr_len]; len\ncall    lldp_network_addr_print\nmov     [rbp+mgmt_addr], rax\ncmp     [rbp+mgmt_addr], 0\njnz     loc_168B\nmov     [rbp+var_4], 0\njmp     loc_17EB\nmov     rax, [rbp+ndo]\nmov     r8, [rax]\nmov     rdi, [rbp+ndo]\nmovzx   edx, [rbp+mgmt_addr_len]\nmov     rcx, [rbp+mgmt_addr]\nlea     rsi, aManagementAddr; \"\\n\\t  Management Address length %u, %s\"\nmov     al, 0\ncall    r8\nmovzx   ecx, [rbp+mgmt_addr_len]\nmov     rax, [rbp+tptr]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+tptr], rax\nmovzx   ecx, [rbp+mgmt_addr_len]\nmov     eax, [rbp+tlen]\nsub     eax, ecx\nmov     [rbp+tlen], eax\ncmp     [rbp+tlen], 5\njnb     loc_16DE\nmov     [rbp+var_4], 0\njmp     loc_17EB\nmov     rax, [rbp+tptr]\nmov     al, [rax]\nmov     [rbp+intf_num_subtype], al\nmov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_40], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_48], rax\nmovzx   edx, [rbp+intf_num_subtype]; v\nlea     rdi, lldp_intf_numb_subtype_values; lp\nlea     rsi, fmt; \"Unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_48]\nmov     r9, [rbp+var_40]\nmov     rdx, rax\nmovzx   ecx, [rbp+intf_num_subtype]\nmov     rax, [rbp+tptr]\nmovzx   r8d, byte ptr [rax+1]\nshl     r8d, 18h\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+2]\nshl     eax, 10h\nor      r8d, eax\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+3]\nshl     eax, 8\nor      r8d, eax\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+4]\nshl     eax, 0\nor      r8d, eax\nlea     rsi, aSInterfaceNumb; \"\\n\\t  %s Interface Numbering (%u): %u\"\nmov     al, 0\ncall    r9\nmov     rax, [rbp+tptr]\nadd     rax, 5\nmov     [rbp+tptr], rax\nmov     eax, [rbp+tlen]\nsub     eax, 5\nmov     [rbp+tlen], eax\ncmp     [rbp+tlen], 0\njz      loc_17E4\nmov     rax, [rbp+tptr]\nmov     al, [rax]\nmov     [rbp+oid_len], al\nmov     eax, [rbp+tlen]\nmovzx   ecx, [rbp+oid_len]\ncmp     eax, ecx\njnb     loc_17A6\nmov     [rbp+var_4], 0\njmp     loc_17EB\ncmp     [rbp+oid_len], 0\njz      loc_17DF\nmov     rax, [rbp+ndo]\nmov     rcx, [rax]\nmov     rdi, [rbp+ndo]\nmovzx   edx, [rbp+oid_len]\nlea     rsi, aOidLengthU; \"\\n\\t  OID length %u\"\nmov     al, 0\ncall    rcx\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+tptr]\nadd     rsi, 1; s\nmovzx   edx, [rbp+oid_len]; maxlen\ncall    safeputs\njmp     $+5\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 16,
+  "edges": [
+   [
+    "start",
+    "loc_161B"
+   ],
+   [
+    "start",
+    "loc_1627"
+   ],
+   [
+    "loc_161B",
+    "loc_17EB"
+   ],
+   [
+    "loc_1627",
+    "loc_1653"
+   ],
+   [
+    "loc_1627",
+    "loc_165F"
+   ],
+   [
+    "loc_1653",
+    "loc_17EB"
+   ],
+   [
+    "loc_165F",
+    "loc_167F"
+   ],
+   [
+    "loc_165F",
+    "loc_168B"
+   ],
+   [
+    "loc_167F",
+    "loc_17EB"
+   ],
+   [
+    "loc_168B",
+    "loc_16D2"
+   ],
+   [
+    "loc_168B",
+    "loc_16DE"
+   ],
+   [
+    "loc_16D2",
+    "loc_17EB"
+   ],
+   [
+    "loc_16DE",
+    "loc_1782"
+   ],
+   [
+    "loc_16DE",
+    "loc_17E4"
+   ],
+   [
+    "loc_1782",
+    "loc_179A"
+   ],
+   [
+    "loc_1782",
+    "loc_17A6"
+   ],
+   [
+    "loc_179A",
+    "loc_17EB"
+   ],
+   [
+    "loc_17A6",
+    "loc_17B0"
+   ],
+   [
+    "loc_17A6",
+    "loc_17DF"
+   ],
+   [
+    "loc_17B0",
+    "loc_17DF"
+   ],
+   [
+    "loc_17DF",
+    "loc_17E4"
+   ],
+   [
+    "loc_17E4",
+    "loc_17EB"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+ndo], rdi\nmov     [rbp+pptr], rsi\nmov     [rbp+len], edx\nmov     eax, [rbp+len]\nmov     [rbp+tlen], eax\nmov     rax, [rbp+pptr]\nmov     [rbp+tptr], rax\ncmp     [rbp+tlen], 1\njnb     loc_1627",
+   "loc_161B": "mov     [rbp+var_4], 0\njmp     loc_17EB",
+   "loc_1627": "mov     rax, [rbp+tptr]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+tptr], rcx\nmov     al, [rax]\nmov     [rbp+mgmt_addr_len], al\nmov     eax, [rbp+tlen]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+tlen], eax\nmov     eax, [rbp+tlen]\nmovzx   ecx, [rbp+mgmt_addr_len]\ncmp     eax, ecx\njnb     loc_165F",
+   "loc_1653": "mov     [rbp+var_4], 0\njmp     loc_17EB",
+   "loc_165F": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+tptr]; tptr\nmovzx   edx, [rbp+mgmt_addr_len]; len\ncall    lldp_network_addr_print\nmov     [rbp+mgmt_addr], rax\ncmp     [rbp+mgmt_addr], 0\njnz     loc_168B",
+   "loc_167F": "mov     [rbp+var_4], 0\njmp     loc_17EB",
+   "loc_168B": "mov     rax, [rbp+ndo]\nmov     r8, [rax]\nmov     rdi, [rbp+ndo]\nmovzx   edx, [rbp+mgmt_addr_len]\nmov     rcx, [rbp+mgmt_addr]\nlea     rsi, aManagementAddr; \"\\n\\t  Management Address length %u, %s\"\nmov     al, 0\ncall    r8\nmovzx   ecx, [rbp+mgmt_addr_len]\nmov     rax, [rbp+tptr]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+tptr], rax\nmovzx   ecx, [rbp+mgmt_addr_len]\nmov     eax, [rbp+tlen]\nsub     eax, ecx\nmov     [rbp+tlen], eax\ncmp     [rbp+tlen], 5\njnb     loc_16DE",
+   "loc_16D2": "mov     [rbp+var_4], 0\njmp     loc_17EB",
+   "loc_16DE": "mov     rax, [rbp+tptr]\nmov     al, [rax]\nmov     [rbp+intf_num_subtype], al\nmov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_40], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_48], rax\nmovzx   edx, [rbp+intf_num_subtype]; v\nlea     rdi, lldp_intf_numb_subtype_values; lp\nlea     rsi, fmt; \"Unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_48]\nmov     r9, [rbp+var_40]\nmov     rdx, rax\nmovzx   ecx, [rbp+intf_num_subtype]\nmov     rax, [rbp+tptr]\nmovzx   r8d, byte ptr [rax+1]\nshl     r8d, 18h\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+2]\nshl     eax, 10h\nor      r8d, eax\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+3]\nshl     eax, 8\nor      r8d, eax\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax+4]\nshl     eax, 0\nor      r8d, eax\nlea     rsi, aSInterfaceNumb; \"\\n\\t  %s Interface Numbering (%u): %u\"\nmov     al, 0\ncall    r9\nmov     rax, [rbp+tptr]\nadd     rax, 5\nmov     [rbp+tptr], rax\nmov     eax, [rbp+tlen]\nsub     eax, 5\nmov     [rbp+tlen], eax\ncmp     [rbp+tlen], 0\njz      loc_17E4",
+   "loc_1782": "mov     rax, [rbp+tptr]\nmov     al, [rax]\nmov     [rbp+oid_len], al\nmov     eax, [rbp+tlen]\nmovzx   ecx, [rbp+oid_len]\ncmp     eax, ecx\njnb     loc_17A6",
+   "loc_179A": "mov     [rbp+var_4], 0\njmp     loc_17EB",
+   "loc_17A6": "cmp     [rbp+oid_len], 0\njz      loc_17DF",
+   "loc_17B0": "mov     rax, [rbp+ndo]\nmov     rcx, [rax]\nmov     rdi, [rbp+ndo]\nmovzx   edx, [rbp+oid_len]\nlea     rsi, aOidLengthU; \"\\n\\t  OID length %u\"\nmov     al, 0\ncall    rcx\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+tptr]\nadd     rsi, 1; s\nmovzx   edx, [rbp+oid_len]; maxlen\ncall    safeputs",
+   "loc_17DF": "jmp     $+5",
+   "loc_17E4": "mov     [rbp+var_4], 1",
+   "loc_17EB": "mov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_48": "qword ptr -48h",
+   "var_40": "qword ptr -40h",
+   "mgmt_addr": "qword ptr -38h",
+   "tlen": "dword ptr -2Ch",
+   "tptr": "qword ptr -28h",
+   "oid_len": "byte ptr -1Fh",
+   "intf_num_subtype": "byte ptr -1Eh",
+   "mgmt_addr_len": "byte ptr -1Dh",
+   "len": "dword ptr -1Ch",
+   "pptr": "qword ptr -18h",
+   "ndo": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "aManagementAddr": "byte 0Ah",
+   "fmt": "byte 'Unknown',0",
+   "aSInterfaceNumb": "byte 0Ah",
+   "aOidLengthU": "byte 0Ah"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5616,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "snprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868477
+ }
+}

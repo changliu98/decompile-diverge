@@ -1,0 +1,1 @@
+char* func0(char* input, char* output) { int count = 0; for (int i = 0; i < strlen(input); ++i) { if ((__ctype_b_loc() -> map[(int) input[i]] &0x2000) == 0) { output[count++] = input[i]; } } output[count] = '\0'; return output; }

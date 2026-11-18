@@ -1,0 +1,1 @@
+void setarr(int a[], int r) { a[0] = r; }

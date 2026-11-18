@@ -1,0 +1,1 @@
+void conv_sign (int x, int *y) { if (*y & x) { *y = 2*x - *y; *y = - *y; } }

@@ -1,0 +1,1 @@
+void xformSetTranslation(float *T,float tx,float ty) { T[0]=1.0; T[1]=0.0; T[2]=0.0; T[3]=1.0; T[4]=tx; T[5]=ty; }

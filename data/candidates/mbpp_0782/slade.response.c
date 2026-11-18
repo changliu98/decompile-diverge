@@ -1,0 +1,1 @@
+uint64_t func0(uint128_t *p, int n) { uint64_t ans = 0; int i; for (i = 0; i < n; ++i) { ans += ((i + 1) * (n - i) + 1) / 2 * p[i]; } return ans; }

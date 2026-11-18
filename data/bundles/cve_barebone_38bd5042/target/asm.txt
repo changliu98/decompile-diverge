@@ -1,0 +1,170 @@
+0000000000001400 <gf_avc_change_vui>:
+    1400:	push   %rbp
+    1401:	mov    %rsp,%rbp
+    1404:	sub    $0x9480,%rsp
+    140b:	mov    %rdi,-0x8(%rbp)
+    140f:	mov    %rsi,-0x10(%rbp)
+    1413:	movq   $0x0,-0x18(%rbp)
+    141b:	lea    -0x9458(%rbp),%rdi
+    1422:	xor    %esi,%esi
+    1424:	mov    $0x9438,%edx
+    1429:	call   1070 <memset@plt>
+    142e:	movb   $0xff,-0x3c58(%rbp)
+    1435:	movl   $0x0,-0x945c(%rbp)
+    143f:	mov    -0x8(%rbp),%rax
+    1443:	mov    0x8(%rax),%rdi
+    1447:	lea    -0x945c(%rbp),%rsi
+    144e:	call   11e0 <gf_list_enum>
+    1453:	mov    %rax,-0x9470(%rbp)
+    145a:	cmp    $0x0,%rax
+    145e:	je     173a <gf_avc_change_vui+0x33a>
+    1464:	movq   $0x0,-0x9478(%rbp)
+    146f:	movl   $0x0,-0x947c(%rbp)
+    1479:	movl   $0x0,-0x9480(%rbp)
+    1483:	mov    -0x9470(%rbp),%rax
+    148a:	mov    0x8(%rax),%rdi
+    148e:	mov    -0x9470(%rbp),%rax
+    1495:	movzwl (%rax),%esi
+    1498:	lea    -0x9458(%rbp),%rdx
+    149f:	xor    %ecx,%ecx
+    14a1:	lea    -0x9460(%rbp),%r8
+    14a8:	call   1250 <gf_avc_read_sps>
+    14ad:	mov    %eax,-0x9468(%rbp)
+    14b3:	cmpl   $0x0,-0x9468(%rbp)
+    14ba:	jge    14d9 <gf_avc_change_vui+0xd9>
+    14c0:	cmpq   $0x0,-0x18(%rbp)
+    14c5:	je     14d4 <gf_avc_change_vui+0xd4>
+    14cb:	mov    -0x18(%rbp),%rdi
+    14cf:	call   12b0 <gf_bs_del>
+    14d4:	jmp    143f <gf_avc_change_vui+0x3f>
+    14d9:	mov    -0x9470(%rbp),%rax
+    14e0:	movzwl (%rax),%eax
+    14e3:	sub    $0x1,%eax
+    14e6:	movslq %eax,%rdi
+    14e9:	shl    $0x0,%rdi
+    14ed:	call   1390 <gf_malloc>
+    14f2:	mov    %rax,-0x9478(%rbp)
+    14f9:	mov    -0x9470(%rbp),%rax
+    1500:	mov    0x8(%rax),%rdi
+    1504:	add    $0x1,%rdi
+    1508:	mov    -0x9478(%rbp),%rsi
+    150f:	mov    -0x9470(%rbp),%rax
+    1516:	movzwl (%rax),%edx
+    1519:	sub    $0x1,%edx
+    151c:	call   1270 <gf_media_nalu_remove_emulation_bytes>
+    1521:	mov    %eax,-0x947c(%rbp)
+    1527:	mov    -0x9478(%rbp),%rdi
+    152e:	mov    -0x947c(%rbp),%eax
+    1534:	mov    %eax,%esi
+    1536:	xor    %edx,%edx
+    1538:	call   1290 <gf_bs_new>
+    153d:	mov    %rax,-0x18(%rbp)
+    1541:	mov    -0x18(%rbp),%rdi
+    1545:	mov    -0x9478(%rbp),%rsi
+    154c:	mov    -0x947c(%rbp),%edx
+    1552:	call   12e0 <gf_bs_read_data>
+    1557:	mov    -0x18(%rbp),%rdi
+    155b:	xor    %eax,%eax
+    155d:	mov    %eax,%esi
+    155f:	call   1300 <gf_bs_seek>
+    1564:	xor    %eax,%eax
+    1566:	mov    %eax,%esi
+    1568:	mov    $0x1,%edx
+    156d:	mov    %rsi,%rdi
+    1570:	call   1290 <gf_bs_new>
+    1575:	mov    %rax,-0x20(%rbp)
+    1579:	cmpl   $0x8,-0x9460(%rbp)
+    1580:	jb     158b <gf_avc_change_vui+0x18b>
+    1586:	jmp    15aa <gf_avc_change_vui+0x1aa>
+    158b:	lea    0xa72(%rip),%rdi        # 2004 <_IO_stdin_used+0x4>
+    1592:	lea    0xa7b(%rip),%rsi        # 2014 <_IO_stdin_used+0x14>
+    1599:	mov    $0x186,%edx
+    159e:	lea    0xa7f(%rip),%rcx        # 2024 <_IO_stdin_used+0x24>
+    15a5:	call   1060 <__assert_fail@plt>
+    15aa:	jmp    15af <gf_avc_change_vui+0x1af>
+    15af:	mov    -0x9460(%rbp),%eax
+    15b5:	sub    $0x8,%eax
+    15b8:	cmp    $0x0,%eax
+    15bb:	je     15fd <gf_avc_change_vui+0x1fd>
+    15c1:	mov    -0x18(%rbp),%rdi
+    15c5:	mov    $0x1,%esi
+    15ca:	call   12c0 <gf_bs_read_int>
+    15cf:	mov    %eax,-0x9464(%rbp)
+    15d5:	mov    -0x20(%rbp),%rdi
+    15d9:	mov    -0x9464(%rbp),%esi
+    15df:	mov    $0x1,%edx
+    15e4:	call   12d0 <gf_bs_write_int>
+    15e9:	mov    -0x9460(%rbp),%eax
+    15ef:	add    $0xffffffff,%eax
+    15f2:	mov    %eax,-0x9460(%rbp)
+    15f8:	jmp    15af <gf_avc_change_vui+0x1af>
+    15fd:	mov    -0x10(%rbp),%rdi
+    1601:	mov    -0x18(%rbp),%rsi
+    1605:	mov    -0x20(%rbp),%rdx
+    1609:	mov    $0x21,%ecx
+    160e:	call   1750 <avc_hevc_vvc_rewrite_vui>
+    1613:	mov    -0x18(%rbp),%rdi
+    1617:	call   1310 <gf_bs_bits_available>
+    161c:	cmp    $0x0,%al
+    161e:	je     1651 <gf_avc_change_vui+0x251>
+    1624:	mov    -0x18(%rbp),%rdi
+    1628:	mov    $0x1,%esi
+    162d:	call   12c0 <gf_bs_read_int>
+    1632:	mov    %eax,-0x9464(%rbp)
+    1638:	mov    -0x20(%rbp),%rdi
+    163c:	mov    -0x9464(%rbp),%esi
+    1642:	mov    $0x1,%edx
+    1647:	call   12d0 <gf_bs_write_int>
+    164c:	jmp    1613 <gf_avc_change_vui+0x213>
+    1651:	mov    -0x18(%rbp),%rdi
+    1655:	call   12b0 <gf_bs_del>
+    165a:	movq   $0x0,-0x18(%rbp)
+    1662:	mov    -0x9478(%rbp),%rdi
+    1669:	call   13b0 <gf_free>
+    166e:	mov    -0x20(%rbp),%rdi
+    1672:	lea    -0x9478(%rbp),%rsi
+    1679:	lea    -0x9464(%rbp),%rdx
+    1680:	call   1320 <gf_bs_get_content>
+    1685:	mov    -0x9478(%rbp),%rdi
+    168c:	mov    -0x9464(%rbp),%esi
+    1692:	call   1360 <gf_media_nalu_emulation_bytes_add_count>
+    1697:	mov    %eax,-0x9480(%rbp)
+    169d:	mov    -0x9464(%rbp),%eax
+    16a3:	add    -0x9480(%rbp),%eax
+    16a9:	add    $0x1,%eax
+    16ac:	mov    -0x9470(%rbp),%rcx
+    16b3:	movzwl (%rcx),%ecx
+    16b6:	cmp    %ecx,%eax
+    16b8:	jbe    16ef <gf_avc_change_vui+0x2ef>
+    16be:	mov    -0x9470(%rbp),%rax
+    16c5:	mov    0x8(%rax),%rdi
+    16c9:	mov    -0x9464(%rbp),%eax
+    16cf:	add    -0x9480(%rbp),%eax
+    16d5:	add    $0x1,%eax
+    16d8:	mov    %eax,%eax
+    16da:	mov    %eax,%esi
+    16dc:	call   13d0 <gf_realloc>
+    16e1:	mov    %rax,%rcx
+    16e4:	mov    -0x9470(%rbp),%rax
+    16eb:	mov    %rcx,0x8(%rax)
+    16ef:	mov    -0x9478(%rbp),%rdi
+    16f6:	mov    -0x9470(%rbp),%rax
+    16fd:	mov    0x8(%rax),%rsi
+    1701:	add    $0x1,%rsi
+    1705:	mov    -0x9464(%rbp),%edx
+    170b:	call   1370 <gf_media_nalu_add_emulation_bytes>
+    1710:	add    $0x1,%eax
+    1713:	mov    %ax,%cx
+    1716:	mov    -0x9470(%rbp),%rax
+    171d:	mov    %cx,(%rax)
+    1720:	mov    -0x20(%rbp),%rdi
+    1724:	call   12b0 <gf_bs_del>
+    1729:	mov    -0x9478(%rbp),%rdi
+    1730:	call   13b0 <gf_free>
+    1735:	jmp    143f <gf_avc_change_vui+0x3f>
+    173a:	xor    %eax,%eax
+    173c:	add    $0x9480,%rsp
+    1743:	pop    %rbp
+    1744:	ret
+
+Disassembly of section .fini:

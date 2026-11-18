@@ -1,0 +1,7 @@
+char *func0(int i, int j, int k)
+{
+  if (j == 0)
+    return "----";
+  else
+    return "    ";
+}

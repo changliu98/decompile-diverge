@@ -1,0 +1,1 @@
+void IdealTrack(uint64_t m, uint64_t n, uint64_t track, uint64_t *result) { uint64_t x = (m - track) * n + (n + 1) * track; uint64_t y = n + track; if (y > 0) *result = x / y; else *result = 1; }

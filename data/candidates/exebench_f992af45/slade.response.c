@@ -1,0 +1,1 @@
+void atomic_inc(atomic_t *v) { __asm__ __volatile__("lock; incl %0" : : "r" (*v) : : "memory"); }

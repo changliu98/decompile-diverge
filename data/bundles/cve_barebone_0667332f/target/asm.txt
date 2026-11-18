@@ -1,0 +1,199 @@
+00000000000011f0 <bracketed_paste>:
+    11f0:	push   %rbp
+    11f1:	mov    %rsp,%rbp
+    11f4:	sub    $0xa0,%rsp
+    11fb:	mov    %edi,-0x4(%rbp)
+    11fe:	mov    %esi,-0x8(%rbp)
+    1201:	mov    %rdx,-0x10(%rbp)
+    1205:	movl   $0x0,-0x74(%rbp)
+    120c:	lea    0xe01(%rip),%rdi        # 2014 <_IO_stdin_used+0x14>
+    1213:	call   1590 <find_termcode>
+    1218:	mov    %rax,-0x80(%rbp)
+    121c:	movl   $0xffffffff,-0x84(%rbp)
+    1226:	mov    0x2e64(%rip),%eax        # 4090 <allow_keys>
+    122c:	mov    %eax,-0x88(%rbp)
+    1232:	mov    0x2e5c(%rip),%eax        # 4094 <p_paste>
+    1238:	mov    %eax,-0x8c(%rbp)
+    123e:	cmpq   $0x0,-0x80(%rbp)
+    1243:	je     1264 <bracketed_paste+0x74>
+    1249:	mov    -0x80(%rbp),%rdi
+    124d:	call   1070 <strlen@plt>
+    1252:	cmp    $0x41,%rax
+    1256:	jb     1264 <bracketed_paste+0x74>
+    125c:	movq   $0x0,-0x80(%rbp)
+    1264:	mov    0x2e2e(%rip),%eax        # 4098 <no_mapping>
+    126a:	add    $0x1,%eax
+    126d:	mov    %eax,0x2e25(%rip)        # 4098 <no_mapping>
+    1273:	movl   $0x0,0x2e13(%rip)        # 4090 <allow_keys>
+    127d:	cmpl   $0x0,0x2e10(%rip)        # 4094 <p_paste>
+    1284:	jne    12a1 <bracketed_paste+0xb1>
+    128a:	lea    0xd86(%rip),%rdi        # 2017 <_IO_stdin_used+0x17>
+    1291:	mov    $0x1,%esi
+    1296:	xor    %eax,%eax
+    1298:	mov    %eax,%edx
+    129a:	xor    %ecx,%ecx
+    129c:	call   15a0 <set_option_value>
+    12a1:	jmp    12a6 <bracketed_paste+0xb6>
+    12a6:	cmpq   $0x0,-0x80(%rbp)
+    12ab:	jne    12c4 <bracketed_paste+0xd4>
+    12b1:	call   15c0 <vpeekc>
+    12b6:	cmp    $0x0,%eax
+    12b9:	jne    12c4 <bracketed_paste+0xd4>
+    12bf:	jmp    153e <bracketed_paste+0x34e>
+    12c4:	jmp    12c9 <bracketed_paste+0xd9>
+    12c9:	call   1600 <vgetc>
+    12ce:	mov    %eax,-0x14(%rbp)
+    12d1:	mov    $0x1,%al
+    12d3:	cmpl   $0x1001,-0x14(%rbp)
+    12da:	mov    %al,-0x8d(%rbp)
+    12e0:	je     130b <bracketed_paste+0x11b>
+    12e6:	mov    $0x1,%al
+    12e8:	cmpl   $0x1002,-0x14(%rbp)
+    12ef:	mov    %al,-0x8d(%rbp)
+    12f5:	je     130b <bracketed_paste+0x11b>
+    12fb:	cmpl   $0x1003,-0x14(%rbp)
+    1302:	sete   %al
+    1305:	mov    %al,-0x8d(%rbp)
+    130b:	mov    -0x8d(%rbp),%al
+    1311:	test   $0x1,%al
+    1313:	jne    12c9 <bracketed_paste+0xd9>
+    1319:	cmpl   $0x0,-0x14(%rbp)
+    131d:	je     1347 <bracketed_paste+0x157>
+    1323:	cmpl   $0x0,0x2d72(%rip)        # 409c <got_int>
+    132a:	jne    1347 <bracketed_paste+0x157>
+    1330:	cmpl   $0x0,0x2d69(%rip)        # 40a0 <ex_normal_busy>
+    1337:	jle    134c <bracketed_paste+0x15c>
+    133d:	cmpl   $0x3,-0x14(%rbp)
+    1341:	jne    134c <bracketed_paste+0x15c>
+    1347:	jmp    153e <bracketed_paste+0x34e>
+    134c:	cmpl   $0x0,0x2d51(%rip)        # 40a4 <has_mbyte>
+    1353:	je     137b <bracketed_paste+0x18b>
+    1359:	mov    0x2d48(%rip),%rax        # 40a8 <mb_char2bytes>
+    1360:	mov    -0x14(%rbp),%edi
+    1363:	lea    -0x70(%rbp),%rsi
+    1367:	movslq -0x74(%rbp),%rcx
+    136b:	add    %rcx,%rsi
+    136e:	call   *%rax
+    1370:	add    -0x74(%rbp),%eax
+    1373:	mov    %eax,-0x74(%rbp)
+    1376:	jmp    1391 <bracketed_paste+0x1a1>
+    137b:	mov    -0x14(%rbp),%eax
+    137e:	mov    %al,%cl
+    1380:	mov    -0x74(%rbp),%eax
+    1383:	mov    %eax,%edx
+    1385:	add    $0x1,%edx
+    1388:	mov    %edx,-0x74(%rbp)
+    138b:	cltq
+    138d:	mov    %cl,-0x70(%rbp,%rax,1)
+    1391:	movslq -0x74(%rbp),%rax
+    1395:	movb   $0x0,-0x70(%rbp,%rax,1)
+    139a:	cmpq   $0x0,-0x80(%rbp)
+    139f:	je     13de <bracketed_paste+0x1ee>
+    13a5:	lea    -0x70(%rbp),%rdi
+    13a9:	mov    -0x80(%rbp),%rsi
+    13ad:	movslq -0x74(%rbp),%rdx
+    13b1:	call   1040 <strncmp@plt>
+    13b6:	cmp    $0x0,%eax
+    13b9:	jne    13de <bracketed_paste+0x1ee>
+    13bf:	mov    -0x80(%rbp),%rax
+    13c3:	movslq -0x74(%rbp),%rcx
+    13c7:	movzbl (%rax,%rcx,1),%eax
+    13cb:	cmp    $0x0,%eax
+    13ce:	jne    13d9 <bracketed_paste+0x1e9>
+    13d4:	jmp    153e <bracketed_paste+0x34e>
+    13d9:	jmp    12a6 <bracketed_paste+0xb6>
+    13de:	cmpl   $0x0,-0x8(%rbp)
+    13e2:	jne    1532 <bracketed_paste+0x342>
+    13e8:	mov    -0x4(%rbp),%eax
+    13eb:	mov    %rax,-0x98(%rbp)
+    13f2:	sub    $0x3,%rax
+    13f6:	ja     152d <bracketed_paste+0x33d>
+    13fc:	mov    -0x98(%rbp),%rax
+    1403:	lea    0xbfa(%rip),%rcx        # 2004 <_IO_stdin_used+0x4>
+    140a:	movslq (%rcx,%rax,4),%rax
+    140e:	add    %rcx,%rax
+    1411:	jmp    *%rax
+    1413:	lea    -0x70(%rbp),%rdi
+    1417:	mov    -0x74(%rbp),%esi
+    141a:	mov    $0x1,%edx
+    141f:	call   1650 <put_on_cmdline>
+    1424:	jmp    152d <bracketed_paste+0x33d>
+    1429:	cmpq   $0x0,-0x10(%rbp)
+    142e:	je     1473 <bracketed_paste+0x283>
+    1434:	mov    -0x10(%rbp),%rdi
+    1438:	mov    -0x74(%rbp),%esi
+    143b:	call   1660 <ga_grow>
+    1440:	cmp    $0x1,%eax
+    1443:	jne    1473 <bracketed_paste+0x283>
+    1449:	mov    -0x10(%rbp),%rax
+    144d:	mov    0x10(%rax),%rdi
+    1451:	mov    -0x10(%rbp),%rax
+    1455:	movslq (%rax),%rax
+    1458:	add    %rax,%rdi
+    145b:	lea    -0x70(%rbp),%rsi
+    145f:	movslq -0x74(%rbp),%rdx
+    1463:	call   10d0 <memmove@plt>
+    1468:	mov    -0x74(%rbp),%ecx
+    146b:	mov    -0x10(%rbp),%rax
+    146f:	add    (%rax),%ecx
+    1471:	mov    %ecx,(%rax)
+    1473:	jmp    152d <bracketed_paste+0x33d>
+    1478:	call   16b0 <stop_arrow>
+    147d:	cmp    $0x1,%eax
+    1480:	jne    14e2 <bracketed_paste+0x2f2>
+    1486:	movzbl -0x70(%rbp),%eax
+    148a:	mov    %eax,-0x14(%rbp)
+    148d:	cmpl   $0x1,-0x74(%rbp)
+    1491:	jne    14c5 <bracketed_paste+0x2d5>
+    1497:	cmpl   $0xd,-0x14(%rbp)
+    149b:	je     14b8 <bracketed_paste+0x2c8>
+    14a1:	cmpl   $0x1004,-0x14(%rbp)
+    14a8:	je     14b8 <bracketed_paste+0x2c8>
+    14ae:	cmpl   $0xa,-0x14(%rbp)
+    14b2:	jne    14c5 <bracketed_paste+0x2d5>
+    14b8:	mov    -0x14(%rbp),%edi
+    14bb:	call   16c0 <ins_eol>
+    14c0:	jmp    14dd <bracketed_paste+0x2ed>
+    14c5:	lea    -0x70(%rbp),%rdi
+    14c9:	mov    -0x74(%rbp),%esi
+    14cc:	call   16d0 <ins_char_bytes>
+    14d1:	lea    -0x70(%rbp),%rdi
+    14d5:	mov    -0x74(%rbp),%esi
+    14d8:	call   16e0 <AppendToRedobuffLit>
+    14dd:	jmp    14e2 <bracketed_paste+0x2f2>
+    14e2:	jmp    152d <bracketed_paste+0x33d>
+    14e7:	cmpl   $0xffffffff,-0x84(%rbp)
+    14ee:	jne    1528 <bracketed_paste+0x338>
+    14f4:	cmpl   $0x0,0x2ba9(%rip)        # 40a4 <has_mbyte>
+    14fb:	je     1519 <bracketed_paste+0x329>
+    1501:	mov    0x2ba8(%rip),%rax        # 40b0 <mb_ptr2char>
+    1508:	lea    -0x70(%rbp),%rdi
+    150c:	call   *%rax
+    150e:	mov    %eax,-0x84(%rbp)
+    1514:	jmp    1523 <bracketed_paste+0x333>
+    1519:	movzbl -0x70(%rbp),%eax
+    151d:	mov    %eax,-0x84(%rbp)
+    1523:	jmp    1528 <bracketed_paste+0x338>
+    1528:	jmp    152d <bracketed_paste+0x33d>
+    152d:	jmp    1532 <bracketed_paste+0x342>
+    1532:	movl   $0x0,-0x74(%rbp)
+    1539:	jmp    12a6 <bracketed_paste+0xb6>
+    153e:	mov    0x2b54(%rip),%eax        # 4098 <no_mapping>
+    1544:	add    $0xffffffff,%eax
+    1547:	mov    %eax,0x2b4b(%rip)        # 4098 <no_mapping>
+    154d:	mov    -0x88(%rbp),%eax
+    1553:	mov    %eax,0x2b37(%rip)        # 4090 <allow_keys>
+    1559:	cmpl   $0x0,-0x8c(%rbp)
+    1560:	jne    157b <bracketed_paste+0x38b>
+    1566:	lea    0xaaa(%rip),%rdi        # 2017 <_IO_stdin_used+0x17>
+    156d:	xor    %eax,%eax
+    156f:	mov    %eax,%edx
+    1571:	xor    %ecx,%ecx
+    1573:	mov    %rdx,%rsi
+    1576:	call   15a0 <set_option_value>
+    157b:	mov    -0x84(%rbp),%eax
+    1581:	add    $0xa0,%rsp
+    1588:	pop    %rbp
+    1589:	ret
+
+Disassembly of section .fini:

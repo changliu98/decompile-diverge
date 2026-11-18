@@ -1,0 +1,1 @@
+int atomicCompareAndSwap(atomic_t *v, int oldval, int newval) { int r; __asm__ __volatile__ ("lock; cmpxchgl %2, %1" : "=a" (r), "+m" (*v) : : "0" (oldval), "m" (*v) : "memory"); return r; }

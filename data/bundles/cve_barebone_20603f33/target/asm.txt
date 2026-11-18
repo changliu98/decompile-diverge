@@ -1,0 +1,94 @@
+0000000000001ea0 <readContigStripsIntoBuffer>:
+    1ea0:	push   %rbp
+    1ea1:	mov    %rsp,%rbp
+    1ea4:	sub    $0x40,%rsp
+    1ea8:	mov    %rdi,-0x10(%rbp)
+    1eac:	mov    %rsi,-0x18(%rbp)
+    1eb0:	mov    -0x18(%rbp),%rax
+    1eb4:	mov    %rax,-0x20(%rbp)
+    1eb8:	movl   $0x0,-0x24(%rbp)
+    1ebf:	mov    -0x10(%rbp),%rdi
+    1ec3:	call   1d70 <TIFFNumberOfStrips>
+    1ec8:	mov    %eax,-0x2c(%rbp)
+    1ecb:	mov    -0x10(%rbp),%rdi
+    1ecf:	call   1e40 <TIFFStripSize>
+    1ed4:	mov    %eax,-0x30(%rbp)
+    1ed7:	movl   $0x0,-0x34(%rbp)
+    1ede:	mov    -0x10(%rbp),%rdi
+    1ee2:	mov    $0x116,%esi
+    1ee7:	lea    -0x38(%rbp),%rdx
+    1eeb:	mov    $0x0,%al
+    1eed:	call   2310 <TIFFGetFieldDefaulted>
+    1ef2:	mov    %eax,-0x38(%rbp)
+    1ef5:	mov    -0x10(%rbp),%rdi
+    1ef9:	call   2870 <TIFFScanlineSize>
+    1efe:	mov    %rax,-0x40(%rbp)
+    1f02:	cmpq   $0x0,-0x40(%rbp)
+    1f07:	jne    1f2e <readContigStripsIntoBuffer+0x8e>
+    1f0d:	lea    0x11c0(%rip),%rdi        # 30d4 <TIFFScanlineSize.module+0x44>
+    1f14:	lea    0x1363(%rip),%rsi        # 327e <TIFFScanlineSize.module+0x1ee>
+    1f1b:	mov    $0x0,%al
+    1f1d:	call   28d0 <TIFFError>
+    1f22:	movl   $0x0,-0x4(%rbp)
+    1f29:	jmp    2012 <readContigStripsIntoBuffer+0x172>
+    1f2e:	movl   $0x0,-0x28(%rbp)
+    1f35:	mov    -0x28(%rbp),%eax
+    1f38:	cmp    -0x2c(%rbp),%eax
+    1f3b:	jae    200b <readContigStripsIntoBuffer+0x16b>
+    1f41:	mov    -0x10(%rbp),%rdi
+    1f45:	mov    -0x28(%rbp),%esi
+    1f48:	mov    -0x20(%rbp),%rdx
+    1f4c:	mov    $0xffffffffffffffff,%rcx
+    1f53:	call   11f0 <TIFFReadEncodedStrip>
+    1f58:	mov    %eax,-0x24(%rbp)
+    1f5b:	movslq -0x24(%rbp),%rax
+    1f5f:	cqto
+    1f61:	idivq  -0x40(%rbp)
+    1f65:	mov    %eax,-0x34(%rbp)
+    1f68:	mov    -0x28(%rbp),%eax
+    1f6b:	mov    -0x2c(%rbp),%ecx
+    1f6e:	sub    $0x1,%ecx
+    1f71:	cmp    %ecx,%eax
+    1f73:	jae    1faa <readContigStripsIntoBuffer+0x10a>
+    1f79:	mov    -0x24(%rbp),%eax
+    1f7c:	cmp    -0x30(%rbp),%eax
+    1f7f:	je     1faa <readContigStripsIntoBuffer+0x10a>
+    1f85:	mov    -0x28(%rbp),%edx
+    1f88:	add    $0x1,%edx
+    1f8b:	movslq -0x24(%rbp),%rcx
+    1f8f:	mov    -0x30(%rbp),%eax
+    1f92:	mov    %eax,%r8d
+    1f95:	lea    0x1138(%rip),%rdi        # 30d4 <TIFFScanlineSize.module+0x44>
+    1f9c:	lea    0x12f7(%rip),%rsi        # 329a <TIFFScanlineSize.module+0x20a>
+    1fa3:	mov    $0x0,%al
+    1fa5:	call   28d0 <TIFFError>
+    1faa:	cmpl   $0x0,-0x24(%rbp)
+    1fae:	jge    1fec <readContigStripsIntoBuffer+0x14c>
+    1fb4:	cmpl   $0x0,0x30e5(%rip)        # 50a0 <ignore>
+    1fbb:	jne    1fec <readContigStripsIntoBuffer+0x14c>
+    1fc1:	mov    -0x28(%rbp),%eax
+    1fc4:	mov    %eax,%edx
+    1fc6:	mov    -0x34(%rbp),%eax
+    1fc9:	mov    %eax,%ecx
+    1fcb:	lea    0x1102(%rip),%rdi        # 30d4 <TIFFScanlineSize.module+0x44>
+    1fd2:	lea    0x12ea(%rip),%rsi        # 32c3 <TIFFScanlineSize.module+0x233>
+    1fd9:	mov    $0x0,%al
+    1fdb:	call   28d0 <TIFFError>
+    1fe0:	movl   $0x0,-0x4(%rbp)
+    1fe7:	jmp    2012 <readContigStripsIntoBuffer+0x172>
+    1fec:	mov    -0x24(%rbp),%ecx
+    1fef:	mov    -0x20(%rbp),%rax
+    1ff3:	movslq %ecx,%rcx
+    1ff6:	add    %rcx,%rax
+    1ff9:	mov    %rax,-0x20(%rbp)
+    1ffd:	mov    -0x28(%rbp),%eax
+    2000:	add    $0x1,%eax
+    2003:	mov    %eax,-0x28(%rbp)
+    2006:	jmp    1f35 <readContigStripsIntoBuffer+0x95>
+    200b:	movl   $0x1,-0x4(%rbp)
+    2012:	mov    -0x4(%rbp),%eax
+    2015:	add    $0x40,%rsp
+    2019:	pop    %rbp
+    201a:	ret
+
+Disassembly of section .fini:

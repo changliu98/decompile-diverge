@@ -1,0 +1,1 @@
+int func0(int i) { if ((i^1) == i+1) return 1; return 0; }

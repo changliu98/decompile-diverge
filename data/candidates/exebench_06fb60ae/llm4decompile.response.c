@@ -1,0 +1,5 @@
+void icvDetMatrix3x3_64d( double* a, double* det )
+{
+    *det = a[0]*a[4]*a[8] + a[1]*a[5]*a[6] + a[2]*a[3]*a[7] -
+    a[0]*a[5]*a[7] - a[1]*a[3]*a[8] - a[2]*a[4]*a[6];
+}

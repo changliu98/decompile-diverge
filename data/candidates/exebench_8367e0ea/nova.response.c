@@ -1,0 +1,1 @@
+void initializeStatesAndConstants(double *x, double *y) { *x = 0.0; }

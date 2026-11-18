@@ -1,0 +1,1 @@
+void clamp(int *x, int *y, int n) { *y += *x / n; *x %= n; }

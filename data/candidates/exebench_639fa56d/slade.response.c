@@ -1,0 +1,1 @@
+void advance_m2pos(m2pos_t *pos) { *pos = (*pos + 1) % 37; }

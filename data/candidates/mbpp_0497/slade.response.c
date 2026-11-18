@@ -1,0 +1,1 @@
+double func0(double x, double y) { double a, r; a = sqrt(x*x + y*y); r = 3.14159265358979323846264 * x * (x + a); return r; }

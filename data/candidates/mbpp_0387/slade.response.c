@@ -1,0 +1,1 @@
+char* func0(char* input) { int len = strlen(input); if (!(input[len - 1] == '0' || input[len - 1] == '2' || input[len - 1] == '4' || input[len - 1] == '6' || input[len - 1] == '8' || input[len - 1] == 'A' || input[len - 1] == 'C' || input[len - 1] == 'E')) { return "Even"; } return "Odd"; }

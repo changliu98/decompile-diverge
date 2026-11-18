@@ -1,0 +1,287 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <math.h>\n\n#include <stdio.h>\n\n#include <stdlib.h>\n\n#include <string.h>\n\n#include <time.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_40lg90c4y3.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(double* a1, double* a2) {\n  json output_json;\n  std::vector<json> output_temp_3;\n  for (unsigned int i4 = 0; i4 < 3; i4++) {\n    double output_temp_5 = a1[i4];\n\n    output_temp_3.push_back(output_temp_5);\n  }\n  output_json[\"a1\"] = output_temp_3;\n  std::vector<json> output_temp_6;\n  for (unsigned int i7 = 0; i7 < 3; i7++) {\n    double output_temp_8 = a2[i7];\n\n    output_temp_6.push_back(output_temp_8);\n  }\n  output_json[\"a2\"] = output_temp_6;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  std::vector<double> input_temp_1_vec;\n  for (auto& elem : input_json[\"a1\"]) {\n    double input_temp_1_inner = elem;\n    input_temp_1_vec.push_back(input_temp_1_inner);\n  }\n  double* a1 = &input_temp_1_vec[0];\n  std::vector<double> input_temp_2_vec;\n  for (auto& elem : input_json[\"a2\"]) {\n    double input_temp_2_inner = elem;\n    input_temp_2_vec.push_back(input_temp_2_inner);\n  }\n  double* a2 = &input_temp_2_vec[0];\n  clock_t begin = clock();\n  sub3(a1, a2);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(a1, a2);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "a1": [
+     56.6575652959,
+     74.6040228698,
+     39.5144994804
+    ],
+    "a2": [
+     42.2586970766,
+     2.49501214582,
+     7.09549324442
+    ]
+   },
+   "output": {
+    "a1": [
+     14.398868219299999,
+     72.10901072398,
+     32.41900623598
+    ],
+    "a2": [
+     42.2586970766,
+     2.49501214582,
+     7.09549324442
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "a1": [
+     99.0036659305,
+     14.6982931972,
+     80.9932637545
+    ],
+    "a2": [
+     42.7513105664,
+     84.4301610731,
+     88.019831742
+    ]
+   },
+   "output": {
+    "a1": [
+     56.252355364100005,
+     -69.7318678759,
+     -7.026567987499988
+    ],
+    "a2": [
+     42.7513105664,
+     84.4301610731,
+     88.019831742
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "a1": [
+     29.3537710505,
+     52.1298511469,
+     69.474326962
+    ],
+    "a2": [
+     69.8218611809,
+     45.5979100037,
+     9.04303000885
+    ]
+   },
+   "output": {
+    "a1": [
+     -40.4680901304,
+     6.531941143200001,
+     60.43129695315001
+    ],
+    "a2": [
+     69.8218611809,
+     45.5979100037,
+     9.04303000885
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "a1": [
+     39.6010356519,
+     32.486140016,
+     5.18572650281
+    ],
+    "a2": [
+     74.7746837483,
+     48.0219929966,
+     65.3171309047
+    ]
+   },
+   "output": {
+    "a1": [
+     -35.17364809640001,
+     -15.535852980599998,
+     -60.131404401889995
+    ],
+    "a2": [
+     74.7746837483,
+     48.0219929966,
+     65.3171309047
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "a1": [
+     99.9820348429,
+     44.409175722,
+     59.1751995953
+    ],
+    "a2": [
+     82.7101122437,
+     1.44658863247,
+     41.7617093383
+    ]
+   },
+   "output": {
+    "a1": [
+     17.27192259920001,
+     42.962587089530004,
+     17.413490257
+    ],
+    "a2": [
+     82.7101122437,
+     1.44658863247,
+     41.7617093383
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "a1": [
+     52.7502347614,
+     25.9527282482,
+     6.81350899227
+    ],
+    "a2": [
+     22.9107022916,
+     24.3341528039,
+     1.3691578124
+    ]
+   },
+   "output": {
+    "a1": [
+     29.8395324698,
+     1.6185754442999993,
+     5.44435117987
+    ],
+    "a2": [
+     22.9107022916,
+     24.3341528039,
+     1.3691578124
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "a1": [
+     58.0138646162,
+     91.7793374541,
+     45.0208426081
+    ],
+    "a2": [
+     11.2835275687,
+     45.1148241365,
+     37.1557636943
+    ]
+   },
+   "output": {
+    "a1": [
+     46.7303370475,
+     46.664513317600004,
+     7.865078913799998
+    ],
+    "a2": [
+     11.2835275687,
+     45.1148241365,
+     37.1557636943
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "a1": [
+     99.5294264384,
+     50.1257791939,
+     62.2143478991
+    ],
+    "a2": [
+     32.3593004249,
+     28.9893946005,
+     78.0614787365
+    ]
+   },
+   "output": {
+    "a1": [
+     67.1701260135,
+     21.136384593400003,
+     -15.847130837400009
+    ],
+    "a2": [
+     32.3593004249,
+     28.9893946005,
+     78.0614787365
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "a1": [
+     58.7932484898,
+     66.5184333901,
+     8.12229558987
+    ],
+    "a2": [
+     24.2300875176,
+     88.7752533655,
+     79.7220350466
+    ]
+   },
+   "output": {
+    "a1": [
+     34.563160972199995,
+     -22.256819975400006,
+     -71.59973945672999
+    ],
+    "a2": [
+     24.2300875176,
+     88.7752533655,
+     79.7220350466
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "a1": [
+     17.6315375019,
+     56.7031348527,
+     97.2666613844
+    ],
+    "a2": [
+     9.70904029754,
+     20.0237215585,
+     5.77434766714
+    ]
+   },
+   "output": {
+    "a1": [
+     7.922497204359999,
+     36.6794132942,
+     91.49231371725999
+    ],
+    "a2": [
+     9.70904029754,
+     20.0237215585,
+     5.77434766714
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

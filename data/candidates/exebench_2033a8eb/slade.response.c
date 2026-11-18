@@ -1,0 +1,1 @@
+void complexMultiplicationRI(double *m1, double *m2, double A, double B, double C, double D) { *m1 = A*C - B*D; *m2 = A*D + B*C; }

@@ -1,0 +1,48 @@
+00000000000013a0 <writefile>:
+    13a0:	push   %rbp
+    13a1:	mov    %rsp,%rbp
+    13a4:	sub    $0x30,%rsp
+    13a8:	mov    %rdi,-0x10(%rbp)
+    13ac:	mov    %rsi,-0x18(%rbp)
+    13b0:	mov    -0x10(%rbp),%rdi
+    13b4:	lea    0xc4e(%rip),%rsi        # 2009 <_IO_stdin_used+0x9>
+    13bb:	call   1100 <fopen@plt>
+    13c0:	mov    %rax,-0x20(%rbp)
+    13c4:	cmpq   $0x0,-0x20(%rbp)
+    13c9:	jne    13ed <writefile+0x4d>
+    13cf:	mov    -0x10(%rbp),%rsi
+    13d3:	lea    0xc31(%rip),%rdi        # 200b <_IO_stdin_used+0xb>
+    13da:	mov    $0x0,%al
+    13dc:	call   1240 <warn>
+    13e1:	movl   $0xffffffff,-0x4(%rbp)
+    13e8:	jmp    1458 <writefile+0xb8>
+    13ed:	movl   $0x0,-0x24(%rbp)
+    13f4:	mov    -0x18(%rbp),%rdi
+    13f8:	add    $0x8,%rdi
+    13fc:	mov    -0x18(%rbp),%rax
+    1400:	mov    (%rax),%rdx
+    1403:	mov    -0x20(%rbp),%rcx
+    1407:	mov    $0x1,%esi
+    140c:	call   1130 <fwrite@plt>
+    1411:	mov    -0x18(%rbp),%rcx
+    1415:	cmp    (%rcx),%rax
+    1418:	jne    1430 <writefile+0x90>
+    141e:	mov    -0x20(%rbp),%rdi
+    1422:	call   10e0 <fflush@plt>
+    1427:	cmp    $0x0,%eax
+    142a:	je     1449 <writefile+0xa9>
+    1430:	mov    -0x10(%rbp),%rsi
+    1434:	lea    0xbd9(%rip),%rdi        # 2014 <_IO_stdin_used+0x14>
+    143b:	mov    $0x0,%al
+    143d:	call   1240 <warn>
+    1442:	movl   $0xffffffff,-0x24(%rbp)
+    1449:	mov    -0x20(%rbp),%rdi
+    144d:	call   1060 <fclose@plt>
+    1452:	mov    -0x24(%rbp),%eax
+    1455:	mov    %eax,-0x4(%rbp)
+    1458:	mov    -0x4(%rbp),%eax
+    145b:	add    $0x30,%rsp
+    145f:	pop    %rbp
+    1460:	ret
+
+Disassembly of section .fini:

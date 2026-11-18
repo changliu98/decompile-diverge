@@ -1,0 +1,1 @@
+int func0(int a[], int n, int x) { if (x == 0) return 0; int max =0x7fffffff; for (int i = 0; i < n; ++i) { if (a[i] <= x) { int m = func0(a, n, x - a[i]); if (m !=0x7fffffff && m + 1 < max) max = m + 1; } } return max; }

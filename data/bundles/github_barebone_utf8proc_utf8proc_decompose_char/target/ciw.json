@@ -1,0 +1,979 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+uc], edi\nmov     [rbp+dst], rsi\nmov     [rbp+bufsize], rdx\nmov     [rbp+options], ecx\nmov     [rbp+last_boundclass], r8\ncmp     [rbp+uc], 0\njl      loc_1D51\ncmp     [rbp+uc], 110000h\njl      loc_1D5E\nmov     [rbp+var_8], 0FFFFFFFFFFFFFFFCh\njmp     loc_245E\nmov     edi, [rbp+uc]; uc\ncall    unsafe_get_property\nmov     [rbp+property], rax\nmov     rax, [rbp+property]\nmov     ax, [rax]\nmov     [rbp+category], ax\nmov     eax, [rbp+uc]\nsub     eax, 0AC00h\nmov     [rbp+hangul_sindex], eax\nmov     eax, [rbp+options]\nand     eax, 18h\ncmp     eax, 0\njz      loc_1E50\ncmp     [rbp+hangul_sindex], 0\njl      loc_1E4B\ncmp     [rbp+hangul_sindex], 2BA4h\njge     loc_1E4B\ncmp     [rbp+bufsize], 1\njl      loc_1DFE\nmov     eax, [rbp+hangul_sindex]\nmov     ecx, 24Ch\ncdq\nidiv    ecx\nmov     ecx, eax\nadd     ecx, 1100h\nmov     rax, [rbp+dst]\nmov     [rax], ecx\ncmp     [rbp+bufsize], 2\njl      loc_1DF9\nmov     eax, [rbp+hangul_sindex]\nmov     ecx, 24Ch\ncdq\nidiv    ecx\nmov     eax, edx\nmov     ecx, 1Ch\ncdq\nidiv    ecx\nmov     ecx, eax\nadd     ecx, 1161h\nmov     rax, [rbp+dst]\nmov     [rax+4], ecx\njmp     $+5\nmov     eax, [rbp+hangul_sindex]\nmov     ecx, 1Ch\ncdq\nidiv    ecx\nmov     [rbp+hangul_tindex], edx\ncmp     [rbp+hangul_tindex], 0\njnz     loc_1E23\nmov     [rbp+var_8], 2\njmp     loc_245E\ncmp     [rbp+bufsize], 3\njl      loc_1E3E\nmov     ecx, [rbp+hangul_tindex]\nadd     ecx, 11A7h\nmov     rax, [rbp+dst]\nmov     [rax+8], ecx\nmov     [rbp+var_8], 3\njmp     loc_245E\njmp     $+5\nmov     eax, [rbp+options]\nand     eax, 40h\ncmp     eax, 0\njz      loc_1E7C\ncmp     [rbp+category], 0\njnz     loc_1E77\nmov     [rbp+var_8], 0FFFFFFFFFFFFFFFCh\njmp     loc_245E\njmp     $+5\nmov     eax, [rbp+options]\nand     eax, 20h\ncmp     eax, 0\njz      loc_1EB3\nmov     rax, [rbp+property]\nmov     eax, [rax+12h]\nshr     eax, 12h\nand     eax, 1\ncmp     eax, 0\njz      loc_1EAE\nmov     [rbp+var_8], 0\njmp     loc_245E\njmp     $+5\nmov     eax, [rbp+options]\nand     eax, 4000h\ncmp     eax, 0\njz      loc_1EE1\ncmp     [rbp+category], 0\njnz     loc_1EDC\nmov     [rbp+var_8], 0\njmp     loc_245E\njmp     $+5\nmov     eax, [rbp+options]\nand     eax, 1000h\ncmp     eax, 0\njz      loc_22BA\nmovsx   eax, [rbp+category]\ncmp     eax, 17h\njnz     loc_1F27\nmov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 20h ; ' '; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E\ncmp     [rbp+uc], 2018h\njz      loc_1F5B\ncmp     [rbp+uc], 2019h\njz      loc_1F5B\ncmp     [rbp+uc], 2BCh\njz      loc_1F5B\ncmp     [rbp+uc], 2C8h\njnz     loc_1F83\nmov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 27h ; '''; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E\nmovsx   eax, [rbp+category]\ncmp     eax, 0Dh\njz      loc_1F9D\ncmp     [rbp+uc], 2212h\njnz     loc_1FC5\nmov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 2Dh ; '-'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E\ncmp     [rbp+uc], 2044h\njz      loc_1FDF\ncmp     [rbp+uc], 2215h\njnz     loc_2007\nmov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 2Fh ; '/'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E\ncmp     [rbp+uc], 2236h\njnz     loc_203C\nmov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 3Ah ; ':'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E\ncmp     [rbp+uc], 2039h\njz      loc_2063\ncmp     [rbp+uc], 2329h\njz      loc_2063\ncmp     [rbp+uc], 3008h\njnz     loc_208B\nmov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 3Ch ; '<'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E\ncmp     [rbp+uc], 203Ah\njz      loc_20B2\ncmp     [rbp+uc], 232Ah\njz      loc_20B2\ncmp     [rbp+uc], 3009h\njnz     loc_20DA\nmov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 3Eh ; '>'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E\ncmp     [rbp+uc], 2216h\njnz     loc_210F\nmov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 5Ch ; '\\'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E\ncmp     [rbp+uc], 2C4h\njz      loc_2143\ncmp     [rbp+uc], 2C6h\njz      loc_2143\ncmp     [rbp+uc], 2038h\njz      loc_2143\ncmp     [rbp+uc], 2303h\njnz     loc_216B\nmov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 5Eh ; '^'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E\nmovsx   eax, [rbp+category]\ncmp     eax, 0Ch\njz      loc_2185\ncmp     [rbp+uc], 2CDh\njnz     loc_21AD\nmov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 5Fh ; '_'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E\ncmp     [rbp+uc], 2CBh\njnz     loc_21E2\nmov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 60h ; '`'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E\ncmp     [rbp+uc], 2223h\njnz     loc_2217\nmov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 7Ch ; '|'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E\ncmp     [rbp+uc], 223Ch\njnz     loc_224C\nmov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 7Eh ; '~'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E\nmov     eax, [rbp+options]\nand     eax, 80h\ncmp     eax, 0\njz      loc_22B5\nmov     eax, [rbp+options]\nand     eax, 100h\ncmp     eax, 0\njz      loc_22B5\nmovsx   eax, [rbp+category]\ncmp     eax, 18h\njz      loc_2288\nmovsx   eax, [rbp+category]\ncmp     eax, 19h\njnz     loc_22B0\nmov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 0Ah; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E\njmp     $+5\njmp     $+5\nmov     eax, [rbp+options]\nand     eax, 2000h\ncmp     eax, 0\njz      loc_2304\nmovsx   eax, [rbp+category]\ncmp     eax, 6\njz      loc_22F2\nmovsx   eax, [rbp+category]\ncmp     eax, 7\njz      loc_22F2\nmovsx   eax, [rbp+category]\ncmp     eax, 8\njnz     loc_22FF\nmov     [rbp+var_8], 0\njmp     loc_245E\njmp     $+5\nmov     eax, [rbp+options]\nand     eax, 400h\ncmp     eax, 0\njz      loc_2355\nmov     rax, [rbp+property]\nmovzx   eax, word ptr [rax+0Ah]\ncmp     eax, 0FFFFh\njz      loc_2350\nmov     rax, [rbp+property]\nmov     ax, [rax+0Ah]\nmov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmovzx   edi, ax; seqindex\ncall    seqindex_write_char_decomposed\nmov     [rbp+var_8], rax\njmp     loc_245E\njmp     $+5\nmov     eax, [rbp+options]\nand     eax, 18h\ncmp     eax, 0\njz      loc_23C2\nmov     rax, [rbp+property]\nmovzx   eax, word ptr [rax+8]\ncmp     eax, 0FFFFh\njz      loc_23BD\nmov     rax, [rbp+property]\ncmp     word ptr [rax+6], 0\njz      loc_2395\nmov     eax, [rbp+options]\nand     eax, 4\ncmp     eax, 0\njz      loc_23BD\nmov     rax, [rbp+property]\nmov     ax, [rax+8]\nmov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmovzx   edi, ax; seqindex\ncall    seqindex_write_char_decomposed\nmov     [rbp+var_8], rax\njmp     loc_245E\njmp     $+5\nmov     eax, [rbp+options]\nand     eax, 800h\ncmp     eax, 0\njz      loc_2442\nmov     rax, [rbp+property]\nmov     esi, [rax+12h]\nshr     esi, 18h\nand     esi, 3Fh; tbc\nmov     rax, [rbp+property]\nmov     ecx, [rax+12h]\nshr     ecx, 1Eh; ticb\nmov     r8, [rbp+last_boundclass]; state\nxor     edx, edx; licb\nmov     edi, edx; lbc\ncall    grapheme_break_extended\nand     al, 1\nmov     [rbp+boundary], al\ntest    [rbp+boundary], 1\njz      loc_243D\ncmp     [rbp+bufsize], 1\njl      loc_241B\nmov     rax, [rbp+dst]\nmov     dword ptr [rax], 0FFFFFFFFh\ncmp     [rbp+bufsize], 2\njl      loc_2430\nmov     ecx, [rbp+uc]\nmov     rax, [rbp+dst]\nmov     [rax+4], ecx\nmov     [rbp+var_8], 2\njmp     loc_245E\njmp     $+5\ncmp     [rbp+bufsize], 1\njl      loc_2456\nmov     ecx, [rbp+uc]\nmov     rax, [rbp+dst]\nmov     [rax], ecx\nmov     [rbp+var_8], 1\nmov     rax, [rbp+var_8]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 103,
+  "edges": [
+   [
+    "start",
+    "loc_1D44"
+   ],
+   [
+    "start",
+    "loc_1D51"
+   ],
+   [
+    "loc_1D44",
+    "loc_1D51"
+   ],
+   [
+    "loc_1D44",
+    "loc_1D5E"
+   ],
+   [
+    "loc_1D51",
+    "loc_245E"
+   ],
+   [
+    "loc_1D5E",
+    "loc_1D8F"
+   ],
+   [
+    "loc_1D5E",
+    "loc_1E50"
+   ],
+   [
+    "loc_1D8F",
+    "loc_1D99"
+   ],
+   [
+    "loc_1D8F",
+    "loc_1E4B"
+   ],
+   [
+    "loc_1D99",
+    "loc_1DA6"
+   ],
+   [
+    "loc_1D99",
+    "loc_1E4B"
+   ],
+   [
+    "loc_1DA6",
+    "loc_1DB1"
+   ],
+   [
+    "loc_1DA6",
+    "loc_1DFE"
+   ],
+   [
+    "loc_1DB1",
+    "loc_1DD5"
+   ],
+   [
+    "loc_1DB1",
+    "loc_1DF9"
+   ],
+   [
+    "loc_1DD5",
+    "loc_1DF9"
+   ],
+   [
+    "loc_1DF9",
+    "loc_1DFE"
+   ],
+   [
+    "loc_1DFE",
+    "loc_1E16"
+   ],
+   [
+    "loc_1DFE",
+    "loc_1E23"
+   ],
+   [
+    "loc_1E16",
+    "loc_245E"
+   ],
+   [
+    "loc_1E23",
+    "loc_1E2E"
+   ],
+   [
+    "loc_1E23",
+    "loc_1E3E"
+   ],
+   [
+    "loc_1E2E",
+    "loc_1E3E"
+   ],
+   [
+    "loc_1E3E",
+    "loc_245E"
+   ],
+   [
+    "loc_1E4B",
+    "loc_1E50"
+   ],
+   [
+    "loc_1E50",
+    "loc_1E5F"
+   ],
+   [
+    "loc_1E50",
+    "loc_1E7C"
+   ],
+   [
+    "loc_1E5F",
+    "loc_1E6A"
+   ],
+   [
+    "loc_1E5F",
+    "loc_1E77"
+   ],
+   [
+    "loc_1E6A",
+    "loc_245E"
+   ],
+   [
+    "loc_1E77",
+    "loc_1E7C"
+   ],
+   [
+    "loc_1E7C",
+    "loc_1E8B"
+   ],
+   [
+    "loc_1E7C",
+    "loc_1EB3"
+   ],
+   [
+    "loc_1E8B",
+    "loc_1EA1"
+   ],
+   [
+    "loc_1E8B",
+    "loc_1EAE"
+   ],
+   [
+    "loc_1EA1",
+    "loc_245E"
+   ],
+   [
+    "loc_1EAE",
+    "loc_1EB3"
+   ],
+   [
+    "loc_1EB3",
+    "loc_1EC4"
+   ],
+   [
+    "loc_1EB3",
+    "loc_1EE1"
+   ],
+   [
+    "loc_1EC4",
+    "loc_1ECF"
+   ],
+   [
+    "loc_1EC4",
+    "loc_1EDC"
+   ],
+   [
+    "loc_1ECF",
+    "loc_245E"
+   ],
+   [
+    "loc_1EDC",
+    "loc_1EE1"
+   ],
+   [
+    "loc_1EE1",
+    "loc_1EF2"
+   ],
+   [
+    "loc_1EE1",
+    "loc_22BA"
+   ],
+   [
+    "loc_1EF2",
+    "loc_1EFF"
+   ],
+   [
+    "loc_1EF2",
+    "loc_1F27"
+   ],
+   [
+    "loc_1EFF",
+    "loc_245E"
+   ],
+   [
+    "loc_1F27",
+    "loc_1F34"
+   ],
+   [
+    "loc_1F27",
+    "loc_1F5B"
+   ],
+   [
+    "loc_1F34",
+    "loc_1F41"
+   ],
+   [
+    "loc_1F34",
+    "loc_1F5B"
+   ],
+   [
+    "loc_1F41",
+    "loc_1F4E"
+   ],
+   [
+    "loc_1F41",
+    "loc_1F5B"
+   ],
+   [
+    "loc_1F4E",
+    "loc_1F5B"
+   ],
+   [
+    "loc_1F4E",
+    "loc_1F83"
+   ],
+   [
+    "loc_1F5B",
+    "loc_245E"
+   ],
+   [
+    "loc_1F83",
+    "loc_1F90"
+   ],
+   [
+    "loc_1F83",
+    "loc_1F9D"
+   ],
+   [
+    "loc_1F90",
+    "loc_1F9D"
+   ],
+   [
+    "loc_1F90",
+    "loc_1FC5"
+   ],
+   [
+    "loc_1F9D",
+    "loc_245E"
+   ],
+   [
+    "loc_1FC5",
+    "loc_1FD2"
+   ],
+   [
+    "loc_1FC5",
+    "loc_1FDF"
+   ],
+   [
+    "loc_1FD2",
+    "loc_1FDF"
+   ],
+   [
+    "loc_1FD2",
+    "loc_2007"
+   ],
+   [
+    "loc_1FDF",
+    "loc_245E"
+   ],
+   [
+    "loc_2007",
+    "loc_2014"
+   ],
+   [
+    "loc_2007",
+    "loc_203C"
+   ],
+   [
+    "loc_2014",
+    "loc_245E"
+   ],
+   [
+    "loc_203C",
+    "loc_2049"
+   ],
+   [
+    "loc_203C",
+    "loc_2063"
+   ],
+   [
+    "loc_2049",
+    "loc_2056"
+   ],
+   [
+    "loc_2049",
+    "loc_2063"
+   ],
+   [
+    "loc_2056",
+    "loc_2063"
+   ],
+   [
+    "loc_2056",
+    "loc_208B"
+   ],
+   [
+    "loc_2063",
+    "loc_245E"
+   ],
+   [
+    "loc_208B",
+    "loc_2098"
+   ],
+   [
+    "loc_208B",
+    "loc_20B2"
+   ],
+   [
+    "loc_2098",
+    "loc_20A5"
+   ],
+   [
+    "loc_2098",
+    "loc_20B2"
+   ],
+   [
+    "loc_20A5",
+    "loc_20B2"
+   ],
+   [
+    "loc_20A5",
+    "loc_20DA"
+   ],
+   [
+    "loc_20B2",
+    "loc_245E"
+   ],
+   [
+    "loc_20DA",
+    "loc_20E7"
+   ],
+   [
+    "loc_20DA",
+    "loc_210F"
+   ],
+   [
+    "loc_20E7",
+    "loc_245E"
+   ],
+   [
+    "loc_210F",
+    "loc_211C"
+   ],
+   [
+    "loc_210F",
+    "loc_2143"
+   ],
+   [
+    "loc_211C",
+    "loc_2129"
+   ],
+   [
+    "loc_211C",
+    "loc_2143"
+   ],
+   [
+    "loc_2129",
+    "loc_2136"
+   ],
+   [
+    "loc_2129",
+    "loc_2143"
+   ],
+   [
+    "loc_2136",
+    "loc_2143"
+   ],
+   [
+    "loc_2136",
+    "loc_216B"
+   ],
+   [
+    "loc_2143",
+    "loc_245E"
+   ],
+   [
+    "loc_216B",
+    "loc_2178"
+   ],
+   [
+    "loc_216B",
+    "loc_2185"
+   ],
+   [
+    "loc_2178",
+    "loc_2185"
+   ],
+   [
+    "loc_2178",
+    "loc_21AD"
+   ],
+   [
+    "loc_2185",
+    "loc_245E"
+   ],
+   [
+    "loc_21AD",
+    "loc_21BA"
+   ],
+   [
+    "loc_21AD",
+    "loc_21E2"
+   ],
+   [
+    "loc_21BA",
+    "loc_245E"
+   ],
+   [
+    "loc_21E2",
+    "loc_21EF"
+   ],
+   [
+    "loc_21E2",
+    "loc_2217"
+   ],
+   [
+    "loc_21EF",
+    "loc_245E"
+   ],
+   [
+    "loc_2217",
+    "loc_2224"
+   ],
+   [
+    "loc_2217",
+    "loc_224C"
+   ],
+   [
+    "loc_2224",
+    "loc_245E"
+   ],
+   [
+    "loc_224C",
+    "loc_225D"
+   ],
+   [
+    "loc_224C",
+    "loc_22B5"
+   ],
+   [
+    "loc_225D",
+    "loc_226E"
+   ],
+   [
+    "loc_225D",
+    "loc_22B5"
+   ],
+   [
+    "loc_226E",
+    "loc_227B"
+   ],
+   [
+    "loc_226E",
+    "loc_2288"
+   ],
+   [
+    "loc_227B",
+    "loc_2288"
+   ],
+   [
+    "loc_227B",
+    "loc_22B0"
+   ],
+   [
+    "loc_2288",
+    "loc_245E"
+   ],
+   [
+    "loc_22B0",
+    "loc_22B5"
+   ],
+   [
+    "loc_22B5",
+    "loc_22BA"
+   ],
+   [
+    "loc_22BA",
+    "loc_22CB"
+   ],
+   [
+    "loc_22BA",
+    "loc_2304"
+   ],
+   [
+    "loc_22CB",
+    "loc_22D8"
+   ],
+   [
+    "loc_22CB",
+    "loc_22F2"
+   ],
+   [
+    "loc_22D8",
+    "loc_22E5"
+   ],
+   [
+    "loc_22D8",
+    "loc_22F2"
+   ],
+   [
+    "loc_22E5",
+    "loc_22F2"
+   ],
+   [
+    "loc_22E5",
+    "loc_22FF"
+   ],
+   [
+    "loc_22F2",
+    "loc_245E"
+   ],
+   [
+    "loc_22FF",
+    "loc_2304"
+   ],
+   [
+    "loc_2304",
+    "loc_2315"
+   ],
+   [
+    "loc_2304",
+    "loc_2355"
+   ],
+   [
+    "loc_2315",
+    "loc_2328"
+   ],
+   [
+    "loc_2315",
+    "loc_2350"
+   ],
+   [
+    "loc_2328",
+    "loc_245E"
+   ],
+   [
+    "loc_2350",
+    "loc_2355"
+   ],
+   [
+    "loc_2355",
+    "loc_2364"
+   ],
+   [
+    "loc_2355",
+    "loc_23C2"
+   ],
+   [
+    "loc_2364",
+    "loc_2377"
+   ],
+   [
+    "loc_2364",
+    "loc_23BD"
+   ],
+   [
+    "loc_2377",
+    "loc_2386"
+   ],
+   [
+    "loc_2377",
+    "loc_2395"
+   ],
+   [
+    "loc_2386",
+    "loc_2395"
+   ],
+   [
+    "loc_2386",
+    "loc_23BD"
+   ],
+   [
+    "loc_2395",
+    "loc_245E"
+   ],
+   [
+    "loc_23BD",
+    "loc_23C2"
+   ],
+   [
+    "loc_23C2",
+    "loc_23D3"
+   ],
+   [
+    "loc_23C2",
+    "loc_2442"
+   ],
+   [
+    "loc_23D3",
+    "loc_2406"
+   ],
+   [
+    "loc_23D3",
+    "loc_243D"
+   ],
+   [
+    "loc_2406",
+    "loc_2411"
+   ],
+   [
+    "loc_2406",
+    "loc_241B"
+   ],
+   [
+    "loc_2411",
+    "loc_241B"
+   ],
+   [
+    "loc_241B",
+    "loc_2426"
+   ],
+   [
+    "loc_241B",
+    "loc_2430"
+   ],
+   [
+    "loc_2426",
+    "loc_2430"
+   ],
+   [
+    "loc_2430",
+    "loc_245E"
+   ],
+   [
+    "loc_243D",
+    "loc_2442"
+   ],
+   [
+    "loc_2442",
+    "loc_244D"
+   ],
+   [
+    "loc_2442",
+    "loc_2456"
+   ],
+   [
+    "loc_244D",
+    "loc_2456"
+   ],
+   [
+    "loc_2456",
+    "loc_245E"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+uc], edi\nmov     [rbp+dst], rsi\nmov     [rbp+bufsize], rdx\nmov     [rbp+options], ecx\nmov     [rbp+last_boundclass], r8\ncmp     [rbp+uc], 0\njl      loc_1D51",
+   "loc_1D44": "cmp     [rbp+uc], 110000h\njl      loc_1D5E",
+   "loc_1D51": "mov     [rbp+var_8], 0FFFFFFFFFFFFFFFCh\njmp     loc_245E",
+   "loc_1D5E": "mov     edi, [rbp+uc]; uc\ncall    unsafe_get_property\nmov     [rbp+property], rax\nmov     rax, [rbp+property]\nmov     ax, [rax]\nmov     [rbp+category], ax\nmov     eax, [rbp+uc]\nsub     eax, 0AC00h\nmov     [rbp+hangul_sindex], eax\nmov     eax, [rbp+options]\nand     eax, 18h\ncmp     eax, 0\njz      loc_1E50",
+   "loc_1D8F": "cmp     [rbp+hangul_sindex], 0\njl      loc_1E4B",
+   "loc_1D99": "cmp     [rbp+hangul_sindex], 2BA4h\njge     loc_1E4B",
+   "loc_1DA6": "cmp     [rbp+bufsize], 1\njl      loc_1DFE",
+   "loc_1DB1": "mov     eax, [rbp+hangul_sindex]\nmov     ecx, 24Ch\ncdq\nidiv    ecx\nmov     ecx, eax\nadd     ecx, 1100h\nmov     rax, [rbp+dst]\nmov     [rax], ecx\ncmp     [rbp+bufsize], 2\njl      loc_1DF9",
+   "loc_1DD5": "mov     eax, [rbp+hangul_sindex]\nmov     ecx, 24Ch\ncdq\nidiv    ecx\nmov     eax, edx\nmov     ecx, 1Ch\ncdq\nidiv    ecx\nmov     ecx, eax\nadd     ecx, 1161h\nmov     rax, [rbp+dst]\nmov     [rax+4], ecx",
+   "loc_1DF9": "jmp     $+5",
+   "loc_1DFE": "mov     eax, [rbp+hangul_sindex]\nmov     ecx, 1Ch\ncdq\nidiv    ecx\nmov     [rbp+hangul_tindex], edx\ncmp     [rbp+hangul_tindex], 0\njnz     loc_1E23",
+   "loc_1E16": "mov     [rbp+var_8], 2\njmp     loc_245E",
+   "loc_1E23": "cmp     [rbp+bufsize], 3\njl      loc_1E3E",
+   "loc_1E2E": "mov     ecx, [rbp+hangul_tindex]\nadd     ecx, 11A7h\nmov     rax, [rbp+dst]\nmov     [rax+8], ecx",
+   "loc_1E3E": "mov     [rbp+var_8], 3\njmp     loc_245E",
+   "loc_1E4B": "jmp     $+5",
+   "loc_1E50": "mov     eax, [rbp+options]\nand     eax, 40h\ncmp     eax, 0\njz      loc_1E7C",
+   "loc_1E5F": "cmp     [rbp+category], 0\njnz     loc_1E77",
+   "loc_1E6A": "mov     [rbp+var_8], 0FFFFFFFFFFFFFFFCh\njmp     loc_245E",
+   "loc_1E77": "jmp     $+5",
+   "loc_1E7C": "mov     eax, [rbp+options]\nand     eax, 20h\ncmp     eax, 0\njz      loc_1EB3",
+   "loc_1E8B": "mov     rax, [rbp+property]\nmov     eax, [rax+12h]\nshr     eax, 12h\nand     eax, 1\ncmp     eax, 0\njz      loc_1EAE",
+   "loc_1EA1": "mov     [rbp+var_8], 0\njmp     loc_245E",
+   "loc_1EAE": "jmp     $+5",
+   "loc_1EB3": "mov     eax, [rbp+options]\nand     eax, 4000h\ncmp     eax, 0\njz      loc_1EE1",
+   "loc_1EC4": "cmp     [rbp+category], 0\njnz     loc_1EDC",
+   "loc_1ECF": "mov     [rbp+var_8], 0\njmp     loc_245E",
+   "loc_1EDC": "jmp     $+5",
+   "loc_1EE1": "mov     eax, [rbp+options]\nand     eax, 1000h\ncmp     eax, 0\njz      loc_22BA",
+   "loc_1EF2": "movsx   eax, [rbp+category]\ncmp     eax, 17h\njnz     loc_1F27",
+   "loc_1EFF": "mov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 20h ; ' '; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E",
+   "loc_1F27": "cmp     [rbp+uc], 2018h\njz      loc_1F5B",
+   "loc_1F34": "cmp     [rbp+uc], 2019h\njz      loc_1F5B",
+   "loc_1F41": "cmp     [rbp+uc], 2BCh\njz      loc_1F5B",
+   "loc_1F4E": "cmp     [rbp+uc], 2C8h\njnz     loc_1F83",
+   "loc_1F5B": "mov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 27h ; '''; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E",
+   "loc_1F83": "movsx   eax, [rbp+category]\ncmp     eax, 0Dh\njz      loc_1F9D",
+   "loc_1F90": "cmp     [rbp+uc], 2212h\njnz     loc_1FC5",
+   "loc_1F9D": "mov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 2Dh ; '-'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E",
+   "loc_1FC5": "cmp     [rbp+uc], 2044h\njz      loc_1FDF",
+   "loc_1FD2": "cmp     [rbp+uc], 2215h\njnz     loc_2007",
+   "loc_1FDF": "mov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 2Fh ; '/'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E",
+   "loc_2007": "cmp     [rbp+uc], 2236h\njnz     loc_203C",
+   "loc_2014": "mov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 3Ah ; ':'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E",
+   "loc_203C": "cmp     [rbp+uc], 2039h\njz      loc_2063",
+   "loc_2049": "cmp     [rbp+uc], 2329h\njz      loc_2063",
+   "loc_2056": "cmp     [rbp+uc], 3008h\njnz     loc_208B",
+   "loc_2063": "mov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 3Ch ; '<'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E",
+   "loc_208B": "cmp     [rbp+uc], 203Ah\njz      loc_20B2",
+   "loc_2098": "cmp     [rbp+uc], 232Ah\njz      loc_20B2",
+   "loc_20A5": "cmp     [rbp+uc], 3009h\njnz     loc_20DA",
+   "loc_20B2": "mov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 3Eh ; '>'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E",
+   "loc_20DA": "cmp     [rbp+uc], 2216h\njnz     loc_210F",
+   "loc_20E7": "mov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 5Ch ; '\\'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E",
+   "loc_210F": "cmp     [rbp+uc], 2C4h\njz      loc_2143",
+   "loc_211C": "cmp     [rbp+uc], 2C6h\njz      loc_2143",
+   "loc_2129": "cmp     [rbp+uc], 2038h\njz      loc_2143",
+   "loc_2136": "cmp     [rbp+uc], 2303h\njnz     loc_216B",
+   "loc_2143": "mov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 5Eh ; '^'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E",
+   "loc_216B": "movsx   eax, [rbp+category]\ncmp     eax, 0Ch\njz      loc_2185",
+   "loc_2178": "cmp     [rbp+uc], 2CDh\njnz     loc_21AD",
+   "loc_2185": "mov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 5Fh ; '_'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E",
+   "loc_21AD": "cmp     [rbp+uc], 2CBh\njnz     loc_21E2",
+   "loc_21BA": "mov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 60h ; '`'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E",
+   "loc_21E2": "cmp     [rbp+uc], 2223h\njnz     loc_2217",
+   "loc_21EF": "mov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 7Ch ; '|'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E",
+   "loc_2217": "cmp     [rbp+uc], 223Ch\njnz     loc_224C",
+   "loc_2224": "mov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 7Eh ; '~'; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E",
+   "loc_224C": "mov     eax, [rbp+options]\nand     eax, 80h\ncmp     eax, 0\njz      loc_22B5",
+   "loc_225D": "mov     eax, [rbp+options]\nand     eax, 100h\ncmp     eax, 0\njz      loc_22B5",
+   "loc_226E": "movsx   eax, [rbp+category]\ncmp     eax, 18h\njz      loc_2288",
+   "loc_227B": "movsx   eax, [rbp+category]\ncmp     eax, 19h\njnz     loc_22B0",
+   "loc_2288": "mov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]\nand     ecx, 0FFFFEFFFh; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmov     edi, 0Ah; uc\ncall    utf8proc_decompose_char\nmov     [rbp+var_8], rax\njmp     loc_245E",
+   "loc_22B0": "jmp     $+5",
+   "loc_22B5": "jmp     $+5",
+   "loc_22BA": "mov     eax, [rbp+options]\nand     eax, 2000h\ncmp     eax, 0\njz      loc_2304",
+   "loc_22CB": "movsx   eax, [rbp+category]\ncmp     eax, 6\njz      loc_22F2",
+   "loc_22D8": "movsx   eax, [rbp+category]\ncmp     eax, 7\njz      loc_22F2",
+   "loc_22E5": "movsx   eax, [rbp+category]\ncmp     eax, 8\njnz     loc_22FF",
+   "loc_22F2": "mov     [rbp+var_8], 0\njmp     loc_245E",
+   "loc_22FF": "jmp     $+5",
+   "loc_2304": "mov     eax, [rbp+options]\nand     eax, 400h\ncmp     eax, 0\njz      loc_2355",
+   "loc_2315": "mov     rax, [rbp+property]\nmovzx   eax, word ptr [rax+0Ah]\ncmp     eax, 0FFFFh\njz      loc_2350",
+   "loc_2328": "mov     rax, [rbp+property]\nmov     ax, [rax+0Ah]\nmov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmovzx   edi, ax; seqindex\ncall    seqindex_write_char_decomposed\nmov     [rbp+var_8], rax\njmp     loc_245E",
+   "loc_2350": "jmp     $+5",
+   "loc_2355": "mov     eax, [rbp+options]\nand     eax, 18h\ncmp     eax, 0\njz      loc_23C2",
+   "loc_2364": "mov     rax, [rbp+property]\nmovzx   eax, word ptr [rax+8]\ncmp     eax, 0FFFFh\njz      loc_23BD",
+   "loc_2377": "mov     rax, [rbp+property]\ncmp     word ptr [rax+6], 0\njz      loc_2395",
+   "loc_2386": "mov     eax, [rbp+options]\nand     eax, 4\ncmp     eax, 0\njz      loc_23BD",
+   "loc_2395": "mov     rax, [rbp+property]\nmov     ax, [rax+8]\nmov     rsi, [rbp+dst]; dst\nmov     rdx, [rbp+bufsize]; bufsize\nmov     ecx, [rbp+options]; options\nmov     r8, [rbp+last_boundclass]; last_boundclass\nmovzx   edi, ax; seqindex\ncall    seqindex_write_char_decomposed\nmov     [rbp+var_8], rax\njmp     loc_245E",
+   "loc_23BD": "jmp     $+5",
+   "loc_23C2": "mov     eax, [rbp+options]\nand     eax, 800h\ncmp     eax, 0\njz      loc_2442",
+   "loc_23D3": "mov     rax, [rbp+property]\nmov     esi, [rax+12h]\nshr     esi, 18h\nand     esi, 3Fh; tbc\nmov     rax, [rbp+property]\nmov     ecx, [rax+12h]\nshr     ecx, 1Eh; ticb\nmov     r8, [rbp+last_boundclass]; state\nxor     edx, edx; licb\nmov     edi, edx; lbc\ncall    grapheme_break_extended\nand     al, 1\nmov     [rbp+boundary], al\ntest    [rbp+boundary], 1\njz      loc_243D",
+   "loc_2406": "cmp     [rbp+bufsize], 1\njl      loc_241B",
+   "loc_2411": "mov     rax, [rbp+dst]\nmov     dword ptr [rax], 0FFFFFFFFh",
+   "loc_241B": "cmp     [rbp+bufsize], 2\njl      loc_2430",
+   "loc_2426": "mov     ecx, [rbp+uc]\nmov     rax, [rbp+dst]\nmov     [rax+4], ecx",
+   "loc_2430": "mov     [rbp+var_8], 2\njmp     loc_245E",
+   "loc_243D": "jmp     $+5",
+   "loc_2442": "cmp     [rbp+bufsize], 1\njl      loc_2456",
+   "loc_244D": "mov     ecx, [rbp+uc]\nmov     rax, [rbp+dst]\nmov     [rax], ecx",
+   "loc_2456": "mov     [rbp+var_8], 1",
+   "loc_245E": "mov     rax, [rbp+var_8]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "boundary": "byte ptr -45h",
+   "hangul_tindex": "dword ptr -44h",
+   "hangul_sindex": "dword ptr -40h",
+   "category": "word ptr -3Ah",
+   "property": "qword ptr -38h",
+   "last_boundclass": "qword ptr -30h",
+   "options": "dword ptr -24h",
+   "bufsize": "qword ptr -20h",
+   "dst": "qword ptr -18h",
+   "uc": "dword ptr -0Ch",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 7456,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868552
+ }
+}

@@ -1,0 +1,4 @@
+int get_sorting_mode (int c) {
+  if (c < 0 || c >= 128) return -1;
+  return tbl_sorting_mode[c];
+}

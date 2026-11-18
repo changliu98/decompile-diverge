@@ -1,0 +1,447 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <math.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_36egmm19ew.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(float* pfQOut, float* pfQIn1, float* pfQIn2) {\n  json output_json;\n  std::vector<json> output_temp_4;\n  for (unsigned int i5 = 0; i5 < 4; i5++) {\n    float output_temp_6 = pfQOut[i5];\n\n    output_temp_4.push_back(output_temp_6);\n  }\n  output_json[\"pfQOut\"] = output_temp_4;\n  std::vector<json> output_temp_7;\n  for (unsigned int i8 = 0; i8 < 4; i8++) {\n    float output_temp_9 = pfQIn1[i8];\n\n    output_temp_7.push_back(output_temp_9);\n  }\n  output_json[\"pfQIn1\"] = output_temp_7;\n  std::vector<json> output_temp_10;\n  for (unsigned int i11 = 0; i11 < 4; i11++) {\n    float output_temp_12 = pfQIn2[i11];\n\n    output_temp_10.push_back(output_temp_12);\n  }\n  output_json[\"pfQIn2\"] = output_temp_10;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  std::vector<float> input_temp_1_vec;\n  for (auto& elem : input_json[\"pfQOut\"]) {\n    float input_temp_1_inner = elem;\n    input_temp_1_vec.push_back(input_temp_1_inner);\n  }\n  float* pfQOut = &input_temp_1_vec[0];\n  std::vector<float> input_temp_2_vec;\n  for (auto& elem : input_json[\"pfQIn1\"]) {\n    float input_temp_2_inner = elem;\n    input_temp_2_vec.push_back(input_temp_2_inner);\n  }\n  float* pfQIn1 = &input_temp_2_vec[0];\n  std::vector<float> input_temp_3_vec;\n  for (auto& elem : input_json[\"pfQIn2\"]) {\n    float input_temp_3_inner = elem;\n    input_temp_3_vec.push_back(input_temp_3_inner);\n  }\n  float* pfQIn2 = &input_temp_3_vec[0];\n  clock_t begin = clock();\n  QuaternionMult(pfQOut, pfQIn1, pfQIn2);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(pfQOut, pfQIn1, pfQIn2);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "pfQOut": [
+     44.5073503868,
+     68.8198886251,
+     20.24599981,
+     83.6084549186
+    ],
+    "pfQIn1": [
+     28.7172336606,
+     56.9970021765,
+     2.54866194887,
+     8.98787315938
+    ],
+    "pfQIn2": [
+     94.7191734169,
+     25.4750534024,
+     45.1687858877,
+     25.1088369062
+    ]
+   },
+   "output": {
+    "pfQIn1": [
+     28.717233657836914,
+     56.99700164794922,
+     2.548661947250366,
+     8.987873077392578
+    ],
+    "pfQIn2": [
+     94.71916961669922,
+     25.475053787231445,
+     45.168785095214844,
+     25.108837127685547
+    ],
+    "pfQOut": [
+     927.2757568359375,
+     5788.3046875,
+     -2257.877197265625,
+     -1067.032470703125
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "pfQOut": [
+     30.0210233282,
+     2.20481251324,
+     70.8530041882,
+     61.672650639
+    ],
+    "pfQIn1": [
+     75.2335427711,
+     3.74819470762,
+     86.1734937863,
+     47.391273201
+    ],
+    "pfQIn2": [
+     12.2544911049,
+     50.7102282535,
+     65.8534741626,
+     59.9094183164
+    ]
+   },
+   "output": {
+    "pfQIn1": [
+     75.2335433959961,
+     3.748194694519043,
+     86.17349243164062,
+     47.391273498535156
+    ],
+    "pfQIn2": [
+     12.254490852355957,
+     50.710227966308594,
+     65.85347747802734,
+     59.909420013427734
+    ],
+    "pfQOut": [
+     -7782.130859375,
+     5902.76611328125,
+     -1719.7083740234375,
+     471.24462890625
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "pfQOut": [
+     75.0302218002,
+     86.5745459604,
+     84.1704330558,
+     10.3913069088
+    ],
+    "pfQIn1": [
+     7.49756625604,
+     4.27774496374,
+     83.4452627985,
+     63.8953361333
+    ],
+    "pfQIn2": [
+     6.3874683761,
+     77.223011648,
+     44.4022744732,
+     59.8147075744
+    ]
+   },
+   "output": {
+    "pfQIn1": [
+     7.497566223144531,
+     4.277744770050049,
+     83.44525909423828,
+     63.89533615112305
+    ],
+    "pfQIn2": [
+     6.387468338012695,
+     77.22301483154297,
+     44.40227508544922,
+     59.8147087097168
+    ],
+    "pfQOut": [
+     -7809.490234375,
+     2760.464111328125,
+     4878.4130859375,
+     -5777.24169921875
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "pfQOut": [
+     75.9379429489,
+     92.9369503047,
+     45.5679331355,
+     9.64250123925
+    ],
+    "pfQIn1": [
+     24.9806944669,
+     2.49197000148,
+     63.431363035,
+     74.2897212322
+    ],
+    "pfQIn2": [
+     28.2962409595,
+     48.8589300143,
+     71.3993333844,
+     94.5742544918
+    ]
+   },
+   "output": {
+    "pfQIn1": [
+     24.980693817138672,
+     2.4919700622558594,
+     63.43136215209961,
+     74.28971862792969
+    ],
+    "pfQIn2": [
+     28.296241760253906,
+     48.85892868041992,
+     71.39933013916016,
+     94.57425689697266
+    ],
+    "pfQOut": [
+     -10969.7470703125,
+     1985.78125,
+     3405.3037109375,
+     1187.536865234375
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "pfQOut": [
+     91.3782641642,
+     87.0410234391,
+     35.8943556095,
+     55.2317069982
+    ],
+    "pfQIn1": [
+     19.9185237495,
+     79.2192113508,
+     19.1443194945,
+     38.6692431421
+    ],
+    "pfQIn2": [
+     57.4530927274,
+     90.9674720022,
+     93.2801449749,
+     91.5398481291
+    ]
+   },
+   "output": {
+    "pfQIn1": [
+     19.91852378845215,
+     79.21920776367188,
+     19.144319534301758,
+     38.66924285888672
+    ],
+    "pfQIn2": [
+     57.453094482421875,
+     90.96746826171875,
+     93.28014373779297,
+     91.53984832763672
+    ],
+    "pfQOut": [
+     -11387.55078125,
+     4508.7216796875,
+     -4492.173828125,
+     -5086.0830078125
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "pfQOut": [
+     50.2934026271,
+     27.7001750233,
+     8.11840709205,
+     25.0628707451
+    ],
+    "pfQIn1": [
+     60.2910909355,
+     52.9870517893,
+     41.3891920034,
+     82.8073845313
+    ],
+    "pfQIn2": [
+     53.4140126919,
+     0.574071204969,
+     22.940729352,
+     42.458041185
+    ]
+   },
+   "output": {
+    "pfQIn1": [
+     60.29109191894531,
+     52.98705291748047,
+     41.389190673828125,
+     82.80738830566406
+    ],
+    "pfQIn2": [
+     53.41401290893555,
+     0.5740712285041809,
+     22.94072914123535,
+     42.45804214477539
+    ],
+    "pfQOut": [
+     -1275.3671875,
+     2722.504638671875,
+     -1374.548095703125,
+     5743.5947265625
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "pfQOut": [
+     71.9302702539,
+     63.9460972187,
+     25.091841575,
+     39.0448245877
+    ],
+    "pfQIn1": [
+     19.3140019538,
+     59.3140354574,
+     66.8971842856,
+     15.9619908649
+    ],
+    "pfQIn2": [
+     19.3273402532,
+     36.601618224,
+     17.8353990565,
+     26.0927332194
+    ]
+   },
+   "output": {
+    "pfQIn1": [
+     19.314001083374023,
+     59.31403732299805,
+     66.89718627929688,
+     15.961991310119629
+    ],
+    "pfQIn2": [
+     19.327341079711914,
+     36.601619720458984,
+     17.835399627685547,
+     26.09273338317871
+    ],
+    "pfQOut": [
+     -3407.331298828125,
+     3314.1484375,
+     -14.9588623046875,
+     -2693.97705078125
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "pfQOut": [
+     80.1357834989,
+     72.7038735478,
+     90.5568412624,
+     68.2468144882
+    ],
+    "pfQIn1": [
+     95.6551588105,
+     3.41510207635,
+     11.390984827,
+     69.4390638144
+    ],
+    "pfQIn2": [
+     18.3226138036,
+     33.720258603,
+     45.6662156362,
+     88.8017538709
+    ]
+   },
+   "output": {
+    "pfQIn1": [
+     95.65515899658203,
+     3.415102005004883,
+     11.390984535217285,
+     69.4390640258789
+    ],
+    "pfQIn2": [
+     18.322614669799805,
+     33.72025680541992,
+     45.66621398925781,
+     88.80175018310547
+    ],
+    "pfQOut": [
+     -5048.9990234375,
+     1128.6103515625,
+     -2121.26025390625,
+     9226.5888671875
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "pfQOut": [
+     6.46741054693,
+     48.0992504622,
+     84.7619475299,
+     17.7416947634
+    ],
+    "pfQIn1": [
+     80.9155271573,
+     9.7937030594,
+     3.25779664456,
+     90.7278174356
+    ],
+    "pfQIn2": [
+     53.6699332858,
+     20.9385567085,
+     93.3241369718,
+     59.7351213287
+    ]
+   },
+   "output": {
+    "pfQIn1": [
+     80.91552734375,
+     9.793703079223633,
+     3.2577965259552,
+     90.72781372070312
+    ],
+    "pfQIn2": [
+     53.6699333190918,
+     20.938556671142578,
+     93.32413482666016,
+     59.73512268066406
+    ],
+    "pfQOut": [
+     -1586.003173828125,
+     -6052.60791015625,
+     -6061.8447265625,
+     8720.65234375
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "pfQOut": [
+     89.7367791003,
+     84.5116387786,
+     40.4933330201,
+     19.2105270133
+    ],
+    "pfQIn1": [
+     84.9718330891,
+     68.3757525232,
+     69.134441784,
+     84.9996576689
+    ],
+    "pfQIn2": [
+     29.5692221528,
+     44.321153499,
+     46.904719629,
+     10.8723259463
+    ]
+   },
+   "output": {
+    "pfQIn1": [
+     84.97183227539062,
+     68.3757553100586,
+     69.13444519042969,
+     84.9996566772461
+    ],
+    "pfQIn2": [
+     29.56922149658203,
+     44.32115173339844,
+     46.904720306396484,
+     10.872325897216797
+    ],
+    "pfQOut": [
+     -4684.81689453125,
+     2552.63427734375,
+     1082.550537109375,
+     -2834.048828125
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

@@ -1,0 +1,1303 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 110h\nmov     [rbp+image], rdi\nmov     [rbp+outfile], rsi\nmov     [rbp+force_split], edx\nmov     [rbp+fdest], 0\nmov     rax, [rbp+outfile]\nmov     [rbp+tmp], rax\nmov     [rbp+alpha], 0\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     eax, [rax+18h]\nmov     [rbp+prec], eax\ncmp     eax, 10h\njle     loc_12CF\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nmov     r8d, [rbp+prec]\nlea     rsi, format; \"%s:%d:imagetopnm\\n\\tprecision %d is lar\"...\nlea     rdx, aHarnessC; \"harness.c\"\nmov     ecx, 0A1h\nmov     al, 0\ncall    fprintf\nmov     [rbp+var_4], 1\njmp     loc_2066\nmov     [rbp+has_alpha], 0\nmov     [rbp+two], 0\nmov     [rbp+fails], 1\nmov     rax, [rbp+image]\nmov     eax, [rax+10h]\nmov     [rbp+ncomp], eax\nmov     rax, [rbp+tmp]\ncmp     byte ptr [rax], 0\njz      loc_1315\nmov     rax, [rbp+tmp]\nadd     rax, 1\nmov     [rbp+tmp], rax\njmp     loc_12EE\nmov     rax, [rbp+tmp]\nadd     rax, 0FFFFFFFFFFFFFFFEh\nmov     [rbp+tmp], rax\nmov     rax, [rbp+tmp]\nmovsx   ecx, byte ptr [rax]\nmov     al, 1\ncmp     ecx, 67h ; 'g'\nmov     [rbp+var_B9], al\njz      loc_1358\nmov     rax, [rbp+tmp]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 47h ; 'G'\nsetz    al\nmov     [rbp+var_B9], al\nmov     al, [rbp+var_B9]\nand     al, 1\nmovzx   eax, al\nmov     [rbp+want_gray], eax\nmov     rax, [rbp+image]\nmov     eax, [rax+10h]\nmov     [rbp+ncomp], eax\ncmp     [rbp+want_gray], 0\njz      loc_1381\nmov     [rbp+ncomp], 1\ncmp     [rbp+force_split], 0\njnz     loc_1BD4\ncmp     [rbp+ncomp], 2\njz      loc_144F\ncmp     [rbp+ncomp], 2\njbe     loc_1BD4\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     eax, [rax]\nmov     rcx, [rbp+image]\nmov     rcx, [rcx+18h]\ncmp     eax, [rcx+40h]\njnz     loc_1BD4\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     eax, [rax+40h]\nmov     rcx, [rbp+image]\nmov     rcx, [rcx+18h]\ncmp     eax, [rcx+80h]\njnz     loc_1BD4\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     eax, [rax+4]\nmov     rcx, [rbp+image]\nmov     rcx, [rcx+18h]\ncmp     eax, [rcx+44h]\njnz     loc_1BD4\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     eax, [rax+44h]\nmov     rcx, [rbp+image]\nmov     rcx, [rcx+18h]\ncmp     eax, [rcx+84h]\njnz     loc_1BD4\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     eax, [rax+18h]\nmov     rcx, [rbp+image]\nmov     rcx, [rcx+18h]\ncmp     eax, [rcx+58h]\njnz     loc_1BD4\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     eax, [rax+58h]\nmov     rcx, [rbp+image]\nmov     rcx, [rcx+18h]\ncmp     eax, [rcx+98h]\njnz     loc_1BD4\nmov     rdi, [rbp+outfile]; filename\nlea     rsi, modes; \"wb\"\ncall    fopen\nmov     [rbp+fdest], rax\ncmp     [rbp+fdest], 0\njnz     loc_149B\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nmov     rdx, [rbp+outfile]\nlea     rsi, aErrorFailedToO; \"ERROR -> failed to open %s for writing\"...\nmov     al, 0\ncall    fprintf\nmov     eax, [rbp+fails]\nmov     [rbp+var_4], eax\njmp     loc_2066\ncmp     [rbp+prec], 8\nsetnle  al\nand     al, 1\nmovzx   eax, al\nmov     [rbp+two], eax\ncmp     [rbp+ncomp], 2\nsetnbe  al\nand     al, 1\nmovzx   eax, al\nmov     [rbp+triple], eax\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     eax, [rax+8]\nmov     [rbp+wr], eax\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     eax, [rax+0Ch]\nmov     [rbp+hr], eax\nmov     ecx, [rbp+prec]\nmov     eax, 1\nshl     eax, cl\nsub     eax, 1\nmov     [rbp+max], eax\nmov     al, 1\ncmp     [rbp+ncomp], 4\nmov     [rbp+var_BA], al\njz      loc_1504\ncmp     [rbp+ncomp], 2\nsetz    al\nmov     [rbp+var_BA], al\nmov     al, [rbp+var_BA]\nand     al, 1\nmovzx   eax, al\nmov     [rbp+has_alpha], eax\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     rax, [rax+30h]\nmov     [rbp+red], rax\ncmp     [rbp+triple], 0\njz      loc_1554\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     rax, [rax+70h]\nmov     [rbp+green], rax\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     rax, [rax+0B0h]\nmov     [rbp+blue], rax\njmp     loc_1564\nmov     [rbp+blue], 0\nmov     [rbp+green], 0\ncmp     [rbp+has_alpha], 0\njz      loc_1661\nmov     edx, [rbp+triple]\nlea     rax, aGrayscaleAlpha; \"GRAYSCALE_ALPHA\"\nlea     rcx, aRgbAlpha; \"RGB_ALPHA\"\ncmp     edx, 0\ncmovnz  rax, rcx\nmov     [rbp+tt], rax\nmov     rax, [rbp+fdest]\nmov     [rbp+stream], rax\ncall    opj_version\nmov     rdi, [rbp+stream]; stream\nmov     rdx, rax\nmov     ecx, [rbp+wr]\nmov     r8d, [rbp+hr]\nmov     r9d, [rbp+ncomp]\nmov     r10d, [rbp+max]\nmov     rax, [rbp+tt]\nlea     rsi, aP7OpenjpegSWid; \"P7\\n# OpenJPEG-%s\\nWIDTH %d\\nHEIGHT %d\"...\nmov     [rsp+110h+var_110], r10d\nmov     [rsp+110h+var_108], rax\nmov     al, 0\ncall    fprintf\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+ncomp]\nsub     ecx, 1\nmov     ecx, ecx\nshl     rcx, 6\nadd     rax, rcx\nmov     rax, [rax+30h]\nmov     [rbp+alpha], rax\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+ncomp]\nsub     ecx, 1\nmov     ecx, ecx\nshl     rcx, 6\nadd     rax, rcx\ncmp     dword ptr [rax+20h], 0\njz      loc_1646\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+ncomp]\nsub     ecx, 1\nmov     ecx, ecx\nshl     rcx, 6\nadd     rax, rcx\nmov     ecx, [rax+18h]\nsub     ecx, 1\nmov     eax, 1\nshl     eax, cl\nmov     [rbp+var_CC], eax\njmp     loc_1653\nxor     eax, eax\nmov     [rbp+var_CC], eax\njmp     $+5\nmov     eax, [rbp+var_CC]\nmov     [rbp+adjustA], eax\njmp     loc_169E\nmov     rax, [rbp+fdest]\nmov     [rbp+var_D8], rax\ncall    opj_version\nmov     rdi, [rbp+var_D8]; stream\nmov     rdx, rax\nmov     ecx, [rbp+wr]\nmov     r8d, [rbp+hr]\nmov     r9d, [rbp+max]\nlea     rsi, aP6OpenjpegSDDD; \"P6\\n# OpenJPEG-%s\\n%d %d\\n%d\\n\"\nmov     al, 0\ncall    fprintf\nmov     [rbp+adjustA], 0\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\ncmp     dword ptr [rax+20h], 0\njz      loc_16D0\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rax+18h]\nsub     ecx, 1\nmov     eax, 1\nshl     eax, cl\nmov     [rbp+var_DC], eax\njmp     loc_16DD\nxor     eax, eax\nmov     [rbp+var_DC], eax\njmp     $+5\nmov     eax, [rbp+var_DC]\nmov     [rbp+adjustR], eax\ncmp     [rbp+triple], 0\njz      loc_178B\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\ncmp     dword ptr [rax+60h], 0\njz      loc_1722\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rax+58h]\nsub     ecx, 1\nmov     eax, 1\nshl     eax, cl\nmov     [rbp+var_E0], eax\njmp     loc_172F\nxor     eax, eax\nmov     [rbp+var_E0], eax\njmp     $+5\nmov     eax, [rbp+var_E0]\nmov     [rbp+adjustG], eax\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\ncmp     dword ptr [rax+0A0h], 0\njz      loc_1770\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rax+98h]\nsub     ecx, 1\nmov     eax, 1\nshl     eax, cl\nmov     [rbp+var_E4], eax\njmp     loc_177D\nxor     eax, eax\nmov     [rbp+var_E4], eax\njmp     $+5\nmov     eax, [rbp+var_E4]\nmov     [rbp+adjustB], eax\njmp     loc_1799\nmov     [rbp+adjustB], 0\nmov     [rbp+adjustG], 0\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\nmov     ecx, [rbp+wr]\nimul    ecx, [rbp+hr]\ncmp     eax, ecx\njge     loc_1BBC\ncmp     [rbp+two], 0\njz      loc_19D5\nmov     rax, [rbp+red]\nmov     eax, [rax]\nadd     eax, [rbp+adjustR]\nmov     [rbp+v], eax\nmov     rax, [rbp+red]\nadd     rax, 4\nmov     [rbp+red], rax\ncmp     [rbp+v], 0FFFFh\njle     loc_17F6\nmov     [rbp+v], 0FFFFh\njmp     loc_1812\ncmp     [rbp+v], 0\njge     loc_180D\nmov     [rbp+v], 0\njmp     $+5\nmov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nsar     eax, 8\nmovzx   edx, al\nmov     eax, [rbp+v]\nmovzx   ecx, al\nlea     rsi, aCC; \"%c%c\"\nmov     al, 0\ncall    fprintf\ncmp     [rbp+triple], 0\njz      loc_1946\nmov     rax, [rbp+green]\nmov     eax, [rax]\nadd     eax, [rbp+adjustG]\nmov     [rbp+v], eax\nmov     rax, [rbp+green]\nadd     rax, 4\nmov     [rbp+green], rax\ncmp     [rbp+v], 0FFFFh\njle     loc_1880\nmov     [rbp+v], 0FFFFh\njmp     loc_189C\ncmp     [rbp+v], 0\njge     loc_1897\nmov     [rbp+v], 0\njmp     $+5\nmov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nsar     eax, 8\nmovzx   edx, al\nmov     eax, [rbp+v]\nmovzx   ecx, al\nlea     rsi, aCC; \"%c%c\"\nmov     al, 0\ncall    fprintf\nmov     rax, [rbp+blue]\nmov     eax, [rax]\nadd     eax, [rbp+adjustB]\nmov     [rbp+v], eax\nmov     rax, [rbp+blue]\nadd     rax, 4\nmov     [rbp+blue], rax\ncmp     [rbp+v], 0FFFFh\njle     loc_1900\nmov     [rbp+v], 0FFFFh\njmp     loc_191C\ncmp     [rbp+v], 0\njge     loc_1917\nmov     [rbp+v], 0\njmp     $+5\nmov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nsar     eax, 8\nmovzx   edx, al\nmov     eax, [rbp+v]\nmovzx   ecx, al\nlea     rsi, aCC; \"%c%c\"\nmov     al, 0\ncall    fprintf\ncmp     [rbp+has_alpha], 0\njz      loc_19D0\nmov     rax, [rbp+alpha]\nmov     eax, [rax]\nadd     eax, [rbp+adjustA]\nmov     [rbp+v], eax\nmov     rax, [rbp+alpha]\nadd     rax, 4\nmov     [rbp+alpha], rax\ncmp     [rbp+v], 0FFFFh\njle     loc_198A\nmov     [rbp+v], 0FFFFh\njmp     loc_19A6\ncmp     [rbp+v], 0\njge     loc_19A1\nmov     [rbp+v], 0\njmp     $+5\nmov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nsar     eax, 8\nmovzx   edx, al\nmov     eax, [rbp+v]\nmovzx   ecx, al\nlea     rsi, aCC; \"%c%c\"\nmov     al, 0\ncall    fprintf\njmp     loc_1BAE\nmov     rax, [rbp+red]\nmov     rcx, rax\nadd     rcx, 4\nmov     [rbp+red], rcx\nmov     eax, [rax]\nmov     [rbp+v], eax\ncmp     [rbp+v], 0FFh\njle     loc_1A0B\nmov     [rbp+v], 0FFh\njmp     loc_1A27\ncmp     [rbp+v], 0\njge     loc_1A22\nmov     [rbp+v], 0\njmp     $+5\nmov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nmovzx   edx, al\nlea     rsi, aCC+2; format\nmov     al, 0\ncall    fprintf\ncmp     [rbp+triple], 0\njz      loc_1B2F\nmov     rax, [rbp+green]\nmov     rcx, rax\nadd     rcx, 4\nmov     [rbp+green], rcx\nmov     eax, [rax]\nmov     [rbp+v], eax\ncmp     [rbp+v], 0FFh\njle     loc_1A85\nmov     [rbp+v], 0FFh\njmp     loc_1AA1\ncmp     [rbp+v], 0\njge     loc_1A9C\nmov     [rbp+v], 0\njmp     $+5\nmov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nmovzx   edx, al\nlea     rsi, aCC+2; format\nmov     al, 0\ncall    fprintf\nmov     rax, [rbp+blue]\nmov     rcx, rax\nadd     rcx, 4\nmov     [rbp+blue], rcx\nmov     eax, [rax]\nmov     [rbp+v], eax\ncmp     [rbp+v], 0FFh\njle     loc_1AF5\nmov     [rbp+v], 0FFh\njmp     loc_1B11\ncmp     [rbp+v], 0\njge     loc_1B0C\nmov     [rbp+v], 0\njmp     $+5\nmov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nmovzx   edx, al\nlea     rsi, aCC+2; format\nmov     al, 0\ncall    fprintf\ncmp     [rbp+has_alpha], 0\njz      loc_1BA9\nmov     rax, [rbp+alpha]\nmov     rcx, rax\nadd     rcx, 4\nmov     [rbp+alpha], rcx\nmov     eax, [rax]\nmov     [rbp+v], eax\ncmp     [rbp+v], 0FFh\njle     loc_1B6F\nmov     [rbp+v], 0FFh\njmp     loc_1B8B\ncmp     [rbp+v], 0\njge     loc_1B86\nmov     [rbp+v], 0\njmp     $+5\nmov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nmovzx   edx, al\nlea     rsi, aCC+2; format\nmov     al, 0\ncall    fprintf\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_17A0\nmov     rdi, [rbp+fdest]; stream\ncall    fclose\nmov     [rbp+var_4], 0\njmp     loc_2066\nmov     rax, [rbp+image]\nmov     eax, [rax+10h]\ncmp     eax, [rbp+ncomp]\njbe     loc_1C14\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, aWarningPgmFile; \"WARNING -> [PGM file] Only the first co\"...\nmov     al, 0\ncall    fprintf\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, aIsWrittenToThe; \"           is written to the file\\n\"\nmov     al, 0\ncall    fprintf\nmov     rdi, [rbp+outfile]; s\ncall    strlen\nmov     rdi, rax\nadd     rdi, 8; size\ncall    malloc\nmov     [rbp+destname], rax\ncmp     [rbp+destname], 0\njnz     loc_1C62\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, aImagetopnmMemo; \"imagetopnm: memory out\\n\"\nmov     al, 0\ncall    fprintf\nmov     [rbp+var_4], 1\njmp     loc_2066\nmov     [rbp+compno], 0\nmov     eax, [rbp+compno]\ncmp     eax, [rbp+ncomp]\njnb     loc_2053\ncmp     [rbp+ncomp], 1\njbe     loc_1CDC\nmov     rdi, [rbp+outfile]; s\ncall    strlen\nmov     [rbp+olen], rax\nmov     rax, [rbp+olen]\nsub     rax, 4\nmov     [rbp+dotpos], rax\nmov     rdi, [rbp+destname]; dest\nmov     rsi, [rbp+outfile]; src\nmov     rdx, [rbp+dotpos]; n\ncall    strncpy\nmov     rdi, [rbp+destname]\nadd     rdi, [rbp+dotpos]; s\nmov     edx, [rbp+compno]\nlea     rsi, aUPgm; \"_%u.pgm\"\nmov     al, 0\ncall    sprintf\njmp     loc_1CF5\nmov     rdi, [rbp+destname]; s\nmov     rdx, [rbp+outfile]\nlea     rsi, aS; \"%s\"\nmov     al, 0\ncall    sprintf\nmov     rdi, [rbp+destname]; filename\nlea     rsi, modes; \"wb\"\ncall    fopen\nmov     [rbp+fdest], rax\ncmp     [rbp+fdest], 0\njnz     loc_1D54\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nmov     rdx, [rbp+destname]\nlea     rsi, aErrorFailedToO; \"ERROR -> failed to open %s for writing\"...\nmov     al, 0\ncall    fprintf\nmov     rdi, [rbp+destname]; ptr\ncall    free\nmov     [rbp+var_4], 1\njmp     loc_2066\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+compno]\nshl     rcx, 6\nadd     rax, rcx\nmov     eax, [rax+8]\nmov     [rbp+wr], eax\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+compno]\nshl     rcx, 6\nadd     rax, rcx\nmov     eax, [rax+0Ch]\nmov     [rbp+hr], eax\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+compno]\nshl     rcx, 6\nadd     rax, rcx\nmov     eax, [rax+18h]\nmov     [rbp+prec], eax\nmov     ecx, [rbp+prec]\nmov     eax, 1\nshl     eax, cl\nsub     eax, 1\nmov     [rbp+max], eax\nmov     rax, [rbp+fdest]\nmov     [rbp+var_F0], rax\ncall    opj_version\nmov     rdi, [rbp+var_F0]; stream\nmov     rdx, rax\nmov     ecx, [rbp+wr]\nmov     r8d, [rbp+hr]\nmov     r9d, [rbp+max]\nlea     rsi, aP5OpenjpegSDDD; \"P5\\n#OpenJPEG-%s\\n%d %d\\n%d\\n\"\nmov     al, 0\ncall    fprintf\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+compno]\nshl     rcx, 6\nadd     rax, rcx\nmov     rax, [rax+30h]\nmov     [rbp+red], rax\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+compno]\nshl     rcx, 6\nadd     rax, rcx\ncmp     dword ptr [rax+20h], 0\njz      loc_1E42\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+compno]\nshl     rcx, 6\nadd     rax, rcx\nmov     ecx, [rax+18h]\nsub     ecx, 1\nmov     eax, 1\nshl     eax, cl\nmov     [rbp+var_F4], eax\njmp     loc_1E4F\nxor     eax, eax\nmov     [rbp+var_F4], eax\njmp     $+5\nmov     eax, [rbp+var_F4]\nmov     [rbp+adjustR], eax\ncmp     [rbp+prec], 8\njle     loc_1F99\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\nmov     ecx, [rbp+wr]\nimul    ecx, [rbp+hr]\ncmp     eax, ecx\njge     loc_1F94\nmov     rax, [rbp+red]\nmov     eax, [rax]\nadd     eax, [rbp+adjustR]\nmov     [rbp+v], eax\nmov     rax, [rbp+red]\nadd     rax, 4\nmov     [rbp+red], rax\ncmp     [rbp+v], 0FFFFh\njle     loc_1EB5\nmov     [rbp+v], 0FFFFh\njmp     loc_1ED1\ncmp     [rbp+v], 0\njge     loc_1ECC\nmov     [rbp+v], 0\njmp     $+5\nmov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nsar     eax, 8\nmovzx   edx, al\nmov     eax, [rbp+v]\nmovzx   ecx, al\nlea     rsi, aCC; \"%c%c\"\nmov     al, 0\ncall    fprintf\ncmp     [rbp+has_alpha], 0\njz      loc_1F81\nmov     rax, [rbp+alpha]\nmov     rcx, rax\nadd     rcx, 4\nmov     [rbp+alpha], rcx\nmov     eax, [rax]\nmov     [rbp+v], eax\ncmp     [rbp+v], 0FFFFh\njle     loc_1F3B\nmov     [rbp+v], 0FFFFh\njmp     loc_1F57\ncmp     [rbp+v], 0\njge     loc_1F52\nmov     [rbp+v], 0\njmp     $+5\nmov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nsar     eax, 8\nmovzx   edx, al\nmov     eax, [rbp+v]\nmovzx   ecx, al\nlea     rsi, aCC; \"%c%c\"\nmov     al, 0\ncall    fprintf\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1E69\njmp     loc_2039\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\nmov     ecx, [rbp+wr]\nimul    ecx, [rbp+hr]\ncmp     eax, ecx\njge     loc_2034\nmov     rax, [rbp+red]\nmov     eax, [rax]\nadd     eax, [rbp+adjustR]\nmov     [rbp+v], eax\nmov     rax, [rbp+red]\nadd     rax, 4\nmov     [rbp+red], rax\ncmp     [rbp+v], 0FFh\njle     loc_1FEC\nmov     [rbp+v], 0FFh\njmp     loc_2008\ncmp     [rbp+v], 0\njge     loc_2003\nmov     [rbp+v], 0\njmp     $+5\nmov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nmovzx   edx, al\nlea     rsi, aCC+2; format\nmov     al, 0\ncall    fprintf\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1FA0\njmp     $+5\nmov     rdi, [rbp+fdest]; stream\ncall    fclose\nmov     eax, [rbp+compno]\nadd     eax, 1\nmov     [rbp+compno], eax\njmp     loc_1C69\nmov     rdi, [rbp+destname]; ptr\ncall    free\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 110h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 142,
+  "edges": [
+   [
+    "start",
+    "loc_129B"
+   ],
+   [
+    "start",
+    "loc_12CF"
+   ],
+   [
+    "loc_129B",
+    "loc_2066"
+   ],
+   [
+    "loc_12CF",
+    "loc_12EE"
+   ],
+   [
+    "loc_12EE",
+    "loc_12FE"
+   ],
+   [
+    "loc_12EE",
+    "loc_1315"
+   ],
+   [
+    "loc_12FE",
+    "loc_12EE"
+   ],
+   [
+    "loc_1315",
+    "loc_1342"
+   ],
+   [
+    "loc_1315",
+    "loc_1358"
+   ],
+   [
+    "loc_1342",
+    "loc_1358"
+   ],
+   [
+    "loc_1358",
+    "loc_137A"
+   ],
+   [
+    "loc_1358",
+    "loc_1381"
+   ],
+   [
+    "loc_137A",
+    "loc_1381"
+   ],
+   [
+    "loc_1381",
+    "loc_138B"
+   ],
+   [
+    "loc_1381",
+    "loc_1BD4"
+   ],
+   [
+    "loc_138B",
+    "loc_1395"
+   ],
+   [
+    "loc_138B",
+    "loc_144F"
+   ],
+   [
+    "loc_1395",
+    "loc_139F"
+   ],
+   [
+    "loc_1395",
+    "loc_1BD4"
+   ],
+   [
+    "loc_139F",
+    "loc_13BA"
+   ],
+   [
+    "loc_139F",
+    "loc_1BD4"
+   ],
+   [
+    "loc_13BA",
+    "loc_13D9"
+   ],
+   [
+    "loc_13BA",
+    "loc_1BD4"
+   ],
+   [
+    "loc_13D9",
+    "loc_13F5"
+   ],
+   [
+    "loc_13D9",
+    "loc_1BD4"
+   ],
+   [
+    "loc_13F5",
+    "loc_1414"
+   ],
+   [
+    "loc_13F5",
+    "loc_1BD4"
+   ],
+   [
+    "loc_1414",
+    "loc_1430"
+   ],
+   [
+    "loc_1414",
+    "loc_1BD4"
+   ],
+   [
+    "loc_1430",
+    "loc_144F"
+   ],
+   [
+    "loc_1430",
+    "loc_1BD4"
+   ],
+   [
+    "loc_144F",
+    "loc_1474"
+   ],
+   [
+    "loc_144F",
+    "loc_149B"
+   ],
+   [
+    "loc_1474",
+    "loc_2066"
+   ],
+   [
+    "loc_149B",
+    "loc_14F7"
+   ],
+   [
+    "loc_149B",
+    "loc_1504"
+   ],
+   [
+    "loc_14F7",
+    "loc_1504"
+   ],
+   [
+    "loc_1504",
+    "loc_152C"
+   ],
+   [
+    "loc_1504",
+    "loc_1554"
+   ],
+   [
+    "loc_152C",
+    "loc_1564"
+   ],
+   [
+    "loc_1554",
+    "loc_1564"
+   ],
+   [
+    "loc_1564",
+    "loc_156E"
+   ],
+   [
+    "loc_1564",
+    "loc_1661"
+   ],
+   [
+    "loc_156E",
+    "loc_1617"
+   ],
+   [
+    "loc_156E",
+    "loc_1646"
+   ],
+   [
+    "loc_1617",
+    "loc_1653"
+   ],
+   [
+    "loc_1646",
+    "loc_1653"
+   ],
+   [
+    "loc_1653",
+    "loc_169E"
+   ],
+   [
+    "loc_1661",
+    "loc_169E"
+   ],
+   [
+    "loc_169E",
+    "loc_16B0"
+   ],
+   [
+    "loc_169E",
+    "loc_16D0"
+   ],
+   [
+    "loc_16B0",
+    "loc_16DD"
+   ],
+   [
+    "loc_16D0",
+    "loc_16DD"
+   ],
+   [
+    "loc_16DD",
+    "loc_16F0"
+   ],
+   [
+    "loc_16DD",
+    "loc_178B"
+   ],
+   [
+    "loc_16F0",
+    "loc_1702"
+   ],
+   [
+    "loc_16F0",
+    "loc_1722"
+   ],
+   [
+    "loc_1702",
+    "loc_172F"
+   ],
+   [
+    "loc_1722",
+    "loc_172F"
+   ],
+   [
+    "loc_172F",
+    "loc_174D"
+   ],
+   [
+    "loc_172F",
+    "loc_1770"
+   ],
+   [
+    "loc_174D",
+    "loc_177D"
+   ],
+   [
+    "loc_1770",
+    "loc_177D"
+   ],
+   [
+    "loc_177D",
+    "loc_1799"
+   ],
+   [
+    "loc_178B",
+    "loc_1799"
+   ],
+   [
+    "loc_1799",
+    "loc_17A0"
+   ],
+   [
+    "loc_17A0",
+    "loc_17B2"
+   ],
+   [
+    "loc_17A0",
+    "loc_1BBC"
+   ],
+   [
+    "loc_17B2",
+    "loc_17BC"
+   ],
+   [
+    "loc_17B2",
+    "loc_19D5"
+   ],
+   [
+    "loc_17BC",
+    "loc_17E7"
+   ],
+   [
+    "loc_17BC",
+    "loc_17F6"
+   ],
+   [
+    "loc_17E7",
+    "loc_1812"
+   ],
+   [
+    "loc_17F6",
+    "loc_1803"
+   ],
+   [
+    "loc_17F6",
+    "loc_180D"
+   ],
+   [
+    "loc_1803",
+    "loc_180D"
+   ],
+   [
+    "loc_180D",
+    "loc_1812"
+   ],
+   [
+    "loc_1812",
+    "loc_1846"
+   ],
+   [
+    "loc_1812",
+    "loc_1946"
+   ],
+   [
+    "loc_1846",
+    "loc_1871"
+   ],
+   [
+    "loc_1846",
+    "loc_1880"
+   ],
+   [
+    "loc_1871",
+    "loc_189C"
+   ],
+   [
+    "loc_1880",
+    "loc_188D"
+   ],
+   [
+    "loc_1880",
+    "loc_1897"
+   ],
+   [
+    "loc_188D",
+    "loc_1897"
+   ],
+   [
+    "loc_1897",
+    "loc_189C"
+   ],
+   [
+    "loc_189C",
+    "loc_18F1"
+   ],
+   [
+    "loc_189C",
+    "loc_1900"
+   ],
+   [
+    "loc_18F1",
+    "loc_191C"
+   ],
+   [
+    "loc_1900",
+    "loc_190D"
+   ],
+   [
+    "loc_1900",
+    "loc_1917"
+   ],
+   [
+    "loc_190D",
+    "loc_1917"
+   ],
+   [
+    "loc_1917",
+    "loc_191C"
+   ],
+   [
+    "loc_191C",
+    "loc_1946"
+   ],
+   [
+    "loc_1946",
+    "loc_1950"
+   ],
+   [
+    "loc_1946",
+    "loc_19D0"
+   ],
+   [
+    "loc_1950",
+    "loc_197B"
+   ],
+   [
+    "loc_1950",
+    "loc_198A"
+   ],
+   [
+    "loc_197B",
+    "loc_19A6"
+   ],
+   [
+    "loc_198A",
+    "loc_1997"
+   ],
+   [
+    "loc_198A",
+    "loc_19A1"
+   ],
+   [
+    "loc_1997",
+    "loc_19A1"
+   ],
+   [
+    "loc_19A1",
+    "loc_19A6"
+   ],
+   [
+    "loc_19A6",
+    "loc_19D0"
+   ],
+   [
+    "loc_19D0",
+    "loc_1BAE"
+   ],
+   [
+    "loc_19D5",
+    "loc_19FC"
+   ],
+   [
+    "loc_19D5",
+    "loc_1A0B"
+   ],
+   [
+    "loc_19FC",
+    "loc_1A27"
+   ],
+   [
+    "loc_1A0B",
+    "loc_1A18"
+   ],
+   [
+    "loc_1A0B",
+    "loc_1A22"
+   ],
+   [
+    "loc_1A18",
+    "loc_1A22"
+   ],
+   [
+    "loc_1A22",
+    "loc_1A27"
+   ],
+   [
+    "loc_1A27",
+    "loc_1A4F"
+   ],
+   [
+    "loc_1A27",
+    "loc_1B2F"
+   ],
+   [
+    "loc_1A4F",
+    "loc_1A76"
+   ],
+   [
+    "loc_1A4F",
+    "loc_1A85"
+   ],
+   [
+    "loc_1A76",
+    "loc_1AA1"
+   ],
+   [
+    "loc_1A85",
+    "loc_1A92"
+   ],
+   [
+    "loc_1A85",
+    "loc_1A9C"
+   ],
+   [
+    "loc_1A92",
+    "loc_1A9C"
+   ],
+   [
+    "loc_1A9C",
+    "loc_1AA1"
+   ],
+   [
+    "loc_1AA1",
+    "loc_1AE6"
+   ],
+   [
+    "loc_1AA1",
+    "loc_1AF5"
+   ],
+   [
+    "loc_1AE6",
+    "loc_1B11"
+   ],
+   [
+    "loc_1AF5",
+    "loc_1B02"
+   ],
+   [
+    "loc_1AF5",
+    "loc_1B0C"
+   ],
+   [
+    "loc_1B02",
+    "loc_1B0C"
+   ],
+   [
+    "loc_1B0C",
+    "loc_1B11"
+   ],
+   [
+    "loc_1B11",
+    "loc_1B2F"
+   ],
+   [
+    "loc_1B2F",
+    "loc_1B39"
+   ],
+   [
+    "loc_1B2F",
+    "loc_1BA9"
+   ],
+   [
+    "loc_1B39",
+    "loc_1B60"
+   ],
+   [
+    "loc_1B39",
+    "loc_1B6F"
+   ],
+   [
+    "loc_1B60",
+    "loc_1B8B"
+   ],
+   [
+    "loc_1B6F",
+    "loc_1B7C"
+   ],
+   [
+    "loc_1B6F",
+    "loc_1B86"
+   ],
+   [
+    "loc_1B7C",
+    "loc_1B86"
+   ],
+   [
+    "loc_1B86",
+    "loc_1B8B"
+   ],
+   [
+    "loc_1B8B",
+    "loc_1BA9"
+   ],
+   [
+    "loc_1BA9",
+    "loc_1BAE"
+   ],
+   [
+    "loc_1BAE",
+    "loc_17A0"
+   ],
+   [
+    "loc_1BBC",
+    "loc_2066"
+   ],
+   [
+    "loc_1BD4",
+    "loc_1BE4"
+   ],
+   [
+    "loc_1BD4",
+    "loc_1C14"
+   ],
+   [
+    "loc_1BE4",
+    "loc_1C14"
+   ],
+   [
+    "loc_1C14",
+    "loc_1C3E"
+   ],
+   [
+    "loc_1C14",
+    "loc_1C62"
+   ],
+   [
+    "loc_1C3E",
+    "loc_2066"
+   ],
+   [
+    "loc_1C62",
+    "loc_1C69"
+   ],
+   [
+    "loc_1C69",
+    "loc_1C75"
+   ],
+   [
+    "loc_1C69",
+    "loc_2053"
+   ],
+   [
+    "loc_1C75",
+    "loc_1C7F"
+   ],
+   [
+    "loc_1C75",
+    "loc_1CDC"
+   ],
+   [
+    "loc_1C7F",
+    "loc_1CF5"
+   ],
+   [
+    "loc_1CDC",
+    "loc_1CF5"
+   ],
+   [
+    "loc_1CF5",
+    "loc_1D1D"
+   ],
+   [
+    "loc_1CF5",
+    "loc_1D54"
+   ],
+   [
+    "loc_1D1D",
+    "loc_2066"
+   ],
+   [
+    "loc_1D54",
+    "loc_1E18"
+   ],
+   [
+    "loc_1D54",
+    "loc_1E42"
+   ],
+   [
+    "loc_1E18",
+    "loc_1E4F"
+   ],
+   [
+    "loc_1E42",
+    "loc_1E4F"
+   ],
+   [
+    "loc_1E4F",
+    "loc_1E62"
+   ],
+   [
+    "loc_1E4F",
+    "loc_1F99"
+   ],
+   [
+    "loc_1E62",
+    "loc_1E69"
+   ],
+   [
+    "loc_1E69",
+    "loc_1E7B"
+   ],
+   [
+    "loc_1E69",
+    "loc_1F94"
+   ],
+   [
+    "loc_1E7B",
+    "loc_1EA6"
+   ],
+   [
+    "loc_1E7B",
+    "loc_1EB5"
+   ],
+   [
+    "loc_1EA6",
+    "loc_1ED1"
+   ],
+   [
+    "loc_1EB5",
+    "loc_1EC2"
+   ],
+   [
+    "loc_1EB5",
+    "loc_1ECC"
+   ],
+   [
+    "loc_1EC2",
+    "loc_1ECC"
+   ],
+   [
+    "loc_1ECC",
+    "loc_1ED1"
+   ],
+   [
+    "loc_1ED1",
+    "loc_1F05"
+   ],
+   [
+    "loc_1ED1",
+    "loc_1F81"
+   ],
+   [
+    "loc_1F05",
+    "loc_1F2C"
+   ],
+   [
+    "loc_1F05",
+    "loc_1F3B"
+   ],
+   [
+    "loc_1F2C",
+    "loc_1F57"
+   ],
+   [
+    "loc_1F3B",
+    "loc_1F48"
+   ],
+   [
+    "loc_1F3B",
+    "loc_1F52"
+   ],
+   [
+    "loc_1F48",
+    "loc_1F52"
+   ],
+   [
+    "loc_1F52",
+    "loc_1F57"
+   ],
+   [
+    "loc_1F57",
+    "loc_1F81"
+   ],
+   [
+    "loc_1F81",
+    "loc_1F86"
+   ],
+   [
+    "loc_1F86",
+    "loc_1E69"
+   ],
+   [
+    "loc_1F94",
+    "loc_2039"
+   ],
+   [
+    "loc_1F99",
+    "loc_1FA0"
+   ],
+   [
+    "loc_1FA0",
+    "loc_1FB2"
+   ],
+   [
+    "loc_1FA0",
+    "loc_2034"
+   ],
+   [
+    "loc_1FB2",
+    "loc_1FDD"
+   ],
+   [
+    "loc_1FB2",
+    "loc_1FEC"
+   ],
+   [
+    "loc_1FDD",
+    "loc_2008"
+   ],
+   [
+    "loc_1FEC",
+    "loc_1FF9"
+   ],
+   [
+    "loc_1FEC",
+    "loc_2003"
+   ],
+   [
+    "loc_1FF9",
+    "loc_2003"
+   ],
+   [
+    "loc_2003",
+    "loc_2008"
+   ],
+   [
+    "loc_2008",
+    "loc_1FA0"
+   ],
+   [
+    "loc_2034",
+    "loc_2039"
+   ],
+   [
+    "loc_2039",
+    "loc_1C69"
+   ],
+   [
+    "loc_2053",
+    "loc_2066"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 110h\nmov     [rbp+image], rdi\nmov     [rbp+outfile], rsi\nmov     [rbp+force_split], edx\nmov     [rbp+fdest], 0\nmov     rax, [rbp+outfile]\nmov     [rbp+tmp], rax\nmov     [rbp+alpha], 0\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     eax, [rax+18h]\nmov     [rbp+prec], eax\ncmp     eax, 10h\njle     loc_12CF",
+   "loc_129B": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nmov     r8d, [rbp+prec]\nlea     rsi, format; \"%s:%d:imagetopnm\\n\\tprecision %d is lar\"...\nlea     rdx, aHarnessC; \"harness.c\"\nmov     ecx, 0A1h\nmov     al, 0\ncall    fprintf\nmov     [rbp+var_4], 1\njmp     loc_2066",
+   "loc_12CF": "mov     [rbp+has_alpha], 0\nmov     [rbp+two], 0\nmov     [rbp+fails], 1\nmov     rax, [rbp+image]\nmov     eax, [rax+10h]\nmov     [rbp+ncomp], eax",
+   "loc_12EE": "mov     rax, [rbp+tmp]\ncmp     byte ptr [rax], 0\njz      loc_1315",
+   "loc_12FE": "mov     rax, [rbp+tmp]\nadd     rax, 1\nmov     [rbp+tmp], rax\njmp     loc_12EE",
+   "loc_1315": "mov     rax, [rbp+tmp]\nadd     rax, 0FFFFFFFFFFFFFFFEh\nmov     [rbp+tmp], rax\nmov     rax, [rbp+tmp]\nmovsx   ecx, byte ptr [rax]\nmov     al, 1\ncmp     ecx, 67h ; 'g'\nmov     [rbp+var_B9], al\njz      loc_1358",
+   "loc_1342": "mov     rax, [rbp+tmp]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 47h ; 'G'\nsetz    al\nmov     [rbp+var_B9], al",
+   "loc_1358": "mov     al, [rbp+var_B9]\nand     al, 1\nmovzx   eax, al\nmov     [rbp+want_gray], eax\nmov     rax, [rbp+image]\nmov     eax, [rax+10h]\nmov     [rbp+ncomp], eax\ncmp     [rbp+want_gray], 0\njz      loc_1381",
+   "loc_137A": "mov     [rbp+ncomp], 1",
+   "loc_1381": "cmp     [rbp+force_split], 0\njnz     loc_1BD4",
+   "loc_138B": "cmp     [rbp+ncomp], 2\njz      loc_144F",
+   "loc_1395": "cmp     [rbp+ncomp], 2\njbe     loc_1BD4",
+   "loc_139F": "mov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     eax, [rax]\nmov     rcx, [rbp+image]\nmov     rcx, [rcx+18h]\ncmp     eax, [rcx+40h]\njnz     loc_1BD4",
+   "loc_13BA": "mov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     eax, [rax+40h]\nmov     rcx, [rbp+image]\nmov     rcx, [rcx+18h]\ncmp     eax, [rcx+80h]\njnz     loc_1BD4",
+   "loc_13D9": "mov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     eax, [rax+4]\nmov     rcx, [rbp+image]\nmov     rcx, [rcx+18h]\ncmp     eax, [rcx+44h]\njnz     loc_1BD4",
+   "loc_13F5": "mov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     eax, [rax+44h]\nmov     rcx, [rbp+image]\nmov     rcx, [rcx+18h]\ncmp     eax, [rcx+84h]\njnz     loc_1BD4",
+   "loc_1414": "mov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     eax, [rax+18h]\nmov     rcx, [rbp+image]\nmov     rcx, [rcx+18h]\ncmp     eax, [rcx+58h]\njnz     loc_1BD4",
+   "loc_1430": "mov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     eax, [rax+58h]\nmov     rcx, [rbp+image]\nmov     rcx, [rcx+18h]\ncmp     eax, [rcx+98h]\njnz     loc_1BD4",
+   "loc_144F": "mov     rdi, [rbp+outfile]; filename\nlea     rsi, modes; \"wb\"\ncall    fopen\nmov     [rbp+fdest], rax\ncmp     [rbp+fdest], 0\njnz     loc_149B",
+   "loc_1474": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nmov     rdx, [rbp+outfile]\nlea     rsi, aErrorFailedToO; \"ERROR -> failed to open %s for writing\"...\nmov     al, 0\ncall    fprintf\nmov     eax, [rbp+fails]\nmov     [rbp+var_4], eax\njmp     loc_2066",
+   "loc_149B": "cmp     [rbp+prec], 8\nsetnle  al\nand     al, 1\nmovzx   eax, al\nmov     [rbp+two], eax\ncmp     [rbp+ncomp], 2\nsetnbe  al\nand     al, 1\nmovzx   eax, al\nmov     [rbp+triple], eax\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     eax, [rax+8]\nmov     [rbp+wr], eax\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     eax, [rax+0Ch]\nmov     [rbp+hr], eax\nmov     ecx, [rbp+prec]\nmov     eax, 1\nshl     eax, cl\nsub     eax, 1\nmov     [rbp+max], eax\nmov     al, 1\ncmp     [rbp+ncomp], 4\nmov     [rbp+var_BA], al\njz      loc_1504",
+   "loc_14F7": "cmp     [rbp+ncomp], 2\nsetz    al\nmov     [rbp+var_BA], al",
+   "loc_1504": "mov     al, [rbp+var_BA]\nand     al, 1\nmovzx   eax, al\nmov     [rbp+has_alpha], eax\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     rax, [rax+30h]\nmov     [rbp+red], rax\ncmp     [rbp+triple], 0\njz      loc_1554",
+   "loc_152C": "mov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     rax, [rax+70h]\nmov     [rbp+green], rax\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     rax, [rax+0B0h]\nmov     [rbp+blue], rax\njmp     loc_1564",
+   "loc_1554": "mov     [rbp+blue], 0\nmov     [rbp+green], 0",
+   "loc_1564": "cmp     [rbp+has_alpha], 0\njz      loc_1661",
+   "loc_156E": "mov     edx, [rbp+triple]\nlea     rax, aGrayscaleAlpha; \"GRAYSCALE_ALPHA\"\nlea     rcx, aRgbAlpha; \"RGB_ALPHA\"\ncmp     edx, 0\ncmovnz  rax, rcx\nmov     [rbp+tt], rax\nmov     rax, [rbp+fdest]\nmov     [rbp+stream], rax\ncall    opj_version\nmov     rdi, [rbp+stream]; stream\nmov     rdx, rax\nmov     ecx, [rbp+wr]\nmov     r8d, [rbp+hr]\nmov     r9d, [rbp+ncomp]\nmov     r10d, [rbp+max]\nmov     rax, [rbp+tt]\nlea     rsi, aP7OpenjpegSWid; \"P7\\n# OpenJPEG-%s\\nWIDTH %d\\nHEIGHT %d\"...\nmov     [rsp+110h+var_110], r10d\nmov     [rsp+110h+var_108], rax\nmov     al, 0\ncall    fprintf\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+ncomp]\nsub     ecx, 1\nmov     ecx, ecx\nshl     rcx, 6\nadd     rax, rcx\nmov     rax, [rax+30h]\nmov     [rbp+alpha], rax\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+ncomp]\nsub     ecx, 1\nmov     ecx, ecx\nshl     rcx, 6\nadd     rax, rcx\ncmp     dword ptr [rax+20h], 0\njz      loc_1646",
+   "loc_1617": "mov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+ncomp]\nsub     ecx, 1\nmov     ecx, ecx\nshl     rcx, 6\nadd     rax, rcx\nmov     ecx, [rax+18h]\nsub     ecx, 1\nmov     eax, 1\nshl     eax, cl\nmov     [rbp+var_CC], eax\njmp     loc_1653",
+   "loc_1646": "xor     eax, eax\nmov     [rbp+var_CC], eax\njmp     $+5",
+   "loc_1653": "mov     eax, [rbp+var_CC]\nmov     [rbp+adjustA], eax\njmp     loc_169E",
+   "loc_1661": "mov     rax, [rbp+fdest]\nmov     [rbp+var_D8], rax\ncall    opj_version\nmov     rdi, [rbp+var_D8]; stream\nmov     rdx, rax\nmov     ecx, [rbp+wr]\nmov     r8d, [rbp+hr]\nmov     r9d, [rbp+max]\nlea     rsi, aP6OpenjpegSDDD; \"P6\\n# OpenJPEG-%s\\n%d %d\\n%d\\n\"\nmov     al, 0\ncall    fprintf\nmov     [rbp+adjustA], 0",
+   "loc_169E": "mov     rax, [rbp+image]\nmov     rax, [rax+18h]\ncmp     dword ptr [rax+20h], 0\njz      loc_16D0",
+   "loc_16B0": "mov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rax+18h]\nsub     ecx, 1\nmov     eax, 1\nshl     eax, cl\nmov     [rbp+var_DC], eax\njmp     loc_16DD",
+   "loc_16D0": "xor     eax, eax\nmov     [rbp+var_DC], eax\njmp     $+5",
+   "loc_16DD": "mov     eax, [rbp+var_DC]\nmov     [rbp+adjustR], eax\ncmp     [rbp+triple], 0\njz      loc_178B",
+   "loc_16F0": "mov     rax, [rbp+image]\nmov     rax, [rax+18h]\ncmp     dword ptr [rax+60h], 0\njz      loc_1722",
+   "loc_1702": "mov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rax+58h]\nsub     ecx, 1\nmov     eax, 1\nshl     eax, cl\nmov     [rbp+var_E0], eax\njmp     loc_172F",
+   "loc_1722": "xor     eax, eax\nmov     [rbp+var_E0], eax\njmp     $+5",
+   "loc_172F": "mov     eax, [rbp+var_E0]\nmov     [rbp+adjustG], eax\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\ncmp     dword ptr [rax+0A0h], 0\njz      loc_1770",
+   "loc_174D": "mov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rax+98h]\nsub     ecx, 1\nmov     eax, 1\nshl     eax, cl\nmov     [rbp+var_E4], eax\njmp     loc_177D",
+   "loc_1770": "xor     eax, eax\nmov     [rbp+var_E4], eax\njmp     $+5",
+   "loc_177D": "mov     eax, [rbp+var_E4]\nmov     [rbp+adjustB], eax\njmp     loc_1799",
+   "loc_178B": "mov     [rbp+adjustB], 0\nmov     [rbp+adjustG], 0",
+   "loc_1799": "mov     [rbp+i], 0",
+   "loc_17A0": "mov     eax, [rbp+i]\nmov     ecx, [rbp+wr]\nimul    ecx, [rbp+hr]\ncmp     eax, ecx\njge     loc_1BBC",
+   "loc_17B2": "cmp     [rbp+two], 0\njz      loc_19D5",
+   "loc_17BC": "mov     rax, [rbp+red]\nmov     eax, [rax]\nadd     eax, [rbp+adjustR]\nmov     [rbp+v], eax\nmov     rax, [rbp+red]\nadd     rax, 4\nmov     [rbp+red], rax\ncmp     [rbp+v], 0FFFFh\njle     loc_17F6",
+   "loc_17E7": "mov     [rbp+v], 0FFFFh\njmp     loc_1812",
+   "loc_17F6": "cmp     [rbp+v], 0\njge     loc_180D",
+   "loc_1803": "mov     [rbp+v], 0",
+   "loc_180D": "jmp     $+5",
+   "loc_1812": "mov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nsar     eax, 8\nmovzx   edx, al\nmov     eax, [rbp+v]\nmovzx   ecx, al\nlea     rsi, aCC; \"%c%c\"\nmov     al, 0\ncall    fprintf\ncmp     [rbp+triple], 0\njz      loc_1946",
+   "loc_1846": "mov     rax, [rbp+green]\nmov     eax, [rax]\nadd     eax, [rbp+adjustG]\nmov     [rbp+v], eax\nmov     rax, [rbp+green]\nadd     rax, 4\nmov     [rbp+green], rax\ncmp     [rbp+v], 0FFFFh\njle     loc_1880",
+   "loc_1871": "mov     [rbp+v], 0FFFFh\njmp     loc_189C",
+   "loc_1880": "cmp     [rbp+v], 0\njge     loc_1897",
+   "loc_188D": "mov     [rbp+v], 0",
+   "loc_1897": "jmp     $+5",
+   "loc_189C": "mov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nsar     eax, 8\nmovzx   edx, al\nmov     eax, [rbp+v]\nmovzx   ecx, al\nlea     rsi, aCC; \"%c%c\"\nmov     al, 0\ncall    fprintf\nmov     rax, [rbp+blue]\nmov     eax, [rax]\nadd     eax, [rbp+adjustB]\nmov     [rbp+v], eax\nmov     rax, [rbp+blue]\nadd     rax, 4\nmov     [rbp+blue], rax\ncmp     [rbp+v], 0FFFFh\njle     loc_1900",
+   "loc_18F1": "mov     [rbp+v], 0FFFFh\njmp     loc_191C",
+   "loc_1900": "cmp     [rbp+v], 0\njge     loc_1917",
+   "loc_190D": "mov     [rbp+v], 0",
+   "loc_1917": "jmp     $+5",
+   "loc_191C": "mov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nsar     eax, 8\nmovzx   edx, al\nmov     eax, [rbp+v]\nmovzx   ecx, al\nlea     rsi, aCC; \"%c%c\"\nmov     al, 0\ncall    fprintf",
+   "loc_1946": "cmp     [rbp+has_alpha], 0\njz      loc_19D0",
+   "loc_1950": "mov     rax, [rbp+alpha]\nmov     eax, [rax]\nadd     eax, [rbp+adjustA]\nmov     [rbp+v], eax\nmov     rax, [rbp+alpha]\nadd     rax, 4\nmov     [rbp+alpha], rax\ncmp     [rbp+v], 0FFFFh\njle     loc_198A",
+   "loc_197B": "mov     [rbp+v], 0FFFFh\njmp     loc_19A6",
+   "loc_198A": "cmp     [rbp+v], 0\njge     loc_19A1",
+   "loc_1997": "mov     [rbp+v], 0",
+   "loc_19A1": "jmp     $+5",
+   "loc_19A6": "mov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nsar     eax, 8\nmovzx   edx, al\nmov     eax, [rbp+v]\nmovzx   ecx, al\nlea     rsi, aCC; \"%c%c\"\nmov     al, 0\ncall    fprintf",
+   "loc_19D0": "jmp     loc_1BAE",
+   "loc_19D5": "mov     rax, [rbp+red]\nmov     rcx, rax\nadd     rcx, 4\nmov     [rbp+red], rcx\nmov     eax, [rax]\nmov     [rbp+v], eax\ncmp     [rbp+v], 0FFh\njle     loc_1A0B",
+   "loc_19FC": "mov     [rbp+v], 0FFh\njmp     loc_1A27",
+   "loc_1A0B": "cmp     [rbp+v], 0\njge     loc_1A22",
+   "loc_1A18": "mov     [rbp+v], 0",
+   "loc_1A22": "jmp     $+5",
+   "loc_1A27": "mov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nmovzx   edx, al\nlea     rsi, aCC+2; format\nmov     al, 0\ncall    fprintf\ncmp     [rbp+triple], 0\njz      loc_1B2F",
+   "loc_1A4F": "mov     rax, [rbp+green]\nmov     rcx, rax\nadd     rcx, 4\nmov     [rbp+green], rcx\nmov     eax, [rax]\nmov     [rbp+v], eax\ncmp     [rbp+v], 0FFh\njle     loc_1A85",
+   "loc_1A76": "mov     [rbp+v], 0FFh\njmp     loc_1AA1",
+   "loc_1A85": "cmp     [rbp+v], 0\njge     loc_1A9C",
+   "loc_1A92": "mov     [rbp+v], 0",
+   "loc_1A9C": "jmp     $+5",
+   "loc_1AA1": "mov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nmovzx   edx, al\nlea     rsi, aCC+2; format\nmov     al, 0\ncall    fprintf\nmov     rax, [rbp+blue]\nmov     rcx, rax\nadd     rcx, 4\nmov     [rbp+blue], rcx\nmov     eax, [rax]\nmov     [rbp+v], eax\ncmp     [rbp+v], 0FFh\njle     loc_1AF5",
+   "loc_1AE6": "mov     [rbp+v], 0FFh\njmp     loc_1B11",
+   "loc_1AF5": "cmp     [rbp+v], 0\njge     loc_1B0C",
+   "loc_1B02": "mov     [rbp+v], 0",
+   "loc_1B0C": "jmp     $+5",
+   "loc_1B11": "mov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nmovzx   edx, al\nlea     rsi, aCC+2; format\nmov     al, 0\ncall    fprintf",
+   "loc_1B2F": "cmp     [rbp+has_alpha], 0\njz      loc_1BA9",
+   "loc_1B39": "mov     rax, [rbp+alpha]\nmov     rcx, rax\nadd     rcx, 4\nmov     [rbp+alpha], rcx\nmov     eax, [rax]\nmov     [rbp+v], eax\ncmp     [rbp+v], 0FFh\njle     loc_1B6F",
+   "loc_1B60": "mov     [rbp+v], 0FFh\njmp     loc_1B8B",
+   "loc_1B6F": "cmp     [rbp+v], 0\njge     loc_1B86",
+   "loc_1B7C": "mov     [rbp+v], 0",
+   "loc_1B86": "jmp     $+5",
+   "loc_1B8B": "mov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nmovzx   edx, al\nlea     rsi, aCC+2; format\nmov     al, 0\ncall    fprintf",
+   "loc_1BA9": "jmp     $+5",
+   "loc_1BAE": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_17A0",
+   "loc_1BBC": "mov     rdi, [rbp+fdest]; stream\ncall    fclose\nmov     [rbp+var_4], 0\njmp     loc_2066",
+   "loc_1BD4": "mov     rax, [rbp+image]\nmov     eax, [rax+10h]\ncmp     eax, [rbp+ncomp]\njbe     loc_1C14",
+   "loc_1BE4": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, aWarningPgmFile; \"WARNING -> [PGM file] Only the first co\"...\nmov     al, 0\ncall    fprintf\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, aIsWrittenToThe; \"           is written to the file\\n\"\nmov     al, 0\ncall    fprintf",
+   "loc_1C14": "mov     rdi, [rbp+outfile]; s\ncall    strlen\nmov     rdi, rax\nadd     rdi, 8; size\ncall    malloc\nmov     [rbp+destname], rax\ncmp     [rbp+destname], 0\njnz     loc_1C62",
+   "loc_1C3E": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, aImagetopnmMemo; \"imagetopnm: memory out\\n\"\nmov     al, 0\ncall    fprintf\nmov     [rbp+var_4], 1\njmp     loc_2066",
+   "loc_1C62": "mov     [rbp+compno], 0",
+   "loc_1C69": "mov     eax, [rbp+compno]\ncmp     eax, [rbp+ncomp]\njnb     loc_2053",
+   "loc_1C75": "cmp     [rbp+ncomp], 1\njbe     loc_1CDC",
+   "loc_1C7F": "mov     rdi, [rbp+outfile]; s\ncall    strlen\nmov     [rbp+olen], rax\nmov     rax, [rbp+olen]\nsub     rax, 4\nmov     [rbp+dotpos], rax\nmov     rdi, [rbp+destname]; dest\nmov     rsi, [rbp+outfile]; src\nmov     rdx, [rbp+dotpos]; n\ncall    strncpy\nmov     rdi, [rbp+destname]\nadd     rdi, [rbp+dotpos]; s\nmov     edx, [rbp+compno]\nlea     rsi, aUPgm; \"_%u.pgm\"\nmov     al, 0\ncall    sprintf\njmp     loc_1CF5",
+   "loc_1CDC": "mov     rdi, [rbp+destname]; s\nmov     rdx, [rbp+outfile]\nlea     rsi, aS; \"%s\"\nmov     al, 0\ncall    sprintf",
+   "loc_1CF5": "mov     rdi, [rbp+destname]; filename\nlea     rsi, modes; \"wb\"\ncall    fopen\nmov     [rbp+fdest], rax\ncmp     [rbp+fdest], 0\njnz     loc_1D54",
+   "loc_1D1D": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nmov     rdx, [rbp+destname]\nlea     rsi, aErrorFailedToO; \"ERROR -> failed to open %s for writing\"...\nmov     al, 0\ncall    fprintf\nmov     rdi, [rbp+destname]; ptr\ncall    free\nmov     [rbp+var_4], 1\njmp     loc_2066",
+   "loc_1D54": "mov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+compno]\nshl     rcx, 6\nadd     rax, rcx\nmov     eax, [rax+8]\nmov     [rbp+wr], eax\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+compno]\nshl     rcx, 6\nadd     rax, rcx\nmov     eax, [rax+0Ch]\nmov     [rbp+hr], eax\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+compno]\nshl     rcx, 6\nadd     rax, rcx\nmov     eax, [rax+18h]\nmov     [rbp+prec], eax\nmov     ecx, [rbp+prec]\nmov     eax, 1\nshl     eax, cl\nsub     eax, 1\nmov     [rbp+max], eax\nmov     rax, [rbp+fdest]\nmov     [rbp+var_F0], rax\ncall    opj_version\nmov     rdi, [rbp+var_F0]; stream\nmov     rdx, rax\nmov     ecx, [rbp+wr]\nmov     r8d, [rbp+hr]\nmov     r9d, [rbp+max]\nlea     rsi, aP5OpenjpegSDDD; \"P5\\n#OpenJPEG-%s\\n%d %d\\n%d\\n\"\nmov     al, 0\ncall    fprintf\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+compno]\nshl     rcx, 6\nadd     rax, rcx\nmov     rax, [rax+30h]\nmov     [rbp+red], rax\nmov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+compno]\nshl     rcx, 6\nadd     rax, rcx\ncmp     dword ptr [rax+20h], 0\njz      loc_1E42",
+   "loc_1E18": "mov     rax, [rbp+image]\nmov     rax, [rax+18h]\nmov     ecx, [rbp+compno]\nshl     rcx, 6\nadd     rax, rcx\nmov     ecx, [rax+18h]\nsub     ecx, 1\nmov     eax, 1\nshl     eax, cl\nmov     [rbp+var_F4], eax\njmp     loc_1E4F",
+   "loc_1E42": "xor     eax, eax\nmov     [rbp+var_F4], eax\njmp     $+5",
+   "loc_1E4F": "mov     eax, [rbp+var_F4]\nmov     [rbp+adjustR], eax\ncmp     [rbp+prec], 8\njle     loc_1F99",
+   "loc_1E62": "mov     [rbp+i], 0",
+   "loc_1E69": "mov     eax, [rbp+i]\nmov     ecx, [rbp+wr]\nimul    ecx, [rbp+hr]\ncmp     eax, ecx\njge     loc_1F94",
+   "loc_1E7B": "mov     rax, [rbp+red]\nmov     eax, [rax]\nadd     eax, [rbp+adjustR]\nmov     [rbp+v], eax\nmov     rax, [rbp+red]\nadd     rax, 4\nmov     [rbp+red], rax\ncmp     [rbp+v], 0FFFFh\njle     loc_1EB5",
+   "loc_1EA6": "mov     [rbp+v], 0FFFFh\njmp     loc_1ED1",
+   "loc_1EB5": "cmp     [rbp+v], 0\njge     loc_1ECC",
+   "loc_1EC2": "mov     [rbp+v], 0",
+   "loc_1ECC": "jmp     $+5",
+   "loc_1ED1": "mov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nsar     eax, 8\nmovzx   edx, al\nmov     eax, [rbp+v]\nmovzx   ecx, al\nlea     rsi, aCC; \"%c%c\"\nmov     al, 0\ncall    fprintf\ncmp     [rbp+has_alpha], 0\njz      loc_1F81",
+   "loc_1F05": "mov     rax, [rbp+alpha]\nmov     rcx, rax\nadd     rcx, 4\nmov     [rbp+alpha], rcx\nmov     eax, [rax]\nmov     [rbp+v], eax\ncmp     [rbp+v], 0FFFFh\njle     loc_1F3B",
+   "loc_1F2C": "mov     [rbp+v], 0FFFFh\njmp     loc_1F57",
+   "loc_1F3B": "cmp     [rbp+v], 0\njge     loc_1F52",
+   "loc_1F48": "mov     [rbp+v], 0",
+   "loc_1F52": "jmp     $+5",
+   "loc_1F57": "mov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nsar     eax, 8\nmovzx   edx, al\nmov     eax, [rbp+v]\nmovzx   ecx, al\nlea     rsi, aCC; \"%c%c\"\nmov     al, 0\ncall    fprintf",
+   "loc_1F81": "jmp     $+5",
+   "loc_1F86": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1E69",
+   "loc_1F94": "jmp     loc_2039",
+   "loc_1F99": "mov     [rbp+i], 0",
+   "loc_1FA0": "mov     eax, [rbp+i]\nmov     ecx, [rbp+wr]\nimul    ecx, [rbp+hr]\ncmp     eax, ecx\njge     loc_2034",
+   "loc_1FB2": "mov     rax, [rbp+red]\nmov     eax, [rax]\nadd     eax, [rbp+adjustR]\nmov     [rbp+v], eax\nmov     rax, [rbp+red]\nadd     rax, 4\nmov     [rbp+red], rax\ncmp     [rbp+v], 0FFh\njle     loc_1FEC",
+   "loc_1FDD": "mov     [rbp+v], 0FFh\njmp     loc_2008",
+   "loc_1FEC": "cmp     [rbp+v], 0\njge     loc_2003",
+   "loc_1FF9": "mov     [rbp+v], 0",
+   "loc_2003": "jmp     $+5",
+   "loc_2008": "mov     rdi, [rbp+fdest]; stream\nmov     eax, [rbp+v]\nmovzx   edx, al\nlea     rsi, aCC+2; format\nmov     al, 0\ncall    fprintf\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1FA0",
+   "loc_2034": "jmp     $+5",
+   "loc_2039": "mov     rdi, [rbp+fdest]; stream\ncall    fclose\nmov     eax, [rbp+compno]\nadd     eax, 1\nmov     [rbp+compno], eax\njmp     loc_1C69",
+   "loc_2053": "mov     rdi, [rbp+destname]; ptr\ncall    free\nmov     [rbp+var_4], 0",
+   "loc_2066": "mov     eax, [rbp+var_4]\nadd     rsp, 110h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_110": "dword ptr -110h",
+   "var_108": "qword ptr -108h",
+   "var_F4": "dword ptr -0F4h",
+   "var_F0": "qword ptr -0F0h",
+   "var_E4": "dword ptr -0E4h",
+   "var_E0": "dword ptr -0E0h",
+   "var_DC": "dword ptr -0DCh",
+   "var_D8": "qword ptr -0D8h",
+   "var_CC": "dword ptr -0CCh",
+   "stream": "qword ptr -0C8h",
+   "var_BA": "byte ptr -0BAh",
+   "var_B9": "byte ptr -0B9h",
+   "dotpos": "qword ptr -0B8h",
+   "olen": "qword ptr -0B0h",
+   "tt": "qword ptr -0A8h",
+   "destname": "qword ptr -0A0h",
+   "tmp": "qword ptr -98h",
+   "fdest": "qword ptr -90h",
+   "v": "dword ptr -84h",
+   "prec": "dword ptr -80h",
+   "triple": "dword ptr -7Ch",
+   "has_alpha": "dword ptr -78h",
+   "want_gray": "dword ptr -74h",
+   "two": "dword ptr -70h",
+   "fails": "dword ptr -6Ch",
+   "adjustA": "dword ptr -68h",
+   "adjustB": "dword ptr -64h",
+   "adjustG": "dword ptr -60h",
+   "adjustR": "dword ptr -5Ch",
+   "ncomp": "dword ptr -58h",
+   "compno": "dword ptr -54h",
+   "i": "dword ptr -50h",
+   "max": "dword ptr -4Ch",
+   "hr": "dword ptr -48h",
+   "wr": "dword ptr -44h",
+   "alpha": "qword ptr -40h",
+   "blue": "qword ptr -38h",
+   "green": "qword ptr -30h",
+   "red": "qword ptr -28h",
+   "force_split": "dword ptr -1Ch",
+   "outfile": "qword ptr -18h",
+   "image": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "format": "byte '%s:%d:imagetopnm',0Ah",
+   "aHarnessC": "byte 'harness.c',0",
+   "modes": "byte 'wb',0",
+   "aErrorFailedToO": "byte 'ERROR -> failed to open %s for writing',0Ah,0",
+   "aGrayscaleAlpha": "byte 'GRAYSCALE_ALPHA',0",
+   "aRgbAlpha": "byte 'RGB_ALPHA',0",
+   "aP7OpenjpegSWid": "byte 'P7',0Ah",
+   "aP6OpenjpegSDDD": "byte 'P6',0Ah",
+   "aCC": "byte '%c%c',0",
+   "unk_30FF": "byte '%c%c',0",
+   "aWarningPgmFile": "byte 'WARNING -> [PGM file] Only the first component',0Ah,0",
+   "aIsWrittenToThe": "byte '           is written to the file',0Ah,0",
+   "aImagetopnmMemo": "byte 'imagetopnm: memory out',0Ah,0",
+   "aUPgm": "byte '_%u.pgm',0",
+   "aS": "byte '%s',0",
+   "aP5OpenjpegSDDD": "byte 'P5',0Ah"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4688,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".strncpy": "strncpy",
+  "_strncpy": "strncpy",
+  ".remove": "remove",
+  "_remove": "remove",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".rewind": "rewind",
+  "_rewind": "rewind",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".sprintf": "sprintf",
+  "_sprintf": "sprintf"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".strncpy",
+   ".plt",
+   true,
+   "strncpy"
+  ],
+  [
+   ".remove",
+   ".plt",
+   true,
+   "remove"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".rewind",
+   ".plt",
+   true,
+   "rewind"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".sprintf",
+   ".plt",
+   true,
+   "sprintf"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "remove",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "printf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "rewind",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "sprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868492
+ }
+}

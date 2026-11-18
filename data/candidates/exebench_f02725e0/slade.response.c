@@ -1,0 +1,1 @@
+void foo (struct S *s) { short i = -1; s->i = i; }

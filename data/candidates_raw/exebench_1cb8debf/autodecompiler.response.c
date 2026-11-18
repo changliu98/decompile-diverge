@@ -1,0 +1,1 @@
+void op_xor(float a, float b, float *c) { *c = (float)((int)a ^ (int)b); }

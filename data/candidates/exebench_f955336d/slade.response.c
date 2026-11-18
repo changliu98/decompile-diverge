@@ -1,0 +1,1 @@
+int a_fetch_add(volatile int *x, int v) { return *x; }

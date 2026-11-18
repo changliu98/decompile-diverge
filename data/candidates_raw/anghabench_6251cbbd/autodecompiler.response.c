@@ -1,0 +1,1 @@
+static int PWMCH(int n) { return 0x220C + (n << 1); }

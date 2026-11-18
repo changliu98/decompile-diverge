@@ -1,0 +1,10 @@
+void SwapIEEE32(char *a)
+{
+  char t;
+  t = a[0];
+  a[0] = a[3];
+  a[3] = t;
+  t = a[1];
+  a[1] = a[2];
+  a[2] = t;
+}

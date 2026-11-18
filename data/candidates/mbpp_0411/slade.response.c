@@ -1,0 +1,1 @@
+char *func0(char *src, char *dest) { int index = 0; int upper = 1; int i = 0; while (src[i] != '\0') { if (src[i] == '_') { upper = 1; } else if (upper) { dest[index++] = (char)toupper(src[i]); upper = 0; } else { dest[index++] = src[i]; } i++; } dest[index] = '\0'; return dest; }

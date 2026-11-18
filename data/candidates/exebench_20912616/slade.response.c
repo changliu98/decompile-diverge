@@ -1,0 +1,1 @@
+int dupfd(int fd, int *fdp) { if (fd == -1) { *fdp = -1; return 1; } *fdp = dup(fd); return (*fdp != -1); }

@@ -1,0 +1,52 @@
+{
+ "schema_version": 1,
+ "localId": "github_barebone_drwav_drwav_s32_to_s16",
+ "backend": "github",
+ "project": "drwav",
+ "pname": "drwav",
+ "language": "c",
+ "fuzz_target": "prog.bin",
+ "sanitizer": "asan_ubsan",
+ "oracle": "exit_memstate",
+ "n_inputs": 50,
+ "n_safe": 50,
+ "n_triggering": 0,
+ "signature": "DRWAV_API void drwav_s32_to_s16(drwav_int16* pOut, const drwav_int32* pIn, size_t sampleCount)",
+ "harness": "custom",
+ "memstate_masked": true,
+ "memstate_symcanon": true,
+ "baseline": {
+  "crashed": false,
+  "status": "PASS",
+  "n_pass": 50,
+  "memstate": "data_bss_symbol_canonical_relocmasked",
+  "memstate_masked": true,
+  "memstate_symcanon": true
+ },
+ "target": {
+  "name": "drwav_s32_to_s16",
+  "repo_relpath": "func.c",
+  "start_byte": 300018,
+  "end_byte": 300260,
+  "start_line": 7122,
+  "end_line": 7131,
+  "return_type": "DRWAV_API",
+  "signature": "DRWAV_API void drwav_s32_to_s16(drwav_int16* pOut, const drwav_int32* pIn, size_t sampleCount)"
+ },
+ "provenance": {
+  "source": "github",
+  "repo": "https://github.com/mackron/dr_libs",
+  "commit": "cd99e2cca5ccb48f8d000f1cd844424dcdbbaf59",
+  "path": "dr_wav.h",
+  "func": "drwav_s32_to_s16",
+  "commit_verified": "exact"
+ },
+ "decompiler_input": [
+  "asm",
+  "ghidra",
+  "ida"
+ ],
+ "extra_cflags": "-DDR_WAV_IMPLEMENTATION -DDR_WAV_NO_STDIO -I.",
+ "group": "github_barebone",
+ "category": "functional"
+}

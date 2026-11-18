@@ -1,0 +1,1 @@
+void clearIRQflag(byte *flags) { *(flags + 5) = '0'; }

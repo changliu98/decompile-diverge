@@ -1,0 +1,1 @@
+int func0(int arr[], int arr1[], int n) { sort(arr, n); sort(arr1, n); int s = 0; for (int i = 0; i < n; i++) s += abs(arr[i] - arr1[i]); return s; }

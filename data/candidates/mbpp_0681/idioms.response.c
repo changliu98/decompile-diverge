@@ -1,0 +1,12 @@
+int func0(int n){
+  int i;
+  if (n % 2 == 0){
+    return 2;
+  }
+  for (i = 3; i * i <= n; i += 2){
+    if (n % i == 0){
+      return i;
+    }
+  }
+  return n;
+}

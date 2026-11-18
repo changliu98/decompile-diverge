@@ -1,0 +1,1 @@
+void minmax(int *x, int *y, int *z, int *w) { if (*x > *w) *w = *x; if (*x < *z) *z = *x; }

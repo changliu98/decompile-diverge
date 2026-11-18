@@ -1,0 +1,1 @@
+int libbf_is_composed_poweroftwo(unsigned int value, int* b1, int* b2) { int ofs = 0; int count = 0; if (value == 0) return 0; if (b1) *b1 = 0; if (b2) *b2 = 0; while (value) { if (value & 1) { count++; if (count == 1 && b1) *b1 = ofs; } else { if (count == 2 && b2) *b2 = ofs; else return 0; } ofs++; value >>= 1; } return 1; }

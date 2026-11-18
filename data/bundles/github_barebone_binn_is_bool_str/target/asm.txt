@@ -1,0 +1,100 @@
+0000000000007af0 <is_bool_str>:
+    7af0:	push   %rbp
+    7af1:	mov    %rsp,%rbp
+    7af4:	sub    $0x30,%rsp
+    7af8:	mov    %rdi,-0x10(%rbp)
+    7afc:	mov    %rsi,-0x18(%rbp)
+    7b00:	cmpq   $0x0,-0x10(%rbp)
+    7b05:	je     7b16 <is_bool_str+0x26>
+    7b0b:	cmpq   $0x0,-0x18(%rbp)
+    7b10:	jne    7b22 <is_bool_str+0x32>
+    7b16:	movl   $0x0,-0x4(%rbp)
+    7b1d:	jmp    7ca3 <is_bool_str+0x1b3>
+    7b22:	mov    -0x10(%rbp),%rdi
+    7b26:	lea    0x2529(%rip),%rsi        # a056 <_IO_stdin_used+0x56>
+    7b2d:	call   1030 <strcasecmp@plt>
+    7b32:	cmp    $0x0,%eax
+    7b35:	jne    7b40 <is_bool_str+0x50>
+    7b3b:	jmp    7c7c <is_bool_str+0x18c>
+    7b40:	mov    -0x10(%rbp),%rdi
+    7b44:	lea    0x2537(%rip),%rsi        # a082 <_IO_stdin_used+0x82>
+    7b4b:	call   1030 <strcasecmp@plt>
+    7b50:	cmp    $0x0,%eax
+    7b53:	jne    7b5e <is_bool_str+0x6e>
+    7b59:	jmp    7c7c <is_bool_str+0x18c>
+    7b5e:	mov    -0x10(%rbp),%rdi
+    7b62:	lea    0x251d(%rip),%rsi        # a086 <_IO_stdin_used+0x86>
+    7b69:	call   1030 <strcasecmp@plt>
+    7b6e:	cmp    $0x0,%eax
+    7b71:	jne    7b7c <is_bool_str+0x8c>
+    7b77:	jmp    7c7c <is_bool_str+0x18c>
+    7b7c:	mov    -0x10(%rbp),%rdi
+    7b80:	lea    0x24d4(%rip),%rsi        # a05b <_IO_stdin_used+0x5b>
+    7b87:	call   1030 <strcasecmp@plt>
+    7b8c:	cmp    $0x0,%eax
+    7b8f:	jne    7b9a <is_bool_str+0xaa>
+    7b95:	jmp    7c92 <is_bool_str+0x1a2>
+    7b9a:	mov    -0x10(%rbp),%rdi
+    7b9e:	lea    0x24e4(%rip),%rsi        # a089 <_IO_stdin_used+0x89>
+    7ba5:	call   1030 <strcasecmp@plt>
+    7baa:	cmp    $0x0,%eax
+    7bad:	jne    7bb8 <is_bool_str+0xc8>
+    7bb3:	jmp    7c92 <is_bool_str+0x1a2>
+    7bb8:	mov    -0x10(%rbp),%rdi
+    7bbc:	lea    0x24c9(%rip),%rsi        # a08c <_IO_stdin_used+0x8c>
+    7bc3:	call   1030 <strcasecmp@plt>
+    7bc8:	cmp    $0x0,%eax
+    7bcb:	jne    7bd6 <is_bool_str+0xe6>
+    7bd1:	jmp    7c92 <is_bool_str+0x1a2>
+    7bd6:	mov    -0x10(%rbp),%rdi
+    7bda:	call   71b0 <is_integer>
+    7bdf:	cmp    $0x0,%eax
+    7be2:	je     7c19 <is_bool_str+0x129>
+    7be8:	mov    -0x10(%rbp),%rdi
+    7bec:	call   67a0 <atoi64>
+    7bf1:	mov    %rax,-0x20(%rbp)
+    7bf5:	mov    -0x20(%rbp),%rdx
+    7bf9:	xor    %ecx,%ecx
+    7bfb:	mov    $0x1,%eax
+    7c00:	cmp    $0x0,%rdx
+    7c04:	cmovne %eax,%ecx
+    7c07:	mov    -0x18(%rbp),%rax
+    7c0b:	mov    %ecx,(%rax)
+    7c0d:	movl   $0x1,-0x4(%rbp)
+    7c14:	jmp    7ca3 <is_bool_str+0x1b3>
+    7c19:	mov    -0x10(%rbp),%rdi
+    7c1d:	call   7270 <is_float>
+    7c22:	cmp    $0x0,%eax
+    7c25:	je     7c6b <is_bool_str+0x17b>
+    7c2b:	mov    -0x10(%rbp),%rdi
+    7c2f:	call   1060 <atof@plt>
+    7c34:	movsd  %xmm0,-0x28(%rbp)
+    7c39:	movsd  -0x28(%rbp),%xmm0
+    7c3e:	xorps  %xmm1,%xmm1
+    7c41:	xor    %ecx,%ecx
+    7c43:	mov    $0x1,%eax
+    7c48:	ucomisd %xmm1,%xmm0
+    7c4c:	setp   %sil
+    7c50:	setne  %dl
+    7c53:	or     %sil,%dl
+    7c56:	cmovne %eax,%ecx
+    7c59:	mov    -0x18(%rbp),%rax
+    7c5d:	mov    %ecx,(%rax)
+    7c5f:	movl   $0x1,-0x4(%rbp)
+    7c66:	jmp    7ca3 <is_bool_str+0x1b3>
+    7c6b:	jmp    7c70 <is_bool_str+0x180>
+    7c70:	movl   $0x0,-0x4(%rbp)
+    7c77:	jmp    7ca3 <is_bool_str+0x1b3>
+    7c7c:	mov    -0x18(%rbp),%rax
+    7c80:	movl   $0x1,(%rax)
+    7c86:	movl   $0x1,-0x4(%rbp)
+    7c8d:	jmp    7ca3 <is_bool_str+0x1b3>
+    7c92:	mov    -0x18(%rbp),%rax
+    7c96:	movl   $0x0,(%rax)
+    7c9c:	movl   $0x1,-0x4(%rbp)
+    7ca3:	mov    -0x4(%rbp),%eax
+    7ca6:	add    $0x30,%rsp
+    7caa:	pop    %rbp
+    7cab:	ret
+
+Disassembly of section .fini:

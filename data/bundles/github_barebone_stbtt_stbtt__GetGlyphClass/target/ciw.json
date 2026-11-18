@@ -1,0 +1,459 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+classDefTable], rdi\nmov     [rbp+glyph], esi\nmov     rdi, [rbp+classDefTable]; p\ncall    ttUSHORT\nmov     [rbp+classDefFormat], ax\nmovzx   eax, [rbp+classDefFormat]\nmov     [rbp+var_5C], eax\nsub     eax, 1\njz      loc_B032\njmp     $+5\nmov     eax, [rbp+var_5C]\nsub     eax, 2\njz      loc_B0AE\njmp     loc_B189\nmov     rdi, [rbp+classDefTable]\nadd     rdi, 2; p\ncall    ttUSHORT\nmov     [rbp+startGlyphID], ax\nmov     rdi, [rbp+classDefTable]\nadd     rdi, 4; p\ncall    ttUSHORT\nmov     [rbp+glyphCount], ax\nmov     rax, [rbp+classDefTable]\nadd     rax, 6\nmov     [rbp+classDef1ValueArray], rax\nmov     eax, [rbp+glyph]\nmovzx   ecx, [rbp+startGlyphID]\ncmp     eax, ecx\njl      loc_B0A9\nmov     eax, [rbp+glyph]\nmovzx   ecx, [rbp+startGlyphID]\nmovzx   edx, [rbp+glyphCount]\nadd     ecx, edx\ncmp     eax, ecx\njge     loc_B0A9\nmov     rdi, [rbp+classDef1ValueArray]\nmov     eax, [rbp+glyph]\nmovzx   ecx, [rbp+startGlyphID]\nsub     eax, ecx\nshl     eax, 1\ncdqe\nadd     rdi, rax; p\ncall    ttUSHORT\nmovzx   eax, ax\nmov     [rbp+var_4], eax\njmp     loc_B19C\njmp     loc_B195\nmov     rdi, [rbp+classDefTable]\nadd     rdi, 2; p\ncall    ttUSHORT\nmov     [rbp+classRangeCount], ax\nmov     rax, [rbp+classDefTable]\nadd     rax, 4\nmov     [rbp+classRangeRecords], rax\nmov     [rbp+l], 0\nmovzx   eax, [rbp+classRangeCount]\nsub     eax, 1\nmov     [rbp+r], eax\nmov     eax, [rbp+glyph]\nmov     [rbp+needle], eax\nmov     eax, [rbp+l]\ncmp     eax, [rbp+r]\njg      loc_B184\nmov     eax, [rbp+l]\nadd     eax, [rbp+r]\nsar     eax, 1\nmov     [rbp+m], eax\nmov     rax, [rbp+classRangeRecords]\nimul    ecx, [rbp+m], 6\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+classRangeRecord], rax\nmov     rdi, [rbp+classRangeRecord]; p\ncall    ttUSHORT\nmovzx   eax, ax\nmov     [rbp+strawStart], eax\nmov     rdi, [rbp+classRangeRecord]\nadd     rdi, 2; p\ncall    ttUSHORT\nmovzx   eax, ax\nmov     [rbp+strawEnd], eax\nmov     eax, [rbp+needle]\ncmp     eax, [rbp+strawStart]\njge     loc_B148\nmov     eax, [rbp+m]\nsub     eax, 1\nmov     [rbp+r], eax\njmp     loc_B17F\nmov     eax, [rbp+needle]\ncmp     eax, [rbp+strawEnd]\njle     loc_B162\nmov     eax, [rbp+m]\nadd     eax, 1\nmov     [rbp+l], eax\njmp     loc_B17A\nmov     rdi, [rbp+classRangeRecord]\nadd     rdi, 4; p\ncall    ttUSHORT\nmovzx   eax, ax\nmov     [rbp+var_4], eax\njmp     loc_B19C\njmp     $+5\njmp     loc_B0E2\njmp     loc_B195\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_B19C\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 60h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 21,
+  "edges": [
+   [
+    "start",
+    "loc_B01C"
+   ],
+   [
+    "start",
+    "loc_B032"
+   ],
+   [
+    "loc_B01C",
+    "loc_B021"
+   ],
+   [
+    "loc_B021",
+    "loc_B02D"
+   ],
+   [
+    "loc_B021",
+    "loc_B0AE"
+   ],
+   [
+    "loc_B02D",
+    "loc_B189"
+   ],
+   [
+    "loc_B032",
+    "loc_B06F"
+   ],
+   [
+    "loc_B032",
+    "loc_B0A9"
+   ],
+   [
+    "loc_B06F",
+    "loc_B084"
+   ],
+   [
+    "loc_B06F",
+    "loc_B0A9"
+   ],
+   [
+    "loc_B084",
+    "loc_B19C"
+   ],
+   [
+    "loc_B0A9",
+    "loc_B195"
+   ],
+   [
+    "loc_B0AE",
+    "loc_B0E2"
+   ],
+   [
+    "loc_B0E2",
+    "loc_B0EE"
+   ],
+   [
+    "loc_B0E2",
+    "loc_B184"
+   ],
+   [
+    "loc_B0EE",
+    "loc_B13A"
+   ],
+   [
+    "loc_B0EE",
+    "loc_B148"
+   ],
+   [
+    "loc_B13A",
+    "loc_B17F"
+   ],
+   [
+    "loc_B148",
+    "loc_B154"
+   ],
+   [
+    "loc_B148",
+    "loc_B162"
+   ],
+   [
+    "loc_B154",
+    "loc_B17A"
+   ],
+   [
+    "loc_B162",
+    "loc_B19C"
+   ],
+   [
+    "loc_B17A",
+    "loc_B17F"
+   ],
+   [
+    "loc_B17F",
+    "loc_B0E2"
+   ],
+   [
+    "loc_B184",
+    "loc_B195"
+   ],
+   [
+    "loc_B189",
+    "loc_B19C"
+   ],
+   [
+    "loc_B195",
+    "loc_B19C"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+classDefTable], rdi\nmov     [rbp+glyph], esi\nmov     rdi, [rbp+classDefTable]; p\ncall    ttUSHORT\nmov     [rbp+classDefFormat], ax\nmovzx   eax, [rbp+classDefFormat]\nmov     [rbp+var_5C], eax\nsub     eax, 1\njz      loc_B032",
+   "loc_B01C": "jmp     $+5",
+   "loc_B021": "mov     eax, [rbp+var_5C]\nsub     eax, 2\njz      loc_B0AE",
+   "loc_B02D": "jmp     loc_B189",
+   "loc_B032": "mov     rdi, [rbp+classDefTable]\nadd     rdi, 2; p\ncall    ttUSHORT\nmov     [rbp+startGlyphID], ax\nmov     rdi, [rbp+classDefTable]\nadd     rdi, 4; p\ncall    ttUSHORT\nmov     [rbp+glyphCount], ax\nmov     rax, [rbp+classDefTable]\nadd     rax, 6\nmov     [rbp+classDef1ValueArray], rax\nmov     eax, [rbp+glyph]\nmovzx   ecx, [rbp+startGlyphID]\ncmp     eax, ecx\njl      loc_B0A9",
+   "loc_B06F": "mov     eax, [rbp+glyph]\nmovzx   ecx, [rbp+startGlyphID]\nmovzx   edx, [rbp+glyphCount]\nadd     ecx, edx\ncmp     eax, ecx\njge     loc_B0A9",
+   "loc_B084": "mov     rdi, [rbp+classDef1ValueArray]\nmov     eax, [rbp+glyph]\nmovzx   ecx, [rbp+startGlyphID]\nsub     eax, ecx\nshl     eax, 1\ncdqe\nadd     rdi, rax; p\ncall    ttUSHORT\nmovzx   eax, ax\nmov     [rbp+var_4], eax\njmp     loc_B19C",
+   "loc_B0A9": "jmp     loc_B195",
+   "loc_B0AE": "mov     rdi, [rbp+classDefTable]\nadd     rdi, 2; p\ncall    ttUSHORT\nmov     [rbp+classRangeCount], ax\nmov     rax, [rbp+classDefTable]\nadd     rax, 4\nmov     [rbp+classRangeRecords], rax\nmov     [rbp+l], 0\nmovzx   eax, [rbp+classRangeCount]\nsub     eax, 1\nmov     [rbp+r], eax\nmov     eax, [rbp+glyph]\nmov     [rbp+needle], eax",
+   "loc_B0E2": "mov     eax, [rbp+l]\ncmp     eax, [rbp+r]\njg      loc_B184",
+   "loc_B0EE": "mov     eax, [rbp+l]\nadd     eax, [rbp+r]\nsar     eax, 1\nmov     [rbp+m], eax\nmov     rax, [rbp+classRangeRecords]\nimul    ecx, [rbp+m], 6\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+classRangeRecord], rax\nmov     rdi, [rbp+classRangeRecord]; p\ncall    ttUSHORT\nmovzx   eax, ax\nmov     [rbp+strawStart], eax\nmov     rdi, [rbp+classRangeRecord]\nadd     rdi, 2; p\ncall    ttUSHORT\nmovzx   eax, ax\nmov     [rbp+strawEnd], eax\nmov     eax, [rbp+needle]\ncmp     eax, [rbp+strawStart]\njge     loc_B148",
+   "loc_B13A": "mov     eax, [rbp+m]\nsub     eax, 1\nmov     [rbp+r], eax\njmp     loc_B17F",
+   "loc_B148": "mov     eax, [rbp+needle]\ncmp     eax, [rbp+strawEnd]\njle     loc_B162",
+   "loc_B154": "mov     eax, [rbp+m]\nadd     eax, 1\nmov     [rbp+l], eax\njmp     loc_B17A",
+   "loc_B162": "mov     rdi, [rbp+classRangeRecord]\nadd     rdi, 4; p\ncall    ttUSHORT\nmovzx   eax, ax\nmov     [rbp+var_4], eax\njmp     loc_B19C",
+   "loc_B17A": "jmp     $+5",
+   "loc_B17F": "jmp     loc_B0E2",
+   "loc_B184": "jmp     loc_B195",
+   "loc_B189": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_B19C",
+   "loc_B195": "mov     [rbp+var_4], 0",
+   "loc_B19C": "mov     eax, [rbp+var_4]\nadd     rsp, 60h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_5C": "dword ptr -5Ch",
+   "classRangeRecord": "qword ptr -58h",
+   "needle": "dword ptr -50h",
+   "strawEnd": "dword ptr -4Ch",
+   "strawStart": "dword ptr -48h",
+   "m": "dword ptr -44h",
+   "r": "dword ptr -40h",
+   "l": "dword ptr -3Ch",
+   "classRangeRecords": "qword ptr -38h",
+   "classRangeCount": "word ptr -2Ah",
+   "classDef1ValueArray": "qword ptr -28h",
+   "glyphCount": "word ptr -1Ah",
+   "startGlyphID": "word ptr -18h",
+   "classDefFormat": "word ptr -16h",
+   "glyph": "dword ptr -14h",
+   "classDefTable": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 45040,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".pow": "pow",
+  "_pow": "pow",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fmod": "fmod",
+  "_fmod": "fmod",
+  ".cos": "cos",
+  "_cos": "cos",
+  ".acos": "acos",
+  "_acos": "acos",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".floor": "floor",
+  "_floor": "floor",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".sqrt": "sqrt",
+  "_sqrt": "sqrt",
+  ".ceil": "ceil",
+  "_ceil": "ceil"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".pow",
+   ".plt",
+   true,
+   "pow"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fmod",
+   ".plt",
+   true,
+   "fmod"
+  ],
+  [
+   ".cos",
+   ".plt",
+   true,
+   "cos"
+  ],
+  [
+   ".acos",
+   ".plt",
+   true,
+   "acos"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".floor",
+   ".plt",
+   true,
+   "floor"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   ".sqrt",
+   ".plt",
+   true,
+   "sqrt"
+  ],
+  [
+   ".ceil",
+   ".plt",
+   true,
+   "ceil"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "pow",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fmod",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "cos",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "acos",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872684
+ }
+}

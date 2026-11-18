@@ -1,0 +1,53 @@
+{
+ "schema_version": 1,
+ "localId": "github_barebone_msfgif_enc_msf_free_gif_state",
+ "backend": "github",
+ "project": "msfgif_enc",
+ "pname": "msfgif_enc",
+ "language": "c",
+ "fuzz_target": "prog.bin",
+ "sanitizer": "asan_ubsan",
+ "oracle": "exit_memstate",
+ "n_inputs": 50,
+ "n_safe": 50,
+ "n_triggering": 0,
+ "signature": "static void msf_free_gif_state(MsfGifState * handle)",
+ "harness": "custom",
+ "memstate_masked": true,
+ "memstate_symcanon": true,
+ "baseline": {
+  "crashed": false,
+  "status": "PASS",
+  "n_pass": 50,
+  "memstate": "data_bss_symbol_canonical_relocmasked",
+  "memstate_masked": true,
+  "memstate_symcanon": true
+ },
+ "target": {
+  "name": "msf_free_gif_state",
+  "repo_relpath": "func.c",
+  "start_byte": 26277,
+  "end_byte": 27486,
+  "start_line": 544,
+  "end_line": 558,
+  "return_type": "void",
+  "signature": "static void msf_free_gif_state(MsfGifState * handle)"
+ },
+ "provenance": {
+  "source": "github",
+  "repo": "https://github.com/notnullnotvoid/msf_gif",
+  "path": "msf_gif.h",
+  "func": "msf_free_gif_state",
+  "commit": "e280bc2189ed32b743c7f634cd21c0eb5def7046",
+  "commit_verified": "exact"
+ },
+ "decompiler_input": [
+  "asm",
+  "ghidra",
+  "ida"
+ ],
+ "extra_cflags": "-I. -DMSF_GIF_IMPL",
+ "group": "github_barebone",
+ "category": "functional",
+ "reexec_from": "githubrc_msfgif_enc_msf_free_gif_state"
+}

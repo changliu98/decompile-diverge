@@ -1,0 +1,57 @@
+00000000000011c0 <crc_kermit>:
+    11c0:	push   %rbp
+    11c1:	mov    %rsp,%rbp
+    11c4:	sub    $0x30,%rsp
+    11c8:	mov    %rdi,-0x8(%rbp)
+    11cc:	mov    %rsi,-0x10(%rbp)
+    11d0:	testb  $0x1,0x2eb9(%rip)        # 4090 <crc_tab_init>
+    11d7:	jne    11e2 <crc_kermit+0x22>
+    11dd:	call   12a0 <init_crc_tab>
+    11e2:	movw   $0x0,-0x12(%rbp)
+    11e8:	mov    -0x8(%rbp),%rax
+    11ec:	mov    %rax,-0x20(%rbp)
+    11f0:	cmpq   $0x0,-0x20(%rbp)
+    11f5:	je     1263 <crc_kermit+0xa3>
+    11fb:	movq   $0x0,-0x28(%rbp)
+    1203:	mov    -0x28(%rbp),%rax
+    1207:	cmp    -0x10(%rbp),%rax
+    120b:	jae    125e <crc_kermit+0x9e>
+    1211:	movzwl -0x12(%rbp),%eax
+    1215:	sar    $0x8,%eax
+    1218:	movzwl -0x12(%rbp),%ecx
+    121c:	mov    -0x20(%rbp),%rdx
+    1220:	mov    %rdx,%rsi
+    1223:	add    $0x1,%rsi
+    1227:	mov    %rsi,-0x20(%rbp)
+    122b:	movzbl (%rdx),%edx
+    122e:	movzwl %dx,%edx
+    1231:	xor    %edx,%ecx
+    1233:	and    $0xff,%ecx
+    1239:	movslq %ecx,%rdx
+    123c:	lea    0x2e5d(%rip),%rcx        # 40a0 <crc_tab>
+    1243:	movzwl (%rcx,%rdx,2),%ecx
+    1247:	xor    %ecx,%eax
+    1249:	mov    %ax,-0x12(%rbp)
+    124d:	mov    -0x28(%rbp),%rax
+    1251:	add    $0x1,%rax
+    1255:	mov    %rax,-0x28(%rbp)
+    1259:	jmp    1203 <crc_kermit+0x43>
+    125e:	jmp    1263 <crc_kermit+0xa3>
+    1263:	movzwl -0x12(%rbp),%eax
+    1267:	and    $0xff00,%eax
+    126c:	sar    $0x8,%eax
+    126f:	mov    %ax,-0x14(%rbp)
+    1273:	movzwl -0x12(%rbp),%eax
+    1277:	and    $0xff,%eax
+    127c:	shl    $0x8,%eax
+    127f:	mov    %ax,-0x16(%rbp)
+    1283:	movzwl -0x14(%rbp),%eax
+    1287:	movzwl -0x16(%rbp),%ecx
+    128b:	or     %ecx,%eax
+    128d:	mov    %ax,-0x12(%rbp)
+    1291:	movzwl -0x12(%rbp),%eax
+    1295:	add    $0x30,%rsp
+    1299:	pop    %rbp
+    129a:	ret
+
+Disassembly of section .fini:

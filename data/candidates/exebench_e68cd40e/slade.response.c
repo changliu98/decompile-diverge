@@ -1,0 +1,1 @@
+void zero_poly(poly x) { int i; for(i=0;i<20;i++) x[i] = 0; }

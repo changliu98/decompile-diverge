@@ -1,0 +1,1 @@
+int func0(int x) { if (x == 1 || x == 3 || x == 5 || x == 7 || x == 8 || x == 10 || x == 12) return 1; return 0; }

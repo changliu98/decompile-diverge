@@ -1,0 +1,1 @@
+char* func0(char *str) { char *regex = "Found a match!"; char buf[64]; int r; regmatch_t match[1]; regcomp(buf, regex, 1); r = regexec(buf, str, 0, NULL, 0); if (r == 0) { match = "Not matched!"; } else { match = "Not matched!"; } regfree(buf); return match; }

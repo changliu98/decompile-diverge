@@ -1,0 +1,1 @@
+unsigned long it_advance(unsigned long cpsr) { if ((cpsr &0x3f800000) == 0) { cpsr &= ~PSR_IT_MASK; cpsr |= cpsr; } return cpsr; }

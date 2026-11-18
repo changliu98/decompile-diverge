@@ -1,0 +1,1 @@
+uint32_t func0(uint32_t x) { return x * 65536.0 * x; }

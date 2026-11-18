@@ -1,0 +1,1 @@
+void func(struct foo *a, struct foo *b) { a->x = 1; b->x = 1; }

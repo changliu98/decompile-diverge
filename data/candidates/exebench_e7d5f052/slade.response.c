@@ -1,0 +1,1 @@
+void SJIStoJIS (int *J, int *_JIS) { register unsigned char c1 = *J; register unsigned char c2 = *_JIS; register unsigned char c3 = c2 < 179; register int i = c1 < 190 ? 112 : 176; c2 = c2 == 0 ? 126 : (c2 > 0 ? 32 : 31); *J = (c1 - i) * 2 - i; *_JIS -= c2; }

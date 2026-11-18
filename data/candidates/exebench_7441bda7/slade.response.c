@@ -1,0 +1,1 @@
+void set_int_to(void *a, void *b) { *(int *)a = *(int *)b; }

@@ -1,0 +1,1 @@
+size_t getSize(Pool *pool) { return sizeof(pool); }

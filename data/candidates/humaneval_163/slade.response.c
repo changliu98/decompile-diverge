@@ -1,0 +1,1 @@
+void func0(int a, int b, int array[], int *n) { *n = 0; if (b < a) { int temp = a; a = b; b = temp; } for (int i = a; i <= b; i++) { if (i < 10 && i % 2 == 0) { array[(*n)++] = i; } } }

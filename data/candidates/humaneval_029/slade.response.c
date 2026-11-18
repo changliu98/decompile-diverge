@@ -1,0 +1,1 @@
+int func0(char** strs, int strsSize, char* str0, char** result0) { int len = strlen(str0); int i,j; *result0 = (char*)malloc((size_t)(strsSize * sizeof(char*))); for (i = 0, j = 0; j < strsSize; j++) { if (!strncmp(strs[j], str0, len)) { (*result0)[i++] = strs[j]; } } return i; }

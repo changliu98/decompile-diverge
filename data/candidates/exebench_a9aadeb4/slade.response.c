@@ -1,0 +1,1 @@
+void set_char(char *p, int x) { *p = x; }

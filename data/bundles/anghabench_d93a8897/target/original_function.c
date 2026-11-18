@@ -1,0 +1,1 @@
+uint32_t REG_A3XX_GRAS_CL_USER_PLANE_X(uint32_t i0) { return 0x00000ca0 + 0x4*i0; }

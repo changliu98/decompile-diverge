@@ -1,0 +1,609 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+ndo], rdi\nmov     [rbp+proto], esi\nmov     [rbp+p], rdx\nmov     [rbp+length], ecx\nmov     eax, [rbp+proto]\nand     eax, 0FF00h\ncmp     eax, 7E00h\njnz     loc_1C02\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]\nadd     rsi, 0FFFFFFFFFFFFFFFFh; p\nmov     edx, [rbp+length]; length\ncall    ppp_hdlc\njmp     loc_1EE6\nmov     eax, [rbp+proto]\nmov     [rbp+var_20], eax\nsub     eax, 21h ; '!'\njz      loc_1E07\njmp     $+5\nmov     eax, [rbp+var_20]\nsub     eax, 23h ; '#'\njz      loc_1E46\njmp     $+5\nmov     eax, [rbp+var_20]\nsub     eax, 2Bh ; '+'\njz      loc_1E31\njmp     $+5\nmov     eax, [rbp+var_20]\nsub     eax, 2Fh ; '/'\njz      loc_1E07\njmp     $+5\nmov     eax, [rbp+var_20]\nsub     eax, 3Dh ; '='\njz      loc_1DB3\njmp     $+5\nmov     eax, [rbp+var_20]\nsub     eax, 57h ; 'W'\njz      loc_1E1C\njmp     $+5\nmov     eax, [rbp+var_20]\nsub     eax, 0FDh\njz      loc_1E73\njmp     $+5\nmov     eax, [rbp+var_20]\nsub     eax, 281h\njz      loc_1E5E\njmp     $+5\nmov     eax, [rbp+var_20]\nsub     eax, 283h\njz      loc_1E5E\njmp     $+5\nmov     eax, [rbp+var_20]\nsub     eax, 800h\njz      loc_1E07\njmp     $+5\nmov     eax, [rbp+var_20]\nsub     eax, 8021h\njz      loc_1D9B\njmp     $+5\nmov     eax, [rbp+var_20]\nsub     eax, 8023h\njz      loc_1D9B\njmp     $+5\nmov     eax, [rbp+var_20]\nsub     eax, 8057h\njz      loc_1D9B\njmp     $+5\nmov     eax, [rbp+var_20]\nsub     eax, 80FDh\njz      loc_1D9B\njmp     $+5\nmov     eax, [rbp+var_20]\nsub     eax, 8137h\njz      loc_1E31\njmp     $+5\nmov     eax, [rbp+var_20]\nsub     eax, 8281h\njz      loc_1D9B\njmp     $+5\nmov     eax, [rbp+var_20]\nsub     eax, 86DDh\njz      loc_1E1C\njmp     $+5\nmov     eax, [rbp+var_20]\nsub     eax, 0C021h\njz      loc_1D9B\njmp     $+5\nmov     eax, [rbp+var_20]\nsub     eax, 0C023h\njz      loc_1DDD\njmp     $+5\nmov     eax, [rbp+var_20]\nsub     eax, 0C02Bh\njz      loc_1D9B\njmp     $+5\nmov     eax, [rbp+var_20]\nsub     eax, 0C02Dh\njz      loc_1DF2\njmp     $+5\nmov     eax, [rbp+var_20]\nsub     eax, 0C223h\njz      loc_1DC8\njmp     loc_1E8F\nmov     rdi, [rbp+ndo]; ndo\nmov     esi, [rbp+proto]; proto\nmov     rdx, [rbp+p]; pptr\nmov     ecx, [rbp+length]; length\ncall    handle_ctrl_proto\njmp     loc_1EE6\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; p\nmov     edx, [rbp+length]; length\ncall    handle_mlppp\njmp     loc_1EE6\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; p\nmov     edx, [rbp+length]; length\ncall    handle_chap\njmp     loc_1EE6\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; p\nmov     edx, [rbp+length]; length\ncall    handle_pap\njmp     loc_1EE6\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; p\nmov     edx, [rbp+length]; length\ncall    handle_bap\njmp     loc_1EE6\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; bp_0\nmov     edx, [rbp+length]; length\ncall    ip_print\njmp     loc_1EE6\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; bp_0\nmov     edx, [rbp+length]; length\ncall    ip6_print\njmp     loc_1EE6\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; p\nmov     edx, [rbp+length]; length\ncall    ipx_print\njmp     loc_1EE6\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; p\nmov     edx, [rbp+length]; length\nmov     ecx, [rbp+length]; caplen\ncall    isoclns_print\njmp     loc_1EE6\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; bp_0\nmov     edx, [rbp+length]; length\ncall    mpls_print\njmp     loc_1EE6\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aCompressedPppD; \"compressed PPP data\"\nmov     al, 0\ncall    rcx\njmp     loc_1EE6\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_28], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_30], rax\nmov     edx, [rbp+proto]; v\nlea     rdi, ppptype2str; lp\nlea     rsi, aUnknownPppProt; \"unknown PPP protocol (0x%04x)\"\ncall    tok2str\nmov     rdi, [rbp+var_30]\nmov     rcx, [rbp+var_28]\nmov     rdx, rax\nlea     rsi, aS; \"%s \"\nmov     al, 0\ncall    rcx\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; cp\nmov     ecx, [rbp+length]; len\nlea     rdx, ident; \"\\n\\t\"\ncall    print_unknown_data\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 59,
+  "edges": [
+   [
+    "start",
+    "loc_1BE9"
+   ],
+   [
+    "start",
+    "loc_1C02"
+   ],
+   [
+    "loc_1BE9",
+    "loc_1EE6"
+   ],
+   [
+    "loc_1C02",
+    "loc_1C11"
+   ],
+   [
+    "loc_1C02",
+    "loc_1E07"
+   ],
+   [
+    "loc_1C11",
+    "loc_1C16"
+   ],
+   [
+    "loc_1C16",
+    "loc_1C22"
+   ],
+   [
+    "loc_1C16",
+    "loc_1E46"
+   ],
+   [
+    "loc_1C22",
+    "loc_1C27"
+   ],
+   [
+    "loc_1C27",
+    "loc_1C33"
+   ],
+   [
+    "loc_1C27",
+    "loc_1E31"
+   ],
+   [
+    "loc_1C33",
+    "loc_1C38"
+   ],
+   [
+    "loc_1C38",
+    "loc_1C44"
+   ],
+   [
+    "loc_1C38",
+    "loc_1E07"
+   ],
+   [
+    "loc_1C44",
+    "loc_1C49"
+   ],
+   [
+    "loc_1C49",
+    "loc_1C55"
+   ],
+   [
+    "loc_1C49",
+    "loc_1DB3"
+   ],
+   [
+    "loc_1C55",
+    "loc_1C5A"
+   ],
+   [
+    "loc_1C5A",
+    "loc_1C66"
+   ],
+   [
+    "loc_1C5A",
+    "loc_1E1C"
+   ],
+   [
+    "loc_1C66",
+    "loc_1C6B"
+   ],
+   [
+    "loc_1C6B",
+    "loc_1C79"
+   ],
+   [
+    "loc_1C6B",
+    "loc_1E73"
+   ],
+   [
+    "loc_1C79",
+    "loc_1C7E"
+   ],
+   [
+    "loc_1C7E",
+    "loc_1C8C"
+   ],
+   [
+    "loc_1C7E",
+    "loc_1E5E"
+   ],
+   [
+    "loc_1C8C",
+    "loc_1C91"
+   ],
+   [
+    "loc_1C91",
+    "loc_1C9F"
+   ],
+   [
+    "loc_1C91",
+    "loc_1E5E"
+   ],
+   [
+    "loc_1C9F",
+    "loc_1CA4"
+   ],
+   [
+    "loc_1CA4",
+    "loc_1CB2"
+   ],
+   [
+    "loc_1CA4",
+    "loc_1E07"
+   ],
+   [
+    "loc_1CB2",
+    "loc_1CB7"
+   ],
+   [
+    "loc_1CB7",
+    "loc_1CC5"
+   ],
+   [
+    "loc_1CB7",
+    "loc_1D9B"
+   ],
+   [
+    "loc_1CC5",
+    "loc_1CCA"
+   ],
+   [
+    "loc_1CCA",
+    "loc_1CD8"
+   ],
+   [
+    "loc_1CCA",
+    "loc_1D9B"
+   ],
+   [
+    "loc_1CD8",
+    "loc_1CDD"
+   ],
+   [
+    "loc_1CDD",
+    "loc_1CEB"
+   ],
+   [
+    "loc_1CDD",
+    "loc_1D9B"
+   ],
+   [
+    "loc_1CEB",
+    "loc_1CF0"
+   ],
+   [
+    "loc_1CF0",
+    "loc_1CFE"
+   ],
+   [
+    "loc_1CF0",
+    "loc_1D9B"
+   ],
+   [
+    "loc_1CFE",
+    "loc_1D03"
+   ],
+   [
+    "loc_1D03",
+    "loc_1D11"
+   ],
+   [
+    "loc_1D03",
+    "loc_1E31"
+   ],
+   [
+    "loc_1D11",
+    "loc_1D16"
+   ],
+   [
+    "loc_1D16",
+    "loc_1D24"
+   ],
+   [
+    "loc_1D16",
+    "loc_1D9B"
+   ],
+   [
+    "loc_1D24",
+    "loc_1D29"
+   ],
+   [
+    "loc_1D29",
+    "loc_1D37"
+   ],
+   [
+    "loc_1D29",
+    "loc_1E1C"
+   ],
+   [
+    "loc_1D37",
+    "loc_1D3C"
+   ],
+   [
+    "loc_1D3C",
+    "loc_1D4A"
+   ],
+   [
+    "loc_1D3C",
+    "loc_1D9B"
+   ],
+   [
+    "loc_1D4A",
+    "loc_1D4F"
+   ],
+   [
+    "loc_1D4F",
+    "loc_1D5D"
+   ],
+   [
+    "loc_1D4F",
+    "loc_1DDD"
+   ],
+   [
+    "loc_1D5D",
+    "loc_1D62"
+   ],
+   [
+    "loc_1D62",
+    "loc_1D70"
+   ],
+   [
+    "loc_1D62",
+    "loc_1D9B"
+   ],
+   [
+    "loc_1D70",
+    "loc_1D75"
+   ],
+   [
+    "loc_1D75",
+    "loc_1D83"
+   ],
+   [
+    "loc_1D75",
+    "loc_1DF2"
+   ],
+   [
+    "loc_1D83",
+    "loc_1D88"
+   ],
+   [
+    "loc_1D88",
+    "loc_1D96"
+   ],
+   [
+    "loc_1D88",
+    "loc_1DC8"
+   ],
+   [
+    "loc_1D96",
+    "loc_1E8F"
+   ],
+   [
+    "loc_1D9B",
+    "loc_1EE6"
+   ],
+   [
+    "loc_1DB3",
+    "loc_1EE6"
+   ],
+   [
+    "loc_1DC8",
+    "loc_1EE6"
+   ],
+   [
+    "loc_1DDD",
+    "loc_1EE6"
+   ],
+   [
+    "loc_1DF2",
+    "loc_1EE6"
+   ],
+   [
+    "loc_1E07",
+    "loc_1EE6"
+   ],
+   [
+    "loc_1E1C",
+    "loc_1EE6"
+   ],
+   [
+    "loc_1E31",
+    "loc_1EE6"
+   ],
+   [
+    "loc_1E46",
+    "loc_1EE6"
+   ],
+   [
+    "loc_1E5E",
+    "loc_1EE6"
+   ],
+   [
+    "loc_1E73",
+    "loc_1EE6"
+   ],
+   [
+    "loc_1E8F",
+    "loc_1EE6"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+ndo], rdi\nmov     [rbp+proto], esi\nmov     [rbp+p], rdx\nmov     [rbp+length], ecx\nmov     eax, [rbp+proto]\nand     eax, 0FF00h\ncmp     eax, 7E00h\njnz     loc_1C02",
+   "loc_1BE9": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]\nadd     rsi, 0FFFFFFFFFFFFFFFFh; p\nmov     edx, [rbp+length]; length\ncall    ppp_hdlc\njmp     loc_1EE6",
+   "loc_1C02": "mov     eax, [rbp+proto]\nmov     [rbp+var_20], eax\nsub     eax, 21h ; '!'\njz      loc_1E07",
+   "loc_1C11": "jmp     $+5",
+   "loc_1C16": "mov     eax, [rbp+var_20]\nsub     eax, 23h ; '#'\njz      loc_1E46",
+   "loc_1C22": "jmp     $+5",
+   "loc_1C27": "mov     eax, [rbp+var_20]\nsub     eax, 2Bh ; '+'\njz      loc_1E31",
+   "loc_1C33": "jmp     $+5",
+   "loc_1C38": "mov     eax, [rbp+var_20]\nsub     eax, 2Fh ; '/'\njz      loc_1E07",
+   "loc_1C44": "jmp     $+5",
+   "loc_1C49": "mov     eax, [rbp+var_20]\nsub     eax, 3Dh ; '='\njz      loc_1DB3",
+   "loc_1C55": "jmp     $+5",
+   "loc_1C5A": "mov     eax, [rbp+var_20]\nsub     eax, 57h ; 'W'\njz      loc_1E1C",
+   "loc_1C66": "jmp     $+5",
+   "loc_1C6B": "mov     eax, [rbp+var_20]\nsub     eax, 0FDh\njz      loc_1E73",
+   "loc_1C79": "jmp     $+5",
+   "loc_1C7E": "mov     eax, [rbp+var_20]\nsub     eax, 281h\njz      loc_1E5E",
+   "loc_1C8C": "jmp     $+5",
+   "loc_1C91": "mov     eax, [rbp+var_20]\nsub     eax, 283h\njz      loc_1E5E",
+   "loc_1C9F": "jmp     $+5",
+   "loc_1CA4": "mov     eax, [rbp+var_20]\nsub     eax, 800h\njz      loc_1E07",
+   "loc_1CB2": "jmp     $+5",
+   "loc_1CB7": "mov     eax, [rbp+var_20]\nsub     eax, 8021h\njz      loc_1D9B",
+   "loc_1CC5": "jmp     $+5",
+   "loc_1CCA": "mov     eax, [rbp+var_20]\nsub     eax, 8023h\njz      loc_1D9B",
+   "loc_1CD8": "jmp     $+5",
+   "loc_1CDD": "mov     eax, [rbp+var_20]\nsub     eax, 8057h\njz      loc_1D9B",
+   "loc_1CEB": "jmp     $+5",
+   "loc_1CF0": "mov     eax, [rbp+var_20]\nsub     eax, 80FDh\njz      loc_1D9B",
+   "loc_1CFE": "jmp     $+5",
+   "loc_1D03": "mov     eax, [rbp+var_20]\nsub     eax, 8137h\njz      loc_1E31",
+   "loc_1D11": "jmp     $+5",
+   "loc_1D16": "mov     eax, [rbp+var_20]\nsub     eax, 8281h\njz      loc_1D9B",
+   "loc_1D24": "jmp     $+5",
+   "loc_1D29": "mov     eax, [rbp+var_20]\nsub     eax, 86DDh\njz      loc_1E1C",
+   "loc_1D37": "jmp     $+5",
+   "loc_1D3C": "mov     eax, [rbp+var_20]\nsub     eax, 0C021h\njz      loc_1D9B",
+   "loc_1D4A": "jmp     $+5",
+   "loc_1D4F": "mov     eax, [rbp+var_20]\nsub     eax, 0C023h\njz      loc_1DDD",
+   "loc_1D5D": "jmp     $+5",
+   "loc_1D62": "mov     eax, [rbp+var_20]\nsub     eax, 0C02Bh\njz      loc_1D9B",
+   "loc_1D70": "jmp     $+5",
+   "loc_1D75": "mov     eax, [rbp+var_20]\nsub     eax, 0C02Dh\njz      loc_1DF2",
+   "loc_1D83": "jmp     $+5",
+   "loc_1D88": "mov     eax, [rbp+var_20]\nsub     eax, 0C223h\njz      loc_1DC8",
+   "loc_1D96": "jmp     loc_1E8F",
+   "loc_1D9B": "mov     rdi, [rbp+ndo]; ndo\nmov     esi, [rbp+proto]; proto\nmov     rdx, [rbp+p]; pptr\nmov     ecx, [rbp+length]; length\ncall    handle_ctrl_proto\njmp     loc_1EE6",
+   "loc_1DB3": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; p\nmov     edx, [rbp+length]; length\ncall    handle_mlppp\njmp     loc_1EE6",
+   "loc_1DC8": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; p\nmov     edx, [rbp+length]; length\ncall    handle_chap\njmp     loc_1EE6",
+   "loc_1DDD": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; p\nmov     edx, [rbp+length]; length\ncall    handle_pap\njmp     loc_1EE6",
+   "loc_1DF2": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; p\nmov     edx, [rbp+length]; length\ncall    handle_bap\njmp     loc_1EE6",
+   "loc_1E07": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; bp_0\nmov     edx, [rbp+length]; length\ncall    ip_print\njmp     loc_1EE6",
+   "loc_1E1C": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; bp_0\nmov     edx, [rbp+length]; length\ncall    ip6_print\njmp     loc_1EE6",
+   "loc_1E31": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; p\nmov     edx, [rbp+length]; length\ncall    ipx_print\njmp     loc_1EE6",
+   "loc_1E46": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; p\nmov     edx, [rbp+length]; length\nmov     ecx, [rbp+length]; caplen\ncall    isoclns_print\njmp     loc_1EE6",
+   "loc_1E5E": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; bp_0\nmov     edx, [rbp+length]; length\ncall    mpls_print\njmp     loc_1EE6",
+   "loc_1E73": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aCompressedPppD; \"compressed PPP data\"\nmov     al, 0\ncall    rcx\njmp     loc_1EE6",
+   "loc_1E8F": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_28], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_30], rax\nmov     edx, [rbp+proto]; v\nlea     rdi, ppptype2str; lp\nlea     rsi, aUnknownPppProt; \"unknown PPP protocol (0x%04x)\"\ncall    tok2str\nmov     rdi, [rbp+var_30]\nmov     rcx, [rbp+var_28]\nmov     rdx, rax\nlea     rsi, aS; \"%s \"\nmov     al, 0\ncall    rcx\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; cp\nmov     ecx, [rbp+length]; len\nlea     rdx, ident; \"\\n\\t\"\ncall    print_unknown_data",
+   "loc_1EE6": "add     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_30": "qword ptr -30h",
+   "var_28": "qword ptr -28h",
+   "var_20": "dword ptr -20h",
+   "length": "dword ptr -1Ch",
+   "p": "qword ptr -18h",
+   "proto": "dword ptr -0Ch",
+   "ndo": "qword ptr -8"
+  },
+  ".rodata": {
+   "aCompressedPppD": "byte 'compressed PPP data',0",
+   "ppptype2str": "tok <0>",
+   "aUnknownPppProt": "byte 'unknown PPP protocol (0x%04x)',0",
+   "aS": "byte '%s ',0",
+   "ident": "byte 0Ah"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 7104,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "snprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868479
+ }
+}

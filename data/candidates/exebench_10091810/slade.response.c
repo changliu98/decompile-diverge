@@ -1,0 +1,1 @@
+void BGBBTJ_BC7_EncodeBlock_VecSwapRGB(byte *px, byte *py) { int px1; px1=px[0]; px[0]=py[0]; py[0]=px1; px1=px[1]; px[1]=py[1]; py[1]=px1; px1=px[2]; px[2]=py[2]; py[2]=px1; }

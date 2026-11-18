@@ -1,0 +1,465 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 270h\nmov     rax, [rbp+o_element_count]\nmov     rax, [rbp+o_column_count]\nmov     [rbp+io_generated_code], rdi\nmov     [rbp+i_csc_file_in], rsi\nmov     [rbp+o_row_idx], rdx\nmov     [rbp+o_column_idx], rcx\nmov     [rbp+o_values], r8\nmov     [rbp+o_row_count], r9\nmov     [rbp+l_line_length], 200h\nmov     [rbp+l_header_read], 0\nmov     [rbp+l_column_idx_id], 0\nmov     [rbp+l_i], 0\nmov     rdi, [rbp+i_csc_file_in]; filename\nlea     rsi, modes; \"r\"\ncall    fopen\nmov     [rbp+l_csc_file_handle], rax\ncmp     [rbp+l_csc_file_handle], 0\njnz     loc_1245\njmp     loc_175E\njmp     $+5\nlea     rdi, [rbp+l_line]; s\nmov     rdx, [rbp+l_csc_file_handle]; stream\nmov     esi, 200h; n\ncall    fgets\ncmp     rax, 0\njz      loc_1662\nlea     rdi, [rbp+l_line]; s\ncall    strlen\ncmp     rax, 200h\njnz     loc_12E0\nmov     rax, [rbp+o_row_idx]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rax, [rbp+o_column_idx]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rax, [rbp+o_values]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rdi, [rbp+l_column_idx_id]; ptr\ncall    free\nmov     rax, [rbp+o_row_idx]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+o_column_idx]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+o_values]\nmov     qword ptr [rax], 0\nmov     rdi, [rbp+l_csc_file_handle]; stream\ncall    fclose\njmp     loc_175E\nmovsx   eax, [rbp+l_line]\ncmp     eax, 25h ; '%'\njnz     loc_12F5\njmp     loc_124A\ncmp     [rbp+l_header_read], 0\njnz     loc_151B\nlea     rdi, [rbp+l_line]\nmov     rdx, [rbp+o_row_count]\nmov     rcx, [rbp+o_column_count]\nmov     r8, [rbp+o_element_count]\nlea     rsi, aUUU; \"%u %u %u\"\nmov     al, 0\ncall    ___isoc99_sscanf\ncmp     eax, 3\njnz     loc_1508\nmov     rax, [rbp+o_element_count]\nmov     eax, [rax]\nmov     edi, eax\nshl     rdi, 2; size\ncall    malloc\nmov     rcx, rax\nmov     rax, [rbp+o_row_idx]\nmov     [rax], rcx\nmov     rax, [rbp+o_column_count]\nmov     eax, [rax]\nmov     edi, eax\nadd     rdi, 1\nshl     rdi, 2; size\ncall    malloc\nmov     rcx, rax\nmov     rax, [rbp+o_column_idx]\nmov     [rax], rcx\nmov     rax, [rbp+o_element_count]\nmov     eax, [rax]\nmov     edi, eax\nshl     rdi, 3; size\ncall    malloc\nmov     rcx, rax\nmov     rax, [rbp+o_values]\nmov     [rax], rcx\nmov     rax, [rbp+o_column_count]\nmov     eax, [rax]\nmov     edi, eax\nshl     rdi, 2; size\ncall    malloc\nmov     [rbp+l_column_idx_id], rax\nmov     rax, [rbp+o_row_idx]\ncmp     qword ptr [rax], 0\njz      loc_13D1\nmov     rax, [rbp+o_column_idx]\ncmp     qword ptr [rax], 0\njz      loc_13D1\nmov     rax, [rbp+o_values]\ncmp     qword ptr [rax], 0\njz      loc_13D1\ncmp     [rbp+l_column_idx_id], 0\njnz     loc_1430\nmov     rax, [rbp+o_row_idx]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rax, [rbp+o_column_idx]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rax, [rbp+o_values]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rdi, [rbp+l_column_idx_id]; ptr\ncall    free\nmov     rax, [rbp+o_row_idx]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+o_column_idx]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+o_values]\nmov     qword ptr [rax], 0\nmov     rdi, [rbp+l_csc_file_handle]; stream\ncall    fclose\njmp     loc_175E\nmov     rax, [rbp+o_row_idx]\nmov     rdi, [rax]; s\nmov     rax, [rbp+o_element_count]\nmov     eax, [rax]\nmov     edx, eax\nshl     rdx, 2; n\nxor     esi, esi; c\ncall    memset\nmov     rax, [rbp+o_column_idx]\nmov     rdi, [rax]; s\nmov     rax, [rbp+o_column_count]\nmov     eax, [rax]\nmov     edx, eax\nadd     rdx, 1\nshl     rdx, 2; n\nxor     esi, esi; c\ncall    memset\nmov     rax, [rbp+o_values]\nmov     rdi, [rax]; s\nmov     rax, [rbp+o_element_count]\nmov     eax, [rax]\nmov     edx, eax\nshl     rdx, 3; n\nxor     esi, esi; c\ncall    memset\nmov     rdi, [rbp+l_column_idx_id]; s\nmov     rax, [rbp+o_column_count]\nmov     eax, [rax]\nmov     edx, eax\nshl     rdx, 2; n\nxor     esi, esi; c\ncall    memset\nmov     [rbp+l_i], 0\nmov     eax, [rbp+l_i]\nmov     rcx, [rbp+o_column_count]\ncmp     eax, [rcx]\nja      loc_14E2\nmov     rax, [rbp+o_element_count]\nmov     edx, [rax]\nmov     rax, [rbp+o_column_idx]\nmov     rax, [rax]\nmov     ecx, [rbp+l_i]\nmov     [rax+rcx*4], edx\nmov     eax, [rbp+l_i]\nadd     eax, 1\nmov     [rbp+l_i], eax\njmp     loc_14A6\nmov     rax, [rbp+o_column_idx]\nmov     rax, [rax]\nmov     dword ptr [rax], 0\nmov     [rbp+l_i], 0\nmov     [rbp+l_header_read], 1\njmp     loc_1516\nmov     rdi, [rbp+l_csc_file_handle]; stream\ncall    fclose\njmp     loc_175E\njmp     loc_1658\nmov     [rbp+l_row], 0\nmov     [rbp+l_column], 0\nxorps   xmm0, xmm0\nmovsd   [rbp+l_value], xmm0\nlea     rdi, [rbp+l_line]\nlea     rsi, aUULf; \"%u %u %lf\"\nlea     rdx, [rbp+l_row]\nlea     rcx, [rbp+l_column]\nlea     r8, [rbp+l_value]\nmov     al, 0\ncall    ___isoc99_sscanf\ncmp     eax, 3\njz      loc_15CC\nmov     rax, [rbp+o_row_idx]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rax, [rbp+o_column_idx]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rax, [rbp+o_values]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rdi, [rbp+l_column_idx_id]; ptr\ncall    free\nmov     rax, [rbp+o_row_idx]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+o_column_idx]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+o_values]\nmov     qword ptr [rax], 0\nmov     rdi, [rbp+l_csc_file_handle]; stream\ncall    fclose\njmp     loc_175E\nmov     eax, [rbp+l_row]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+l_row], eax\nmov     eax, [rbp+l_column]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+l_column], eax\nmov     edx, [rbp+l_row]\nmov     rax, [rbp+o_row_idx]\nmov     rax, [rax]\nmov     ecx, [rbp+l_i]\nmov     [rax+rcx*4], edx\nmovsd   xmm0, [rbp+l_value]\nmov     rax, [rbp+o_values]\nmov     rax, [rax]\nmov     ecx, [rbp+l_i]\nmovsd   qword ptr [rax+rcx*8], xmm0\nmov     eax, [rbp+l_i]\nadd     eax, 1\nmov     [rbp+l_i], eax\nmov     rax, [rbp+l_column_idx_id]\nmov     ecx, [rbp+l_column]\nmov     dword ptr [rax+rcx*4], 1\nmov     edx, [rbp+l_i]\nmov     rax, [rbp+o_column_idx]\nmov     rax, [rax]\nmov     ecx, [rbp+l_column]\nadd     ecx, 1\nmov     ecx, ecx\nmov     [rax+rcx*4], edx\njmp     $+5\njmp     loc_124A\nmov     rdi, [rbp+l_csc_file_handle]; stream\ncall    fclose\nmov     eax, [rbp+l_i]\nmov     rcx, [rbp+o_element_count]\ncmp     eax, [rcx]\njz      loc_16D3\nmov     rax, [rbp+o_row_idx]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rax, [rbp+o_column_idx]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rax, [rbp+o_values]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rdi, [rbp+l_column_idx_id]; ptr\ncall    free\nmov     rax, [rbp+o_row_idx]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+o_column_idx]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+o_values]\nmov     qword ptr [rax], 0\njmp     loc_175E\ncmp     [rbp+l_column_idx_id], 0\njz      loc_175E\nmov     [rbp+l_i], 0\nmov     eax, [rbp+l_i]\nmov     rcx, [rbp+o_column_count]\ncmp     eax, [rcx]\njnb     loc_1752\nmov     rax, [rbp+l_column_idx_id]\nmov     ecx, [rbp+l_i]\ncmp     dword ptr [rax+rcx*4], 0\njnz     loc_1739\nmov     rax, [rbp+o_column_idx]\nmov     rax, [rax]\nmov     ecx, [rbp+l_i]\nmov     edx, [rax+rcx*4]\nmov     rax, [rbp+o_column_idx]\nmov     rax, [rax]\nmov     ecx, [rbp+l_i]\nadd     ecx, 1\nmov     ecx, ecx\nmov     [rax+rcx*4], edx\njmp     $+5\nmov     eax, [rbp+l_i]\nadd     eax, 1\nmov     [rbp+l_i], eax\njmp     loc_16EB\nmov     rdi, [rbp+l_column_idx_id]; ptr\ncall    free\nadd     rsp, 270h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 37,
+  "edges": [
+   [
+    "start",
+    "loc_1240"
+   ],
+   [
+    "start",
+    "loc_1245"
+   ],
+   [
+    "loc_1240",
+    "loc_175E"
+   ],
+   [
+    "loc_1245",
+    "loc_124A"
+   ],
+   [
+    "loc_124A",
+    "loc_1269"
+   ],
+   [
+    "loc_124A",
+    "loc_1662"
+   ],
+   [
+    "loc_1269",
+    "loc_1281"
+   ],
+   [
+    "loc_1269",
+    "loc_12E0"
+   ],
+   [
+    "loc_1281",
+    "loc_175E"
+   ],
+   [
+    "loc_12E0",
+    "loc_12F0"
+   ],
+   [
+    "loc_12E0",
+    "loc_12F5"
+   ],
+   [
+    "loc_12F0",
+    "loc_124A"
+   ],
+   [
+    "loc_12F5",
+    "loc_1302"
+   ],
+   [
+    "loc_12F5",
+    "loc_151B"
+   ],
+   [
+    "loc_1302",
+    "loc_132C"
+   ],
+   [
+    "loc_1302",
+    "loc_1508"
+   ],
+   [
+    "loc_132C",
+    "loc_13A7"
+   ],
+   [
+    "loc_132C",
+    "loc_13D1"
+   ],
+   [
+    "loc_13A7",
+    "loc_13B5"
+   ],
+   [
+    "loc_13A7",
+    "loc_13D1"
+   ],
+   [
+    "loc_13B5",
+    "loc_13C3"
+   ],
+   [
+    "loc_13B5",
+    "loc_13D1"
+   ],
+   [
+    "loc_13C3",
+    "loc_13D1"
+   ],
+   [
+    "loc_13C3",
+    "loc_1430"
+   ],
+   [
+    "loc_13D1",
+    "loc_175E"
+   ],
+   [
+    "loc_1430",
+    "loc_14A6"
+   ],
+   [
+    "loc_14A6",
+    "loc_14B8"
+   ],
+   [
+    "loc_14A6",
+    "loc_14E2"
+   ],
+   [
+    "loc_14B8",
+    "loc_14A6"
+   ],
+   [
+    "loc_14E2",
+    "loc_1516"
+   ],
+   [
+    "loc_1508",
+    "loc_175E"
+   ],
+   [
+    "loc_1516",
+    "loc_1658"
+   ],
+   [
+    "loc_151B",
+    "loc_156D"
+   ],
+   [
+    "loc_151B",
+    "loc_15CC"
+   ],
+   [
+    "loc_156D",
+    "loc_175E"
+   ],
+   [
+    "loc_15CC",
+    "loc_1658"
+   ],
+   [
+    "loc_1658",
+    "loc_165D"
+   ],
+   [
+    "loc_165D",
+    "loc_124A"
+   ],
+   [
+    "loc_1662",
+    "loc_167D"
+   ],
+   [
+    "loc_1662",
+    "loc_16D3"
+   ],
+   [
+    "loc_167D",
+    "loc_175E"
+   ],
+   [
+    "loc_16D3",
+    "loc_16E1"
+   ],
+   [
+    "loc_16D3",
+    "loc_175E"
+   ],
+   [
+    "loc_16E1",
+    "loc_16EB"
+   ],
+   [
+    "loc_16EB",
+    "loc_16FD"
+   ],
+   [
+    "loc_16EB",
+    "loc_1752"
+   ],
+   [
+    "loc_16FD",
+    "loc_1714"
+   ],
+   [
+    "loc_16FD",
+    "loc_1739"
+   ],
+   [
+    "loc_1714",
+    "loc_1739"
+   ],
+   [
+    "loc_1739",
+    "loc_173E"
+   ],
+   [
+    "loc_173E",
+    "loc_16EB"
+   ],
+   [
+    "loc_1752",
+    "loc_175E"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 270h\nmov     rax, [rbp+o_element_count]\nmov     rax, [rbp+o_column_count]\nmov     [rbp+io_generated_code], rdi\nmov     [rbp+i_csc_file_in], rsi\nmov     [rbp+o_row_idx], rdx\nmov     [rbp+o_column_idx], rcx\nmov     [rbp+o_values], r8\nmov     [rbp+o_row_count], r9\nmov     [rbp+l_line_length], 200h\nmov     [rbp+l_header_read], 0\nmov     [rbp+l_column_idx_id], 0\nmov     [rbp+l_i], 0\nmov     rdi, [rbp+i_csc_file_in]; filename\nlea     rsi, modes; \"r\"\ncall    fopen\nmov     [rbp+l_csc_file_handle], rax\ncmp     [rbp+l_csc_file_handle], 0\njnz     loc_1245",
+   "loc_1240": "jmp     loc_175E",
+   "loc_1245": "jmp     $+5",
+   "loc_124A": "lea     rdi, [rbp+l_line]; s\nmov     rdx, [rbp+l_csc_file_handle]; stream\nmov     esi, 200h; n\ncall    fgets\ncmp     rax, 0\njz      loc_1662",
+   "loc_1269": "lea     rdi, [rbp+l_line]; s\ncall    strlen\ncmp     rax, 200h\njnz     loc_12E0",
+   "loc_1281": "mov     rax, [rbp+o_row_idx]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rax, [rbp+o_column_idx]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rax, [rbp+o_values]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rdi, [rbp+l_column_idx_id]; ptr\ncall    free\nmov     rax, [rbp+o_row_idx]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+o_column_idx]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+o_values]\nmov     qword ptr [rax], 0\nmov     rdi, [rbp+l_csc_file_handle]; stream\ncall    fclose\njmp     loc_175E",
+   "loc_12E0": "movsx   eax, [rbp+l_line]\ncmp     eax, 25h ; '%'\njnz     loc_12F5",
+   "loc_12F0": "jmp     loc_124A",
+   "loc_12F5": "cmp     [rbp+l_header_read], 0\njnz     loc_151B",
+   "loc_1302": "lea     rdi, [rbp+l_line]\nmov     rdx, [rbp+o_row_count]\nmov     rcx, [rbp+o_column_count]\nmov     r8, [rbp+o_element_count]\nlea     rsi, aUUU; \"%u %u %u\"\nmov     al, 0\ncall    ___isoc99_sscanf\ncmp     eax, 3\njnz     loc_1508",
+   "loc_132C": "mov     rax, [rbp+o_element_count]\nmov     eax, [rax]\nmov     edi, eax\nshl     rdi, 2; size\ncall    malloc\nmov     rcx, rax\nmov     rax, [rbp+o_row_idx]\nmov     [rax], rcx\nmov     rax, [rbp+o_column_count]\nmov     eax, [rax]\nmov     edi, eax\nadd     rdi, 1\nshl     rdi, 2; size\ncall    malloc\nmov     rcx, rax\nmov     rax, [rbp+o_column_idx]\nmov     [rax], rcx\nmov     rax, [rbp+o_element_count]\nmov     eax, [rax]\nmov     edi, eax\nshl     rdi, 3; size\ncall    malloc\nmov     rcx, rax\nmov     rax, [rbp+o_values]\nmov     [rax], rcx\nmov     rax, [rbp+o_column_count]\nmov     eax, [rax]\nmov     edi, eax\nshl     rdi, 2; size\ncall    malloc\nmov     [rbp+l_column_idx_id], rax\nmov     rax, [rbp+o_row_idx]\ncmp     qword ptr [rax], 0\njz      loc_13D1",
+   "loc_13A7": "mov     rax, [rbp+o_column_idx]\ncmp     qword ptr [rax], 0\njz      loc_13D1",
+   "loc_13B5": "mov     rax, [rbp+o_values]\ncmp     qword ptr [rax], 0\njz      loc_13D1",
+   "loc_13C3": "cmp     [rbp+l_column_idx_id], 0\njnz     loc_1430",
+   "loc_13D1": "mov     rax, [rbp+o_row_idx]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rax, [rbp+o_column_idx]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rax, [rbp+o_values]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rdi, [rbp+l_column_idx_id]; ptr\ncall    free\nmov     rax, [rbp+o_row_idx]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+o_column_idx]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+o_values]\nmov     qword ptr [rax], 0\nmov     rdi, [rbp+l_csc_file_handle]; stream\ncall    fclose\njmp     loc_175E",
+   "loc_1430": "mov     rax, [rbp+o_row_idx]\nmov     rdi, [rax]; s\nmov     rax, [rbp+o_element_count]\nmov     eax, [rax]\nmov     edx, eax\nshl     rdx, 2; n\nxor     esi, esi; c\ncall    memset\nmov     rax, [rbp+o_column_idx]\nmov     rdi, [rax]; s\nmov     rax, [rbp+o_column_count]\nmov     eax, [rax]\nmov     edx, eax\nadd     rdx, 1\nshl     rdx, 2; n\nxor     esi, esi; c\ncall    memset\nmov     rax, [rbp+o_values]\nmov     rdi, [rax]; s\nmov     rax, [rbp+o_element_count]\nmov     eax, [rax]\nmov     edx, eax\nshl     rdx, 3; n\nxor     esi, esi; c\ncall    memset\nmov     rdi, [rbp+l_column_idx_id]; s\nmov     rax, [rbp+o_column_count]\nmov     eax, [rax]\nmov     edx, eax\nshl     rdx, 2; n\nxor     esi, esi; c\ncall    memset\nmov     [rbp+l_i], 0",
+   "loc_14A6": "mov     eax, [rbp+l_i]\nmov     rcx, [rbp+o_column_count]\ncmp     eax, [rcx]\nja      loc_14E2",
+   "loc_14B8": "mov     rax, [rbp+o_element_count]\nmov     edx, [rax]\nmov     rax, [rbp+o_column_idx]\nmov     rax, [rax]\nmov     ecx, [rbp+l_i]\nmov     [rax+rcx*4], edx\nmov     eax, [rbp+l_i]\nadd     eax, 1\nmov     [rbp+l_i], eax\njmp     loc_14A6",
+   "loc_14E2": "mov     rax, [rbp+o_column_idx]\nmov     rax, [rax]\nmov     dword ptr [rax], 0\nmov     [rbp+l_i], 0\nmov     [rbp+l_header_read], 1\njmp     loc_1516",
+   "loc_1508": "mov     rdi, [rbp+l_csc_file_handle]; stream\ncall    fclose\njmp     loc_175E",
+   "loc_1516": "jmp     loc_1658",
+   "loc_151B": "mov     [rbp+l_row], 0\nmov     [rbp+l_column], 0\nxorps   xmm0, xmm0\nmovsd   [rbp+l_value], xmm0\nlea     rdi, [rbp+l_line]\nlea     rsi, aUULf; \"%u %u %lf\"\nlea     rdx, [rbp+l_row]\nlea     rcx, [rbp+l_column]\nlea     r8, [rbp+l_value]\nmov     al, 0\ncall    ___isoc99_sscanf\ncmp     eax, 3\njz      loc_15CC",
+   "loc_156D": "mov     rax, [rbp+o_row_idx]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rax, [rbp+o_column_idx]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rax, [rbp+o_values]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rdi, [rbp+l_column_idx_id]; ptr\ncall    free\nmov     rax, [rbp+o_row_idx]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+o_column_idx]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+o_values]\nmov     qword ptr [rax], 0\nmov     rdi, [rbp+l_csc_file_handle]; stream\ncall    fclose\njmp     loc_175E",
+   "loc_15CC": "mov     eax, [rbp+l_row]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+l_row], eax\nmov     eax, [rbp+l_column]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+l_column], eax\nmov     edx, [rbp+l_row]\nmov     rax, [rbp+o_row_idx]\nmov     rax, [rax]\nmov     ecx, [rbp+l_i]\nmov     [rax+rcx*4], edx\nmovsd   xmm0, [rbp+l_value]\nmov     rax, [rbp+o_values]\nmov     rax, [rax]\nmov     ecx, [rbp+l_i]\nmovsd   qword ptr [rax+rcx*8], xmm0\nmov     eax, [rbp+l_i]\nadd     eax, 1\nmov     [rbp+l_i], eax\nmov     rax, [rbp+l_column_idx_id]\nmov     ecx, [rbp+l_column]\nmov     dword ptr [rax+rcx*4], 1\nmov     edx, [rbp+l_i]\nmov     rax, [rbp+o_column_idx]\nmov     rax, [rax]\nmov     ecx, [rbp+l_column]\nadd     ecx, 1\nmov     ecx, ecx\nmov     [rax+rcx*4], edx",
+   "loc_1658": "jmp     $+5",
+   "loc_165D": "jmp     loc_124A",
+   "loc_1662": "mov     rdi, [rbp+l_csc_file_handle]; stream\ncall    fclose\nmov     eax, [rbp+l_i]\nmov     rcx, [rbp+o_element_count]\ncmp     eax, [rcx]\njz      loc_16D3",
+   "loc_167D": "mov     rax, [rbp+o_row_idx]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rax, [rbp+o_column_idx]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rax, [rbp+o_values]\nmov     rdi, [rax]; ptr\ncall    free\nmov     rdi, [rbp+l_column_idx_id]; ptr\ncall    free\nmov     rax, [rbp+o_row_idx]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+o_column_idx]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+o_values]\nmov     qword ptr [rax], 0\njmp     loc_175E",
+   "loc_16D3": "cmp     [rbp+l_column_idx_id], 0\njz      loc_175E",
+   "loc_16E1": "mov     [rbp+l_i], 0",
+   "loc_16EB": "mov     eax, [rbp+l_i]\nmov     rcx, [rbp+o_column_count]\ncmp     eax, [rcx]\njnb     loc_1752",
+   "loc_16FD": "mov     rax, [rbp+l_column_idx_id]\nmov     ecx, [rbp+l_i]\ncmp     dword ptr [rax+rcx*4], 0\njnz     loc_1739",
+   "loc_1714": "mov     rax, [rbp+o_column_idx]\nmov     rax, [rax]\nmov     ecx, [rbp+l_i]\nmov     edx, [rax+rcx*4]\nmov     rax, [rbp+o_column_idx]\nmov     rax, [rax]\nmov     ecx, [rbp+l_i]\nadd     ecx, 1\nmov     ecx, ecx\nmov     [rax+rcx*4], edx",
+   "loc_1739": "jmp     $+5",
+   "loc_173E": "mov     eax, [rbp+l_i]\nadd     eax, 1\nmov     [rbp+l_i], eax\njmp     loc_16EB",
+   "loc_1752": "mov     rdi, [rbp+l_column_idx_id]; ptr\ncall    free",
+   "loc_175E": "add     rsp, 270h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "l_value": "qword ptr -268h",
+   "l_column": "dword ptr -25Ch",
+   "l_row": "dword ptr -258h",
+   "l_i": "dword ptr -254h",
+   "l_column_idx_id": "qword ptr -250h",
+   "l_header_read": "dword ptr -244h",
+   "l_line": "byte ptr -240h",
+   "l_line_length": "dword ptr -3Ch",
+   "l_csc_file_handle": "qword ptr -38h",
+   "o_row_count": "qword ptr -30h",
+   "o_values": "qword ptr -28h",
+   "o_column_idx": "qword ptr -20h",
+   "o_row_idx": "qword ptr -18h",
+   "i_csc_file_in": "qword ptr -10h",
+   "io_generated_code": "qword ptr -8",
+   "o_column_count": "qword ptr 10h",
+   "o_element_count": "qword ptr 18h"
+  },
+  ".rodata": {
+   "modes": "byte 'r',0",
+   "aUUU": "byte '%u %u %u',0",
+   "aUULf": "byte '%u %u %lf',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4560,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fgets": "fgets",
+  "_fgets": "fgets",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".__isoc99_sscanf": "__isoc99_sscanf",
+  "_isoc99_sscanf": "__isoc99_sscanf",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fgets",
+   ".plt",
+   true,
+   "fgets"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".__isoc99_sscanf",
+   ".plt",
+   true,
+   "__isoc99_sscanf"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fgets",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__isoc99_sscanf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868449
+ }
+}

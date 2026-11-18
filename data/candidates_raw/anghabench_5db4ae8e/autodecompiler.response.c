@@ -1,0 +1,15 @@
+static int
+get_group(int channel)
+{
+ int group;
+
+ if (channel < 5) {
+  group = 0;
+ } else if (channel < 10) {
+  group = 1;
+ } else {
+  group = 2;
+ }
+
+ return (group);
+}

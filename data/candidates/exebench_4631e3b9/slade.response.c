@@ -1,0 +1,1 @@
+int c_decrypt(char *data) { int ch; for (; *data; data++) { ch = *data - 13; if (ch < 1) { ch += 256; } *data = ch; } return 0; }

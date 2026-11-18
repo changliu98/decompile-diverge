@@ -1,0 +1,1 @@
+int func0(int n) { return get_sum(n) > n ? 1 : 0; }

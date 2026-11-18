@@ -1,0 +1,456 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+len], edi\ncmp     [rbp+len], 1\njge     loc_6221\nmov     [rbp+var_4], 0\njmp     loc_632E\ncmp     cs:history, 0\njz      loc_6300\nmov     eax, cs:history_len\nmov     [rbp+tocopy], eax\nmovsxd  rdi, [rbp+len]\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+new], rax\ncmp     [rbp+new], 0\njnz     loc_6260\nmov     [rbp+var_4], 0\njmp     loc_632E\nmov     eax, [rbp+len]\ncmp     eax, [rbp+tocopy]\njge     loc_62AC\nmov     [rbp+j], 0\nmov     eax, [rbp+j]\nmov     ecx, [rbp+tocopy]\nsub     ecx, [rbp+len]\ncmp     eax, ecx\njge     loc_62A6\nmov     rax, cs:history\nmovsxd  rcx, [rbp+j]\nmov     rdi, [rax+rcx*8]; ptr\ncall    free\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_6273\nmov     eax, [rbp+len]\nmov     [rbp+tocopy], eax\nmov     rdi, [rbp+new]; s\nmovsxd  rdx, [rbp+len]\nshl     rdx, 3; n\nxor     esi, esi; c\ncall    memset\nmov     rdi, [rbp+new]; dest\nmov     rsi, cs:history\nmov     eax, cs:history_len\nsub     eax, [rbp+tocopy]\ncdqe\nshl     rax, 3\nadd     rsi, rax; src\nmovsxd  rdx, [rbp+tocopy]\nshl     rdx, 3; n\ncall    memcpy\nmov     rdi, cs:history; ptr\ncall    free\nmov     rax, [rbp+new]\nmov     cs:history, rax\nmov     eax, [rbp+len]\nmov     cs:history_max_len, eax\nmov     eax, cs:history_len\ncmp     eax, cs:history_max_len\njle     loc_6327\nmov     eax, cs:history_max_len\nmov     cs:history_len, eax\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 20h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 15,
+  "edges": [
+   [
+    "start",
+    "loc_6215"
+   ],
+   [
+    "start",
+    "loc_6221"
+   ],
+   [
+    "loc_6215",
+    "loc_632E"
+   ],
+   [
+    "loc_6221",
+    "loc_622F"
+   ],
+   [
+    "loc_6221",
+    "loc_6300"
+   ],
+   [
+    "loc_622F",
+    "loc_6254"
+   ],
+   [
+    "loc_622F",
+    "loc_6260"
+   ],
+   [
+    "loc_6254",
+    "loc_632E"
+   ],
+   [
+    "loc_6260",
+    "loc_626C"
+   ],
+   [
+    "loc_6260",
+    "loc_62AC"
+   ],
+   [
+    "loc_626C",
+    "loc_6273"
+   ],
+   [
+    "loc_6273",
+    "loc_6284"
+   ],
+   [
+    "loc_6273",
+    "loc_62A6"
+   ],
+   [
+    "loc_6284",
+    "loc_6273"
+   ],
+   [
+    "loc_62A6",
+    "loc_62AC"
+   ],
+   [
+    "loc_62AC",
+    "loc_6300"
+   ],
+   [
+    "loc_6300",
+    "loc_631B"
+   ],
+   [
+    "loc_6300",
+    "loc_6327"
+   ],
+   [
+    "loc_631B",
+    "loc_6327"
+   ],
+   [
+    "loc_6327",
+    "loc_632E"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+len], edi\ncmp     [rbp+len], 1\njge     loc_6221",
+   "loc_6215": "mov     [rbp+var_4], 0\njmp     loc_632E",
+   "loc_6221": "cmp     cs:history, 0\njz      loc_6300",
+   "loc_622F": "mov     eax, cs:history_len\nmov     [rbp+tocopy], eax\nmovsxd  rdi, [rbp+len]\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+new], rax\ncmp     [rbp+new], 0\njnz     loc_6260",
+   "loc_6254": "mov     [rbp+var_4], 0\njmp     loc_632E",
+   "loc_6260": "mov     eax, [rbp+len]\ncmp     eax, [rbp+tocopy]\njge     loc_62AC",
+   "loc_626C": "mov     [rbp+j], 0",
+   "loc_6273": "mov     eax, [rbp+j]\nmov     ecx, [rbp+tocopy]\nsub     ecx, [rbp+len]\ncmp     eax, ecx\njge     loc_62A6",
+   "loc_6284": "mov     rax, cs:history\nmovsxd  rcx, [rbp+j]\nmov     rdi, [rax+rcx*8]; ptr\ncall    free\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_6273",
+   "loc_62A6": "mov     eax, [rbp+len]\nmov     [rbp+tocopy], eax",
+   "loc_62AC": "mov     rdi, [rbp+new]; s\nmovsxd  rdx, [rbp+len]\nshl     rdx, 3; n\nxor     esi, esi; c\ncall    memset\nmov     rdi, [rbp+new]; dest\nmov     rsi, cs:history\nmov     eax, cs:history_len\nsub     eax, [rbp+tocopy]\ncdqe\nshl     rax, 3\nadd     rsi, rax; src\nmovsxd  rdx, [rbp+tocopy]\nshl     rdx, 3; n\ncall    memcpy\nmov     rdi, cs:history; ptr\ncall    free\nmov     rax, [rbp+new]\nmov     cs:history, rax",
+   "loc_6300": "mov     eax, [rbp+len]\nmov     cs:history_max_len, eax\nmov     eax, cs:history_len\ncmp     eax, cs:history_max_len\njle     loc_6327",
+   "loc_631B": "mov     eax, cs:history_max_len\nmov     cs:history_len, eax",
+   "loc_6327": "mov     [rbp+var_4], 1",
+   "loc_632E": "mov     eax, [rbp+var_4]\nadd     rsp, 20h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "j": "dword ptr -18h",
+   "tocopy": "dword ptr -14h",
+   "new": "qword ptr -10h",
+   "len": "dword ptr -8",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {
+   "history_max_len": "dword 64h"
+  },
+  ".bss": {
+   "history": "[]",
+   "history_len": "[]"
+  }
+ },
+ "func_ea": 25088,
+ "thunk_map": {
+  ".getenv": "getenv",
+  "_getenv": "getenv",
+  ".free": "free",
+  "_free": "free",
+  ".strcasecmp": "strcasecmp",
+  "_strcasecmp": "strcasecmp",
+  ".__errno_location": "__errno_location",
+  "_errno_location": "__errno_location",
+  ".ferror": "ferror",
+  "_ferror": "ferror",
+  ".isatty": "isatty",
+  "_isatty": "isatty",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".write": "write",
+  "_write": "write",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".ioctl": "ioctl",
+  "_ioctl": "ioctl",
+  ".fgetc": "fgetc",
+  "_fgetc": "fgetc",
+  ".fputc": "fputc",
+  "_fputc": "fputc",
+  ".memchr": "memchr",
+  "_memchr": "memchr",
+  ".read": "read",
+  "_read": "read",
+  ".memcmp": "memcmp",
+  "_memcmp": "memcmp",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".umask": "umask",
+  "_umask": "umask",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".fileno": "fileno",
+  "_fileno": "fileno",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fflush": "fflush",
+  "_fflush": "fflush",
+  ".__isoc99_sscanf": "__isoc99_sscanf",
+  "_isoc99_sscanf": "__isoc99_sscanf",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fchmod": "fchmod",
+  "_fchmod": "fchmod",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".tcgetattr": "tcgetattr",
+  "_tcgetattr": "tcgetattr",
+  ".tcsetattr": "tcsetattr",
+  "_tcsetattr": "tcsetattr",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".__cxa_atexit": "__cxa_atexit",
+  "_cxa_atexit": "__cxa_atexit",
+  ".atoi": "atoi",
+  "_atoi": "atoi",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".strdup": "strdup",
+  "_strdup": "strdup",
+  ".__ctype_b_loc": "__ctype_b_loc",
+  "_ctype_b_loc": "__ctype_b_loc"
+ },
+ "thunk_debug": [
+  [
+   "sub_2020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".getenv",
+   ".plt",
+   true,
+   "getenv"
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".strcasecmp",
+   ".plt",
+   true,
+   "strcasecmp"
+  ],
+  [
+   ".__errno_location",
+   ".plt",
+   true,
+   "__errno_location"
+  ],
+  [
+   ".ferror",
+   ".plt",
+   true,
+   "ferror"
+  ],
+  [
+   ".isatty",
+   ".plt",
+   true,
+   "isatty"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".write",
+   ".plt",
+   true,
+   "write"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".ioctl",
+   ".plt",
+   true,
+   "ioctl"
+  ],
+  [
+   ".fgetc",
+   ".plt",
+   true,
+   "fgetc"
+  ],
+  [
+   ".fputc",
+   ".plt",
+   true,
+   "fputc"
+  ],
+  [
+   ".memchr",
+   ".plt",
+   true,
+   "memchr"
+  ],
+  [
+   ".read",
+   ".plt",
+   true,
+   "read"
+  ],
+  [
+   ".memcmp",
+   ".plt",
+   true,
+   "memcmp"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".umask",
+   ".plt",
+   true,
+   "umask"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".fileno",
+   ".plt",
+   true,
+   "fileno"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fflush",
+   ".plt",
+   true,
+   "fflush"
+  ],
+  [
+   ".__isoc99_sscanf",
+   ".plt",
+   true,
+   "__isoc99_sscanf"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fchmod",
+   ".plt",
+   true,
+   "fchmod"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".tcgetattr",
+   ".plt",
+   true,
+   "tcgetattr"
+  ],
+  [
+   ".tcsetattr",
+   ".plt",
+   true,
+   "tcsetattr"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".__cxa_atexit",
+   ".plt",
+   true,
+   "__cxa_atexit"
+  ],
+  [
+   ".atoi",
+   ".plt",
+   true,
+   "atoi"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872671
+ }
+}

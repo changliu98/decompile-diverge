@@ -1,0 +1,1 @@
+char *func0(char *s) { char *regex = "\\w+\\S*$"; regex_t preg; regmatch_t pmatch[2]; if(!regcomp(&preg, regex, 1)) { if(!regexec(&preg, s, 1, pmatch, 0)) { regfree(&preg); return "Regex compilation failed"; } else { regfree(&preg); return "Not matched!"; } } else { return "Regex compilation failed"; } }

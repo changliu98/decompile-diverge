@@ -1,0 +1,1 @@
+int func0(int *ptr, int n) { int sum = 0; int nsum = 0; for (int i = 0; i < n; i++) { nsum += ptr[i]; if (nsum < 0) { nsum = 0; } else if (sum < nsum) { sum = nsum; } } return sum; }

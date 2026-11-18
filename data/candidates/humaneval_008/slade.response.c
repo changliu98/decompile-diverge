@@ -1,0 +1,1 @@
+void func0(int *input, int n, int *output) { int sum = 0; int sum2 = 1; for (int i = 0; i < n; ++i) { sum += input[i]; sum2 *= input[i]; } output[0] = sum; output[1] = sum2; }

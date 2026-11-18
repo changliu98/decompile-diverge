@@ -1,0 +1,1 @@
+int func0(int *x, int a, int n) { int i, j, k, t; i = 0; j = n - 1; t = -1; while (i <= j) { k = (i + j) / 2; if (x[k] > a) j = k - 1; else if (x[k] < a) i = k + 1; else { t = k; i = k + 1; } } return t; }

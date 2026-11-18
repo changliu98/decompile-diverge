@@ -1,0 +1,1 @@
+void func0(struct s *s) { s->a[1] = '0'; }

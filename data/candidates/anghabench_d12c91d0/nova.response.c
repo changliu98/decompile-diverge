@@ -1,0 +1,1 @@
+static inline uint32_t REG_A5XX_RB_MRT(uint32_t i0) { return 0x0000e240 + 0x7*i0; }

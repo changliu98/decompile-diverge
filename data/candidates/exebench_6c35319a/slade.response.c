@@ -1,0 +1,1 @@
+void f2 (struct sl *x) { x->s2 = 222222; }

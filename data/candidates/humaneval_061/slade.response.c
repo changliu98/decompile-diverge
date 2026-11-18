@@ -1,0 +1,1 @@
+char func0 (char str[]) { int count = 0; for (int i = 0; i < strlen(str); i++) { if (str[i] == '(') count++; if (str[i] == ')') count--; if (count < 0) return 0; } return count == 0; }

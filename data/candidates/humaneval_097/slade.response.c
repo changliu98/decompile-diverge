@@ -1,0 +1,1 @@
+int func0(int x, int y) { return (abs(x) % 10) * (abs(y) % 10); }

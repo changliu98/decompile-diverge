@@ -1,0 +1,1 @@
+void a_store(volatile int *x, int y) { *x = y; }

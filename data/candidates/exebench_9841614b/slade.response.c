@@ -1,0 +1,1 @@
+cmsInt32Number UnpackImmediate(cmsInt32Number Arg, cmsUInt16Number *Out, cmsUInt16Number *Out2) { if (Arg == 0) { *Out = 0; *Out2 = 0; return 1; } for (cmsInt32Number i = 0; i < 15; i++) { if ((Arg & 3) && (Arg < 256)) { *Out = Arg; *Out2 = i; return 1; } if (Arg & 3) return 0; Arg >>= 2; } return 0; }

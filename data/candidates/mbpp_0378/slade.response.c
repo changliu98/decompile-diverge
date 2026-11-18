@@ -1,0 +1,1 @@
+void func0(int32_t *input, int length, int32_t *output) { int i; output[0] = input[length - 1]; for (i = 1; i < length; i++) output[i] = input[i - 1]; }

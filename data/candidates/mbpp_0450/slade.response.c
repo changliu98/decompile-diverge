@@ -1,0 +1,1 @@
+char *func0(char *argv[], int argc, int N, int *return Size) { int j = 0; for (int i = 0; i < argc; i++) { if (strlen(argv[i]) == (size_t)N) { result[j++] = &argv[i]; } } *return Size = j; return &result; }

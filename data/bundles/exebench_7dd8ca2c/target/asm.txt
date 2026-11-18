@@ -1,0 +1,55 @@
+00000000000011d0 <hex_to_word>:
+    11d0:	push   %rbp
+    11d1:	mov    %rsp,%rbp
+    11d4:	mov    %sil,%al
+    11d7:	mov    %rdi,-0x8(%rbp)
+    11db:	mov    %al,-0x9(%rbp)
+    11de:	cmpq   $0x0,-0x8(%rbp)
+    11e3:	jne    11ee <hex_to_word+0x1e>
+    11e9:	jmp    128c <hex_to_word+0xbc>
+    11ee:	movsbl -0x9(%rbp),%eax
+    11f2:	and    $0xf0,%eax
+    11f7:	sar    $0x4,%eax
+    11fa:	mov    %al,%cl
+    11fc:	mov    -0x8(%rbp),%rax
+    1200:	mov    %cl,(%rax)
+    1202:	movsbl -0x9(%rbp),%eax
+    1206:	and    $0xf,%eax
+    1209:	mov    %al,%cl
+    120b:	mov    -0x8(%rbp),%rax
+    120f:	mov    %cl,0x1(%rax)
+    1212:	movb   $0x0,-0x9(%rbp)
+    1216:	movsbl -0x9(%rbp),%eax
+    121a:	cmp    $0x2,%eax
+    121d:	jge    128c <hex_to_word+0xbc>
+    1223:	mov    -0x8(%rbp),%rax
+    1227:	movsbq -0x9(%rbp),%rcx
+    122c:	movsbl (%rax,%rcx,1),%eax
+    1230:	cmp    $0x9,%eax
+    1233:	jle    125c <hex_to_word+0x8c>
+    1239:	mov    -0x8(%rbp),%rax
+    123d:	movsbq -0x9(%rbp),%rcx
+    1242:	movsbl (%rax,%rcx,1),%eax
+    1246:	add    $0x37,%eax
+    1249:	mov    %al,%dl
+    124b:	mov    -0x8(%rbp),%rax
+    124f:	movsbq -0x9(%rbp),%rcx
+    1254:	mov    %dl,(%rax,%rcx,1)
+    1257:	jmp    127a <hex_to_word+0xaa>
+    125c:	mov    -0x8(%rbp),%rax
+    1260:	movsbq -0x9(%rbp),%rcx
+    1265:	movsbl (%rax,%rcx,1),%eax
+    1269:	add    $0x30,%eax
+    126c:	mov    %al,%dl
+    126e:	mov    -0x8(%rbp),%rax
+    1272:	movsbq -0x9(%rbp),%rcx
+    1277:	mov    %dl,(%rax,%rcx,1)
+    127a:	jmp    127f <hex_to_word+0xaf>
+    127f:	mov    -0x9(%rbp),%al
+    1282:	add    $0x1,%al
+    1284:	mov    %al,-0x9(%rbp)
+    1287:	jmp    1216 <hex_to_word+0x46>
+    128c:	pop    %rbp
+    128d:	ret
+
+Disassembly of section .fini:

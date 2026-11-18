@@ -1,0 +1,1 @@
+ztype zhalfstr(char *str) { ztype h = '0'; ztype m = '0'; int i = -1, j = 0, k = 0; while (h != 0) { unsigned char a, b; a = str[i + 1]; b = (a - '0') >> 1; b = (h & 1) * 5 + b + '0'; str[i + 1 - k] = b; if (b == '0' && j == 0) { k++; } else { j = 1; } if (h != 0) m = h; h = a; i++; } if (i == k) { str[0] = '0'; str[1] = 0; } else { str[i - k] = 0; } return m; }

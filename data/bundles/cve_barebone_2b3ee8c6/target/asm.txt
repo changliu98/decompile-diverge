@@ -1,0 +1,180 @@
+0000000000001640 <zip_read_mac_metadata>:
+    1640:	push   %rbp
+    1641:	mov    %rsp,%rbp
+    1644:	sub    $0x90,%rsp
+    164b:	mov    %rdi,-0x10(%rbp)
+    164f:	mov    %rsi,-0x18(%rbp)
+    1653:	mov    %rdx,-0x20(%rbp)
+    1657:	mov    -0x10(%rbp),%rax
+    165b:	mov    0x8(%rax),%rax
+    165f:	mov    (%rax),%rax
+    1662:	mov    %rax,-0x28(%rbp)
+    1666:	mov    -0x10(%rbp),%rdi
+    166a:	xor    %esi,%esi
+    166c:	call   11f0 <archive_filter_bytes>
+    1671:	mov    %rax,-0x40(%rbp)
+    1675:	movl   $0x0,-0x5c(%rbp)
+    167c:	mov    -0x20(%rbp),%rax
+    1680:	mov    0x18(%rax),%al
+    1683:	test   %al,%al
+    1685:	jne    1695 <zip_read_mac_metadata+0x55>
+    168b:	jmp    1690 <zip_read_mac_metadata+0x50>
+    1690:	jmp    16d0 <zip_read_mac_metadata+0x90>
+    1695:	mov    -0x10(%rbp),%rax
+    1699:	mov    %rax,-0x80(%rbp)
+    169d:	mov    -0x20(%rbp),%rax
+    16a1:	movzbl 0x18(%rax),%edi
+    16a5:	call   1950 <compression_name>
+    16aa:	mov    -0x80(%rbp),%rdi
+    16ae:	mov    %rax,%rcx
+    16b1:	mov    $0x16,%esi
+    16b6:	lea    0x963(%rip),%rdx        # 2020 <_IO_stdin_used+0x20>
+    16bd:	mov    $0x0,%al
+    16bf:	call   1210 <archive_set_error>
+    16c4:	movl   $0xffffffec,-0x4(%rbp)
+    16cb:	jmp    1936 <zip_read_mac_metadata+0x2f6>
+    16d0:	mov    -0x20(%rbp),%rax
+    16d4:	cmpq   $0x400000,0x10(%rax)
+    16dc:	jle    170d <zip_read_mac_metadata+0xcd>
+    16e2:	mov    -0x10(%rbp),%rdi
+    16e6:	mov    -0x20(%rbp),%rax
+    16ea:	mov    0x10(%rax),%rcx
+    16ee:	mov    $0x16,%esi
+    16f3:	lea    0x94e(%rip),%rdx        # 2048 <_IO_stdin_used+0x48>
+    16fa:	mov    $0x0,%al
+    16fc:	call   1210 <archive_set_error>
+    1701:	movl   $0xffffffec,-0x4(%rbp)
+    1708:	jmp    1936 <zip_read_mac_metadata+0x2f6>
+    170d:	mov    -0x20(%rbp),%rax
+    1711:	mov    0x10(%rax),%rdi
+    1715:	call   10b0 <malloc@plt>
+    171a:	mov    %rax,-0x30(%rbp)
+    171e:	cmpq   $0x0,-0x30(%rbp)
+    1723:	jne    174c <zip_read_mac_metadata+0x10c>
+    1729:	mov    -0x10(%rbp),%rdi
+    172d:	mov    $0xc,%esi
+    1732:	lea    0x939(%rip),%rdx        # 2072 <_IO_stdin_used+0x72>
+    1739:	mov    $0x0,%al
+    173b:	call   1210 <archive_set_error>
+    1740:	movl   $0xffffffe2,-0x4(%rbp)
+    1747:	jmp    1936 <zip_read_mac_metadata+0x2f6>
+    174c:	mov    -0x40(%rbp),%rax
+    1750:	mov    -0x20(%rbp),%rcx
+    1754:	cmp    (%rcx),%rax
+    1757:	jge    1776 <zip_read_mac_metadata+0x136>
+    175d:	mov    -0x10(%rbp),%rdi
+    1761:	mov    -0x20(%rbp),%rax
+    1765:	mov    (%rax),%rsi
+    1768:	sub    -0x40(%rbp),%rsi
+    176c:	call   12a0 <__archive_read_consume>
+    1771:	jmp    179e <zip_read_mac_metadata+0x15e>
+    1776:	mov    -0x40(%rbp),%rax
+    177a:	mov    -0x20(%rbp),%rcx
+    177e:	cmp    (%rcx),%rax
+    1781:	je     1799 <zip_read_mac_metadata+0x159>
+    1787:	mov    -0x10(%rbp),%rdi
+    178b:	mov    -0x20(%rbp),%rax
+    178f:	mov    (%rax),%rsi
+    1792:	xor    %edx,%edx
+    1794:	call   1310 <__archive_read_seek>
+    1799:	jmp    179e <zip_read_mac_metadata+0x15e>
+    179e:	mov    -0x10(%rbp),%rdi
+    17a2:	xor    %eax,%eax
+    17a4:	mov    %eax,%esi
+    17a6:	call   1960 <zip_get_local_file_header_size>
+    17ab:	mov    %rax,-0x58(%rbp)
+    17af:	mov    -0x10(%rbp),%rdi
+    17b3:	mov    -0x58(%rbp),%rsi
+    17b7:	call   12a0 <__archive_read_consume>
+    17bc:	mov    -0x20(%rbp),%rax
+    17c0:	mov    0x8(%rax),%rax
+    17c4:	mov    %rax,-0x48(%rbp)
+    17c8:	mov    -0x20(%rbp),%rax
+    17cc:	mov    0x10(%rax),%rax
+    17d0:	mov    %rax,-0x50(%rbp)
+    17d4:	mov    -0x30(%rbp),%rax
+    17d8:	mov    %rax,-0x38(%rbp)
+    17dc:	movl   $0x0,-0x60(%rbp)
+    17e3:	xor    %eax,%eax
+    17e5:	cmpl   $0x0,-0x60(%rbp)
+    17e9:	mov    %al,-0x81(%rbp)
+    17ef:	jne    1803 <zip_read_mac_metadata+0x1c3>
+    17f5:	cmpq   $0x0,-0x48(%rbp)
+    17fa:	setne  %al
+    17fd:	mov    %al,-0x81(%rbp)
+    1803:	mov    -0x81(%rbp),%al
+    1809:	test   $0x1,%al
+    180b:	jne    1816 <zip_read_mac_metadata+0x1d6>
+    1811:	jmp    18f8 <zip_read_mac_metadata+0x2b8>
+    1816:	mov    -0x10(%rbp),%rdi
+    181a:	mov    $0x1,%esi
+    181f:	lea    -0x70(%rbp),%rdx
+    1823:	call   1230 <__archive_read_ahead>
+    1828:	mov    %rax,-0x68(%rbp)
+    182c:	cmpq   $0x0,-0x68(%rbp)
+    1831:	jne    185a <zip_read_mac_metadata+0x21a>
+    1837:	mov    -0x10(%rbp),%rdi
+    183b:	mov    $0x16,%esi
+    1840:	lea    0x852(%rip),%rdx        # 2099 <_IO_stdin_used+0x99>
+    1847:	mov    $0x0,%al
+    1849:	call   1210 <archive_set_error>
+    184e:	movl   $0xffffffec,-0x5c(%rbp)
+    1855:	jmp    1911 <zip_read_mac_metadata+0x2d1>
+    185a:	mov    -0x70(%rbp),%rax
+    185e:	cmp    -0x48(%rbp),%rax
+    1862:	jbe    1870 <zip_read_mac_metadata+0x230>
+    1868:	mov    -0x48(%rbp),%rax
+    186c:	mov    %rax,-0x70(%rbp)
+    1870:	mov    -0x20(%rbp),%rax
+    1874:	mov    0x18(%rax),%al
+    1877:	test   %al,%al
+    1879:	jne    18cf <zip_read_mac_metadata+0x28f>
+    187f:	jmp    1884 <zip_read_mac_metadata+0x244>
+    1884:	mov    -0x38(%rbp),%rdi
+    1888:	mov    -0x68(%rbp),%rsi
+    188c:	mov    -0x70(%rbp),%rdx
+    1890:	call   10a0 <memcpy@plt>
+    1895:	mov    -0x70(%rbp),%rax
+    1899:	mov    %rax,-0x78(%rbp)
+    189d:	mov    -0x78(%rbp),%rcx
+    18a1:	mov    -0x50(%rbp),%rax
+    18a5:	sub    %rcx,%rax
+    18a8:	mov    %rax,-0x50(%rbp)
+    18ac:	mov    -0x78(%rbp),%rax
+    18b0:	add    -0x38(%rbp),%rax
+    18b4:	mov    %rax,-0x38(%rbp)
+    18b8:	cmpq   $0x0,-0x50(%rbp)
+    18bd:	jne    18ca <zip_read_mac_metadata+0x28a>
+    18c3:	movl   $0x1,-0x60(%rbp)
+    18ca:	jmp    18d7 <zip_read_mac_metadata+0x297>
+    18cf:	movq   $0x0,-0x78(%rbp)
+    18d7:	mov    -0x10(%rbp),%rdi
+    18db:	mov    -0x78(%rbp),%rsi
+    18df:	call   12a0 <__archive_read_consume>
+    18e4:	mov    -0x78(%rbp),%rcx
+    18e8:	mov    -0x48(%rbp),%rax
+    18ec:	sub    %rcx,%rax
+    18ef:	mov    %rax,-0x48(%rbp)
+    18f3:	jmp    17e3 <zip_read_mac_metadata+0x1a3>
+    18f8:	mov    -0x18(%rbp),%rdi
+    18fc:	mov    -0x30(%rbp),%rsi
+    1900:	mov    -0x20(%rbp),%rax
+    1904:	mov    0x10(%rax),%rdx
+    1908:	sub    -0x50(%rbp),%rdx
+    190c:	call   1360 <archive_entry_copy_mac_metadata>
+    1911:	mov    -0x10(%rbp),%rdi
+    1915:	mov    -0x40(%rbp),%rsi
+    1919:	xor    %edx,%edx
+    191b:	call   1310 <__archive_read_seek>
+    1920:	mov    -0x28(%rbp),%rax
+    1924:	movb   $0x0,(%rax)
+    1927:	mov    -0x30(%rbp),%rdi
+    192b:	call   1030 <free@plt>
+    1930:	mov    -0x5c(%rbp),%eax
+    1933:	mov    %eax,-0x4(%rbp)
+    1936:	mov    -0x4(%rbp),%eax
+    1939:	add    $0x90,%rsp
+    1940:	pop    %rbp
+    1941:	ret
+
+Disassembly of section .fini:

@@ -1,0 +1,1 @@
+char *unmakemask(int mask, char *p) { int i = 0; if (mask & 1) p[i++] = 'c'; if (mask & 2) p[i++] = 'r'; if (mask & 4) p[i++] = 'l'; p[i] = 0; return p; }

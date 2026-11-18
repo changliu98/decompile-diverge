@@ -1,0 +1,1 @@
+void func0(char s1[], char s2[]) { int i; for(i=0; s1[i] != '\0'; i++) { s2[i] = (char)tolower((int)(unsigned char)s1[i]); } s2[i] = '\0'; }

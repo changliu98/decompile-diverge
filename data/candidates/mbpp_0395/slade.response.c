@@ -1,0 +1,1 @@
+char func0(char str[]) { char string[128] = { '\0' }, temp; int i, j, count, count2 = 0; count = strlen(str); for(i = 0; i < count; i++) { temp = str[i]; if(str[temp] == 0) string[count2++] = temp; str[temp]++; } for(j = 0; j < count2; j++) { temp = string[j]; if(str[str[j]] == 1) return temp; } return 0; }

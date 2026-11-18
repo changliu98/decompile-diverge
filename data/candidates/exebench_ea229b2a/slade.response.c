@@ -1,0 +1,1 @@
+char * convert_set_sign (char *ptr, int *sign) { *sign = 1; if (ptr != NULL) { if (*ptr == '+') { *sign = 1; ptr++; } else if (*ptr == '-') { *sign = -1; ptr++; } } return ptr; }

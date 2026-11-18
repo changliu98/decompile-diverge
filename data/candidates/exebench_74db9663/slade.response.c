@@ -1,0 +1,1 @@
+void zadd(const z_t a, const z_t b, z_t c) { c[0] = a[0] + b[0]; c[1] = a[1] + b[1]; }

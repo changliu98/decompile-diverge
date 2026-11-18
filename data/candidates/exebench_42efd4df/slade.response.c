@@ -1,0 +1,1 @@
+uint8_t getMax(uint8_t x, uint8_t y, uint8_t z, uint8_t *res) { uint8_t ret = 1; uint8_t xx = x; if (xx < y) { xx = y; ret = 2; } if (xx < z) { xx = z; ret = 3; } *res = xx; return ret; }

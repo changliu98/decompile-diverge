@@ -1,0 +1,1 @@
+int func0(int *p, int n, int a) { for (int i = 0; i < n; ++i) { p[i] = (p[i] / a) + (p[i] % a != 0); } int ret = -1; int ret2 = -1; for (i = n - 1; i >= 0; --i) { if (p[i] > ret2) { ret2 = p[i]; ret = i; } } return ret + 1; }

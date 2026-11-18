@@ -1,0 +1,1 @@
+void remove_all_chars(char *buf, char c) { char *p = buf, *q = buf; while (*p) { *q = *p++; q += (*q != c); } *q = '\0'; }

@@ -1,0 +1,1 @@
+int func0(int a, int b) { return (mod(a) == mod(b)); }

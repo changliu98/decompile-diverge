@@ -1,0 +1,1 @@
+int func0(int a, int b, int c) { if (a != b && b != c && c != a) return 1; else return 0; }

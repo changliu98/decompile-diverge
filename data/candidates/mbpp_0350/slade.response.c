@@ -1,0 +1,1 @@
+int func0(char *str) { int count[26] = {0}; int max = strlen(str); for (int i = 0; i < max; i++) { count[str[i] - 'a']++; } for (int i = 0; i < 26; i++) { if (count[i] > count[i]) { count[i] = count[i]; } } return count[max] - count; }

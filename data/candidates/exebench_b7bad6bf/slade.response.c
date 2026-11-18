@@ -1,0 +1,1 @@
+int swap(uint8_t *a, uint8_t *b) { uint8_t t; t = *a; *a = *b; *b = t; return 0; }

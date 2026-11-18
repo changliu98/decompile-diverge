@@ -1,0 +1,54 @@
+void fe_sub(fe h,fe f)
+{
+  crypto_int32 f0 = f[0];
+  crypto_int32 f1 = f[1];
+  crypto_int32 f2 = f[2];
+  crypto_int32 f3 = f[3];
+  crypto_int32 f4 = f[4];
+  crypto_int32 f5 = f[5];
+  crypto_int32 f6 = f[6];
+  crypto_int32 f7 = f[7];
+  crypto_int32 f8 = f[8];
+  crypto_int32 f9 = f[9];
+  crypto_int32 h0 = h[0];
+  crypto_int32 h1 = h[1];
+  crypto_int32 h2 = h[2];
+  crypto_int32 h3 = h[3];
+  crypto_int32 h4 = h[4];
+  crypto_int32 h5 = h[5];
+  crypto_int32 h6 = h[6];
+  crypto_int32 h7 = h[7];
+  crypto_int32 h8 = h[8];
+  crypto_int32 h9 = h[9];
+  crypto_int32 g0;
+  crypto_int32 g1;
+  crypto_int32 g2;
+  crypto_int32 g3;
+  crypto_int32 g4;
+  crypto_int32 g5;
+  crypto_int32 g6;
+  crypto_int32 g7;
+  crypto_int32 g8;
+  crypto_int32 g9;
+
+  g0 = h0 - f0;
+  g1 = h1 - f1;
+  g2 = h2 - f2;
+  g3 = h3 - f3;
+  g4 = h4 - f4;
+  g5 = h5 - f5;
+  g6 = h6 - f6;
+  g7 = h7 - f7;
+  g8 = h8 - f8;
+  g9 = h9 - f9;
+  h[0] = g0;
+  h[1] = g1;
+  h[2] = g2;
+  h[3] = g3;
+  h[4] = g4;
+  h[5] = g5;
+  h[6] = g6;
+  h[7] = g7;
+  h[8] = g8;
+  h[9] = g9;
+}

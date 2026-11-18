@@ -1,0 +1,1 @@
+cJSON_bool cJSON_InsertItemInArray(cJSON *array,int which,cJSON *newitem) {cJSON *c=get_array_item(array,(size_t)which);if (which<0||!newitem) return 0;if (!c) return add_item_to_array(array,newitem);if (c==array->child||c->prev) {newitem->next=c;newitem->prev=c->prev;c->prev=newitem;if (c==array->child) array->child=newitem; else newitem->prev->next=newitem;return 1;} return 0;}

@@ -1,0 +1,1 @@
+int func0(int *arr, int size, int val) { int count = 0; for (int i = 0; i < size; i++) { for (int j = i + 1; j < size; j++) { if (val == arr[i] - arr[j] || arr[j] - arr[i] == val) count++; } } return count; }

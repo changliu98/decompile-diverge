@@ -1,0 +1,1 @@
+__attribute__((no, noclone)) int func0 (int a, int b) { if (a == b) return b; return 2; }

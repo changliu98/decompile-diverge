@@ -1,0 +1,1 @@
+int func0(const int *x, int n) { int a, b, c; a = 0; b = n - 1; while (a <= b) { c = (a + b) / 2; if ((x[c] != c + 1) && (x[c-1] == c)) return c + 1; if (x[c] != c + 1) b = c - 1; else a = c + 1; } return -1; }

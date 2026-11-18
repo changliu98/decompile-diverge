@@ -1,0 +1,1 @@
+void test1 (short length, int *a) { for (short i = 0; i < length; i++) a[i] = 0; }

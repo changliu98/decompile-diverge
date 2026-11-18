@@ -1,0 +1,1 @@
+void incb(bc_t *bc) { bc->b++; }

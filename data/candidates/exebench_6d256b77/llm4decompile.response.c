@@ -1,0 +1,19 @@
+float Intersect(float *S,int i1,int i2,int N){
+ float inter=0;
+ float interS1=0;
+ float interS2=0;
+ int i;
+ for(i=0;i<N;i++){
+  if(S[i1*N+i]==1 && S[i2*N+i]==1){
+   inter++;
+  }
+  if(S[i1*N+i]==1){
+   interS1++;
+  }
+  if(S[i2*N+i]==1){
+   interS2++;
+  }
+ }
+ float c=inter/(interS1<interS2?interS1:interS2);
+ return c;
+}

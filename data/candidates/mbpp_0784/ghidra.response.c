@@ -1,0 +1,22 @@
+int func0(int *list1,int n)
+
+{
+  int i;
+  int first_odd;
+  int first_even;
+  int n_local;
+  int *list1_local;
+  
+  first_even = -1;
+  first_odd = -1;
+  for (i = 0; i < n; i = i + 1) {
+    if ((list1[i] % 2 == 0) && (first_even == -1)) {
+      first_even = list1[i];
+    }
+    if ((list1[i] % 2 != 0) && (first_odd == -1)) {
+      first_odd = list1[i];
+    }
+    if ((first_even != -1) && (first_odd != -1)) break;
+  }
+  return first_even * first_odd;
+}

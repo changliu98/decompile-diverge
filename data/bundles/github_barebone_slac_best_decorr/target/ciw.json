@@ -1,0 +1,321 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+audio_samples], rdi\nmov     [rbp+sample_count], esi\nmov     [rbp+stride], edx\nmov     rdi, [rbp+audio_samples]; audio_samples\nmov     esi, [rbp+sample_count]; sample_count\nmov     edx, [rbp+stride]; stride\ncall    magnitude_bits\nmov     [rbp+best_magnitude], eax\nmov     [rbp+decorr_index], 0\nmov     [rbp+best_decorr_index], 0\ncmp     [rbp+decorr_index], 6\njge     loc_18F6\nmov     rdi, [rbp+audio_samples]; audio_samples\nmov     esi, [rbp+sample_count]; sample_count\nmov     edx, [rbp+stride]; stride\ncall    decorrelate\nmov     [rbp+magnitude], eax\nmov     eax, [rbp+decorr_index]\nadd     eax, 1\nmov     [rbp+decorr_index], eax\nmov     eax, [rbp+magnitude]\ncmp     eax, [rbp+best_magnitude]\njge     loc_18D4\nmov     eax, [rbp+decorr_index]\nmov     [rbp+best_decorr_index], eax\nmov     eax, [rbp+magnitude]\nmov     [rbp+best_magnitude], eax\njmp     loc_18F1\nmov     rdi, [rbp+audio_samples]; audio_samples\nmov     esi, [rbp+sample_count]; sample_count\nmov     edx, [rbp+stride]; stride\ncall    correlate\nmov     eax, [rbp+decorr_index]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+decorr_index], eax\njmp     loc_18F6\njmp     loc_1892\ncmp     [rbp+decorr_index], 0\njnz     loc_1955\nmov     rdi, [rbp+audio_samples]; audio_samples\nmov     esi, [rbp+sample_count]; sample_count\nmov     edx, [rbp+stride]; stride\ncall    correlate\nmov     [rbp+magnitude_0], eax\nmov     eax, [rbp+decorr_index]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+decorr_index], eax\nmov     eax, [rbp+magnitude_0]\ncmp     eax, [rbp+best_magnitude]\njge     loc_1938\nmov     eax, [rbp+decorr_index]\nmov     [rbp+best_decorr_index], eax\nmov     eax, [rbp+magnitude_0]\nmov     [rbp+best_magnitude], eax\njmp     loc_1950\nmov     rdi, [rbp+audio_samples]; audio_samples\nmov     esi, [rbp+sample_count]; sample_count\nmov     edx, [rbp+stride]; stride\ncall    decorrelate\nmov     eax, [rbp+decorr_index]\nadd     eax, 1\nmov     [rbp+decorr_index], eax\njmp     $+5\nmov     eax, [rbp+best_decorr_index]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 12,
+  "edges": [
+   [
+    "start",
+    "loc_1892"
+   ],
+   [
+    "loc_1892",
+    "loc_189C"
+   ],
+   [
+    "loc_1892",
+    "loc_18F6"
+   ],
+   [
+    "loc_189C",
+    "loc_18C3"
+   ],
+   [
+    "loc_189C",
+    "loc_18D4"
+   ],
+   [
+    "loc_18C3",
+    "loc_18F1"
+   ],
+   [
+    "loc_18D4",
+    "loc_18F6"
+   ],
+   [
+    "loc_18F1",
+    "loc_1892"
+   ],
+   [
+    "loc_18F6",
+    "loc_1900"
+   ],
+   [
+    "loc_18F6",
+    "loc_1955"
+   ],
+   [
+    "loc_1900",
+    "loc_1927"
+   ],
+   [
+    "loc_1900",
+    "loc_1938"
+   ],
+   [
+    "loc_1927",
+    "loc_1950"
+   ],
+   [
+    "loc_1938",
+    "loc_1950"
+   ],
+   [
+    "loc_1950",
+    "loc_1955"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+audio_samples], rdi\nmov     [rbp+sample_count], esi\nmov     [rbp+stride], edx\nmov     rdi, [rbp+audio_samples]; audio_samples\nmov     esi, [rbp+sample_count]; sample_count\nmov     edx, [rbp+stride]; stride\ncall    magnitude_bits\nmov     [rbp+best_magnitude], eax\nmov     [rbp+decorr_index], 0\nmov     [rbp+best_decorr_index], 0",
+   "loc_1892": "cmp     [rbp+decorr_index], 6\njge     loc_18F6",
+   "loc_189C": "mov     rdi, [rbp+audio_samples]; audio_samples\nmov     esi, [rbp+sample_count]; sample_count\nmov     edx, [rbp+stride]; stride\ncall    decorrelate\nmov     [rbp+magnitude], eax\nmov     eax, [rbp+decorr_index]\nadd     eax, 1\nmov     [rbp+decorr_index], eax\nmov     eax, [rbp+magnitude]\ncmp     eax, [rbp+best_magnitude]\njge     loc_18D4",
+   "loc_18C3": "mov     eax, [rbp+decorr_index]\nmov     [rbp+best_decorr_index], eax\nmov     eax, [rbp+magnitude]\nmov     [rbp+best_magnitude], eax\njmp     loc_18F1",
+   "loc_18D4": "mov     rdi, [rbp+audio_samples]; audio_samples\nmov     esi, [rbp+sample_count]; sample_count\nmov     edx, [rbp+stride]; stride\ncall    correlate\nmov     eax, [rbp+decorr_index]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+decorr_index], eax\njmp     loc_18F6",
+   "loc_18F1": "jmp     loc_1892",
+   "loc_18F6": "cmp     [rbp+decorr_index], 0\njnz     loc_1955",
+   "loc_1900": "mov     rdi, [rbp+audio_samples]; audio_samples\nmov     esi, [rbp+sample_count]; sample_count\nmov     edx, [rbp+stride]; stride\ncall    correlate\nmov     [rbp+magnitude_0], eax\nmov     eax, [rbp+decorr_index]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+decorr_index], eax\nmov     eax, [rbp+magnitude_0]\ncmp     eax, [rbp+best_magnitude]\njge     loc_1938",
+   "loc_1927": "mov     eax, [rbp+decorr_index]\nmov     [rbp+best_decorr_index], eax\nmov     eax, [rbp+magnitude_0]\nmov     [rbp+best_magnitude], eax\njmp     loc_1950",
+   "loc_1938": "mov     rdi, [rbp+audio_samples]; audio_samples\nmov     esi, [rbp+sample_count]; sample_count\nmov     edx, [rbp+stride]; stride\ncall    decorrelate\nmov     eax, [rbp+decorr_index]\nadd     eax, 1\nmov     [rbp+decorr_index], eax",
+   "loc_1950": "jmp     $+5",
+   "loc_1955": "mov     eax, [rbp+best_decorr_index]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "magnitude_0": "dword ptr -24h",
+   "magnitude": "dword ptr -20h",
+   "best_decorr_index": "dword ptr -1Ch",
+   "decorr_index": "dword ptr -18h",
+   "best_magnitude": "dword ptr -14h",
+   "stride": "dword ptr -10h",
+   "sample_count": "dword ptr -0Ch",
+   "audio_samples": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6240,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".abs": "abs",
+  "_abs": "abs",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".sprintf": "sprintf",
+  "_sprintf": "sprintf",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".abs",
+   ".plt",
+   true,
+   "abs"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".sprintf",
+   ".plt",
+   true,
+   "sprintf"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "abs",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "sprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868545
+ }
+}

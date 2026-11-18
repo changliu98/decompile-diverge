@@ -1,0 +1,35 @@
+0000000000001460 <nist_increment_block>:
+    1460:	push   %rbp
+    1461:	mov    %rsp,%rbp
+    1464:	sub    $0x10,%rsp
+    1468:	mov    %rdi,-0x8(%rbp)
+    146c:	movl   $0x3,-0xc(%rbp)
+    1473:	cmpl   $0x0,-0xc(%rbp)
+    1477:	jl     14ce <nist_increment_block+0x6e>
+    147d:	mov    -0x8(%rbp),%rax
+    1481:	movslq -0xc(%rbp),%rcx
+    1485:	mov    (%rax,%rcx,4),%edi
+    1488:	mov    $0x0,%al
+    148a:	call   10e0 <ntohl@plt>
+    148f:	add    $0x1,%eax
+    1492:	mov    %eax,-0x10(%rbp)
+    1495:	mov    -0x10(%rbp),%edi
+    1498:	mov    $0x0,%al
+    149a:	call   1050 <htonl@plt>
+    149f:	mov    %eax,%edx
+    14a1:	mov    -0x8(%rbp),%rax
+    14a5:	movslq -0xc(%rbp),%rcx
+    14a9:	mov    %edx,(%rax,%rcx,4)
+    14ac:	cmpl   $0x0,-0x10(%rbp)
+    14b0:	je     14bb <nist_increment_block+0x5b>
+    14b6:	jmp    14ce <nist_increment_block+0x6e>
+    14bb:	jmp    14c0 <nist_increment_block+0x60>
+    14c0:	mov    -0xc(%rbp),%eax
+    14c3:	add    $0xffffffff,%eax
+    14c6:	mov    %eax,-0xc(%rbp)
+    14c9:	jmp    1473 <nist_increment_block+0x13>
+    14ce:	add    $0x10,%rsp
+    14d2:	pop    %rbp
+    14d3:	ret
+
+Disassembly of section .fini:

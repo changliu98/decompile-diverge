@@ -1,0 +1,1 @@
+int func0(int *arr, int size) { int ret = -1; for (int i = 1; i < size; i++) { if (arr[i] < arr[i - 1]) ret = i; } return ret; }

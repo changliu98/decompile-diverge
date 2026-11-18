@@ -1,0 +1,1 @@
+uint16_t do_csum(uint16_t sum, uint8_t len, uint16_t csum) { if (sum &0x02) csum++; return csum; }

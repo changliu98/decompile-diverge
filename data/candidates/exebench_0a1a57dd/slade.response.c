@@ -1,0 +1,1 @@
+void htonf(void *hostp) { uint32_t *hostp32 = (uint32_t *)hostp; uint32_t hostp64 = *hostp32; *hostp32 = htonl(hostp64); }

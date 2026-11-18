@@ -1,0 +1,52 @@
+{
+ "schema_version": 1,
+ "localId": "github_barebone_nsgifdec_nsgif_frame_decode",
+ "backend": "github",
+ "project": "nsgifdec",
+ "pname": "nsgifdec",
+ "language": "c",
+ "fuzz_target": "prog.bin",
+ "sanitizer": "asan_ubsan",
+ "oracle": "exit_memstate",
+ "n_inputs": 50,
+ "n_safe": 50,
+ "n_triggering": 0,
+ "signature": "nsgif_error nsgif_frame_decode(\n\t\tnsgif_t *gif,\n\t\tuint32_t frame,\n\t\tnsgif_bitmap_t **bitmap)",
+ "harness": "custom",
+ "memstate_masked": true,
+ "memstate_symcanon": true,
+ "baseline": {
+  "crashed": false,
+  "status": "PASS",
+  "n_pass": 50,
+  "memstate": "data_bss_symbol_canonical_relocmasked",
+  "memstate_masked": true,
+  "memstate_symcanon": true
+ },
+ "target": {
+  "name": "nsgif_frame_decode",
+  "repo_relpath": "func.c",
+  "start_byte": 47694,
+  "end_byte": 48436,
+  "start_line": 1947,
+  "end_line": 1981,
+  "return_type": "nsgif_error",
+  "signature": "nsgif_error nsgif_frame_decode(\n\t\tnsgif_t *gif,\n\t\tuint32_t frame,\n\t\tnsgif_bitmap_t **bitmap)"
+ },
+ "provenance": {
+  "source": "github",
+  "repo": "https://github.com/netsurf-browser/libnsgif",
+  "commit": "5d5d750f32755d415fd232c607e6ef64dcc5aa8a",
+  "path": "src/gif.c",
+  "func": "nsgif_frame_decode",
+  "commit_verified": "exact"
+ },
+ "decompiler_input": [
+  "asm",
+  "ghidra",
+  "ida"
+ ],
+ "extra_cflags": "-I.",
+ "group": "github_barebone",
+ "category": "functional"
+}

@@ -1,0 +1,434 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 80h\nmov     [rbp+hid_device], rdi\nmov     [rbp+req], rsi\nmov     rax, [rbp+hid_device]\nmov     rax, [rax]\nmov     [rbp+ctrl_xfer], rax\nmov     rax, [rbp+hid_device]\nmov     rax, [rax]\nmov     rax, [rax+8]\nmov     [rbp+ctrl_size], rax\ncmp     [rbp+hid_device], 0\njnz     loc_1594\nmov     [rbp+var_4], 102h\njmp     loc_178D\njmp     $+5\njmp     $+5\nmov     rax, [rbp+hid_device]\ncmp     qword ptr [rax], 0\njnz     loc_15B8\nmov     [rbp+var_4], 102h\njmp     loc_178D\njmp     $+5\njmp     $+5\ncmp     [rbp+req], 0\njnz     loc_15D9\nmov     [rbp+var_4], 102h\njmp     loc_178D\njmp     $+5\njmp     $+5\nmov     rax, [rbp+req]\ncmp     qword ptr [rax+8], 0\njnz     loc_15FE\nmov     [rbp+var_4], 102h\njmp     loc_178D\njmp     $+5\njmp     $+5\nmov     rdi, [rbp+hid_device]; hid_device\nmov     esi, 1388h; timeout_ms\ncall    hid_device_try_lock\nmov     [rbp+err_rc_], eax\ncmp     [rbp+err_rc_], 0\njz      loc_162E\nmov     eax, [rbp+err_rc_]\nmov     [rbp+var_4], eax\njmp     loc_178D\njmp     $+5\nmov     rax, [rbp+ctrl_size]\nmov     rcx, [rbp+req]\nmovzx   ecx, word ptr [rcx+6]\nadd     ecx, 8\nmovsxd  rcx, ecx\ncmp     rax, rcx\njnb     loc_16B0\njmp     $+5\nmov     rax, [rbp+hid_device]\nmov     rdi, [rax+8]; dev_hdl\nlea     rsi, [rbp+dev_info]; dev_info\ncall    usb_host_device_info\njmp     $+5\nmov     rax, [rbp+hid_device]\nmov     rdi, [rax]; transfer\ncall    usb_host_transfer_free\nmov     rax, [rbp+req]\nmovzx   eax, word ptr [rax+6]\nadd     eax, 8\nmovsxd  rdi, eax; data_buffer_size\nmov     rdx, [rbp+hid_device]; transfer\nxor     esi, esi; num_isoc_packets\ncall    usb_host_transfer_alloc\nmov     [rbp+err_rc__0], eax\ncmp     [rbp+err_rc__0], 0\njz      loc_16A6\nmov     eax, [rbp+err_rc__0]\nmov     [rbp+var_4], eax\njmp     loc_178D\njmp     $+5\njmp     $+5\nmov     rax, [rbp+ctrl_xfer]\nmov     rax, [rax]\nmov     [rbp+setup], rax\nmov     rax, [rbp+setup]\nmov     byte ptr [rax], 81h\nmov     rax, [rbp+req]\nmov     cl, [rax]\nmov     rax, [rbp+setup]\nmov     [rax+1], cl\nmov     rax, [rbp+req]\nmov     cx, [rax+2]\nmov     rax, [rbp+setup]\nmov     [rax+2], cx\nmov     rax, [rbp+req]\nmov     cx, [rax+4]\nmov     rax, [rbp+setup]\nmov     [rax+4], cx\nmov     rax, [rbp+req]\nmov     cx, [rax+6]\nmov     rax, [rbp+setup]\nmov     [rax+6], cx\nmov     rdi, [rbp+hid_device]; hid_device\nmov     rax, [rbp+req]\nmovzx   eax, word ptr [rax+6]\nadd     eax, 8\nmovsxd  rsi, eax; len\nmov     edx, 1388h; timeout_ms\ncall    hid_control_transfer\nmov     [rbp+ret], eax\nxor     eax, eax\ncmp     eax, [rbp+ret]\njnz     loc_177E\nmov     rax, [rbp+ctrl_xfer]\nmov     ecx, [rax+14h]\nsub     ecx, 8\nmov     [rax+14h], ecx\nmov     rax, [rbp+ctrl_xfer]\nmov     eax, [rax+14h]\nmov     rcx, [rbp+req]\nmovzx   ecx, word ptr [rcx+6]\ncmp     eax, ecx\njg      loc_1772\nmov     rax, [rbp+req]\nmov     rdi, [rax+8]; dest\nmov     rax, [rbp+ctrl_xfer]\nmov     rsi, [rax]\nadd     rsi, 8; src\nmov     rax, [rbp+ctrl_xfer]\nmovsxd  rdx, dword ptr [rax+14h]; n\ncall    memcpy\njmp     loc_1779\nmov     [rbp+ret], 104h\njmp     $+5\nmov     rdi, [rbp+hid_device]; hid_device\ncall    hid_device_unlock\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\nadd     rsp, 80h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 33,
+  "edges": [
+   [
+    "start",
+    "loc_1588"
+   ],
+   [
+    "start",
+    "loc_1594"
+   ],
+   [
+    "loc_1588",
+    "loc_178D"
+   ],
+   [
+    "loc_1594",
+    "loc_1599"
+   ],
+   [
+    "loc_1599",
+    "loc_159E"
+   ],
+   [
+    "loc_159E",
+    "loc_15AC"
+   ],
+   [
+    "loc_159E",
+    "loc_15B8"
+   ],
+   [
+    "loc_15AC",
+    "loc_178D"
+   ],
+   [
+    "loc_15B8",
+    "loc_15BD"
+   ],
+   [
+    "loc_15BD",
+    "loc_15C2"
+   ],
+   [
+    "loc_15C2",
+    "loc_15CD"
+   ],
+   [
+    "loc_15C2",
+    "loc_15D9"
+   ],
+   [
+    "loc_15CD",
+    "loc_178D"
+   ],
+   [
+    "loc_15D9",
+    "loc_15DE"
+   ],
+   [
+    "loc_15DE",
+    "loc_15E3"
+   ],
+   [
+    "loc_15E3",
+    "loc_15F2"
+   ],
+   [
+    "loc_15E3",
+    "loc_15FE"
+   ],
+   [
+    "loc_15F2",
+    "loc_178D"
+   ],
+   [
+    "loc_15FE",
+    "loc_1603"
+   ],
+   [
+    "loc_1603",
+    "loc_1608"
+   ],
+   [
+    "loc_1608",
+    "loc_1623"
+   ],
+   [
+    "loc_1608",
+    "loc_162E"
+   ],
+   [
+    "loc_1623",
+    "loc_178D"
+   ],
+   [
+    "loc_162E",
+    "loc_1633"
+   ],
+   [
+    "loc_1633",
+    "loc_164E"
+   ],
+   [
+    "loc_1633",
+    "loc_16B0"
+   ],
+   [
+    "loc_164E",
+    "loc_1653"
+   ],
+   [
+    "loc_1653",
+    "loc_1669"
+   ],
+   [
+    "loc_1669",
+    "loc_169B"
+   ],
+   [
+    "loc_1669",
+    "loc_16A6"
+   ],
+   [
+    "loc_169B",
+    "loc_178D"
+   ],
+   [
+    "loc_16A6",
+    "loc_16AB"
+   ],
+   [
+    "loc_16AB",
+    "loc_16B0"
+   ],
+   [
+    "loc_16B0",
+    "loc_1729"
+   ],
+   [
+    "loc_16B0",
+    "loc_177E"
+   ],
+   [
+    "loc_1729",
+    "loc_174D"
+   ],
+   [
+    "loc_1729",
+    "loc_1772"
+   ],
+   [
+    "loc_174D",
+    "loc_1779"
+   ],
+   [
+    "loc_1772",
+    "loc_1779"
+   ],
+   [
+    "loc_1779",
+    "loc_177E"
+   ],
+   [
+    "loc_177E",
+    "loc_178D"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 80h\nmov     [rbp+hid_device], rdi\nmov     [rbp+req], rsi\nmov     rax, [rbp+hid_device]\nmov     rax, [rax]\nmov     [rbp+ctrl_xfer], rax\nmov     rax, [rbp+hid_device]\nmov     rax, [rax]\nmov     rax, [rax+8]\nmov     [rbp+ctrl_size], rax\ncmp     [rbp+hid_device], 0\njnz     loc_1594",
+   "loc_1588": "mov     [rbp+var_4], 102h\njmp     loc_178D",
+   "loc_1594": "jmp     $+5",
+   "loc_1599": "jmp     $+5",
+   "loc_159E": "mov     rax, [rbp+hid_device]\ncmp     qword ptr [rax], 0\njnz     loc_15B8",
+   "loc_15AC": "mov     [rbp+var_4], 102h\njmp     loc_178D",
+   "loc_15B8": "jmp     $+5",
+   "loc_15BD": "jmp     $+5",
+   "loc_15C2": "cmp     [rbp+req], 0\njnz     loc_15D9",
+   "loc_15CD": "mov     [rbp+var_4], 102h\njmp     loc_178D",
+   "loc_15D9": "jmp     $+5",
+   "loc_15DE": "jmp     $+5",
+   "loc_15E3": "mov     rax, [rbp+req]\ncmp     qword ptr [rax+8], 0\njnz     loc_15FE",
+   "loc_15F2": "mov     [rbp+var_4], 102h\njmp     loc_178D",
+   "loc_15FE": "jmp     $+5",
+   "loc_1603": "jmp     $+5",
+   "loc_1608": "mov     rdi, [rbp+hid_device]; hid_device\nmov     esi, 1388h; timeout_ms\ncall    hid_device_try_lock\nmov     [rbp+err_rc_], eax\ncmp     [rbp+err_rc_], 0\njz      loc_162E",
+   "loc_1623": "mov     eax, [rbp+err_rc_]\nmov     [rbp+var_4], eax\njmp     loc_178D",
+   "loc_162E": "jmp     $+5",
+   "loc_1633": "mov     rax, [rbp+ctrl_size]\nmov     rcx, [rbp+req]\nmovzx   ecx, word ptr [rcx+6]\nadd     ecx, 8\nmovsxd  rcx, ecx\ncmp     rax, rcx\njnb     loc_16B0",
+   "loc_164E": "jmp     $+5",
+   "loc_1653": "mov     rax, [rbp+hid_device]\nmov     rdi, [rax+8]; dev_hdl\nlea     rsi, [rbp+dev_info]; dev_info\ncall    usb_host_device_info\njmp     $+5",
+   "loc_1669": "mov     rax, [rbp+hid_device]\nmov     rdi, [rax]; transfer\ncall    usb_host_transfer_free\nmov     rax, [rbp+req]\nmovzx   eax, word ptr [rax+6]\nadd     eax, 8\nmovsxd  rdi, eax; data_buffer_size\nmov     rdx, [rbp+hid_device]; transfer\nxor     esi, esi; num_isoc_packets\ncall    usb_host_transfer_alloc\nmov     [rbp+err_rc__0], eax\ncmp     [rbp+err_rc__0], 0\njz      loc_16A6",
+   "loc_169B": "mov     eax, [rbp+err_rc__0]\nmov     [rbp+var_4], eax\njmp     loc_178D",
+   "loc_16A6": "jmp     $+5",
+   "loc_16AB": "jmp     $+5",
+   "loc_16B0": "mov     rax, [rbp+ctrl_xfer]\nmov     rax, [rax]\nmov     [rbp+setup], rax\nmov     rax, [rbp+setup]\nmov     byte ptr [rax], 81h\nmov     rax, [rbp+req]\nmov     cl, [rax]\nmov     rax, [rbp+setup]\nmov     [rax+1], cl\nmov     rax, [rbp+req]\nmov     cx, [rax+2]\nmov     rax, [rbp+setup]\nmov     [rax+2], cx\nmov     rax, [rbp+req]\nmov     cx, [rax+4]\nmov     rax, [rbp+setup]\nmov     [rax+4], cx\nmov     rax, [rbp+req]\nmov     cx, [rax+6]\nmov     rax, [rbp+setup]\nmov     [rax+6], cx\nmov     rdi, [rbp+hid_device]; hid_device\nmov     rax, [rbp+req]\nmovzx   eax, word ptr [rax+6]\nadd     eax, 8\nmovsxd  rsi, eax; len\nmov     edx, 1388h; timeout_ms\ncall    hid_control_transfer\nmov     [rbp+ret], eax\nxor     eax, eax\ncmp     eax, [rbp+ret]\njnz     loc_177E",
+   "loc_1729": "mov     rax, [rbp+ctrl_xfer]\nmov     ecx, [rax+14h]\nsub     ecx, 8\nmov     [rax+14h], ecx\nmov     rax, [rbp+ctrl_xfer]\nmov     eax, [rax+14h]\nmov     rcx, [rbp+req]\nmovzx   ecx, word ptr [rcx+6]\ncmp     eax, ecx\njg      loc_1772",
+   "loc_174D": "mov     rax, [rbp+req]\nmov     rdi, [rax+8]; dest\nmov     rax, [rbp+ctrl_xfer]\nmov     rsi, [rax]\nadd     rsi, 8; src\nmov     rax, [rbp+ctrl_xfer]\nmovsxd  rdx, dword ptr [rax+14h]; n\ncall    memcpy\njmp     loc_1779",
+   "loc_1772": "mov     [rbp+ret], 104h",
+   "loc_1779": "jmp     $+5",
+   "loc_177E": "mov     rdi, [rbp+hid_device]; hid_device\ncall    hid_device_unlock\nmov     eax, [rbp+ret]\nmov     [rbp+var_4], eax",
+   "loc_178D": "mov     eax, [rbp+var_4]\nadd     rsp, 80h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "setup": "qword ptr -78h",
+   "err_rc__0": "dword ptr -6Ch",
+   "dev_info": "usb_device_info_t ptr -68h",
+   "err_rc_": "dword ptr -34h",
+   "ctrl_size": "qword ptr -30h",
+   "ctrl_xfer": "qword ptr -28h",
+   "ret": "dword ptr -1Ch",
+   "req": "qword ptr -18h",
+   "hid_device": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5456,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868462
+ }
+}

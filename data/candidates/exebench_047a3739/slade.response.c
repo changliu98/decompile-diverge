@@ -1,0 +1,1 @@
+void squeeze(char s1[], char s2[]) { unsigned int x, y, z; x = y = 0; while (s1[y] != '\0') { z = 0; while (s2[z] != '\0' && s1[y] != s2[z]) z++; if (s2[z] == '\0') s1[x++] = s1[y]; y++; } s1[x] = '\0'; }

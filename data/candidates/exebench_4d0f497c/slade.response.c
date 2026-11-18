@@ -1,0 +1,1 @@
+void initializeStatesAndConstants( 0.5* states, 0.5* outStates ){ states[0] = 1.0; states[1] = 1.0; outStates[0] = 1.0; }

@@ -1,0 +1,1 @@
+void func0(uint64_t a, uint64_t b, char *result) { char buffer[32]; int i = 0; while (a > 0) { buffer[i++] = '0' + a % b; a /= b; } uint64_t j = 0; while (i > 0) { result[j++] = buffer[--i]; } result[j] = '\0'; }

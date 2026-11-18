@@ -1,0 +1,1 @@
+void f(struct foo *p) { p->x++; }

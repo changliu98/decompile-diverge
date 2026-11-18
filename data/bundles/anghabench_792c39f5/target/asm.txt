@@ -1,0 +1,24 @@
+00000000000011c0 <check_need_swap>:
+    11c0:	push   %rbp
+    11c1:	mov    %rsp,%rbp
+    11c4:	mov    %edi,-0x4(%rbp)
+    11c7:	movl   $0x1,-0x8(%rbp)
+    11ce:	lea    -0x8(%rbp),%rax
+    11d2:	mov    %rax,-0x10(%rbp)
+    11d6:	mov    -0x10(%rbp),%rax
+    11da:	cmpl   $0x1,(%rax)
+    11dd:	jne    11f1 <check_need_swap+0x31>
+    11e3:	mov    0x2e97(%rip),%eax        # 4080 <ELFDATA2LSB>
+    11e9:	mov    %eax,-0x14(%rbp)
+    11ec:	jmp    11fa <check_need_swap+0x3a>
+    11f1:	mov    0x2e8d(%rip),%eax        # 4084 <ELFDATA2MSB>
+    11f7:	mov    %eax,-0x14(%rbp)
+    11fa:	mov    -0x14(%rbp),%eax
+    11fd:	cmp    -0x4(%rbp),%eax
+    1200:	setne  %al
+    1203:	and    $0x1,%al
+    1205:	movzbl %al,%eax
+    1208:	pop    %rbp
+    1209:	ret
+
+Disassembly of section .fini:

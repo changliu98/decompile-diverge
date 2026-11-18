@@ -1,0 +1,1 @@
+int func0(int *arr, int size, int max) { for (int i = 0; i < size; i++) { if (arr[i] >= max) { return 0; } } return 1; }

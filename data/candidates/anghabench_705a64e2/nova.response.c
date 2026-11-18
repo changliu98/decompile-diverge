@@ -1,0 +1,1 @@
+static inline uint32_t txq2vq(uint32_t i0) { return 0x00000001 + 0x2*i0; }

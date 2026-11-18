@@ -1,0 +1,1 @@
+void andc_u64(long long x, long long *y) { *y &= ~x; }

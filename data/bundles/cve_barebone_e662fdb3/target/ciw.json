@@ -1,0 +1,302 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+c], rdi\nmov     [rbp+d], rsi\nmov     [rbp+pos], rdx\nmov     [rbp+len], rcx\ncmp     [rbp+len], 4\njge     loc_19C8\njmp     loc_1A91\nmov     rax, [rbp+c]\nmov     rdi, [rax+8]; f\nmov     rsi, [rbp+pos]; pos\ncall    dbuf_getu32be\nmov     [rbp+selector], rax\nmov     rax, [rbp+len]\nsub     rax, 4\nmov     [rbp+data_len], rax\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+selector]\nmov     edx, eax\nmov     rax, [rbp+data_len]\nmov     ecx, eax\nlea     rsi, aIccProfileSegm; \"ICC profile segment, selector=%d, data \"...\nmov     al, 0\ncall    de_dbg\ncmp     [rbp+selector], 1\njz      loc_1A2B\nmov     rax, [rbp+d]\nmov     rdi, [rax+18h]; f\ncall    dbuf_close\nmov     rax, [rbp+d]\nmov     qword ptr [rax+18h], 0\ncmp     [rbp+selector], 0\njnz     loc_1A5A\nmov     rdi, [rbp+c]; c\nlea     rsi, ext1; \"icc\"\nxor     eax, eax\nmov     edx, eax; fi\nmov     ecx, 1; createflags\ncall    dbuf_create_output_file\nmov     rcx, rax\nmov     rax, [rbp+d]\nmov     [rax+18h], rcx\ncmp     [rbp+selector], 0\njz      loc_1A70\ncmp     [rbp+selector], 1\njnz     loc_1A91\nmov     rax, [rbp+c]\nmov     rdi, [rax+8]; inf\nmov     rsi, [rbp+pos]\nadd     rsi, 4; input_offset\nmov     rdx, [rbp+data_len]; input_len\nmov     rax, [rbp+d]\nmov     rcx, [rax+18h]; outf\ncall    dbuf_copy\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 10,
+  "edges": [
+   [
+    "start",
+    "loc_19C3"
+   ],
+   [
+    "start",
+    "loc_19C8"
+   ],
+   [
+    "loc_19C3",
+    "loc_1A91"
+   ],
+   [
+    "loc_19C8",
+    "loc_1A12"
+   ],
+   [
+    "loc_19C8",
+    "loc_1A2B"
+   ],
+   [
+    "loc_1A12",
+    "loc_1A2B"
+   ],
+   [
+    "loc_1A2B",
+    "loc_1A36"
+   ],
+   [
+    "loc_1A2B",
+    "loc_1A5A"
+   ],
+   [
+    "loc_1A36",
+    "loc_1A5A"
+   ],
+   [
+    "loc_1A5A",
+    "loc_1A65"
+   ],
+   [
+    "loc_1A5A",
+    "loc_1A70"
+   ],
+   [
+    "loc_1A65",
+    "loc_1A70"
+   ],
+   [
+    "loc_1A65",
+    "loc_1A91"
+   ],
+   [
+    "loc_1A70",
+    "loc_1A91"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+c], rdi\nmov     [rbp+d], rsi\nmov     [rbp+pos], rdx\nmov     [rbp+len], rcx\ncmp     [rbp+len], 4\njge     loc_19C8",
+   "loc_19C3": "jmp     loc_1A91",
+   "loc_19C8": "mov     rax, [rbp+c]\nmov     rdi, [rax+8]; f\nmov     rsi, [rbp+pos]; pos\ncall    dbuf_getu32be\nmov     [rbp+selector], rax\nmov     rax, [rbp+len]\nsub     rax, 4\nmov     [rbp+data_len], rax\nmov     rdi, [rbp+c]; c\nmov     rax, [rbp+selector]\nmov     edx, eax\nmov     rax, [rbp+data_len]\nmov     ecx, eax\nlea     rsi, aIccProfileSegm; \"ICC profile segment, selector=%d, data \"...\nmov     al, 0\ncall    de_dbg\ncmp     [rbp+selector], 1\njz      loc_1A2B",
+   "loc_1A12": "mov     rax, [rbp+d]\nmov     rdi, [rax+18h]; f\ncall    dbuf_close\nmov     rax, [rbp+d]\nmov     qword ptr [rax+18h], 0",
+   "loc_1A2B": "cmp     [rbp+selector], 0\njnz     loc_1A5A",
+   "loc_1A36": "mov     rdi, [rbp+c]; c\nlea     rsi, ext1; \"icc\"\nxor     eax, eax\nmov     edx, eax; fi\nmov     ecx, 1; createflags\ncall    dbuf_create_output_file\nmov     rcx, rax\nmov     rax, [rbp+d]\nmov     [rax+18h], rcx",
+   "loc_1A5A": "cmp     [rbp+selector], 0\njz      loc_1A70",
+   "loc_1A65": "cmp     [rbp+selector], 1\njnz     loc_1A91",
+   "loc_1A70": "mov     rax, [rbp+c]\nmov     rdi, [rax+8]; inf\nmov     rsi, [rbp+pos]\nadd     rsi, 4; input_offset\nmov     rdx, [rbp+data_len]; input_len\nmov     rax, [rbp+d]\nmov     rcx, [rax+18h]; outf\ncall    dbuf_copy",
+   "loc_1A91": "add     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "data_len": "qword ptr -30h",
+   "selector": "qword ptr -28h",
+   "len": "qword ptr -20h",
+   "pos": "qword ptr -18h",
+   "d": "qword ptr -10h",
+   "c": "qword ptr -8"
+  },
+  ".rodata": {
+   "aIccProfileSegm": "byte 'ICC profile segment, selector=%d, data len=%d',0",
+   "ext1": "byte 'icc',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6560,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".abort": "abort",
+  "_abort": "abort",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".abort",
+   ".plt",
+   true,
+   "abort"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "abort",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868496
+ }
+}

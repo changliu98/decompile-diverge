@@ -1,0 +1,61 @@
+00000000000011e0 <quant_u>:
+    11e0:	push   %rbp
+    11e1:	mov    %rsp,%rbp
+    11e4:	mov    %rdi,-0x8(%rbp)
+    11e8:	mov    %rsi,-0x10(%rbp)
+    11ec:	movss  %xmm0,-0x14(%rbp)
+    11f1:	movss  %xmm1,-0x18(%rbp)
+    11f6:	mov    %edx,-0x1c(%rbp)
+    11f9:	mov    -0x8(%rbp),%rax
+    11fd:	mov    %rax,-0x38(%rbp)
+    1201:	movss  -0x18(%rbp),%xmm0
+    1206:	subss  -0x14(%rbp),%xmm0
+    120b:	mov    -0x1c(%rbp),%eax
+    120e:	sub    $0x1,%eax
+    1211:	cvtsi2ss %eax,%xmm1
+    1215:	divss  %xmm1,%xmm0
+    1219:	movss  %xmm0,-0x28(%rbp)
+    121e:	movss  -0x14(%rbp),%xmm0
+    1223:	cvtss2sd %xmm0,%xmm1
+    1227:	movss  -0x28(%rbp),%xmm0
+    122c:	cvtss2sd %xmm0,%xmm0
+    1230:	movsd  0xdd0(%rip),%xmm2        # 2008 <_IO_stdin_used+0x8>
+    1238:	mulsd  %xmm2,%xmm0
+    123c:	addsd  %xmm1,%xmm0
+    1240:	cvtsd2ss %xmm0,%xmm0
+    1244:	movss  %xmm0,-0x2c(%rbp)
+    1249:	mov    -0x1c(%rbp),%eax
+    124c:	sub    $0x1,%eax
+    124f:	mov    %eax,-0x24(%rbp)
+    1252:	movl   $0x0,-0x20(%rbp)
+    1259:	mov    -0x20(%rbp),%eax
+    125c:	cmp    -0x24(%rbp),%eax
+    125f:	jge    12a2 <quant_u+0xc2>
+    1265:	mov    -0x38(%rbp),%rax
+    1269:	movss  (%rax),%xmm1
+    126d:	movss  -0x2c(%rbp),%xmm0
+    1272:	ucomiss %xmm1,%xmm0
+    1275:	jbe    1280 <quant_u+0xa0>
+    127b:	jmp    12a2 <quant_u+0xc2>
+    1280:	movss  -0x28(%rbp),%xmm0
+    1285:	addss  -0x2c(%rbp),%xmm0
+    128a:	movss  %xmm0,-0x2c(%rbp)
+    128f:	jmp    1294 <quant_u+0xb4>
+    1294:	mov    -0x20(%rbp),%eax
+    1297:	add    $0x1,%eax
+    129a:	mov    %eax,-0x20(%rbp)
+    129d:	jmp    1259 <quant_u+0x79>
+    12a2:	movss  -0x14(%rbp),%xmm1
+    12a7:	cvtsi2ssl -0x20(%rbp),%xmm0
+    12ac:	movss  -0x28(%rbp),%xmm2
+    12b1:	mulss  %xmm2,%xmm0
+    12b5:	addss  %xmm1,%xmm0
+    12b9:	mov    -0x38(%rbp),%rax
+    12bd:	movss  %xmm0,(%rax)
+    12c1:	mov    -0x20(%rbp),%ecx
+    12c4:	mov    -0x10(%rbp),%rax
+    12c8:	mov    %ecx,(%rax)
+    12ca:	pop    %rbp
+    12cb:	ret
+
+Disassembly of section .fini:

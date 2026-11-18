@@ -1,0 +1,1 @@
+char *str_rev(char *str) { char *start = str, *end = str; char tmp; while (*end++ != '\0'); end--; end--; while (start < end) { tmp = *start; *start++ = *end; *end-- = tmp; } return str; }

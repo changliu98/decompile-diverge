@@ -1,0 +1,1 @@
+__size32 func0(__size32 param1) { __size32 ecx; __size32 ecx; __size32 edx; __size32 local1; __size32 local2; ecx = param1; local2 = 0; local1 = 1; local2 = ecx; while (local2 != 0) { edx = local2 % 10; local2 = local2 / 10; local2 = local2 + edx * local1; local1 = local1 * 8; } return local2; }

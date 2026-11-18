@@ -1,0 +1,19 @@
+//
+
+#define NULL ((void*)0)
+  // Customize by platform.
+ 
+typedef long scalar_t__;  // Either arithmetic or pointer type.
+/* By default, we understand bool (as a convenience). */
+typedef int bool;
+#define false 0
+#define true 1
+
+/* Forward declarations */
+
+/* Type definitions */
+
+
+/* Variables and functions */
+
+uint32_t REG_A5XX_VFD_FETCH_BASE_HI(uint32_t i0) { return 0x0000e40b + 0x4*i0; }

@@ -1,0 +1,1 @@
+char * mystrcpy (char *dest, char *src) { char *save = dest; while (*src != '\0') *dest++ = *src++; *dest = '\0'; return save; }

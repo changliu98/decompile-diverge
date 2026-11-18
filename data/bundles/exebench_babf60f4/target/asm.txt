@@ -1,0 +1,65 @@
+00000000000011e0 <matmult>:
+    11e0:	push   %rbp
+    11e1:	mov    %rsp,%rbp
+    11e4:	mov    %rdi,-0x8(%rbp)
+    11e8:	mov    %rsi,-0x10(%rbp)
+    11ec:	mov    %rdx,-0x18(%rbp)
+    11f0:	movl   $0x0,-0x1c(%rbp)
+    11f7:	cmpl   $0x4,-0x1c(%rbp)
+    11fb:	jge    12c3 <matmult+0xe3>
+    1201:	movl   $0x0,-0x20(%rbp)
+    1208:	cmpl   $0x4,-0x20(%rbp)
+    120c:	jge    12b0 <matmult+0xd0>
+    1212:	mov    -0x18(%rbp),%rax
+    1216:	mov    -0x1c(%rbp),%ecx
+    1219:	mov    -0x20(%rbp),%edx
+    121c:	shl    $0x2,%edx
+    121f:	add    %edx,%ecx
+    1221:	movslq %ecx,%rcx
+    1224:	xorps  %xmm0,%xmm0
+    1227:	movss  %xmm0,(%rax,%rcx,4)
+    122c:	movl   $0x0,-0x24(%rbp)
+    1233:	cmpl   $0x4,-0x24(%rbp)
+    1237:	jge    129d <matmult+0xbd>
+    123d:	mov    -0x8(%rbp),%rax
+    1241:	mov    -0x1c(%rbp),%ecx
+    1244:	mov    -0x24(%rbp),%edx
+    1247:	shl    $0x2,%edx
+    124a:	add    %edx,%ecx
+    124c:	movslq %ecx,%rcx
+    124f:	movss  (%rax,%rcx,4),%xmm0
+    1254:	mov    -0x10(%rbp),%rax
+    1258:	mov    -0x24(%rbp),%ecx
+    125b:	mov    -0x20(%rbp),%edx
+    125e:	shl    $0x2,%edx
+    1261:	add    %edx,%ecx
+    1263:	movslq %ecx,%rcx
+    1266:	movss  (%rax,%rcx,4),%xmm2
+    126b:	mov    -0x18(%rbp),%rax
+    126f:	mov    -0x1c(%rbp),%ecx
+    1272:	mov    -0x20(%rbp),%edx
+    1275:	shl    $0x2,%edx
+    1278:	add    %edx,%ecx
+    127a:	movslq %ecx,%rcx
+    127d:	movss  (%rax,%rcx,4),%xmm1
+    1282:	mulss  %xmm2,%xmm0
+    1286:	addss  %xmm1,%xmm0
+    128a:	movss  %xmm0,(%rax,%rcx,4)
+    128f:	mov    -0x24(%rbp),%eax
+    1292:	add    $0x1,%eax
+    1295:	mov    %eax,-0x24(%rbp)
+    1298:	jmp    1233 <matmult+0x53>
+    129d:	jmp    12a2 <matmult+0xc2>
+    12a2:	mov    -0x20(%rbp),%eax
+    12a5:	add    $0x1,%eax
+    12a8:	mov    %eax,-0x20(%rbp)
+    12ab:	jmp    1208 <matmult+0x28>
+    12b0:	jmp    12b5 <matmult+0xd5>
+    12b5:	mov    -0x1c(%rbp),%eax
+    12b8:	add    $0x1,%eax
+    12bb:	mov    %eax,-0x1c(%rbp)
+    12be:	jmp    11f7 <matmult+0x17>
+    12c3:	pop    %rbp
+    12c4:	ret
+
+Disassembly of section .fini:

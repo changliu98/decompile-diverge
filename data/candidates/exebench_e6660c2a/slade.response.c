@@ -1,0 +1,1 @@
+__attribute__((no, noclone)) void foo (int *p, int a, int b) { int i, c = p[0], d = p[1]; for (i = 0; i < 1; i++) { int x = (a ? 1 : 0) | (d ? 2 : 0) | (b ? 2 : 0); x |= (c ? 1 : 0) | (c ? 1 : 0); p[2 + i] = x; } }

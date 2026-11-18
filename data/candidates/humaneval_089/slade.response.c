@@ -1,0 +1,1 @@
+void func0(char *str, char *dest) { int i; int a; for (i = 0; str[i] != '\0'; i++) { a = ((str[i] - 93) % 26) + 97; dest[i] = a; } dest[i] = '\0'; }

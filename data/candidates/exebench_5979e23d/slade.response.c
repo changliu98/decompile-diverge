@@ -1,0 +1,1 @@
+void vscale(float out[3], const float in[3], float scale) { out[0] = in[0] * scale; out[1] = in[1] * scale; out[2] = in[2] * scale; }

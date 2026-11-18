@@ -1,0 +1,1 @@
+void vscale(float *a, float f) { a[0] *= f; a[1] *= f; a[2] *= f; }

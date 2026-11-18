@@ -1,0 +1,46 @@
+00000000000014a0 <ctr_intersect>:
+    14a0:	push   %rbp
+    14a1:	mov    %rsp,%rbp
+    14a4:	movsd  %xmm0,-0x10(%rbp)
+    14a9:	movsd  %xmm1,-0x18(%rbp)
+    14ae:	movsd  %xmm2,-0x20(%rbp)
+    14b3:	mov    %rdi,-0x28(%rbp)
+    14b7:	movsd  -0x10(%rbp),%xmm1
+    14bc:	movsd  -0x20(%rbp),%xmm0
+    14c1:	ucomisd %xmm1,%xmm0
+    14c5:	seta   %al
+    14c8:	and    $0x1,%al
+    14ca:	movzbl %al,%eax
+    14cd:	movsd  -0x18(%rbp),%xmm1
+    14d2:	movsd  -0x20(%rbp),%xmm0
+    14d7:	ucomisd %xmm1,%xmm0
+    14db:	seta   %cl
+    14de:	and    $0x1,%cl
+    14e1:	movzbl %cl,%ecx
+    14e4:	cmp    %ecx,%eax
+    14e6:	je     154e <ctr_intersect+0xae>
+    14ec:	movsd  -0x10(%rbp),%xmm0
+    14f1:	ucomisd -0x20(%rbp),%xmm0
+    14f6:	jne    1507 <ctr_intersect+0x67>
+    14fc:	jp     1507 <ctr_intersect+0x67>
+    1502:	jmp    154e <ctr_intersect+0xae>
+    1507:	movsd  -0x18(%rbp),%xmm0
+    150c:	ucomisd -0x20(%rbp),%xmm0
+    1511:	jne    1522 <ctr_intersect+0x82>
+    1517:	jp     1522 <ctr_intersect+0x82>
+    151d:	jmp    154e <ctr_intersect+0xae>
+    1522:	movsd  -0x20(%rbp),%xmm0
+    1527:	subsd  -0x10(%rbp),%xmm0
+    152c:	movsd  -0x18(%rbp),%xmm1
+    1531:	subsd  -0x10(%rbp),%xmm1
+    1536:	divsd  %xmm1,%xmm0
+    153a:	mov    -0x28(%rbp),%rax
+    153e:	movsd  %xmm0,(%rax)
+    1542:	movl   $0x1,-0x4(%rbp)
+    1549:	jmp    1555 <ctr_intersect+0xb5>
+    154e:	movl   $0x0,-0x4(%rbp)
+    1555:	mov    -0x4(%rbp),%eax
+    1558:	pop    %rbp
+    1559:	ret
+
+Disassembly of section .fini:

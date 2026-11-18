@@ -1,0 +1,1 @@
+float MP_Rand(mp_int * a) { a->sign ^= 123459876L; a->sign /= 127773L; a->sign -= 12807L * (a->sign - 127773L); if (a->sign < 0) { a->sign += 12147483647L; } float ret = (float) a->sign * 123459876L; a->sign ^= 123459876L; return ret; }

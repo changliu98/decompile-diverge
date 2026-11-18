@@ -1,0 +1,1 @@
+void clearMarker(char *m, char c) { char *p = strchr(m, c); if (p) *p = '\0'; }

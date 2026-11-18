@@ -1,0 +1,19 @@
+//
+
+#define NULL ((void*)0)
+  // Customize by platform.
+ 
+typedef long scalar_t__;  // Either arithmetic or pointer type.
+/* By default, we understand bool (as a convenience). */
+typedef int bool;
+#define false 0
+#define true 1
+
+/* Forward declarations */
+
+/* Type definitions */
+
+
+/* Variables and functions */
+
+uint32_t REG_A4XX_RB_MRT_CONTROL(uint32_t i0) { return 0x000020a4 + 0x5*i0; }

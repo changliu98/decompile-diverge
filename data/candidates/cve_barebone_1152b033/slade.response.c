@@ -1,0 +1,1 @@
+int hci_req_sync(struct hci_dev *hdev, struct sock *sk, struct sk_buff *skb, u32 len, void *data) { int err; if (!test_bit(0, &hdev->flags)) return -100; mutex_lock(&hdev->cmd_mutex); err = __hci_req_sync(hdev, sk, skb, len, data); mutex_unlock(&hdev->cmd_mutex); return err; }

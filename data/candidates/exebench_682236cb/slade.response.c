@@ -1,0 +1,1 @@
+int RGB8toBGR32(uint8_t *dst, int width, int height, int pitch, int bpp, uint32_t color) { return -1; }

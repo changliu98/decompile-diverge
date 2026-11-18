@@ -1,0 +1,65 @@
+00000000000015c0 <image_fit>:
+    15c0:	push   %rbp
+    15c1:	mov    %rsp,%rbp
+    15c4:	mov    0x10(%rbp),%al
+    15c7:	mov    %edi,-0x4(%rbp)
+    15ca:	mov    %esi,-0x8(%rbp)
+    15cd:	mov    %edx,-0xc(%rbp)
+    15d0:	mov    %ecx,-0x10(%rbp)
+    15d3:	mov    %r8,-0x18(%rbp)
+    15d7:	mov    %r9,-0x20(%rbp)
+    15db:	mov    -0x8(%rbp),%eax
+    15de:	cvtsi2ss %rax,%xmm0
+    15e3:	mov    -0x4(%rbp),%eax
+    15e6:	cvtsi2ss %rax,%xmm1
+    15eb:	divss  %xmm1,%xmm0
+    15ef:	movss  %xmm0,-0x24(%rbp)
+    15f4:	mov    -0x10(%rbp),%eax
+    15f7:	cvtsi2ss %rax,%xmm0
+    15fc:	mov    -0xc(%rbp),%eax
+    15ff:	cvtsi2ss %rax,%xmm1
+    1604:	divss  %xmm1,%xmm0
+    1608:	movss  %xmm0,-0x28(%rbp)
+    160d:	movsbl 0x10(%rbp),%eax
+    1611:	cmp    $0x1,%eax
+    1614:	jl     1627 <image_fit+0x67>
+    161a:	movsbl 0x10(%rbp),%eax
+    161e:	cmp    $0x2,%eax
+    1621:	jle    1644 <image_fit+0x84>
+    1627:	movss  -0x28(%rbp),%xmm0
+    162c:	movss  -0x24(%rbp),%xmm1
+    1631:	mov    $0x2,%eax
+    1636:	mov    $0x1,%ecx
+    163b:	ucomiss %xmm1,%xmm0
+    163e:	cmova  %ecx,%eax
+    1641:	mov    %al,0x10(%rbp)
+    1644:	movsbl 0x10(%rbp),%eax
+    1648:	cmp    $0x1,%eax
+    164b:	jne    167d <image_fit+0xbd>
+    1651:	mov    -0xc(%rbp),%eax
+    1654:	cvtsi2ss %rax,%xmm0
+    1659:	movss  -0x24(%rbp),%xmm1
+    165e:	mulss  %xmm1,%xmm0
+    1662:	cvttss2si %xmm0,%rax
+    1667:	mov    %eax,%ecx
+    1669:	mov    -0x20(%rbp),%rax
+    166d:	mov    %ecx,(%rax)
+    166f:	mov    -0xc(%rbp),%ecx
+    1672:	mov    -0x18(%rbp),%rax
+    1676:	mov    %ecx,(%rax)
+    1678:	jmp    16a4 <image_fit+0xe4>
+    167d:	mov    -0x10(%rbp),%eax
+    1680:	cvtsi2ss %rax,%xmm0
+    1685:	movss  -0x24(%rbp),%xmm1
+    168a:	divss  %xmm1,%xmm0
+    168e:	cvttss2si %xmm0,%rax
+    1693:	mov    %eax,%ecx
+    1695:	mov    -0x18(%rbp),%rax
+    1699:	mov    %ecx,(%rax)
+    169b:	mov    -0x10(%rbp),%ecx
+    169e:	mov    -0x20(%rbp),%rax
+    16a2:	mov    %ecx,(%rax)
+    16a4:	pop    %rbp
+    16a5:	ret
+
+Disassembly of section .fini:

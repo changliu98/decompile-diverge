@@ -1,0 +1,12 @@
+int func0(char *str){
+ int i;
+ if(strlen(str) < 3){
+  return 0;
+ }
+ for(i = 2; i < strlen(str); i++){
+  if(str[i] == str[i-1] || str[i] == str[i-2]){
+   return 0;
+  }
+ }
+ return 1;
+}

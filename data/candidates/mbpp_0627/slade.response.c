@@ -1,0 +1,1 @@
+int func0(int *x, int a, int b) { if (a > b) return b+1; if (x[a] != a) return a; int m = (a+b)/2; if (x[m] == m) return func0(x, m+1, b); return func0(x, a, m); }

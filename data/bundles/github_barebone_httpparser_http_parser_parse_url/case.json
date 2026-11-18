@@ -1,0 +1,52 @@
+{
+ "schema_version": 1,
+ "localId": "github_barebone_httpparser_http_parser_parse_url",
+ "backend": "github",
+ "project": "httpparser",
+ "pname": "httpparser",
+ "language": "c",
+ "fuzz_target": "prog.bin",
+ "sanitizer": "asan_ubsan",
+ "oracle": "exit_memstate",
+ "n_inputs": 50,
+ "n_safe": 50,
+ "n_triggering": 0,
+ "signature": "int\nhttp_parser_parse_url(const char *buf, size_t buflen, int is_connect,\n                      struct http_parser_url *u)",
+ "harness": "custom",
+ "memstate_masked": true,
+ "memstate_symcanon": true,
+ "baseline": {
+  "crashed": false,
+  "status": "PASS",
+  "n_pass": 50,
+  "memstate": "data_bss_symbol_canonical_relocmasked",
+  "memstate_masked": true,
+  "memstate_symcanon": true
+ },
+ "target": {
+  "name": "http_parser_parse_url",
+  "repo_relpath": "func.c",
+  "start_byte": 72131,
+  "end_byte": 74735,
+  "start_line": 2422,
+  "end_line": 2543,
+  "return_type": "int",
+  "signature": "int\nhttp_parser_parse_url(const char *buf, size_t buflen, int is_connect,\n                      struct http_parser_url *u)"
+ },
+ "provenance": {
+  "source": "github",
+  "repo": "https://github.com/nodejs/http-parser",
+  "commit": "ec8b5ee63f0e51191ea43bb0c6eac7bfbff3141d",
+  "path": "http_parser.c",
+  "func": "http_parser_parse_url",
+  "commit_verified": "exact"
+ },
+ "decompiler_input": [
+  "asm",
+  "ghidra",
+  "ida"
+ ],
+ "extra_cflags": "",
+ "group": "github_barebone",
+ "category": "functional"
+}

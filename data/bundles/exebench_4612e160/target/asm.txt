@@ -1,0 +1,150 @@
+00000000000011e0 <utf8_decode_v2>:
+    11e0:	push   %rbp
+    11e1:	mov    %rsp,%rbp
+    11e4:	mov    %rdi,-0x10(%rbp)
+    11e8:	mov    %rsi,-0x18(%rbp)
+    11ec:	mov    %rdx,-0x20(%rbp)
+    11f0:	cmpq   $0x0,-0x18(%rbp)
+    11f5:	je     120b <utf8_decode_v2+0x2b>
+    11fb:	mov    -0x10(%rbp),%rax
+    11ff:	movsbl (%rax),%eax
+    1202:	cmp    $0x0,%eax
+    1205:	jne    122d <utf8_decode_v2+0x4d>
+    120b:	cmpq   $0x0,-0x20(%rbp)
+    1210:	je     1221 <utf8_decode_v2+0x41>
+    1216:	mov    -0x20(%rbp),%rax
+    121a:	movq   $0x0,(%rax)
+    1221:	movl   $0xffffffff,-0x4(%rbp)
+    1228:	jmp    144f <utf8_decode_v2+0x26f>
+    122d:	mov    -0x10(%rbp),%rax
+    1231:	movsbl (%rax),%eax
+    1234:	and    $0x80,%eax
+    1239:	cmp    $0x0,%eax
+    123c:	jne    126a <utf8_decode_v2+0x8a>
+    1242:	cmpq   $0x0,-0x20(%rbp)
+    1247:	je     1258 <utf8_decode_v2+0x78>
+    124d:	mov    -0x20(%rbp),%rax
+    1251:	movq   $0x1,(%rax)
+    1258:	mov    -0x10(%rbp),%rax
+    125c:	movsbl (%rax),%eax
+    125f:	and    $0x7f,%eax
+    1262:	mov    %eax,-0x4(%rbp)
+    1265:	jmp    144f <utf8_decode_v2+0x26f>
+    126a:	mov    -0x10(%rbp),%rax
+    126e:	movsbl (%rax),%eax
+    1271:	and    $0xe0,%eax
+    1276:	cmp    $0xc0,%eax
+    127b:	jne    12e1 <utf8_decode_v2+0x101>
+    1281:	cmpq   $0x0,-0x20(%rbp)
+    1286:	je     1297 <utf8_decode_v2+0xb7>
+    128c:	mov    -0x20(%rbp),%rax
+    1290:	movq   $0x2,(%rax)
+    1297:	cmpq   $0x2,-0x18(%rbp)
+    129c:	jb     12b3 <utf8_decode_v2+0xd3>
+    12a2:	mov    -0x10(%rbp),%rax
+    12a6:	movsbl 0x1(%rax),%eax
+    12aa:	cmp    $0x0,%eax
+    12ad:	jne    12bf <utf8_decode_v2+0xdf>
+    12b3:	movl   $0xffffffff,-0x4(%rbp)
+    12ba:	jmp    144f <utf8_decode_v2+0x26f>
+    12bf:	mov    -0x10(%rbp),%rax
+    12c3:	movsbl (%rax),%eax
+    12c6:	and    $0x1f,%eax
+    12c9:	shl    $0x6,%eax
+    12cc:	mov    -0x10(%rbp),%rcx
+    12d0:	movsbl 0x1(%rcx),%ecx
+    12d4:	and    $0x3f,%ecx
+    12d7:	or     %ecx,%eax
+    12d9:	mov    %eax,-0x4(%rbp)
+    12dc:	jmp    144f <utf8_decode_v2+0x26f>
+    12e1:	mov    -0x10(%rbp),%rax
+    12e5:	movsbl (%rax),%eax
+    12e8:	and    $0xf0,%eax
+    12ed:	cmp    $0xe0,%eax
+    12f2:	jne    1379 <utf8_decode_v2+0x199>
+    12f8:	cmpq   $0x0,-0x20(%rbp)
+    12fd:	je     130e <utf8_decode_v2+0x12e>
+    1303:	mov    -0x20(%rbp),%rax
+    1307:	movq   $0x3,(%rax)
+    130e:	cmpq   $0x3,-0x18(%rbp)
+    1313:	jb     133b <utf8_decode_v2+0x15b>
+    1319:	mov    -0x10(%rbp),%rax
+    131d:	movsbl 0x1(%rax),%eax
+    1321:	cmp    $0x0,%eax
+    1324:	je     133b <utf8_decode_v2+0x15b>
+    132a:	mov    -0x10(%rbp),%rax
+    132e:	movsbl 0x2(%rax),%eax
+    1332:	cmp    $0x0,%eax
+    1335:	jne    1347 <utf8_decode_v2+0x167>
+    133b:	movl   $0xffffffff,-0x4(%rbp)
+    1342:	jmp    144f <utf8_decode_v2+0x26f>
+    1347:	mov    -0x10(%rbp),%rax
+    134b:	movsbl (%rax),%eax
+    134e:	and    $0xf,%eax
+    1351:	shl    $0xc,%eax
+    1354:	mov    -0x10(%rbp),%rcx
+    1358:	movsbl 0x1(%rcx),%ecx
+    135c:	and    $0x3f,%ecx
+    135f:	shl    $0x6,%ecx
+    1362:	or     %ecx,%eax
+    1364:	mov    -0x10(%rbp),%rcx
+    1368:	movsbl 0x2(%rcx),%ecx
+    136c:	and    $0x3f,%ecx
+    136f:	or     %ecx,%eax
+    1371:	mov    %eax,-0x4(%rbp)
+    1374:	jmp    144f <utf8_decode_v2+0x26f>
+    1379:	mov    -0x10(%rbp),%rax
+    137d:	movsbl (%rax),%eax
+    1380:	and    $0xf8,%eax
+    1385:	cmp    $0xf0,%eax
+    138a:	jne    1432 <utf8_decode_v2+0x252>
+    1390:	cmpq   $0x0,-0x20(%rbp)
+    1395:	je     13a6 <utf8_decode_v2+0x1c6>
+    139b:	mov    -0x20(%rbp),%rax
+    139f:	movq   $0x4,(%rax)
+    13a6:	cmpq   $0x4,-0x18(%rbp)
+    13ab:	jb     13e4 <utf8_decode_v2+0x204>
+    13b1:	mov    -0x10(%rbp),%rax
+    13b5:	movsbl 0x1(%rax),%eax
+    13b9:	cmp    $0x0,%eax
+    13bc:	je     13e4 <utf8_decode_v2+0x204>
+    13c2:	mov    -0x10(%rbp),%rax
+    13c6:	movsbl 0x2(%rax),%eax
+    13ca:	cmp    $0x0,%eax
+    13cd:	je     13e4 <utf8_decode_v2+0x204>
+    13d3:	mov    -0x10(%rbp),%rax
+    13d7:	movsbl 0x3(%rax),%eax
+    13db:	cmp    $0x0,%eax
+    13de:	jne    13f0 <utf8_decode_v2+0x210>
+    13e4:	movl   $0xffffffff,-0x4(%rbp)
+    13eb:	jmp    144f <utf8_decode_v2+0x26f>
+    13f0:	mov    -0x10(%rbp),%rax
+    13f4:	movsbl (%rax),%eax
+    13f7:	and    $0x7,%eax
+    13fa:	shl    $0xf,%eax
+    13fd:	mov    -0x10(%rbp),%rcx
+    1401:	movsbl 0x1(%rcx),%ecx
+    1405:	and    $0x3f,%ecx
+    1408:	shl    $0xc,%ecx
+    140b:	or     %ecx,%eax
+    140d:	mov    -0x10(%rbp),%rcx
+    1411:	movsbl 0x2(%rcx),%ecx
+    1415:	and    $0x3f,%ecx
+    1418:	shl    $0x6,%ecx
+    141b:	or     %ecx,%eax
+    141d:	mov    -0x10(%rbp),%rcx
+    1421:	movsbl 0x3(%rcx),%ecx
+    1425:	and    $0x3f,%ecx
+    1428:	or     %ecx,%eax
+    142a:	mov    %eax,-0x4(%rbp)
+    142d:	jmp    144f <utf8_decode_v2+0x26f>
+    1432:	cmpq   $0x0,-0x20(%rbp)
+    1437:	je     1448 <utf8_decode_v2+0x268>
+    143d:	mov    -0x20(%rbp),%rax
+    1441:	movq   $0x0,(%rax)
+    1448:	movl   $0xffffffff,-0x4(%rbp)
+    144f:	mov    -0x4(%rbp),%eax
+    1452:	pop    %rbp
+    1453:	ret
+
+Disassembly of section .fini:

@@ -1,0 +1,4 @@
+float func0(float x)
+{
+    return x - (int)x;
+}

@@ -1,0 +1,1 @@
+void assignops(uint64_t *dest, uint64_t val) { *dest >>= val; *dest <<= val; *dest += val; *dest *= val; *dest /= val; *dest ^= val; *dest -= val; *dest &= val; *dest |= val; *dest %= val; *dest = val; }

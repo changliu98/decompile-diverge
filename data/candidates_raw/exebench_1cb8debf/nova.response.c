@@ -1,0 +1,1 @@
+void func0(float *t, float a, float b) { *t = (float)((int)(a) ^ (int)(b)); }

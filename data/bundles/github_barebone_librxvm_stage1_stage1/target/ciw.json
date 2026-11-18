@@ -1,0 +1,534 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0A0h\nmov     [rbp+compiled], rdi\nmov     [rbp+input], rsi\nmov     [rbp+ret], rdx\nmov     rsi, [rbp+ret]; ret\nlea     rdi, [rbp+ctx]; cp\ncall    stage1_init\nmov     [rbp+err], eax\ncmp     eax, 0\njge     loc_346E\nmov     eax, [rbp+err]\nmov     [rbp+var_4], eax\njmp     loc_3755\nmov     rax, [rbp+compiled]\nmov     dword ptr [rax+1Ch], 0\nmov     rax, [rbp+compiled]\nmov     dword ptr [rax+18h], 0\nmov     rax, [rbp+input]\nmov     [rbp+ctx.orig], rax\nmov     [rbp+state], 0\ncall    lex_init\nlea     rdi, [rbp+input]; input\ncall    lex\nmov     [rbp+ctx.tok], eax\ncmp     eax, 0Ah\njnz     loc_34BA\nmov     rax, [rbp+input]\nmov     [rbp+ctx.simple], rax\njmp     loc_3498\ncmp     [rbp+ctx.tok], 0Fh\njnz     loc_350C\nmov     rdi, [rbp+compiled]; compiled\nmov     rsi, [rbp+ctx.orig]; orig\ncall    check_simple_for_lfix\nmov     rax, [rbp+ctx.orig]\nmov     [rbp+ctx.simple], rax\nlea     rdi, [rbp+ctx]; cp\ncall    stage1_cleanup\nmov     rdi, [rbp+ctx.prog]; stack\nlea     rsi, inst_stack_cleanup; cleanup\ncall    stack_free\nmov     rax, [rbp+ret]\nmov     qword ptr [rax], 0\nmov     [rbp+var_4], 0\njmp     loc_3755\ncmp     [rbp+ctx.simple], 0\njz      loc_3540\nlea     rdi, [rbp+ctx]; cp\ncall    compile_simple_backlog\ncmp     eax, 0\njge     loc_3538\nmov     [rbp+var_4], 0FFFFFFF2h\njmp     loc_3755\nmov     [rbp+ctx.simple], 0\njmp     $+5\njmp     $+5\ncmp     [rbp+ctx.tok], 0\njge     loc_356B\nlea     rdi, [rbp+ctx]; cp\ncall    stage1_err_cleanup\nmov     eax, [rbp+ctx.tok]\nmov     [rbp+var_4], eax\njmp     loc_3755\nmov     eax, [rbp+state]\nmov     [rbp+var_94], eax\ntest    eax, eax\njz      loc_3595\njmp     $+5\nmov     eax, [rbp+var_94]\nsub     eax, 1\njz      loc_35CD\njmp     loc_3605\nlea     rdi, [rbp+ctx]; cp\nlea     rsi, [rbp+state]; state\ncall    stage1_main_state\nmov     [rbp+err], eax\ncmp     eax, 0\njge     loc_35C8\nlea     rdi, [rbp+ctx]; cp\ncall    stage1_err_cleanup\nmov     eax, [rbp+err]\nmov     [rbp+var_4], eax\njmp     loc_3755\njmp     loc_3605\nlea     rdi, [rbp+ctx]; cp\nlea     rsi, [rbp+state]; state\ncall    stage1_charc_state\nmov     [rbp+err], eax\ncmp     eax, 0\njge     loc_3600\nlea     rdi, [rbp+ctx]; cp\ncall    stage1_err_cleanup\nmov     eax, [rbp+err]\nmov     [rbp+var_4], eax\njmp     loc_3755\njmp     $+5\nmov     eax, [rbp+ctx.tok]\nmov     [rbp+ctx.lasttok], eax\nlea     rdi, [rbp+input]; input\ncall    lex\nmov     [rbp+ctx.tok], eax\ncmp     eax, 0Fh\njnz     loc_354A\ncmp     [rbp+ctx.lasttok], 4\njnz     loc_3657\nmov     rax, [rbp+ctx.buf]\ncmp     dword ptr [rax+18h], 0\njle     loc_3657\nmov     rdi, [rbp+ctx.prog]; stack1\nmov     rsi, [rbp+ctx.buf]; stack2\ncall    stack_cat\nmov     rdi, [rbp+ctx.buf]; ptr\ncall    free\nmov     rdi, [rbp+ctx.parens]; stack\ncall    stack_free_head\ncmp     [rbp+state], 1\njnz     loc_3679\nlea     rdi, [rbp+ctx]; cp\ncall    stage1_err_cleanup\nmov     [rbp+var_4], 0FFFFFFFAh\njmp     loc_3755\nmov     rax, [rbp+ctx.parens]\nmov     rax, [rax]\nmov     rcx, [rbp+ctx.parens]\ncmp     rax, [rcx+8]\njz      loc_36A6\nlea     rdi, [rbp+ctx]; cp\ncall    stage1_err_cleanup\nmov     [rbp+var_4], 0FFFFFFFBh\njmp     loc_3755\njmp     $+5\ncall    lfix_stop\nmov     rdi, [rbp+ctx.prog]; stack1\nmov     rax, [rbp+ctx.parens]\nmov     rax, [rax+8]\nmov     rsi, [rax]; stack2\ncall    stack_cat\nlea     rdi, [rbp+ctx]; cp\ncall    attach_dangling_alt\nlea     rdi, [rbp+ctx]; cp\ncall    code_match\nmov     [rbp+err], eax\ncmp     eax, 0\njge     loc_36F3\nmov     eax, [rbp+err]\nmov     [rbp+var_4], eax\njmp     loc_3755\ncmp     cs:alt_seen, 0\njz      loc_371B\nmov     rax, [rbp+compiled]\nmov     dword ptr [rax+18h], 0\nmov     rax, [rbp+compiled]\nmov     dword ptr [rax+1Ch], 0\njmp     loc_3737\ncall    get_lfix0\nmov     ecx, eax\nmov     rax, [rbp+compiled]\nmov     [rax+18h], ecx\ncall    get_lfixn\nmov     ecx, eax\nmov     rax, [rbp+compiled]\nmov     [rax+1Ch], ecx\nmovzx   ecx, [rbp+ctx.chained]\nmov     rax, [rbp+ctx.prog]\nmov     [rax+1Ch], ecx\nlea     rdi, [rbp+ctx]; cp\ncall    stage1_cleanup\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 0A0h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 41,
+  "edges": [
+   [
+    "start",
+    "loc_3463"
+   ],
+   [
+    "start",
+    "loc_346E"
+   ],
+   [
+    "loc_3463",
+    "loc_3755"
+   ],
+   [
+    "loc_346E",
+    "loc_3498"
+   ],
+   [
+    "loc_3498",
+    "loc_34AD"
+   ],
+   [
+    "loc_3498",
+    "loc_34BA"
+   ],
+   [
+    "loc_34AD",
+    "loc_3498"
+   ],
+   [
+    "loc_34BA",
+    "loc_34C4"
+   ],
+   [
+    "loc_34BA",
+    "loc_350C"
+   ],
+   [
+    "loc_34C4",
+    "loc_3755"
+   ],
+   [
+    "loc_350C",
+    "loc_3517"
+   ],
+   [
+    "loc_350C",
+    "loc_3540"
+   ],
+   [
+    "loc_3517",
+    "loc_352C"
+   ],
+   [
+    "loc_3517",
+    "loc_3538"
+   ],
+   [
+    "loc_352C",
+    "loc_3755"
+   ],
+   [
+    "loc_3538",
+    "loc_3540"
+   ],
+   [
+    "loc_3540",
+    "loc_3545"
+   ],
+   [
+    "loc_3545",
+    "loc_354A"
+   ],
+   [
+    "loc_354A",
+    "loc_3554"
+   ],
+   [
+    "loc_354A",
+    "loc_356B"
+   ],
+   [
+    "loc_3554",
+    "loc_3755"
+   ],
+   [
+    "loc_356B",
+    "loc_357C"
+   ],
+   [
+    "loc_356B",
+    "loc_3595"
+   ],
+   [
+    "loc_357C",
+    "loc_3581"
+   ],
+   [
+    "loc_3581",
+    "loc_3590"
+   ],
+   [
+    "loc_3581",
+    "loc_35CD"
+   ],
+   [
+    "loc_3590",
+    "loc_3605"
+   ],
+   [
+    "loc_3595",
+    "loc_35B1"
+   ],
+   [
+    "loc_3595",
+    "loc_35C8"
+   ],
+   [
+    "loc_35B1",
+    "loc_3755"
+   ],
+   [
+    "loc_35C8",
+    "loc_3605"
+   ],
+   [
+    "loc_35CD",
+    "loc_35E9"
+   ],
+   [
+    "loc_35CD",
+    "loc_3600"
+   ],
+   [
+    "loc_35E9",
+    "loc_3755"
+   ],
+   [
+    "loc_3600",
+    "loc_3605"
+   ],
+   [
+    "loc_3605",
+    "loc_354A"
+   ],
+   [
+    "loc_3605",
+    "loc_3620"
+   ],
+   [
+    "loc_3620",
+    "loc_362A"
+   ],
+   [
+    "loc_3620",
+    "loc_3657"
+   ],
+   [
+    "loc_362A",
+    "loc_3638"
+   ],
+   [
+    "loc_362A",
+    "loc_3657"
+   ],
+   [
+    "loc_3638",
+    "loc_3657"
+   ],
+   [
+    "loc_3657",
+    "loc_3661"
+   ],
+   [
+    "loc_3657",
+    "loc_3679"
+   ],
+   [
+    "loc_3661",
+    "loc_3755"
+   ],
+   [
+    "loc_3679",
+    "loc_368E"
+   ],
+   [
+    "loc_3679",
+    "loc_36A6"
+   ],
+   [
+    "loc_368E",
+    "loc_3755"
+   ],
+   [
+    "loc_36A6",
+    "loc_36AB"
+   ],
+   [
+    "loc_36AB",
+    "loc_36E8"
+   ],
+   [
+    "loc_36AB",
+    "loc_36F3"
+   ],
+   [
+    "loc_36E8",
+    "loc_3755"
+   ],
+   [
+    "loc_36F3",
+    "loc_3700"
+   ],
+   [
+    "loc_36F3",
+    "loc_371B"
+   ],
+   [
+    "loc_3700",
+    "loc_3737"
+   ],
+   [
+    "loc_371B",
+    "loc_3737"
+   ],
+   [
+    "loc_3737",
+    "loc_3755"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0A0h\nmov     [rbp+compiled], rdi\nmov     [rbp+input], rsi\nmov     [rbp+ret], rdx\nmov     rsi, [rbp+ret]; ret\nlea     rdi, [rbp+ctx]; cp\ncall    stage1_init\nmov     [rbp+err], eax\ncmp     eax, 0\njge     loc_346E",
+   "loc_3463": "mov     eax, [rbp+err]\nmov     [rbp+var_4], eax\njmp     loc_3755",
+   "loc_346E": "mov     rax, [rbp+compiled]\nmov     dword ptr [rax+1Ch], 0\nmov     rax, [rbp+compiled]\nmov     dword ptr [rax+18h], 0\nmov     rax, [rbp+input]\nmov     [rbp+ctx.orig], rax\nmov     [rbp+state], 0\ncall    lex_init",
+   "loc_3498": "lea     rdi, [rbp+input]; input\ncall    lex\nmov     [rbp+ctx.tok], eax\ncmp     eax, 0Ah\njnz     loc_34BA",
+   "loc_34AD": "mov     rax, [rbp+input]\nmov     [rbp+ctx.simple], rax\njmp     loc_3498",
+   "loc_34BA": "cmp     [rbp+ctx.tok], 0Fh\njnz     loc_350C",
+   "loc_34C4": "mov     rdi, [rbp+compiled]; compiled\nmov     rsi, [rbp+ctx.orig]; orig\ncall    check_simple_for_lfix\nmov     rax, [rbp+ctx.orig]\nmov     [rbp+ctx.simple], rax\nlea     rdi, [rbp+ctx]; cp\ncall    stage1_cleanup\nmov     rdi, [rbp+ctx.prog]; stack\nlea     rsi, inst_stack_cleanup; cleanup\ncall    stack_free\nmov     rax, [rbp+ret]\nmov     qword ptr [rax], 0\nmov     [rbp+var_4], 0\njmp     loc_3755",
+   "loc_350C": "cmp     [rbp+ctx.simple], 0\njz      loc_3540",
+   "loc_3517": "lea     rdi, [rbp+ctx]; cp\ncall    compile_simple_backlog\ncmp     eax, 0\njge     loc_3538",
+   "loc_352C": "mov     [rbp+var_4], 0FFFFFFF2h\njmp     loc_3755",
+   "loc_3538": "mov     [rbp+ctx.simple], 0",
+   "loc_3540": "jmp     $+5",
+   "loc_3545": "jmp     $+5",
+   "loc_354A": "cmp     [rbp+ctx.tok], 0\njge     loc_356B",
+   "loc_3554": "lea     rdi, [rbp+ctx]; cp\ncall    stage1_err_cleanup\nmov     eax, [rbp+ctx.tok]\nmov     [rbp+var_4], eax\njmp     loc_3755",
+   "loc_356B": "mov     eax, [rbp+state]\nmov     [rbp+var_94], eax\ntest    eax, eax\njz      loc_3595",
+   "loc_357C": "jmp     $+5",
+   "loc_3581": "mov     eax, [rbp+var_94]\nsub     eax, 1\njz      loc_35CD",
+   "loc_3590": "jmp     loc_3605",
+   "loc_3595": "lea     rdi, [rbp+ctx]; cp\nlea     rsi, [rbp+state]; state\ncall    stage1_main_state\nmov     [rbp+err], eax\ncmp     eax, 0\njge     loc_35C8",
+   "loc_35B1": "lea     rdi, [rbp+ctx]; cp\ncall    stage1_err_cleanup\nmov     eax, [rbp+err]\nmov     [rbp+var_4], eax\njmp     loc_3755",
+   "loc_35C8": "jmp     loc_3605",
+   "loc_35CD": "lea     rdi, [rbp+ctx]; cp\nlea     rsi, [rbp+state]; state\ncall    stage1_charc_state\nmov     [rbp+err], eax\ncmp     eax, 0\njge     loc_3600",
+   "loc_35E9": "lea     rdi, [rbp+ctx]; cp\ncall    stage1_err_cleanup\nmov     eax, [rbp+err]\nmov     [rbp+var_4], eax\njmp     loc_3755",
+   "loc_3600": "jmp     $+5",
+   "loc_3605": "mov     eax, [rbp+ctx.tok]\nmov     [rbp+ctx.lasttok], eax\nlea     rdi, [rbp+input]; input\ncall    lex\nmov     [rbp+ctx.tok], eax\ncmp     eax, 0Fh\njnz     loc_354A",
+   "loc_3620": "cmp     [rbp+ctx.lasttok], 4\njnz     loc_3657",
+   "loc_362A": "mov     rax, [rbp+ctx.buf]\ncmp     dword ptr [rax+18h], 0\njle     loc_3657",
+   "loc_3638": "mov     rdi, [rbp+ctx.prog]; stack1\nmov     rsi, [rbp+ctx.buf]; stack2\ncall    stack_cat\nmov     rdi, [rbp+ctx.buf]; ptr\ncall    free\nmov     rdi, [rbp+ctx.parens]; stack\ncall    stack_free_head",
+   "loc_3657": "cmp     [rbp+state], 1\njnz     loc_3679",
+   "loc_3661": "lea     rdi, [rbp+ctx]; cp\ncall    stage1_err_cleanup\nmov     [rbp+var_4], 0FFFFFFFAh\njmp     loc_3755",
+   "loc_3679": "mov     rax, [rbp+ctx.parens]\nmov     rax, [rax]\nmov     rcx, [rbp+ctx.parens]\ncmp     rax, [rcx+8]\njz      loc_36A6",
+   "loc_368E": "lea     rdi, [rbp+ctx]; cp\ncall    stage1_err_cleanup\nmov     [rbp+var_4], 0FFFFFFFBh\njmp     loc_3755",
+   "loc_36A6": "jmp     $+5",
+   "loc_36AB": "call    lfix_stop\nmov     rdi, [rbp+ctx.prog]; stack1\nmov     rax, [rbp+ctx.parens]\nmov     rax, [rax+8]\nmov     rsi, [rax]; stack2\ncall    stack_cat\nlea     rdi, [rbp+ctx]; cp\ncall    attach_dangling_alt\nlea     rdi, [rbp+ctx]; cp\ncall    code_match\nmov     [rbp+err], eax\ncmp     eax, 0\njge     loc_36F3",
+   "loc_36E8": "mov     eax, [rbp+err]\nmov     [rbp+var_4], eax\njmp     loc_3755",
+   "loc_36F3": "cmp     cs:alt_seen, 0\njz      loc_371B",
+   "loc_3700": "mov     rax, [rbp+compiled]\nmov     dword ptr [rax+18h], 0\nmov     rax, [rbp+compiled]\nmov     dword ptr [rax+1Ch], 0\njmp     loc_3737",
+   "loc_371B": "call    get_lfix0\nmov     ecx, eax\nmov     rax, [rbp+compiled]\nmov     [rax+18h], ecx\ncall    get_lfixn\nmov     ecx, eax\nmov     rax, [rbp+compiled]\nmov     [rax+1Ch], ecx",
+   "loc_3737": "movzx   ecx, [rbp+ctx.chained]\nmov     rax, [rbp+ctx.prog]\nmov     [rax+1Ch], ecx\nlea     rdi, [rbp+ctx]; cp\ncall    stage1_cleanup\nmov     [rbp+var_4], 0",
+   "loc_3755": "mov     eax, [rbp+var_4]\nadd     rsp, 0A0h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_94": "dword ptr -94h",
+   "ctx": "context_t ptr -90h",
+   "err": "dword ptr -28h",
+   "state": "dword ptr -24h",
+   "ret": "qword ptr -20h",
+   "input": "qword ptr -18h",
+   "compiled": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {
+   "alt_seen": "[]"
+  }
+ },
+ "func_ea": 13360,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868530
+ }
+}

@@ -1,0 +1,1 @@
+void SetBitInt(uint32_t *number, uint8_t bit) { *number |= 1 << bit; }

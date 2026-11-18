@@ -1,0 +1,13 @@
+#include <math.h>
+
+#include <stdio.h>
+
+#include <stdlib.h>
+
+#include <string.h>
+
+void cross3(double result[3], double a[3], double b[3]) {
+   result[0] = a[1]*b[2] - a[2]*b[1];
+   result[1] = a[2]*b[0] - a[0]*b[2];
+   result[2] = a[0]*b[1] - a[1]*b[0];
+}

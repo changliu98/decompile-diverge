@@ -1,0 +1,1 @@
+float reson(float v, float *res) { float v2 = res[0] * v + res[1] * res[3] - res[2] * res[4]; res[4] = res[3]; res[3] = v2; return v2; }

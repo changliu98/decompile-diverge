@@ -1,0 +1,1 @@
+float area_circle(struct circle *obj) { return obj->r * obj->r * 3.14; }

@@ -1,0 +1,1 @@
+int test_and_clear_bit(unsigned int bit, void *addr) { volatile int val; asm volatile ("btrl %1,%2" : "=x" (val) : "d" (bit), "r" (addr)); return val; }

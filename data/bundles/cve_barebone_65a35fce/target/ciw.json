@@ -1,0 +1,826 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 80h\nmov     [rbp+var_68], r8d\nmov     eax, ecx\nmov     ecx, [rbp+var_68]\nmov     [rbp+var_64], eax\nmov     rax, rdx\nmov     edx, [rbp+var_64]\nmov     [rbp+var_60], rax\nmov     rax, rsi\nmov     rsi, [rbp+var_60]\nmov     [rbp+var_58], rax\nmov     r8, rdi\nmov     rdi, [rbp+var_58]\nmov     al, r9b\nmov     [rbp+pThis], r8\nmov     [rbp+ppCStr], rdi\nmov     [rbp+preg], rsi\nmov     [rbp+bEscapeLF], dl\nmov     [rbp+discardTruncatedMsg], cl\nmov     [rbp+msgDiscardingError], al\nmov     [rbp+finished], 0\nmov     [rbp+thisLine], 0\nmov     rax, [rbp+pThis]\ncmp     dword ptr [rax], 0\njz      loc_1776\nxor     eax, eax\nmov     edi, eax; ttSeconds\ncall    getTime\nmov     [rbp+var_70], rax\njmp     loc_1781\nxor     eax, eax\nmov     [rbp+var_70], rax\njmp     $+5\nmov     rax, [rbp+var_70]\nmov     [rbp+tCurr], rax\ncall    glblGetMaxLine\nmov     [rbp+maxMsgSize], eax\nmov     [rbp+iRet], 0\nmov     rdi, [rbp+pThis]; pThis\nlea     rsi, [rbp+c]; pC\ncall    strmReadChar\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_17B6\njmp     finalize_it\nmov     rcx, [rbp+tCurr]\nmov     rax, [rbp+pThis]\nmov     [rax+8], rcx\nlea     rdi, [rbp+thisLine]; ppThis\ncall    cstrConstruct\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_17DC\njmp     finalize_it\nmov     rax, [rbp+pThis]\ncmp     qword ptr [rax+10h], 0\njz      loc_181A\nmov     rdi, [rbp+thisLine]; pThis\nmov     rax, [rbp+pThis]\nmov     rsi, [rax+10h]; pstrAppend\ncall    cstrAppendCStr\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_180D\njmp     finalize_it\nmov     rdi, [rbp+pThis]\nadd     rdi, 10h; ppThis\ncall    rsCStrDestruct\njmp     $+5\nmovzx   eax, [rbp+c]\ncmp     eax, 0Ah\njz      loc_18A7\nmov     rdi, [rbp+thisLine]; pThis\nmovzx   esi, [rbp+c]; c\ncall    cstrAppendChar\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_184A\njmp     finalize_it\nmov     rdi, [rbp+pThis]; pThis\nlea     rsi, [rbp+c]; pC\ncall    strmReadChar\nmov     [rbp+readCharRet], eax\ncmp     [rbp+readCharRet], 0FFFFF816h\njnz     loc_188E\nmov     rdi, [rbp+pThis]\nadd     rdi, 10h; ppThis\nmov     rsi, [rbp+thisLine]; pFrom\ncall    rsCStrConstructFromCStr\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_1889\njmp     finalize_it\njmp     $+5\nmov     eax, [rbp+readCharRet]\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_18A2\njmp     finalize_it\njmp     loc_181F\nmov     rax, [rbp+thisLine]\ncmp     qword ptr [rax+10h], 0\njbe     loc_18C9\nmov     rax, [rbp+thisLine]\nmov     rax, [rax]\nmov     rcx, [rbp+thisLine]\nmov     rcx, [rcx+10h]\nmov     byte ptr [rax+rcx], 0\nmov     rax, [rbp+preg]\nmov     [rbp+var_78], rax\nmov     rdi, [rbp+thisLine]; pThis\ncall    cstrGetSzStrNoNULL\nmov     rdi, [rbp+var_78]; preg\nmov     rsi, rax; string\nxor     eax, eax\nmov     ecx, eax; pmatch\nxor     r8d, r8d; eflags\nmov     rdx, rcx; nmatch\ncall    regexec\ncmp     eax, 0\nsetnz   al\nxor     al, 0FFh\nand     al, 1\nmovzx   eax, al\nmov     [rbp+isMatch], eax\ncmp     [rbp+isMatch], 0\njz      loc_1971\nmov     rax, [rbp+pThis]\ncmp     dword ptr [rax+20h], 0\njnz     loc_193F\nmov     rax, [rbp+pThis]\ncmp     qword ptr [rax+18h], 0\njz      loc_193A\nmov     [rbp+finished], 1\nmov     rax, [rbp+pThis]\nmov     rcx, [rax+18h]\nmov     rax, [rbp+ppCStr]\nmov     [rax], rcx\njmp     $+5\nmov     rdi, [rbp+pThis]\nadd     rdi, 18h; ppThis\nmov     rsi, [rbp+thisLine]; pFrom\ncall    rsCStrConstructFromCStr\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_1961\njmp     finalize_it\nmov     rax, [rbp+pThis]\nmov     dword ptr [rax+20h], 0\njmp     loc_1B51\nmov     rax, [rbp+pThis]\ncmp     dword ptr [rax+20h], 0\njnz     loc_1B4C\nmov     rax, [rbp+pThis]\ncmp     qword ptr [rax+18h], 0\njnz     loc_19B5\nmov     rdi, [rbp+pThis]\nadd     rdi, 18h; ppThis\nmov     rsi, [rbp+thisLine]; pFrom\ncall    rsCStrConstructFromCStr\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_19B0\njmp     finalize_it\njmp     loc_1B47\ncmp     [rbp+bEscapeLF], 0\njz      loc_19DD\nmov     rax, [rbp+pThis]\nmov     rdi, [rax+18h]; pThis\nlea     rsi, psz; psz\nmov     edx, 2; iStrLen\ncall    rsCStrAppendStrWithLen\njmp     loc_19EF\nmov     rax, [rbp+pThis]\nmov     rdi, [rax+18h]; pThis\nmov     esi, 0Ah; c\ncall    cstrAppendChar\nmov     rax, [rbp+thisLine]\nmov     rax, [rax+10h]\nmov     [rbp+currLineLen], eax\ncmp     [rbp+currLineLen], 0\njle     loc_1B42\nmov     rax, [rbp+pThis]\nmov     rax, [rax+18h]\nmov     rax, [rax+10h]\nadd     eax, [rbp+currLineLen]\nmov     [rbp+len], eax\ncmp     eax, [rbp+maxMsgSize]\njge     loc_1A46\nmov     rax, [rbp+pThis]\nmov     rdi, [rax+18h]; pThis\nmov     rsi, [rbp+thisLine]; pstrAppend\ncall    cstrAppendCStr\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_1A41\njmp     finalize_it\njmp     loc_1B3D\nmov     eax, [rbp+currLineLen]\nmov     ecx, [rbp+len]\nsub     ecx, [rbp+maxMsgSize]\nsub     eax, ecx\nmov     [rbp+len], eax\nmov     [rbp+z], 0\nmov     eax, [rbp+z]\ncmp     eax, [rbp+len]\njge     loc_1A91\nmov     rax, [rbp+pThis]\nmov     rdi, [rax+18h]; pThis\nmov     rax, [rbp+thisLine]\nmov     rax, [rax]\nmovsxd  rcx, [rbp+z]\nmovzx   esi, byte ptr [rax+rcx]; c\ncall    cstrAppendChar\nmov     eax, [rbp+z]\nadd     eax, 1\nmov     [rbp+z], eax\njmp     loc_1A5B\nmov     [rbp+finished], 1\nmov     rax, [rbp+pThis]\nmov     rcx, [rax+18h]\nmov     rax, [rbp+ppCStr]\nmov     [rax], rcx\nmov     rdi, [rbp+pThis]\nadd     rdi, 18h; ppThis\nmov     rax, [rbp+thisLine]\nmov     rsi, [rax]\nmovsxd  rax, [rbp+len]\nadd     rsi, rax; sz\ncall    rsCStrConstructFromszStr\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_1AD0\njmp     finalize_it\nmovsx   eax, [rbp+discardTruncatedMsg]\ncmp     eax, 1\njnz     loc_1AE8\nmov     rax, [rbp+pThis]\nmov     dword ptr [rax+20h], 1\nmovsx   eax, [rbp+msgDiscardingError]\ncmp     eax, 1\njnz     loc_1B38\nmovsx   eax, [rbp+discardTruncatedMsg]\ncmp     eax, 1\njnz     loc_1B1D\nxor     edi, edi; iErrno\nmov     esi, 0FFFFF448h; iErrCode\nlea     rdx, fmt; \"imfile error: message received is large\"...\nmov     al, 0\ncall    cs:errmsg\njmp     loc_1B33\nxor     edi, edi; iErrno\nmov     esi, 0FFFFF448h; iErrCode\nlea     rdx, aImfileErrorMes_0; \"imfile error: message received is large\"...\nmov     al, 0\ncall    cs:errmsg\njmp     $+5\njmp     $+5\njmp     $+5\njmp     $+5\njmp     $+5\njmp     $+5\nlea     rdi, [rbp+thisLine]; ppThis\ncall    rsCStrDestruct\nmovzx   eax, [rbp+finished]\ncmp     eax, 0\njz      loc_1798\njmp     $+5\nmov     rax, [rbp+pThis]\ncmp     dword ptr [rax], 0\njz      loc_1C0E\ncmp     [rbp+iRet], 0\njz      loc_1C0E\nmov     rax, [rbp+pThis]\ncmp     qword ptr [rax+18h], 0\njz      loc_1C0E\nmov     rax, [rbp+tCurr]\nmov     rcx, [rbp+pThis]\nmov     rcx, [rcx+8]\nmov     rdx, [rbp+pThis]\nmovsxd  rdx, dword ptr [rdx]\nadd     rcx, rdx\ncmp     rax, rcx\njle     loc_1C0E\nmov     rdi, [rbp+ppCStr]; ppThis\nmov     rax, [rbp+pThis]\nmov     rsi, [rax+18h]; pFrom\ncall    rsCStrConstructFromCStr\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_1BD3\njmp     finalize_it\nmov     rdi, [rbp+pThis]\nadd     rdi, 18h; ppThis\ncall    rsCStrDestruct\nmov     rcx, [rbp+tCurr]\nmov     rax, [rbp+pThis]\nmov     [rax+8], rcx\nmov     rax, [rbp+ppCStr]\nmov     rdi, [rax]; pThis\ncall    cstrGetSzStrNoNULL\nmov     rsi, rax\nlea     rdi, aStreamGenerate; \"stream: generated msg based on timeout:\"...\nmov     al, 0\ncall    dbgprintf\njmp     finalize_it\njmp     $+5\nmov     eax, [rbp+iRet]\nmov     [rbp+var_7C], eax\nmov     eax, [rbp+var_7C]\nadd     rsp, 80h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 74,
+  "edges": [
+   [
+    "start",
+    "loc_1764"
+   ],
+   [
+    "start",
+    "loc_1776"
+   ],
+   [
+    "loc_1764",
+    "loc_1781"
+   ],
+   [
+    "loc_1776",
+    "loc_1781"
+   ],
+   [
+    "loc_1781",
+    "loc_1798"
+   ],
+   [
+    "loc_1798",
+    "loc_17B1"
+   ],
+   [
+    "loc_1798",
+    "loc_17B6"
+   ],
+   [
+    "loc_17B1",
+    "loc_1B6C"
+   ],
+   [
+    "loc_17B6",
+    "loc_17D7"
+   ],
+   [
+    "loc_17B6",
+    "loc_17DC"
+   ],
+   [
+    "loc_17D7",
+    "loc_1B6C"
+   ],
+   [
+    "loc_17DC",
+    "loc_17EB"
+   ],
+   [
+    "loc_17DC",
+    "loc_181A"
+   ],
+   [
+    "loc_17EB",
+    "loc_1808"
+   ],
+   [
+    "loc_17EB",
+    "loc_180D"
+   ],
+   [
+    "loc_1808",
+    "loc_1B6C"
+   ],
+   [
+    "loc_180D",
+    "loc_181A"
+   ],
+   [
+    "loc_181A",
+    "loc_181F"
+   ],
+   [
+    "loc_181F",
+    "loc_182C"
+   ],
+   [
+    "loc_181F",
+    "loc_18A7"
+   ],
+   [
+    "loc_182C",
+    "loc_1845"
+   ],
+   [
+    "loc_182C",
+    "loc_184A"
+   ],
+   [
+    "loc_1845",
+    "loc_1B6C"
+   ],
+   [
+    "loc_184A",
+    "loc_1867"
+   ],
+   [
+    "loc_184A",
+    "loc_188E"
+   ],
+   [
+    "loc_1867",
+    "loc_1884"
+   ],
+   [
+    "loc_1867",
+    "loc_1889"
+   ],
+   [
+    "loc_1884",
+    "loc_1B6C"
+   ],
+   [
+    "loc_1889",
+    "loc_188E"
+   ],
+   [
+    "loc_188E",
+    "loc_189D"
+   ],
+   [
+    "loc_188E",
+    "loc_18A2"
+   ],
+   [
+    "loc_189D",
+    "loc_1B6C"
+   ],
+   [
+    "loc_18A2",
+    "loc_181F"
+   ],
+   [
+    "loc_18A7",
+    "loc_18B6"
+   ],
+   [
+    "loc_18A7",
+    "loc_18C9"
+   ],
+   [
+    "loc_18B6",
+    "loc_18C9"
+   ],
+   [
+    "loc_18C9",
+    "loc_190A"
+   ],
+   [
+    "loc_18C9",
+    "loc_1971"
+   ],
+   [
+    "loc_190A",
+    "loc_1918"
+   ],
+   [
+    "loc_190A",
+    "loc_193F"
+   ],
+   [
+    "loc_1918",
+    "loc_1927"
+   ],
+   [
+    "loc_1918",
+    "loc_193A"
+   ],
+   [
+    "loc_1927",
+    "loc_193A"
+   ],
+   [
+    "loc_193A",
+    "loc_193F"
+   ],
+   [
+    "loc_193F",
+    "loc_195C"
+   ],
+   [
+    "loc_193F",
+    "loc_1961"
+   ],
+   [
+    "loc_195C",
+    "loc_1B6C"
+   ],
+   [
+    "loc_1961",
+    "loc_1B51"
+   ],
+   [
+    "loc_1971",
+    "loc_197F"
+   ],
+   [
+    "loc_1971",
+    "loc_1B4C"
+   ],
+   [
+    "loc_197F",
+    "loc_198E"
+   ],
+   [
+    "loc_197F",
+    "loc_19B5"
+   ],
+   [
+    "loc_198E",
+    "loc_19AB"
+   ],
+   [
+    "loc_198E",
+    "loc_19B0"
+   ],
+   [
+    "loc_19AB",
+    "loc_1B6C"
+   ],
+   [
+    "loc_19B0",
+    "loc_1B47"
+   ],
+   [
+    "loc_19B5",
+    "loc_19BF"
+   ],
+   [
+    "loc_19B5",
+    "loc_19DD"
+   ],
+   [
+    "loc_19BF",
+    "loc_19EF"
+   ],
+   [
+    "loc_19DD",
+    "loc_19EF"
+   ],
+   [
+    "loc_19EF",
+    "loc_1A04"
+   ],
+   [
+    "loc_19EF",
+    "loc_1B42"
+   ],
+   [
+    "loc_1A04",
+    "loc_1A1F"
+   ],
+   [
+    "loc_1A04",
+    "loc_1A46"
+   ],
+   [
+    "loc_1A1F",
+    "loc_1A3C"
+   ],
+   [
+    "loc_1A1F",
+    "loc_1A41"
+   ],
+   [
+    "loc_1A3C",
+    "loc_1B6C"
+   ],
+   [
+    "loc_1A41",
+    "loc_1B3D"
+   ],
+   [
+    "loc_1A46",
+    "loc_1A5B"
+   ],
+   [
+    "loc_1A5B",
+    "loc_1A67"
+   ],
+   [
+    "loc_1A5B",
+    "loc_1A91"
+   ],
+   [
+    "loc_1A67",
+    "loc_1A5B"
+   ],
+   [
+    "loc_1A91",
+    "loc_1ACB"
+   ],
+   [
+    "loc_1A91",
+    "loc_1AD0"
+   ],
+   [
+    "loc_1ACB",
+    "loc_1B6C"
+   ],
+   [
+    "loc_1AD0",
+    "loc_1ADD"
+   ],
+   [
+    "loc_1AD0",
+    "loc_1AE8"
+   ],
+   [
+    "loc_1ADD",
+    "loc_1AE8"
+   ],
+   [
+    "loc_1AE8",
+    "loc_1AF5"
+   ],
+   [
+    "loc_1AE8",
+    "loc_1B38"
+   ],
+   [
+    "loc_1AF5",
+    "loc_1B02"
+   ],
+   [
+    "loc_1AF5",
+    "loc_1B1D"
+   ],
+   [
+    "loc_1B02",
+    "loc_1B33"
+   ],
+   [
+    "loc_1B1D",
+    "loc_1B33"
+   ],
+   [
+    "loc_1B33",
+    "loc_1B38"
+   ],
+   [
+    "loc_1B38",
+    "loc_1B3D"
+   ],
+   [
+    "loc_1B3D",
+    "loc_1B42"
+   ],
+   [
+    "loc_1B42",
+    "loc_1B47"
+   ],
+   [
+    "loc_1B47",
+    "loc_1B4C"
+   ],
+   [
+    "loc_1B4C",
+    "loc_1B51"
+   ],
+   [
+    "loc_1B51",
+    "loc_1798"
+   ],
+   [
+    "loc_1B51",
+    "loc_1B67"
+   ],
+   [
+    "loc_1B67",
+    "loc_1B6C"
+   ],
+   [
+    "loc_1B6C",
+    "loc_1B79"
+   ],
+   [
+    "loc_1B6C",
+    "loc_1C0E"
+   ],
+   [
+    "loc_1B79",
+    "loc_1B83"
+   ],
+   [
+    "loc_1B79",
+    "loc_1C0E"
+   ],
+   [
+    "loc_1B83",
+    "loc_1B92"
+   ],
+   [
+    "loc_1B83",
+    "loc_1C0E"
+   ],
+   [
+    "loc_1B92",
+    "loc_1BB1"
+   ],
+   [
+    "loc_1B92",
+    "loc_1C0E"
+   ],
+   [
+    "loc_1BB1",
+    "loc_1BCE"
+   ],
+   [
+    "loc_1BB1",
+    "loc_1BD3"
+   ],
+   [
+    "loc_1BCE",
+    "loc_1B6C"
+   ],
+   [
+    "loc_1BD3",
+    "loc_1B6C"
+   ],
+   [
+    "loc_1C0E",
+    "loc_1C13"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 80h\nmov     [rbp+var_68], r8d\nmov     eax, ecx\nmov     ecx, [rbp+var_68]\nmov     [rbp+var_64], eax\nmov     rax, rdx\nmov     edx, [rbp+var_64]\nmov     [rbp+var_60], rax\nmov     rax, rsi\nmov     rsi, [rbp+var_60]\nmov     [rbp+var_58], rax\nmov     r8, rdi\nmov     rdi, [rbp+var_58]\nmov     al, r9b\nmov     [rbp+pThis], r8\nmov     [rbp+ppCStr], rdi\nmov     [rbp+preg], rsi\nmov     [rbp+bEscapeLF], dl\nmov     [rbp+discardTruncatedMsg], cl\nmov     [rbp+msgDiscardingError], al\nmov     [rbp+finished], 0\nmov     [rbp+thisLine], 0\nmov     rax, [rbp+pThis]\ncmp     dword ptr [rax], 0\njz      loc_1776",
+   "loc_1764": "xor     eax, eax\nmov     edi, eax; ttSeconds\ncall    getTime\nmov     [rbp+var_70], rax\njmp     loc_1781",
+   "loc_1776": "xor     eax, eax\nmov     [rbp+var_70], rax\njmp     $+5",
+   "loc_1781": "mov     rax, [rbp+var_70]\nmov     [rbp+tCurr], rax\ncall    glblGetMaxLine\nmov     [rbp+maxMsgSize], eax\nmov     [rbp+iRet], 0",
+   "loc_1798": "mov     rdi, [rbp+pThis]; pThis\nlea     rsi, [rbp+c]; pC\ncall    strmReadChar\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_17B6",
+   "loc_17B1": "jmp     finalize_it",
+   "loc_17B6": "mov     rcx, [rbp+tCurr]\nmov     rax, [rbp+pThis]\nmov     [rax+8], rcx\nlea     rdi, [rbp+thisLine]; ppThis\ncall    cstrConstruct\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_17DC",
+   "loc_17D7": "jmp     finalize_it",
+   "loc_17DC": "mov     rax, [rbp+pThis]\ncmp     qword ptr [rax+10h], 0\njz      loc_181A",
+   "loc_17EB": "mov     rdi, [rbp+thisLine]; pThis\nmov     rax, [rbp+pThis]\nmov     rsi, [rax+10h]; pstrAppend\ncall    cstrAppendCStr\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_180D",
+   "loc_1808": "jmp     finalize_it",
+   "loc_180D": "mov     rdi, [rbp+pThis]\nadd     rdi, 10h; ppThis\ncall    rsCStrDestruct",
+   "loc_181A": "jmp     $+5",
+   "loc_181F": "movzx   eax, [rbp+c]\ncmp     eax, 0Ah\njz      loc_18A7",
+   "loc_182C": "mov     rdi, [rbp+thisLine]; pThis\nmovzx   esi, [rbp+c]; c\ncall    cstrAppendChar\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_184A",
+   "loc_1845": "jmp     finalize_it",
+   "loc_184A": "mov     rdi, [rbp+pThis]; pThis\nlea     rsi, [rbp+c]; pC\ncall    strmReadChar\nmov     [rbp+readCharRet], eax\ncmp     [rbp+readCharRet], 0FFFFF816h\njnz     loc_188E",
+   "loc_1867": "mov     rdi, [rbp+pThis]\nadd     rdi, 10h; ppThis\nmov     rsi, [rbp+thisLine]; pFrom\ncall    rsCStrConstructFromCStr\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_1889",
+   "loc_1884": "jmp     finalize_it",
+   "loc_1889": "jmp     $+5",
+   "loc_188E": "mov     eax, [rbp+readCharRet]\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_18A2",
+   "loc_189D": "jmp     finalize_it",
+   "loc_18A2": "jmp     loc_181F",
+   "loc_18A7": "mov     rax, [rbp+thisLine]\ncmp     qword ptr [rax+10h], 0\njbe     loc_18C9",
+   "loc_18B6": "mov     rax, [rbp+thisLine]\nmov     rax, [rax]\nmov     rcx, [rbp+thisLine]\nmov     rcx, [rcx+10h]\nmov     byte ptr [rax+rcx], 0",
+   "loc_18C9": "mov     rax, [rbp+preg]\nmov     [rbp+var_78], rax\nmov     rdi, [rbp+thisLine]; pThis\ncall    cstrGetSzStrNoNULL\nmov     rdi, [rbp+var_78]; preg\nmov     rsi, rax; string\nxor     eax, eax\nmov     ecx, eax; pmatch\nxor     r8d, r8d; eflags\nmov     rdx, rcx; nmatch\ncall    regexec\ncmp     eax, 0\nsetnz   al\nxor     al, 0FFh\nand     al, 1\nmovzx   eax, al\nmov     [rbp+isMatch], eax\ncmp     [rbp+isMatch], 0\njz      loc_1971",
+   "loc_190A": "mov     rax, [rbp+pThis]\ncmp     dword ptr [rax+20h], 0\njnz     loc_193F",
+   "loc_1918": "mov     rax, [rbp+pThis]\ncmp     qword ptr [rax+18h], 0\njz      loc_193A",
+   "loc_1927": "mov     [rbp+finished], 1\nmov     rax, [rbp+pThis]\nmov     rcx, [rax+18h]\nmov     rax, [rbp+ppCStr]\nmov     [rax], rcx",
+   "loc_193A": "jmp     $+5",
+   "loc_193F": "mov     rdi, [rbp+pThis]\nadd     rdi, 18h; ppThis\nmov     rsi, [rbp+thisLine]; pFrom\ncall    rsCStrConstructFromCStr\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_1961",
+   "loc_195C": "jmp     finalize_it",
+   "loc_1961": "mov     rax, [rbp+pThis]\nmov     dword ptr [rax+20h], 0\njmp     loc_1B51",
+   "loc_1971": "mov     rax, [rbp+pThis]\ncmp     dword ptr [rax+20h], 0\njnz     loc_1B4C",
+   "loc_197F": "mov     rax, [rbp+pThis]\ncmp     qword ptr [rax+18h], 0\njnz     loc_19B5",
+   "loc_198E": "mov     rdi, [rbp+pThis]\nadd     rdi, 18h; ppThis\nmov     rsi, [rbp+thisLine]; pFrom\ncall    rsCStrConstructFromCStr\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_19B0",
+   "loc_19AB": "jmp     finalize_it",
+   "loc_19B0": "jmp     loc_1B47",
+   "loc_19B5": "cmp     [rbp+bEscapeLF], 0\njz      loc_19DD",
+   "loc_19BF": "mov     rax, [rbp+pThis]\nmov     rdi, [rax+18h]; pThis\nlea     rsi, psz; psz\nmov     edx, 2; iStrLen\ncall    rsCStrAppendStrWithLen\njmp     loc_19EF",
+   "loc_19DD": "mov     rax, [rbp+pThis]\nmov     rdi, [rax+18h]; pThis\nmov     esi, 0Ah; c\ncall    cstrAppendChar",
+   "loc_19EF": "mov     rax, [rbp+thisLine]\nmov     rax, [rax+10h]\nmov     [rbp+currLineLen], eax\ncmp     [rbp+currLineLen], 0\njle     loc_1B42",
+   "loc_1A04": "mov     rax, [rbp+pThis]\nmov     rax, [rax+18h]\nmov     rax, [rax+10h]\nadd     eax, [rbp+currLineLen]\nmov     [rbp+len], eax\ncmp     eax, [rbp+maxMsgSize]\njge     loc_1A46",
+   "loc_1A1F": "mov     rax, [rbp+pThis]\nmov     rdi, [rax+18h]; pThis\nmov     rsi, [rbp+thisLine]; pstrAppend\ncall    cstrAppendCStr\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_1A41",
+   "loc_1A3C": "jmp     finalize_it",
+   "loc_1A41": "jmp     loc_1B3D",
+   "loc_1A46": "mov     eax, [rbp+currLineLen]\nmov     ecx, [rbp+len]\nsub     ecx, [rbp+maxMsgSize]\nsub     eax, ecx\nmov     [rbp+len], eax\nmov     [rbp+z], 0",
+   "loc_1A5B": "mov     eax, [rbp+z]\ncmp     eax, [rbp+len]\njge     loc_1A91",
+   "loc_1A67": "mov     rax, [rbp+pThis]\nmov     rdi, [rax+18h]; pThis\nmov     rax, [rbp+thisLine]\nmov     rax, [rax]\nmovsxd  rcx, [rbp+z]\nmovzx   esi, byte ptr [rax+rcx]; c\ncall    cstrAppendChar\nmov     eax, [rbp+z]\nadd     eax, 1\nmov     [rbp+z], eax\njmp     loc_1A5B",
+   "loc_1A91": "mov     [rbp+finished], 1\nmov     rax, [rbp+pThis]\nmov     rcx, [rax+18h]\nmov     rax, [rbp+ppCStr]\nmov     [rax], rcx\nmov     rdi, [rbp+pThis]\nadd     rdi, 18h; ppThis\nmov     rax, [rbp+thisLine]\nmov     rsi, [rax]\nmovsxd  rax, [rbp+len]\nadd     rsi, rax; sz\ncall    rsCStrConstructFromszStr\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_1AD0",
+   "loc_1ACB": "jmp     finalize_it",
+   "loc_1AD0": "movsx   eax, [rbp+discardTruncatedMsg]\ncmp     eax, 1\njnz     loc_1AE8",
+   "loc_1ADD": "mov     rax, [rbp+pThis]\nmov     dword ptr [rax+20h], 1",
+   "loc_1AE8": "movsx   eax, [rbp+msgDiscardingError]\ncmp     eax, 1\njnz     loc_1B38",
+   "loc_1AF5": "movsx   eax, [rbp+discardTruncatedMsg]\ncmp     eax, 1\njnz     loc_1B1D",
+   "loc_1B02": "xor     edi, edi; iErrno\nmov     esi, 0FFFFF448h; iErrCode\nlea     rdx, fmt; \"imfile error: message received is large\"...\nmov     al, 0\ncall    cs:errmsg\njmp     loc_1B33",
+   "loc_1B1D": "xor     edi, edi; iErrno\nmov     esi, 0FFFFF448h; iErrCode\nlea     rdx, aImfileErrorMes_0; \"imfile error: message received is large\"...\nmov     al, 0\ncall    cs:errmsg",
+   "loc_1B33": "jmp     $+5",
+   "loc_1B38": "jmp     $+5",
+   "loc_1B3D": "jmp     $+5",
+   "loc_1B42": "jmp     $+5",
+   "loc_1B47": "jmp     $+5",
+   "loc_1B4C": "jmp     $+5",
+   "loc_1B51": "lea     rdi, [rbp+thisLine]; ppThis\ncall    rsCStrDestruct\nmovzx   eax, [rbp+finished]\ncmp     eax, 0\njz      loc_1798",
+   "loc_1B67": "jmp     $+5",
+   "loc_1B6C": "mov     rax, [rbp+pThis]\ncmp     dword ptr [rax], 0\njz      loc_1C0E",
+   "loc_1B79": "cmp     [rbp+iRet], 0\njz      loc_1C0E",
+   "loc_1B83": "mov     rax, [rbp+pThis]\ncmp     qword ptr [rax+18h], 0\njz      loc_1C0E",
+   "loc_1B92": "mov     rax, [rbp+tCurr]\nmov     rcx, [rbp+pThis]\nmov     rcx, [rcx+8]\nmov     rdx, [rbp+pThis]\nmovsxd  rdx, dword ptr [rdx]\nadd     rcx, rdx\ncmp     rax, rcx\njle     loc_1C0E",
+   "loc_1BB1": "mov     rdi, [rbp+ppCStr]; ppThis\nmov     rax, [rbp+pThis]\nmov     rsi, [rax+18h]; pFrom\ncall    rsCStrConstructFromCStr\nmov     [rbp+iRet], eax\ncmp     eax, 0\njz      loc_1BD3",
+   "loc_1BCE": "jmp     finalize_it",
+   "loc_1BD3": "mov     rdi, [rbp+pThis]\nadd     rdi, 18h; ppThis\ncall    rsCStrDestruct\nmov     rcx, [rbp+tCurr]\nmov     rax, [rbp+pThis]\nmov     [rax+8], rcx\nmov     rax, [rbp+ppCStr]\nmov     rdi, [rax]; pThis\ncall    cstrGetSzStrNoNULL\nmov     rsi, rax\nlea     rdi, aStreamGenerate; \"stream: generated msg based on timeout:\"...\nmov     al, 0\ncall    dbgprintf\njmp     finalize_it",
+   "loc_1C0E": "jmp     $+5",
+   "loc_1C13": "mov     eax, [rbp+iRet]\nmov     [rbp+var_7C], eax\nmov     eax, [rbp+var_7C]\nadd     rsp, 80h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_7C": "dword ptr -7Ch",
+   "var_78": "qword ptr -78h",
+   "var_70": "qword ptr -70h",
+   "var_68": "dword ptr -68h",
+   "var_64": "dword ptr -64h",
+   "var_60": "qword ptr -60h",
+   "var_58": "qword ptr -58h",
+   "z": "dword ptr -50h",
+   "len": "dword ptr -4Ch",
+   "currLineLen": "dword ptr -48h",
+   "isMatch": "dword ptr -44h",
+   "iRet": "dword ptr -40h",
+   "maxMsgSize": "dword ptr -3Ch",
+   "tCurr": "qword ptr -38h",
+   "readCharRet": "dword ptr -2Ch",
+   "thisLine": "qword ptr -28h",
+   "finished": "byte ptr -1Dh",
+   "c": "byte ptr -1Ch",
+   "msgDiscardingError": "byte ptr -1Bh",
+   "discardTruncatedMsg": "byte ptr -1Ah",
+   "bEscapeLF": "byte ptr -19h",
+   "preg": "qword ptr -18h",
+   "ppCStr": "qword ptr -10h",
+   "pThis": "qword ptr -8"
+  },
+  ".rodata": {
+   "psz": "byte 5Ch",
+   "fmt": "byte 'imfile error: message received is larger than max msg size",
+   "aImfileErrorMes_0": "byte 'imfile error: message received is larger than max msg size",
+   "aStreamGenerate": "byte 'stream: generated msg based on timeout: %s',0Ah,0"
+  },
+  ".data": {
+   "errmsg": "qword offset vb_LogError"
+  },
+  ".bss": {}
+ },
+ "func_ea": 5888,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".regfree": "regfree",
+  "_regfree": "regfree",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".regcomp": "regcomp",
+  "_regcomp": "regcomp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".time": "time",
+  "_time": "time",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".regexec": "regexec",
+  "_regexec": "regexec",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".regfree",
+   ".plt",
+   true,
+   "regfree"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".regcomp",
+   ".plt",
+   true,
+   "regcomp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".time",
+   ".plt",
+   true,
+   "time"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".regexec",
+   ".plt",
+   true,
+   "regexec"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "regfree",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "regcomp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "time",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "regexec",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868467
+ }
+}

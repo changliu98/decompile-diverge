@@ -1,0 +1,1 @@
+int putdword(unsigned char *p, int dword) { p[0] = dword & 255; p[1] = dword >> 8; return dword; }

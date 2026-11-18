@@ -1,0 +1,204 @@
+0000000000001980 <listdir>:
+    1980:	push   %rbp
+    1981:	mov    %rsp,%rbp
+    1984:	sub    $0x60,%rsp
+    1988:	mov    %edi,-0x4(%rbp)
+    198b:	mov    %esi,-0x8(%rbp)
+    198e:	mov    %rdx,-0x10(%rbp)
+    1992:	mov    %rcx,-0x18(%rbp)
+    1996:	mov    -0x4(%rbp),%eax
+    1999:	cmp    0x47a1(%rip),%eax        # 6140 <max_ls_depth>
+    199f:	jae    19b7 <listdir+0x37>
+    19a5:	mov    0x585d(%rip),%eax        # 7208 <matches>
+    19ab:	cmp    0x4793(%rip),%eax        # 6144 <max_ls_files>
+    19b1:	jb     19bc <listdir+0x3c>
+    19b7:	jmp    1ce2 <listdir+0x362>
+    19bc:	lea    -0x28(%rbp),%rdi
+    19c0:	call   1cf0 <sreaddir>
+    19c5:	mov    %rax,-0x20(%rbp)
+    19c9:	cmp    $0x0,%rax
+    19cd:	jne    19ef <listdir+0x6f>
+    19d3:	mov    -0x18(%rbp),%rdx
+    19d7:	mov    $0xe2,%edi
+    19dc:	lea    0x2638(%rip),%rsi        # 401b <_IO_stdin_used+0x1b>
+    19e3:	mov    $0x0,%al
+    19e5:	call   1360 <addreply>
+    19ea:	jmp    1ce2 <listdir+0x362>
+    19ef:	mov    -0x20(%rbp),%rax
+    19f3:	mov    %rax,-0x30(%rbp)
+    19f7:	mov    -0x30(%rbp),%rax
+    19fb:	cmpq   $0xffffffffffffffff,0x8(%rax)
+    1a00:	je     1b01 <listdir+0x181>
+    1a06:	movl   $0x0,-0x3c(%rbp)
+    1a0d:	mov    -0x30(%rbp),%rax
+    1a11:	mov    (%rax),%rax
+    1a14:	mov    (%rax),%rax
+    1a17:	mov    -0x30(%rbp),%rcx
+    1a1b:	mov    0x8(%rcx),%rcx
+    1a1f:	movsbl (%rax,%rcx,1),%eax
+    1a23:	cmp    $0x2e,%eax
+    1a26:	je     1a41 <listdir+0xc1>
+    1a2c:	mov    -0x30(%rbp),%rdi
+    1a30:	xor    %eax,%eax
+    1a32:	mov    %eax,%esi
+    1a34:	call   21d0 <listfile>
+    1a39:	mov    %eax,-0x3c(%rbp)
+    1a3c:	jmp    1ada <listdir+0x15a>
+    1a41:	cmpl   $0x0,0x57a4(%rip)        # 71ec <opt_a>
+    1a48:	je     1ad5 <listdir+0x155>
+    1a4e:	mov    -0x30(%rbp),%rax
+    1a52:	mov    (%rax),%rax
+    1a55:	mov    (%rax),%rax
+    1a58:	mov    -0x30(%rbp),%rcx
+    1a5c:	mov    0x8(%rcx),%rcx
+    1a60:	movsbl 0x1(%rax,%rcx,1),%eax
+    1a65:	cmp    $0x0,%eax
+    1a68:	je     1aae <listdir+0x12e>
+    1a6e:	mov    -0x30(%rbp),%rax
+    1a72:	mov    (%rax),%rax
+    1a75:	mov    (%rax),%rax
+    1a78:	mov    -0x30(%rbp),%rcx
+    1a7c:	mov    0x8(%rcx),%rcx
+    1a80:	movsbl 0x1(%rax,%rcx,1),%eax
+    1a85:	cmp    $0x2e,%eax
+    1a88:	jne    1ac0 <listdir+0x140>
+    1a8e:	mov    -0x30(%rbp),%rax
+    1a92:	mov    (%rax),%rax
+    1a95:	mov    (%rax),%rax
+    1a98:	mov    -0x30(%rbp),%rcx
+    1a9c:	mov    0x8(%rcx),%rcx
+    1aa0:	movsbl 0x2(%rax,%rcx,1),%eax
+    1aa5:	cmp    $0x0,%eax
+    1aa8:	jne    1ac0 <listdir+0x140>
+    1aae:	mov    -0x30(%rbp),%rdi
+    1ab2:	xor    %eax,%eax
+    1ab4:	mov    %eax,%esi
+    1ab6:	call   21d0 <listfile>
+    1abb:	jmp    1ad0 <listdir+0x150>
+    1ac0:	mov    -0x30(%rbp),%rdi
+    1ac4:	xor    %eax,%eax
+    1ac6:	mov    %eax,%esi
+    1ac8:	call   21d0 <listfile>
+    1acd:	mov    %eax,-0x3c(%rbp)
+    1ad0:	jmp    1ad5 <listdir+0x155>
+    1ad5:	jmp    1ada <listdir+0x15a>
+    1ada:	cmpl   $0x0,-0x3c(%rbp)
+    1ade:	jne    1af0 <listdir+0x170>
+    1ae4:	mov    -0x30(%rbp),%rax
+    1ae8:	movq   $0xffffffffffffffff,0x8(%rax)
+    1af0:	mov    -0x30(%rbp),%rax
+    1af4:	add    $0x38,%rax
+    1af8:	mov    %rax,-0x30(%rbp)
+    1afc:	jmp    19f7 <listdir+0x77>
+    1b01:	mov    -0x8(%rbp),%edi
+    1b04:	mov    -0x10(%rbp),%rsi
+    1b08:	call   2a60 <outputfiles>
+    1b0d:	mov    -0x20(%rbp),%rax
+    1b11:	mov    %rax,-0x38(%rbp)
+    1b15:	xor    %eax,%eax
+    1b17:	cmpl   $0x0,0x56c6(%rip)        # 71e4 <opt_R>
+    1b1e:	mov    %al,-0x51(%rbp)
+    1b21:	je     1b35 <listdir+0x1b5>
+    1b27:	mov    -0x38(%rbp),%rax
+    1b2b:	cmp    -0x30(%rbp),%rax
+    1b2f:	setne  %al
+    1b32:	mov    %al,-0x51(%rbp)
+    1b35:	mov    -0x51(%rbp),%al
+    1b38:	test   $0x1,%al
+    1b3a:	jne    1b45 <listdir+0x1c5>
+    1b40:	jmp    1cc3 <listdir+0x343>
+    1b45:	mov    -0x38(%rbp),%rax
+    1b49:	cmpq   $0xffffffffffffffff,0x8(%rax)
+    1b4e:	je     1cb2 <listdir+0x332>
+    1b54:	mov    -0x38(%rbp),%rax
+    1b58:	mov    (%rax),%rax
+    1b5b:	mov    (%rax),%rdi
+    1b5e:	mov    -0x38(%rbp),%rax
+    1b62:	add    0x8(%rax),%rdi
+    1b66:	call   1100 <chdir@plt>
+    1b6b:	cmp    $0x0,%eax
+    1b6e:	jne    1cb2 <listdir+0x332>
+    1b74:	movq   $0x1001,-0x50(%rbp)
+    1b7c:	mov    %rsp,%rax
+    1b7f:	add    $0xffffffffffffeff0,%rax
+    1b85:	mov    %rax,%rsp
+    1b88:	mov    %rax,-0x48(%rbp)
+    1b8c:	cmp    $0x0,%rax
+    1b90:	jne    1b9b <listdir+0x21b>
+    1b96:	jmp    1cc8 <listdir+0x348>
+    1b9b:	mov    -0x48(%rbp),%rdi
+    1b9f:	mov    -0x18(%rbp),%rcx
+    1ba3:	mov    -0x38(%rbp),%rax
+    1ba7:	mov    (%rax),%rax
+    1baa:	mov    (%rax),%r8
+    1bad:	mov    -0x38(%rbp),%rax
+    1bb1:	add    0x8(%rax),%r8
+    1bb5:	mov    $0x1001,%esi
+    1bba:	lea    0x247d(%rip),%rdx        # 403e <_IO_stdin_used+0x3e>
+    1bc1:	mov    $0x0,%al
+    1bc3:	call   1110 <snprintf@plt>
+    1bc8:	cmp    $0x1001,%eax
+    1bcd:	jl     1bd8 <listdir+0x258>
+    1bd3:	jmp    1c24 <listdir+0x2a4>
+    1bd8:	mov    -0x8(%rbp),%edi
+    1bdb:	mov    -0x10(%rbp),%rsi
+    1bdf:	lea    0x245f(%rip),%rdx        # 4045 <_IO_stdin_used+0x45>
+    1be6:	call   2dc0 <wrstr>
+    1beb:	mov    -0x8(%rbp),%edi
+    1bee:	mov    -0x10(%rbp),%rsi
+    1bf2:	mov    -0x48(%rbp),%rdx
+    1bf6:	call   2dc0 <wrstr>
+    1bfb:	mov    -0x8(%rbp),%edi
+    1bfe:	mov    -0x10(%rbp),%rsi
+    1c02:	lea    0x243b(%rip),%rdx        # 4044 <_IO_stdin_used+0x44>
+    1c09:	call   2dc0 <wrstr>
+    1c0e:	mov    -0x4(%rbp),%edi
+    1c11:	add    $0x1,%edi
+    1c14:	mov    -0x8(%rbp),%esi
+    1c17:	mov    -0x10(%rbp),%rdx
+    1c1b:	mov    -0x48(%rbp),%rcx
+    1c1f:	call   1980 <listdir>
+    1c24:	jmp    1c29 <listdir+0x2a9>
+    1c29:	jmp    1c2e <listdir+0x2ae>
+    1c2e:	mov    0x55d4(%rip),%eax        # 7208 <matches>
+    1c34:	cmp    0x450a(%rip),%eax        # 6144 <max_ls_files>
+    1c3a:	jb     1c45 <listdir+0x2c5>
+    1c40:	jmp    1cc8 <listdir+0x348>
+    1c45:	lea    0x23fe(%rip),%rdi        # 404a <_IO_stdin_used+0x4a>
+    1c4c:	call   1100 <chdir@plt>
+    1c51:	cmp    $0x0,%eax
+    1c54:	je     1cad <listdir+0x32d>
+    1c5a:	lea    0x457f(%rip),%rdi        # 61e0 <wd>
+    1c61:	call   1100 <chdir@plt>
+    1c66:	cmp    $0x0,%eax
+    1c69:	jne    1c81 <listdir+0x301>
+    1c6f:	mov    -0x18(%rbp),%rdi
+    1c73:	call   1100 <chdir@plt>
+    1c78:	cmp    $0x0,%eax
+    1c7b:	je     1ca8 <listdir+0x328>
+    1c81:	call   1050 <__errno_location@plt>
+    1c86:	mov    (%rax),%edi
+    1c88:	call   1250 <strerror@plt>
+    1c8d:	mov    %rax,%rcx
+    1c90:	mov    $0x1a5,%edi
+    1c95:	mov    $0x3,%esi
+    1c9a:	lea    0x23ac(%rip),%rdx        # 404d <_IO_stdin_used+0x4d>
+    1ca1:	mov    $0x0,%al
+    1ca3:	call   1370 <die>
+    1ca8:	jmp    1cad <listdir+0x32d>
+    1cad:	jmp    1cb2 <listdir+0x332>
+    1cb2:	mov    -0x38(%rbp),%rax
+    1cb6:	add    $0x38,%rax
+    1cba:	mov    %rax,-0x38(%rbp)
+    1cbe:	jmp    1b15 <listdir+0x195>
+    1cc3:	jmp    1cc8 <listdir+0x348>
+    1cc8:	mov    -0x28(%rbp),%rdi
+    1ccc:	call   1030 <free@plt>
+    1cd1:	mov    -0x20(%rbp),%rdi
+    1cd5:	call   1030 <free@plt>
+    1cda:	movq   $0x0,-0x28(%rbp)
+    1ce2:	mov    %rbp,%rsp
+    1ce5:	pop    %rbp
+    1ce6:	ret
+
+Disassembly of section .fini:

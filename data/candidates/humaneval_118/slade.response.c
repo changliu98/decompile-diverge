@@ -1,0 +1,1 @@
+char *func0(char *str) { char *space = "AEIOUaeiou"; size_t len = strlen(str);  char out[10]; int i; for (i = len - 2; i > 0; i--) { if (strchr(space, str[i]) && !strchr(space, str[i + 1]) && !strchr(space, str[i - 1])) { out[0] = str[i]; return out; } } out[0] = '\0'; return out; }

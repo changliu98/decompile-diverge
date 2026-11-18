@@ -1,0 +1,1 @@
+float FDot(const float * _a, const float * _b, int length) { float result = 0; for (int i = 0; i < length; i++) result += _a[i] * _b[i]; return result; }

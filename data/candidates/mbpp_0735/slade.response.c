@@ -1,0 +1,1 @@
+uint32_t func0(uint32_t x) { if (x == 1) return 1; return x ^ set_middle_bits(x); }

@@ -1,0 +1,143 @@
+0000000000001640 <f_fullcommand>:
+    1640:	push   %rbp
+    1641:	mov    %rsp,%rbp
+    1644:	sub    $0x60,%rsp
+    1648:	mov    %rdi,-0x8(%rbp)
+    164c:	mov    %rsi,-0x10(%rbp)
+    1650:	call   11e0 <in_vim9script>
+    1655:	mov    %eax,-0x3c(%rbp)
+    1658:	mov    0x2a5a(%rip),%eax        # 40b8 <cmdmod>
+    165e:	mov    %eax,-0x40(%rbp)
+    1661:	mov    -0x10(%rbp),%rax
+    1665:	movl   $0x7,(%rax)
+    166b:	mov    -0x10(%rbp),%rax
+    166f:	movq   $0x0,0x8(%rax)
+    1677:	call   11e0 <in_vim9script>
+    167c:	cmp    $0x0,%eax
+    167f:	je     16b5 <f_fullcommand+0x75>
+    1685:	mov    -0x8(%rbp),%rdi
+    1689:	xor    %esi,%esi
+    168b:	call   1230 <check_for_string_arg>
+    1690:	cmp    $0x0,%eax
+    1693:	je     16b0 <f_fullcommand+0x70>
+    1699:	mov    -0x8(%rbp),%rdi
+    169d:	mov    $0x1,%esi
+    16a2:	call   1250 <check_for_opt_bool_arg>
+    16a7:	cmp    $0x0,%eax
+    16aa:	jne    16b5 <f_fullcommand+0x75>
+    16b0:	jmp    1896 <f_fullcommand+0x256>
+    16b5:	mov    -0x8(%rbp),%rax
+    16b9:	mov    0x8(%rax),%rax
+    16bd:	mov    %rax,-0x30(%rbp)
+    16c1:	cmpq   $0x0,-0x30(%rbp)
+    16c6:	jne    16d1 <f_fullcommand+0x91>
+    16cc:	jmp    1896 <f_fullcommand+0x256>
+    16d1:	mov    -0x8(%rbp),%rax
+    16d5:	cmpl   $0x0,0x10(%rax)
+    16d9:	je     171f <f_fullcommand+0xdf>
+    16df:	mov    -0x8(%rbp),%rdi
+    16e3:	add    $0x10,%rdi
+    16e7:	call   1270 <tv_get_bool>
+    16ec:	mov    %eax,-0x3c(%rbp)
+    16ef:	mov    0x29c3(%rip),%eax        # 40b8 <cmdmod>
+    16f5:	and    $0xffff3fff,%eax
+    16fa:	mov    %eax,0x29b8(%rip)        # 40b8 <cmdmod>
+    1700:	mov    -0x3c(%rbp),%edx
+    1703:	mov    $0x8000,%eax
+    1708:	mov    $0x4000,%ecx
+    170d:	cmp    $0x0,%edx
+    1710:	cmovne %ecx,%eax
+    1713:	or     0x299f(%rip),%eax        # 40b8 <cmdmod>
+    1719:	mov    %eax,0x2999(%rip)        # 40b8 <cmdmod>
+    171f:	jmp    1724 <f_fullcommand+0xe4>
+    1724:	mov    -0x30(%rbp),%rax
+    1728:	movzbl (%rax),%eax
+    172b:	cmp    $0x3a,%eax
+    172e:	jne    1745 <f_fullcommand+0x105>
+    1734:	mov    -0x30(%rbp),%rax
+    1738:	add    $0x1,%rax
+    173c:	mov    %rax,-0x30(%rbp)
+    1740:	jmp    1724 <f_fullcommand+0xe4>
+    1745:	mov    -0x30(%rbp),%rdi
+    1749:	mov    $0x1,%esi
+    174e:	xor    %eax,%eax
+    1750:	mov    %eax,%edx
+    1752:	call   13a0 <skip_range>
+    1757:	mov    %rax,-0x30(%rbp)
+    175b:	mov    -0x30(%rbp),%rax
+    175f:	movzbl (%rax),%eax
+    1762:	cmp    $0x32,%eax
+    1765:	je     177b <f_fullcommand+0x13b>
+    176b:	mov    -0x30(%rbp),%rax
+    176f:	movzbl (%rax),%eax
+    1772:	cmp    $0x33,%eax
+    1775:	jne    178c <f_fullcommand+0x14c>
+    177b:	mov    -0x30(%rbp),%rax
+    177f:	add    $0x1,%rax
+    1783:	mov    %rax,-0x50(%rbp)
+    1787:	jmp    1794 <f_fullcommand+0x154>
+    178c:	mov    -0x30(%rbp),%rax
+    1790:	mov    %rax,-0x50(%rbp)
+    1794:	mov    -0x50(%rbp),%rax
+    1798:	mov    %rax,-0x28(%rbp)
+    179c:	movl   $0x0,-0x20(%rbp)
+    17a3:	movl   $0x0,-0x1c(%rbp)
+    17aa:	mov    0x290c(%rip),%eax        # 40bc <emsg_silent>
+    17b0:	add    $0x1,%eax
+    17b3:	mov    %eax,0x2903(%rip)        # 40bc <emsg_silent>
+    17b9:	lea    -0x28(%rbp),%rdi
+    17bd:	xor    %eax,%eax
+    17bf:	mov    %eax,%ecx
+    17c1:	mov    %rcx,%rsi
+    17c4:	mov    %rcx,%rdx
+    17c7:	call   12b0 <find_ex_command>
+    17cc:	mov    %rax,-0x38(%rbp)
+    17d0:	mov    0x28e6(%rip),%eax        # 40bc <emsg_silent>
+    17d6:	add    $0xffffffff,%eax
+    17d9:	mov    %eax,0x28dd(%rip)        # 40bc <emsg_silent>
+    17df:	cmpq   $0x0,-0x38(%rbp)
+    17e4:	je     17f4 <f_fullcommand+0x1b4>
+    17ea:	cmpl   $0x0,-0x20(%rbp)
+    17ee:	jne    17f9 <f_fullcommand+0x1b9>
+    17f4:	jmp    188d <f_fullcommand+0x24d>
+    17f9:	cmpl   $0x0,-0x3c(%rbp)
+    17fd:	je     1841 <f_fullcommand+0x201>
+    1803:	mov    0x28b3(%rip),%eax        # 40bc <emsg_silent>
+    1809:	add    $0x1,%eax
+    180c:	mov    %eax,0x28aa(%rip)        # 40bc <emsg_silent>
+    1812:	lea    -0x28(%rbp),%rdi
+    1816:	call   1280 <not_in_vim9>
+    181b:	mov    %eax,-0x44(%rbp)
+    181e:	mov    0x2898(%rip),%eax        # 40bc <emsg_silent>
+    1824:	add    $0xffffffff,%eax
+    1827:	mov    %eax,0x288f(%rip)        # 40bc <emsg_silent>
+    182d:	cmpl   $0x0,-0x44(%rbp)
+    1831:	jne    183c <f_fullcommand+0x1fc>
+    1837:	jmp    188d <f_fullcommand+0x24d>
+    183c:	jmp    1841 <f_fullcommand+0x201>
+    1841:	cmpl   $0x0,-0x20(%rbp)
+    1845:	jge    185f <f_fullcommand+0x21f>
+    184b:	mov    -0x18(%rbp),%edi
+    184e:	mov    -0x20(%rbp),%esi
+    1851:	call   1290 <get_user_command_name>
+    1856:	mov    %rax,-0x58(%rbp)
+    185a:	jmp    1879 <f_fullcommand+0x239>
+    185f:	mov    -0x20(%rbp),%eax
+    1862:	mov    %eax,%ecx
+    1864:	lea    0x2825(%rip),%rax        # 4090 <cmdnames>
+    186b:	shl    $0x5,%rcx
+    186f:	add    %rcx,%rax
+    1872:	mov    (%rax),%rax
+    1875:	mov    %rax,-0x58(%rbp)
+    1879:	mov    -0x58(%rbp),%rdi
+    187d:	call   12a0 <vim_strsave>
+    1882:	mov    %rax,%rcx
+    1885:	mov    -0x10(%rbp),%rax
+    1889:	mov    %rcx,0x8(%rax)
+    188d:	mov    -0x40(%rbp),%eax
+    1890:	mov    %eax,0x2822(%rip)        # 40b8 <cmdmod>
+    1896:	add    $0x60,%rsp
+    189a:	pop    %rbp
+    189b:	ret
+
+Disassembly of section .fini:

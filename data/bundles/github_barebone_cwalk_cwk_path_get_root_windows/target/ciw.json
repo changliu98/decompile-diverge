@@ -1,0 +1,463 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+path], rdi\nmov     [rbp+length], rsi\nmov     rax, [rbp+path]\nmov     [rbp+c], rax\nmov     rax, [rbp+length]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+c]\ncmp     byte ptr [rax], 0\njnz     loc_1F45\njmp     loc_20C1\nmov     rdi, [rbp+c]; str\ncall    cwk_path_is_separator\ntest    al, 1\njnz     loc_1F5B\njmp     loc_206C\nmov     rax, [rbp+c]\nadd     rax, 1\nmov     [rbp+c], rax\nmov     rdi, [rbp+c]; str\ncall    cwk_path_is_separator\ntest    al, 1\njnz     loc_1F8B\nmov     rax, [rbp+length]\nmov     rcx, [rax]\nadd     rcx, 1\nmov     [rax], rcx\njmp     loc_20C1\nmov     rax, [rbp+c]\nadd     rax, 1\nmov     [rbp+c], rax\nmov     rax, [rbp+c]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 3Fh ; '?'\njz      loc_1FBC\nmov     rax, [rbp+c]\nmovsx   ecx, byte ptr [rax]\nxor     eax, eax\ncmp     ecx, 2Eh ; '.'\nmov     [rbp+var_1A], al\njnz     loc_1FD0\nmov     rdi, [rbp+c]\nadd     rdi, 1; str\nmov     [rbp+c], rdi\ncall    cwk_path_is_separator\nmov     [rbp+var_1A], al\nmov     al, [rbp+var_1A]\nand     al, 1\nmov     [rbp+is_device_path], al\ntest    [rbp+is_device_path], 1\njz      loc_1FF2\nmov     rax, [rbp+length]\nmov     qword ptr [rax], 4\njmp     loc_20C1\nmov     rdi, [rbp+c]; c\ncall    cwk_path_find_next_stop\nmov     [rbp+c], rax\nmov     rdi, [rbp+c]; str\ncall    cwk_path_is_separator\ntest    al, 1\njnz     loc_2015\njmp     loc_2026\nmov     rax, [rbp+c]\nadd     rax, 1\nmov     [rbp+c], rax\njmp     loc_1FFF\nmov     rdi, [rbp+c]; c\ncall    cwk_path_find_next_stop\nmov     [rbp+c], rax\nmov     rdi, [rbp+c]; str\ncall    cwk_path_is_separator\ntest    al, 1\njnz     loc_2049\njmp     loc_2055\nmov     rax, [rbp+c]\nadd     rax, 1\nmov     [rbp+c], rax\nmov     rcx, [rbp+c]\nmov     rax, [rbp+path]\nsub     rcx, rax\nmov     rax, [rbp+length]\nmov     [rax], rcx\njmp     loc_20C1\nmov     rax, [rbp+c]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+c], rcx\nmovsx   eax, byte ptr [rax+1]\ncmp     eax, 3Ah ; ':'\njnz     loc_20C1\nmov     rax, [rbp+length]\nmov     qword ptr [rax], 2\nmov     rdi, [rbp+c]\nadd     rdi, 1; str\nmov     [rbp+c], rdi\ncall    cwk_path_is_separator\ntest    al, 1\njnz     loc_20B1\njmp     loc_20BC\nmov     rax, [rbp+length]\nmov     qword ptr [rax], 3\njmp     $+5\nadd     rsp, 20h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 25,
+  "edges": [
+   [
+    "start",
+    "loc_1F40"
+   ],
+   [
+    "start",
+    "loc_1F45"
+   ],
+   [
+    "loc_1F40",
+    "loc_20C1"
+   ],
+   [
+    "loc_1F45",
+    "loc_1F56"
+   ],
+   [
+    "loc_1F45",
+    "loc_1F5B"
+   ],
+   [
+    "loc_1F56",
+    "loc_206C"
+   ],
+   [
+    "loc_1F5B",
+    "loc_1F78"
+   ],
+   [
+    "loc_1F5B",
+    "loc_1F8B"
+   ],
+   [
+    "loc_1F78",
+    "loc_20C1"
+   ],
+   [
+    "loc_1F8B",
+    "loc_1FA7"
+   ],
+   [
+    "loc_1F8B",
+    "loc_1FBC"
+   ],
+   [
+    "loc_1FA7",
+    "loc_1FBC"
+   ],
+   [
+    "loc_1FA7",
+    "loc_1FD0"
+   ],
+   [
+    "loc_1FBC",
+    "loc_1FD0"
+   ],
+   [
+    "loc_1FD0",
+    "loc_1FE2"
+   ],
+   [
+    "loc_1FD0",
+    "loc_1FF2"
+   ],
+   [
+    "loc_1FE2",
+    "loc_20C1"
+   ],
+   [
+    "loc_1FF2",
+    "loc_1FFF"
+   ],
+   [
+    "loc_1FFF",
+    "loc_2010"
+   ],
+   [
+    "loc_1FFF",
+    "loc_2015"
+   ],
+   [
+    "loc_2010",
+    "loc_2026"
+   ],
+   [
+    "loc_2015",
+    "loc_1FFF"
+   ],
+   [
+    "loc_2026",
+    "loc_2044"
+   ],
+   [
+    "loc_2026",
+    "loc_2049"
+   ],
+   [
+    "loc_2044",
+    "loc_2055"
+   ],
+   [
+    "loc_2049",
+    "loc_2055"
+   ],
+   [
+    "loc_2055",
+    "loc_20C1"
+   ],
+   [
+    "loc_206C",
+    "loc_2088"
+   ],
+   [
+    "loc_206C",
+    "loc_20C1"
+   ],
+   [
+    "loc_2088",
+    "loc_20AC"
+   ],
+   [
+    "loc_2088",
+    "loc_20B1"
+   ],
+   [
+    "loc_20AC",
+    "loc_20BC"
+   ],
+   [
+    "loc_20B1",
+    "loc_20BC"
+   ],
+   [
+    "loc_20BC",
+    "loc_20C1"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+path], rdi\nmov     [rbp+length], rsi\nmov     rax, [rbp+path]\nmov     [rbp+c], rax\nmov     rax, [rbp+length]\nmov     qword ptr [rax], 0\nmov     rax, [rbp+c]\ncmp     byte ptr [rax], 0\njnz     loc_1F45",
+   "loc_1F40": "jmp     loc_20C1",
+   "loc_1F45": "mov     rdi, [rbp+c]; str\ncall    cwk_path_is_separator\ntest    al, 1\njnz     loc_1F5B",
+   "loc_1F56": "jmp     loc_206C",
+   "loc_1F5B": "mov     rax, [rbp+c]\nadd     rax, 1\nmov     [rbp+c], rax\nmov     rdi, [rbp+c]; str\ncall    cwk_path_is_separator\ntest    al, 1\njnz     loc_1F8B",
+   "loc_1F78": "mov     rax, [rbp+length]\nmov     rcx, [rax]\nadd     rcx, 1\nmov     [rax], rcx\njmp     loc_20C1",
+   "loc_1F8B": "mov     rax, [rbp+c]\nadd     rax, 1\nmov     [rbp+c], rax\nmov     rax, [rbp+c]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 3Fh ; '?'\njz      loc_1FBC",
+   "loc_1FA7": "mov     rax, [rbp+c]\nmovsx   ecx, byte ptr [rax]\nxor     eax, eax\ncmp     ecx, 2Eh ; '.'\nmov     [rbp+var_1A], al\njnz     loc_1FD0",
+   "loc_1FBC": "mov     rdi, [rbp+c]\nadd     rdi, 1; str\nmov     [rbp+c], rdi\ncall    cwk_path_is_separator\nmov     [rbp+var_1A], al",
+   "loc_1FD0": "mov     al, [rbp+var_1A]\nand     al, 1\nmov     [rbp+is_device_path], al\ntest    [rbp+is_device_path], 1\njz      loc_1FF2",
+   "loc_1FE2": "mov     rax, [rbp+length]\nmov     qword ptr [rax], 4\njmp     loc_20C1",
+   "loc_1FF2": "mov     rdi, [rbp+c]; c\ncall    cwk_path_find_next_stop\nmov     [rbp+c], rax",
+   "loc_1FFF": "mov     rdi, [rbp+c]; str\ncall    cwk_path_is_separator\ntest    al, 1\njnz     loc_2015",
+   "loc_2010": "jmp     loc_2026",
+   "loc_2015": "mov     rax, [rbp+c]\nadd     rax, 1\nmov     [rbp+c], rax\njmp     loc_1FFF",
+   "loc_2026": "mov     rdi, [rbp+c]; c\ncall    cwk_path_find_next_stop\nmov     [rbp+c], rax\nmov     rdi, [rbp+c]; str\ncall    cwk_path_is_separator\ntest    al, 1\njnz     loc_2049",
+   "loc_2044": "jmp     loc_2055",
+   "loc_2049": "mov     rax, [rbp+c]\nadd     rax, 1\nmov     [rbp+c], rax",
+   "loc_2055": "mov     rcx, [rbp+c]\nmov     rax, [rbp+path]\nsub     rcx, rax\nmov     rax, [rbp+length]\nmov     [rax], rcx\njmp     loc_20C1",
+   "loc_206C": "mov     rax, [rbp+c]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+c], rcx\nmovsx   eax, byte ptr [rax+1]\ncmp     eax, 3Ah ; ':'\njnz     loc_20C1",
+   "loc_2088": "mov     rax, [rbp+length]\nmov     qword ptr [rax], 2\nmov     rdi, [rbp+c]\nadd     rdi, 1; str\nmov     [rbp+c], rdi\ncall    cwk_path_is_separator\ntest    al, 1\njnz     loc_20B1",
+   "loc_20AC": "jmp     loc_20BC",
+   "loc_20B1": "mov     rax, [rbp+length]\nmov     qword ptr [rax], 3",
+   "loc_20BC": "jmp     $+5",
+   "loc_20C1": "add     rsp, 20h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_1A": "byte ptr -1Ah",
+   "is_device_path": "byte ptr -19h",
+   "c": "qword ptr -18h",
+   "length": "qword ptr -10h",
+   "path": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 7952,
+ "thunk_map": {
+  ".strncmp": "strncmp",
+  "_strncmp": "strncmp",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".strchr": "strchr",
+  "_strchr": "strchr",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".tolower": "tolower",
+  "_tolower": "tolower",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".strncmp",
+   ".plt",
+   true,
+   "strncmp"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".strchr",
+   ".plt",
+   true,
+   "strchr"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".tolower",
+   ".plt",
+   true,
+   "tolower"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strchr",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "tolower",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memmove",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872658
+ }
+}

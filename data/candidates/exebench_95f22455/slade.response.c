@@ -1,0 +1,1 @@
+void convertscreenvertex(float *vertex, int x, int y) { vertex[0] = (vertex[0] - (x >> 1)) / (x >> 1); vertex[1] = (y >> 1) - (vertex[1] - (x >> 1)) / (x >> 1); vertex[2] = -1; }

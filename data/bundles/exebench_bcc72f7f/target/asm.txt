@@ -1,0 +1,46 @@
+00000000000011d0 <decrypt>:
+    11d0:	push   %rbp
+    11d1:	mov    %rsp,%rbp
+    11d4:	mov    %rdi,-0x8(%rbp)
+    11d8:	mov    %esi,-0xc(%rbp)
+    11db:	movl   $0x0,-0x10(%rbp)
+    11e2:	mov    -0x8(%rbp),%rax
+    11e6:	movslq -0x10(%rbp),%rcx
+    11ea:	movsbl (%rax,%rcx,1),%eax
+    11ee:	cmp    $0x0,%eax
+    11f1:	je     1263 <decrypt+0x93>
+    11f7:	mov    -0x8(%rbp),%rax
+    11fb:	movslq -0x10(%rbp),%rcx
+    11ff:	movsbl (%rax,%rcx,1),%eax
+    1203:	cmp    $0x2d,%eax
+    1206:	jne    121d <decrypt+0x4d>
+    120c:	mov    -0x8(%rbp),%rax
+    1210:	movslq -0x10(%rbp),%rcx
+    1214:	movb   $0x20,(%rax,%rcx,1)
+    1218:	jmp    1255 <decrypt+0x85>
+    121d:	mov    -0x8(%rbp),%rax
+    1221:	movslq -0x10(%rbp),%rcx
+    1225:	movsbl (%rax,%rcx,1),%eax
+    1229:	sub    $0x61,%eax
+    122c:	mov    %eax,-0x14(%rbp)
+    122f:	mov    -0xc(%rbp),%eax
+    1232:	mov    $0x1a,%ecx
+    1237:	cltd
+    1238:	idiv   %ecx
+    123a:	mov    -0x14(%rbp),%eax
+    123d:	add    %edx,%eax
+    123f:	mov    $0x1a,%ecx
+    1244:	cltd
+    1245:	idiv   %ecx
+    1247:	add    $0x61,%edx
+    124a:	mov    -0x8(%rbp),%rax
+    124e:	movslq -0x10(%rbp),%rcx
+    1252:	mov    %dl,(%rax,%rcx,1)
+    1255:	mov    -0x10(%rbp),%eax
+    1258:	add    $0x1,%eax
+    125b:	mov    %eax,-0x10(%rbp)
+    125e:	jmp    11e2 <decrypt+0x12>
+    1263:	pop    %rbp
+    1264:	ret
+
+Disassembly of section .fini:

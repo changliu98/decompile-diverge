@@ -1,0 +1,41 @@
+00000000000011d0 <multiply>:
+    11d0:	push   %rbp
+    11d1:	mov    %rsp,%rbp
+    11d4:	mov    %edi,-0x4(%rbp)
+    11d7:	mov    %esi,-0x8(%rbp)
+    11da:	mov    %rdx,-0x10(%rbp)
+    11de:	mov    -0x4(%rbp),%eax
+    11e1:	imul   -0x8(%rbp),%eax
+    11e5:	and    $0x7fffffff,%eax
+    11ea:	mov    %eax,-0x14(%rbp)
+    11ed:	mov    -0x14(%rbp),%eax
+    11f0:	mov    %eax,-0x18(%rbp)
+    11f3:	cvtsi2sdl -0x4(%rbp),%xmm0
+    11f8:	cvtsi2sdl -0x8(%rbp),%xmm1
+    11fd:	mulsd  %xmm1,%xmm0
+    1201:	movsd  %xmm0,-0x20(%rbp)
+    1206:	mov    -0x18(%rbp),%ecx
+    1209:	mov    -0x10(%rbp),%rax
+    120d:	mov    %ecx,(%rax)
+    120f:	cmpl   $0x40000000,-0x18(%rbp)
+    1216:	jge    123f <multiply+0x6f>
+    121c:	movsd  0xdec(%rip),%xmm0        # 2010 <_IO_stdin_used+0x10>
+    1224:	addsd  -0x20(%rbp),%xmm0
+    1229:	movsd  0xdd7(%rip),%xmm1        # 2008 <_IO_stdin_used+0x8>
+    1231:	divsd  %xmm1,%xmm0
+    1235:	movsd  %xmm0,-0x20(%rbp)
+    123a:	jmp    1261 <multiply+0x91>
+    123f:	movsd  -0x20(%rbp),%xmm0
+    1244:	movsd  0xdc4(%rip),%xmm1        # 2010 <_IO_stdin_used+0x10>
+    124c:	subsd  %xmm1,%xmm0
+    1250:	movsd  0xdb0(%rip),%xmm1        # 2008 <_IO_stdin_used+0x8>
+    1258:	divsd  %xmm1,%xmm0
+    125c:	movsd  %xmm0,-0x20(%rbp)
+    1261:	cvttsd2si -0x20(%rbp),%rax
+    1267:	mov    %eax,%ecx
+    1269:	mov    -0x10(%rbp),%rax
+    126d:	mov    %ecx,0x4(%rax)
+    1270:	pop    %rbp
+    1271:	ret
+
+Disassembly of section .fini:

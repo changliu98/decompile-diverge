@@ -1,0 +1,554 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+str], rdi\nmov     [rbp+cquoted], esi\nmov     [rbp+i], 0\nmov     rdi, [rbp+str]; s\ncall    strlen\nmov     [rbp+len], rax\ncmp     [rbp+len], 0FFFEh\njbe     loc_1214\nmov     cs:loglevel, 1\nmov     [rbp+len], 0FFFEh\nmov     rsi, [rbp+len]\nadd     rsi, 1; size\nmov     edi, 2; nmemb\ncall    calloc\nmov     [rbp+wstr], rax\ncmp     [rbp+wstr], 0\njnz     loc_124C\nmov     cs:loglevel, 1\nmov     [rbp+var_8], 0\njmp     loc_1565\njmp     $+5\nxor     eax, eax\ncmp     [rbp+len], 0\nmov     [rbp+var_32], al\njbe     loc_1281\nmov     rax, [rbp+str]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+str], rcx\nmov     al, [rax]\nmov     [rbp+c], al\nmovzx   eax, al\ncmp     eax, 0\nsetnz   al\nmov     [rbp+var_32], al\nmov     al, [rbp+var_32]\ntest    al, 1\njnz     loc_1291\njmp     loc_155D\nmov     rax, [rbp+len]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+len], rax\nmovzx   eax, [rbp+c]\ncmp     eax, 80h\njge     loc_13C3\ncmp     [rbp+cquoted], 0\njz      loc_13A0\nmovzx   eax, [rbp+c]\ncmp     eax, 5Ch ; '\\'\njnz     loc_13A0\ncmp     [rbp+len], 1\njbe     loc_13A0\nmov     rax, [rbp+str]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 22h ; '\"'\njz      loc_130E\nmov     rax, [rbp+str]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 5Ch ; '\\'\njz      loc_130E\nmov     rax, [rbp+str]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 72h ; 'r'\njz      loc_130E\nmov     rax, [rbp+str]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 6Eh ; 'n'\njnz     loc_13A0\nmov     rax, [rbp+str]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+str], rcx\nmov     al, [rax]\nmov     [rbp+c], al\nmovzx   eax, [rbp+c]\ncmp     eax, 72h ; 'r'\njnz     loc_134D\nmov     rax, [rbp+wstr]\nmov     rcx, [rbp+i]\nmov     rdx, rcx\nadd     rdx, 1\nmov     [rbp+i], rdx\nmov     word ptr [rax+rcx*2], 0Dh\njmp     loc_139B\nmovzx   eax, [rbp+c]\ncmp     eax, 6Eh ; 'n'\njnz     loc_1378\nmov     rax, [rbp+wstr]\nmov     rcx, [rbp+i]\nmov     rdx, rcx\nadd     rdx, 1\nmov     [rbp+i], rdx\nmov     word ptr [rax+rcx*2], 0Ah\njmp     loc_1396\nmovzx   eax, [rbp+c]\nmov     dx, ax\nmov     rax, [rbp+wstr]\nmov     rcx, [rbp+i]\nmov     rsi, rcx\nadd     rsi, 1\nmov     [rbp+i], rsi\nmov     [rax+rcx*2], dx\njmp     $+5\njmp     loc_13BE\nmovzx   eax, [rbp+c]\nmov     dx, ax\nmov     rax, [rbp+wstr]\nmov     rcx, [rbp+i]\nmov     rsi, rcx\nadd     rsi, 1\nmov     [rbp+i], rsi\nmov     [rax+rcx*2], dx\njmp     loc_1558\nmovzx   eax, [rbp+c]\nand     eax, 0E0h\ncmp     eax, 0C0h\njnz     loc_1430\ncmp     [rbp+len], 1\njb      loc_1413\nmovzx   eax, [rbp+c]\nand     eax, 1Fh\nshl     eax, 6\nmov     rcx, [rbp+str]\nmovsx   ecx, byte ptr [rcx+1]\nand     ecx, 3Fh\nor      eax, ecx\nmov     dx, ax\nmov     rax, [rbp+wstr]\nmov     rcx, [rbp+i]\nmov     rsi, rcx\nadd     rsi, 1\nmov     [rbp+i], rsi\nmov     [rax+rcx*2], dx\nmov     rax, [rbp+len]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+len], rax\nmov     rax, [rbp+str]\nadd     rax, 1\nmov     [rbp+str], rax\njmp     loc_1553\nmovzx   eax, [rbp+c]\nand     eax, 0F0h\ncmp     eax, 0E0h\njnz     loc_154E\ncmp     [rbp+len], 2\njb      loc_14A0\nmov     rax, [rbp+str]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 80h\njl      loc_149B\nmov     rax, [rbp+str]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 0BFh\njg      loc_149B\nmov     rax, [rbp+str]\nmovzx   eax, byte ptr [rax+2]\ncmp     eax, 80h\njl      loc_149B\nmov     rax, [rbp+str]\nmovzx   eax, byte ptr [rax+2]\ncmp     eax, 0BFh\njle     loc_14A0\njmp     $+5\ncmp     [rbp+len], 1\njb      loc_14D2\nmovzx   eax, [rbp+c]\ncmp     eax, 0E0h\njnz     loc_14D2\nmov     rax, [rbp+str]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 0A0h\njge     loc_14D2\njmp     $+5\ncmp     [rbp+len], 2\njb      loc_151E\nmovzx   eax, [rbp+c]\nand     eax, 0Fh\nshl     eax, 0Ch\nmov     rcx, [rbp+str]\nmovsx   ecx, byte ptr [rcx+1]\nand     ecx, 3Fh\nshl     ecx, 6\nor      eax, ecx\nmov     rcx, [rbp+str]\nmovsx   ecx, byte ptr [rcx+2]\nand     ecx, 3Fh\nor      eax, ecx\nmov     dx, ax\nmov     rax, [rbp+wstr]\nmov     rcx, [rbp+i]\nmov     rsi, rcx\nadd     rsi, 1\nmov     [rbp+i], rsi\nmov     [rax+rcx*2], dx\nmov     rax, [rbp+str]\nadd     rax, 1\nmov     [rbp+str], rax\nmov     rax, [rbp+str]\nadd     rax, 1\nmov     [rbp+str], rax\nmov     rax, [rbp+len]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+len], rax\nmov     rax, [rbp+len]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+len], rax\njmp     $+5\njmp     $+5\njmp     loc_1251\nmov     rax, [rbp+wstr]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 49,
+  "edges": [
+   [
+    "start",
+    "loc_1202"
+   ],
+   [
+    "start",
+    "loc_1214"
+   ],
+   [
+    "loc_1202",
+    "loc_1214"
+   ],
+   [
+    "loc_1214",
+    "loc_1235"
+   ],
+   [
+    "loc_1214",
+    "loc_124C"
+   ],
+   [
+    "loc_1235",
+    "loc_1565"
+   ],
+   [
+    "loc_124C",
+    "loc_1251"
+   ],
+   [
+    "loc_1251",
+    "loc_1261"
+   ],
+   [
+    "loc_1251",
+    "loc_1281"
+   ],
+   [
+    "loc_1261",
+    "loc_1281"
+   ],
+   [
+    "loc_1281",
+    "loc_128C"
+   ],
+   [
+    "loc_1281",
+    "loc_1291"
+   ],
+   [
+    "loc_128C",
+    "loc_155D"
+   ],
+   [
+    "loc_1291",
+    "loc_12AC"
+   ],
+   [
+    "loc_1291",
+    "loc_13C3"
+   ],
+   [
+    "loc_12AC",
+    "loc_12B6"
+   ],
+   [
+    "loc_12AC",
+    "loc_13A0"
+   ],
+   [
+    "loc_12B6",
+    "loc_12C3"
+   ],
+   [
+    "loc_12B6",
+    "loc_13A0"
+   ],
+   [
+    "loc_12C3",
+    "loc_12CE"
+   ],
+   [
+    "loc_12C3",
+    "loc_13A0"
+   ],
+   [
+    "loc_12CE",
+    "loc_12DE"
+   ],
+   [
+    "loc_12CE",
+    "loc_130E"
+   ],
+   [
+    "loc_12DE",
+    "loc_12EE"
+   ],
+   [
+    "loc_12DE",
+    "loc_130E"
+   ],
+   [
+    "loc_12EE",
+    "loc_12FE"
+   ],
+   [
+    "loc_12EE",
+    "loc_130E"
+   ],
+   [
+    "loc_12FE",
+    "loc_130E"
+   ],
+   [
+    "loc_12FE",
+    "loc_13A0"
+   ],
+   [
+    "loc_130E",
+    "loc_132F"
+   ],
+   [
+    "loc_130E",
+    "loc_134D"
+   ],
+   [
+    "loc_132F",
+    "loc_139B"
+   ],
+   [
+    "loc_134D",
+    "loc_135A"
+   ],
+   [
+    "loc_134D",
+    "loc_1378"
+   ],
+   [
+    "loc_135A",
+    "loc_1396"
+   ],
+   [
+    "loc_1378",
+    "loc_1396"
+   ],
+   [
+    "loc_1396",
+    "loc_139B"
+   ],
+   [
+    "loc_139B",
+    "loc_13BE"
+   ],
+   [
+    "loc_13A0",
+    "loc_13BE"
+   ],
+   [
+    "loc_13BE",
+    "loc_1558"
+   ],
+   [
+    "loc_13C3",
+    "loc_13D7"
+   ],
+   [
+    "loc_13C3",
+    "loc_1430"
+   ],
+   [
+    "loc_13D7",
+    "loc_13E2"
+   ],
+   [
+    "loc_13D7",
+    "loc_1413"
+   ],
+   [
+    "loc_13E2",
+    "loc_1413"
+   ],
+   [
+    "loc_1413",
+    "loc_1553"
+   ],
+   [
+    "loc_1430",
+    "loc_1444"
+   ],
+   [
+    "loc_1430",
+    "loc_154E"
+   ],
+   [
+    "loc_1444",
+    "loc_144F"
+   ],
+   [
+    "loc_1444",
+    "loc_14A0"
+   ],
+   [
+    "loc_144F",
+    "loc_1462"
+   ],
+   [
+    "loc_144F",
+    "loc_149B"
+   ],
+   [
+    "loc_1462",
+    "loc_1475"
+   ],
+   [
+    "loc_1462",
+    "loc_149B"
+   ],
+   [
+    "loc_1475",
+    "loc_1488"
+   ],
+   [
+    "loc_1475",
+    "loc_149B"
+   ],
+   [
+    "loc_1488",
+    "loc_149B"
+   ],
+   [
+    "loc_1488",
+    "loc_14A0"
+   ],
+   [
+    "loc_149B",
+    "loc_14A0"
+   ],
+   [
+    "loc_14A0",
+    "loc_14AB"
+   ],
+   [
+    "loc_14A0",
+    "loc_14D2"
+   ],
+   [
+    "loc_14AB",
+    "loc_14BA"
+   ],
+   [
+    "loc_14AB",
+    "loc_14D2"
+   ],
+   [
+    "loc_14BA",
+    "loc_14CD"
+   ],
+   [
+    "loc_14BA",
+    "loc_14D2"
+   ],
+   [
+    "loc_14CD",
+    "loc_14D2"
+   ],
+   [
+    "loc_14D2",
+    "loc_14DD"
+   ],
+   [
+    "loc_14D2",
+    "loc_151E"
+   ],
+   [
+    "loc_14DD",
+    "loc_151E"
+   ],
+   [
+    "loc_151E",
+    "loc_154E"
+   ],
+   [
+    "loc_154E",
+    "loc_1553"
+   ],
+   [
+    "loc_1553",
+    "loc_1558"
+   ],
+   [
+    "loc_1558",
+    "loc_1251"
+   ],
+   [
+    "loc_155D",
+    "loc_1565"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+str], rdi\nmov     [rbp+cquoted], esi\nmov     [rbp+i], 0\nmov     rdi, [rbp+str]; s\ncall    strlen\nmov     [rbp+len], rax\ncmp     [rbp+len], 0FFFEh\njbe     loc_1214",
+   "loc_1202": "mov     cs:loglevel, 1\nmov     [rbp+len], 0FFFEh",
+   "loc_1214": "mov     rsi, [rbp+len]\nadd     rsi, 1; size\nmov     edi, 2; nmemb\ncall    calloc\nmov     [rbp+wstr], rax\ncmp     [rbp+wstr], 0\njnz     loc_124C",
+   "loc_1235": "mov     cs:loglevel, 1\nmov     [rbp+var_8], 0\njmp     loc_1565",
+   "loc_124C": "jmp     $+5",
+   "loc_1251": "xor     eax, eax\ncmp     [rbp+len], 0\nmov     [rbp+var_32], al\njbe     loc_1281",
+   "loc_1261": "mov     rax, [rbp+str]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+str], rcx\nmov     al, [rax]\nmov     [rbp+c], al\nmovzx   eax, al\ncmp     eax, 0\nsetnz   al\nmov     [rbp+var_32], al",
+   "loc_1281": "mov     al, [rbp+var_32]\ntest    al, 1\njnz     loc_1291",
+   "loc_128C": "jmp     loc_155D",
+   "loc_1291": "mov     rax, [rbp+len]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+len], rax\nmovzx   eax, [rbp+c]\ncmp     eax, 80h\njge     loc_13C3",
+   "loc_12AC": "cmp     [rbp+cquoted], 0\njz      loc_13A0",
+   "loc_12B6": "movzx   eax, [rbp+c]\ncmp     eax, 5Ch ; '\\'\njnz     loc_13A0",
+   "loc_12C3": "cmp     [rbp+len], 1\njbe     loc_13A0",
+   "loc_12CE": "mov     rax, [rbp+str]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 22h ; '\"'\njz      loc_130E",
+   "loc_12DE": "mov     rax, [rbp+str]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 5Ch ; '\\'\njz      loc_130E",
+   "loc_12EE": "mov     rax, [rbp+str]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 72h ; 'r'\njz      loc_130E",
+   "loc_12FE": "mov     rax, [rbp+str]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 6Eh ; 'n'\njnz     loc_13A0",
+   "loc_130E": "mov     rax, [rbp+str]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+str], rcx\nmov     al, [rax]\nmov     [rbp+c], al\nmovzx   eax, [rbp+c]\ncmp     eax, 72h ; 'r'\njnz     loc_134D",
+   "loc_132F": "mov     rax, [rbp+wstr]\nmov     rcx, [rbp+i]\nmov     rdx, rcx\nadd     rdx, 1\nmov     [rbp+i], rdx\nmov     word ptr [rax+rcx*2], 0Dh\njmp     loc_139B",
+   "loc_134D": "movzx   eax, [rbp+c]\ncmp     eax, 6Eh ; 'n'\njnz     loc_1378",
+   "loc_135A": "mov     rax, [rbp+wstr]\nmov     rcx, [rbp+i]\nmov     rdx, rcx\nadd     rdx, 1\nmov     [rbp+i], rdx\nmov     word ptr [rax+rcx*2], 0Ah\njmp     loc_1396",
+   "loc_1378": "movzx   eax, [rbp+c]\nmov     dx, ax\nmov     rax, [rbp+wstr]\nmov     rcx, [rbp+i]\nmov     rsi, rcx\nadd     rsi, 1\nmov     [rbp+i], rsi\nmov     [rax+rcx*2], dx",
+   "loc_1396": "jmp     $+5",
+   "loc_139B": "jmp     loc_13BE",
+   "loc_13A0": "movzx   eax, [rbp+c]\nmov     dx, ax\nmov     rax, [rbp+wstr]\nmov     rcx, [rbp+i]\nmov     rsi, rcx\nadd     rsi, 1\nmov     [rbp+i], rsi\nmov     [rax+rcx*2], dx",
+   "loc_13BE": "jmp     loc_1558",
+   "loc_13C3": "movzx   eax, [rbp+c]\nand     eax, 0E0h\ncmp     eax, 0C0h\njnz     loc_1430",
+   "loc_13D7": "cmp     [rbp+len], 1\njb      loc_1413",
+   "loc_13E2": "movzx   eax, [rbp+c]\nand     eax, 1Fh\nshl     eax, 6\nmov     rcx, [rbp+str]\nmovsx   ecx, byte ptr [rcx+1]\nand     ecx, 3Fh\nor      eax, ecx\nmov     dx, ax\nmov     rax, [rbp+wstr]\nmov     rcx, [rbp+i]\nmov     rsi, rcx\nadd     rsi, 1\nmov     [rbp+i], rsi\nmov     [rax+rcx*2], dx",
+   "loc_1413": "mov     rax, [rbp+len]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+len], rax\nmov     rax, [rbp+str]\nadd     rax, 1\nmov     [rbp+str], rax\njmp     loc_1553",
+   "loc_1430": "movzx   eax, [rbp+c]\nand     eax, 0F0h\ncmp     eax, 0E0h\njnz     loc_154E",
+   "loc_1444": "cmp     [rbp+len], 2\njb      loc_14A0",
+   "loc_144F": "mov     rax, [rbp+str]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 80h\njl      loc_149B",
+   "loc_1462": "mov     rax, [rbp+str]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 0BFh\njg      loc_149B",
+   "loc_1475": "mov     rax, [rbp+str]\nmovzx   eax, byte ptr [rax+2]\ncmp     eax, 80h\njl      loc_149B",
+   "loc_1488": "mov     rax, [rbp+str]\nmovzx   eax, byte ptr [rax+2]\ncmp     eax, 0BFh\njle     loc_14A0",
+   "loc_149B": "jmp     $+5",
+   "loc_14A0": "cmp     [rbp+len], 1\njb      loc_14D2",
+   "loc_14AB": "movzx   eax, [rbp+c]\ncmp     eax, 0E0h\njnz     loc_14D2",
+   "loc_14BA": "mov     rax, [rbp+str]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 0A0h\njge     loc_14D2",
+   "loc_14CD": "jmp     $+5",
+   "loc_14D2": "cmp     [rbp+len], 2\njb      loc_151E",
+   "loc_14DD": "movzx   eax, [rbp+c]\nand     eax, 0Fh\nshl     eax, 0Ch\nmov     rcx, [rbp+str]\nmovsx   ecx, byte ptr [rcx+1]\nand     ecx, 3Fh\nshl     ecx, 6\nor      eax, ecx\nmov     rcx, [rbp+str]\nmovsx   ecx, byte ptr [rcx+2]\nand     ecx, 3Fh\nor      eax, ecx\nmov     dx, ax\nmov     rax, [rbp+wstr]\nmov     rcx, [rbp+i]\nmov     rsi, rcx\nadd     rsi, 1\nmov     [rbp+i], rsi\nmov     [rax+rcx*2], dx",
+   "loc_151E": "mov     rax, [rbp+str]\nadd     rax, 1\nmov     [rbp+str], rax\nmov     rax, [rbp+str]\nadd     rax, 1\nmov     [rbp+str], rax\nmov     rax, [rbp+len]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+len], rax\nmov     rax, [rbp+len]\nadd     rax, 0FFFFFFFFFFFFFFFFh\nmov     [rbp+len], rax",
+   "loc_154E": "jmp     $+5",
+   "loc_1553": "jmp     $+5",
+   "loc_1558": "jmp     loc_1251",
+   "loc_155D": "mov     rax, [rbp+wstr]\nmov     [rbp+var_8], rax",
+   "loc_1565": "mov     rax, [rbp+var_8]\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_32": "byte ptr -32h",
+   "c": "byte ptr -31h",
+   "len": "qword ptr -30h",
+   "i": "qword ptr -28h",
+   "wstr": "qword ptr -20h",
+   "cquoted": "dword ptr -14h",
+   "str": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {
+   "loglevel": "[]"
+  }
+ },
+ "func_ea": 4560,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868447
+ }
+}

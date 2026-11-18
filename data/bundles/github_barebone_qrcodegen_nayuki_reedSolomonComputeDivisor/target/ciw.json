@@ -1,0 +1,388 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+degree], edi\nmov     [rbp+result], rsi\nmov     eax, 1\ncmp     eax, [rbp+degree]\njg      loc_43EC\ncmp     [rbp+degree], 1Eh\njg      loc_43EC\njmp     loc_440B\nlea     rdi, a1DegreeDegreeQ; \"1 <= degree && degree <= qrcodegen_REED\"...\nlea     rsi, file; \"./func.c\"\nmov     edx, 16Ah; line\nlea     rcx, aVoidReedsolomo; \"void reedSolomonComputeDivisor(int, uin\"...\ncall    ___assert_fail\nmov     rdi, [rbp+result]; s\nmovsxd  rdx, [rbp+degree]\nshl     rdx, 0; n\nxor     esi, esi; c\ncall    memset\nmov     rax, [rbp+result]\nmov     ecx, [rbp+degree]\nsub     ecx, 1\nmovsxd  rcx, ecx\nmov     byte ptr [rax+rcx], 1\nmov     [rbp+root], 1\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+degree]\njge     loc_44E0\nmov     [rbp+j], 0\nmov     eax, [rbp+j]\ncmp     eax, [rbp+degree]\njge     loc_44C1\nmov     rax, [rbp+result]\nmovsxd  rcx, [rbp+j]\nmov     al, [rax+rcx]\nmovzx   edi, al; x\nmovzx   esi, [rbp+root]; y\ncall    reedSolomonMultiply\nmov     dl, al\nmov     rax, [rbp+result]\nmovsxd  rcx, [rbp+j]\nmov     [rax+rcx], dl\nmov     eax, [rbp+j]\nadd     eax, 1\ncmp     eax, [rbp+degree]\njge     loc_44AE\nmov     rax, [rbp+result]\nmov     ecx, [rbp+j]\nadd     ecx, 1\nmovsxd  rcx, ecx\nmovzx   esi, byte ptr [rax+rcx]\nmov     rax, [rbp+result]\nmovsxd  rcx, [rbp+j]\nmovzx   edx, byte ptr [rax+rcx]\nxor     edx, esi\nmov     [rax+rcx], dl\njmp     $+5\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_444D\nmov     esi, 2; y\nmovzx   edi, [rbp+root]; x\ncall    reedSolomonMultiply\nmov     [rbp+root], al\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_443A\nadd     rsp, 20h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 14,
+  "edges": [
+   [
+    "start",
+    "loc_43DD"
+   ],
+   [
+    "start",
+    "loc_43EC"
+   ],
+   [
+    "loc_43DD",
+    "loc_43E7"
+   ],
+   [
+    "loc_43DD",
+    "loc_43EC"
+   ],
+   [
+    "loc_43E7",
+    "loc_440B"
+   ],
+   [
+    "loc_440B",
+    "loc_443A"
+   ],
+   [
+    "loc_443A",
+    "loc_4446"
+   ],
+   [
+    "loc_443A",
+    "loc_44E0"
+   ],
+   [
+    "loc_4446",
+    "loc_444D"
+   ],
+   [
+    "loc_444D",
+    "loc_4459"
+   ],
+   [
+    "loc_444D",
+    "loc_44C1"
+   ],
+   [
+    "loc_4459",
+    "loc_448C"
+   ],
+   [
+    "loc_4459",
+    "loc_44AE"
+   ],
+   [
+    "loc_448C",
+    "loc_44AE"
+   ],
+   [
+    "loc_44AE",
+    "loc_44B3"
+   ],
+   [
+    "loc_44B3",
+    "loc_444D"
+   ],
+   [
+    "loc_44C1",
+    "loc_443A"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+degree], edi\nmov     [rbp+result], rsi\nmov     eax, 1\ncmp     eax, [rbp+degree]\njg      loc_43EC",
+   "loc_43DD": "cmp     [rbp+degree], 1Eh\njg      loc_43EC",
+   "loc_43E7": "jmp     loc_440B",
+   "loc_43EC": "lea     rdi, a1DegreeDegreeQ; \"1 <= degree && degree <= qrcodegen_REED\"...\nlea     rsi, file; \"./func.c\"\nmov     edx, 16Ah; line\nlea     rcx, aVoidReedsolomo; \"void reedSolomonComputeDivisor(int, uin\"...\ncall    ___assert_fail",
+   "loc_440B": "mov     rdi, [rbp+result]; s\nmovsxd  rdx, [rbp+degree]\nshl     rdx, 0; n\nxor     esi, esi; c\ncall    memset\nmov     rax, [rbp+result]\nmov     ecx, [rbp+degree]\nsub     ecx, 1\nmovsxd  rcx, ecx\nmov     byte ptr [rax+rcx], 1\nmov     [rbp+root], 1\nmov     [rbp+i], 0",
+   "loc_443A": "mov     eax, [rbp+i]\ncmp     eax, [rbp+degree]\njge     loc_44E0",
+   "loc_4446": "mov     [rbp+j], 0",
+   "loc_444D": "mov     eax, [rbp+j]\ncmp     eax, [rbp+degree]\njge     loc_44C1",
+   "loc_4459": "mov     rax, [rbp+result]\nmovsxd  rcx, [rbp+j]\nmov     al, [rax+rcx]\nmovzx   edi, al; x\nmovzx   esi, [rbp+root]; y\ncall    reedSolomonMultiply\nmov     dl, al\nmov     rax, [rbp+result]\nmovsxd  rcx, [rbp+j]\nmov     [rax+rcx], dl\nmov     eax, [rbp+j]\nadd     eax, 1\ncmp     eax, [rbp+degree]\njge     loc_44AE",
+   "loc_448C": "mov     rax, [rbp+result]\nmov     ecx, [rbp+j]\nadd     ecx, 1\nmovsxd  rcx, ecx\nmovzx   esi, byte ptr [rax+rcx]\nmov     rax, [rbp+result]\nmovsxd  rcx, [rbp+j]\nmovzx   edx, byte ptr [rax+rcx]\nxor     edx, esi\nmov     [rax+rcx], dl",
+   "loc_44AE": "jmp     $+5",
+   "loc_44B3": "mov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_444D",
+   "loc_44C1": "mov     esi, 2; y\nmovzx   edi, [rbp+root]; x\ncall    reedSolomonMultiply\nmov     [rbp+root], al\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_443A",
+   "loc_44E0": "add     rsp, 20h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "j": "dword ptr -1Ch",
+   "i": "dword ptr -18h",
+   "root": "byte ptr -11h",
+   "result": "qword ptr -10h",
+   "degree": "dword ptr -4"
+  },
+  ".rodata": {
+   "a1DegreeDegreeQ": "byte '1 <= degree && degree <= qrcodegen_REED_SOLOMON_DEGREE_MAX',0",
+   "file": "byte './func.c',0",
+   "aVoidReedsolomo": "byte 'void reedSolomonComputeDivisor(int, uint8_t *)',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 17344,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".abs": "abs",
+  "_abs": "abs",
+  ".labs": "labs",
+  "_labs": "labs",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".strchr": "strchr",
+  "_strchr": "strchr",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".abs",
+   ".plt",
+   true,
+   "abs"
+  ],
+  [
+   ".labs",
+   ".plt",
+   true,
+   "labs"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".strchr",
+   ".plt",
+   true,
+   "strchr"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "abs",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "labs",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strchr",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memmove",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872680
+ }
+}

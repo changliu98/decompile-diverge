@@ -1,0 +1,1 @@
+int sec_hash(unsigned char *data, unsigned int data_len, unsigned char *hash, unsigned int hash_len) { if (hash_len == 20) { return -1; } if (hash_len == 32) { return -1; } return -1; }

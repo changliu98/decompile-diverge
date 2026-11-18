@@ -1,0 +1,1 @@
+int func0(int *ptr, int size) { for(int i = 0; i < size; i++) { if(ptr[i] % 2 == 0) { return ptr[i]; } } return -1; }

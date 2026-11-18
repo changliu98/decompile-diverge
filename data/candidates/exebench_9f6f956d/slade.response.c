@@ -1,0 +1,1 @@
+int ckstrncpy(char *dst, const char *src, int n) { int i; if (n < 1 || !src || !dst) { if (dst) dst[0] = '\0'; return 0; } for (i = 0; src[i] && i < n-1; i++) dst[i] = src[i]; dst[i] = '\0'; return i; }

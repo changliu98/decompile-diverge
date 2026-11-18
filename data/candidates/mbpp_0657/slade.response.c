@@ -1,0 +1,1 @@
+double func0 (int n) { int i = 1, j = 2; while (j <= n) { i *= j; while (i % 10 == 0) i /= 10; j++; } while (i >= 10) i /= 10; return (double) i; }

@@ -1,0 +1,1 @@
+char *get_word(char *p, int *n) { int i = 0; if (p != NULL) { while (*p == '-' || (*p >= 'a' && *p <= 'z')) p++; while (i < 64 && (p[i] < '0' || p[i] > '9') && (p[i] < 'a' || p[i] > 'z') && (p[i] == '-' || p[i] == '_')) i++; } *n = i; return p; }

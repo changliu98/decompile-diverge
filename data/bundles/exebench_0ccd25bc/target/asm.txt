@@ -1,0 +1,73 @@
+00000000000011d0 <unicoder_utf32_decode>:
+    11d0:	push   %rbp
+    11d1:	mov    %rsp,%rbp
+    11d4:	mov    %rdi,-0x10(%rbp)
+    11d8:	mov    %rsi,-0x18(%rbp)
+    11dc:	mov    %edx,-0x1c(%rbp)
+    11df:	cmpl   $0x2,-0x1c(%rbp)
+    11e3:	je     11ff <unicoder_utf32_decode+0x2f>
+    11e9:	cmpl   $0x1,-0x1c(%rbp)
+    11ed:	je     11ff <unicoder_utf32_decode+0x2f>
+    11f3:	movl   $0xfffffffc,-0x4(%rbp)
+    11fa:	jmp    1304 <unicoder_utf32_decode+0x134>
+    11ff:	cmpq   $0x0,-0x18(%rbp)
+    1204:	jne    1216 <unicoder_utf32_decode+0x46>
+    120a:	movl   $0xffffffff,-0x4(%rbp)
+    1211:	jmp    1304 <unicoder_utf32_decode+0x134>
+    1216:	cmpq   $0x0,-0x10(%rbp)
+    121b:	jne    122d <unicoder_utf32_decode+0x5d>
+    1221:	movl   $0xffffffff,-0x4(%rbp)
+    1228:	jmp    1304 <unicoder_utf32_decode+0x134>
+    122d:	movl   $0x0,-0x24(%rbp)
+    1234:	movl   $0x0,-0x20(%rbp)
+    123b:	cmpl   $0x4,-0x20(%rbp)
+    123f:	jge    12b4 <unicoder_utf32_decode+0xe4>
+    1245:	cmpl   $0x2,-0x1c(%rbp)
+    1249:	jne    1279 <unicoder_utf32_decode+0xa9>
+    124f:	cmpl   $0x0,-0x20(%rbp)
+    1253:	jle    1262 <unicoder_utf32_decode+0x92>
+    1259:	mov    -0x24(%rbp),%eax
+    125c:	shl    $0x8,%eax
+    125f:	mov    %eax,-0x24(%rbp)
+    1262:	mov    -0x18(%rbp),%rax
+    1266:	movslq -0x20(%rbp),%rcx
+    126a:	movzbl (%rax,%rcx,1),%eax
+    126e:	or     -0x24(%rbp),%eax
+    1271:	mov    %eax,-0x24(%rbp)
+    1274:	jmp    12a1 <unicoder_utf32_decode+0xd1>
+    1279:	cmpl   $0x0,-0x20(%rbp)
+    127d:	jle    128c <unicoder_utf32_decode+0xbc>
+    1283:	mov    -0x24(%rbp),%eax
+    1286:	shr    $0x8,%eax
+    1289:	mov    %eax,-0x24(%rbp)
+    128c:	mov    -0x18(%rbp),%rax
+    1290:	movslq -0x20(%rbp),%rcx
+    1294:	movzbl (%rax,%rcx,1),%eax
+    1298:	shl    $0x18,%eax
+    129b:	or     -0x24(%rbp),%eax
+    129e:	mov    %eax,-0x24(%rbp)
+    12a1:	jmp    12a6 <unicoder_utf32_decode+0xd6>
+    12a6:	mov    -0x20(%rbp),%eax
+    12a9:	add    $0x1,%eax
+    12ac:	mov    %eax,-0x20(%rbp)
+    12af:	jmp    123b <unicoder_utf32_decode+0x6b>
+    12b4:	cmpl   $0x10ffff,-0x24(%rbp)
+    12bb:	jbe    12cd <unicoder_utf32_decode+0xfd>
+    12c1:	movl   $0xfffffff0,-0x4(%rbp)
+    12c8:	jmp    1304 <unicoder_utf32_decode+0x134>
+    12cd:	mov    $0xd800,%eax
+    12d2:	cmp    -0x24(%rbp),%eax
+    12d5:	ja     12f4 <unicoder_utf32_decode+0x124>
+    12db:	cmpl   $0xdfff,-0x24(%rbp)
+    12e2:	ja     12f4 <unicoder_utf32_decode+0x124>
+    12e8:	movl   $0xfffffff0,-0x4(%rbp)
+    12ef:	jmp    1304 <unicoder_utf32_decode+0x134>
+    12f4:	mov    -0x24(%rbp),%ecx
+    12f7:	mov    -0x10(%rbp),%rax
+    12fb:	mov    %ecx,(%rax)
+    12fd:	movl   $0x4,-0x4(%rbp)
+    1304:	mov    -0x4(%rbp),%eax
+    1307:	pop    %rbp
+    1308:	ret
+
+Disassembly of section .fini:

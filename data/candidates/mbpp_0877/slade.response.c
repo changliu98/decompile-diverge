@@ -1,0 +1,1 @@
+void func0(char *str) { int i, j; int len = strlen(str); char tmp; for (i = 0; i < len - 1; i++) { for (j = i + 1; j < len; j++) { if (str[i] > str[j]) { tmp = str[i]; str[i] = str[j]; str[j] = tmp; } } } }

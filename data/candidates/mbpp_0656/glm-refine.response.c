@@ -1,0 +1,12 @@
+int __cdecl func0(int *a, int *b, int n)
+{
+  int sum = 0;
+
+  sort(a, n);
+  sort(b, n);
+
+  for (int i = 0; i < n; ++i)
+    sum += abs(a[i] - b[i]);
+
+  return sum;
+}

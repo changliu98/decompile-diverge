@@ -1,0 +1,1 @@
+void string_reverse(char *p) { char *q; int c; q = p; while (*q) q++; while (p < q) { c = *p; *p++ = *--q; *q = c; } }

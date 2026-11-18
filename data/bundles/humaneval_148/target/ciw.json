@@ -1,0 +1,394 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 80h\nmov     [rbp+planet1], rdi\nmov     [rbp+planet2], rsi\nmov     [rbp+returnSize], rdx\nlea     rdi, [rbp+planets]; dest\nlea     rsi, off_3DA0; src\nmov     edx, 40h ; '@'; n\ncall    memcpy\nmov     [rbp+pos1], 0FFFFFFFFh\nmov     [rbp+pos2], 0FFFFFFFFh\nmov     [rbp+m], 0\ncmp     [rbp+m], 8\njge     loc_12A0\nmovsxd  rax, [rbp+m]\nmov     rdi, [rbp+rax*8+planets]; s1\nmov     rsi, [rbp+planet1]; s2\ncall    strcmp\ncmp     eax, 0\njnz     loc_126C\nmov     eax, [rbp+m]\nmov     [rbp+pos1], eax\nmovsxd  rax, [rbp+m]\nmov     rdi, [rbp+rax*8+planets]; s1\nmov     rsi, [rbp+planet2]; s2\ncall    strcmp\ncmp     eax, 0\njnz     loc_128D\nmov     eax, [rbp+m]\nmov     [rbp+pos2], eax\njmp     $+5\nmov     eax, [rbp+m]\nadd     eax, 1\nmov     [rbp+m], eax\njmp     loc_1241\ncmp     [rbp+pos1], 0FFFFFFFFh\njz      loc_12C0\ncmp     [rbp+pos2], 0FFFFFFFFh\njz      loc_12C0\nmov     eax, [rbp+pos1]\ncmp     eax, [rbp+pos2]\njnz     loc_12D7\nmov     rax, [rbp+returnSize]\nmov     dword ptr [rax], 0\nmov     [rbp+var_8], 0\njmp     loc_1384\nmov     eax, [rbp+pos1]\ncmp     eax, [rbp+pos2]\njle     loc_12F5\nmov     eax, [rbp+pos1]\nmov     [rbp+temp], eax\nmov     eax, [rbp+pos2]\nmov     [rbp+pos1], eax\nmov     eax, [rbp+temp]\nmov     [rbp+pos2], eax\nmov     ecx, [rbp+pos2]\nsub     ecx, [rbp+pos1]\nsub     ecx, 1\nmov     rax, [rbp+returnSize]\nmov     [rax], ecx\nmov     rax, [rbp+returnSize]\ncmp     dword ptr [rax], 0\njg      loc_1328\nmov     rax, [rbp+returnSize]\nmov     dword ptr [rax], 0\nmov     [rbp+var_8], 0\njmp     loc_1384\nmov     rax, [rbp+returnSize]\nmovsxd  rdi, dword ptr [rax]\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+out], rax\nmov     eax, [rbp+pos1]\nadd     eax, 1\nmov     [rbp+m], eax\nmov     eax, [rbp+m]\ncmp     eax, [rbp+pos2]\njge     loc_137C\nmovsxd  rax, [rbp+m]\nmov     rdx, [rbp+rax*8+planets]\nmov     rax, [rbp+out]\nmov     ecx, [rbp+m]\nsub     ecx, [rbp+pos1]\nsub     ecx, 1\nmovsxd  rcx, ecx\nmov     [rax+rcx*8], rdx\nmov     eax, [rbp+m]\nadd     eax, 1\nmov     [rbp+m], eax\njmp     loc_1345\nmov     rax, [rbp+out]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nadd     rsp, 80h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 21,
+  "edges": [
+   [
+    "start",
+    "loc_1241"
+   ],
+   [
+    "loc_1241",
+    "loc_124B"
+   ],
+   [
+    "loc_1241",
+    "loc_12A0"
+   ],
+   [
+    "loc_124B",
+    "loc_1266"
+   ],
+   [
+    "loc_124B",
+    "loc_126C"
+   ],
+   [
+    "loc_1266",
+    "loc_126C"
+   ],
+   [
+    "loc_126C",
+    "loc_1287"
+   ],
+   [
+    "loc_126C",
+    "loc_128D"
+   ],
+   [
+    "loc_1287",
+    "loc_128D"
+   ],
+   [
+    "loc_128D",
+    "loc_1292"
+   ],
+   [
+    "loc_1292",
+    "loc_1241"
+   ],
+   [
+    "loc_12A0",
+    "loc_12AA"
+   ],
+   [
+    "loc_12A0",
+    "loc_12C0"
+   ],
+   [
+    "loc_12AA",
+    "loc_12B4"
+   ],
+   [
+    "loc_12AA",
+    "loc_12C0"
+   ],
+   [
+    "loc_12B4",
+    "loc_12C0"
+   ],
+   [
+    "loc_12B4",
+    "loc_12D7"
+   ],
+   [
+    "loc_12C0",
+    "loc_1384"
+   ],
+   [
+    "loc_12D7",
+    "loc_12E3"
+   ],
+   [
+    "loc_12D7",
+    "loc_12F5"
+   ],
+   [
+    "loc_12E3",
+    "loc_12F5"
+   ],
+   [
+    "loc_12F5",
+    "loc_1311"
+   ],
+   [
+    "loc_12F5",
+    "loc_1328"
+   ],
+   [
+    "loc_1311",
+    "loc_1384"
+   ],
+   [
+    "loc_1328",
+    "loc_1345"
+   ],
+   [
+    "loc_1345",
+    "loc_1351"
+   ],
+   [
+    "loc_1345",
+    "loc_137C"
+   ],
+   [
+    "loc_1351",
+    "loc_1345"
+   ],
+   [
+    "loc_137C",
+    "loc_1384"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 80h\nmov     [rbp+planet1], rdi\nmov     [rbp+planet2], rsi\nmov     [rbp+returnSize], rdx\nlea     rdi, [rbp+planets]; dest\nlea     rsi, off_3DA0; src\nmov     edx, 40h ; '@'; n\ncall    memcpy\nmov     [rbp+pos1], 0FFFFFFFFh\nmov     [rbp+pos2], 0FFFFFFFFh\nmov     [rbp+m], 0",
+   "loc_1241": "cmp     [rbp+m], 8\njge     loc_12A0",
+   "loc_124B": "movsxd  rax, [rbp+m]\nmov     rdi, [rbp+rax*8+planets]; s1\nmov     rsi, [rbp+planet1]; s2\ncall    strcmp\ncmp     eax, 0\njnz     loc_126C",
+   "loc_1266": "mov     eax, [rbp+m]\nmov     [rbp+pos1], eax",
+   "loc_126C": "movsxd  rax, [rbp+m]\nmov     rdi, [rbp+rax*8+planets]; s1\nmov     rsi, [rbp+planet2]; s2\ncall    strcmp\ncmp     eax, 0\njnz     loc_128D",
+   "loc_1287": "mov     eax, [rbp+m]\nmov     [rbp+pos2], eax",
+   "loc_128D": "jmp     $+5",
+   "loc_1292": "mov     eax, [rbp+m]\nadd     eax, 1\nmov     [rbp+m], eax\njmp     loc_1241",
+   "loc_12A0": "cmp     [rbp+pos1], 0FFFFFFFFh\njz      loc_12C0",
+   "loc_12AA": "cmp     [rbp+pos2], 0FFFFFFFFh\njz      loc_12C0",
+   "loc_12B4": "mov     eax, [rbp+pos1]\ncmp     eax, [rbp+pos2]\njnz     loc_12D7",
+   "loc_12C0": "mov     rax, [rbp+returnSize]\nmov     dword ptr [rax], 0\nmov     [rbp+var_8], 0\njmp     loc_1384",
+   "loc_12D7": "mov     eax, [rbp+pos1]\ncmp     eax, [rbp+pos2]\njle     loc_12F5",
+   "loc_12E3": "mov     eax, [rbp+pos1]\nmov     [rbp+temp], eax\nmov     eax, [rbp+pos2]\nmov     [rbp+pos1], eax\nmov     eax, [rbp+temp]\nmov     [rbp+pos2], eax",
+   "loc_12F5": "mov     ecx, [rbp+pos2]\nsub     ecx, [rbp+pos1]\nsub     ecx, 1\nmov     rax, [rbp+returnSize]\nmov     [rax], ecx\nmov     rax, [rbp+returnSize]\ncmp     dword ptr [rax], 0\njg      loc_1328",
+   "loc_1311": "mov     rax, [rbp+returnSize]\nmov     dword ptr [rax], 0\nmov     [rbp+var_8], 0\njmp     loc_1384",
+   "loc_1328": "mov     rax, [rbp+returnSize]\nmovsxd  rdi, dword ptr [rax]\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+out], rax\nmov     eax, [rbp+pos1]\nadd     eax, 1\nmov     [rbp+m], eax",
+   "loc_1345": "mov     eax, [rbp+m]\ncmp     eax, [rbp+pos2]\njge     loc_137C",
+   "loc_1351": "movsxd  rax, [rbp+m]\nmov     rdx, [rbp+rax*8+planets]\nmov     rax, [rbp+out]\nmov     ecx, [rbp+m]\nsub     ecx, [rbp+pos1]\nsub     ecx, 1\nmovsxd  rcx, ecx\nmov     [rax+rcx*8], rdx\nmov     eax, [rbp+m]\nadd     eax, 1\nmov     [rbp+m], eax\njmp     loc_1345",
+   "loc_137C": "mov     rax, [rbp+out]\nmov     [rbp+var_8], rax",
+   "loc_1384": "mov     rax, [rbp+var_8]\nadd     rsp, 80h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "out": "qword ptr -78h",
+   "temp": "dword ptr -70h",
+   "m": "dword ptr -6Ch",
+   "pos2": "dword ptr -68h",
+   "pos1": "dword ptr -64h",
+   "planets": "qword ptr -60h",
+   "returnSize": "qword ptr -20h",
+   "planet2": "qword ptr -18h",
+   "planet1": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4608,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792867918
+ }
+}

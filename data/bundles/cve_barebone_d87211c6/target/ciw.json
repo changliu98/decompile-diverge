@@ -1,0 +1,289 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+rb_reader], rdi\ncall    rb_hash_new\nmov     [rbp+rb_attributes], rax\nmov     rax, [rbp+rb_reader]\nmov     [rbp+c_reader], rax\nmov     rdi, [rbp+c_reader]; reader\ncall    has_attributes\ncmp     eax, 0\njnz     loc_163C\nmov     rax, [rbp+rb_attributes]\nmov     [rbp+var_8], rax\njmp     loc_16D1\nmov     rdi, [rbp+c_reader]; reader\ncall    xmlTextReaderExpand\nmov     [rbp+c_node], rax\nmov     rax, [rbp+c_node]\nmov     rax, [rax+58h]\nmov     [rbp+c_property], rax\ncmp     [rbp+c_property], 0\njz      loc_16C9\nmov     rax, [rbp+c_property]\nmov     rdi, [rax+10h]; cstr\ncall    nokogiri_str_new2_stub\nmov     [rbp+rb_name], rax\nmov     [rbp+rb_value], 0\nmov     rdi, [rbp+c_property]; cur\ncall    xmlNodeGetContent\nmov     [rbp+c_value], rax\ncmp     [rbp+c_value], 0\njz      loc_16A7\nmov     rdi, [rbp+c_value]; cstr\ncall    nokogiri_str_new2_stub\nmov     [rbp+rb_value], rax\nmov     rdi, [rbp+c_value]; ptr\ncall    free\nmov     rdi, [rbp+rb_attributes]; hash\nmov     rsi, [rbp+rb_name]; key\nmov     rdx, [rbp+rb_value]; val\ncall    rb_hash_aset\nmov     rax, [rbp+c_property]\nmov     rax, [rax+30h]\nmov     [rbp+c_property], rax\njmp     loc_1655\nmov     rax, [rbp+rb_attributes]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 9,
+  "edges": [
+   [
+    "start",
+    "loc_162F"
+   ],
+   [
+    "start",
+    "loc_163C"
+   ],
+   [
+    "loc_162F",
+    "loc_16D1"
+   ],
+   [
+    "loc_163C",
+    "loc_1655"
+   ],
+   [
+    "loc_1655",
+    "loc_1660"
+   ],
+   [
+    "loc_1655",
+    "loc_16C9"
+   ],
+   [
+    "loc_1660",
+    "loc_1691"
+   ],
+   [
+    "loc_1660",
+    "loc_16A7"
+   ],
+   [
+    "loc_1691",
+    "loc_16A7"
+   ],
+   [
+    "loc_16A7",
+    "loc_1655"
+   ],
+   [
+    "loc_16C9",
+    "loc_16D1"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+rb_reader], rdi\ncall    rb_hash_new\nmov     [rbp+rb_attributes], rax\nmov     rax, [rbp+rb_reader]\nmov     [rbp+c_reader], rax\nmov     rdi, [rbp+c_reader]; reader\ncall    has_attributes\ncmp     eax, 0\njnz     loc_163C",
+   "loc_162F": "mov     rax, [rbp+rb_attributes]\nmov     [rbp+var_8], rax\njmp     loc_16D1",
+   "loc_163C": "mov     rdi, [rbp+c_reader]; reader\ncall    xmlTextReaderExpand\nmov     [rbp+c_node], rax\nmov     rax, [rbp+c_node]\nmov     rax, [rax+58h]\nmov     [rbp+c_property], rax",
+   "loc_1655": "cmp     [rbp+c_property], 0\njz      loc_16C9",
+   "loc_1660": "mov     rax, [rbp+c_property]\nmov     rdi, [rax+10h]; cstr\ncall    nokogiri_str_new2_stub\nmov     [rbp+rb_name], rax\nmov     [rbp+rb_value], 0\nmov     rdi, [rbp+c_property]; cur\ncall    xmlNodeGetContent\nmov     [rbp+c_value], rax\ncmp     [rbp+c_value], 0\njz      loc_16A7",
+   "loc_1691": "mov     rdi, [rbp+c_value]; cstr\ncall    nokogiri_str_new2_stub\nmov     [rbp+rb_value], rax\nmov     rdi, [rbp+c_value]; ptr\ncall    free",
+   "loc_16A7": "mov     rdi, [rbp+rb_attributes]; hash\nmov     rsi, [rbp+rb_name]; key\nmov     rdx, [rbp+rb_value]; val\ncall    rb_hash_aset\nmov     rax, [rbp+c_property]\nmov     rax, [rax+30h]\nmov     [rbp+c_property], rax\njmp     loc_1655",
+   "loc_16C9": "mov     rax, [rbp+rb_attributes]\nmov     [rbp+var_8], rax",
+   "loc_16D1": "mov     rax, [rbp+var_8]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "c_value": "qword ptr -48h",
+   "rb_value": "qword ptr -40h",
+   "rb_name": "qword ptr -38h",
+   "c_property": "qword ptr -30h",
+   "c_node": "qword ptr -28h",
+   "c_reader": "qword ptr -20h",
+   "rb_attributes": "qword ptr -18h",
+   "rb_reader": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5632,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".strdup": "strdup",
+  "_strdup": "strdup"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".strdup",
+   ".plt",
+   true,
+   "strdup"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strdup",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868492
+ }
+}

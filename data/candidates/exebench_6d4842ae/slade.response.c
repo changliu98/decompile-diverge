@@ -1,0 +1,1 @@
+void load_and_store(uint32_t *addr, uint32_t value) { *addr += value; }

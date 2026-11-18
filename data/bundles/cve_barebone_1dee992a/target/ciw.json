@@ -1,0 +1,749 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+arg], rdi\nmov     [rbp+rettv], rsi\nmov     [rbp+evalarg], rdx\nmov     [rbp+do_error], ecx\ncmp     [rbp+evalarg], 0\njnz     loc_157C\nxor     eax, eax\nmov     [rbp+var_4C], eax\njmp     loc_1588\nmov     rax, [rbp+evalarg]\nmov     eax, [rax]\nand     eax, 1\nmov     [rbp+var_4C], eax\nmov     eax, [rbp+var_4C]\nmov     [rbp+evaluate], eax\nmov     [rbp+tuple], 0\ncall    in_vim9script\nmov     [rbp+vim9script], eax\nmov     rdi, [rbp+rettv]; tv\ncall    check_typval_is_value\ncmp     eax, 0\njnz     loc_15C5\nmov     rdi, [rbp+rettv]; varp\ncall    clear_tv\nmov     [rbp+var_4], 0\njmp     loc_19B4\ncmp     [rbp+evaluate], 0\njz      loc_1628\ncall    tuple_alloc\nmov     [rbp+tuple], rax\ncmp     [rbp+tuple], 0\njnz     loc_15EF\nmov     [rbp+var_4], 0\njmp     loc_19B4\nmov     rax, [rbp+rettv]\ncmp     dword ptr [rax], 0\njz      loc_1623\nmov     rdi, [rbp+tuple]; tuple\nmov     rsi, [rbp+rettv]; tv\ncall    tuple_append_tv\ncmp     eax, 0\njnz     loc_161E\nmov     [rbp+var_4], 0\njmp     loc_19B4\njmp     $+5\njmp     $+5\nmov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 29h ; ')'\njnz     loc_1640\njmp     done\ncmp     [rbp+vim9script], 0\njz      loc_16CF\nmov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 20h ; ' '\njz      loc_16CF\nmov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 9\njz      loc_16CF\nmov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 0Ah\njz      loc_16CF\nmov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 0\njz      loc_16CF\nmov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 29h ; ')'\njz      loc_16CF\nmov     rax, [rbp+arg]\nmov     rdx, [rax]\nlea     rdi, e_white_space_required_after_str_str; \"E1069: White space required after '%s':\"...\nlea     rsi, asc_3114; \",\"\nmov     al, 0\ncall    semsg\njmp     failret\nmov     rax, [rbp+arg]\nmov     rdi, [rax]\nadd     rdi, 1; arg\nmov     rsi, [rbp+evalarg]; evalarg\ncall    skipwhite_and_linebreak\nmov     rcx, rax\nmov     rax, [rbp+arg]\nmov     [rax], rcx\nmov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   ecx, byte ptr [rax]\nxor     eax, eax\ncmp     ecx, 29h ; ')'\nmov     [rbp+var_4D], al\njz      loc_1718\nmov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 0\nsetnz   al\nmov     [rbp+var_4D], al\nmov     al, [rbp+var_4D]\ntest    al, 1\njnz     loc_1728\njmp     loc_192D\nmov     rdi, [rbp+arg]; arg\nmov     rdx, [rbp+evalarg]; evalarg\nlea     rsi, [rbp+tv]; rettv\ncall    eval1\ncmp     eax, 0\njnz     loc_1747\njmp     failret\nlea     rdi, [rbp+tv]; tv\ncall    check_typval_is_value\ncmp     eax, 0\njnz     loc_1771\ncmp     [rbp+evaluate], 0\njz      loc_176C\nlea     rdi, [rbp+tv]; varp\ncall    clear_tv\njmp     failret\ncmp     [rbp+evaluate], 0\njz      loc_17A4\nmov     rdi, [rbp+tuple]; tuple\nlea     rsi, [rbp+tv]; tv\ncall    tuple_append_tv\ncmp     eax, 0\njnz     loc_179F\nlea     rdi, [rbp+tv]; varp\ncall    clear_tv\njmp     failret\njmp     $+5\ncmp     [rbp+vim9script], 0\njnz     loc_17C4\nmov     rax, [rbp+arg]\nmov     rdi, [rax]; q\ncall    skipwhite\nmov     rcx, rax\nmov     rax, [rbp+arg]\nmov     [rax], rcx\nmov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 2Ch ; ','\nsetz    al\nand     al, 1\nmovzx   eax, al\nmov     [rbp+had_comma], eax\ncmp     [rbp+had_comma], 0\njz      loc_188F\ncmp     [rbp+vim9script], 0\njz      loc_1875\nmov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 20h ; ' '\njz      loc_1875\nmov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 9\njz      loc_1875\nmov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 0Ah\njz      loc_1875\nmov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 0\njz      loc_1875\nmov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 29h ; ')'\njz      loc_1875\nmov     rax, [rbp+arg]\nmov     rdx, [rax]\nlea     rdi, e_white_space_required_after_str_str; \"E1069: White space required after '%s':\"...\nlea     rsi, asc_3114; \",\"\nmov     al, 0\ncall    semsg\njmp     failret\nmov     rax, [rbp+arg]\nmov     rdi, [rax]\nadd     rdi, 1; q\ncall    skipwhite\nmov     rcx, rax\nmov     rax, [rbp+arg]\nmov     [rax], rcx\nmov     rax, [rbp+arg]\nmov     rdi, [rax]; arg\nmov     rsi, [rbp+evalarg]; evalarg\ncall    skipwhite_and_linebreak\nmov     rcx, rax\nmov     rax, [rbp+arg]\nmov     [rax], rcx\nmov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 29h ; ')'\njnz     loc_18C1\njmp     loc_192D\ncmp     [rbp+had_comma], 0\njnz     loc_1928\ncmp     [rbp+do_error], 0\njz      loc_1923\nmov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 2Ch ; ','\njnz     loc_1909\nmov     rax, [rbp+arg]\nmov     rdx, [rax]\nlea     rdi, e_no_white_space_allowed_before_str_str; \"E1068: No white space allowed before '%\"...\nlea     rsi, asc_3114; \",\"\nmov     al, 0\ncall    semsg\njmp     loc_191E\nmov     rax, [rbp+arg]\nmov     rsi, [rax]\nlea     rdi, e_missing_comma_in_tuple_str; \"E1527: Missing comma in Tuple: %s\"\nmov     al, 0\ncall    semsg\njmp     $+5\njmp     failret\njmp     loc_16ED\nmov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 29h ; ')'\njz      loc_1983\ncmp     [rbp+do_error], 0\njz      loc_195F\nmov     rax, [rbp+arg]\nmov     rsi, [rax]\nlea     rdi, e_missing_end_of_tuple_rsp_str; \"E1526: Missing end of Tuple ')': %s\"\nmov     al, 0\ncall    semsg\njmp     $+5\ncmp     [rbp+evaluate], 0\njz      loc_1977\nmov     rdi, [rbp+tuple]; tuple\ncall    tuple_free\nmov     [rbp+var_4], 0\njmp     loc_19B4\njmp     $+5\nmov     rax, [rbp+arg]\nmov     rcx, [rax]\nadd     rcx, 1\nmov     [rax], rcx\ncmp     [rbp+evaluate], 0\njz      loc_19AD\nmov     rdi, [rbp+rettv]; rettv\nmov     rsi, [rbp+tuple]; tuple\ncall    rettv_tuple_set\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 70,
+  "edges": [
+   [
+    "start",
+    "loc_1572"
+   ],
+   [
+    "start",
+    "loc_157C"
+   ],
+   [
+    "loc_1572",
+    "loc_1588"
+   ],
+   [
+    "loc_157C",
+    "loc_1588"
+   ],
+   [
+    "loc_1588",
+    "loc_15B0"
+   ],
+   [
+    "loc_1588",
+    "loc_15C5"
+   ],
+   [
+    "loc_15B0",
+    "loc_19B4"
+   ],
+   [
+    "loc_15C5",
+    "loc_15CF"
+   ],
+   [
+    "loc_15C5",
+    "loc_1628"
+   ],
+   [
+    "loc_15CF",
+    "loc_15E3"
+   ],
+   [
+    "loc_15CF",
+    "loc_15EF"
+   ],
+   [
+    "loc_15E3",
+    "loc_19B4"
+   ],
+   [
+    "loc_15EF",
+    "loc_15FC"
+   ],
+   [
+    "loc_15EF",
+    "loc_1623"
+   ],
+   [
+    "loc_15FC",
+    "loc_1612"
+   ],
+   [
+    "loc_15FC",
+    "loc_161E"
+   ],
+   [
+    "loc_1612",
+    "loc_19B4"
+   ],
+   [
+    "loc_161E",
+    "loc_1623"
+   ],
+   [
+    "loc_1623",
+    "loc_1628"
+   ],
+   [
+    "loc_1628",
+    "loc_163B"
+   ],
+   [
+    "loc_1628",
+    "loc_1640"
+   ],
+   [
+    "loc_163B",
+    "loc_1988"
+   ],
+   [
+    "loc_1640",
+    "loc_164A"
+   ],
+   [
+    "loc_1640",
+    "loc_16CF"
+   ],
+   [
+    "loc_164A",
+    "loc_165E"
+   ],
+   [
+    "loc_164A",
+    "loc_16CF"
+   ],
+   [
+    "loc_165E",
+    "loc_1672"
+   ],
+   [
+    "loc_165E",
+    "loc_16CF"
+   ],
+   [
+    "loc_1672",
+    "loc_1686"
+   ],
+   [
+    "loc_1672",
+    "loc_16CF"
+   ],
+   [
+    "loc_1686",
+    "loc_169A"
+   ],
+   [
+    "loc_1686",
+    "loc_16CF"
+   ],
+   [
+    "loc_169A",
+    "loc_16AE"
+   ],
+   [
+    "loc_169A",
+    "loc_16CF"
+   ],
+   [
+    "loc_16AE",
+    "loc_1964"
+   ],
+   [
+    "loc_16CF",
+    "loc_16ED"
+   ],
+   [
+    "loc_16ED",
+    "loc_1705"
+   ],
+   [
+    "loc_16ED",
+    "loc_1718"
+   ],
+   [
+    "loc_1705",
+    "loc_1718"
+   ],
+   [
+    "loc_1718",
+    "loc_1723"
+   ],
+   [
+    "loc_1718",
+    "loc_1728"
+   ],
+   [
+    "loc_1723",
+    "loc_192D"
+   ],
+   [
+    "loc_1728",
+    "loc_1742"
+   ],
+   [
+    "loc_1728",
+    "loc_1747"
+   ],
+   [
+    "loc_1742",
+    "loc_1964"
+   ],
+   [
+    "loc_1747",
+    "loc_1759"
+   ],
+   [
+    "loc_1747",
+    "loc_1771"
+   ],
+   [
+    "loc_1759",
+    "loc_1763"
+   ],
+   [
+    "loc_1759",
+    "loc_176C"
+   ],
+   [
+    "loc_1763",
+    "loc_176C"
+   ],
+   [
+    "loc_176C",
+    "loc_1964"
+   ],
+   [
+    "loc_1771",
+    "loc_177B"
+   ],
+   [
+    "loc_1771",
+    "loc_17A4"
+   ],
+   [
+    "loc_177B",
+    "loc_1791"
+   ],
+   [
+    "loc_177B",
+    "loc_179F"
+   ],
+   [
+    "loc_1791",
+    "loc_1964"
+   ],
+   [
+    "loc_179F",
+    "loc_17A4"
+   ],
+   [
+    "loc_17A4",
+    "loc_17AE"
+   ],
+   [
+    "loc_17A4",
+    "loc_17C4"
+   ],
+   [
+    "loc_17AE",
+    "loc_17C4"
+   ],
+   [
+    "loc_17C4",
+    "loc_17E6"
+   ],
+   [
+    "loc_17C4",
+    "loc_188F"
+   ],
+   [
+    "loc_17E6",
+    "loc_17F0"
+   ],
+   [
+    "loc_17E6",
+    "loc_1875"
+   ],
+   [
+    "loc_17F0",
+    "loc_1804"
+   ],
+   [
+    "loc_17F0",
+    "loc_1875"
+   ],
+   [
+    "loc_1804",
+    "loc_1818"
+   ],
+   [
+    "loc_1804",
+    "loc_1875"
+   ],
+   [
+    "loc_1818",
+    "loc_182C"
+   ],
+   [
+    "loc_1818",
+    "loc_1875"
+   ],
+   [
+    "loc_182C",
+    "loc_1840"
+   ],
+   [
+    "loc_182C",
+    "loc_1875"
+   ],
+   [
+    "loc_1840",
+    "loc_1854"
+   ],
+   [
+    "loc_1840",
+    "loc_1875"
+   ],
+   [
+    "loc_1854",
+    "loc_1964"
+   ],
+   [
+    "loc_1875",
+    "loc_188F"
+   ],
+   [
+    "loc_188F",
+    "loc_18BC"
+   ],
+   [
+    "loc_188F",
+    "loc_18C1"
+   ],
+   [
+    "loc_18BC",
+    "loc_192D"
+   ],
+   [
+    "loc_18C1",
+    "loc_18CB"
+   ],
+   [
+    "loc_18C1",
+    "loc_1928"
+   ],
+   [
+    "loc_18CB",
+    "loc_18D5"
+   ],
+   [
+    "loc_18CB",
+    "loc_1923"
+   ],
+   [
+    "loc_18D5",
+    "loc_18E8"
+   ],
+   [
+    "loc_18D5",
+    "loc_1909"
+   ],
+   [
+    "loc_18E8",
+    "loc_191E"
+   ],
+   [
+    "loc_1909",
+    "loc_191E"
+   ],
+   [
+    "loc_191E",
+    "loc_1923"
+   ],
+   [
+    "loc_1923",
+    "loc_1964"
+   ],
+   [
+    "loc_1928",
+    "loc_16ED"
+   ],
+   [
+    "loc_192D",
+    "loc_1940"
+   ],
+   [
+    "loc_192D",
+    "loc_1983"
+   ],
+   [
+    "loc_1940",
+    "loc_194A"
+   ],
+   [
+    "loc_1940",
+    "loc_195F"
+   ],
+   [
+    "loc_194A",
+    "loc_195F"
+   ],
+   [
+    "loc_195F",
+    "loc_1964"
+   ],
+   [
+    "loc_1964",
+    "loc_196E"
+   ],
+   [
+    "loc_1964",
+    "loc_1977"
+   ],
+   [
+    "loc_196E",
+    "loc_1977"
+   ],
+   [
+    "loc_1977",
+    "loc_19B4"
+   ],
+   [
+    "loc_1983",
+    "loc_1988"
+   ],
+   [
+    "loc_1988",
+    "loc_19A0"
+   ],
+   [
+    "loc_1988",
+    "loc_19AD"
+   ],
+   [
+    "loc_19A0",
+    "loc_19AD"
+   ],
+   [
+    "loc_19AD",
+    "loc_19B4"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+arg], rdi\nmov     [rbp+rettv], rsi\nmov     [rbp+evalarg], rdx\nmov     [rbp+do_error], ecx\ncmp     [rbp+evalarg], 0\njnz     loc_157C",
+   "loc_1572": "xor     eax, eax\nmov     [rbp+var_4C], eax\njmp     loc_1588",
+   "loc_157C": "mov     rax, [rbp+evalarg]\nmov     eax, [rax]\nand     eax, 1\nmov     [rbp+var_4C], eax",
+   "loc_1588": "mov     eax, [rbp+var_4C]\nmov     [rbp+evaluate], eax\nmov     [rbp+tuple], 0\ncall    in_vim9script\nmov     [rbp+vim9script], eax\nmov     rdi, [rbp+rettv]; tv\ncall    check_typval_is_value\ncmp     eax, 0\njnz     loc_15C5",
+   "loc_15B0": "mov     rdi, [rbp+rettv]; varp\ncall    clear_tv\nmov     [rbp+var_4], 0\njmp     loc_19B4",
+   "loc_15C5": "cmp     [rbp+evaluate], 0\njz      loc_1628",
+   "loc_15CF": "call    tuple_alloc\nmov     [rbp+tuple], rax\ncmp     [rbp+tuple], 0\njnz     loc_15EF",
+   "loc_15E3": "mov     [rbp+var_4], 0\njmp     loc_19B4",
+   "loc_15EF": "mov     rax, [rbp+rettv]\ncmp     dword ptr [rax], 0\njz      loc_1623",
+   "loc_15FC": "mov     rdi, [rbp+tuple]; tuple\nmov     rsi, [rbp+rettv]; tv\ncall    tuple_append_tv\ncmp     eax, 0\njnz     loc_161E",
+   "loc_1612": "mov     [rbp+var_4], 0\njmp     loc_19B4",
+   "loc_161E": "jmp     $+5",
+   "loc_1623": "jmp     $+5",
+   "loc_1628": "mov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 29h ; ')'\njnz     loc_1640",
+   "loc_163B": "jmp     done",
+   "loc_1640": "cmp     [rbp+vim9script], 0\njz      loc_16CF",
+   "loc_164A": "mov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 20h ; ' '\njz      loc_16CF",
+   "loc_165E": "mov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 9\njz      loc_16CF",
+   "loc_1672": "mov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 0Ah\njz      loc_16CF",
+   "loc_1686": "mov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 0\njz      loc_16CF",
+   "loc_169A": "mov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 29h ; ')'\njz      loc_16CF",
+   "loc_16AE": "mov     rax, [rbp+arg]\nmov     rdx, [rax]\nlea     rdi, e_white_space_required_after_str_str; \"E1069: White space required after '%s':\"...\nlea     rsi, asc_3114; \",\"\nmov     al, 0\ncall    semsg\njmp     failret",
+   "loc_16CF": "mov     rax, [rbp+arg]\nmov     rdi, [rax]\nadd     rdi, 1; arg\nmov     rsi, [rbp+evalarg]; evalarg\ncall    skipwhite_and_linebreak\nmov     rcx, rax\nmov     rax, [rbp+arg]\nmov     [rax], rcx",
+   "loc_16ED": "mov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   ecx, byte ptr [rax]\nxor     eax, eax\ncmp     ecx, 29h ; ')'\nmov     [rbp+var_4D], al\njz      loc_1718",
+   "loc_1705": "mov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 0\nsetnz   al\nmov     [rbp+var_4D], al",
+   "loc_1718": "mov     al, [rbp+var_4D]\ntest    al, 1\njnz     loc_1728",
+   "loc_1723": "jmp     loc_192D",
+   "loc_1728": "mov     rdi, [rbp+arg]; arg\nmov     rdx, [rbp+evalarg]; evalarg\nlea     rsi, [rbp+tv]; rettv\ncall    eval1\ncmp     eax, 0\njnz     loc_1747",
+   "loc_1742": "jmp     failret",
+   "loc_1747": "lea     rdi, [rbp+tv]; tv\ncall    check_typval_is_value\ncmp     eax, 0\njnz     loc_1771",
+   "loc_1759": "cmp     [rbp+evaluate], 0\njz      loc_176C",
+   "loc_1763": "lea     rdi, [rbp+tv]; varp\ncall    clear_tv",
+   "loc_176C": "jmp     failret",
+   "loc_1771": "cmp     [rbp+evaluate], 0\njz      loc_17A4",
+   "loc_177B": "mov     rdi, [rbp+tuple]; tuple\nlea     rsi, [rbp+tv]; tv\ncall    tuple_append_tv\ncmp     eax, 0\njnz     loc_179F",
+   "loc_1791": "lea     rdi, [rbp+tv]; varp\ncall    clear_tv\njmp     failret",
+   "loc_179F": "jmp     $+5",
+   "loc_17A4": "cmp     [rbp+vim9script], 0\njnz     loc_17C4",
+   "loc_17AE": "mov     rax, [rbp+arg]\nmov     rdi, [rax]; q\ncall    skipwhite\nmov     rcx, rax\nmov     rax, [rbp+arg]\nmov     [rax], rcx",
+   "loc_17C4": "mov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 2Ch ; ','\nsetz    al\nand     al, 1\nmovzx   eax, al\nmov     [rbp+had_comma], eax\ncmp     [rbp+had_comma], 0\njz      loc_188F",
+   "loc_17E6": "cmp     [rbp+vim9script], 0\njz      loc_1875",
+   "loc_17F0": "mov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 20h ; ' '\njz      loc_1875",
+   "loc_1804": "mov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 9\njz      loc_1875",
+   "loc_1818": "mov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 0Ah\njz      loc_1875",
+   "loc_182C": "mov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 0\njz      loc_1875",
+   "loc_1840": "mov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 29h ; ')'\njz      loc_1875",
+   "loc_1854": "mov     rax, [rbp+arg]\nmov     rdx, [rax]\nlea     rdi, e_white_space_required_after_str_str; \"E1069: White space required after '%s':\"...\nlea     rsi, asc_3114; \",\"\nmov     al, 0\ncall    semsg\njmp     failret",
+   "loc_1875": "mov     rax, [rbp+arg]\nmov     rdi, [rax]\nadd     rdi, 1; q\ncall    skipwhite\nmov     rcx, rax\nmov     rax, [rbp+arg]\nmov     [rax], rcx",
+   "loc_188F": "mov     rax, [rbp+arg]\nmov     rdi, [rax]; arg\nmov     rsi, [rbp+evalarg]; evalarg\ncall    skipwhite_and_linebreak\nmov     rcx, rax\nmov     rax, [rbp+arg]\nmov     [rax], rcx\nmov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 29h ; ')'\njnz     loc_18C1",
+   "loc_18BC": "jmp     loc_192D",
+   "loc_18C1": "cmp     [rbp+had_comma], 0\njnz     loc_1928",
+   "loc_18CB": "cmp     [rbp+do_error], 0\njz      loc_1923",
+   "loc_18D5": "mov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 2Ch ; ','\njnz     loc_1909",
+   "loc_18E8": "mov     rax, [rbp+arg]\nmov     rdx, [rax]\nlea     rdi, e_no_white_space_allowed_before_str_str; \"E1068: No white space allowed before '%\"...\nlea     rsi, asc_3114; \",\"\nmov     al, 0\ncall    semsg\njmp     loc_191E",
+   "loc_1909": "mov     rax, [rbp+arg]\nmov     rsi, [rax]\nlea     rdi, e_missing_comma_in_tuple_str; \"E1527: Missing comma in Tuple: %s\"\nmov     al, 0\ncall    semsg",
+   "loc_191E": "jmp     $+5",
+   "loc_1923": "jmp     failret",
+   "loc_1928": "jmp     loc_16ED",
+   "loc_192D": "mov     rax, [rbp+arg]\nmov     rax, [rax]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 29h ; ')'\njz      loc_1983",
+   "loc_1940": "cmp     [rbp+do_error], 0\njz      loc_195F",
+   "loc_194A": "mov     rax, [rbp+arg]\nmov     rsi, [rax]\nlea     rdi, e_missing_end_of_tuple_rsp_str; \"E1526: Missing end of Tuple ')': %s\"\nmov     al, 0\ncall    semsg",
+   "loc_195F": "jmp     $+5",
+   "loc_1964": "cmp     [rbp+evaluate], 0\njz      loc_1977",
+   "loc_196E": "mov     rdi, [rbp+tuple]; tuple\ncall    tuple_free",
+   "loc_1977": "mov     [rbp+var_4], 0\njmp     loc_19B4",
+   "loc_1983": "jmp     $+5",
+   "loc_1988": "mov     rax, [rbp+arg]\nmov     rcx, [rax]\nadd     rcx, 1\nmov     [rax], rcx\ncmp     [rbp+evaluate], 0\njz      loc_19AD",
+   "loc_19A0": "mov     rdi, [rbp+rettv]; rettv\nmov     rsi, [rbp+tuple]; tuple\ncall    rettv_tuple_set",
+   "loc_19AD": "mov     [rbp+var_4], 1",
+   "loc_19B4": "mov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_4D": "byte ptr -4Dh",
+   "var_4C": "dword ptr -4Ch",
+   "had_comma": "dword ptr -48h",
+   "vim9script": "dword ptr -44h",
+   "tv": "typval_T ptr -40h",
+   "tuple": "qword ptr -30h",
+   "evaluate": "dword ptr -28h",
+   "do_error": "dword ptr -24h",
+   "evalarg": "qword ptr -20h",
+   "rettv": "qword ptr -18h",
+   "arg": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "e_white_space_required_after_str_str": "byte 'E1069: White space required after ',27h,'%s',27h,': %s',0",
+   "asc_3114": "byte ',',0",
+   "e_no_white_space_allowed_before_str_str": "byte 'E1068: No white space allowed before ',27h,'%s',27h,': %s',0",
+   "e_missing_comma_in_tuple_str": "byte 'E1527: Missing comma in Tuple: %s',0",
+   "e_missing_end_of_tuple_rsp_str": "byte 'E1526: Missing end of Tuple ',27h,')',27h,': %s',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5456,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "printf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868452
+ }
+}

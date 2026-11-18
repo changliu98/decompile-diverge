@@ -1,0 +1,1 @@
+int func0(int a, int b) { return sum_Odd(b) - sum_Odd(a - 1); }

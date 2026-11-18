@@ -1,0 +1,1 @@
+void check_int(char *start, char *p, char *err) { *err = (p - start == 4) ? 't' : 'f'; }

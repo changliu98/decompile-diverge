@@ -1,0 +1,1 @@
+char *object_desc_chr(char *s, char c) { *s++ = c; *s = '\0'; return s; }

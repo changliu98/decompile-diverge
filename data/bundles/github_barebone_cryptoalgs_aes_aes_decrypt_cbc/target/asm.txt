@@ -1,0 +1,68 @@
+00000000000018c0 <aes_decrypt_cbc>:
+    18c0:	push   %rbp
+    18c1:	mov    %rsp,%rbp
+    18c4:	sub    $0x80,%rsp
+    18cb:	mov    %rdi,-0x10(%rbp)
+    18cf:	mov    %rsi,-0x18(%rbp)
+    18d3:	mov    %rdx,-0x20(%rbp)
+    18d7:	mov    %rcx,-0x28(%rbp)
+    18db:	mov    %r8d,-0x2c(%rbp)
+    18df:	mov    %r9,-0x38(%rbp)
+    18e3:	mov    -0x18(%rbp),%rax
+    18e7:	and    $0xf,%rax
+    18eb:	cmp    $0x0,%rax
+    18ef:	je     1901 <aes_decrypt_cbc+0x41>
+    18f5:	movl   $0x0,-0x4(%rbp)
+    18fc:	jmp    19b9 <aes_decrypt_cbc+0xf9>
+    1901:	mov    -0x18(%rbp),%rax
+    1905:	shr    $0x4,%rax
+    1909:	mov    %eax,-0x74(%rbp)
+    190c:	mov    -0x38(%rbp),%rax
+    1910:	mov    (%rax),%rcx
+    1913:	mov    %rcx,-0x70(%rbp)
+    1917:	mov    0x8(%rax),%rax
+    191b:	mov    %rax,-0x68(%rbp)
+    191f:	movl   $0x0,-0x78(%rbp)
+    1926:	mov    -0x78(%rbp),%eax
+    1929:	cmp    -0x74(%rbp),%eax
+    192c:	jge    19b2 <aes_decrypt_cbc+0xf2>
+    1932:	mov    -0x10(%rbp),%rax
+    1936:	mov    -0x78(%rbp),%ecx
+    1939:	shl    $0x4,%ecx
+    193c:	movslq %ecx,%rcx
+    193f:	mov    (%rax,%rcx,1),%rdx
+    1943:	mov    %rdx,-0x50(%rbp)
+    1947:	mov    0x8(%rax,%rcx,1),%rax
+    194c:	mov    %rax,-0x48(%rbp)
+    1950:	lea    -0x50(%rbp),%rdi
+    1954:	lea    -0x60(%rbp),%rsi
+    1958:	mov    -0x28(%rbp),%rdx
+    195c:	mov    -0x2c(%rbp),%ecx
+    195f:	call   19d0 <aes_decrypt>
+    1964:	lea    -0x70(%rbp),%rdi
+    1968:	lea    -0x60(%rbp),%rsi
+    196c:	mov    $0x10,%edx
+    1971:	call   1200 <xor_buf>
+    1976:	mov    -0x20(%rbp),%rax
+    197a:	mov    -0x78(%rbp),%ecx
+    197d:	shl    $0x4,%ecx
+    1980:	movslq %ecx,%rcx
+    1983:	mov    -0x60(%rbp),%rdx
+    1987:	mov    %rdx,(%rax,%rcx,1)
+    198b:	mov    -0x58(%rbp),%rdx
+    198f:	mov    %rdx,0x8(%rax,%rcx,1)
+    1994:	mov    -0x50(%rbp),%rax
+    1998:	mov    %rax,-0x70(%rbp)
+    199c:	mov    -0x48(%rbp),%rax
+    19a0:	mov    %rax,-0x68(%rbp)
+    19a4:	mov    -0x78(%rbp),%eax
+    19a7:	add    $0x1,%eax
+    19aa:	mov    %eax,-0x78(%rbp)
+    19ad:	jmp    1926 <aes_decrypt_cbc+0x66>
+    19b2:	movl   $0x1,-0x4(%rbp)
+    19b9:	mov    -0x4(%rbp),%eax
+    19bc:	add    $0x80,%rsp
+    19c3:	pop    %rbp
+    19c4:	ret
+
+Disassembly of section .fini:

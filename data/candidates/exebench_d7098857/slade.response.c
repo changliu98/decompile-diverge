@@ -1,0 +1,1 @@
+void misc_str_remove_symbol(char *str, char sym) { char *c = str; int i, j = 0; for (i = 0; c[i]; i++) { if (c[i] != sym) { str[j] = c[i]; j++; } } str[j] = '\0'; }

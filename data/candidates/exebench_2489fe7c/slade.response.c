@@ -1,0 +1,1 @@
+void crc16_b(unsigned int *crc, unsigned char data) { int i; for(i=0;i<8;i++) { *crc <<= 1; if((data &0x10000) != (*crc &0x100000) ? 1 : 0) *crc ^=0x8005; data >>= 1; } *crc &=0xffff; }

@@ -1,0 +1,1 @@
+void changeValues(int *a, int *b, char *c) { *a += 1; *b += 2.0f; *c += 4; }

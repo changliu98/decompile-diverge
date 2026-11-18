@@ -1,0 +1,1 @@
+uint32_t REG_A5XX_RB_MRT_BUF_INFO(uint32_t i0) { return 0x0000e152 + 0x7*i0; }

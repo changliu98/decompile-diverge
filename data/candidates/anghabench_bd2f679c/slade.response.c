@@ -1,0 +1,1 @@
+void crc8_byte(unsigned int *crc, unsigned char db) { int i,j; for(i=0;i<8;i++) { j = (*crc ^ db) & 1; *crc >>= 1; db >>= 1; if(j) *crc ^=0x8C; } *crc &=0xFF; }

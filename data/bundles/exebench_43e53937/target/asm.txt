@@ -1,0 +1,97 @@
+0000000000001500 <Utf32toUtf8>:
+    1500:	push   %rbp
+    1501:	mov    %rsp,%rbp
+    1504:	mov    %edi,-0x4(%rbp)
+    1507:	mov    %rsi,-0x10(%rbp)
+    150b:	cmpl   $0x80,-0x4(%rbp)
+    1512:	jae    1530 <Utf32toUtf8+0x30>
+    1518:	mov    -0x4(%rbp),%eax
+    151b:	mov    %al,%cl
+    151d:	mov    -0x10(%rbp),%rax
+    1521:	mov    %cl,(%rax)
+    1523:	mov    -0x10(%rbp),%rax
+    1527:	movb   $0x0,0x1(%rax)
+    152b:	jmp    1656 <Utf32toUtf8+0x156>
+    1530:	cmpl   $0x800,-0x4(%rbp)
+    1537:	jae    1571 <Utf32toUtf8+0x71>
+    153d:	mov    -0x4(%rbp),%eax
+    1540:	shr    $0x6,%eax
+    1543:	or     $0xc0,%eax
+    1548:	mov    %al,%cl
+    154a:	mov    -0x10(%rbp),%rax
+    154e:	mov    %cl,(%rax)
+    1550:	mov    -0x4(%rbp),%eax
+    1553:	and    $0x3f,%eax
+    1556:	or     $0x80,%eax
+    155b:	mov    %al,%cl
+    155d:	mov    -0x10(%rbp),%rax
+    1561:	mov    %cl,0x1(%rax)
+    1564:	mov    -0x10(%rbp),%rax
+    1568:	movb   $0x0,0x2(%rax)
+    156c:	jmp    1651 <Utf32toUtf8+0x151>
+    1571:	cmpl   $0x10000,-0x4(%rbp)
+    1578:	jae    15c9 <Utf32toUtf8+0xc9>
+    157e:	mov    -0x4(%rbp),%eax
+    1581:	shr    $0xc,%eax
+    1584:	or     $0xe0,%eax
+    1589:	mov    %al,%cl
+    158b:	mov    -0x10(%rbp),%rax
+    158f:	mov    %cl,(%rax)
+    1591:	mov    -0x4(%rbp),%eax
+    1594:	shr    $0x6,%eax
+    1597:	and    $0x3f,%eax
+    159a:	or     $0x80,%eax
+    159f:	mov    %al,%cl
+    15a1:	mov    -0x10(%rbp),%rax
+    15a5:	mov    %cl,0x1(%rax)
+    15a8:	mov    -0x4(%rbp),%eax
+    15ab:	and    $0x3f,%eax
+    15ae:	or     $0x80,%eax
+    15b3:	mov    %al,%cl
+    15b5:	mov    -0x10(%rbp),%rax
+    15b9:	mov    %cl,0x2(%rax)
+    15bc:	mov    -0x10(%rbp),%rax
+    15c0:	movb   $0x0,0x3(%rax)
+    15c4:	jmp    164c <Utf32toUtf8+0x14c>
+    15c9:	cmpl   $0x200000,-0x4(%rbp)
+    15d0:	jae    1638 <Utf32toUtf8+0x138>
+    15d6:	mov    -0x4(%rbp),%eax
+    15d9:	shr    $0x12,%eax
+    15dc:	or     $0xf0,%eax
+    15e1:	mov    %al,%cl
+    15e3:	mov    -0x10(%rbp),%rax
+    15e7:	mov    %cl,(%rax)
+    15e9:	mov    -0x4(%rbp),%eax
+    15ec:	shr    $0xc,%eax
+    15ef:	and    $0x3f,%eax
+    15f2:	or     $0x80,%eax
+    15f7:	mov    %al,%cl
+    15f9:	mov    -0x10(%rbp),%rax
+    15fd:	mov    %cl,0x1(%rax)
+    1600:	mov    -0x4(%rbp),%eax
+    1603:	shr    $0x6,%eax
+    1606:	and    $0x3f,%eax
+    1609:	or     $0x80,%eax
+    160e:	mov    %al,%cl
+    1610:	mov    -0x10(%rbp),%rax
+    1614:	mov    %cl,0x2(%rax)
+    1617:	mov    -0x4(%rbp),%eax
+    161a:	and    $0x3f,%eax
+    161d:	or     $0x80,%eax
+    1622:	mov    %al,%cl
+    1624:	mov    -0x10(%rbp),%rax
+    1628:	mov    %cl,0x3(%rax)
+    162b:	mov    -0x10(%rbp),%rax
+    162f:	movb   $0x0,0x4(%rax)
+    1633:	jmp    1647 <Utf32toUtf8+0x147>
+    1638:	mov    -0x10(%rbp),%rax
+    163c:	movb   $0x3f,(%rax)
+    163f:	mov    -0x10(%rbp),%rax
+    1643:	movb   $0x0,0x1(%rax)
+    1647:	jmp    164c <Utf32toUtf8+0x14c>
+    164c:	jmp    1651 <Utf32toUtf8+0x151>
+    1651:	jmp    1656 <Utf32toUtf8+0x156>
+    1656:	pop    %rbp
+    1657:	ret
+
+Disassembly of section .fini:

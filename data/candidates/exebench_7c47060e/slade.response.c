@@ -1,0 +1,1 @@
+void array_test_fail2(void *buf, unsigned int count) { ((int*)buf)[5] = 0; }

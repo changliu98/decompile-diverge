@@ -1,0 +1,1 @@
+char *strset(char *str, int c) { char *p = str; while (*p) *p++ = c; return str; }

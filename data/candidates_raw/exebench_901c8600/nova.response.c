@@ -1,0 +1,1 @@
+static void func0(double *p, double t) { *p = 1.0; }

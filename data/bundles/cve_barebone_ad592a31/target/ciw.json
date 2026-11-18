@@ -1,0 +1,358 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+bf], rdi\nmov     [rbp+bin_obj], rsi\nmov     [rbp+buf], rdx\nmov     [rbp+loadaddr], rcx\nmov     [rbp+sdb], r8\nmov     edi, 1; nmemb\nmov     esi, 78h ; 'x'; size\ncall    calloc\nmov     [rbp+cache], rax\nmov     rax, [rbp+cache]\nmov     ecx, cs:dword_30B3\nmov     [rax], ecx\nmov     cx, cs:word_30B7\nmov     [rax+4], cx\nmov     cl, cs:byte_30B9\nmov     [rax+6], cl\nmov     rdi, [rbp+buf]; b\ncall    r_buf_ref\nmov     rcx, rax\nmov     rax, [rbp+cache]\nmov     [rax+40h], rcx\nmov     rdi, [rbp+cache]; cache\ncall    populate_cache_headers\nmov     rax, [rbp+cache]\ncmp     qword ptr [rax+8], 0\njnz     loc_14FD\nmov     rdi, [rbp+cache]; cache\ncall    r_dyldcache_free\nmov     [rbp+var_1], 0\njmp     loc_164C\nmov     rdi, [rbp+cache]; cache\ncall    populate_cache_maps\nmov     rax, [rbp+cache]\ncmp     qword ptr [rax+28h], 0\njnz     loc_1527\nmov     rdi, [rbp+cache]; cache\ncall    r_dyldcache_free\nmov     [rbp+var_1], 0\njmp     loc_164C\nmov     rax, [rbp+cache]\nmov     rdi, [rax+40h]; cache_buf\nmov     rax, [rbp+cache]\nmov     rsi, [rax+8]; hdr\nmov     rax, [rbp+cache]\nmov     rdx, [rax+28h]; maps\ncall    read_cache_accel\nmov     rcx, rax\nmov     rax, [rbp+cache]\nmov     [rax+58h], rcx\nmov     rdi, [rbp+bf]; bf\nmov     rsi, [rbp+cache]; cache\ncall    create_cache_bins\nmov     rcx, rax\nmov     rax, [rbp+cache]\nmov     [rax+38h], rcx\nmov     rax, [rbp+cache]\ncmp     qword ptr [rax+38h], 0\njnz     loc_1588\nmov     rdi, [rbp+cache]; cache\ncall    r_dyldcache_free\nmov     [rbp+var_1], 0\njmp     loc_164C\nmov     rdi, [rbp+cache]; cache\ncall    r_dyld_locsym_new\nmov     rcx, rax\nmov     rax, [rbp+cache]\nmov     [rax+60h], rcx\nmov     rdi, [rbp+bf]; bf\nmov     rsi, [rbp+cache]; cache\ncall    get_rebase_infos\nmov     rcx, rax\nmov     rax, [rbp+cache]\nmov     [rax+50h], rcx\nmov     rax, [rbp+cache]\ncmp     qword ptr [rax+50h], 0\njz      loc_163D\nmov     rdi, [rbp+cache]; cache\ncall    rebase_infos_get_slide\ncmp     rax, 0\njnz     loc_1638\ncmp     cs:pending_bin_files, 0\njnz     loc_1615\ncall    r_list_new\nmov     cs:pending_bin_files, rax\ncmp     cs:pending_bin_files, 0\njnz     loc_1610\nmov     rdi, [rbp+cache]; cache\ncall    r_dyldcache_free\nmov     [rbp+var_1], 0\njmp     loc_164C\njmp     $+5\nmov     rdi, cs:pending_bin_files; list\nmov     rsi, [rbp+bf]; data\ncall    _ZN4chip14BindingManager40RegisterBoundDeviceContextReleaseHandlerEPFvPvE; chip::BindingManager::RegisterBoundDeviceContextReleaseHandler(void (*)(void *))\nmov     rdi, [rbp+cache]; cache\nmov     rax, [rbp+bf]\nmov     rax, [rax]\nmov     rsi, [rax]; io\ncall    swizzle_io_read\njmp     $+5\nmov     rcx, [rbp+cache]\nmov     rax, [rbp+bin_obj]\nmov     [rax], rcx\nmov     [rbp+var_1], 1\nmov     al, [rbp+var_1]\nand     al, 1\nmovzx   eax, al\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 16,
+  "edges": [
+   [
+    "start",
+    "loc_14EB"
+   ],
+   [
+    "start",
+    "loc_14FD"
+   ],
+   [
+    "loc_14EB",
+    "loc_164C"
+   ],
+   [
+    "loc_14FD",
+    "loc_1515"
+   ],
+   [
+    "loc_14FD",
+    "loc_1527"
+   ],
+   [
+    "loc_1515",
+    "loc_164C"
+   ],
+   [
+    "loc_1527",
+    "loc_1576"
+   ],
+   [
+    "loc_1527",
+    "loc_1588"
+   ],
+   [
+    "loc_1576",
+    "loc_164C"
+   ],
+   [
+    "loc_1588",
+    "loc_15C3"
+   ],
+   [
+    "loc_1588",
+    "loc_163D"
+   ],
+   [
+    "loc_15C3",
+    "loc_15D6"
+   ],
+   [
+    "loc_15C3",
+    "loc_1638"
+   ],
+   [
+    "loc_15D6",
+    "loc_15E4"
+   ],
+   [
+    "loc_15D6",
+    "loc_1615"
+   ],
+   [
+    "loc_15E4",
+    "loc_15FE"
+   ],
+   [
+    "loc_15E4",
+    "loc_1610"
+   ],
+   [
+    "loc_15FE",
+    "loc_164C"
+   ],
+   [
+    "loc_1610",
+    "loc_1615"
+   ],
+   [
+    "loc_1615",
+    "loc_1638"
+   ],
+   [
+    "loc_1638",
+    "loc_163D"
+   ],
+   [
+    "loc_163D",
+    "loc_164C"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+bf], rdi\nmov     [rbp+bin_obj], rsi\nmov     [rbp+buf], rdx\nmov     [rbp+loadaddr], rcx\nmov     [rbp+sdb], r8\nmov     edi, 1; nmemb\nmov     esi, 78h ; 'x'; size\ncall    calloc\nmov     [rbp+cache], rax\nmov     rax, [rbp+cache]\nmov     ecx, cs:dword_30B3\nmov     [rax], ecx\nmov     cx, cs:word_30B7\nmov     [rax+4], cx\nmov     cl, cs:byte_30B9\nmov     [rax+6], cl\nmov     rdi, [rbp+buf]; b\ncall    r_buf_ref\nmov     rcx, rax\nmov     rax, [rbp+cache]\nmov     [rax+40h], rcx\nmov     rdi, [rbp+cache]; cache\ncall    populate_cache_headers\nmov     rax, [rbp+cache]\ncmp     qword ptr [rax+8], 0\njnz     loc_14FD",
+   "loc_14EB": "mov     rdi, [rbp+cache]; cache\ncall    r_dyldcache_free\nmov     [rbp+var_1], 0\njmp     loc_164C",
+   "loc_14FD": "mov     rdi, [rbp+cache]; cache\ncall    populate_cache_maps\nmov     rax, [rbp+cache]\ncmp     qword ptr [rax+28h], 0\njnz     loc_1527",
+   "loc_1515": "mov     rdi, [rbp+cache]; cache\ncall    r_dyldcache_free\nmov     [rbp+var_1], 0\njmp     loc_164C",
+   "loc_1527": "mov     rax, [rbp+cache]\nmov     rdi, [rax+40h]; cache_buf\nmov     rax, [rbp+cache]\nmov     rsi, [rax+8]; hdr\nmov     rax, [rbp+cache]\nmov     rdx, [rax+28h]; maps\ncall    read_cache_accel\nmov     rcx, rax\nmov     rax, [rbp+cache]\nmov     [rax+58h], rcx\nmov     rdi, [rbp+bf]; bf\nmov     rsi, [rbp+cache]; cache\ncall    create_cache_bins\nmov     rcx, rax\nmov     rax, [rbp+cache]\nmov     [rax+38h], rcx\nmov     rax, [rbp+cache]\ncmp     qword ptr [rax+38h], 0\njnz     loc_1588",
+   "loc_1576": "mov     rdi, [rbp+cache]; cache\ncall    r_dyldcache_free\nmov     [rbp+var_1], 0\njmp     loc_164C",
+   "loc_1588": "mov     rdi, [rbp+cache]; cache\ncall    r_dyld_locsym_new\nmov     rcx, rax\nmov     rax, [rbp+cache]\nmov     [rax+60h], rcx\nmov     rdi, [rbp+bf]; bf\nmov     rsi, [rbp+cache]; cache\ncall    get_rebase_infos\nmov     rcx, rax\nmov     rax, [rbp+cache]\nmov     [rax+50h], rcx\nmov     rax, [rbp+cache]\ncmp     qword ptr [rax+50h], 0\njz      loc_163D",
+   "loc_15C3": "mov     rdi, [rbp+cache]; cache\ncall    rebase_infos_get_slide\ncmp     rax, 0\njnz     loc_1638",
+   "loc_15D6": "cmp     cs:pending_bin_files, 0\njnz     loc_1615",
+   "loc_15E4": "call    r_list_new\nmov     cs:pending_bin_files, rax\ncmp     cs:pending_bin_files, 0\njnz     loc_1610",
+   "loc_15FE": "mov     rdi, [rbp+cache]; cache\ncall    r_dyldcache_free\nmov     [rbp+var_1], 0\njmp     loc_164C",
+   "loc_1610": "jmp     $+5",
+   "loc_1615": "mov     rdi, cs:pending_bin_files; list\nmov     rsi, [rbp+bf]; data\ncall    _ZN4chip14BindingManager40RegisterBoundDeviceContextReleaseHandlerEPFvPvE; chip::BindingManager::RegisterBoundDeviceContextReleaseHandler(void (*)(void *))\nmov     rdi, [rbp+cache]; cache\nmov     rax, [rbp+bf]\nmov     rax, [rax]\nmov     rsi, [rax]; io\ncall    swizzle_io_read",
+   "loc_1638": "jmp     $+5",
+   "loc_163D": "mov     rcx, [rbp+cache]\nmov     rax, [rbp+bin_obj]\nmov     [rax], rcx\nmov     [rbp+var_1], 1",
+   "loc_164C": "mov     al, [rbp+var_1]\nand     al, 1\nmovzx   eax, al\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "cache": "qword ptr -38h",
+   "sdb": "qword ptr -30h",
+   "loadaddr": "qword ptr -28h",
+   "buf": "qword ptr -20h",
+   "bin_obj": "qword ptr -18h",
+   "bf": "qword ptr -10h",
+   "var_1": "byte ptr -1"
+  },
+  ".rodata": {
+   "dword_30B3": "dword 646C7964h",
+   "word_30B7": "word 6163h",
+   "byte_30B9": "byte 63h"
+  },
+  ".data": {},
+  ".bss": {
+   "pending_bin_files": "[]"
+  }
+ },
+ "func_ea": 5232,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".rewind": "rewind",
+  "_rewind": "rewind",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".strtol": "strtol",
+  "_strtol": "strtol",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".rewind",
+   ".plt",
+   true,
+   "rewind"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".strtol",
+   ".plt",
+   true,
+   "strtol"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "rewind",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strtol",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868482
+ }
+}

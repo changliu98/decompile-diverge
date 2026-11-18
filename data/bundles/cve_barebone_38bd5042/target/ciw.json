@@ -1,0 +1,331 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 9480h\nmov     [rbp+avcc], rdi\nmov     [rbp+vui_info], rsi\nmov     [rbp+orig], 0\nlea     rdi, [rbp+avc]; s\nxor     esi, esi; c\nmov     edx, 9438h; n\ncall    memset\nmov     [rbp+avc.sps_active_idx], 0FFh\nmov     [rbp+i], 0\nmov     rax, [rbp+avcc]\nmov     rdi, [rax+8]; ptr\nlea     rsi, [rbp+i]; pos\ncall    gf_list_enum\nmov     [rbp+slc], rax\ncmp     rax, 0\njz      loc_173A\nmov     [rbp+no_emulation_buf], 0\nmov     [rbp+no_emulation_buf_size], 0\nmov     [rbp+emulation_bytes], 0\nmov     rax, [rbp+slc]\nmov     rdi, [rax+8]; sps_data\nmov     rax, [rbp+slc]\nmovzx   esi, word ptr [rax]; sps_size\nlea     rdx, [rbp+avc]; avc\nxor     ecx, ecx; subseq_sps\nlea     r8, [rbp+bit_offset]; vui_flag_pos\ncall    gf_avc_read_sps\nmov     [rbp+idx], eax\ncmp     [rbp+idx], 0\njge     loc_14D9\ncmp     [rbp+orig], 0\njz      loc_14D4\nmov     rdi, [rbp+orig]; bs\ncall    gf_bs_del\njmp     loc_143F\nmov     rax, [rbp+slc]\nmovzx   eax, word ptr [rax]\nsub     eax, 1\nmovsxd  rdi, eax\nshl     rdi, 0; size\ncall    gf_malloc\nmov     [rbp+no_emulation_buf], rax\nmov     rax, [rbp+slc]\nmov     rdi, [rax+8]\nadd     rdi, 1; buffer_src\nmov     rsi, [rbp+no_emulation_buf]; buffer_dst\nmov     rax, [rbp+slc]\nmovzx   edx, word ptr [rax]\nsub     edx, 1; nal_size\ncall    gf_media_nalu_remove_emulation_bytes\nmov     [rbp+no_emulation_buf_size], eax\nmov     rdi, [rbp+no_emulation_buf]; buffer\nmov     eax, [rbp+no_emulation_buf_size]\nmov     esi, eax; size\nxor     edx, edx; mode\ncall    gf_bs_new\nmov     [rbp+orig], rax\nmov     rdi, [rbp+orig]; bs\nmov     rsi, [rbp+no_emulation_buf]; data\nmov     edx, [rbp+no_emulation_buf_size]; nbBytes\ncall    gf_bs_read_data\nmov     rdi, [rbp+orig]; bs\nxor     eax, eax\nmov     esi, eax; offset\ncall    gf_bs_seek\nxor     eax, eax\nmov     esi, eax; size\nmov     edx, 1; mode\nmov     rdi, rsi; buffer\ncall    gf_bs_new\nmov     [rbp+mod], rax\ncmp     [rbp+bit_offset], 8\njb      loc_158B\njmp     loc_15AA\nlea     rdi, assertion; \"bit_offset >= 8\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 186h; line\nlea     rcx, function; \"GF_Err gf_avc_change_vui(GF_AVCConfig *\"...\ncall    ___assert_fail\njmp     $+5\nmov     eax, [rbp+bit_offset]\nsub     eax, 8\ncmp     eax, 0\njz      loc_15FD\nmov     rdi, [rbp+orig]; bs\nmov     esi, 1; nBits\ncall    gf_bs_read_int\nmov     [rbp+flag], eax\nmov     rdi, [rbp+mod]; bs\nmov     esi, [rbp+flag]; value\nmov     edx, 1; nBits\ncall    gf_bs_write_int\nmov     eax, [rbp+bit_offset]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+bit_offset], eax\njmp     loc_15AF\nmov     rdi, [rbp+vui_info]; vui_info\nmov     rsi, [rbp+orig]; orig\nmov     rdx, [rbp+mod]; mod\nmov     ecx, 21h ; '!'; codec\ncall    avc_hevc_vvc_rewrite_vui\nmov     rdi, [rbp+orig]; bs\ncall    gf_bs_bits_available\ncmp     al, 0\njz      loc_1651\nmov     rdi, [rbp+orig]; bs\nmov     esi, 1; nBits\ncall    gf_bs_read_int\nmov     [rbp+flag], eax\nmov     rdi, [rbp+mod]; bs\nmov     esi, [rbp+flag]; value\nmov     edx, 1; nBits\ncall    gf_bs_write_int\njmp     loc_1613\nmov     rdi, [rbp+orig]; bs\ncall    gf_bs_del\nmov     [rbp+orig], 0\nmov     rdi, [rbp+no_emulation_buf]; ptr\ncall    gf_free\nmov     rdi, [rbp+mod]; bs\nlea     rsi, [rbp+no_emulation_buf]; output\nlea     rdx, [rbp+flag]; outSize\ncall    gf_bs_get_content\nmov     rdi, [rbp+no_emulation_buf]; buffer\nmov     esi, [rbp+flag]; nal_size\ncall    gf_media_nalu_emulation_bytes_add_count\nmov     [rbp+emulation_bytes], eax\nmov     eax, [rbp+flag]\nadd     eax, [rbp+emulation_bytes]\nadd     eax, 1\nmov     rcx, [rbp+slc]\nmovzx   ecx, word ptr [rcx]\ncmp     eax, ecx\njbe     loc_16EF\nmov     rax, [rbp+slc]\nmov     rdi, [rax+8]; ptr\nmov     eax, [rbp+flag]\nadd     eax, [rbp+emulation_bytes]\nadd     eax, 1\nmov     eax, eax\nmov     esi, eax; size\ncall    _ZN4chip14BindingManager40RegisterBoundDeviceContextReleaseHandlerEPFvPvE; chip::BindingManager::RegisterBoundDeviceContextReleaseHandler(void (*)(void *))\nmov     rcx, rax\nmov     rax, [rbp+slc]\nmov     [rax+8], rcx\nmov     rdi, [rbp+no_emulation_buf]; buffer_src\nmov     rax, [rbp+slc]\nmov     rsi, [rax+8]\nadd     rsi, 1; buffer_dst\nmov     edx, [rbp+flag]; nal_size\ncall    gf_media_nalu_add_emulation_bytes\nadd     eax, 1\nmov     cx, ax\nmov     rax, [rbp+slc]\nmov     [rax], cx\nmov     rdi, [rbp+mod]; bs\ncall    gf_bs_del\nmov     rdi, [rbp+no_emulation_buf]; ptr\ncall    gf_free\njmp     loc_143F\nxor     eax, eax\nadd     rsp, 9480h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 19,
+  "edges": [
+   [
+    "start",
+    "loc_143F"
+   ],
+   [
+    "loc_143F",
+    "loc_1464"
+   ],
+   [
+    "loc_143F",
+    "loc_173A"
+   ],
+   [
+    "loc_1464",
+    "loc_14C0"
+   ],
+   [
+    "loc_1464",
+    "loc_14D9"
+   ],
+   [
+    "loc_14C0",
+    "loc_14CB"
+   ],
+   [
+    "loc_14C0",
+    "loc_14D4"
+   ],
+   [
+    "loc_14CB",
+    "loc_14D4"
+   ],
+   [
+    "loc_14D4",
+    "loc_143F"
+   ],
+   [
+    "loc_14D9",
+    "loc_1586"
+   ],
+   [
+    "loc_14D9",
+    "loc_158B"
+   ],
+   [
+    "loc_1586",
+    "loc_15AA"
+   ],
+   [
+    "loc_15AA",
+    "loc_15AF"
+   ],
+   [
+    "loc_15AF",
+    "loc_15C1"
+   ],
+   [
+    "loc_15AF",
+    "loc_15FD"
+   ],
+   [
+    "loc_15C1",
+    "loc_15AF"
+   ],
+   [
+    "loc_15FD",
+    "loc_1613"
+   ],
+   [
+    "loc_1613",
+    "loc_1624"
+   ],
+   [
+    "loc_1613",
+    "loc_1651"
+   ],
+   [
+    "loc_1624",
+    "loc_1613"
+   ],
+   [
+    "loc_1651",
+    "loc_16BE"
+   ],
+   [
+    "loc_1651",
+    "loc_16EF"
+   ],
+   [
+    "loc_16BE",
+    "loc_16EF"
+   ],
+   [
+    "loc_16EF",
+    "loc_143F"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 9480h\nmov     [rbp+avcc], rdi\nmov     [rbp+vui_info], rsi\nmov     [rbp+orig], 0\nlea     rdi, [rbp+avc]; s\nxor     esi, esi; c\nmov     edx, 9438h; n\ncall    memset\nmov     [rbp+avc.sps_active_idx], 0FFh\nmov     [rbp+i], 0",
+   "loc_143F": "mov     rax, [rbp+avcc]\nmov     rdi, [rax+8]; ptr\nlea     rsi, [rbp+i]; pos\ncall    gf_list_enum\nmov     [rbp+slc], rax\ncmp     rax, 0\njz      loc_173A",
+   "loc_1464": "mov     [rbp+no_emulation_buf], 0\nmov     [rbp+no_emulation_buf_size], 0\nmov     [rbp+emulation_bytes], 0\nmov     rax, [rbp+slc]\nmov     rdi, [rax+8]; sps_data\nmov     rax, [rbp+slc]\nmovzx   esi, word ptr [rax]; sps_size\nlea     rdx, [rbp+avc]; avc\nxor     ecx, ecx; subseq_sps\nlea     r8, [rbp+bit_offset]; vui_flag_pos\ncall    gf_avc_read_sps\nmov     [rbp+idx], eax\ncmp     [rbp+idx], 0\njge     loc_14D9",
+   "loc_14C0": "cmp     [rbp+orig], 0\njz      loc_14D4",
+   "loc_14CB": "mov     rdi, [rbp+orig]; bs\ncall    gf_bs_del",
+   "loc_14D4": "jmp     loc_143F",
+   "loc_14D9": "mov     rax, [rbp+slc]\nmovzx   eax, word ptr [rax]\nsub     eax, 1\nmovsxd  rdi, eax\nshl     rdi, 0; size\ncall    gf_malloc\nmov     [rbp+no_emulation_buf], rax\nmov     rax, [rbp+slc]\nmov     rdi, [rax+8]\nadd     rdi, 1; buffer_src\nmov     rsi, [rbp+no_emulation_buf]; buffer_dst\nmov     rax, [rbp+slc]\nmovzx   edx, word ptr [rax]\nsub     edx, 1; nal_size\ncall    gf_media_nalu_remove_emulation_bytes\nmov     [rbp+no_emulation_buf_size], eax\nmov     rdi, [rbp+no_emulation_buf]; buffer\nmov     eax, [rbp+no_emulation_buf_size]\nmov     esi, eax; size\nxor     edx, edx; mode\ncall    gf_bs_new\nmov     [rbp+orig], rax\nmov     rdi, [rbp+orig]; bs\nmov     rsi, [rbp+no_emulation_buf]; data\nmov     edx, [rbp+no_emulation_buf_size]; nbBytes\ncall    gf_bs_read_data\nmov     rdi, [rbp+orig]; bs\nxor     eax, eax\nmov     esi, eax; offset\ncall    gf_bs_seek\nxor     eax, eax\nmov     esi, eax; size\nmov     edx, 1; mode\nmov     rdi, rsi; buffer\ncall    gf_bs_new\nmov     [rbp+mod], rax\ncmp     [rbp+bit_offset], 8\njb      loc_158B",
+   "loc_1586": "jmp     loc_15AA",
+   "loc_158B": "lea     rdi, assertion; \"bit_offset >= 8\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 186h; line\nlea     rcx, function; \"GF_Err gf_avc_change_vui(GF_AVCConfig *\"...\ncall    ___assert_fail",
+   "loc_15AA": "jmp     $+5",
+   "loc_15AF": "mov     eax, [rbp+bit_offset]\nsub     eax, 8\ncmp     eax, 0\njz      loc_15FD",
+   "loc_15C1": "mov     rdi, [rbp+orig]; bs\nmov     esi, 1; nBits\ncall    gf_bs_read_int\nmov     [rbp+flag], eax\nmov     rdi, [rbp+mod]; bs\nmov     esi, [rbp+flag]; value\nmov     edx, 1; nBits\ncall    gf_bs_write_int\nmov     eax, [rbp+bit_offset]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+bit_offset], eax\njmp     loc_15AF",
+   "loc_15FD": "mov     rdi, [rbp+vui_info]; vui_info\nmov     rsi, [rbp+orig]; orig\nmov     rdx, [rbp+mod]; mod\nmov     ecx, 21h ; '!'; codec\ncall    avc_hevc_vvc_rewrite_vui",
+   "loc_1613": "mov     rdi, [rbp+orig]; bs\ncall    gf_bs_bits_available\ncmp     al, 0\njz      loc_1651",
+   "loc_1624": "mov     rdi, [rbp+orig]; bs\nmov     esi, 1; nBits\ncall    gf_bs_read_int\nmov     [rbp+flag], eax\nmov     rdi, [rbp+mod]; bs\nmov     esi, [rbp+flag]; value\nmov     edx, 1; nBits\ncall    gf_bs_write_int\njmp     loc_1613",
+   "loc_1651": "mov     rdi, [rbp+orig]; bs\ncall    gf_bs_del\nmov     [rbp+orig], 0\nmov     rdi, [rbp+no_emulation_buf]; ptr\ncall    gf_free\nmov     rdi, [rbp+mod]; bs\nlea     rsi, [rbp+no_emulation_buf]; output\nlea     rdx, [rbp+flag]; outSize\ncall    gf_bs_get_content\nmov     rdi, [rbp+no_emulation_buf]; buffer\nmov     esi, [rbp+flag]; nal_size\ncall    gf_media_nalu_emulation_bytes_add_count\nmov     [rbp+emulation_bytes], eax\nmov     eax, [rbp+flag]\nadd     eax, [rbp+emulation_bytes]\nadd     eax, 1\nmov     rcx, [rbp+slc]\nmovzx   ecx, word ptr [rcx]\ncmp     eax, ecx\njbe     loc_16EF",
+   "loc_16BE": "mov     rax, [rbp+slc]\nmov     rdi, [rax+8]; ptr\nmov     eax, [rbp+flag]\nadd     eax, [rbp+emulation_bytes]\nadd     eax, 1\nmov     eax, eax\nmov     esi, eax; size\ncall    _ZN4chip14BindingManager40RegisterBoundDeviceContextReleaseHandlerEPFvPvE; chip::BindingManager::RegisterBoundDeviceContextReleaseHandler(void (*)(void *))\nmov     rcx, rax\nmov     rax, [rbp+slc]\nmov     [rax+8], rcx",
+   "loc_16EF": "mov     rdi, [rbp+no_emulation_buf]; buffer_src\nmov     rax, [rbp+slc]\nmov     rsi, [rax+8]\nadd     rsi, 1; buffer_dst\nmov     edx, [rbp+flag]; nal_size\ncall    gf_media_nalu_add_emulation_bytes\nadd     eax, 1\nmov     cx, ax\nmov     rax, [rbp+slc]\nmov     [rax], cx\nmov     rdi, [rbp+mod]; bs\ncall    gf_bs_del\nmov     rdi, [rbp+no_emulation_buf]; ptr\ncall    gf_free\njmp     loc_143F",
+   "loc_173A": "xor     eax, eax\nadd     rsp, 9480h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "emulation_bytes": "dword ptr -9480h",
+   "no_emulation_buf_size": "dword ptr -947Ch",
+   "no_emulation_buf": "qword ptr -9478h",
+   "slc": "qword ptr -9470h",
+   "idx": "dword ptr -9468h",
+   "flag": "dword ptr -9464h",
+   "bit_offset": "dword ptr -9460h",
+   "i": "dword ptr -945Ch",
+   "avc": "AVCState ptr -9458h",
+   "mod": "qword ptr -20h",
+   "orig": "qword ptr -18h",
+   "vui_info": "qword ptr -10h",
+   "avcc": "qword ptr -8"
+  },
+  ".rodata": {
+   "assertion": "byte 'bit_offset >= 8',0",
+   "file": "byte 'harness.c',0",
+   "function": "byte 'GF_Err gf_avc_change_vui(GF_AVCConfig *, GF_VUIInfo *)',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5120,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868457
+ }
+}

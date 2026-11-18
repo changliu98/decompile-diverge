@@ -1,0 +1,1 @@
+void putoct(char *p, unsigned short val) { char *q; q = p + 7; *q = '\0'; q--; *q = ' '; *--q = '0' + (val & 7); while (q != p) { val >>= 3; *--q = val ? '0' + (val & 7) : ' '; } }

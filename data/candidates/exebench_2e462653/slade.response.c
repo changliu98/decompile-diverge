@@ -1,0 +1,1 @@
+int str_linecount(const char *s, int max, int *linecount) { int count = 1; while (*s) { if (*s == '\n') { count++; *linecount = 0; } else { (*linecount)++; if (*linecount >= max) { count++; *linecount = 0; } } s++; } return count; }

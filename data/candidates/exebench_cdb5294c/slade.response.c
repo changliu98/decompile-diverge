@@ -1,0 +1,1 @@
+void int2str(int value, int base, char *buffer) { char *ptr = buffer; while (base) { int digit = (value / base) % 10; *buffer++ = '0' + digit; base /= 10; } *buffer = '\0'; }

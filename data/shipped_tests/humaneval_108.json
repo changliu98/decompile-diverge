@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n#include <stdlib.h>\n\nint func0(int *n, int size) {\n    int num = 0;\n    for (int i = 0; i < size; i++) {\n        if (n[i] > 0) {\n            num += 1;\n        } else {\n            int sum = 0;\n            int w = abs(n[i]);\n            while (w >= 10) {\n                sum += w % 10;\n                w = w / 10;\n            }\n            sum -= w;\n            if (sum > 0) num += 1;\n        }\n    }\n    return num;\n}",
+ "c_test": "#include <assert.h>\n\nint main() {\n    assert(func0((const int[]){}, 0) == 0);\n    assert(func0((const int[]){-1, -2, 0}, 3) == 0);\n    assert(func0((const int[]){1, 1, 2, -2, 3, 4, 5}, 7) == 6);\n    assert(func0((const int[]){1, 6, 9, -6, 0, 1, 5}, 7) == 5);\n    assert(func0((const int[]){1, 100, 98, -7, 1, -1}, 6) == 4);\n    assert(func0((const int[]){12, 23, 34, -45, -56, 0}, 6) == 5);\n    assert(func0((const int[]){-0, 1}, 2) == 1);\n    assert(func0((const int[]){1}, 1) == 1);\n\n    return 0;\n}"
+}

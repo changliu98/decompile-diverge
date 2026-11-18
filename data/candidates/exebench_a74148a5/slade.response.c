@@ -1,0 +1,1 @@
+float getUniform(int x, int y, int z, float *xp) { float yp = (float)x* *xp + y; int q = yp/z; yp -= q*z; *xp = yp/z; return *xp; }

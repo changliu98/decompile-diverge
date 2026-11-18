@@ -1,0 +1,308 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+s], rdi\nmov     [rbp+info], rsi\nmov     [rbp+domainLen], 0\nmov     [rbp+usernameLen], 0\nmov     rdi, [rbp+s]; s\nmov     esi, 240h; size\ncall    Stream_EnsureRemainingCapacity\ncmp     eax, 0\njnz     loc_17C3\nmov     [rbp+var_4], 0\njmp     loc_1907\nmov     rdi, [rbp+s]; s\nmov     esi, 1; v\ncall    Stream_Write_UINT16\nmov     rdi, [rbp+s]; s\nmov     esi, 12h; v\ncall    Stream_Write_UINT32\nmov     rdi, [rbp+s]; s\nmov     rax, [rbp+info]\nmov     esi, [rax]; v\ncall    Stream_Write_UINT32\nmov     rax, [rbp+info]\nmov     rdi, [rax+10h]; string\nmov     esi, 100h; maxlen\ncall    strnlen\nmov     [rbp+domainLen], rax\ncmp     [rbp+domainLen], 7FFFFFFFh\njb      loc_181E\nmov     [rbp+var_4], 0\njmp     loc_1907\nmov     rdi, [rbp+s]; s\nmov     rax, [rbp+domainLen]\nadd     rax, 1\nmov     eax, eax\nshl     rax, 1\nmov     esi, eax; v\ncall    Stream_Write_UINT32\nmov     rax, [rbp+info]\nmov     rdi, [rax+8]; string\nmov     esi, 100h; maxlen\ncall    strnlen\nmov     [rbp+usernameLen], rax\ncmp     [rbp+usernameLen], 7FFFFFFFh\njb      loc_1867\nmov     [rbp+var_4], 0\njmp     loc_1907\nmov     rdi, [rbp+s]; s\nmov     rax, [rbp+usernameLen]\nadd     rax, 1\nmov     eax, eax\nshl     rax, 1\nmov     esi, eax; v\ncall    Stream_Write_UINT32\nmov     rdi, [rbp+s]; s\nmov     esi, 22Eh; offset\ncall    Stream_Seek\nmov     rdi, [rbp+s]; s\nmov     rsi, [rbp+domainLen]\nadd     rsi, 1; wcharLength\nmov     rax, [rbp+info]\nmov     rdx, [rax+10h]; src\nmov     rcx, [rbp+domainLen]; length\nmov     r8d, 1; fill\ncall    Stream_Write_UTF16_String_From_UTF8\ncmp     rax, 0\njge     loc_18C7\nmov     [rbp+var_4], 0\njmp     loc_1907\nmov     rdi, [rbp+s]; s\nmov     rsi, [rbp+usernameLen]\nadd     rsi, 1; wcharLength\nmov     rax, [rbp+info]\nmov     rdx, [rax+8]; src\nmov     rcx, [rbp+usernameLen]; length\nmov     r8d, 1; fill\ncall    Stream_Write_UTF16_String_From_UTF8\ncmp     rax, 0\njge     loc_1900\nmov     [rbp+var_4], 0\njmp     loc_1907\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 12,
+  "edges": [
+   [
+    "start",
+    "loc_17B7"
+   ],
+   [
+    "start",
+    "loc_17C3"
+   ],
+   [
+    "loc_17B7",
+    "loc_1907"
+   ],
+   [
+    "loc_17C3",
+    "loc_1812"
+   ],
+   [
+    "loc_17C3",
+    "loc_181E"
+   ],
+   [
+    "loc_1812",
+    "loc_1907"
+   ],
+   [
+    "loc_181E",
+    "loc_185B"
+   ],
+   [
+    "loc_181E",
+    "loc_1867"
+   ],
+   [
+    "loc_185B",
+    "loc_1907"
+   ],
+   [
+    "loc_1867",
+    "loc_18BB"
+   ],
+   [
+    "loc_1867",
+    "loc_18C7"
+   ],
+   [
+    "loc_18BB",
+    "loc_1907"
+   ],
+   [
+    "loc_18C7",
+    "loc_18F4"
+   ],
+   [
+    "loc_18C7",
+    "loc_1900"
+   ],
+   [
+    "loc_18F4",
+    "loc_1907"
+   ],
+   [
+    "loc_1900",
+    "loc_1907"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+s], rdi\nmov     [rbp+info], rsi\nmov     [rbp+domainLen], 0\nmov     [rbp+usernameLen], 0\nmov     rdi, [rbp+s]; s\nmov     esi, 240h; size\ncall    Stream_EnsureRemainingCapacity\ncmp     eax, 0\njnz     loc_17C3",
+   "loc_17B7": "mov     [rbp+var_4], 0\njmp     loc_1907",
+   "loc_17C3": "mov     rdi, [rbp+s]; s\nmov     esi, 1; v\ncall    Stream_Write_UINT16\nmov     rdi, [rbp+s]; s\nmov     esi, 12h; v\ncall    Stream_Write_UINT32\nmov     rdi, [rbp+s]; s\nmov     rax, [rbp+info]\nmov     esi, [rax]; v\ncall    Stream_Write_UINT32\nmov     rax, [rbp+info]\nmov     rdi, [rax+10h]; string\nmov     esi, 100h; maxlen\ncall    strnlen\nmov     [rbp+domainLen], rax\ncmp     [rbp+domainLen], 7FFFFFFFh\njb      loc_181E",
+   "loc_1812": "mov     [rbp+var_4], 0\njmp     loc_1907",
+   "loc_181E": "mov     rdi, [rbp+s]; s\nmov     rax, [rbp+domainLen]\nadd     rax, 1\nmov     eax, eax\nshl     rax, 1\nmov     esi, eax; v\ncall    Stream_Write_UINT32\nmov     rax, [rbp+info]\nmov     rdi, [rax+8]; string\nmov     esi, 100h; maxlen\ncall    strnlen\nmov     [rbp+usernameLen], rax\ncmp     [rbp+usernameLen], 7FFFFFFFh\njb      loc_1867",
+   "loc_185B": "mov     [rbp+var_4], 0\njmp     loc_1907",
+   "loc_1867": "mov     rdi, [rbp+s]; s\nmov     rax, [rbp+usernameLen]\nadd     rax, 1\nmov     eax, eax\nshl     rax, 1\nmov     esi, eax; v\ncall    Stream_Write_UINT32\nmov     rdi, [rbp+s]; s\nmov     esi, 22Eh; offset\ncall    Stream_Seek\nmov     rdi, [rbp+s]; s\nmov     rsi, [rbp+domainLen]\nadd     rsi, 1; wcharLength\nmov     rax, [rbp+info]\nmov     rdx, [rax+10h]; src\nmov     rcx, [rbp+domainLen]; length\nmov     r8d, 1; fill\ncall    Stream_Write_UTF16_String_From_UTF8\ncmp     rax, 0\njge     loc_18C7",
+   "loc_18BB": "mov     [rbp+var_4], 0\njmp     loc_1907",
+   "loc_18C7": "mov     rdi, [rbp+s]; s\nmov     rsi, [rbp+usernameLen]\nadd     rsi, 1; wcharLength\nmov     rax, [rbp+info]\nmov     rdx, [rax+8]; src\nmov     rcx, [rbp+usernameLen]; length\nmov     r8d, 1; fill\ncall    Stream_Write_UTF16_String_From_UTF8\ncmp     rax, 0\njge     loc_1900",
+   "loc_18F4": "mov     [rbp+var_4], 0\njmp     loc_1907",
+   "loc_1900": "mov     [rbp+var_4], 1",
+   "loc_1907": "mov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "usernameLen": "qword ptr -28h",
+   "domainLen": "qword ptr -20h",
+   "info": "qword ptr -18h",
+   "s": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6016,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".strnlen": "strnlen",
+  "_strnlen": "strnlen",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".strnlen",
+   ".plt",
+   true,
+   "strnlen"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strnlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868474
+ }
+}

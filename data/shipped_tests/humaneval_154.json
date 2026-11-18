@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n#include <string.h>\n#include <stdlib.h>\n#include <stdbool.h>\n\nbool func0(const char *a, const char *b) {\n    int len_a = strlen(a);\n    int len_b = strlen(b);\n    char *temp = (char *)malloc(2 * len_b + 1);\n\n    for (int i = 0; i < len_b; i++) {\n        strncpy(temp, b + i, len_b - i);\n        strncpy(temp + len_b - i, b, i);\n        temp[len_b] = '\\0';\n        if (strstr(a, temp)) {\n            free(temp);\n            return true;\n        }\n    }\n\n    free(temp);\n    return false;\n}",
+ "c_test": "#include <assert.h>\n#include <stdbool.h>\n\nint main() {\n    assert(func0(\"xyzw\", \"xyw\") == false);\n    assert(func0(\"yello\", \"ell\") == true);\n    assert(func0(\"whattup\", \"ptut\") == false);\n    assert(func0(\"efef\", \"fee\") == true);\n    assert(func0(\"abab\", \"aabb\") == false);\n    assert(func0(\"winemtt\", \"tinem\") == true);\n\n    return 0;\n}"
+}

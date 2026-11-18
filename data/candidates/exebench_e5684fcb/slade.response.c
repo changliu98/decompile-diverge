@@ -1,0 +1,1 @@
+void * reverse(void * arg) { char *c = (char *) arg; char *p = c; while (*p++) ; for (p--, p--; c<p; c++, p--) *c ^= *p ^= *p ^= *p; return NULL; }

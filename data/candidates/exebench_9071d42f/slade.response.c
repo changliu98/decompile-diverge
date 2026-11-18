@@ -1,0 +1,1 @@
+void cmul(cplxfloat_t *c,const cplxfloat_t a) { double t1,t2; t1 = c[0]*a[0] - c[1]*a[1]; t2 = c[0]*a[1] + c[1]*a[0]; c[0]=t1; c[1]=t2; }

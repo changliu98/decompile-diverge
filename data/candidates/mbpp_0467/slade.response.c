@@ -1,0 +1,1 @@
+uint32_t func0(uint32_t x) { uint32_t y = 0; uint32_t z = 1; while (x) { uint32_t yp = x % 8; y += yp * z; z *= 10; x /= 8; } return y; }

@@ -1,0 +1,1 @@
+float ffvers( union u_ff *ff ) { ff->v.vers.real = 3.141592653589793f; return ff->v.vers; }

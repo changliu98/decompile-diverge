@@ -1,0 +1,1 @@
+void ref_div_float(float *out, float a, float b) { out[0] = a / b; }

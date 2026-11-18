@@ -1,0 +1,1 @@
+void testfunc16(uint32_t a, uint32_t b, uint32_t c, uint32_t d, uint32_t e) { e += 4; e += 40; b = b + 4; *(volatile uint16_t*) b += 100; }

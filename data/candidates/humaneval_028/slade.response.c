@@ -1,0 +1,1 @@
+char *func0(char **argv, int argc) { int len = 0; for (int i = 0; i < argc; i++) { len += strlen(argv[i]); } char *buf = malloc(len + 1); if (buf == NULL) return NULL; buf[0] = '\0'; for (int i = 0; i < argc; i++) { strcat(buf, argv[i]); } return buf; }

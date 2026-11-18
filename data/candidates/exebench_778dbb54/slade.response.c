@@ -1,0 +1,1 @@
+int obdRevConvert_43(float input, int *width, int *height, unsigned char *data, unsigned char *dest) { (void)data; (void)width; (void)data; (void)dest; input = (float)((float)input * 255.0f / 100.0f); *width = (int)input / 256; *height = (int)input % 256; return 2; }

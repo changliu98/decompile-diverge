@@ -1,0 +1,1 @@
+double ran0bis(long *state) { double ran0bis; double ran0bis; ran0bis = (*state)/127773; (*state) = 16807*(*state)-(ran0bis * 127773) - ran0bis*2836; if ((*state) < 0) (*state)+=2147483647; ran0bis = 1.0 / 1000.0 * (*state); return ran0bis; }

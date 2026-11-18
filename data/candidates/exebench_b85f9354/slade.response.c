@@ -1,0 +1,1 @@
+void calculate_crc(unsigned char *byte, unsigned char crc) { *byte ^= crc; }

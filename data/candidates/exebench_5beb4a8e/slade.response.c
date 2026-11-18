@@ -1,0 +1,1 @@
+void poly1305_squeeze(unsigned char s[16], const poly1305_key key[16]) { unsigned i; unsigned long sum = 0; for (i = 0; i < 16; ++i) { sum += key[i]; s[i] = sum &0xff; sum >>= 8; } sum += (unsigned long)key[16 + i]; sum >>= 2; sum += (unsigned long)sum << 2; for (i = 0; i < 16; ++i) { sum += s[i]; s[i] = (unsigned char)sum; sum >>= 8; } s[16] += (unsigned char)sum; }

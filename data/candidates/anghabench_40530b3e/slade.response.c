@@ -1,0 +1,1 @@
+int xen_pcibios_err_to_errno(int err) { switch (err) { case PCI_ERR_SUCCESS: return XEN_PCI_ERR_success; case PCI_ERR_DEVICE_NOT_FOUND: return XEN_PCI_ERR_dev_not_found; case PCI_ERR_INVALID_OFFSET: return XEN_PCI_ERR_invalid_offset; case PCI_ERR_NOT_implemented: return XEN_PCI_ERR_not_implemented; case PCI_ERR_access_denied: return XEN_PCI_ERR_access_denied; } return err; }

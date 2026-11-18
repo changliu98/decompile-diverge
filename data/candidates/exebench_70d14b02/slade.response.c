@@ -1,0 +1,1 @@
+void lib3ds_vector_max(float *c, float *b) { int i; for (i = 0; i < 3; ++i) { if (b[i] > c[i]) { c[i] = b[i]; } } }

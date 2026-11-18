@@ -1,0 +1,1 @@
+char pop(char stack[], int *top) { char value = -1; if(*top < 100 && *top >= 0) { value = stack[*top]; *top -= 1; } return value; }

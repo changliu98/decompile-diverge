@@ -1,0 +1,1 @@
+float SumAFloatArray(FloatArray array) { return array[0] + array[1]; }

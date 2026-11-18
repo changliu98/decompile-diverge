@@ -1,0 +1,1 @@
+char *base91(char *p, int i) { *p++ = 33 + i / 91; *p++ = 33 + i % 91; return p; }

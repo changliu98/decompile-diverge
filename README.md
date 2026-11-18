@@ -1,96 +1,108 @@
-# ddiv
+# Decompile-Diverge: code and data
 
-A standalone adaptation of the Decompile-Diverge oracle from
-[When LLM Decompilers Recompile More and Preserve Less](https://arxiv.org/abs/2609.05370).
+Everything needed to reproduce the paper's differential-testing results, offline, in one Docker
+image: the oracle, 3,089 benchmark functions with their frozen replay inputs, the outputs of all
+11 systems, the tests the established corpora ship, and the paper's verdicts.
 
-`ddiv` uses AFL++ to find behavioral differences between two C programs and saves
-the distinguishing input and both post-states. Each source must contain a `main`
-that calls the function being tested. The framework is Python with a small C
-helper for memory capture.
+| | HumanEval | ExeBench | AnghaBench | MBPP | GitHub | CVE |
+|---|---|---|---|---|---|---|
+| functions | 161 | 1,538 | 215 | 597 | 291 | 287 |
 
-## Quickstart
+Systems: Ghidra, Hex-Rays, LLM4Decompile, SK2Decompile, Idioms, GLM-5.2-Refine, DeGPT-Qwen,
+AutoDecompiler, Nova, SLaDe, GLM-5.2-E2E.
 
-Requires Python 3.9+ and Docker with Linux x86-64 containers. From this checkout:
+## Run
 
-```sh
-python -m pip install .
-docker build -t ddiv:0.1 ddiv
-ddiv 1.c 2.c
+Needs Docker (with permission for `--privileged` containers), Python 3.8+ and about 4 GB of disk.
+
+```bash
+./build_image.sh                     # ddiv-oracle:22.04
+python3 oracle/tables.py             # the paper's tables, from data/expected/
+JOBS=32 ./reproduce.sh               # re-score everything and check against the paper
+SAMPLE=0.2 JOBS=32 ./reproduce.sh    # the same on a random 20% of each group
+LIMIT=5 ./reproduce.sh               # trial run: 5 functions per group
 ```
 
-The sources should be self-contained. Defaults: stdin input, 60 seconds of AFL++
-fuzzing, RNG seed 1337. Try the included example:
+`reproduce.sh` replays each function's frozen inputs on the reference and on every candidate,
+runs the corpora's own tests, re-measures corpus coverage, and compares every outcome with
+`data/expected/`. Nothing is fuzzed and no model is called. A complete run takes about 2.5 hours
+at `JOBS=96` on 128 cores and is resumable. Ours reproduced 99.8% of the paper's verdicts; the
+rest are flips on 23 functions whose reference is not deterministic on one or two inputs.
 
-```sh
-ddiv ddiv/examples/1.c ddiv/examples/2.c --seconds 5
+One function or one step (bundle paths must be absolute):
+
+```bash
+python3 oracle/difffuzz_eval.py "$PWD/data/bundles/cve_barebone_0122e790" --arm identity
+python3 oracle/difffuzz_eval.py "$PWD/data/bundles/cve_barebone_0122e790" --arm glm-e2e
+python3 oracle/difffuzz_eval.py "$PWD/data/bundles/<id>" --cand-file mine.c --arm mine
+python3 oracle/difffuzz_group.py --group cve_barebone --jobs 16
+python3 oracle/shipped_tests.py --groups humaneval --jobs 16
+python3 oracle/coverage.py --jobs 16
+python3 oracle/tables.py --results        # or --compare, --same-functions
 ```
 
-Input `42` produces stdout and global `answer` values of `84` versus `85`.
+## Layout
 
-## Inputs and replay
-
-```sh
-ddiv 1.c 2.c --seeds seeds/ --seconds 300
-ddiv 1.c 2.c --input-mode file   # input-file path in argv[1]
-ddiv 1.c 2.c --input-mode argv   # NUL-separated arguments
-ddiv 1.c 2.c --input previous-run/counterexample/input  # replay without fuzzing
+```
+oracle/                        the oracle, the test-harness ports, the table scripts
+data/bundles/<id>/             one function: reference, decompiler inputs, driver, fuzz seeds
+data/corpus/<id>/              its frozen replay inputs
+data/candidates/<id>/<system>.response.c       each system's output, as scored
+data/candidates_raw/<id>/<system>.response.c   Nova, Idioms, AutoDecompiler: before the rename
+data/shipped_tests/<id>.json   the test the corpus releases with the function
+data/expected/                 the paper's verdicts, test outcomes and coverage (CSV)
+llm_outputs/<system>.jsonl     the nine LLM systems' outputs and verdicts, one line per function
+results/                       written at run time
 ```
 
-`--seconds 0` replays seeds without fuzzing. Use `--timeout` and `--replay-seconds`
-for execution and comparison budgets; `ddiv --help` lists all options.
+## How a verdict is decided
 
-## What is compared
+The candidate replaces the reference function in a self-contained driver. Both programs are
+built with AddressSanitizer and replayed on the same frozen inputs, which AFL++ grew once from
+the reference. The verdict is `DEVIATED` if any input makes them differ, `INTACT` if none does,
+and `BUILD_FAILED` if the candidate does not compile in the driver (no name, type or signature
+is supplied for it). An input is divergent on one of six channels:
 
-AFL++ fuzzes the **first program**. Initial seeds and retained queue, crash, and
-hang inputs are frozen and replayed on both programs. Each gets an ASan/UBSan
-build for faults and a clean build for memory. C compilation and target execution
-run inside Docker with network access disabled.
-
-- Exit status, signals, timeouts, and sanitizer fault kind, access direction, and
-  faulting function; source line numbers are ignored.
-- Exact stdout/stderr and final files in a fresh working directory, on normal exits.
-- Writable globals at normal exit, matched by symbol name, with relocation
-  pointer slots masked to avoid differences caused by linking.
-
-For local values or heap buffers, explicitly observe initialized bytes while valid:
-
-```c
-#include <ddiv.h>
-/* In main, after calling the function under test: */
-DDIV_OBSERVE("result", result);
-ddiv_observe("buffer", buffer, initialized_length);
-```
-
-The last observation for each name is compared. Arbitrary heap, stack, register,
-and thread-local state is not captured automatically; masked pointer targets
-are not compared. `_exit`, crashes, and hangs bypass the global dump.
-
-A difference must reproduce on both programs across four additional runs and a
-final archived replay. The first confirmed counterexample ends the comparison.
-
-## Results
-
-Output defaults to `ddiv-results/<run-id>/`; `--output` selects a new directory.
-It contains `result.json`, the frozen `corpus/`, and, when a difference is found,
-`counterexample/input`, `counterexample/{left,right}.json`, and raw observations.
-`--json` prints the full report.
-
-| Result | Exit code | Meaning |
+| channel | reference | candidate |
 |---|---|---|
-| `DIFFERENT` | 1 | A saved input has a confirmed difference |
-| `NO_DIFFERENCE_FOUND` | 0 | All frozen inputs compared without a difference |
-| `INCONCLUSIVE` | 2 | Unresolved observations, incomplete replay, or failed fuzzing |
-| `BUILD_FAILED` | 2 | A required build failed |
-| `INFRA` | 2 | Infrastructure failure or interrupted run |
+| `vanished_crash` | crashes | does not |
+| `introduced_crash` | does not crash | crashes |
+| `shifted_crash` | crashes | crashes with a different sanitizer report or in a different function |
+| `introduced_hang` | terminates | does not |
+| `exit_code_diff` | exits normally | exits with a different status |
+| `silent_wrong_answer` | exits normally | same status, different output, files or exit state |
 
-`NO_DIFFERENCE_FOUND` is **not a proof of equivalence**: results cover only retained
-inputs and observed state. Save the corpus to replay the same inputs.
+* Exit state is the program's writable globals, including a digest of the return value and
+  output buffers, compared by symbol name. Source lines are never compared.
+* On GitHub and CVE a divergence counts only if both sides reproduce it four times.
+* The reference scored against itself (`--arm identity`) must be `INTACT`. The 32 functions
+  that fail this are not shipped (`MANIFEST.json`).
 
-## Tests
+## Table columns
 
-With pytest installed:
+| column | meaning |
+|---|---|
+| Out | the system returned a candidate |
+| Bld | the candidate compiles in the driver (`INTACT` + `DEVIATED`) |
+| Mat | Matched: `INTACT` |
+| Div | Divergence: `DEVIATED`; on CVE, the `DEVIATED` verdicts that are not C-A |
+| C-A | Crash Absence (CVE): the validated PoC crashes the reference and not the candidate |
+| Pass | (HumanEval, ExeBench, MBPP) the candidate passes every test its corpus ships |
+| Div\|P | of the candidates that Pass and build under the oracle, the share that is `DEVIATED` |
 
-```sh
-python -m pytest -q
-DDIV_E2E=1 python -m pytest -q   # include Docker execution tests
-```
+Pass uses each corpus's released harness, which compiles with gcc/g++. A candidate that does not
+compile verbatim is retried behind declarations for the vocabulary Ghidra and Hex-Rays emit
+(`__cdecl`, `_DWORD`, ...), its own text unchanged.
+
+## Notes
+
+* Nova, Idioms and AutoDecompiler take an input that carries no function name, so their
+  candidates have the target's name restored on the one function they define. Nothing else is
+  changed; the bytes before the rename are in `data/candidates_raw/`.
+* The Idioms and AutoDecompiler outputs are the corrected versions: Idioms with that name
+  restoration, AutoDecompiler regenerated from the IDA listing input its released pipeline uses.
+* To fuzz the corpora again instead of replaying the shipped ones, point `DDIV_CORPUS_ROOT` at
+  an empty directory. A re-grown corpus is not byte-identical, so verdicts can differ.
+* The systems' outputs and the shipped tests are third-party bytes, included verbatim. In
+  ExeBench sources, absolute build paths in preprocessor line markers were cut to the file name.
+* The functions and their upstream code remain under their projects' licenses.

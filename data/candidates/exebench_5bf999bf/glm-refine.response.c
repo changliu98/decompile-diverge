@@ -1,0 +1,4 @@
+void __cdecl clear_bit(int nr, volatile unsigned __int64 *addr)
+{
+    _bittestandreset((long *)addr, nr);
+}

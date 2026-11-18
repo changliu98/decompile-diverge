@@ -1,0 +1,63 @@
+00000000000011d0 <find>:
+    11d0:	push   %rbp
+    11d1:	mov    %rsp,%rbp
+    11d4:	movss  %xmm0,-0x8(%rbp)
+    11d9:	mov    %rdi,-0x10(%rbp)
+    11dd:	mov    %esi,-0x14(%rbp)
+    11e0:	movss  -0x8(%rbp),%xmm1
+    11e5:	mov    -0x10(%rbp),%rax
+    11e9:	movss  (%rax),%xmm0
+    11ed:	ucomiss %xmm1,%xmm0
+    11f0:	jb     1202 <find+0x32>
+    11f6:	movl   $0x0,-0x4(%rbp)
+    11fd:	jmp    12a8 <find+0xd8>
+    1202:	movss  -0x8(%rbp),%xmm0
+    1207:	mov    -0x10(%rbp),%rax
+    120b:	mov    -0x14(%rbp),%ecx
+    120e:	sub    $0x1,%ecx
+    1211:	movslq %ecx,%rcx
+    1214:	ucomiss (%rax,%rcx,4),%xmm0
+    1218:	jb     122c <find+0x5c>
+    121e:	mov    -0x14(%rbp),%eax
+    1221:	sub    $0x1,%eax
+    1224:	mov    %eax,-0x4(%rbp)
+    1227:	jmp    12a8 <find+0xd8>
+    122c:	movl   $0x0,-0x24(%rbp)
+    1233:	movl   $0x1,-0x18(%rbp)
+    123a:	mov    -0x14(%rbp),%eax
+    123d:	mov    %eax,-0x1c(%rbp)
+    1240:	mov    -0x1c(%rbp),%eax
+    1243:	sub    -0x18(%rbp),%eax
+    1246:	mov    %eax,-0x20(%rbp)
+    1249:	cmpl   $0x1,-0x20(%rbp)
+    124d:	jle    129f <find+0xcf>
+    1253:	mov    -0x1c(%rbp),%eax
+    1256:	add    -0x18(%rbp),%eax
+    1259:	mov    $0x2,%ecx
+    125e:	cltd
+    125f:	idiv   %ecx
+    1261:	mov    %eax,-0x24(%rbp)
+    1264:	movss  -0x8(%rbp),%xmm0
+    1269:	mov    -0x10(%rbp),%rax
+    126d:	mov    -0x24(%rbp),%ecx
+    1270:	sub    $0x1,%ecx
+    1273:	movslq %ecx,%rcx
+    1276:	ucomiss (%rax,%rcx,4),%xmm0
+    127a:	jb     128b <find+0xbb>
+    1280:	mov    -0x24(%rbp),%eax
+    1283:	mov    %eax,-0x18(%rbp)
+    1286:	jmp    1291 <find+0xc1>
+    128b:	mov    -0x24(%rbp),%eax
+    128e:	mov    %eax,-0x1c(%rbp)
+    1291:	mov    -0x1c(%rbp),%eax
+    1294:	sub    -0x18(%rbp),%eax
+    1297:	mov    %eax,-0x20(%rbp)
+    129a:	jmp    1249 <find+0x79>
+    129f:	mov    -0x18(%rbp),%eax
+    12a2:	sub    $0x1,%eax
+    12a5:	mov    %eax,-0x4(%rbp)
+    12a8:	mov    -0x4(%rbp),%eax
+    12ab:	pop    %rbp
+    12ac:	ret
+
+Disassembly of section .fini:

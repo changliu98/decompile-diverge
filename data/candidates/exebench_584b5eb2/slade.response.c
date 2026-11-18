@@ -1,0 +1,1 @@
+char *substitute(char *buf, char old, char new) { char *p = buf; if (p) { while (*p) { if (*p == old) { *p = new; break; } p++; } } return buf; }

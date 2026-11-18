@@ -1,0 +1,1 @@
+void int_to_float(float *pval, int *ival) { *pval = (float)*ival; }

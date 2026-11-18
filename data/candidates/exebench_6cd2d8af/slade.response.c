@@ -1,0 +1,1 @@
+int SDL_imageFilterAddByteToHalfMMX(unsigned char *Src, unsigned char *Dest, int rows, unsigned char columns, unsigned long *ByteToHalfMMX) { return -1; }

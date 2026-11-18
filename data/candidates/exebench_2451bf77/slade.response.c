@@ -1,0 +1,1 @@
+void spin_unlock(uint32_t * lock) { *lock = 0; }

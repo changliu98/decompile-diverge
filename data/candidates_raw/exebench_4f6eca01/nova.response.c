@@ -1,0 +1,1 @@
+void func0(char *buf) { buf[5] = '0'; }

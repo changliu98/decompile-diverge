@@ -1,0 +1,1 @@
+char *func0(char *func) { int len = strlen(func); int res = 0; for (int i = 1; i <= len; i++) { res += sprintf(&res[1], "%d", i); } for (int i = len - 1; i > 0; i--) { res += sprintf(&res[1], "%d", i); } res[res] = '\0'; return &res; }

@@ -1,0 +1,1 @@
+bool a_swap(volatile uint32_t *p, uint32_t v) { bool ret; do { ret = *p; } while (!(*p == lockcmpxchgle) ^ 1); return ret; }

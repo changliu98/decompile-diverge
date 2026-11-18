@@ -1,0 +1,287 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <stdio.h>\n\n#include <stddef.h>\n\n#include <assert.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_62szrcmdrr.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(long int* a, long int* b) {\n  json output_json;\n  std::vector<json> output_temp_3;\n  for (unsigned int i4 = 0; i4 < 3; i4++) {\n    long int output_temp_5 = a[i4];\n\n    output_temp_3.push_back(output_temp_5);\n  }\n  output_json[\"a\"] = output_temp_3;\n  std::vector<json> output_temp_6;\n  for (unsigned int i7 = 0; i7 < 3; i7++) {\n    long int output_temp_8 = b[i7];\n\n    output_temp_6.push_back(output_temp_8);\n  }\n  output_json[\"b\"] = output_temp_6;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  std::vector<long int> input_temp_1_vec;\n  for (auto& elem : input_json[\"a\"]) {\n    long int input_temp_1_inner = elem;\n    input_temp_1_vec.push_back(input_temp_1_inner);\n  }\n  long int* a = &input_temp_1_vec[0];\n  std::vector<long int> input_temp_2_vec;\n  for (auto& elem : input_json[\"b\"]) {\n    long int input_temp_2_inner = elem;\n    input_temp_2_vec.push_back(input_temp_2_inner);\n  }\n  long int* b = &input_temp_2_vec[0];\n  clock_t begin = clock();\n  mat_copy_vector_l3(a, b);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(a, b);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "a": [
+     21,
+     41,
+     124
+    ],
+    "b": [
+     14,
+     48,
+     123
+    ]
+   },
+   "output": {
+    "a": [
+     14,
+     48,
+     123
+    ],
+    "b": [
+     14,
+     48,
+     123
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "a": [
+     47,
+     58,
+     80
+    ],
+    "b": [
+     98,
+     105,
+     106
+    ]
+   },
+   "output": {
+    "a": [
+     98,
+     105,
+     106
+    ],
+    "b": [
+     98,
+     105,
+     106
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "a": [
+     67,
+     103,
+     4
+    ],
+    "b": [
+     112,
+     117,
+     99
+    ]
+   },
+   "output": {
+    "a": [
+     112,
+     117,
+     99
+    ],
+    "b": [
+     112,
+     117,
+     99
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "a": [
+     17,
+     99,
+     102
+    ],
+    "b": [
+     125,
+     55,
+     5
+    ]
+   },
+   "output": {
+    "a": [
+     125,
+     55,
+     5
+    ],
+    "b": [
+     125,
+     55,
+     5
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "a": [
+     114,
+     60,
+     114
+    ],
+    "b": [
+     95,
+     20,
+     107
+    ]
+   },
+   "output": {
+    "a": [
+     95,
+     20,
+     107
+    ],
+    "b": [
+     95,
+     20,
+     107
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "a": [
+     1,
+     77,
+     45
+    ],
+    "b": [
+     71,
+     115,
+     77
+    ]
+   },
+   "output": {
+    "a": [
+     71,
+     115,
+     77
+    ],
+    "b": [
+     71,
+     115,
+     77
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "a": [
+     5,
+     63,
+     81
+    ],
+    "b": [
+     65,
+     17,
+     37
+    ]
+   },
+   "output": {
+    "a": [
+     65,
+     17,
+     37
+    ],
+    "b": [
+     65,
+     17,
+     37
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "a": [
+     69,
+     118,
+     2
+    ],
+    "b": [
+     6,
+     36,
+     15
+    ]
+   },
+   "output": {
+    "a": [
+     6,
+     36,
+     15
+    ],
+    "b": [
+     6,
+     36,
+     15
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "a": [
+     95,
+     27,
+     74
+    ],
+    "b": [
+     116,
+     13,
+     49
+    ]
+   },
+   "output": {
+    "a": [
+     116,
+     13,
+     49
+    ],
+    "b": [
+     116,
+     13,
+     49
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "a": [
+     82,
+     23,
+     74
+    ],
+    "b": [
+     93,
+     58,
+     98
+    ]
+   },
+   "output": {
+    "a": [
+     93,
+     58,
+     98
+    ],
+    "b": [
+     93,
+     58,
+     98
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

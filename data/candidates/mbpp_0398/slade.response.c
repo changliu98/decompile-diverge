@@ -1,0 +1,1 @@
+uint32_t func0(const uint8_t *ptr, uint32_t size) { uint32_t sum = 0; for (int i = 0; i < size; i++) { int32_t n = ptr[i]; if (n < 0) n = -n; while (n > 0) { sum += n % 10; n /= 10; } } return sum; }

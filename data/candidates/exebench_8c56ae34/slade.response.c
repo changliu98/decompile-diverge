@@ -1,0 +1,1 @@
+void Reverse(char *p) { int i,j; char temp; i = j = 0; while (p[i] != '\0') i++; i--; if (p[i] == '\n') i--; while (j < i) { temp = p[j]; p[j] = p[i]; p[i] = temp; i--; j++; } }

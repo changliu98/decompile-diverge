@@ -1,0 +1,419 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0B0h\nmov     al, cl\nmov     [rbp+ndo], rdi\nmov     [rbp+opt], rsi\nmov     [rbp+opt_len], edx\nmov     [rbp+flags], al\nmov     rax, [rbp+opt]\nmov     [rbp+mdss], rax\nmov     eax, [rbp+opt_len]\nmov     [rbp+var_2C], eax\nmov     rdi, [rbp+mdss]; m\nmov     esi, 1; csum\ncall    mp_dss_len\nmov     ecx, eax\nmov     eax, [rbp+var_2C]\ncmp     eax, ecx\njz      loc_1502\nmov     eax, [rbp+opt_len]\nmov     [rbp+var_30], eax\nmov     rdi, [rbp+mdss]; m\nxor     esi, esi; csum\ncall    mp_dss_len\nmov     ecx, eax\nmov     eax, [rbp+var_30]\ncmp     eax, ecx\njnz     loc_1512\nmovzx   eax, [rbp+flags]\nand     eax, 2\ncmp     eax, 0\njz      loc_151E\nmov     [rbp+var_4], 0\njmp     loc_17CD\nmov     rax, [rbp+mdss]\nmovzx   eax, byte ptr [rax+3]\nand     eax, 10h\ncmp     eax, 0\njz      loc_1548\nmov     rax, [rbp+ndo]\nmov     rcx, [rax]\nmov     rdi, [rbp+ndo]\nlea     rsi, aFin; \" fin\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+opt]\nadd     rax, 4\nmov     [rbp+opt], rax\nmov     rax, [rbp+mdss]\nmovzx   eax, byte ptr [rax+3]\nand     eax, 1\ncmp     eax, 0\njz      loc_1617\nmov     rax, [rbp+ndo]\nmov     rcx, [rax]\nmov     rdi, [rbp+ndo]\nlea     rsi, aAck; \" ack \"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+mdss]\nmovzx   eax, byte ptr [rax+3]\nand     eax, 2\ncmp     eax, 0\njz      loc_15D5\nmov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_38], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_40], rax\nmov     rdi, [rbp+opt]; p\ncall    EXTRACT_64BITS\nmov     rdi, [rbp+var_40]\nmov     rcx, [rbp+var_38]\nmov     rdx, rax\nlea     rsi, aLu; \"%lu\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+opt]\nadd     rax, 8\nmov     [rbp+opt], rax\njmp     loc_1612\nmov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_48], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_50], rax\nmov     rdi, [rbp+opt]; p\ncall    EXTRACT_32BITS\nmov     rdi, [rbp+var_50]\nmov     rcx, [rbp+var_48]\nmov     edx, eax\nlea     rsi, aLenU+5; \"%u\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+opt]\nadd     rax, 4\nmov     [rbp+opt], rax\njmp     $+5\nmov     rax, [rbp+mdss]\nmovzx   eax, byte ptr [rax+3]\nand     eax, 4\ncmp     eax, 0\njz      loc_17C6\nmov     rax, [rbp+ndo]\nmov     rcx, [rax]\nmov     rdi, [rbp+ndo]\nlea     rsi, aSeq; \" seq \"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+mdss]\nmovzx   eax, byte ptr [rax+3]\nand     eax, 8\ncmp     eax, 0\njz      loc_1698\nmov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_58], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_60], rax\nmov     rdi, [rbp+opt]; p\ncall    EXTRACT_64BITS\nmov     rdi, [rbp+var_60]\nmov     rcx, [rbp+var_58]\nmov     rdx, rax\nlea     rsi, aLu; \"%lu\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+opt]\nadd     rax, 8\nmov     [rbp+opt], rax\njmp     loc_16D5\nmov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_68], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_70], rax\nmov     rdi, [rbp+opt]; p\ncall    EXTRACT_32BITS\nmov     rdi, [rbp+var_70]\nmov     rcx, [rbp+var_68]\nmov     edx, eax\nlea     rsi, aLenU+5; \"%u\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+opt]\nadd     rax, 4\nmov     [rbp+opt], rax\nmov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_90], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_98], rax\nmov     rdi, [rbp+opt]; p\ncall    EXTRACT_32BITS\nmov     rdi, [rbp+var_98]\nmov     rcx, [rbp+var_90]\nmov     edx, eax\nlea     rsi, aSubseqU; \" subseq %u\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+opt]\nadd     rax, 4\nmov     [rbp+opt], rax\nmov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_80], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_88], rax\nmov     rdi, [rbp+opt]; p\ncall    EXTRACT_16BITS\nmov     rdi, [rbp+var_88]\nmov     rcx, [rbp+var_80]\nmovzx   edx, ax\nlea     rsi, aLenU; \" len %u\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+opt]\nadd     rax, 2\nmov     [rbp+opt], rax\nmov     eax, [rbp+opt_len]\nmov     [rbp+var_74], eax\nmov     rdi, [rbp+mdss]; m\nmov     esi, 1; csum\ncall    mp_dss_len\nmov     ecx, eax\nmov     eax, [rbp+var_74]\ncmp     eax, ecx\njnz     loc_17C1\nmov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_A0], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_A8], rax\nmov     rdi, [rbp+opt]; p\ncall    EXTRACT_16BITS\nmov     rdi, [rbp+var_A8]\nmov     rcx, [rbp+var_A0]\nmovzx   edx, ax\nlea     rsi, aCsum0xX; \" csum 0x%x\"\nmov     al, 0\ncall    rcx\njmp     $+5\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 0B0h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 20,
+  "edges": [
+   [
+    "start",
+    "loc_14E4"
+   ],
+   [
+    "start",
+    "loc_1502"
+   ],
+   [
+    "loc_14E4",
+    "loc_1502"
+   ],
+   [
+    "loc_14E4",
+    "loc_1512"
+   ],
+   [
+    "loc_1502",
+    "loc_1512"
+   ],
+   [
+    "loc_1502",
+    "loc_151E"
+   ],
+   [
+    "loc_1512",
+    "loc_17CD"
+   ],
+   [
+    "loc_151E",
+    "loc_1532"
+   ],
+   [
+    "loc_151E",
+    "loc_1548"
+   ],
+   [
+    "loc_1532",
+    "loc_1548"
+   ],
+   [
+    "loc_1548",
+    "loc_1568"
+   ],
+   [
+    "loc_1548",
+    "loc_1617"
+   ],
+   [
+    "loc_1568",
+    "loc_1592"
+   ],
+   [
+    "loc_1568",
+    "loc_15D5"
+   ],
+   [
+    "loc_1592",
+    "loc_1612"
+   ],
+   [
+    "loc_15D5",
+    "loc_1612"
+   ],
+   [
+    "loc_1612",
+    "loc_1617"
+   ],
+   [
+    "loc_1617",
+    "loc_162B"
+   ],
+   [
+    "loc_1617",
+    "loc_17C6"
+   ],
+   [
+    "loc_162B",
+    "loc_1655"
+   ],
+   [
+    "loc_162B",
+    "loc_1698"
+   ],
+   [
+    "loc_1655",
+    "loc_16D5"
+   ],
+   [
+    "loc_1698",
+    "loc_16D5"
+   ],
+   [
+    "loc_16D5",
+    "loc_1783"
+   ],
+   [
+    "loc_16D5",
+    "loc_17C1"
+   ],
+   [
+    "loc_1783",
+    "loc_17C1"
+   ],
+   [
+    "loc_17C1",
+    "loc_17C6"
+   ],
+   [
+    "loc_17C6",
+    "loc_17CD"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0B0h\nmov     al, cl\nmov     [rbp+ndo], rdi\nmov     [rbp+opt], rsi\nmov     [rbp+opt_len], edx\nmov     [rbp+flags], al\nmov     rax, [rbp+opt]\nmov     [rbp+mdss], rax\nmov     eax, [rbp+opt_len]\nmov     [rbp+var_2C], eax\nmov     rdi, [rbp+mdss]; m\nmov     esi, 1; csum\ncall    mp_dss_len\nmov     ecx, eax\nmov     eax, [rbp+var_2C]\ncmp     eax, ecx\njz      loc_1502",
+   "loc_14E4": "mov     eax, [rbp+opt_len]\nmov     [rbp+var_30], eax\nmov     rdi, [rbp+mdss]; m\nxor     esi, esi; csum\ncall    mp_dss_len\nmov     ecx, eax\nmov     eax, [rbp+var_30]\ncmp     eax, ecx\njnz     loc_1512",
+   "loc_1502": "movzx   eax, [rbp+flags]\nand     eax, 2\ncmp     eax, 0\njz      loc_151E",
+   "loc_1512": "mov     [rbp+var_4], 0\njmp     loc_17CD",
+   "loc_151E": "mov     rax, [rbp+mdss]\nmovzx   eax, byte ptr [rax+3]\nand     eax, 10h\ncmp     eax, 0\njz      loc_1548",
+   "loc_1532": "mov     rax, [rbp+ndo]\nmov     rcx, [rax]\nmov     rdi, [rbp+ndo]\nlea     rsi, aFin; \" fin\"\nmov     al, 0\ncall    rcx",
+   "loc_1548": "mov     rax, [rbp+opt]\nadd     rax, 4\nmov     [rbp+opt], rax\nmov     rax, [rbp+mdss]\nmovzx   eax, byte ptr [rax+3]\nand     eax, 1\ncmp     eax, 0\njz      loc_1617",
+   "loc_1568": "mov     rax, [rbp+ndo]\nmov     rcx, [rax]\nmov     rdi, [rbp+ndo]\nlea     rsi, aAck; \" ack \"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+mdss]\nmovzx   eax, byte ptr [rax+3]\nand     eax, 2\ncmp     eax, 0\njz      loc_15D5",
+   "loc_1592": "mov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_38], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_40], rax\nmov     rdi, [rbp+opt]; p\ncall    EXTRACT_64BITS\nmov     rdi, [rbp+var_40]\nmov     rcx, [rbp+var_38]\nmov     rdx, rax\nlea     rsi, aLu; \"%lu\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+opt]\nadd     rax, 8\nmov     [rbp+opt], rax\njmp     loc_1612",
+   "loc_15D5": "mov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_48], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_50], rax\nmov     rdi, [rbp+opt]; p\ncall    EXTRACT_32BITS\nmov     rdi, [rbp+var_50]\nmov     rcx, [rbp+var_48]\nmov     edx, eax\nlea     rsi, aLenU+5; \"%u\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+opt]\nadd     rax, 4\nmov     [rbp+opt], rax",
+   "loc_1612": "jmp     $+5",
+   "loc_1617": "mov     rax, [rbp+mdss]\nmovzx   eax, byte ptr [rax+3]\nand     eax, 4\ncmp     eax, 0\njz      loc_17C6",
+   "loc_162B": "mov     rax, [rbp+ndo]\nmov     rcx, [rax]\nmov     rdi, [rbp+ndo]\nlea     rsi, aSeq; \" seq \"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+mdss]\nmovzx   eax, byte ptr [rax+3]\nand     eax, 8\ncmp     eax, 0\njz      loc_1698",
+   "loc_1655": "mov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_58], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_60], rax\nmov     rdi, [rbp+opt]; p\ncall    EXTRACT_64BITS\nmov     rdi, [rbp+var_60]\nmov     rcx, [rbp+var_58]\nmov     rdx, rax\nlea     rsi, aLu; \"%lu\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+opt]\nadd     rax, 8\nmov     [rbp+opt], rax\njmp     loc_16D5",
+   "loc_1698": "mov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_68], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_70], rax\nmov     rdi, [rbp+opt]; p\ncall    EXTRACT_32BITS\nmov     rdi, [rbp+var_70]\nmov     rcx, [rbp+var_68]\nmov     edx, eax\nlea     rsi, aLenU+5; \"%u\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+opt]\nadd     rax, 4\nmov     [rbp+opt], rax",
+   "loc_16D5": "mov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_90], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_98], rax\nmov     rdi, [rbp+opt]; p\ncall    EXTRACT_32BITS\nmov     rdi, [rbp+var_98]\nmov     rcx, [rbp+var_90]\nmov     edx, eax\nlea     rsi, aSubseqU; \" subseq %u\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+opt]\nadd     rax, 4\nmov     [rbp+opt], rax\nmov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_80], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_88], rax\nmov     rdi, [rbp+opt]; p\ncall    EXTRACT_16BITS\nmov     rdi, [rbp+var_88]\nmov     rcx, [rbp+var_80]\nmovzx   edx, ax\nlea     rsi, aLenU; \" len %u\"\nmov     al, 0\ncall    rcx\nmov     rax, [rbp+opt]\nadd     rax, 2\nmov     [rbp+opt], rax\nmov     eax, [rbp+opt_len]\nmov     [rbp+var_74], eax\nmov     rdi, [rbp+mdss]; m\nmov     esi, 1; csum\ncall    mp_dss_len\nmov     ecx, eax\nmov     eax, [rbp+var_74]\ncmp     eax, ecx\njnz     loc_17C1",
+   "loc_1783": "mov     rax, [rbp+ndo]\nmov     rax, [rax]\nmov     [rbp+var_A0], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_A8], rax\nmov     rdi, [rbp+opt]; p\ncall    EXTRACT_16BITS\nmov     rdi, [rbp+var_A8]\nmov     rcx, [rbp+var_A0]\nmovzx   edx, ax\nlea     rsi, aCsum0xX; \" csum 0x%x\"\nmov     al, 0\ncall    rcx",
+   "loc_17C1": "jmp     $+5",
+   "loc_17C6": "mov     [rbp+var_4], 1",
+   "loc_17CD": "mov     eax, [rbp+var_4]\nadd     rsp, 0B0h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_A8": "qword ptr -0A8h",
+   "var_A0": "qword ptr -0A0h",
+   "var_98": "qword ptr -98h",
+   "var_90": "qword ptr -90h",
+   "var_88": "qword ptr -88h",
+   "var_80": "qword ptr -80h",
+   "var_74": "dword ptr -74h",
+   "var_70": "qword ptr -70h",
+   "var_68": "qword ptr -68h",
+   "var_60": "qword ptr -60h",
+   "var_58": "qword ptr -58h",
+   "var_50": "qword ptr -50h",
+   "var_48": "qword ptr -48h",
+   "var_40": "qword ptr -40h",
+   "var_38": "qword ptr -38h",
+   "var_30": "dword ptr -30h",
+   "var_2C": "dword ptr -2Ch",
+   "mdss": "qword ptr -28h",
+   "flags": "byte ptr -1Dh",
+   "opt_len": "dword ptr -1Ch",
+   "opt": "qword ptr -18h",
+   "ndo": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "aFin": "byte ' fin',0",
+   "aAck": "byte ' ack ',0",
+   "aLu": "byte '%lu',0",
+   "unk_204A": "byte ' len %u',0",
+   "aSeq": "byte ' seq ',0",
+   "aSubseqU": "byte ' subseq %u',0",
+   "aLenU": "byte ' len %u',0",
+   "aCsum0xX": "byte ' csum 0x%x',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5280,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".vsnprintf": "vsnprintf",
+  "_vsnprintf": "vsnprintf",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".rewind": "rewind",
+  "_rewind": "rewind",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".ntohs": "ntohs",
+  "_ntohs": "ntohs",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".ntohl": "ntohl",
+  "_ntohl": "ntohl"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".vsnprintf",
+   ".plt",
+   true,
+   "vsnprintf"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".rewind",
+   ".plt",
+   true,
+   "rewind"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".ntohs",
+   ".plt",
+   true,
+   "ntohs"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".ntohl",
+   ".plt",
+   true,
+   "ntohl"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "vsnprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "rewind",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ntohs",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ntohl",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868481
+ }
+}

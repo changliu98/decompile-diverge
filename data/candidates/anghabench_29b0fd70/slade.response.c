@@ -1,0 +1,1 @@
+float map(int x, int a, int b, float c, float d) { double h = (double) (d - c) / (b - a); double s = c + (x - a) * h; return s; }

@@ -1,0 +1,1 @@
+int func0(int n) { if (n <= 3) { return n; } int ans = n; for (int i = 1; i <= n; i++) { int j = i * i; if (j > n) { break; } ans = ans > func0(n - j) ? ans : func0(n - j) + 1; } return ans; }

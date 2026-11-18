@@ -1,0 +1,80 @@
+00000000000011d0 <util_word_to_dec>:
+    11d0:	push   %rbp
+    11d1:	mov    %rsp,%rbp
+    11d4:	mov    %rdi,-0x8(%rbp)
+    11d8:	mov    %esi,-0xc(%rbp)
+    11db:	movl   $0x0,-0x20(%rbp)
+    11e2:	cmpl   $0xa,-0x20(%rbp)
+    11e6:	jge    1203 <util_word_to_dec+0x33>
+    11ec:	movslq -0x20(%rbp),%rax
+    11f0:	movb   $0x30,-0x17(%rbp,%rax,1)
+    11f5:	mov    -0x20(%rbp),%eax
+    11f8:	add    $0x1,%eax
+    11fb:	mov    %eax,-0x20(%rbp)
+    11fe:	jmp    11e2 <util_word_to_dec+0x12>
+    1203:	movb   $0x0,-0xd(%rbp)
+    1207:	movl   $0x9,-0x20(%rbp)
+    120e:	cmpl   $0x0,-0xc(%rbp)
+    1212:	jbe    1257 <util_word_to_dec+0x87>
+    1218:	mov    -0xc(%rbp),%eax
+    121b:	mov    $0xa,%ecx
+    1220:	xor    %edx,%edx
+    1222:	div    %ecx
+    1224:	mov    %edx,-0x1c(%rbp)
+    1227:	mov    -0xc(%rbp),%eax
+    122a:	mov    $0xa,%ecx
+    122f:	xor    %edx,%edx
+    1231:	div    %ecx
+    1233:	mov    %eax,-0xc(%rbp)
+    1236:	mov    -0x1c(%rbp),%eax
+    1239:	movsbl %al,%eax
+    123c:	add    $0x30,%eax
+    123f:	mov    %al,%cl
+    1241:	mov    -0x20(%rbp),%eax
+    1244:	mov    %eax,%edx
+    1246:	add    $0xffffffff,%edx
+    1249:	mov    %edx,-0x20(%rbp)
+    124c:	cltq
+    124e:	mov    %cl,-0x17(%rbp,%rax,1)
+    1252:	jmp    120e <util_word_to_dec+0x3e>
+    1257:	movl   $0x0,-0x20(%rbp)
+    125e:	movslq -0x20(%rbp),%rax
+    1262:	movsbl -0x17(%rbp,%rax,1),%ecx
+    1267:	xor    %eax,%eax
+    1269:	cmp    $0x30,%ecx
+    126c:	mov    %al,-0x21(%rbp)
+    126f:	jne    127f <util_word_to_dec+0xaf>
+    1275:	cmpl   $0x9,-0x20(%rbp)
+    1279:	setl   %al
+    127c:	mov    %al,-0x21(%rbp)
+    127f:	mov    -0x21(%rbp),%al
+    1282:	test   $0x1,%al
+    1284:	jne    128f <util_word_to_dec+0xbf>
+    128a:	jmp    129d <util_word_to_dec+0xcd>
+    128f:	mov    -0x20(%rbp),%eax
+    1292:	add    $0x1,%eax
+    1295:	mov    %eax,-0x20(%rbp)
+    1298:	jmp    125e <util_word_to_dec+0x8e>
+    129d:	jmp    12a2 <util_word_to_dec+0xd2>
+    12a2:	movslq -0x20(%rbp),%rax
+    12a6:	movsbl -0x17(%rbp,%rax,1),%eax
+    12ab:	cmp    $0x0,%eax
+    12ae:	je     12db <util_word_to_dec+0x10b>
+    12b4:	mov    -0x20(%rbp),%eax
+    12b7:	mov    %eax,%ecx
+    12b9:	add    $0x1,%ecx
+    12bc:	mov    %ecx,-0x20(%rbp)
+    12bf:	cltq
+    12c1:	mov    -0x17(%rbp,%rax,1),%cl
+    12c5:	mov    -0x8(%rbp),%rax
+    12c9:	mov    %rax,%rdx
+    12cc:	add    $0x1,%rdx
+    12d0:	mov    %rdx,-0x8(%rbp)
+    12d4:	mov    %cl,(%rax)
+    12d6:	jmp    12a2 <util_word_to_dec+0xd2>
+    12db:	mov    -0x8(%rbp),%rax
+    12df:	movb   $0x0,(%rax)
+    12e2:	pop    %rbp
+    12e3:	ret
+
+Disassembly of section .fini:

@@ -1,0 +1,1 @@
+void gsm_hex_from_byte( char *hex, int byte ) { *hex = hexdigits[ (byte &0xf0) >> 4 ]; *(hex + 1) = hexdigits[ byte &0x0f ]; }

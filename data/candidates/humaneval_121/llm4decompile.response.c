@@ -1,0 +1,13 @@
+int func0(int *lst, int size)
+{
+  int i;
+  int sum = 0;
+
+  for (i = 0; i * 2 < size; i++)
+    {
+      if (lst[i * 2] % 2 == 1)
+ sum += lst[i * 2];
+    }
+
+  return sum;
+}

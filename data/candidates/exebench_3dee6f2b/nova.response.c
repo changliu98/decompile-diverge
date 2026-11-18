@@ -1,0 +1,4 @@
+void ft_div_mod(int a, int b, int *q, int *r) {
+    *q = a / b;
+    *r = a % b;
+}

@@ -1,0 +1,393 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     al, cl\nmov     [rbp+op], rdi\nmov     [rbp+literal], rsi\nmov     [rbp+len], edx\nand     al, 1\nmov     [rbp+allow_fast_path], al\nmov     eax, [rbp+len]\nsub     eax, 1\nmov     [rbp+n], eax\ncmp     [rbp+n], 3Ch ; '<'\njge     loc_1E98\nmov     eax, [rbp+n]\nshl     eax, 2\nor      eax, 0\nmov     cl, al\nmov     rax, [rbp+op]\nmov     rdx, rax\nadd     rdx, 1\nmov     [rbp+op], rdx\nmov     [rax], cl\ntest    [rbp+allow_fast_path], 1\njz      loc_1E93\ncmp     [rbp+len], 10h\njg      loc_1E93\nmov     rdi, [rbp+literal]; src\nmov     rsi, [rbp+op]; dst\ncall    unaligned_copy64\nmov     rdi, [rbp+literal]\nadd     rdi, 8; src\nmov     rsi, [rbp+op]\nadd     rsi, 8; dst\ncall    unaligned_copy64\nmov     rax, [rbp+op]\nmovsxd  rcx, [rbp+len]\nadd     rax, rcx\nmov     [rbp+var_8], rax\njmp     loc_1F7F\njmp     loc_1F5F\nmov     rax, [rbp+op]\nmov     [rbp+base], rax\nmov     [rbp+count], 0\nmov     rax, [rbp+op]\nadd     rax, 1\nmov     [rbp+op], rax\ncmp     [rbp+n], 0\njle     loc_1EEF\nmov     eax, [rbp+n]\nand     eax, 0FFh\nmov     cl, al\nmov     rax, [rbp+op]\nmov     rdx, rax\nadd     rdx, 1\nmov     [rbp+op], rdx\nmov     [rax], cl\nmov     eax, [rbp+n]\nsar     eax, 8\nmov     [rbp+n], eax\nmov     eax, [rbp+count]\nadd     eax, 1\nmov     [rbp+count], eax\njmp     loc_1EB3\ncmp     [rbp+count], 1\njl      loc_1EFE\njmp     loc_1F1D\nlea     rdi, aCount1; \"!(!(count >= 1))\"\nlea     rsi, file; \"./func.c\"\nmov     edx, 247h; line\nlea     rcx, aCharEmitLitera; \"char *emit_literal(char *, const char *\"...\ncall    ___assert_fail\ncmp     [rbp+count], 4\njg      loc_1F2C\njmp     loc_1F4B\nlea     rdi, aCount4; \"!(!(count <= 4))\"\nlea     rsi, file; \"./func.c\"\nmov     edx, 248h; line\nlea     rcx, aCharEmitLitera; \"char *emit_literal(char *, const char *\"...\ncall    ___assert_fail\nmov     eax, [rbp+count]\nadd     eax, 3Bh ; ';'\nshl     eax, 2\nor      eax, 0\nmov     cl, al\nmov     rax, [rbp+base]\nmov     [rax], cl\nmov     rdi, [rbp+op]; dest\nmov     rsi, [rbp+literal]; src\nmovsxd  rdx, [rbp+len]; n\ncall    memcpy\nmov     rax, [rbp+op]\nmovsxd  rcx, [rbp+len]\nadd     rax, rcx\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 17,
+  "edges": [
+   [
+    "start",
+    "loc_1E2D"
+   ],
+   [
+    "start",
+    "loc_1E98"
+   ],
+   [
+    "loc_1E2D",
+    "loc_1E53"
+   ],
+   [
+    "loc_1E2D",
+    "loc_1E93"
+   ],
+   [
+    "loc_1E53",
+    "loc_1E5D"
+   ],
+   [
+    "loc_1E53",
+    "loc_1E93"
+   ],
+   [
+    "loc_1E5D",
+    "loc_1F7F"
+   ],
+   [
+    "loc_1E93",
+    "loc_1F5F"
+   ],
+   [
+    "loc_1E98",
+    "loc_1EB3"
+   ],
+   [
+    "loc_1EB3",
+    "loc_1EBD"
+   ],
+   [
+    "loc_1EB3",
+    "loc_1EEF"
+   ],
+   [
+    "loc_1EBD",
+    "loc_1EB3"
+   ],
+   [
+    "loc_1EEF",
+    "loc_1EF9"
+   ],
+   [
+    "loc_1EEF",
+    "loc_1EFE"
+   ],
+   [
+    "loc_1EF9",
+    "loc_1F1D"
+   ],
+   [
+    "loc_1F1D",
+    "loc_1F27"
+   ],
+   [
+    "loc_1F1D",
+    "loc_1F2C"
+   ],
+   [
+    "loc_1F27",
+    "loc_1F4B"
+   ],
+   [
+    "loc_1F4B",
+    "loc_1F5F"
+   ],
+   [
+    "loc_1F5F",
+    "loc_1F7F"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     al, cl\nmov     [rbp+op], rdi\nmov     [rbp+literal], rsi\nmov     [rbp+len], edx\nand     al, 1\nmov     [rbp+allow_fast_path], al\nmov     eax, [rbp+len]\nsub     eax, 1\nmov     [rbp+n], eax\ncmp     [rbp+n], 3Ch ; '<'\njge     loc_1E98",
+   "loc_1E2D": "mov     eax, [rbp+n]\nshl     eax, 2\nor      eax, 0\nmov     cl, al\nmov     rax, [rbp+op]\nmov     rdx, rax\nadd     rdx, 1\nmov     [rbp+op], rdx\nmov     [rax], cl\ntest    [rbp+allow_fast_path], 1\njz      loc_1E93",
+   "loc_1E53": "cmp     [rbp+len], 10h\njg      loc_1E93",
+   "loc_1E5D": "mov     rdi, [rbp+literal]; src\nmov     rsi, [rbp+op]; dst\ncall    unaligned_copy64\nmov     rdi, [rbp+literal]\nadd     rdi, 8; src\nmov     rsi, [rbp+op]\nadd     rsi, 8; dst\ncall    unaligned_copy64\nmov     rax, [rbp+op]\nmovsxd  rcx, [rbp+len]\nadd     rax, rcx\nmov     [rbp+var_8], rax\njmp     loc_1F7F",
+   "loc_1E93": "jmp     loc_1F5F",
+   "loc_1E98": "mov     rax, [rbp+op]\nmov     [rbp+base], rax\nmov     [rbp+count], 0\nmov     rax, [rbp+op]\nadd     rax, 1\nmov     [rbp+op], rax",
+   "loc_1EB3": "cmp     [rbp+n], 0\njle     loc_1EEF",
+   "loc_1EBD": "mov     eax, [rbp+n]\nand     eax, 0FFh\nmov     cl, al\nmov     rax, [rbp+op]\nmov     rdx, rax\nadd     rdx, 1\nmov     [rbp+op], rdx\nmov     [rax], cl\nmov     eax, [rbp+n]\nsar     eax, 8\nmov     [rbp+n], eax\nmov     eax, [rbp+count]\nadd     eax, 1\nmov     [rbp+count], eax\njmp     loc_1EB3",
+   "loc_1EEF": "cmp     [rbp+count], 1\njl      loc_1EFE",
+   "loc_1EF9": "jmp     loc_1F1D",
+   "loc_1EFE": "lea     rdi, aCount1; \"!(!(count >= 1))\"\nlea     rsi, file; \"./func.c\"\nmov     edx, 247h; line\nlea     rcx, aCharEmitLitera; \"char *emit_literal(char *, const char *\"...\ncall    ___assert_fail",
+   "loc_1F1D": "cmp     [rbp+count], 4\njg      loc_1F2C",
+   "loc_1F27": "jmp     loc_1F4B",
+   "loc_1F2C": "lea     rdi, aCount4; \"!(!(count <= 4))\"\nlea     rsi, file; \"./func.c\"\nmov     edx, 248h; line\nlea     rcx, aCharEmitLitera; \"char *emit_literal(char *, const char *\"...\ncall    ___assert_fail",
+   "loc_1F4B": "mov     eax, [rbp+count]\nadd     eax, 3Bh ; ';'\nshl     eax, 2\nor      eax, 0\nmov     cl, al\nmov     rax, [rbp+base]\nmov     [rax], cl",
+   "loc_1F5F": "mov     rdi, [rbp+op]; dest\nmov     rsi, [rbp+literal]; src\nmovsxd  rdx, [rbp+len]; n\ncall    memcpy\nmov     rax, [rbp+op]\nmovsxd  rcx, [rbp+len]\nadd     rax, rcx\nmov     [rbp+var_8], rax",
+   "loc_1F7F": "mov     rax, [rbp+var_8]\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "count": "dword ptr -34h",
+   "base": "qword ptr -30h",
+   "n": "dword ptr -24h",
+   "allow_fast_path": "byte ptr -1Dh",
+   "len": "dword ptr -1Ch",
+   "literal": "qword ptr -18h",
+   "op": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {
+   "aCount1": "byte '!(!(count >= 1))',0",
+   "file": "byte './func.c',0",
+   "aCharEmitLitera": "byte 'char *emit_literal(char *, const char *, int, _Bool)',0",
+   "aCount4": "byte '!(!(count <= 4))',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 7680,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".memcmp": "memcmp",
+  "_memcmp": "memcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".memcmp",
+   ".plt",
+   true,
+   "memcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memmove",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872681
+ }
+}

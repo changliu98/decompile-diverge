@@ -1,0 +1,1 @@
+size_t func0(int n) { size_t p = 1; size_t q = 1; for (int i = 1; i <= n; ++i) { p *= i; q *= p; } return q; }

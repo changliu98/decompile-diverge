@@ -1,0 +1,1 @@
+void nm_writel(uint32_t v, volatile uint32_t *addr) { *addr = v; }

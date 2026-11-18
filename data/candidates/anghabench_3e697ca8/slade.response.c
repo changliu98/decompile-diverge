@@ -1,0 +1,1 @@
+unsigned swizzle(unsigned x, unsigned y) { unsigned z; z = 0; while (y) { z = (z << 1) | (x & 1); x >>= 1; y >>= 1; } return z; }

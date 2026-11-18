@@ -1,0 +1,1 @@
+int func0(int *x, int N) { int count = 0; int i; if (N == 0) return 1; for (i = 1; i < N; i++) { if (x[i] < x[i - 1]) count++; } if (x[N - 1] > x[0]) count++; if (count < 2) return 1; return 0; }

@@ -1,0 +1,1 @@
+void a_or(volatile int *p, int v) { __asm__ __volatile__ ("lock ; or %0" : : "a" (*p), "d" (v)); }

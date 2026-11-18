@@ -1,0 +1,1 @@
+char *Q_strupr (char *string) { char *s = string; while (*s) { if (*s >= 'a' && *s <= 'z') *s -= 32; s++; } return string; }

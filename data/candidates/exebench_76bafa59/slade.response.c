@@ -1,0 +1,1 @@
+void rifft1pt(float *r, float s) { float x = r[0]; float y = r[1]; float p = x + y; float q = x - y; r[0] = s * p; r[1] = s * q; }

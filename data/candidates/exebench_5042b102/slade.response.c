@@ -1,0 +1,1 @@
+void foo2(struct foo2 *p) { p->x += 3; }

@@ -1,0 +1,1 @@
+int func0(unsigned char *p, int l) { int i; for (i = 0; i < l; i++) { if (p[i] ^ 1) return 0; } return 1; }

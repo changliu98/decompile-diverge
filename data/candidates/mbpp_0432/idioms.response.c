@@ -1,0 +1,4 @@
+double func0(double a, double b, double c)
+{
+  return (a + b)/2 * c;
+}

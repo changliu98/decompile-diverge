@@ -1,0 +1,1 @@
+void dummyfunc(char a[]) { int i = 0; char b[] = "/usr/local/c"; while (a[i] != '\0') { a[i] = b[i]; i++; } }

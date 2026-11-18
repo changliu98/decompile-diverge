@@ -1,0 +1,478 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0A0h\nmov     [rbp+arg_p], rdi\nmov     [rbp+smp], rsi\nmov     [rbp+private], rdx\nmov     rax, [rbp+arg_p]\nmov     rax, [rax+8]\nmov     [rbp+reg], rax\ncall    get_trash_chunk\nmov     [rbp+trash], rax\nmov     rax, [rbp+smp]\nmov     rax, [rax+10h]\nmov     [rbp+start], rax\nmov     rax, [rbp+start]\nmov     rcx, [rbp+smp]\nadd     rax, [rcx+18h]\nmov     [rbp+end], rax\nmov     [rbp+flag], 0\nmov     [rbp+found], 0\nmov     rax, [rbp+arg_p]\nmovzx   eax, byte ptr [rax]\nand     eax, 2\ncmp     eax, 0\njnz     loc_19D4\nmov     eax, [rbp+flag]\nand     eax, 1\ncmp     eax, 0\njnz     loc_1A04\nmov     rdi, [rbp+reg]; preg\nmov     rsi, [rbp+start]; subject\nmov     rax, [rbp+end]\nmov     rcx, [rbp+start]\nsub     rax, rcx\nmov     edx, eax; length\nlea     r8, [rbp+pmatch]; pmatch\nmov     r9d, [rbp+flag]; flags\nmov     ecx, 0Ah; nmatch\ncall    regex_exec_match2\nmov     [rbp+found], eax\ncmp     [rbp+found], 0\njnz     loc_1A1F\nmov     rax, [rbp+end]\nmov     rcx, [rbp+start]\nsub     rax, rcx\nmov     [rbp+pmatch.rm_so], eax\nmov     rax, [rbp+trash]\nmov     rax, [rax]\nmov     rcx, [rbp+trash]\nsub     rax, [rcx+10h]\nmov     [rbp+max], eax\ncmp     [rbp+max], 0\njz      loc_1AA5\ncmp     [rbp+pmatch.rm_so], 0\njle     loc_1AA5\nmov     eax, [rbp+max]\ncmp     eax, [rbp+pmatch.rm_so]\njle     loc_1A69\nmov     eax, [rbp+pmatch.rm_so]\nmov     [rbp+max], eax\nmov     rax, [rbp+trash]\nmov     rdi, [rax+8]\nmov     rax, [rbp+trash]\nadd     rdi, [rax+10h]; dest\nmov     rsi, [rbp+start]; src\nmovsxd  rdx, [rbp+max]; n\ncall    memcpy\nmovsxd  rcx, [rbp+max]\nmov     rax, [rbp+trash]\nadd     rcx, [rax+10h]\nmov     [rax+10h], rcx\ncmp     [rbp+found], 0\njnz     loc_1AB7\njmp     loc_1C45\ncall    alloc_trash_chunk\nmov     [rbp+output], rax\ncmp     [rbp+output], 0\njnz     loc_1AD6\njmp     loc_1C45\nmov     rax, [rbp+output]\nmov     rdi, [rax+8]; dst\nmov     rax, [rbp+output]\nmov     rax, [rax]\nmov     esi, eax; dst_size\nmov     rdx, [rbp+start]; src\nmov     rax, [rbp+arg_p]\nmov     rcx, [rax+38h]; str\nlea     r8, [rbp+pmatch]; matches\ncall    exp_replace\nmovsxd  rcx, eax\nmov     rax, [rbp+output]\nmov     [rax+10h], rcx\nmov     rax, [rbp+output]\nmov     rax, [rax]\nmov     rcx, [rbp+output]\nsub     rax, [rcx+10h]\nmov     [rbp+max], eax\ncmp     [rbp+max], 0\njz      loc_1BA4\nmovsxd  rax, [rbp+max]\nmov     rcx, [rbp+output]\ncmp     rax, [rcx+10h]\njbe     loc_1B61\nmov     rax, [rbp+output]\nmov     rax, [rax+10h]\nmov     [rbp+max], eax\nmov     rax, [rbp+trash]\nmov     rdi, [rax+8]\nmov     rax, [rbp+trash]\nadd     rdi, [rax+10h]; dest\nmov     rax, [rbp+output]\nmov     rsi, [rax+8]; src\nmovsxd  rdx, [rbp+max]; n\ncall    memcpy\nmovsxd  rcx, [rbp+max]\nmov     rax, [rbp+trash]\nadd     rcx, [rax+10h]\nmov     [rax+10h], rcx\nmov     rdi, [rbp+output]; chunk\ncall    free_trash_chunk\nmov     rax, [rbp+start]\ncmp     rax, [rbp+end]\njb      loc_1BC3\njmp     loc_1C45\ncmp     [rbp+pmatch.rm_eo], 0\njnz     loc_1C20\nmov     rax, [rbp+trash]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+trash]\ncmp     rax, [rcx]\njnb     loc_1C17\nmov     rax, [rbp+start]\nmovsxd  rcx, [rbp+pmatch.rm_eo]\nmov     dl, [rax+rcx]\nmov     rax, [rbp+trash]\nmov     rax, [rax+8]\nmov     rsi, [rbp+trash]\nmov     rcx, [rsi+10h]\nmov     rdi, rcx\nadd     rdi, 1\nmov     [rsi+10h], rdi\nmov     [rax+rcx], dl\nmov     eax, [rbp+pmatch.rm_eo]\nadd     eax, 1\nmov     [rbp+pmatch.rm_eo], eax\nmov     ecx, [rbp+pmatch.rm_eo]\nmov     rax, [rbp+start]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+start], rax\nmov     eax, [rbp+flag]\nor      eax, 1\nmov     [rbp+flag], eax\njmp     loc_19A5\nmov     rax, [rbp+smp]\nmov     rcx, [rbp+trash]\nmov     rdx, [rcx]\nmov     [rax+8], rdx\nmov     rdx, [rcx+8]\nmov     [rax+10h], rdx\nmov     rdx, [rcx+10h]\nmov     [rax+18h], rdx\nmov     rcx, [rcx+18h]\nmov     [rax+20h], rcx\nmov     eax, 1\nadd     rsp, 0A0h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 27,
+  "edges": [
+   [
+    "start",
+    "loc_19A5"
+   ],
+   [
+    "loc_19A5",
+    "loc_19C2"
+   ],
+   [
+    "loc_19A5",
+    "loc_19D4"
+   ],
+   [
+    "loc_19C2",
+    "loc_19D4"
+   ],
+   [
+    "loc_19C2",
+    "loc_1A04"
+   ],
+   [
+    "loc_19D4",
+    "loc_1A04"
+   ],
+   [
+    "loc_1A04",
+    "loc_1A11"
+   ],
+   [
+    "loc_1A04",
+    "loc_1A1F"
+   ],
+   [
+    "loc_1A11",
+    "loc_1A1F"
+   ],
+   [
+    "loc_1A1F",
+    "loc_1A47"
+   ],
+   [
+    "loc_1A1F",
+    "loc_1AA5"
+   ],
+   [
+    "loc_1A47",
+    "loc_1A51"
+   ],
+   [
+    "loc_1A47",
+    "loc_1AA5"
+   ],
+   [
+    "loc_1A51",
+    "loc_1A60"
+   ],
+   [
+    "loc_1A51",
+    "loc_1A69"
+   ],
+   [
+    "loc_1A60",
+    "loc_1A69"
+   ],
+   [
+    "loc_1A69",
+    "loc_1AA5"
+   ],
+   [
+    "loc_1AA5",
+    "loc_1AB2"
+   ],
+   [
+    "loc_1AA5",
+    "loc_1AB7"
+   ],
+   [
+    "loc_1AB2",
+    "loc_1C45"
+   ],
+   [
+    "loc_1AB7",
+    "loc_1AD1"
+   ],
+   [
+    "loc_1AB7",
+    "loc_1AD6"
+   ],
+   [
+    "loc_1AD1",
+    "loc_1C45"
+   ],
+   [
+    "loc_1AD6",
+    "loc_1B38"
+   ],
+   [
+    "loc_1AD6",
+    "loc_1BA4"
+   ],
+   [
+    "loc_1B38",
+    "loc_1B50"
+   ],
+   [
+    "loc_1B38",
+    "loc_1B61"
+   ],
+   [
+    "loc_1B50",
+    "loc_1B61"
+   ],
+   [
+    "loc_1B61",
+    "loc_1BA4"
+   ],
+   [
+    "loc_1BA4",
+    "loc_1BBE"
+   ],
+   [
+    "loc_1BA4",
+    "loc_1BC3"
+   ],
+   [
+    "loc_1BBE",
+    "loc_1C45"
+   ],
+   [
+    "loc_1BC3",
+    "loc_1BCD"
+   ],
+   [
+    "loc_1BC3",
+    "loc_1C20"
+   ],
+   [
+    "loc_1BCD",
+    "loc_1BE8"
+   ],
+   [
+    "loc_1BCD",
+    "loc_1C17"
+   ],
+   [
+    "loc_1BE8",
+    "loc_1C17"
+   ],
+   [
+    "loc_1C17",
+    "loc_1C20"
+   ],
+   [
+    "loc_1C20",
+    "loc_19A5"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0A0h\nmov     [rbp+arg_p], rdi\nmov     [rbp+smp], rsi\nmov     [rbp+private], rdx\nmov     rax, [rbp+arg_p]\nmov     rax, [rax+8]\nmov     [rbp+reg], rax\ncall    get_trash_chunk\nmov     [rbp+trash], rax\nmov     rax, [rbp+smp]\nmov     rax, [rax+10h]\nmov     [rbp+start], rax\nmov     rax, [rbp+start]\nmov     rcx, [rbp+smp]\nadd     rax, [rcx+18h]\nmov     [rbp+end], rax\nmov     [rbp+flag], 0",
+   "loc_19A5": "mov     [rbp+found], 0\nmov     rax, [rbp+arg_p]\nmovzx   eax, byte ptr [rax]\nand     eax, 2\ncmp     eax, 0\njnz     loc_19D4",
+   "loc_19C2": "mov     eax, [rbp+flag]\nand     eax, 1\ncmp     eax, 0\njnz     loc_1A04",
+   "loc_19D4": "mov     rdi, [rbp+reg]; preg\nmov     rsi, [rbp+start]; subject\nmov     rax, [rbp+end]\nmov     rcx, [rbp+start]\nsub     rax, rcx\nmov     edx, eax; length\nlea     r8, [rbp+pmatch]; pmatch\nmov     r9d, [rbp+flag]; flags\nmov     ecx, 0Ah; nmatch\ncall    regex_exec_match2\nmov     [rbp+found], eax",
+   "loc_1A04": "cmp     [rbp+found], 0\njnz     loc_1A1F",
+   "loc_1A11": "mov     rax, [rbp+end]\nmov     rcx, [rbp+start]\nsub     rax, rcx\nmov     [rbp+pmatch.rm_so], eax",
+   "loc_1A1F": "mov     rax, [rbp+trash]\nmov     rax, [rax]\nmov     rcx, [rbp+trash]\nsub     rax, [rcx+10h]\nmov     [rbp+max], eax\ncmp     [rbp+max], 0\njz      loc_1AA5",
+   "loc_1A47": "cmp     [rbp+pmatch.rm_so], 0\njle     loc_1AA5",
+   "loc_1A51": "mov     eax, [rbp+max]\ncmp     eax, [rbp+pmatch.rm_so]\njle     loc_1A69",
+   "loc_1A60": "mov     eax, [rbp+pmatch.rm_so]\nmov     [rbp+max], eax",
+   "loc_1A69": "mov     rax, [rbp+trash]\nmov     rdi, [rax+8]\nmov     rax, [rbp+trash]\nadd     rdi, [rax+10h]; dest\nmov     rsi, [rbp+start]; src\nmovsxd  rdx, [rbp+max]; n\ncall    memcpy\nmovsxd  rcx, [rbp+max]\nmov     rax, [rbp+trash]\nadd     rcx, [rax+10h]\nmov     [rax+10h], rcx",
+   "loc_1AA5": "cmp     [rbp+found], 0\njnz     loc_1AB7",
+   "loc_1AB2": "jmp     loc_1C45",
+   "loc_1AB7": "call    alloc_trash_chunk\nmov     [rbp+output], rax\ncmp     [rbp+output], 0\njnz     loc_1AD6",
+   "loc_1AD1": "jmp     loc_1C45",
+   "loc_1AD6": "mov     rax, [rbp+output]\nmov     rdi, [rax+8]; dst\nmov     rax, [rbp+output]\nmov     rax, [rax]\nmov     esi, eax; dst_size\nmov     rdx, [rbp+start]; src\nmov     rax, [rbp+arg_p]\nmov     rcx, [rax+38h]; str\nlea     r8, [rbp+pmatch]; matches\ncall    exp_replace\nmovsxd  rcx, eax\nmov     rax, [rbp+output]\nmov     [rax+10h], rcx\nmov     rax, [rbp+output]\nmov     rax, [rax]\nmov     rcx, [rbp+output]\nsub     rax, [rcx+10h]\nmov     [rbp+max], eax\ncmp     [rbp+max], 0\njz      loc_1BA4",
+   "loc_1B38": "movsxd  rax, [rbp+max]\nmov     rcx, [rbp+output]\ncmp     rax, [rcx+10h]\njbe     loc_1B61",
+   "loc_1B50": "mov     rax, [rbp+output]\nmov     rax, [rax+10h]\nmov     [rbp+max], eax",
+   "loc_1B61": "mov     rax, [rbp+trash]\nmov     rdi, [rax+8]\nmov     rax, [rbp+trash]\nadd     rdi, [rax+10h]; dest\nmov     rax, [rbp+output]\nmov     rsi, [rax+8]; src\nmovsxd  rdx, [rbp+max]; n\ncall    memcpy\nmovsxd  rcx, [rbp+max]\nmov     rax, [rbp+trash]\nadd     rcx, [rax+10h]\nmov     [rax+10h], rcx",
+   "loc_1BA4": "mov     rdi, [rbp+output]; chunk\ncall    free_trash_chunk\nmov     rax, [rbp+start]\ncmp     rax, [rbp+end]\njb      loc_1BC3",
+   "loc_1BBE": "jmp     loc_1C45",
+   "loc_1BC3": "cmp     [rbp+pmatch.rm_eo], 0\njnz     loc_1C20",
+   "loc_1BCD": "mov     rax, [rbp+trash]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+trash]\ncmp     rax, [rcx]\njnb     loc_1C17",
+   "loc_1BE8": "mov     rax, [rbp+start]\nmovsxd  rcx, [rbp+pmatch.rm_eo]\nmov     dl, [rax+rcx]\nmov     rax, [rbp+trash]\nmov     rax, [rax+8]\nmov     rsi, [rbp+trash]\nmov     rcx, [rsi+10h]\nmov     rdi, rcx\nadd     rdi, 1\nmov     [rsi+10h], rdi\nmov     [rax+rcx], dl",
+   "loc_1C17": "mov     eax, [rbp+pmatch.rm_eo]\nadd     eax, 1\nmov     [rbp+pmatch.rm_eo], eax",
+   "loc_1C20": "mov     ecx, [rbp+pmatch.rm_eo]\nmov     rax, [rbp+start]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+start], rax\nmov     eax, [rbp+flag]\nor      eax, 1\nmov     [rbp+flag], eax\njmp     loc_19A5",
+   "loc_1C45": "mov     rax, [rbp+smp]\nmov     rcx, [rbp+trash]\nmov     rdx, [rcx]\nmov     [rax+8], rdx\nmov     rdx, [rcx+8]\nmov     [rax+10h], rdx\nmov     rdx, [rcx+10h]\nmov     [rax+18h], rdx\nmov     rcx, [rcx+18h]\nmov     [rax+20h], rcx\nmov     eax, 1\nadd     rsp, 0A0h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "found": "dword ptr -9Ch",
+   "max": "dword ptr -98h",
+   "flag": "dword ptr -94h",
+   "output": "qword ptr -90h",
+   "trash": "qword ptr -88h",
+   "pmatch": "regmatch_t ptr -80h",
+   "reg": "qword ptr -30h",
+   "end": "qword ptr -28h",
+   "start": "qword ptr -20h",
+   "private": "qword ptr -18h",
+   "smp": "qword ptr -10h",
+   "arg_p": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6480,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".toupper": "toupper",
+  "_toupper": "toupper",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".regfree": "regfree",
+  "_regfree": "regfree",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".regcomp": "regcomp",
+  "_regcomp": "regcomp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".regexec": "regexec",
+  "_regexec": "regexec",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".__ctype_b_loc": "__ctype_b_loc",
+  "_ctype_b_loc": "__ctype_b_loc"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".toupper",
+   ".plt",
+   true,
+   "toupper"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".regfree",
+   ".plt",
+   true,
+   "regfree"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".regcomp",
+   ".plt",
+   true,
+   "regcomp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".regexec",
+   ".plt",
+   true,
+   "regexec"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".__ctype_b_loc",
+   ".plt",
+   true,
+   "__ctype_b_loc"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "toupper",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "regfree",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "regcomp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "regexec",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__ctype_b_loc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868471
+ }
+}

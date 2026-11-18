@@ -1,0 +1,1 @@
+int *func0(int a[], int n) { if (n < 1) return NULL; int *res = (int *)malloc((size_t)n * sizeof(int)); if (res == NULL) return NULL; int tmp = a[0]; for (int i = 0; i < n; i++) { if (tmp < a[i]) tmp = a[i]; res[i] = tmp; } return res; }

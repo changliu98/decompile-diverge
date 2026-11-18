@@ -1,0 +1,1 @@
+void dlsch_MRC_relay_LLR(const short* data, unsigned int len, short* dst) { unsigned int i; for (i = 0; i < len; i++) { dst[i] = dst[i] + data[i]; } }

@@ -1,0 +1,22 @@
+void bin(int n,char *s)
+{
+ while(1)
+ {
+  if(n>0)
+  {
+   if(n%2!=0)
+   {
+    *s++='1';
+   }
+   else
+   {
+    *s++='0';
+   }
+   n=n/2;
+  }
+  else
+  {
+   break;
+  }
+ }
+}

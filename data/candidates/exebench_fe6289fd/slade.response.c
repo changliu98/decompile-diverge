@@ -1,0 +1,1 @@
+__attribute__((always_)) uint8_t xchg8(uint8_t *addr, uint8_t val) { uint8_t tmp = val; asm volatile("xchgq %0,%1" :"=r"(tmp) : "m"(*(addr)), "0"(tmp) : "memory"); return tmp; }

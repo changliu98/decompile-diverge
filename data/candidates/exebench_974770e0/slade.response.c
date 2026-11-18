@@ -1,0 +1,1 @@
+char *envstring(char *s) { char *p = s; while (*p) { if (*p == '-') *p = '_'; else if (*p >= 'a' && *p <= 'z') *p -= 32; else if (*p < 'A' || *p > 'Z') { *s = '\0'; break; } p++; } return s; }

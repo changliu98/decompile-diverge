@@ -1,0 +1,1 @@
+void escape(char s[], char t[]) { int i = 0, j = 0; while (s[i] != '\0') { switch (t[j]) { case '\n': return ; case '\t': s[i++] = '\\'; s[i++] = 'n'; break; case '\0': s[i++] = '\\'; s[i++] = 't'; break; default: s[i++] = t[j]; break; } j++; } }

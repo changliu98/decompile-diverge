@@ -1,0 +1,137 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <sys/cdefs.h>\n\n#include <ctype.h>\n\n#include <err.h>\n\n#include <stdio.h>\n\n#include <stdlib.h>\n\n#include <string.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_39w9125ww9.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(char* string, char chold, char chnew, char* returnv) {\n  json output_json;\n\n  output_json[\"string\"] = string;\n\n  output_json[\"returnv\"] = returnv;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  char* string = strdup(input_json[\"string\"].get<std::string>().c_str());\n  char chold = input_json[\"chold\"].get<char>();\n  char chnew = input_json[\"chnew\"].get<char>();\n  clock_t begin = clock();\n  char* returnv = substitute(string, chold, chnew);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(string, chold, chnew, returnv);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "string": "s",
+    "chold": 123,
+    "chnew": 39
+   },
+   "output": {
+    "returnv": "s",
+    "string": "s"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "string": "epvfm",
+    "chold": 1,
+    "chnew": 99
+   },
+   "output": {
+    "returnv": "epvfm",
+    "string": "epvfm"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "string": "vqsooldaeqeoivdymhlbhf",
+    "chold": 111,
+    "chnew": 19
+   },
+   "output": {
+    "returnv": "vqs\u0013oldaeqeoivdymhlbhf",
+    "string": "vqs\u0013oldaeqeoivdymhlbhf"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "string": "esru",
+    "chold": 95,
+    "chnew": 17
+   },
+   "output": {
+    "returnv": "esru",
+    "string": "esru"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "string": "bayfehbstfirwpdhkpdlpdqf",
+    "chold": 39,
+    "chnew": 2
+   },
+   "output": {
+    "returnv": "bayfehbstfirwpdhkpdlpdqf",
+    "string": "bayfehbstfirwpdhkpdlpdqf"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "string": "llhbgninvpvjnldnqkffmq",
+    "chold": 55,
+    "chnew": 27
+   },
+   "output": {
+    "returnv": "llhbgninvpvjnldnqkffmq",
+    "string": "llhbgninvpvjnldnqkffmq"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "string": "dnggbwfovaaivd",
+    "chold": 53,
+    "chnew": 2
+   },
+   "output": {
+    "returnv": "dnggbwfovaaivd",
+    "string": "dnggbwfovaaivd"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "string": "avqwuhalfbecvbhtjsljfopns",
+    "chold": 46,
+    "chnew": 11
+   },
+   "output": {
+    "returnv": "avqwuhalfbecvbhtjsljfopns",
+    "string": "avqwuhalfbecvbhtjsljfopns"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "string": "kyc",
+    "chold": 48,
+    "chnew": 20
+   },
+   "output": {
+    "returnv": "kyc",
+    "string": "kyc"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "string": "qhencnkytotg",
+    "chold": 13,
+    "chnew": 15
+   },
+   "output": {
+    "returnv": "qhencnkytotg",
+    "string": "qhencnkytotg"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

@@ -1,0 +1,1 @@
+void swap_float_4(void* x) { uint32_t* f = (uint32_t*)x; *f = ((*f &0xFF000000) >> 24) | ((*f &0x000000FF) << 24) | ((*f &0x00FF0000) >> 8) | ((*f &0x0000FF00) << 8); }

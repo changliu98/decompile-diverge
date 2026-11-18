@@ -1,0 +1,1 @@
+void clearDflag(char *arg) { arg[4] = '0'; }

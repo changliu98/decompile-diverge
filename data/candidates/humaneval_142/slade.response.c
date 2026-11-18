@@ -1,0 +1,1 @@
+uint64_t func0(uint64_t *p, int len) { uint64_t sum = 0; int i; for (i = 0; i < len; ++i) { if (i % 3 == 0) sum += p[i] * p[i]; else if (i % 4 == 0) sum += p[i] * p[i] * p[i]; else sum += p[i]; } return sum; }

@@ -1,0 +1,1 @@
+void GivensApply (double x, double y, double *f, double *g) { double p = x * *f + y * *g; *g = - *f * y + x * *g; *f = p; }

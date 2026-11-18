@@ -1,0 +1,1 @@
+int *func0(int n) { int *ret = malloc((n + 1) * sizeof(*ret)); ret[0] = 1; if (n == 0) return ret; ret[1] = 3; for (int i = 2; i <= n; i++) { if (i % 2 == 0) ret[i] = i / 2 + 1; else ret[i] = ret[i - 1] + ret[i - 2] + (i + 1) / 2; } return ret; }

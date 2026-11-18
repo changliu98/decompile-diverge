@@ -1,0 +1,1 @@
+void ft_ultimate_div_mod(int *a, int *b) { int q; q = *a / *b; *b = *a - *b * q; *a = q; }

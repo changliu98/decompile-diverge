@@ -1,0 +1,1 @@
+void func0(char *str, int flag) { size_t len; size_t i; int f; size_t offset; f = flag ? 5 : 21; len = strlen(str); for (i = 0; i < len; ++i) { f = ((str[i] - 'a' + f) % 26) + 'a'; str[i] = f; } }

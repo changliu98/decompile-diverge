@@ -1,0 +1,1 @@
+void SWAP(uint32_t * x, uint32_t * y) { *x ^= *y; *y ^= *y; *x ^= *y; }

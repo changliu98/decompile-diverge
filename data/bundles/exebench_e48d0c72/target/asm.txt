@@ -1,0 +1,40 @@
+00000000000011d0 <setLoopIters>:
+    11d0:	push   %rbp
+    11d1:	mov    %rsp,%rbp
+    11d4:	movsd  %xmm0,-0x8(%rbp)
+    11d9:	movsd  %xmm1,-0x10(%rbp)
+    11de:	movsd  %xmm2,-0x18(%rbp)
+    11e3:	mov    %rdi,-0x20(%rbp)
+    11e7:	movsd  -0x8(%rbp),%xmm0
+    11ec:	movsd  -0x10(%rbp),%xmm1
+    11f1:	mulsd  %xmm1,%xmm0
+    11f5:	mov    -0x20(%rbp),%rax
+    11f9:	mov    (%rax),%eax
+    11fb:	cvtsi2sd %rax,%xmm1
+    1200:	mulsd  %xmm1,%xmm0
+    1204:	movsd  %xmm0,-0x28(%rbp)
+    1209:	movsd  -0x28(%rbp),%xmm0
+    120e:	ucomisd -0x18(%rbp),%xmm0
+    1213:	jbe    125f <setLoopIters+0x8f>
+    1219:	mov    -0x20(%rbp),%rax
+    121d:	mov    (%rax),%eax
+    121f:	cvtsi2sd %rax,%xmm0
+    1224:	movsd  -0x18(%rbp),%xmm1
+    1229:	mulsd  %xmm1,%xmm0
+    122d:	movsd  -0x28(%rbp),%xmm1
+    1232:	divsd  %xmm1,%xmm0
+    1236:	cvttsd2si %xmm0,%rax
+    123b:	mov    %eax,%ecx
+    123d:	mov    -0x20(%rbp),%rax
+    1241:	mov    %ecx,(%rax)
+    1243:	mov    -0x20(%rbp),%rax
+    1247:	cmpl   $0x2,(%rax)
+    124a:	jae    125a <setLoopIters+0x8a>
+    1250:	mov    -0x20(%rbp),%rax
+    1254:	movl   $0x2,(%rax)
+    125a:	jmp    125f <setLoopIters+0x8f>
+    125f:	xor    %eax,%eax
+    1261:	pop    %rbp
+    1262:	ret
+
+Disassembly of section .fini:

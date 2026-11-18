@@ -1,0 +1,1 @@
+void squeeze(uint8_t *data) { unsigned int i; uint32_t tmp; tmp = 0; for (i = 0; i < 31; i++) { tmp += data[i]; data[i] = tmp &0xff; tmp >>= 8; } tmp += data[31]; data[31] = tmp &0x7f; tmp = (tmp >> 7) * 19; for (i = 0; i < 31; i++) { tmp += data[i]; data[i] = tmp &0xff; tmp >>= 8; } tmp += data[31]; data[31] = tmp; }

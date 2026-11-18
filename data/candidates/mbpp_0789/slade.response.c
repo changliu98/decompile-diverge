@@ -1,0 +1,1 @@
+double func0(int x, int y) { double z; z = x * y; return z; }

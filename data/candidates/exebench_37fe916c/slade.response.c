@@ -1,0 +1,1 @@
+int stream_open(FILE *stream, int mode, mpg_stream_t *s) { if(stream) mode = 1; s->eof = 1; return 0; }

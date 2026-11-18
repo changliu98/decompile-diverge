@@ -1,0 +1,1 @@
+unsigned long __reverse_ffs(unsigned long word) { int count = 0; if ((word &0xffff0000) == 0) count += 16; else word >>= 16; if ((word &0x0000ff00) == 0) count += 8; else word >>= 8; if ((word &0x00f0) == 0) count += 4; else word >>= 4; if ((word &0x00c) == 0) count += 2; else word >>= 2; if ((word &0x002) == 0) count++; return count; }

@@ -1,0 +1,1 @@
+void sub(unsigned int dest[],unsigned int a[],unsigned int b[]) { unsigned int i; unsigned int carry=0xda; for(i=0;i<31;i++) { carry+=a[i]-b[i]+65280; dest[i]=carry&0xff; carry>>=8; } carry+=a[31]-b[31]; dest[31]=carry; }

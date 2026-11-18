@@ -1,0 +1,1 @@
+void lincomb(double a, double *b, double c, double *r, double *s) { s[0] = a*b[0] + c*r[0]; s[1] = a*b[1] + c*r[1]; s[2] = a*b[2] + c*r[2]; }

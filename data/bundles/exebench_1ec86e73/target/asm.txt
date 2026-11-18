@@ -1,0 +1,65 @@
+00000000000011e0 <frexp>:
+    11e0:	push   %rbp
+    11e1:	mov    %rsp,%rbp
+    11e4:	movsd  %xmm0,-0x10(%rbp)
+    11e9:	mov    %rdi,-0x18(%rbp)
+    11ed:	movl   $0x1,-0x1c(%rbp)
+    11f4:	xorps  %xmm0,%xmm0
+    11f7:	ucomisd -0x10(%rbp),%xmm0
+    11fc:	jbe    121d <frexp+0x3d>
+    1202:	movl   $0xffffffff,-0x1c(%rbp)
+    1209:	cvtsi2sdl -0x1c(%rbp),%xmm0
+    120e:	mulsd  -0x10(%rbp),%xmm0
+    1213:	movsd  %xmm0,-0x10(%rbp)
+    1218:	jmp    1251 <frexp+0x71>
+    121d:	movsd  -0x10(%rbp),%xmm0
+    1222:	xorps  %xmm1,%xmm1
+    1225:	ucomisd %xmm1,%xmm0
+    1229:	jne    124c <frexp+0x6c>
+    122f:	jp     124c <frexp+0x6c>
+    1235:	mov    -0x18(%rbp),%rax
+    1239:	movl   $0x0,(%rax)
+    123f:	xorps  %xmm0,%xmm0
+    1242:	movsd  %xmm0,-0x8(%rbp)
+    1247:	jmp    12ea <frexp+0x10a>
+    124c:	jmp    1251 <frexp+0x71>
+    1251:	mov    -0x18(%rbp),%rax
+    1255:	movl   $0x0,(%rax)
+    125b:	movl   $0x1,-0x20(%rbp)
+    1262:	movsd  -0x10(%rbp),%xmm0
+    1267:	movsd  %xmm0,-0x28(%rbp)
+    126c:	mov    $0x1,%al
+    126e:	movsd  0xd92(%rip),%xmm0        # 2008 <_IO_stdin_used+0x8>
+    1276:	ucomisd -0x28(%rbp),%xmm0
+    127b:	mov    %al,-0x29(%rbp)
+    127e:	ja     129b <frexp+0xbb>
+    1284:	movsd  -0x28(%rbp),%xmm0
+    1289:	movsd  0xd7f(%rip),%xmm1        # 2010 <_IO_stdin_used+0x10>
+    1291:	ucomisd %xmm1,%xmm0
+    1295:	setae  %al
+    1298:	mov    %al,-0x29(%rbp)
+    129b:	mov    -0x29(%rbp),%al
+    129e:	test   $0x1,%al
+    12a0:	jne    12ab <frexp+0xcb>
+    12a6:	jmp    12d7 <frexp+0xf7>
+    12ab:	mov    -0x20(%rbp),%eax
+    12ae:	shl    $0x1,%eax
+    12b1:	mov    %eax,-0x20(%rbp)
+    12b4:	mov    -0x18(%rbp),%rax
+    12b8:	mov    (%rax),%ecx
+    12ba:	add    $0x1,%ecx
+    12bd:	mov    %ecx,(%rax)
+    12bf:	movsd  -0x10(%rbp),%xmm0
+    12c4:	cvtsi2sdl -0x20(%rbp),%xmm1
+    12c9:	divsd  %xmm1,%xmm0
+    12cd:	movsd  %xmm0,-0x28(%rbp)
+    12d2:	jmp    126c <frexp+0x8c>
+    12d7:	movsd  -0x28(%rbp),%xmm0
+    12dc:	cvtsi2sdl -0x1c(%rbp),%xmm1
+    12e1:	mulsd  %xmm1,%xmm0
+    12e5:	movsd  %xmm0,-0x8(%rbp)
+    12ea:	movsd  -0x8(%rbp),%xmm0
+    12ef:	pop    %rbp
+    12f0:	ret
+
+Disassembly of section .fini:

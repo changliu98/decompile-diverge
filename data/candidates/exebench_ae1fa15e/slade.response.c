@@ -1,0 +1,1 @@
+int render_uint32(uint32_t num, char *buffer) { unsigned i; if (!num) { buffer[0] = '0'; return 1; } for (i = 0; num; num >>= 4) buffer[i++] = "0123456789ABCDEF"[num &0xF]; return i; }

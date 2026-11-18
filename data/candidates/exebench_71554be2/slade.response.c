@@ -1,0 +1,1 @@
+void ref_sub_double(double from, double to, void* result) { *((double*) result) = from - to; }

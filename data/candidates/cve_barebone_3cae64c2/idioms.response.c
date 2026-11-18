@@ -1,0 +1,45 @@
+void id3dmx_flush(struct GF_Filter *self, unsigned char *buf, int buf_size, struct GF_FilterPid *audio_pid, struct GF_FilterPid **video_pid_p)
+{
+  struct GF_BitStream *bs = id3v2_bitstream(buf, buf_size, GF_FALSE);
+  char *id3v2_text = ((void *)0);
+  char *id3v2_text_end = ((void *)0);
+  char *id3v2_text_desc = ((void *)0);
+  char *id3v2_text_desc_end = ((void *)0);
+  char *id3v2_text_tag = ((void *)0);
+  char *id3v2_text_tag_end = ((void *)0);
+  char *id3v2_text_data = ((void *)0);
+  char *id3v2_text_data_end = ((void *)0);
+  int id3v2_text_data_size = 0;
+  int id3v2_text_data_size_end = 0;
+  int id3v2_text_size = 0;
+  int id3v2_text_size_end = 0;
+  int id3v2_text_size_tag = 0;
+  int id3v2_text_size_tag_end = 0;
+  int id3v2_text_size_data = 0;
+  int id3v2_text_size_data_end = 0;
+  int id3v2_text_size_desc = 0;
+  int id3v2_text_size_desc_end = 0;
+  int id3v2_text_size_desc_data = 0;
+  int id3v2_text_size_desc_data_end = 0;
+  int id3v2_text_size_data_data = 0;
+  int id3v2_text_size_data_data_end = 0;
+  int id3v2_text_size_end_data = 0;
+  int id3v2_text_size_end_data_end = 0;
+  int id3v2_text_size_end_text = 0;
+  int id3v2_text_size_end_text_end = 0;
+  int id3v2_text_size_end_text_data = 0;
+  int id3v2_text_size_end_text_data_end = 0;
+  int id3v2_text_size_end_text_data_data = 0;
+  int id3v2_text_size_end_text_data_data_end = 0;
+  int id3v2_text_size_end_text_data_data_data = 0;
+  int id3v2_text_size_end_text_data_data_data_end = 0;
+  int id3v2_text_size_end_text_data_data_data_id3v2 = 0;
+  int id3v2_text_size_end_text_data_data_data_id3v2_end = 0;
+  int id3v2_text_size_end_text_data_data_data_id3v2_text = 0;
+  int id3v2_text_size_end_text_data_data_data_id3v2_text_end = 0;
+  int id3v2_text_size_end_text_data_data_data_id3v2_text_id = 0;
+  int id3v2_text_size_end_text_data_data_data_id3v2_text_id_end = 0;
+  int id3v2_text_size_end_text_data_data_data_id3v2_text_id_size = 0;
+  int id3v2_text_size_end_text_data_data_data_id3v2_text_id_size_end = 0;
+  int id3v2_text_size_end_text_data_data_data_id3v2_text_id_size_id3v2 = 0;
+  int id3v

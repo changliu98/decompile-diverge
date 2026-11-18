@@ -1,0 +1,1 @@
+void getRange(double x1, double y1, double *x2, double *y2) { if (x1 > y2) *y2 = y2; else *y2 = y1; if (x1 < y2) *x2 = y2; else *x2 = x1; }

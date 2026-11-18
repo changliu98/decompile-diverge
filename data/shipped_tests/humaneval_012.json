@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <stdio.h>\n#include <string.h>\n\nchar *func0(char **strings, int count) {\n    char *out = \"\";\n    int longest_length = 0;\n    for (int i = 0; i < count; i++) {\n        int current_length = strlen(strings[i]);\n        if (current_length > longest_length) {\n            out = strings[i];\n            longest_length = current_length;\n        }\n    }\n    return out;\n}",
+ "c_test": "#include <stdio.h>\n#include <string.h>\n#include <assert.h>\n\nint main() {\n    char *empty_array[] = {\"\"};\n    char *array1[] = {\"x\", \"y\", \"z\"};\n    char *array2[] = {\"x\", \"yyy\", \"zzzz\", \"www\", \"kkkk\", \"abc\"};\n\n    assert(strcmp(func0(empty_array, 0), \"\") == 0);\n    assert(strcmp(func0(array1, 3), \"x\") == 0);\n    assert(strcmp(func0(array2, 6), \"zzzz\") == 0);\n\n    return 0;\n}"
+}

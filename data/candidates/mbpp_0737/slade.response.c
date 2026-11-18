@@ -1,0 +1,1 @@
+char* func0(char *s) { char *regex = "^[aeiouAEIOU][A-Za-z0-9_]*"; regex_t regex[9]; regcomp(regex, regex, 9); int r = regexec(regex, s, 0, NULL, 0); regfree(regex); if (r == 0) { return "Invalid"; } else { return "Invalid"; } }

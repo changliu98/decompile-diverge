@@ -1,0 +1,174 @@
+00000000000028e0 <check_supported>:
+    28e0:	push   %rbp
+    28e1:	mov    %rsp,%rbp
+    28e4:	sub    $0x140,%rsp
+    28eb:	mov    %rdi,-0x8(%rbp)
+    28ef:	movl   $0xffffffff,-0xc(%rbp)
+    28f6:	movl   $0x0,-0x10(%rbp)
+    28fd:	mov    0x31cd(%rip),%eax        # 5ad0 <supported_elements_count>
+    2903:	mov    %eax,-0x14(%rbp)
+    2906:	mov    -0x14(%rbp),%eax
+    2909:	cmp    -0x10(%rbp),%eax
+    290c:	jle    297a <check_supported+0x9a>
+    2912:	mov    -0x14(%rbp),%eax
+    2915:	add    -0x10(%rbp),%eax
+    2918:	mov    $0x2,%ecx
+    291d:	cltd
+    291e:	idiv   %ecx
+    2920:	mov    %eax,-0x18(%rbp)
+    2923:	mov    -0x8(%rbp),%rdi
+    2927:	add    $0x20,%rdi
+    292b:	movslq -0x18(%rbp),%rcx
+    292f:	lea    0x299a(%rip),%rax        # 52d0 <supported_elements>
+    2936:	shl    $0x4,%rcx
+    293a:	add    %rcx,%rax
+    293d:	mov    (%rax),%rsi
+    2940:	call   2090 <strcmp@plt>
+    2945:	mov    %eax,-0xc(%rbp)
+    2948:	cmpl   $0x0,-0xc(%rbp)
+    294c:	jne    2957 <check_supported+0x77>
+    2952:	jmp    297a <check_supported+0x9a>
+    2957:	cmpl   $0x0,-0xc(%rbp)
+    295b:	jge    296c <check_supported+0x8c>
+    2961:	mov    -0x18(%rbp),%eax
+    2964:	mov    %eax,-0x14(%rbp)
+    2967:	jmp    2975 <check_supported+0x95>
+    296c:	mov    -0x18(%rbp),%eax
+    296f:	add    $0x1,%eax
+    2972:	mov    %eax,-0x10(%rbp)
+    2975:	jmp    2906 <check_supported+0x26>
+    297a:	cmpl   $0x0,-0xc(%rbp)
+    297e:	je     29ef <check_supported+0x10f>
+    2984:	mov    0x3155(%rip),%rdi        # 5ae0 <unknown_element_tree>
+    298b:	mov    -0x8(%rbp),%rsi
+    298f:	add    $0x20,%rsi
+    2993:	call   2630 <tree_search>
+    2998:	mov    %rax,-0x20(%rbp)
+    299c:	cmpq   $0x0,-0x20(%rbp)
+    29a1:	jne    29ea <check_supported+0x10a>
+    29a7:	mov    -0x8(%rbp),%rdi
+    29ab:	add    $0x20,%rdi
+    29af:	call   2070 <strlen@plt>
+    29b4:	cltq
+    29b6:	add    $0x20,%rax
+    29ba:	mov    %eax,%edi
+    29bc:	call   2c00 <misc_malloc>
+    29c1:	mov    %rax,-0x20(%rbp)
+    29c5:	mov    -0x20(%rbp),%rdi
+    29c9:	add    $0x19,%rdi
+    29cd:	mov    -0x8(%rbp),%rsi
+    29d1:	add    $0x20,%rsi
+    29d5:	call   2040 <strcpy@plt>
+    29da:	mov    -0x20(%rbp),%rsi
+    29de:	lea    0x30fb(%rip),%rdi        # 5ae0 <unknown_element_tree>
+    29e5:	call   2220 <tree_insertnode>
+    29ea:	jmp    2beb <check_supported+0x30b>
+    29ef:	mov    -0x8(%rbp),%rax
+    29f3:	mov    0x40(%rax),%rax
+    29f7:	mov    %rax,-0x28(%rbp)
+    29fb:	cmpq   $0x0,-0x28(%rbp)
+    2a00:	je     2beb <check_supported+0x30b>
+    2a06:	mov    -0x28(%rbp),%rax
+    2a0a:	movzbl 0x8(%rax),%eax
+    2a0e:	cmp    $0x23,%eax
+    2a11:	jne    2a1c <check_supported+0x13c>
+    2a17:	jmp    2bdb <check_supported+0x2fb>
+    2a1c:	mov    -0x28(%rbp),%rdi
+    2a20:	add    $0x8,%rdi
+    2a24:	lea    0xab4(%rip),%rsi        # 34df <_IO_stdin_used+0x4df>
+    2a2b:	call   2090 <strcmp@plt>
+    2a30:	cmp    $0x0,%eax
+    2a33:	jne    2a8d <check_supported+0x1ad>
+    2a39:	mov    -0x28(%rbp),%rdi
+    2a3d:	add    $0x29,%rdi
+    2a41:	lea    0xaa4(%rip),%rsi        # 34ec <_IO_stdin_used+0x4ec>
+    2a48:	call   2090 <strcmp@plt>
+    2a4d:	cmp    $0x0,%eax
+    2a50:	jne    2a5b <check_supported+0x17b>
+    2a56:	jmp    2bdb <check_supported+0x2fb>
+    2a5b:	lea    -0x130(%rbp),%rdi
+    2a62:	mov    -0x28(%rbp),%rdx
+    2a66:	add    $0x8,%rdx
+    2a6a:	mov    -0x28(%rbp),%rcx
+    2a6e:	add    $0x29,%rcx
+    2a72:	mov    -0x8(%rbp),%r8
+    2a76:	add    $0x20,%r8
+    2a7a:	lea    0xa73(%rip),%rsi        # 34f4 <_IO_stdin_used+0x4f4>
+    2a81:	mov    $0x0,%al
+    2a83:	call   2100 <sprintf@plt>
+    2a88:	jmp    2b73 <check_supported+0x293>
+    2a8d:	movslq -0x18(%rbp),%rcx
+    2a91:	lea    0x2838(%rip),%rax        # 52d0 <supported_elements>
+    2a98:	shl    $0x4,%rcx
+    2a9c:	add    %rcx,%rax
+    2a9f:	mov    0x8(%rax),%rax
+    2aa3:	mov    %rax,-0x138(%rbp)
+    2aaa:	cmpq   $0x0,-0x138(%rbp)
+    2ab2:	je     2b4e <check_supported+0x26e>
+    2ab8:	mov    -0x138(%rbp),%rax
+    2abf:	mov    (%rax),%rdi
+    2ac2:	lea    0x53b(%rip),%rsi        # 3004 <_IO_stdin_used+0x4>
+    2ac9:	call   2090 <strcmp@plt>
+    2ace:	cmp    $0x0,%eax
+    2ad1:	jne    2adc <check_supported+0x1fc>
+    2ad7:	jmp    2bdb <check_supported+0x2fb>
+    2adc:	jmp    2ae1 <check_supported+0x201>
+    2ae1:	mov    -0x138(%rbp),%rax
+    2ae8:	cmpq   $0x0,(%rax)
+    2aec:	je     2b33 <check_supported+0x253>
+    2af2:	mov    -0x138(%rbp),%rax
+    2af9:	mov    (%rax),%rdi
+    2afc:	mov    -0x28(%rbp),%rsi
+    2b00:	add    $0x8,%rsi
+    2b04:	call   2090 <strcmp@plt>
+    2b09:	cmp    $0x0,%eax
+    2b0c:	jne    2b17 <check_supported+0x237>
+    2b12:	jmp    2b33 <check_supported+0x253>
+    2b17:	jmp    2b1c <check_supported+0x23c>
+    2b1c:	mov    -0x138(%rbp),%rax
+    2b23:	add    $0x8,%rax
+    2b27:	mov    %rax,-0x138(%rbp)
+    2b2e:	jmp    2ae1 <check_supported+0x201>
+    2b33:	mov    -0x138(%rbp),%rax
+    2b3a:	cmpq   $0x0,(%rax)
+    2b3e:	je     2b49 <check_supported+0x269>
+    2b44:	jmp    2bdb <check_supported+0x2fb>
+    2b49:	jmp    2b4e <check_supported+0x26e>
+    2b4e:	lea    -0x130(%rbp),%rdi
+    2b55:	mov    -0x28(%rbp),%rdx
+    2b59:	add    $0x8,%rdx
+    2b5d:	mov    -0x8(%rbp),%rcx
+    2b61:	add    $0x20,%rcx
+    2b65:	lea    0x992(%rip),%rsi        # 34fe <_IO_stdin_used+0x4fe>
+    2b6c:	mov    $0x0,%al
+    2b6e:	call   2100 <sprintf@plt>
+    2b73:	mov    0x2f66(%rip),%rdi        # 5ae0 <unknown_element_tree>
+    2b7a:	lea    -0x130(%rbp),%rsi
+    2b81:	call   2630 <tree_search>
+    2b86:	mov    %rax,-0x20(%rbp)
+    2b8a:	cmpq   $0x0,-0x20(%rbp)
+    2b8f:	jne    2bd6 <check_supported+0x2f6>
+    2b95:	lea    -0x130(%rbp),%rdi
+    2b9c:	call   2070 <strlen@plt>
+    2ba1:	cltq
+    2ba3:	add    $0x20,%rax
+    2ba7:	mov    %eax,%edi
+    2ba9:	call   2c00 <misc_malloc>
+    2bae:	mov    %rax,-0x20(%rbp)
+    2bb2:	mov    -0x20(%rbp),%rdi
+    2bb6:	add    $0x19,%rdi
+    2bba:	lea    -0x130(%rbp),%rsi
+    2bc1:	call   2040 <strcpy@plt>
+    2bc6:	mov    -0x20(%rbp),%rsi
+    2bca:	lea    0x2f0f(%rip),%rdi        # 5ae0 <unknown_element_tree>
+    2bd1:	call   2220 <tree_insertnode>
+    2bd6:	jmp    2bdb <check_supported+0x2fb>
+    2bdb:	mov    -0x28(%rbp),%rax
+    2bdf:	mov    (%rax),%rax
+    2be2:	mov    %rax,-0x28(%rbp)
+    2be6:	jmp    29fb <check_supported+0x11b>
+    2beb:	add    $0x140,%rsp
+    2bf2:	pop    %rbp
+    2bf3:	ret
+
+Disassembly of section .fini:

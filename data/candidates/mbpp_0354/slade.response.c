@@ -1,0 +1,1 @@
+__attribute__((no, noclone)) int func0 (int x, int y, int z) { int t; t = x + ((y - 1) * z); return t; }

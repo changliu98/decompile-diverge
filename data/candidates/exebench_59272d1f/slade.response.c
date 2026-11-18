@@ -1,0 +1,1 @@
+void bo_backoff(struct bo *lhs, int n) { int i = lhs->pos; while (i) i--; lhs->pos = ((lhs->pos) < (n) ? (lhs->pos) : (n)); }

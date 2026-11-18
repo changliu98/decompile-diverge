@@ -1,0 +1,1 @@
+float sqrt_sf(float *x) { float xr = *x; xr = xr; return sqrtf(xr); }

@@ -1,0 +1,1 @@
+void set_bit(int nr, void *addr) { asm volatile ("btsl %0,%1" : : "r" (addr) : "r" (nr)); }

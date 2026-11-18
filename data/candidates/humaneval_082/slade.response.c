@@ -1,0 +1,1 @@
+int func0(char *str) { int i; int len = strlen(str); if (len <= 1) return 0; for (i = 2; i * i <= len; i++) { if (len % i == 0) return 0; } return 1; }

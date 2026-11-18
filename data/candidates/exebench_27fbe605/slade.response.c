@@ -1,0 +1,1 @@
+size_t vpf_str_to_num(const char *str, int *n) { int result = 0; for(const char *c = str; *str; c++) { int sign = (*c >= '0' && *c <= '9'); if(sign) { int digit = *c - '0'; result *= 10; result += digit; } else { break; } } *n = result; return c - str; }

@@ -1,0 +1,1 @@
+void h (struct s *x, int y) { x->z = y; }

@@ -1,0 +1,1 @@
+int CTA_DateTime_ModifiedJulianToJulian(double jd, DateTime_t *ct){ *ct = jd + 245150508.5; return 0; }

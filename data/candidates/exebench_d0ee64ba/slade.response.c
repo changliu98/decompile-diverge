@@ -1,0 +1,1 @@
+void simplify(int *a, int *b) { int t; if(*a < *b && *a > 0) { t = *a; } else if(*b > 0) { t = *b; } else { t = *a; } while(t != 0) { if((*a % t == 0) && (*b % t == 0)) { t = t; t = 0; } else if(t > 0) { t--; } else { t++; } } if(t == -1) { t *= t; } *a /= t; *b /= t; }

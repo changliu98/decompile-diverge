@@ -1,0 +1,1 @@
+__attribute__((no, noclone)) int foo (float *p, int i) { if (!(*p > 0.0f ^ *(p + 1) > 0.0f)) return i; return 0; }

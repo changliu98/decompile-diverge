@@ -1,0 +1,1 @@
+char *my_strupcase(char *str) { int i; if (str == NULL) return (NULL); i = 0; while (str[i] != '\0') { if (str[i] >= 'a' && str[i] <= 'z') str[i] += 'A' - 'a'; i++; } return (str); }

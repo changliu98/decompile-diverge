@@ -1,0 +1,1 @@
+char *func0(char *src) { if (src == NULL) { return NULL; } size_t len = strlen(src); char *str = malloc(len + 1); if (str == NULL) { return NULL; } size_t i = 0; size_t j = 0; int found = 0; while (src[i] != '\0') { if (src[i] != ' ') { str[j++] = src[i]; found = 0; } else if (!found) { str[j++] = ' '; found = 1; } i++; } str[j] = '\0'; return str; }

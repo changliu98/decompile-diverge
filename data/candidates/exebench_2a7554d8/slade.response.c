@@ -1,0 +1,1 @@
+int replace(char *s, char from, char to) { char *p = strchr(s, from); while (p) { *p = to; p++; p = strchr(p, from); } return 0; }

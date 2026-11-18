@@ -1,0 +1,44 @@
+0000000000001fe0 <md5_update>:
+    1fe0:	push   %rbp
+    1fe1:	mov    %rsp,%rbp
+    1fe4:	sub    $0x20,%rsp
+    1fe8:	mov    %rdi,-0x8(%rbp)
+    1fec:	mov    %rsi,-0x10(%rbp)
+    1ff0:	mov    %rdx,-0x18(%rbp)
+    1ff4:	movq   $0x0,-0x20(%rbp)
+    1ffc:	mov    -0x20(%rbp),%rax
+    2000:	cmp    -0x18(%rbp),%rax
+    2004:	jae    207f <md5_update+0x9f>
+    200a:	mov    -0x10(%rbp),%rax
+    200e:	mov    -0x20(%rbp),%rcx
+    2012:	mov    (%rax,%rcx,1),%dl
+    2015:	mov    -0x8(%rbp),%rax
+    2019:	mov    -0x8(%rbp),%rcx
+    201d:	mov    0x40(%rcx),%ecx
+    2020:	mov    %dl,(%rax,%rcx,1)
+    2023:	mov    -0x8(%rbp),%rax
+    2027:	mov    0x40(%rax),%ecx
+    202a:	add    $0x1,%ecx
+    202d:	mov    %ecx,0x40(%rax)
+    2030:	mov    -0x8(%rbp),%rax
+    2034:	cmpl   $0x40,0x40(%rax)
+    2038:	jne    2069 <md5_update+0x89>
+    203e:	mov    -0x8(%rbp),%rdi
+    2042:	mov    -0x8(%rbp),%rsi
+    2046:	call   11d0 <md5_transform>
+    204b:	mov    -0x8(%rbp),%rax
+    204f:	mov    0x48(%rax),%rcx
+    2053:	add    $0x200,%rcx
+    205a:	mov    %rcx,0x48(%rax)
+    205e:	mov    -0x8(%rbp),%rax
+    2062:	movl   $0x0,0x40(%rax)
+    2069:	jmp    206e <md5_update+0x8e>
+    206e:	mov    -0x20(%rbp),%rax
+    2072:	add    $0x1,%rax
+    2076:	mov    %rax,-0x20(%rbp)
+    207a:	jmp    1ffc <md5_update+0x1c>
+    207f:	add    $0x20,%rsp
+    2083:	pop    %rbp
+    2084:	ret
+
+Disassembly of section .fini:

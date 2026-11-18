@@ -1,0 +1,1 @@
+static inline uint32_t REG_A3XX_SP_VS_VPC_DST_REG(uint32_t i0) { return 0x000022a0 + 0x1*i0; }

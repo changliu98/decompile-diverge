@@ -1,0 +1,262 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+test_tup], rdi\nmov     [rbp+size], esi\nmov     [rbp+res], 0\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+size]\njge     loc_126F\nmov     rax, [rbp+test_tup]\nmovsxd  rcx, [rbp+i]\ncvtsi2sd xmm0, dword ptr [rax+rcx*4]\nmovsd   [rbp+var_28], xmm0\nmov     eax, [rbp+size]\nsub     eax, 1\nsub     eax, [rbp+i]\ncvtsi2sd xmm1, eax; y\nmovsd   xmm0, cs:x; x\ncall    pow\nmovaps  xmm2, xmm0\nmovsd   xmm0, [rbp+var_28]\ncvtsi2sd xmm1, [rbp+res]\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\ncvttsd2si eax, xmm0\nmov     [rbp+res], eax\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_120D\nmov     edi, 0Ch; size\ncall    malloc\nmov     [rbp+result_str], rax\nmov     rdi, [rbp+result_str]; s\nmov     edx, [rbp+res]\nlea     rsi, format; \"%d\"\nmov     al, 0\ncall    sprintf\nmov     rax, [rbp+result_str]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 4,
+  "edges": [
+   [
+    "start",
+    "loc_120D"
+   ],
+   [
+    "loc_120D",
+    "loc_1219"
+   ],
+   [
+    "loc_120D",
+    "loc_126F"
+   ],
+   [
+    "loc_1219",
+    "loc_120D"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+test_tup], rdi\nmov     [rbp+size], esi\nmov     [rbp+res], 0\nmov     [rbp+i], 0",
+   "loc_120D": "mov     eax, [rbp+i]\ncmp     eax, [rbp+size]\njge     loc_126F",
+   "loc_1219": "mov     rax, [rbp+test_tup]\nmovsxd  rcx, [rbp+i]\ncvtsi2sd xmm0, dword ptr [rax+rcx*4]\nmovsd   [rbp+var_28], xmm0\nmov     eax, [rbp+size]\nsub     eax, 1\nsub     eax, [rbp+i]\ncvtsi2sd xmm1, eax; y\nmovsd   xmm0, cs:x; x\ncall    pow\nmovaps  xmm2, xmm0\nmovsd   xmm0, [rbp+var_28]\ncvtsi2sd xmm1, [rbp+res]\nmulsd   xmm0, xmm2\naddsd   xmm0, xmm1\ncvttsd2si eax, xmm0\nmov     [rbp+res], eax\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_120D",
+   "loc_126F": "mov     edi, 0Ch; size\ncall    malloc\nmov     [rbp+result_str], rax\nmov     rdi, [rbp+result_str]; s\nmov     edx, [rbp+res]\nlea     rsi, format; \"%d\"\nmov     al, 0\ncall    sprintf\nmov     rax, [rbp+result_str]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_28": "qword ptr -28h",
+   "result_str": "qword ptr -20h",
+   "i": "dword ptr -14h",
+   "res": "dword ptr -10h",
+   "size": "dword ptr -0Ch",
+   "test_tup": "qword ptr -8"
+  },
+  ".rodata": {
+   "x": "qword 4000000000000000h",
+   "format": "byte '%d',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4592,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".pow": "pow",
+  "_pow": "pow",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".sprintf": "sprintf",
+  "_sprintf": "sprintf",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".pow",
+   ".plt",
+   true,
+   "pow"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".sprintf",
+   ".plt",
+   true,
+   "sprintf"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "pow",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "sprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868010
+ }
+}

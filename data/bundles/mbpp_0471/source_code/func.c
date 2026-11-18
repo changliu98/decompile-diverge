@@ -1,0 +1,13 @@
+
+
+#include <assert.h>
+
+
+
+int func0(int arr[], int lens, int n) {
+  int mul = 1;
+  for (int i = 0; i < lens; i++) {
+    mul = (mul * (arr[i] % n)) % n;
+  }
+  return mul % n;
+}

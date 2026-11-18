@@ -1,0 +1,265 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nmov     al, dl\nmov     cl, sil\nmov     dx, di\nmov     [rbp+hue], dx\nmov     [rbp+sat], cl\nmov     [rbp+val], al\nmovzx   eax, [rbp+hue]\nmov     ecx, eax\nmov     eax, ecx\nshr     rcx, 3\nimul    rcx, 16C16C17h\nshr     rcx, 22h\nimul    ecx, 168h\nsub     eax, ecx\nmov     edi, 88888889h\nimul    rax, rdi\nshr     rax, 25h\nmov     [rbp+H_accent], ax\nmovzx   eax, [rbp+sat]\nxor     eax, 0FFh\nmovzx   ecx, [rbp+val]\nimul    eax, ecx\nshr     eax, 8\nmov     [rbp+bottom], ax\nmovzx   eax, [rbp+val]\nmov     [rbp+top], ax\nmovzx   edx, [rbp+top]\nmovzx   ecx, [rbp+bottom]\nsub     edx, ecx\nmovzx   eax, [rbp+hue]\nmov     esi, eax\nmov     eax, esi\nimul    rsi, rdi\nshr     rsi, 25h\nimul    esi, 3Ch ; '<'\nsub     eax, esi\nimul    edx, eax\nmovsxd  rax, edx\nimul    rax, 0FFFFFFFF88888889h\nshr     rax, 20h\nadd     eax, edx\nmov     edx, eax\nshr     edx, 1Fh\nshr     eax, 5\nadd     eax, edx\nadd     eax, ecx\nmov     [rbp+rising], al\nmovzx   edx, [rbp+top]\nmovzx   ecx, [rbp+bottom]\nsub     edx, ecx\nmovzx   eax, [rbp+hue]\nmov     esi, eax\nimul    rax, rdi\nshr     rax, 25h\nimul    eax, 3Ch ; '<'\nsub     eax, esi\nadd     eax, 3Ch ; '<'\nimul    edx, eax\nmovsxd  rax, edx\nimul    rax, 0FFFFFFFF88888889h\nshr     rax, 20h\nadd     eax, edx\nmov     edx, eax\nshr     edx, 1Fh\nshr     eax, 5\nadd     eax, edx\nadd     eax, ecx\nmov     [rbp+falling], al\nmovzx   eax, [rbp+H_accent]\nmov     [rbp+var_20], rax\nsub     rax, 5; switch 6 cases\nja      def_12CC; jumptable 00000000000012CC default case\nmov     rax, [rbp+var_20]\nlea     rcx, jpt_12CC\nmovsxd  rax, ds:(jpt_12CC - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nmov     ax, [rbp+top]; jumptable 00000000000012CC case 0\nmov     [rbp+r], al\nmov     al, [rbp+rising]\nmov     [rbp+g], al\nmov     ax, [rbp+bottom]\nmov     [rbp+b], al\njmp     def_12CC; jumptable 00000000000012CC default case\nmov     al, [rbp+falling]; jumptable 00000000000012CC case 1\nmov     [rbp+r], al\nmov     ax, [rbp+top]\nmov     [rbp+g], al\nmov     ax, [rbp+bottom]\nmov     [rbp+b], al\njmp     def_12CC; jumptable 00000000000012CC default case\nmov     ax, [rbp+bottom]; jumptable 00000000000012CC case 2\nmov     [rbp+r], al\nmov     ax, [rbp+top]\nmov     [rbp+g], al\nmov     al, [rbp+rising]\nmov     [rbp+b], al\njmp     def_12CC; jumptable 00000000000012CC default case\nmov     ax, [rbp+bottom]; jumptable 00000000000012CC case 3\nmov     [rbp+r], al\nmov     al, [rbp+falling]\nmov     [rbp+g], al\nmov     ax, [rbp+top]\nmov     [rbp+b], al\njmp     def_12CC; jumptable 00000000000012CC default case\nmov     al, [rbp+rising]; jumptable 00000000000012CC case 4\nmov     [rbp+r], al\nmov     ax, [rbp+bottom]\nmov     [rbp+g], al\nmov     ax, [rbp+top]\nmov     [rbp+b], al\njmp     def_12CC; jumptable 00000000000012CC default case\nmov     ax, [rbp+top]; jumptable 00000000000012CC case 5\nmov     [rbp+r], al\nmov     ax, [rbp+bottom]\nmov     [rbp+g], al\nmov     al, [rbp+falling]\nmov     [rbp+b], al\nmovzx   eax, [rbp+g]; jumptable 00000000000012CC default case\nshl     eax, 10h\nmovzx   ecx, [rbp+r]\nshl     ecx, 8\nor      eax, ecx\nmovzx   ecx, [rbp+b]\nor      eax, ecx\nmov     [rbp+result], eax\nmov     eax, [rbp+result]\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 9,
+  "edges": [
+   [
+    "start",
+    "loc_12BA"
+   ],
+   [
+    "start",
+    "loc_135F"
+   ],
+   [
+    "loc_12BA",
+    "loc_12CE"
+   ],
+   [
+    "loc_12BA",
+    "loc_12E7"
+   ],
+   [
+    "loc_12BA",
+    "loc_1300"
+   ],
+   [
+    "loc_12BA",
+    "loc_1319"
+   ],
+   [
+    "loc_12BA",
+    "loc_1332"
+   ],
+   [
+    "loc_12BA",
+    "loc_134B"
+   ],
+   [
+    "loc_12CE",
+    "loc_135F"
+   ],
+   [
+    "loc_12E7",
+    "loc_135F"
+   ],
+   [
+    "loc_1300",
+    "loc_135F"
+   ],
+   [
+    "loc_1319",
+    "loc_135F"
+   ],
+   [
+    "loc_1332",
+    "loc_135F"
+   ],
+   [
+    "loc_134B",
+    "loc_135F"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nmov     al, dl\nmov     cl, sil\nmov     dx, di\nmov     [rbp+hue], dx\nmov     [rbp+sat], cl\nmov     [rbp+val], al\nmovzx   eax, [rbp+hue]\nmov     ecx, eax\nmov     eax, ecx\nshr     rcx, 3\nimul    rcx, 16C16C17h\nshr     rcx, 22h\nimul    ecx, 168h\nsub     eax, ecx\nmov     edi, 88888889h\nimul    rax, rdi\nshr     rax, 25h\nmov     [rbp+H_accent], ax\nmovzx   eax, [rbp+sat]\nxor     eax, 0FFh\nmovzx   ecx, [rbp+val]\nimul    eax, ecx\nshr     eax, 8\nmov     [rbp+bottom], ax\nmovzx   eax, [rbp+val]\nmov     [rbp+top], ax\nmovzx   edx, [rbp+top]\nmovzx   ecx, [rbp+bottom]\nsub     edx, ecx\nmovzx   eax, [rbp+hue]\nmov     esi, eax\nmov     eax, esi\nimul    rsi, rdi\nshr     rsi, 25h\nimul    esi, 3Ch ; '<'\nsub     eax, esi\nimul    edx, eax\nmovsxd  rax, edx\nimul    rax, 0FFFFFFFF88888889h\nshr     rax, 20h\nadd     eax, edx\nmov     edx, eax\nshr     edx, 1Fh\nshr     eax, 5\nadd     eax, edx\nadd     eax, ecx\nmov     [rbp+rising], al\nmovzx   edx, [rbp+top]\nmovzx   ecx, [rbp+bottom]\nsub     edx, ecx\nmovzx   eax, [rbp+hue]\nmov     esi, eax\nimul    rax, rdi\nshr     rax, 25h\nimul    eax, 3Ch ; '<'\nsub     eax, esi\nadd     eax, 3Ch ; '<'\nimul    edx, eax\nmovsxd  rax, edx\nimul    rax, 0FFFFFFFF88888889h\nshr     rax, 20h\nadd     eax, edx\nmov     edx, eax\nshr     edx, 1Fh\nshr     eax, 5\nadd     eax, edx\nadd     eax, ecx\nmov     [rbp+falling], al\nmovzx   eax, [rbp+H_accent]\nmov     [rbp+var_20], rax\nsub     rax, 5; switch 6 cases\nja      def_12CC; jumptable 00000000000012CC default case",
+   "loc_12BA": "mov     rax, [rbp+var_20]\nlea     rcx, jpt_12CC\nmovsxd  rax, ds:(jpt_12CC - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_12CE": "mov     ax, [rbp+top]; jumptable 00000000000012CC case 0\nmov     [rbp+r], al\nmov     al, [rbp+rising]\nmov     [rbp+g], al\nmov     ax, [rbp+bottom]\nmov     [rbp+b], al\njmp     def_12CC; jumptable 00000000000012CC default case",
+   "loc_12E7": "mov     al, [rbp+falling]; jumptable 00000000000012CC case 1\nmov     [rbp+r], al\nmov     ax, [rbp+top]\nmov     [rbp+g], al\nmov     ax, [rbp+bottom]\nmov     [rbp+b], al\njmp     def_12CC; jumptable 00000000000012CC default case",
+   "loc_1300": "mov     ax, [rbp+bottom]; jumptable 00000000000012CC case 2\nmov     [rbp+r], al\nmov     ax, [rbp+top]\nmov     [rbp+g], al\nmov     al, [rbp+rising]\nmov     [rbp+b], al\njmp     def_12CC; jumptable 00000000000012CC default case",
+   "loc_1319": "mov     ax, [rbp+bottom]; jumptable 00000000000012CC case 3\nmov     [rbp+r], al\nmov     al, [rbp+falling]\nmov     [rbp+g], al\nmov     ax, [rbp+top]\nmov     [rbp+b], al\njmp     def_12CC; jumptable 00000000000012CC default case",
+   "loc_1332": "mov     al, [rbp+rising]; jumptable 00000000000012CC case 4\nmov     [rbp+r], al\nmov     ax, [rbp+bottom]\nmov     [rbp+g], al\nmov     ax, [rbp+top]\nmov     [rbp+b], al\njmp     def_12CC; jumptable 00000000000012CC default case",
+   "loc_134B": "mov     ax, [rbp+top]; jumptable 00000000000012CC case 5\nmov     [rbp+r], al\nmov     ax, [rbp+bottom]\nmov     [rbp+g], al\nmov     al, [rbp+falling]\nmov     [rbp+b], al",
+   "loc_135F": "movzx   eax, [rbp+g]; jumptable 00000000000012CC default case\nshl     eax, 10h\nmovzx   ecx, [rbp+r]\nshl     ecx, 8\nor      eax, ecx\nmovzx   ecx, [rbp+b]\nor      eax, ecx\nmov     [rbp+result], eax\nmov     eax, [rbp+result]\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_20": "qword ptr -20h",
+   "result": "dword ptr -14h",
+   "b": "byte ptr -0Fh",
+   "g": "byte ptr -0Eh",
+   "r": "byte ptr -0Dh",
+   "falling": "byte ptr -0Ch",
+   "rising": "byte ptr -0Bh",
+   "top": "word ptr -0Ah",
+   "bottom": "word ptr -8",
+   "H_accent": "word ptr -6",
+   "val": "byte ptr -4",
+   "sat": "byte ptr -3",
+   "hue": "word ptr -2"
+  },
+  ".rodata": {
+   "jpt_12CC": "dword offset loc_12CE - 2004h; jump table for switch statement"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4544,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868104
+ }
+}

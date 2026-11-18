@@ -1,0 +1,290 @@
+0000000000001530 <WritePixels>:
+    1530:	push   %rbp
+    1531:	mov    %rsp,%rbp
+    1534:	sub    $0x40,%rsp
+    1538:	mov    %cx,%ax
+    153b:	mov    %rdi,-0x8(%rbp)
+    153f:	mov    %rsi,-0x10(%rbp)
+    1543:	mov    %rdx,-0x18(%rbp)
+    1547:	mov    %ax,-0x1a(%rbp)
+    154b:	mov    -0x8(%rbp),%rax
+    154f:	mov    0x8(%rax),%rax
+    1553:	mov    %rax,-0x28(%rbp)
+    1557:	movzwl -0x1a(%rbp),%eax
+    155b:	cmp    $0x0,%eax
+    155e:	jle    195c <WritePixels+0x42c>
+    1564:	mov    -0x10(%rbp),%rax
+    1568:	movzwl 0x10(%rax),%eax
+    156c:	movzwl -0x1a(%rbp),%ecx
+    1570:	cmp    %ecx,%eax
+    1572:	jge    1588 <WritePixels+0x58>
+    1578:	mov    -0x10(%rbp),%rax
+    157c:	movzwl 0x10(%rax),%eax
+    1580:	mov    %eax,-0x34(%rbp)
+    1583:	jmp    158f <WritePixels+0x5f>
+    1588:	movzwl -0x1a(%rbp),%eax
+    158c:	mov    %eax,-0x34(%rbp)
+    158f:	mov    -0x34(%rbp),%eax
+    1592:	mov    %ax,-0x1c(%rbp)
+    1596:	mov    -0x8(%rbp),%rax
+    159a:	mov    0x1b(%rax),%al
+    159d:	shr    $0x4,%al
+    15a0:	and    $0x1,%al
+    15a2:	cmp    $0x0,%al
+    15a4:	jne    165c <WritePixels+0x12c>
+    15aa:	mov    -0x28(%rbp),%rax
+    15ae:	movzbl 0x43(%rax),%eax
+    15b2:	and    $0x1,%eax
+    15b5:	cmp    $0x0,%eax
+    15b8:	je     15ff <WritePixels+0xcf>
+    15be:	mov    -0x10(%rbp),%rax
+    15c2:	mov    (%rax),%rdi
+    15c5:	mov    -0x18(%rbp),%rsi
+    15c9:	movzwl -0x1c(%rbp),%eax
+    15cd:	mov    %eax,%edx
+    15cf:	call   1090 <memcpy@plt>
+    15d4:	movzwl -0x1c(%rbp),%ecx
+    15d8:	mov    -0x18(%rbp),%rax
+    15dc:	movslq %ecx,%rcx
+    15df:	add    %rcx,%rax
+    15e2:	mov    %rax,-0x18(%rbp)
+    15e6:	movzwl -0x1c(%rbp),%edx
+    15ea:	mov    -0x10(%rbp),%rax
+    15ee:	mov    (%rax),%rcx
+    15f1:	movslq %edx,%rdx
+    15f4:	add    %rdx,%rcx
+    15f7:	mov    %rcx,(%rax)
+    15fa:	jmp    1657 <WritePixels+0x127>
+    15ff:	movzwl -0x1c(%rbp),%eax
+    1603:	mov    %eax,-0x2c(%rbp)
+    1606:	cmpl   $0x0,-0x2c(%rbp)
+    160a:	jle    1652 <WritePixels+0x122>
+    1610:	mov    -0x8(%rbp),%rax
+    1614:	mov    0x10(%rax),%rdi
+    1618:	mov    -0x18(%rbp),%rax
+    161c:	mov    %rax,%rcx
+    161f:	add    $0x1,%rcx
+    1623:	mov    %rcx,-0x18(%rbp)
+    1627:	movzbl (%rax),%esi
+    162a:	call   11e0 <GifIndexToTrueColor>
+    162f:	mov    %eax,%ecx
+    1631:	mov    -0x10(%rbp),%rdx
+    1635:	mov    (%rdx),%rax
+    1638:	mov    %rax,%rsi
+    163b:	add    $0x4,%rsi
+    163f:	mov    %rsi,(%rdx)
+    1642:	mov    %ecx,(%rax)
+    1644:	mov    -0x2c(%rbp),%eax
+    1647:	add    $0xffffffff,%eax
+    164a:	mov    %eax,-0x2c(%rbp)
+    164d:	jmp    1606 <WritePixels+0xd6>
+    1652:	jmp    1657 <WritePixels+0x127>
+    1657:	jmp    174d <WritePixels+0x21d>
+    165c:	mov    -0x28(%rbp),%rax
+    1660:	movzbl 0x43(%rax),%eax
+    1664:	and    $0x1,%eax
+    1667:	cmp    $0x0,%eax
+    166a:	je     16d4 <WritePixels+0x1a4>
+    1670:	movzwl -0x1c(%rbp),%eax
+    1674:	mov    %eax,-0x30(%rbp)
+    1677:	cmpl   $0x0,-0x30(%rbp)
+    167b:	jle    16cf <WritePixels+0x19f>
+    1681:	mov    -0x18(%rbp),%rax
+    1685:	movzbl (%rax),%eax
+    1688:	mov    -0x8(%rbp),%rcx
+    168c:	movzbl 0x1a(%rcx),%ecx
+    1690:	cmp    %ecx,%eax
+    1692:	je     16a7 <WritePixels+0x177>
+    1698:	mov    -0x18(%rbp),%rax
+    169c:	mov    (%rax),%cl
+    169e:	mov    -0x10(%rbp),%rax
+    16a2:	mov    (%rax),%rax
+    16a5:	mov    %cl,(%rax)
+    16a7:	mov    -0x18(%rbp),%rax
+    16ab:	add    $0x1,%rax
+    16af:	mov    %rax,-0x18(%rbp)
+    16b3:	mov    -0x10(%rbp),%rax
+    16b7:	mov    (%rax),%rcx
+    16ba:	add    $0x1,%rcx
+    16be:	mov    %rcx,(%rax)
+    16c1:	mov    -0x30(%rbp),%eax
+    16c4:	add    $0xffffffff,%eax
+    16c7:	mov    %eax,-0x30(%rbp)
+    16ca:	jmp    1677 <WritePixels+0x147>
+    16cf:	jmp    1748 <WritePixels+0x218>
+    16d4:	movzwl -0x1c(%rbp),%eax
+    16d8:	mov    %eax,-0x30(%rbp)
+    16db:	cmpl   $0x0,-0x30(%rbp)
+    16df:	jle    1743 <WritePixels+0x213>
+    16e5:	mov    -0x18(%rbp),%rax
+    16e9:	movzbl (%rax),%eax
+    16ec:	mov    -0x8(%rbp),%rcx
+    16f0:	movzbl 0x1a(%rcx),%ecx
+    16f4:	cmp    %ecx,%eax
+    16f6:	je     171b <WritePixels+0x1eb>
+    16fc:	mov    -0x8(%rbp),%rax
+    1700:	mov    0x10(%rax),%rdi
+    1704:	mov    -0x18(%rbp),%rax
+    1708:	movzbl (%rax),%esi
+    170b:	call   11e0 <GifIndexToTrueColor>
+    1710:	mov    %eax,%ecx
+    1712:	mov    -0x10(%rbp),%rax
+    1716:	mov    (%rax),%rax
+    1719:	mov    %ecx,(%rax)
+    171b:	mov    -0x18(%rbp),%rax
+    171f:	add    $0x1,%rax
+    1723:	mov    %rax,-0x18(%rbp)
+    1727:	mov    -0x10(%rbp),%rax
+    172b:	mov    (%rax),%rcx
+    172e:	add    $0x4,%rcx
+    1732:	mov    %rcx,(%rax)
+    1735:	mov    -0x30(%rbp),%eax
+    1738:	add    $0xffffffff,%eax
+    173b:	mov    %eax,-0x30(%rbp)
+    173e:	jmp    16db <WritePixels+0x1ab>
+    1743:	jmp    1748 <WritePixels+0x218>
+    1748:	jmp    174d <WritePixels+0x21d>
+    174d:	movzwl -0x1c(%rbp),%edx
+    1751:	mov    -0x10(%rbp),%rax
+    1755:	movzwl 0x10(%rax),%ecx
+    1759:	sub    %edx,%ecx
+    175b:	mov    %cx,0x10(%rax)
+    175f:	mov    -0x10(%rbp),%rax
+    1763:	movzwl 0x10(%rax),%eax
+    1767:	cmp    $0x0,%eax
+    176a:	jne    1949 <WritePixels+0x419>
+    1770:	mov    -0x8(%rbp),%rax
+    1774:	mov    0x1e(%rax),%cx
+    1778:	mov    -0x10(%rbp),%rax
+    177c:	mov    %cx,0x10(%rax)
+    1780:	mov    -0x10(%rbp),%rax
+    1784:	movzbl 0x18(%rax),%eax
+    1788:	mov    %rax,-0x40(%rbp)
+    178c:	sub    $0x4,%rax
+    1790:	ja     18bb <WritePixels+0x38b>
+    1796:	mov    -0x40(%rbp),%rax
+    179a:	lea    0x863(%rip),%rcx        # 2004 <_IO_stdin_used+0x4>
+    17a1:	movslq (%rcx,%rax,4),%rax
+    17a5:	add    %rcx,%rax
+    17a8:	jmp    *%rax
+    17aa:	mov    -0x10(%rbp),%rax
+    17ae:	mov    0x12(%rax),%cx
+    17b2:	add    $0x1,%cx
+    17b6:	mov    %cx,0x12(%rax)
+    17ba:	jmp    18bb <WritePixels+0x38b>
+    17bf:	mov    -0x10(%rbp),%rax
+    17c3:	movzwl 0x12(%rax),%ecx
+    17c7:	add    $0x8,%ecx
+    17ca:	mov    %cx,0x12(%rax)
+    17ce:	mov    -0x10(%rbp),%rax
+    17d2:	movzwl 0x12(%rax),%eax
+    17d6:	mov    -0x28(%rbp),%rcx
+    17da:	movzwl 0x3c(%rcx),%ecx
+    17de:	cmp    %ecx,%eax
+    17e0:	jl     1809 <WritePixels+0x2d9>
+    17e6:	mov    -0x10(%rbp),%rax
+    17ea:	mov    0x18(%rax),%cl
+    17ed:	add    $0x1,%cl
+    17f0:	mov    %cl,0x18(%rax)
+    17f3:	mov    -0x8(%rbp),%rax
+    17f7:	movzwl 0x24(%rax),%eax
+    17fb:	add    $0x4,%eax
+    17fe:	mov    %ax,%cx
+    1801:	mov    -0x10(%rbp),%rax
+    1805:	mov    %cx,0x12(%rax)
+    1809:	jmp    18bb <WritePixels+0x38b>
+    180e:	mov    -0x10(%rbp),%rax
+    1812:	movzwl 0x12(%rax),%ecx
+    1816:	add    $0x8,%ecx
+    1819:	mov    %cx,0x12(%rax)
+    181d:	mov    -0x10(%rbp),%rax
+    1821:	movzwl 0x12(%rax),%eax
+    1825:	mov    -0x28(%rbp),%rcx
+    1829:	movzwl 0x3c(%rcx),%ecx
+    182d:	cmp    %ecx,%eax
+    182f:	jl     1858 <WritePixels+0x328>
+    1835:	mov    -0x10(%rbp),%rax
+    1839:	mov    0x18(%rax),%cl
+    183c:	add    $0x1,%cl
+    183f:	mov    %cl,0x18(%rax)
+    1842:	mov    -0x8(%rbp),%rax
+    1846:	movzwl 0x24(%rax),%eax
+    184a:	add    $0x2,%eax
+    184d:	mov    %ax,%cx
+    1850:	mov    -0x10(%rbp),%rax
+    1854:	mov    %cx,0x12(%rax)
+    1858:	jmp    18bb <WritePixels+0x38b>
+    185d:	mov    -0x10(%rbp),%rax
+    1861:	movzwl 0x12(%rax),%ecx
+    1865:	add    $0x4,%ecx
+    1868:	mov    %cx,0x12(%rax)
+    186c:	mov    -0x10(%rbp),%rax
+    1870:	movzwl 0x12(%rax),%eax
+    1874:	mov    -0x28(%rbp),%rcx
+    1878:	movzwl 0x3c(%rcx),%ecx
+    187c:	cmp    %ecx,%eax
+    187e:	jl     18a7 <WritePixels+0x377>
+    1884:	mov    -0x10(%rbp),%rax
+    1888:	mov    0x18(%rax),%cl
+    188b:	add    $0x1,%cl
+    188e:	mov    %cl,0x18(%rax)
+    1891:	mov    -0x8(%rbp),%rax
+    1895:	movzwl 0x24(%rax),%eax
+    1899:	add    $0x1,%eax
+    189c:	mov    %ax,%cx
+    189f:	mov    -0x10(%rbp),%rax
+    18a3:	mov    %cx,0x12(%rax)
+    18a7:	jmp    18bb <WritePixels+0x38b>
+    18ac:	mov    -0x10(%rbp),%rax
+    18b0:	movzwl 0x12(%rax),%ecx
+    18b4:	add    $0x2,%ecx
+    18b7:	mov    %cx,0x12(%rax)
+    18bb:	mov    -0x28(%rbp),%rax
+    18bf:	movzbl 0x43(%rax),%eax
+    18c3:	and    $0x1,%eax
+    18c6:	cmp    $0x0,%eax
+    18c9:	je     1908 <WritePixels+0x3d8>
+    18cf:	mov    -0x28(%rbp),%rax
+    18d3:	mov    0x20(%rax),%rcx
+    18d7:	mov    -0x10(%rbp),%rax
+    18db:	movzwl 0x12(%rax),%eax
+    18df:	mov    -0x28(%rbp),%rdx
+    18e3:	movzwl 0x3a(%rdx),%edx
+    18e7:	imul   %edx,%eax
+    18ea:	mov    %eax,%eax
+    18ec:	add    %rax,%rcx
+    18ef:	mov    -0x8(%rbp),%rax
+    18f3:	movzwl 0x22(%rax),%eax
+    18f7:	cltq
+    18f9:	add    %rax,%rcx
+    18fc:	mov    -0x10(%rbp),%rax
+    1900:	mov    %rcx,(%rax)
+    1903:	jmp    1944 <WritePixels+0x414>
+    1908:	mov    -0x28(%rbp),%rax
+    190c:	mov    0x20(%rax),%rcx
+    1910:	mov    -0x10(%rbp),%rax
+    1914:	movzwl 0x12(%rax),%eax
+    1918:	mov    -0x28(%rbp),%rdx
+    191c:	movzwl 0x3a(%rdx),%edx
+    1920:	imul   %edx,%eax
+    1923:	mov    %eax,%eax
+    1925:	shl    $0x2,%rax
+    1929:	add    %rax,%rcx
+    192c:	mov    -0x8(%rbp),%rax
+    1930:	movzwl 0x22(%rax),%eax
+    1934:	cltq
+    1936:	shl    $0x2,%rax
+    193a:	add    %rax,%rcx
+    193d:	mov    -0x10(%rbp),%rax
+    1941:	mov    %rcx,(%rax)
+    1944:	jmp    1949 <WritePixels+0x419>
+    1949:	movzwl -0x1c(%rbp),%ecx
+    194d:	movzwl -0x1a(%rbp),%eax
+    1951:	sub    %ecx,%eax
+    1953:	mov    %ax,-0x1a(%rbp)
+    1957:	jmp    1557 <WritePixels+0x27>
+    195c:	add    $0x40,%rsp
+    1960:	pop    %rbp
+    1961:	ret
+
+Disassembly of section .fini:

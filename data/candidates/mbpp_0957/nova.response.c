@@ -1,0 +1,1 @@
+int func0(int x) { return log2(x & -x) + 1; }

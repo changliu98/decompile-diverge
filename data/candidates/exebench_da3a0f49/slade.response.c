@@ -1,0 +1,1 @@
+int test_and_change_bit(unsigned long nr, unsigned long *addr) { unsigned char ret; asm volatile ("btcl %0, %1, %b0" : "=r" (ret) : "r" (nr), "r" (addr) : "cc" ); return ret != 0; }

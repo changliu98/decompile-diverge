@@ -1,0 +1,249 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+nam], rdi\nmov     [rbp+val], rsi\nmov     rdi, [rbp+nam]; s\ncall    strlen\nmov     [rbp+nlen], eax\ncmp     [rbp+val], 0\njnz     loc_1222\nlea     rax, format+12h; \"\"\nmov     [rbp+val], rax\nmov     rdi, [rbp+val]; s\ncall    strlen\nmov     [rbp+vlen], eax\nmov     eax, [rbp+nlen]\nadd     eax, [rbp+vlen]\nadd     eax, 2\nmovsxd  rdi, eax\nshl     rdi, 0; size\ncall    vb_safesysmalloc\nmov     [rbp+envstr], rax\nmov     rdi, [rbp+envstr]; dest\nmov     rsi, [rbp+nam]; src\nmovsxd  rdx, [rbp+nlen]\nshl     rdx, 0; n\ncall    memcpy\nmov     rax, [rbp+envstr]\nmovsxd  rcx, [rbp+nlen]\nmov     byte ptr [rax+rcx], 3Dh ; '='\nmov     rdi, [rbp+envstr]\nmov     eax, [rbp+nlen]\nadd     eax, 1\ncdqe\nadd     rdi, rax; dest\nmov     rsi, [rbp+val]; src\nmovsxd  rdx, [rbp+vlen]\nshl     rdx, 0; n\ncall    memcpy\nmov     rax, [rbp+envstr]\nmov     ecx, [rbp+nlen]\nadd     ecx, 1\nadd     ecx, [rbp+vlen]\nmovsxd  rcx, ecx\nmov     byte ptr [rax+rcx], 0\nmov     rdi, [rbp+envstr]; s\ncall    vb_PerlEnv_putenv\nmov     rdi, [rbp+envstr]; ptr\ncall    free\nadd     rsp, 20h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 3,
+  "edges": [
+   [
+    "start",
+    "loc_1217"
+   ],
+   [
+    "start",
+    "loc_1222"
+   ],
+   [
+    "loc_1217",
+    "loc_1222"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+nam], rdi\nmov     [rbp+val], rsi\nmov     rdi, [rbp+nam]; s\ncall    strlen\nmov     [rbp+nlen], eax\ncmp     [rbp+val], 0\njnz     loc_1222",
+   "loc_1217": "lea     rax, format+12h; \"\"\nmov     [rbp+val], rax",
+   "loc_1222": "mov     rdi, [rbp+val]; s\ncall    strlen\nmov     [rbp+vlen], eax\nmov     eax, [rbp+nlen]\nadd     eax, [rbp+vlen]\nadd     eax, 2\nmovsxd  rdi, eax\nshl     rdi, 0; size\ncall    vb_safesysmalloc\nmov     [rbp+envstr], rax\nmov     rdi, [rbp+envstr]; dest\nmov     rsi, [rbp+nam]; src\nmovsxd  rdx, [rbp+nlen]\nshl     rdx, 0; n\ncall    memcpy\nmov     rax, [rbp+envstr]\nmovsxd  rcx, [rbp+nlen]\nmov     byte ptr [rax+rcx], 3Dh ; '='\nmov     rdi, [rbp+envstr]\nmov     eax, [rbp+nlen]\nadd     eax, 1\ncdqe\nadd     rdi, rax; dest\nmov     rsi, [rbp+val]; src\nmovsxd  rdx, [rbp+vlen]\nshl     rdx, 0; n\ncall    memcpy\nmov     rax, [rbp+envstr]\nmov     ecx, [rbp+nlen]\nadd     ecx, 1\nadd     ecx, [rbp+vlen]\nmovsxd  rcx, ecx\nmov     byte ptr [rax+rcx], 0\nmov     rdi, [rbp+envstr]; s\ncall    vb_PerlEnv_putenv\nmov     rdi, [rbp+envstr]; ptr\ncall    free\nadd     rsp, 20h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "vlen": "dword ptr -20h",
+   "nlen": "dword ptr -1Ch",
+   "envstr": "qword ptr -18h",
+   "val": "qword ptr -10h",
+   "nam": "qword ptr -8"
+  },
+  ".rodata": {
+   "unk_2019": "byte 'vb: out of memory',0Ah,0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4592,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".exit": "exit",
+  "_exit": "exit"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".exit",
+   ".plt",
+   true,
+   "exit"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "exit",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868466
+ }
+}

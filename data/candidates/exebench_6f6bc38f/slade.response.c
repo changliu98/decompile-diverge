@@ -1,0 +1,1 @@
+void geom_matmat2d(double mat[3], double mat_a[3], double mat_b[3]) { mat_b[0] = mat[0]*mat_a[0] + mat[2]*mat_a[1]; mat_b[1] = mat[1]*mat_a[0] + mat[3]*mat_a[1]; mat_b[2] = mat[0]*mat_a[2] + mat[2]*mat_a[3]; mat_b[3] = mat[1]*mat_a[2] + mat[3]*mat_a[3]; }

@@ -1,0 +1,1 @@
+void SnapVector( float *vector ) { vector[ 0 ] = (float)( (int)vector[ 0 ]); vector[ 1 ] = (float)( (int)vector[ 1 ]); vector[ 2 ] = (float)( (int)vector[ 2 ]); }

@@ -1,0 +1,1 @@
+char *func0(char *str1, char *str2) { int len1 = strlen(str1); int len2 = strlen(str2); int max = len1 < len2 ? len1 : len2; char *s = malloc((size_t)(max + 1) * sizeof(char)); if (s == NULL) return NULL; for (int i = 0; i < max; ++i) s[i] = str1[i] == str2[i] ? '0' : '1'; s[max] = '\0'; return s; }

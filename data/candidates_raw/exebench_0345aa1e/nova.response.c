@@ -1,0 +1,1 @@
+void func0(float *x, double y) { *x = (float)y; }

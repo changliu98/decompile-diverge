@@ -1,0 +1,240 @@
+0000000000001200 <FileSwfDecompression>:
+    1200:	push   %rbp
+    1201:	mov    %rsp,%rbp
+    1204:	sub    $0x70,%rsp
+    1208:	mov    0x10(%rbp),%eax
+    120b:	mov    %rdi,-0x10(%rbp)
+    120f:	mov    %esi,-0x14(%rbp)
+    1212:	mov    %rdx,-0x20(%rbp)
+    1216:	mov    %rcx,-0x28(%rbp)
+    121a:	mov    %r8d,-0x2c(%rbp)
+    121e:	mov    %r9d,-0x30(%rbp)
+    1222:	movl   $0x0,-0x34(%rbp)
+    1229:	mov    -0x10(%rbp),%rdi
+    122d:	mov    -0x14(%rbp),%esi
+    1230:	call   15e0 <FileIsSwfFile>
+    1235:	mov    %eax,-0x38(%rbp)
+    1238:	cmpl   $0x1,-0x38(%rbp)
+    123c:	jne    124e <FileSwfDecompression+0x4e>
+    1242:	movl   $0x0,-0x4(%rbp)
+    1249:	jmp    15ca <FileSwfDecompression+0x3ca>
+    124e:	movl   $0x0,-0x3c(%rbp)
+    1255:	cmpl   $0x2,-0x38(%rbp)
+    1259:	jne    126b <FileSwfDecompression+0x6b>
+    125f:	movl   $0x8,-0x3c(%rbp)
+    1266:	jmp    1281 <FileSwfDecompression+0x81>
+    126b:	cmpl   $0x3,-0x38(%rbp)
+    126f:	jne    127c <FileSwfDecompression+0x7c>
+    1275:	movl   $0x11,-0x3c(%rbp)
+    127c:	jmp    1281 <FileSwfDecompression+0x81>
+    1281:	mov    -0x14(%rbp),%eax
+    1284:	cmp    -0x3c(%rbp),%eax
+    1287:	ja     12a7 <FileSwfDecompression+0xa7>
+    128d:	mov    -0x20(%rbp),%rdi
+    1291:	mov    $0x1,%esi
+    1296:	call   1690 <DetectEngineSetEvent>
+    129b:	movl   $0x0,-0x4(%rbp)
+    12a2:	jmp    15ca <FileSwfDecompression+0x3ca>
+    12a7:	movl   $0x0,-0x40(%rbp)
+    12ae:	cmpl   $0x0,0x10(%rbp)
+    12b2:	jbe    12d4 <FileSwfDecompression+0xd4>
+    12b8:	mov    0x10(%rbp),%eax
+    12bb:	mov    -0x14(%rbp),%ecx
+    12be:	sub    -0x3c(%rbp),%ecx
+    12c1:	cmp    %ecx,%eax
+    12c3:	ja     12d4 <FileSwfDecompression+0xd4>
+    12c9:	mov    0x10(%rbp),%eax
+    12cc:	mov    %eax,-0x40(%rbp)
+    12cf:	jmp    12dd <FileSwfDecompression+0xdd>
+    12d4:	mov    -0x14(%rbp),%eax
+    12d7:	sub    -0x3c(%rbp),%eax
+    12da:	mov    %eax,-0x40(%rbp)
+    12dd:	mov    -0x10(%rbp),%rdi
+    12e1:	mov    -0x14(%rbp),%esi
+    12e4:	call   16a0 <FileGetSwfVersion>
+    12e9:	mov    %al,-0x41(%rbp)
+    12ec:	cmpl   $0x2,-0x38(%rbp)
+    12f0:	jne    131d <FileSwfDecompression+0x11d>
+    12f6:	movzbl -0x41(%rbp),%eax
+    12fa:	cmp    $0x6,%eax
+    12fd:	jge    131d <FileSwfDecompression+0x11d>
+    1303:	mov    -0x20(%rbp),%rdi
+    1307:	mov    $0x2,%esi
+    130c:	call   1690 <DetectEngineSetEvent>
+    1311:	movl   $0x0,-0x4(%rbp)
+    1318:	jmp    15ca <FileSwfDecompression+0x3ca>
+    131d:	cmpl   $0x3,-0x38(%rbp)
+    1321:	jne    134e <FileSwfDecompression+0x14e>
+    1327:	movzbl -0x41(%rbp),%eax
+    132b:	cmp    $0xd,%eax
+    132e:	jge    134e <FileSwfDecompression+0x14e>
+    1334:	mov    -0x20(%rbp),%rdi
+    1338:	mov    $0x2,%esi
+    133d:	call   1690 <DetectEngineSetEvent>
+    1342:	movl   $0x0,-0x4(%rbp)
+    1349:	jmp    15ca <FileSwfDecompression+0x3ca>
+    134e:	mov    -0x10(%rbp),%rdi
+    1352:	mov    -0x14(%rbp),%esi
+    1355:	call   16d0 <FileGetSwfDecompressedLen>
+    135a:	mov    %eax,-0x48(%rbp)
+    135d:	cmpl   $0x0,-0x48(%rbp)
+    1361:	jne    136e <FileSwfDecompression+0x16e>
+    1367:	movl   $0xb68,-0x48(%rbp)
+    136e:	cmpl   $0x0,-0x30(%rbp)
+    1372:	jne    1383 <FileSwfDecompression+0x183>
+    1378:	mov    -0x48(%rbp),%eax
+    137b:	mov    %eax,-0x68(%rbp)
+    137e:	jmp    1389 <FileSwfDecompression+0x189>
+    1383:	mov    -0x30(%rbp),%eax
+    1386:	mov    %eax,-0x68(%rbp)
+    1389:	mov    -0x68(%rbp),%eax
+    138c:	mov    %eax,-0x4c(%rbp)
+    138f:	mov    -0x4c(%rbp),%eax
+    1392:	add    $0x8,%eax
+    1395:	mov    %eax,-0x4c(%rbp)
+    1398:	mov    -0x28(%rbp),%rdi
+    139c:	mov    -0x4c(%rbp),%esi
+    139f:	call   17d0 <SCInspectionBufferCheckAndExpand>
+    13a4:	mov    -0x28(%rbp),%rax
+    13a8:	mov    0x28(%rax),%eax
+    13ab:	cmp    -0x4c(%rbp),%eax
+    13ae:	jae    13ce <FileSwfDecompression+0x1ce>
+    13b4:	mov    -0x20(%rbp),%rdi
+    13b8:	mov    $0x3,%esi
+    13bd:	call   1690 <DetectEngineSetEvent>
+    13c2:	movl   $0x0,-0x4(%rbp)
+    13c9:	jmp    15ca <FileSwfDecompression+0x3ca>
+    13ce:	mov    -0x4c(%rbp),%ecx
+    13d1:	mov    -0x28(%rbp),%rax
+    13d5:	mov    %ecx,0x1c(%rax)
+    13d8:	mov    -0x28(%rbp),%rax
+    13dc:	mov    0x20(%rax),%rax
+    13e0:	movb   $0x46,(%rax)
+    13e3:	mov    -0x28(%rbp),%rax
+    13e7:	mov    0x20(%rax),%rax
+    13eb:	movb   $0x57,0x1(%rax)
+    13ef:	mov    -0x28(%rbp),%rax
+    13f3:	mov    0x20(%rax),%rax
+    13f7:	movb   $0x53,0x2(%rax)
+    13fb:	mov    -0x41(%rbp),%cl
+    13fe:	mov    -0x28(%rbp),%rax
+    1402:	mov    0x20(%rax),%rax
+    1406:	mov    %cl,0x3(%rax)
+    1409:	mov    -0x28(%rbp),%rax
+    140d:	mov    0x20(%rax),%rax
+    1411:	mov    -0x48(%rbp),%ecx
+    1414:	mov    %ecx,0x4(%rax)
+    1417:	mov    -0x28(%rbp),%rax
+    141b:	mov    0x20(%rax),%rdi
+    141f:	add    $0x8,%rdi
+    1423:	mov    -0x4c(%rbp),%eax
+    1426:	sub    $0x8,%eax
+    1429:	mov    %eax,%eax
+    142b:	mov    %eax,%edx
+    142d:	xor    %esi,%esi
+    142f:	call   1060 <memset@plt>
+    1434:	cmpl   $0x1,-0x2c(%rbp)
+    1438:	je     1448 <FileSwfDecompression+0x248>
+    143e:	cmpl   $0x3,-0x2c(%rbp)
+    1442:	jne    1497 <FileSwfDecompression+0x297>
+    1448:	cmpl   $0x2,-0x38(%rbp)
+    144c:	jne    1497 <FileSwfDecompression+0x297>
+    1452:	mov    -0x20(%rbp),%rdi
+    1456:	mov    -0x10(%rbp),%rsi
+    145a:	mov    -0x3c(%rbp),%eax
+    145d:	add    %rax,%rsi
+    1460:	mov    -0x40(%rbp),%edx
+    1463:	mov    -0x28(%rbp),%rax
+    1467:	mov    0x20(%rax),%rcx
+    146b:	add    $0x8,%rcx
+    146f:	mov    -0x28(%rbp),%rax
+    1473:	mov    0x1c(%rax),%r8d
+    1477:	sub    $0x8,%r8d
+    147b:	call   18b0 <FileSwfZlibDecompression>
+    1480:	mov    %eax,-0x34(%rbp)
+    1483:	cmpl   $0x0,-0x34(%rbp)
+    1487:	jne    1492 <FileSwfDecompression+0x292>
+    148d:	jmp    15c3 <FileSwfDecompression+0x3c3>
+    1492:	jmp    159a <FileSwfDecompression+0x39a>
+    1497:	cmpl   $0x2,-0x2c(%rbp)
+    149b:	je     14ab <FileSwfDecompression+0x2ab>
+    14a1:	cmpl   $0x3,-0x2c(%rbp)
+    14a5:	jne    1590 <FileSwfDecompression+0x390>
+    14ab:	cmpl   $0x3,-0x38(%rbp)
+    14af:	jne    1590 <FileSwfDecompression+0x390>
+    14b5:	mov    -0x40(%rbp),%eax
+    14b8:	add    $0xd,%eax
+    14bb:	mov    %eax,-0x40(%rbp)
+    14be:	mov    -0x40(%rbp),%eax
+    14c1:	mov    %rsp,%rcx
+    14c4:	mov    %rcx,-0x58(%rbp)
+    14c8:	mov    %rax,%rcx
+    14cb:	add    $0xf,%rcx
+    14cf:	and    $0xfffffffffffffff0,%rcx
+    14d3:	mov    %rsp,%rdi
+    14d6:	sub    %rcx,%rdi
+    14d9:	mov    %rdi,-0x70(%rbp)
+    14dd:	mov    %rdi,%rsp
+    14e0:	mov    %rax,-0x60(%rbp)
+    14e4:	mov    -0x10(%rbp),%rax
+    14e8:	mov    0xc(%rax),%ecx
+    14eb:	mov    %ecx,(%rdi)
+    14ed:	mov    0x10(%rax),%al
+    14f0:	mov    %al,0x4(%rdi)
+    14f3:	add    $0x5,%rdi
+    14f7:	mov    $0xff,%esi
+    14fc:	mov    $0x8,%edx
+    1501:	call   1060 <memset@plt>
+    1506:	mov    -0x70(%rbp),%rdi
+    150a:	add    $0xd,%rdi
+    150e:	mov    -0x10(%rbp),%rsi
+    1512:	mov    -0x3c(%rbp),%eax
+    1515:	add    %rax,%rsi
+    1518:	mov    -0x40(%rbp),%eax
+    151b:	sub    $0xd,%eax
+    151e:	mov    %eax,%eax
+    1520:	mov    %eax,%edx
+    1522:	call   1090 <memcpy@plt>
+    1527:	mov    -0x70(%rbp),%rsi
+    152b:	mov    -0x20(%rbp),%rdi
+    152f:	mov    -0x40(%rbp),%edx
+    1532:	mov    -0x28(%rbp),%rax
+    1536:	mov    0x20(%rax),%rcx
+    153a:	add    $0x8,%rcx
+    153e:	mov    -0x28(%rbp),%rax
+    1542:	mov    0x1c(%rax),%r8d
+    1546:	sub    $0x8,%r8d
+    154a:	call   1930 <FileSwfLzmaDecompression>
+    154f:	mov    %eax,-0x34(%rbp)
+    1552:	cmpl   $0x0,-0x34(%rbp)
+    1556:	jne    1568 <FileSwfDecompression+0x368>
+    155c:	movl   $0x2,-0x64(%rbp)
+    1563:	jmp    156f <FileSwfDecompression+0x36f>
+    1568:	movl   $0x0,-0x64(%rbp)
+    156f:	mov    -0x58(%rbp),%rax
+    1573:	mov    %rax,%rsp
+    1576:	mov    -0x64(%rbp),%eax
+    1579:	test   %eax,%eax
+    157b:	je     158b <FileSwfDecompression+0x38b>
+    1581:	jmp    1586 <FileSwfDecompression+0x386>
+    1586:	jmp    15c3 <FileSwfDecompression+0x3c3>
+    158b:	jmp    1595 <FileSwfDecompression+0x395>
+    1590:	jmp    15c3 <FileSwfDecompression+0x3c3>
+    1595:	jmp    159a <FileSwfDecompression+0x39a>
+    159a:	mov    -0x28(%rbp),%rax
+    159e:	mov    0x20(%rax),%rcx
+    15a2:	mov    -0x28(%rbp),%rax
+    15a6:	mov    %rcx,(%rax)
+    15a9:	mov    -0x28(%rbp),%rax
+    15ad:	mov    0x1c(%rax),%ecx
+    15b0:	mov    -0x28(%rbp),%rax
+    15b4:	mov    %ecx,0x10(%rax)
+    15b7:	movl   $0x1,-0x4(%rbp)
+    15be:	jmp    15ca <FileSwfDecompression+0x3ca>
+    15c3:	movl   $0x0,-0x4(%rbp)
+    15ca:	mov    -0x4(%rbp),%eax
+    15cd:	mov    %rbp,%rsp
+    15d0:	pop    %rbp
+    15d1:	ret
+
+Disassembly of section .fini:

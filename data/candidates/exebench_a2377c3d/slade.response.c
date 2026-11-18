@@ -1,0 +1,1 @@
+void swap2int(uint32_t *a, uint32_t *b) { if (*a != *b) { *a ^= *b; *b ^= *b; *a ^= *b; } }

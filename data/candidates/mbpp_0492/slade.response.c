@@ -1,0 +1,1 @@
+int func0(int* arr, int size, int val) { int lo = 0; int hi = size - 1; int found = 0; while (lo <= hi && !found) { int mid = (lo + hi) / 2; if (val == arr[mid]) { found = 1; } else if (val < arr[mid]) { hi = mid - 1; } else { lo = mid + 1; } } return found; }

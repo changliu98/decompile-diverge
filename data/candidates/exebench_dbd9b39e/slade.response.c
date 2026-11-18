@@ -1,0 +1,1 @@
+void stress_chop(char *str, const char c) { char *p = strchr(str, c); if (p) *p = '\0'; }

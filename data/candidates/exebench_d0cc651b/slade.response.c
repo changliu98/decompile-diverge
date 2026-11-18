@@ -1,0 +1,1 @@
+void increment(uint16_t *word) { uint16_t x = *word; uint16_t mask = 1; while (x & mask) { x ^= mask; mask <<= 1; } x ^= mask; *word = x; }

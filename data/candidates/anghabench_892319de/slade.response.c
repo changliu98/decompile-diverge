@@ -1,0 +1,1 @@
+char *dlfb_dummy_render(char *buf) { *buf++ =0xAF; *buf++ =0x6A; *buf++ =0x00; return buf; }

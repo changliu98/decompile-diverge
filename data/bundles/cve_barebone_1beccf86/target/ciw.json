@@ -1,0 +1,580 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 70h\nmov     eax, [rbp+compress_depth]\nmov     [rbp+buffer], rdi\nmov     [rbp+buffer_len], esi\nmov     [rbp+det_ctx], rdx\nmov     [rbp+out_buffer], rcx\nmov     [rbp+swf_type], r8d\nmov     [rbp+decompress_depth], r9d\nmov     [rbp+r], 0\nmov     rdi, [rbp+buffer]; buffer\nmov     esi, [rbp+buffer_len]; buffer_len\ncall    FileIsSwfFile\nmov     [rbp+compression_type], eax\ncmp     [rbp+compression_type], 1\njnz     loc_124E\nmov     [rbp+var_4], 0\njmp     loc_15CA\nmov     [rbp+offset], 0\ncmp     [rbp+compression_type], 2\njnz     loc_126B\nmov     [rbp+offset], 8\njmp     loc_1281\ncmp     [rbp+compression_type], 3\njnz     loc_127C\nmov     [rbp+offset], 11h\njmp     $+5\nmov     eax, [rbp+buffer_len]\ncmp     eax, [rbp+offset]\nja      loc_12A7\nmov     rdi, [rbp+det_ctx]; det_ctx\nmov     esi, 1; e\ncall    DetectEngineSetEvent\nmov     [rbp+var_4], 0\njmp     loc_15CA\nmov     [rbp+compressed_data_len], 0\ncmp     [rbp+compress_depth], 0\njbe     loc_12D4\nmov     eax, [rbp+compress_depth]\nmov     ecx, [rbp+buffer_len]\nsub     ecx, [rbp+offset]\ncmp     eax, ecx\nja      loc_12D4\nmov     eax, [rbp+compress_depth]\nmov     [rbp+compressed_data_len], eax\njmp     loc_12DD\nmov     eax, [rbp+buffer_len]\nsub     eax, [rbp+offset]\nmov     [rbp+compressed_data_len], eax\nmov     rdi, [rbp+buffer]; buffer\nmov     esi, [rbp+buffer_len]; buffer_len\ncall    FileGetSwfVersion\nmov     [rbp+swf_version], al\ncmp     [rbp+compression_type], 2\njnz     loc_131D\nmovzx   eax, [rbp+swf_version]\ncmp     eax, 6\njge     loc_131D\nmov     rdi, [rbp+det_ctx]; det_ctx\nmov     esi, 2; e\ncall    DetectEngineSetEvent\nmov     [rbp+var_4], 0\njmp     loc_15CA\ncmp     [rbp+compression_type], 3\njnz     loc_134E\nmovzx   eax, [rbp+swf_version]\ncmp     eax, 0Dh\njge     loc_134E\nmov     rdi, [rbp+det_ctx]; det_ctx\nmov     esi, 2; e\ncall    DetectEngineSetEvent\nmov     [rbp+var_4], 0\njmp     loc_15CA\nmov     rdi, [rbp+buffer]; buffer\nmov     esi, [rbp+buffer_len]; buffer_len\ncall    FileGetSwfDecompressedLen\nmov     [rbp+decompressed_swf_len], eax\ncmp     [rbp+decompressed_swf_len], 0\njnz     loc_136E\nmov     [rbp+decompressed_swf_len], 0B68h\ncmp     [rbp+decompress_depth], 0\njnz     loc_1383\nmov     eax, [rbp+decompressed_swf_len]\nmov     [rbp+var_68], eax\njmp     loc_1389\nmov     eax, [rbp+decompress_depth]\nmov     [rbp+var_68], eax\nmov     eax, [rbp+var_68]\nmov     [rbp+decompressed_data_len], eax\nmov     eax, [rbp+decompressed_data_len]\nadd     eax, 8\nmov     [rbp+decompressed_data_len], eax\nmov     rdi, [rbp+out_buffer]; buffer\nmov     esi, [rbp+decompressed_data_len]; min_size\ncall    SCInspectionBufferCheckAndExpand\nmov     rax, [rbp+out_buffer]\nmov     eax, [rax+28h]\ncmp     eax, [rbp+decompressed_data_len]\njnb     loc_13CE\nmov     rdi, [rbp+det_ctx]; det_ctx\nmov     esi, 3; e\ncall    DetectEngineSetEvent\nmov     [rbp+var_4], 0\njmp     loc_15CA\nmov     ecx, [rbp+decompressed_data_len]\nmov     rax, [rbp+out_buffer]\nmov     [rax+1Ch], ecx\nmov     rax, [rbp+out_buffer]\nmov     rax, [rax+20h]\nmov     byte ptr [rax], 46h ; 'F'\nmov     rax, [rbp+out_buffer]\nmov     rax, [rax+20h]\nmov     byte ptr [rax+1], 57h ; 'W'\nmov     rax, [rbp+out_buffer]\nmov     rax, [rax+20h]\nmov     byte ptr [rax+2], 53h ; 'S'\nmov     cl, [rbp+swf_version]\nmov     rax, [rbp+out_buffer]\nmov     rax, [rax+20h]\nmov     [rax+3], cl\nmov     rax, [rbp+out_buffer]\nmov     rax, [rax+20h]\nmov     ecx, [rbp+decompressed_swf_len]\nmov     [rax+4], ecx\nmov     rax, [rbp+out_buffer]\nmov     rdi, [rax+20h]\nadd     rdi, 8; s\nmov     eax, [rbp+decompressed_data_len]\nsub     eax, 8\nmov     eax, eax\nmov     edx, eax; n\nxor     esi, esi; c\ncall    memset\ncmp     [rbp+swf_type], 1\njz      loc_1448\ncmp     [rbp+swf_type], 3\njnz     loc_1497\ncmp     [rbp+compression_type], 2\njnz     loc_1497\nmov     rdi, [rbp+det_ctx]; det_ctx\nmov     rsi, [rbp+buffer]\nmov     eax, [rbp+offset]\nadd     rsi, rax; compressed_data\nmov     edx, [rbp+compressed_data_len]; compressed_data_len\nmov     rax, [rbp+out_buffer]\nmov     rcx, [rax+20h]\nadd     rcx, 8; decompressed_data\nmov     rax, [rbp+out_buffer]\nmov     r8d, [rax+1Ch]\nsub     r8d, 8; decompressed_data_len\ncall    FileSwfZlibDecompression\nmov     [rbp+r], eax\ncmp     [rbp+r], 0\njnz     loc_1492\njmp     error\njmp     loc_159A\ncmp     [rbp+swf_type], 2\njz      loc_14AB\ncmp     [rbp+swf_type], 3\njnz     loc_1590\ncmp     [rbp+compression_type], 3\njnz     loc_1590\nmov     eax, [rbp+compressed_data_len]\nadd     eax, 0Dh\nmov     [rbp+compressed_data_len], eax\nmov     eax, [rbp+compressed_data_len]\nmov     rcx, rsp\nmov     [rbp+var_58], rcx\nmov     rcx, rax\nadd     rcx, 0Fh\nand     rcx, 0FFFFFFFFFFFFFFF0h\nmov     rdi, rsp\nsub     rdi, rcx\nmov     [rbp+compressed_data], rdi\nmov     rsp, rdi\nmov     [rbp+__vla_expr0], rax\nmov     rax, [rbp+buffer]\nmov     ecx, [rax+0Ch]\nmov     [rdi], ecx\nmov     al, [rax+10h]\nmov     [rdi+4], al\nadd     rdi, 5; s\nmov     esi, 0FFh; c\nmov     edx, 8; n\ncall    memset\nmov     rdi, [rbp+compressed_data]\nadd     rdi, 0Dh; dest\nmov     rsi, [rbp+buffer]\nmov     eax, [rbp+offset]\nadd     rsi, rax; src\nmov     eax, [rbp+compressed_data_len]\nsub     eax, 0Dh\nmov     eax, eax\nmov     edx, eax; n\ncall    memcpy\nmov     rsi, [rbp+compressed_data]; compressed_data\nmov     rdi, [rbp+det_ctx]; det_ctx\nmov     edx, [rbp+compressed_data_len]; compressed_data_len\nmov     rax, [rbp+out_buffer]\nmov     rcx, [rax+20h]\nadd     rcx, 8; decompressed_data\nmov     rax, [rbp+out_buffer]\nmov     r8d, [rax+1Ch]\nsub     r8d, 8; decompressed_data_len\ncall    FileSwfLzmaDecompression\nmov     [rbp+r], eax\ncmp     [rbp+r], 0\njnz     loc_1568\nmov     [rbp+var_64], 2\njmp     loc_156F\nmov     [rbp+var_64], 0\nmov     rax, [rbp+var_58]\nmov     rsp, rax\nmov     eax, [rbp+var_64]\ntest    eax, eax\njz      loc_158B\njmp     $+5\njmp     error\njmp     loc_1595\njmp     error\njmp     $+5\nmov     rax, [rbp+out_buffer]\nmov     rcx, [rax+20h]\nmov     rax, [rbp+out_buffer]\nmov     [rax], rcx\nmov     rax, [rbp+out_buffer]\nmov     ecx, [rax+1Ch]\nmov     rax, [rbp+out_buffer]\nmov     [rax+10h], ecx\nmov     [rbp+var_4], 1\njmp     loc_15CA\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nmov     rsp, rbp\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 47,
+  "edges": [
+   [
+    "start",
+    "loc_1242"
+   ],
+   [
+    "start",
+    "loc_124E"
+   ],
+   [
+    "loc_1242",
+    "loc_15CA"
+   ],
+   [
+    "loc_124E",
+    "loc_125F"
+   ],
+   [
+    "loc_124E",
+    "loc_126B"
+   ],
+   [
+    "loc_125F",
+    "loc_1281"
+   ],
+   [
+    "loc_126B",
+    "loc_1275"
+   ],
+   [
+    "loc_126B",
+    "loc_127C"
+   ],
+   [
+    "loc_1275",
+    "loc_127C"
+   ],
+   [
+    "loc_127C",
+    "loc_1281"
+   ],
+   [
+    "loc_1281",
+    "loc_128D"
+   ],
+   [
+    "loc_1281",
+    "loc_12A7"
+   ],
+   [
+    "loc_128D",
+    "loc_15CA"
+   ],
+   [
+    "loc_12A7",
+    "loc_12B8"
+   ],
+   [
+    "loc_12A7",
+    "loc_12D4"
+   ],
+   [
+    "loc_12B8",
+    "loc_12C9"
+   ],
+   [
+    "loc_12B8",
+    "loc_12D4"
+   ],
+   [
+    "loc_12C9",
+    "loc_12DD"
+   ],
+   [
+    "loc_12D4",
+    "loc_12DD"
+   ],
+   [
+    "loc_12DD",
+    "loc_12F6"
+   ],
+   [
+    "loc_12DD",
+    "loc_131D"
+   ],
+   [
+    "loc_12F6",
+    "loc_1303"
+   ],
+   [
+    "loc_12F6",
+    "loc_131D"
+   ],
+   [
+    "loc_1303",
+    "loc_15CA"
+   ],
+   [
+    "loc_131D",
+    "loc_1327"
+   ],
+   [
+    "loc_131D",
+    "loc_134E"
+   ],
+   [
+    "loc_1327",
+    "loc_1334"
+   ],
+   [
+    "loc_1327",
+    "loc_134E"
+   ],
+   [
+    "loc_1334",
+    "loc_15CA"
+   ],
+   [
+    "loc_134E",
+    "loc_1367"
+   ],
+   [
+    "loc_134E",
+    "loc_136E"
+   ],
+   [
+    "loc_1367",
+    "loc_136E"
+   ],
+   [
+    "loc_136E",
+    "loc_1378"
+   ],
+   [
+    "loc_136E",
+    "loc_1383"
+   ],
+   [
+    "loc_1378",
+    "loc_1389"
+   ],
+   [
+    "loc_1383",
+    "loc_1389"
+   ],
+   [
+    "loc_1389",
+    "loc_13B4"
+   ],
+   [
+    "loc_1389",
+    "loc_13CE"
+   ],
+   [
+    "loc_13B4",
+    "loc_15CA"
+   ],
+   [
+    "loc_13CE",
+    "loc_143E"
+   ],
+   [
+    "loc_13CE",
+    "loc_1448"
+   ],
+   [
+    "loc_143E",
+    "loc_1448"
+   ],
+   [
+    "loc_143E",
+    "loc_1497"
+   ],
+   [
+    "loc_1448",
+    "loc_1452"
+   ],
+   [
+    "loc_1448",
+    "loc_1497"
+   ],
+   [
+    "loc_1452",
+    "loc_148D"
+   ],
+   [
+    "loc_1452",
+    "loc_1492"
+   ],
+   [
+    "loc_148D",
+    "loc_15C3"
+   ],
+   [
+    "loc_1492",
+    "loc_159A"
+   ],
+   [
+    "loc_1497",
+    "loc_14A1"
+   ],
+   [
+    "loc_1497",
+    "loc_14AB"
+   ],
+   [
+    "loc_14A1",
+    "loc_14AB"
+   ],
+   [
+    "loc_14A1",
+    "loc_1590"
+   ],
+   [
+    "loc_14AB",
+    "loc_14B5"
+   ],
+   [
+    "loc_14AB",
+    "loc_1590"
+   ],
+   [
+    "loc_14B5",
+    "loc_155C"
+   ],
+   [
+    "loc_14B5",
+    "loc_1568"
+   ],
+   [
+    "loc_155C",
+    "loc_156F"
+   ],
+   [
+    "loc_1568",
+    "loc_156F"
+   ],
+   [
+    "loc_156F",
+    "loc_1581"
+   ],
+   [
+    "loc_156F",
+    "loc_158B"
+   ],
+   [
+    "loc_1581",
+    "loc_1586"
+   ],
+   [
+    "loc_1586",
+    "loc_15C3"
+   ],
+   [
+    "loc_158B",
+    "loc_1595"
+   ],
+   [
+    "loc_1590",
+    "loc_15C3"
+   ],
+   [
+    "loc_1595",
+    "loc_159A"
+   ],
+   [
+    "loc_159A",
+    "loc_15CA"
+   ],
+   [
+    "loc_15C3",
+    "loc_15CA"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 70h\nmov     eax, [rbp+compress_depth]\nmov     [rbp+buffer], rdi\nmov     [rbp+buffer_len], esi\nmov     [rbp+det_ctx], rdx\nmov     [rbp+out_buffer], rcx\nmov     [rbp+swf_type], r8d\nmov     [rbp+decompress_depth], r9d\nmov     [rbp+r], 0\nmov     rdi, [rbp+buffer]; buffer\nmov     esi, [rbp+buffer_len]; buffer_len\ncall    FileIsSwfFile\nmov     [rbp+compression_type], eax\ncmp     [rbp+compression_type], 1\njnz     loc_124E",
+   "loc_1242": "mov     [rbp+var_4], 0\njmp     loc_15CA",
+   "loc_124E": "mov     [rbp+offset], 0\ncmp     [rbp+compression_type], 2\njnz     loc_126B",
+   "loc_125F": "mov     [rbp+offset], 8\njmp     loc_1281",
+   "loc_126B": "cmp     [rbp+compression_type], 3\njnz     loc_127C",
+   "loc_1275": "mov     [rbp+offset], 11h",
+   "loc_127C": "jmp     $+5",
+   "loc_1281": "mov     eax, [rbp+buffer_len]\ncmp     eax, [rbp+offset]\nja      loc_12A7",
+   "loc_128D": "mov     rdi, [rbp+det_ctx]; det_ctx\nmov     esi, 1; e\ncall    DetectEngineSetEvent\nmov     [rbp+var_4], 0\njmp     loc_15CA",
+   "loc_12A7": "mov     [rbp+compressed_data_len], 0\ncmp     [rbp+compress_depth], 0\njbe     loc_12D4",
+   "loc_12B8": "mov     eax, [rbp+compress_depth]\nmov     ecx, [rbp+buffer_len]\nsub     ecx, [rbp+offset]\ncmp     eax, ecx\nja      loc_12D4",
+   "loc_12C9": "mov     eax, [rbp+compress_depth]\nmov     [rbp+compressed_data_len], eax\njmp     loc_12DD",
+   "loc_12D4": "mov     eax, [rbp+buffer_len]\nsub     eax, [rbp+offset]\nmov     [rbp+compressed_data_len], eax",
+   "loc_12DD": "mov     rdi, [rbp+buffer]; buffer\nmov     esi, [rbp+buffer_len]; buffer_len\ncall    FileGetSwfVersion\nmov     [rbp+swf_version], al\ncmp     [rbp+compression_type], 2\njnz     loc_131D",
+   "loc_12F6": "movzx   eax, [rbp+swf_version]\ncmp     eax, 6\njge     loc_131D",
+   "loc_1303": "mov     rdi, [rbp+det_ctx]; det_ctx\nmov     esi, 2; e\ncall    DetectEngineSetEvent\nmov     [rbp+var_4], 0\njmp     loc_15CA",
+   "loc_131D": "cmp     [rbp+compression_type], 3\njnz     loc_134E",
+   "loc_1327": "movzx   eax, [rbp+swf_version]\ncmp     eax, 0Dh\njge     loc_134E",
+   "loc_1334": "mov     rdi, [rbp+det_ctx]; det_ctx\nmov     esi, 2; e\ncall    DetectEngineSetEvent\nmov     [rbp+var_4], 0\njmp     loc_15CA",
+   "loc_134E": "mov     rdi, [rbp+buffer]; buffer\nmov     esi, [rbp+buffer_len]; buffer_len\ncall    FileGetSwfDecompressedLen\nmov     [rbp+decompressed_swf_len], eax\ncmp     [rbp+decompressed_swf_len], 0\njnz     loc_136E",
+   "loc_1367": "mov     [rbp+decompressed_swf_len], 0B68h",
+   "loc_136E": "cmp     [rbp+decompress_depth], 0\njnz     loc_1383",
+   "loc_1378": "mov     eax, [rbp+decompressed_swf_len]\nmov     [rbp+var_68], eax\njmp     loc_1389",
+   "loc_1383": "mov     eax, [rbp+decompress_depth]\nmov     [rbp+var_68], eax",
+   "loc_1389": "mov     eax, [rbp+var_68]\nmov     [rbp+decompressed_data_len], eax\nmov     eax, [rbp+decompressed_data_len]\nadd     eax, 8\nmov     [rbp+decompressed_data_len], eax\nmov     rdi, [rbp+out_buffer]; buffer\nmov     esi, [rbp+decompressed_data_len]; min_size\ncall    SCInspectionBufferCheckAndExpand\nmov     rax, [rbp+out_buffer]\nmov     eax, [rax+28h]\ncmp     eax, [rbp+decompressed_data_len]\njnb     loc_13CE",
+   "loc_13B4": "mov     rdi, [rbp+det_ctx]; det_ctx\nmov     esi, 3; e\ncall    DetectEngineSetEvent\nmov     [rbp+var_4], 0\njmp     loc_15CA",
+   "loc_13CE": "mov     ecx, [rbp+decompressed_data_len]\nmov     rax, [rbp+out_buffer]\nmov     [rax+1Ch], ecx\nmov     rax, [rbp+out_buffer]\nmov     rax, [rax+20h]\nmov     byte ptr [rax], 46h ; 'F'\nmov     rax, [rbp+out_buffer]\nmov     rax, [rax+20h]\nmov     byte ptr [rax+1], 57h ; 'W'\nmov     rax, [rbp+out_buffer]\nmov     rax, [rax+20h]\nmov     byte ptr [rax+2], 53h ; 'S'\nmov     cl, [rbp+swf_version]\nmov     rax, [rbp+out_buffer]\nmov     rax, [rax+20h]\nmov     [rax+3], cl\nmov     rax, [rbp+out_buffer]\nmov     rax, [rax+20h]\nmov     ecx, [rbp+decompressed_swf_len]\nmov     [rax+4], ecx\nmov     rax, [rbp+out_buffer]\nmov     rdi, [rax+20h]\nadd     rdi, 8; s\nmov     eax, [rbp+decompressed_data_len]\nsub     eax, 8\nmov     eax, eax\nmov     edx, eax; n\nxor     esi, esi; c\ncall    memset\ncmp     [rbp+swf_type], 1\njz      loc_1448",
+   "loc_143E": "cmp     [rbp+swf_type], 3\njnz     loc_1497",
+   "loc_1448": "cmp     [rbp+compression_type], 2\njnz     loc_1497",
+   "loc_1452": "mov     rdi, [rbp+det_ctx]; det_ctx\nmov     rsi, [rbp+buffer]\nmov     eax, [rbp+offset]\nadd     rsi, rax; compressed_data\nmov     edx, [rbp+compressed_data_len]; compressed_data_len\nmov     rax, [rbp+out_buffer]\nmov     rcx, [rax+20h]\nadd     rcx, 8; decompressed_data\nmov     rax, [rbp+out_buffer]\nmov     r8d, [rax+1Ch]\nsub     r8d, 8; decompressed_data_len\ncall    FileSwfZlibDecompression\nmov     [rbp+r], eax\ncmp     [rbp+r], 0\njnz     loc_1492",
+   "loc_148D": "jmp     error",
+   "loc_1492": "jmp     loc_159A",
+   "loc_1497": "cmp     [rbp+swf_type], 2\njz      loc_14AB",
+   "loc_14A1": "cmp     [rbp+swf_type], 3\njnz     loc_1590",
+   "loc_14AB": "cmp     [rbp+compression_type], 3\njnz     loc_1590",
+   "loc_14B5": "mov     eax, [rbp+compressed_data_len]\nadd     eax, 0Dh\nmov     [rbp+compressed_data_len], eax\nmov     eax, [rbp+compressed_data_len]\nmov     rcx, rsp\nmov     [rbp+var_58], rcx\nmov     rcx, rax\nadd     rcx, 0Fh\nand     rcx, 0FFFFFFFFFFFFFFF0h\nmov     rdi, rsp\nsub     rdi, rcx\nmov     [rbp+compressed_data], rdi\nmov     rsp, rdi\nmov     [rbp+__vla_expr0], rax\nmov     rax, [rbp+buffer]\nmov     ecx, [rax+0Ch]\nmov     [rdi], ecx\nmov     al, [rax+10h]\nmov     [rdi+4], al\nadd     rdi, 5; s\nmov     esi, 0FFh; c\nmov     edx, 8; n\ncall    memset\nmov     rdi, [rbp+compressed_data]\nadd     rdi, 0Dh; dest\nmov     rsi, [rbp+buffer]\nmov     eax, [rbp+offset]\nadd     rsi, rax; src\nmov     eax, [rbp+compressed_data_len]\nsub     eax, 0Dh\nmov     eax, eax\nmov     edx, eax; n\ncall    memcpy\nmov     rsi, [rbp+compressed_data]; compressed_data\nmov     rdi, [rbp+det_ctx]; det_ctx\nmov     edx, [rbp+compressed_data_len]; compressed_data_len\nmov     rax, [rbp+out_buffer]\nmov     rcx, [rax+20h]\nadd     rcx, 8; decompressed_data\nmov     rax, [rbp+out_buffer]\nmov     r8d, [rax+1Ch]\nsub     r8d, 8; decompressed_data_len\ncall    FileSwfLzmaDecompression\nmov     [rbp+r], eax\ncmp     [rbp+r], 0\njnz     loc_1568",
+   "loc_155C": "mov     [rbp+var_64], 2\njmp     loc_156F",
+   "loc_1568": "mov     [rbp+var_64], 0",
+   "loc_156F": "mov     rax, [rbp+var_58]\nmov     rsp, rax\nmov     eax, [rbp+var_64]\ntest    eax, eax\njz      loc_158B",
+   "loc_1581": "jmp     $+5",
+   "loc_1586": "jmp     error",
+   "loc_158B": "jmp     loc_1595",
+   "loc_1590": "jmp     error",
+   "loc_1595": "jmp     $+5",
+   "loc_159A": "mov     rax, [rbp+out_buffer]\nmov     rcx, [rax+20h]\nmov     rax, [rbp+out_buffer]\nmov     [rax], rcx\nmov     rax, [rbp+out_buffer]\nmov     ecx, [rax+1Ch]\nmov     rax, [rbp+out_buffer]\nmov     [rax+10h], ecx\nmov     [rbp+var_4], 1\njmp     loc_15CA",
+   "loc_15C3": "mov     [rbp+var_4], 0",
+   "loc_15CA": "mov     eax, [rbp+var_4]\nmov     rsp, rbp\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "compressed_data": "qword ptr -70h",
+   "var_68": "dword ptr -68h",
+   "var_64": "dword ptr -64h",
+   "__vla_expr0": "qword ptr -60h",
+   "var_58": "qword ptr -58h",
+   "decompressed_data_len": "dword ptr -4Ch",
+   "decompressed_swf_len": "dword ptr -48h",
+   "swf_version": "byte ptr -41h",
+   "compressed_data_len": "dword ptr -40h",
+   "offset": "dword ptr -3Ch",
+   "compression_type": "dword ptr -38h",
+   "r": "dword ptr -34h",
+   "decompress_depth": "dword ptr -30h",
+   "swf_type": "dword ptr -2Ch",
+   "out_buffer": "qword ptr -28h",
+   "det_ctx": "qword ptr -20h",
+   "buffer_len": "dword ptr -14h",
+   "buffer": "qword ptr -10h",
+   "var_4": "dword ptr -4",
+   "compress_depth": "dword ptr 10h"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4608,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".setrlimit": "setrlimit",
+  "_setrlimit": "setrlimit",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".setrlimit",
+   ".plt",
+   true,
+   "setrlimit"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "setrlimit",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868450
+ }
+}

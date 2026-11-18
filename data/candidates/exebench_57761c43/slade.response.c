@@ -1,0 +1,1 @@
+void char_replace (char *s, char c, char r) { while (*s++) if (*s == c) *s = r; return ; }

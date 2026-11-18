@@ -1,0 +1,1 @@
+void stack4_replace_top(unsigned long *s, unsigned long v) { *s = (unsigned long)(*s & ~0xf) | v; }

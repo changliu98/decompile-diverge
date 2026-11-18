@@ -1,0 +1,1 @@
+uint32_t REG_A6XX_SP_FS_MRT(uint32_t i0) { return 0x0000a996 + 0x1*i0; }

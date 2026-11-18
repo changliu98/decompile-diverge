@@ -1,0 +1,1 @@
+void sort(char *s) { int i, j, k; for (i = 0; s[i+1] != '\0'; i++) { k = s[i+1]; for (j = i; s[j] > k && j > 0; j--) s[j+1] = s[j]; s[j+1] = k; } }

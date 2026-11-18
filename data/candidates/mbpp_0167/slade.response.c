@@ -1,0 +1,1 @@
+uint32_t func0(uint32_t x) { int i = 0; if (x && !(x & (x - 1))) return x; while (x) { x = x >> 1; i++; } return 1U << i; }

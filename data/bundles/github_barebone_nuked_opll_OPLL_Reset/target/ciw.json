@@ -1,0 +1,294 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+chip], rdi\nmov     [rbp+chip_type], esi\nmov     rdi, [rbp+chip]; s\nxor     esi, esi; c\nmov     edx, 188h; n\ncall    memset\nmov     ecx, [rbp+chip_type]\nmov     rax, [rbp+chip]\nmov     [rax], ecx\ncmp     [rbp+chip_type], 1\njnz     loc_1218\nmov     rax, [rbp+chip]\nmov     byte ptr [rax+141h], 20h ; ' '\nmov     rax, [rbp+chip]\nmov     byte ptr [rax+172h], 80h\nmov     eax, [rbp+chip_type]\nmov     [rbp+var_18], rax\nsub     rax, 6; switch 7 cases\nja      def_123B; jumptable 000000000000123B default case\nmov     rax, [rbp+var_18]\nlea     rcx, jpt_123B\nmovsxd  rax, ds:(jpt_123B - 5004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nmov     rax, [rbp+chip]; jumptable 000000000000123B case 1\nlea     rcx, patch_ds1001\nmov     [rax+10h], rcx\njmp     loc_128D\nmov     rax, [rbp+chip]; jumptable 000000000000123B cases 3,4\nlea     rcx, patch_ymf281\nmov     [rax+10h], rcx\njmp     loc_128D\nmov     rax, [rbp+chip]; jumptable 000000000000123B case 6\nlea     rcx, patch_ym2423\nmov     [rax+10h], rcx\njmp     loc_128D\njmp     $+5; jumptable 000000000000123B cases 0,2,5\nmov     rax, [rbp+chip]; jumptable 000000000000123B default case\nlea     rcx, patch_ym2413\nmov     [rax+10h], rcx\nmov     [rbp+i], 0\ncmp     [rbp+i], 12h\njnb     loc_12CC\nmov     rax, [rbp+chip]\nmov     ecx, [rbp+i]\nmov     byte ptr [rax+rcx+2Dh], 3\nmov     rax, [rbp+chip]\nmov     ecx, [rbp+i]\nmov     byte ptr [rax+rcx+3Fh], 7Fh\nmov     rax, [rbp+chip]\nmov     byte ptr [rax+64h], 7Fh\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1294\nmov     rax, [rbp+chip]\nmov     dword ptr [rax+178h], 6\nadd     rsp, 20h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 13,
+  "edges": [
+   [
+    "start",
+    "loc_1202"
+   ],
+   [
+    "start",
+    "loc_1218"
+   ],
+   [
+    "loc_1202",
+    "loc_1218"
+   ],
+   [
+    "loc_1218",
+    "loc_1229"
+   ],
+   [
+    "loc_1218",
+    "loc_127E"
+   ],
+   [
+    "loc_1229",
+    "loc_123D"
+   ],
+   [
+    "loc_1229",
+    "loc_1251"
+   ],
+   [
+    "loc_1229",
+    "loc_1265"
+   ],
+   [
+    "loc_1229",
+    "loc_1279"
+   ],
+   [
+    "loc_123D",
+    "loc_128D"
+   ],
+   [
+    "loc_1251",
+    "loc_128D"
+   ],
+   [
+    "loc_1265",
+    "loc_128D"
+   ],
+   [
+    "loc_1279",
+    "loc_127E"
+   ],
+   [
+    "loc_127E",
+    "loc_128D"
+   ],
+   [
+    "loc_128D",
+    "loc_1294"
+   ],
+   [
+    "loc_1294",
+    "loc_129E"
+   ],
+   [
+    "loc_1294",
+    "loc_12CC"
+   ],
+   [
+    "loc_129E",
+    "loc_1294"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 20h\nmov     [rbp+chip], rdi\nmov     [rbp+chip_type], esi\nmov     rdi, [rbp+chip]; s\nxor     esi, esi; c\nmov     edx, 188h; n\ncall    memset\nmov     ecx, [rbp+chip_type]\nmov     rax, [rbp+chip]\nmov     [rax], ecx\ncmp     [rbp+chip_type], 1\njnz     loc_1218",
+   "loc_1202": "mov     rax, [rbp+chip]\nmov     byte ptr [rax+141h], 20h ; ' '\nmov     rax, [rbp+chip]\nmov     byte ptr [rax+172h], 80h",
+   "loc_1218": "mov     eax, [rbp+chip_type]\nmov     [rbp+var_18], rax\nsub     rax, 6; switch 7 cases\nja      def_123B; jumptable 000000000000123B default case",
+   "loc_1229": "mov     rax, [rbp+var_18]\nlea     rcx, jpt_123B\nmovsxd  rax, ds:(jpt_123B - 5004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_123D": "mov     rax, [rbp+chip]; jumptable 000000000000123B case 1\nlea     rcx, patch_ds1001\nmov     [rax+10h], rcx\njmp     loc_128D",
+   "loc_1251": "mov     rax, [rbp+chip]; jumptable 000000000000123B cases 3,4\nlea     rcx, patch_ymf281\nmov     [rax+10h], rcx\njmp     loc_128D",
+   "loc_1265": "mov     rax, [rbp+chip]; jumptable 000000000000123B case 6\nlea     rcx, patch_ym2423\nmov     [rax+10h], rcx\njmp     loc_128D",
+   "loc_1279": "jmp     $+5; jumptable 000000000000123B cases 0,2,5",
+   "loc_127E": "mov     rax, [rbp+chip]; jumptable 000000000000123B default case\nlea     rcx, patch_ym2413\nmov     [rax+10h], rcx",
+   "loc_128D": "mov     [rbp+i], 0",
+   "loc_1294": "cmp     [rbp+i], 12h\njnb     loc_12CC",
+   "loc_129E": "mov     rax, [rbp+chip]\nmov     ecx, [rbp+i]\nmov     byte ptr [rax+rcx+2Dh], 3\nmov     rax, [rbp+chip]\nmov     ecx, [rbp+i]\nmov     byte ptr [rax+rcx+3Fh], 7Fh\nmov     rax, [rbp+chip]\nmov     byte ptr [rax+64h], 7Fh\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_1294",
+   "loc_12CC": "mov     rax, [rbp+chip]\nmov     dword ptr [rax+178h], 6\nadd     rsp, 20h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_18": "qword ptr -18h",
+   "i": "dword ptr -10h",
+   "chip_type": "dword ptr -0Ch",
+   "chip": "qword ptr -8"
+  },
+  ".rodata": {
+   "jpt_123B": "dword offset loc_1279 - 5004h; jump table for switch statement",
+   "patch_ds1001": "byte 5",
+   "patch_ymf281": "byte 1Ah",
+   "patch_ym2423": "byte 1Bh",
+   "patch_ym2413": "byte 1Eh"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4560,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868537
+ }
+}

@@ -1,0 +1,62 @@
+00000000000011d0 <itoa>:
+    11d0:	push   %rbp
+    11d1:	mov    %rsp,%rbp
+    11d4:	mov    %di,%ax
+    11d7:	mov    %ax,-0x2(%rbp)
+    11db:	mov    %rsi,-0x10(%rbp)
+    11df:	movw   $0x0,-0x22(%rbp)
+    11e5:	movzwl -0x2(%rbp),%eax
+    11e9:	cmp    $0x0,%eax
+    11ec:	jne    1206 <itoa+0x36>
+    11f2:	mov    -0x10(%rbp),%rax
+    11f6:	movb   $0x30,(%rax)
+    11f9:	mov    -0x10(%rbp),%rax
+    11fd:	movb   $0x0,0x1(%rax)
+    1201:	jmp    12a5 <itoa+0xd5>
+    1206:	jmp    120b <itoa+0x3b>
+    120b:	movzwl -0x2(%rbp),%eax
+    120f:	cmp    $0x0,%eax
+    1212:	je     1254 <itoa+0x84>
+    1218:	movzwl -0x2(%rbp),%eax
+    121c:	mov    $0xa,%ecx
+    1221:	cltd
+    1222:	idiv   %ecx
+    1224:	add    $0x30,%edx
+    1227:	mov    %dl,%cl
+    1229:	mov    -0x22(%rbp),%ax
+    122d:	mov    %ax,%dx
+    1230:	add    $0x1,%dx
+    1234:	mov    %dx,-0x22(%rbp)
+    1238:	movzwl %ax,%eax
+    123b:	mov    %cl,-0x20(%rbp,%rax,1)
+    123f:	movzwl -0x2(%rbp),%eax
+    1243:	mov    $0xa,%ecx
+    1248:	cltd
+    1249:	idiv   %ecx
+    124b:	mov    %ax,-0x2(%rbp)
+    124f:	jmp    120b <itoa+0x3b>
+    1254:	mov    -0x22(%rbp),%ax
+    1258:	mov    %ax,-0x24(%rbp)
+    125c:	cmpw   $0x0,-0x22(%rbp)
+    1261:	je     1299 <itoa+0xc9>
+    1267:	movzwl -0x22(%rbp),%eax
+    126b:	sub    $0x1,%eax
+    126e:	cltq
+    1270:	mov    -0x20(%rbp,%rax,1),%dl
+    1274:	mov    -0x10(%rbp),%rax
+    1278:	movzwl -0x24(%rbp),%ecx
+    127c:	movzwl -0x22(%rbp),%esi
+    1280:	sub    %esi,%ecx
+    1282:	movslq %ecx,%rcx
+    1285:	mov    %dl,(%rax,%rcx,1)
+    1288:	mov    -0x22(%rbp),%ax
+    128c:	add    $0xffff,%ax
+    1290:	mov    %ax,-0x22(%rbp)
+    1294:	jmp    125c <itoa+0x8c>
+    1299:	mov    -0x10(%rbp),%rax
+    129d:	movzwl -0x24(%rbp),%ecx
+    12a1:	movb   $0x0,(%rax,%rcx,1)
+    12a5:	pop    %rbp
+    12a6:	ret
+
+Disassembly of section .fini:

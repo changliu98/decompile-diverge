@@ -1,0 +1,124 @@
+0000000000001450 <key_verify>:
+    1450:	push   %rbp
+    1451:	mov    %rsp,%rbp
+    1454:	sub    $0x170,%rsp
+    145b:	mov    %rdi,-0x8(%rbp)
+    145f:	mov    %esi,-0xc(%rbp)
+    1462:	mov    %rdx,-0x18(%rbp)
+    1466:	movl   $0x0,-0x1c(%rbp)
+    146d:	movl   $0x100,-0x144(%rbp)
+    1477:	call   16b0 <EVP_sha1>
+    147c:	mov    %rax,-0x150(%rbp)
+    1483:	call   16c0 <EVP_MD_CTX_new>
+    1488:	mov    %rax,-0x158(%rbp)
+    148f:	mov    -0x18(%rbp),%rdi
+    1493:	call   16e0 <PKCS11_get_private_key>
+    1498:	mov    %rax,-0x160(%rbp)
+    149f:	mov    -0x18(%rbp),%rdi
+    14a3:	call   1720 <PKCS11_get_public_key>
+    14a8:	mov    %rax,-0x168(%rbp)
+    14af:	mov    -0x8(%rbp),%rdi
+    14b3:	lea    -0x40(%rbp),%rsi
+    14b7:	mov    $0x1e,%edx
+    14bc:	call   1760 <randomize>
+    14c1:	mov    %eax,%ecx
+    14c3:	mov    $0x1,%eax
+    14c8:	cmp    %ecx,%eax
+    14ca:	je     14d5 <key_verify+0x85>
+    14d0:	jmp    1652 <key_verify+0x202>
+    14d5:	xor    %eax,%eax
+    14d7:	cmp    -0x168(%rbp),%rax
+    14de:	je     15f3 <key_verify+0x1a3>
+    14e4:	xor    %eax,%eax
+    14e6:	cmp    -0x160(%rbp),%rax
+    14ed:	je     15f3 <key_verify+0x1a3>
+    14f3:	xor    %eax,%eax
+    14f5:	cmp    -0x158(%rbp),%rax
+    14fc:	je     15f3 <key_verify+0x1a3>
+    1502:	xor    %eax,%eax
+    1504:	cmp    -0x150(%rbp),%rax
+    150b:	je     15f3 <key_verify+0x1a3>
+    1511:	mov    -0x158(%rbp),%rdi
+    1518:	mov    -0x150(%rbp),%rsi
+    151f:	call   1810 <EVP_SignInit>
+    1524:	cmp    $0x0,%eax
+    1527:	je     15f3 <key_verify+0x1a3>
+    152d:	mov    -0x158(%rbp),%rdi
+    1534:	lea    -0x40(%rbp),%rsi
+    1538:	mov    $0x1e,%edx
+    153d:	call   1830 <EVP_SignUpdate>
+    1542:	cmp    $0x0,%eax
+    1545:	je     15f3 <key_verify+0x1a3>
+    154b:	mov    -0x158(%rbp),%rdi
+    1552:	lea    -0x140(%rbp),%rsi
+    1559:	mov    -0x160(%rbp),%rcx
+    1560:	lea    -0x144(%rbp),%rdx
+    1567:	call   1850 <EVP_SignFinal>
+    156c:	cmp    $0x0,%eax
+    156f:	je     15f3 <key_verify+0x1a3>
+    1575:	mov    -0x158(%rbp),%rdi
+    157c:	call   18c0 <EVP_MD_CTX_reset>
+    1581:	cmp    $0x0,%eax
+    1584:	je     15f3 <key_verify+0x1a3>
+    158a:	mov    -0x158(%rbp),%rdi
+    1591:	mov    -0x150(%rbp),%rsi
+    1598:	call   18d0 <EVP_VerifyInit>
+    159d:	cmp    $0x0,%eax
+    15a0:	je     15f3 <key_verify+0x1a3>
+    15a6:	mov    -0x158(%rbp),%rdi
+    15ad:	lea    -0x40(%rbp),%rsi
+    15b1:	mov    $0x1e,%edx
+    15b6:	call   18f0 <EVP_VerifyUpdate>
+    15bb:	cmp    $0x0,%eax
+    15be:	je     15f3 <key_verify+0x1a3>
+    15c4:	mov    -0x158(%rbp),%rdi
+    15cb:	lea    -0x140(%rbp),%rsi
+    15d2:	mov    -0x144(%rbp),%edx
+    15d8:	mov    -0x168(%rbp),%rcx
+    15df:	call   1910 <EVP_VerifyFinal>
+    15e4:	mov    %eax,%ecx
+    15e6:	mov    $0x1,%eax
+    15eb:	cmp    %ecx,%eax
+    15ed:	je     164b <key_verify+0x1fb>
+    15f3:	mov    -0x8(%rbp),%rax
+    15f7:	mov    %rax,-0x170(%rbp)
+    15fe:	call   1970 <ERR_get_error>
+    1603:	mov    %rax,%rdi
+    1606:	call   1950 <ERR_reason_error_string>
+    160b:	mov    -0x170(%rbp),%rdi
+    1612:	mov    %rax,%rcx
+    1615:	mov    $0x7,%esi
+    161a:	lea    0x9e6(%rip),%rdx        # 2007 <_IO_stdin_used+0x7>
+    1621:	mov    $0x0,%al
+    1623:	call   1930 <pam_syslog>
+    1628:	mov    -0xc(%rbp),%edi
+    162b:	mov    -0x8(%rbp),%rsi
+    162f:	mov    $0x3,%edx
+    1634:	xor    %eax,%eax
+    1636:	mov    %eax,%ecx
+    1638:	lea    0x9e1(%rip),%r8        # 2020 <_IO_stdin_used+0x20>
+    163f:	mov    $0x0,%al
+    1641:	call   1980 <prompt>
+    1646:	jmp    1652 <key_verify+0x202>
+    164b:	movl   $0x1,-0x1c(%rbp)
+    1652:	xor    %eax,%eax
+    1654:	cmp    -0x168(%rbp),%rax
+    165b:	je     166d <key_verify+0x21d>
+    1661:	mov    -0x168(%rbp),%rdi
+    1668:	call   19a0 <EVP_PKEY_free>
+    166d:	xor    %eax,%eax
+    166f:	cmp    -0x160(%rbp),%rax
+    1676:	je     1688 <key_verify+0x238>
+    167c:	mov    -0x160(%rbp),%rdi
+    1683:	call   19a0 <EVP_PKEY_free>
+    1688:	xor    %eax,%eax
+    168a:	cmp    -0x158(%rbp),%rax
+    1691:	je     16a3 <key_verify+0x253>
+    1697:	mov    -0x158(%rbp),%rdi
+    169e:	call   19c0 <EVP_MD_CTX_free>
+    16a3:	mov    -0x1c(%rbp),%eax
+    16a6:	add    $0x170,%rsp
+    16ad:	pop    %rbp
+    16ae:	ret
+
+Disassembly of section .fini:

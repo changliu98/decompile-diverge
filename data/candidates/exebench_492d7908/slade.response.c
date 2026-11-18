@@ -1,0 +1,1 @@
+void edosk2674_smsc_outw(unsigned short data, unsigned short *addr) { *addr = (data >> 8) | (data << 8); }

@@ -1,0 +1,1 @@
+void _vector_swap(struct Vector **v1, struct Vector **v2) { struct Vector *tmp = *v1; *v1 = *v2; *v2 = tmp; }

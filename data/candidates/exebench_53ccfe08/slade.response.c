@@ -1,0 +1,1 @@
+void d_de_jongs(float p[4]) { p[0] = 4.0f; p[1] = 4.0f; }

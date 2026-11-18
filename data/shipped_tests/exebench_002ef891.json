@@ -1,0 +1,567 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <string.h>\t\t/* for memcpy() */\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_59cwtjbu6w.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(unsigned int* buf, unsigned int* in) {\n  json output_json;\n  std::vector<json> output_temp_3;\n  for (unsigned int i4 = 0; i4 < 4; i4++) {\n    unsigned int output_temp_5 = buf[i4];\n\n    output_temp_3.push_back(output_temp_5);\n  }\n  output_json[\"buf\"] = output_temp_3;\n  std::vector<json> output_temp_6;\n  for (unsigned int i7 = 0; i7 < 16; i7++) {\n    unsigned int output_temp_8 = in[i7];\n\n    output_temp_6.push_back(output_temp_8);\n  }\n  output_json[\"in\"] = output_temp_6;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  std::vector<unsigned int> input_temp_1_vec;\n  for (auto& elem : input_json[\"buf\"]) {\n    unsigned int input_temp_1_inner = elem;\n    input_temp_1_vec.push_back(input_temp_1_inner);\n  }\n  unsigned int* buf = &input_temp_1_vec[0];\n  std::vector<unsigned int> input_temp_2_vec;\n  for (auto& elem : input_json[\"in\"]) {\n    unsigned int input_temp_2_inner = elem;\n    input_temp_2_vec.push_back(input_temp_2_inner);\n  }\n  unsigned int* in = &input_temp_2_vec[0];\n  clock_t begin = clock();\n  MD5Transform(buf, in);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(buf, in);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "buf": [
+     743,
+     755,
+     786,
+     763
+    ],
+    "in": [
+     974,
+     123,
+     277,
+     525,
+     84,
+     776,
+     672,
+     137,
+     820,
+     658,
+     28,
+     800,
+     710,
+     686,
+     525,
+     820
+    ]
+   },
+   "output": {
+    "buf": [
+     3888082967,
+     3948960756,
+     822486173,
+     553394825
+    ],
+    "in": [
+     974,
+     123,
+     277,
+     525,
+     84,
+     776,
+     672,
+     137,
+     820,
+     658,
+     28,
+     800,
+     710,
+     686,
+     525,
+     820
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "buf": [
+     137,
+     225,
+     893,
+     234
+    ],
+    "in": [
+     549,
+     638,
+     660,
+     614,
+     596,
+     26,
+     990,
+     370,
+     755,
+     846,
+     579,
+     835,
+     253,
+     983,
+     971,
+     78
+    ]
+   },
+   "output": {
+    "buf": [
+     1977057407,
+     1591555023,
+     2985479457,
+     1268342600
+    ],
+    "in": [
+     549,
+     638,
+     660,
+     614,
+     596,
+     26,
+     990,
+     370,
+     755,
+     846,
+     579,
+     835,
+     253,
+     983,
+     971,
+     78
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "buf": [
+     443,
+     815,
+     912,
+     385
+    ],
+    "in": [
+     972,
+     963,
+     573,
+     732,
+     439,
+     682,
+     304,
+     630,
+     836,
+     556,
+     434,
+     755,
+     496,
+     305,
+     699,
+     422
+    ]
+   },
+   "output": {
+    "buf": [
+     949911647,
+     3122072667,
+     700268861,
+     816510773
+    ],
+    "in": [
+     972,
+     963,
+     573,
+     732,
+     439,
+     682,
+     304,
+     630,
+     836,
+     556,
+     434,
+     755,
+     496,
+     305,
+     699,
+     422
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "buf": [
+     817,
+     592,
+     119,
+     807
+    ],
+    "in": [
+     369,
+     499,
+     530,
+     932,
+     178,
+     590,
+     828,
+     679,
+     247,
+     3,
+     877,
+     817,
+     118,
+     312,
+     234,
+     95
+    ]
+   },
+   "output": {
+    "buf": [
+     1193641331,
+     1396061601,
+     3307597173,
+     1920087726
+    ],
+    "in": [
+     369,
+     499,
+     530,
+     932,
+     178,
+     590,
+     828,
+     679,
+     247,
+     3,
+     877,
+     817,
+     118,
+     312,
+     234,
+     95
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "buf": [
+     392,
+     996,
+     781,
+     760
+    ],
+    "in": [
+     77,
+     970,
+     729,
+     923,
+     345,
+     809,
+     251,
+     267,
+     402,
+     573,
+     537,
+     386,
+     490,
+     839,
+     739,
+     628
+    ]
+   },
+   "output": {
+    "buf": [
+     3567360443,
+     1725371725,
+     180552437,
+     2452529410
+    ],
+    "in": [
+     77,
+     970,
+     729,
+     923,
+     345,
+     809,
+     251,
+     267,
+     402,
+     573,
+     537,
+     386,
+     490,
+     839,
+     739,
+     628
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "buf": [
+     737,
+     984,
+     423,
+     139
+    ],
+    "in": [
+     561,
+     476,
+     573,
+     476,
+     810,
+     210,
+     429,
+     24,
+     70,
+     422,
+     738,
+     482,
+     818,
+     66,
+     432,
+     643
+    ]
+   },
+   "output": {
+    "buf": [
+     3256531768,
+     928950494,
+     3126682510,
+     3486584153
+    ],
+    "in": [
+     561,
+     476,
+     573,
+     476,
+     810,
+     210,
+     429,
+     24,
+     70,
+     422,
+     738,
+     482,
+     818,
+     66,
+     432,
+     643
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "buf": [
+     634,
+     11,
+     266,
+     71
+    ],
+    "in": [
+     616,
+     607,
+     144,
+     933,
+     728,
+     782,
+     570,
+     857,
+     963,
+     96,
+     136,
+     185,
+     278,
+     232,
+     226,
+     931
+    ]
+   },
+   "output": {
+    "buf": [
+     1553318317,
+     1138717696,
+     3327502942,
+     2680468010
+    ],
+    "in": [
+     616,
+     607,
+     144,
+     933,
+     728,
+     782,
+     570,
+     857,
+     963,
+     96,
+     136,
+     185,
+     278,
+     232,
+     226,
+     931
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "buf": [
+     697,
+     204,
+     728,
+     305
+    ],
+    "in": [
+     916,
+     446,
+     263,
+     725,
+     608,
+     972,
+     678,
+     533,
+     651,
+     928,
+     578,
+     158,
+     544,
+     258,
+     142,
+     229
+    ]
+   },
+   "output": {
+    "buf": [
+     2598971647,
+     162803426,
+     464123522,
+     2666492041
+    ],
+    "in": [
+     916,
+     446,
+     263,
+     725,
+     608,
+     972,
+     678,
+     533,
+     651,
+     928,
+     578,
+     158,
+     544,
+     258,
+     142,
+     229
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "buf": [
+     84,
+     669,
+     975,
+     342
+    ],
+    "in": [
+     339,
+     614,
+     109,
+     705,
+     341,
+     639,
+     882,
+     213,
+     931,
+     564,
+     65,
+     20,
+     217,
+     860,
+     130,
+     678
+    ]
+   },
+   "output": {
+    "buf": [
+     3432361793,
+     126644879,
+     2576488607,
+     2531779161
+    ],
+    "in": [
+     339,
+     614,
+     109,
+     705,
+     341,
+     639,
+     882,
+     213,
+     931,
+     564,
+     65,
+     20,
+     217,
+     860,
+     130,
+     678
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "buf": [
+     669,
+     740,
+     989,
+     248
+    ],
+    "in": [
+     693,
+     7,
+     973,
+     872,
+     133,
+     57,
+     356,
+     123,
+     558,
+     686,
+     467,
+     890,
+     973,
+     766,
+     221,
+     828
+    ]
+   },
+   "output": {
+    "buf": [
+     1948053487,
+     2382176914,
+     3892511922,
+     1332631978
+    ],
+    "in": [
+     693,
+     7,
+     973,
+     872,
+     133,
+     57,
+     356,
+     123,
+     558,
+     686,
+     467,
+     890,
+     973,
+     766,
+     221,
+     828
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

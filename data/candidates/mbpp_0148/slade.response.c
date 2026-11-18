@@ -1,0 +1,1 @@
+int func0(int fd) { int closestfd = closest(fd); return sum_digits_single(closestfd) + sum_digits_single(fd - closestfd); }

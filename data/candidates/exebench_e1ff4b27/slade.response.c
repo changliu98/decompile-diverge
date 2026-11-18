@@ -1,0 +1,1 @@
+void BMP_getGenBmp16Palette(const Bitmap *bitmap, unsigned short *palette) { const unsigned short *source = (const unsigned short *)(bitmap + 1); unsigned short *dest = palette; unsigned short i = 16; while (i--) *dest++ = *source++; }

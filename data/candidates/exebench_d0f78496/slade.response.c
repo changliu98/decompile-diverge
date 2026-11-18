@@ -1,0 +1,1 @@
+const char *read_int(const char *p, int base, int *np) { int n = 0; while (--base >= 0 && *p >= '0' && *p <= '9') n = 10 * n + (*p++ - '0'); *np = n; return p; }

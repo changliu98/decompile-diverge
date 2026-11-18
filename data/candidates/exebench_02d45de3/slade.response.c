@@ -1,0 +1,1 @@
+int write_bus(int fd, char *bus, int count) { return write(fd, bus, (size_t)count); }

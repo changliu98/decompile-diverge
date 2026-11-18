@@ -1,0 +1,432 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+s], rdi\nmov     [rbp+len], esi\nmov     rax, [rbp+s]\nmovsx   eax, byte ptr [rax]\nadd     eax, 0FFFFFFDEh; switch 84 cases\nmov     ecx, eax\nmov     [rbp+var_20], rcx\nsub     eax, 53h\nja      def_53BA; jumptable 00000000000053BA default case, cases 35-46,48-91,93-97,99-101,103-109,111-113,115\nmov     rax, [rbp+var_20]\nlea     rcx, jpt_53BA\nmovsxd  rax, ds:(jpt_53BA - 80A0h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\ncmp     [rbp+len], 6; jumptable 00000000000053BA case 117\njge     loc_53D3\nmov     eax, 0FFFFFFFEh\nmov     [rbp+var_24], eax\njmp     loc_5456\nmov     rax, [rbp+s]\nmovsx   edi, byte ptr [rax+1]; ch_0\ncall    json_isxdigit\nmov     ecx, eax\nxor     eax, eax\ncmp     ecx, 0\nmov     [rbp+var_25], al\njz      loc_5440\nmov     rax, [rbp+s]\nmovsx   edi, byte ptr [rax+2]; ch_0\ncall    json_isxdigit\nmov     ecx, eax\nxor     eax, eax\ncmp     ecx, 0\nmov     [rbp+var_25], al\njz      loc_5440\nmov     rax, [rbp+s]\nmovsx   edi, byte ptr [rax+3]; ch_0\ncall    json_isxdigit\nmov     ecx, eax\nxor     eax, eax\ncmp     ecx, 0\nmov     [rbp+var_25], al\njz      loc_5440\nmov     rax, [rbp+s]\nmovsx   edi, byte ptr [rax+4]; ch_0\ncall    json_isxdigit\ncmp     eax, 0\nsetnz   al\nmov     [rbp+var_25], al\nmov     dl, [rbp+var_25]\nmov     eax, 0FFFFFFFFh\nmov     ecx, 5\ntest    dl, 1\ncmovnz  eax, ecx\nmov     [rbp+var_24], eax\nmov     eax, [rbp+var_24]\nmov     [rbp+var_4], eax\njmp     loc_5483\nmov     edx, [rbp+len]; jumptable 00000000000053BA cases 34,47,92,98,102,110,114,116\nmov     eax, 1\nmov     ecx, 0FFFFFFFEh\ncmp     edx, 2\ncmovl   eax, ecx\nmov     [rbp+var_4], eax\njmp     loc_5483\nmov     [rbp+var_4], 0FFFFFFFFh; jumptable 00000000000053BA default case, cases 35-46,48-91,93-97,99-101,103-109,111-113,115\nmov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 13,
+  "edges": [
+   [
+    "start",
+    "loc_53A8"
+   ],
+   [
+    "start",
+    "loc_547C"
+   ],
+   [
+    "loc_53A8",
+    "loc_53BC"
+   ],
+   [
+    "loc_53A8",
+    "loc_5461"
+   ],
+   [
+    "loc_53A8",
+    "loc_547C"
+   ],
+   [
+    "loc_53BC",
+    "loc_53C6"
+   ],
+   [
+    "loc_53BC",
+    "loc_53D3"
+   ],
+   [
+    "loc_53C6",
+    "loc_5456"
+   ],
+   [
+    "loc_53D3",
+    "loc_53F0"
+   ],
+   [
+    "loc_53D3",
+    "loc_5440"
+   ],
+   [
+    "loc_53F0",
+    "loc_540D"
+   ],
+   [
+    "loc_53F0",
+    "loc_5440"
+   ],
+   [
+    "loc_540D",
+    "loc_542A"
+   ],
+   [
+    "loc_540D",
+    "loc_5440"
+   ],
+   [
+    "loc_542A",
+    "loc_5440"
+   ],
+   [
+    "loc_5440",
+    "loc_5456"
+   ],
+   [
+    "loc_5456",
+    "loc_5483"
+   ],
+   [
+    "loc_5461",
+    "loc_5483"
+   ],
+   [
+    "loc_547C",
+    "loc_5483"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+s], rdi\nmov     [rbp+len], esi\nmov     rax, [rbp+s]\nmovsx   eax, byte ptr [rax]\nadd     eax, 0FFFFFFDEh; switch 84 cases\nmov     ecx, eax\nmov     [rbp+var_20], rcx\nsub     eax, 53h\nja      def_53BA; jumptable 00000000000053BA default case, cases 35-46,48-91,93-97,99-101,103-109,111-113,115",
+   "loc_53A8": "mov     rax, [rbp+var_20]\nlea     rcx, jpt_53BA\nmovsxd  rax, ds:(jpt_53BA - 80A0h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_53BC": "cmp     [rbp+len], 6; jumptable 00000000000053BA case 117\njge     loc_53D3",
+   "loc_53C6": "mov     eax, 0FFFFFFFEh\nmov     [rbp+var_24], eax\njmp     loc_5456",
+   "loc_53D3": "mov     rax, [rbp+s]\nmovsx   edi, byte ptr [rax+1]; ch_0\ncall    json_isxdigit\nmov     ecx, eax\nxor     eax, eax\ncmp     ecx, 0\nmov     [rbp+var_25], al\njz      loc_5440",
+   "loc_53F0": "mov     rax, [rbp+s]\nmovsx   edi, byte ptr [rax+2]; ch_0\ncall    json_isxdigit\nmov     ecx, eax\nxor     eax, eax\ncmp     ecx, 0\nmov     [rbp+var_25], al\njz      loc_5440",
+   "loc_540D": "mov     rax, [rbp+s]\nmovsx   edi, byte ptr [rax+3]; ch_0\ncall    json_isxdigit\nmov     ecx, eax\nxor     eax, eax\ncmp     ecx, 0\nmov     [rbp+var_25], al\njz      loc_5440",
+   "loc_542A": "mov     rax, [rbp+s]\nmovsx   edi, byte ptr [rax+4]; ch_0\ncall    json_isxdigit\ncmp     eax, 0\nsetnz   al\nmov     [rbp+var_25], al",
+   "loc_5440": "mov     dl, [rbp+var_25]\nmov     eax, 0FFFFFFFFh\nmov     ecx, 5\ntest    dl, 1\ncmovnz  eax, ecx\nmov     [rbp+var_24], eax",
+   "loc_5456": "mov     eax, [rbp+var_24]\nmov     [rbp+var_4], eax\njmp     loc_5483",
+   "loc_5461": "mov     edx, [rbp+len]; jumptable 00000000000053BA cases 34,47,92,98,102,110,114,116\nmov     eax, 1\nmov     ecx, 0FFFFFFFEh\ncmp     edx, 2\ncmovl   eax, ecx\nmov     [rbp+var_4], eax\njmp     loc_5483",
+   "loc_547C": "mov     [rbp+var_4], 0FFFFFFFFh; jumptable 00000000000053BA default case, cases 35-46,48-91,93-97,99-101,103-109,111-113,115",
+   "loc_5483": "mov     eax, [rbp+var_4]\nadd     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_25": "byte ptr -25h",
+   "var_24": "dword ptr -24h",
+   "var_20": "qword ptr -20h",
+   "len": "dword ptr -14h",
+   "s": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "jpt_53BA": "dword offset loc_5461 - 80A0h, offset def_53BA - 80A0h, offset def_53BA - 80A0h; jump table for switch statement"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 21376,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".strncpy": "strncpy",
+  "_strncpy": "strncpy",
+  ".strncmp": "strncmp",
+  "_strncmp": "strncmp",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".vsnprintf": "vsnprintf",
+  "_vsnprintf": "vsnprintf",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".strchr": "strchr",
+  "_strchr": "strchr",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".strrchr": "strrchr",
+  "_strrchr": "strrchr",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".strspn": "strspn",
+  "_strspn": "strspn",
+  ".fputc": "fputc",
+  "_fputc": "fputc",
+  ".strcspn": "strcspn",
+  "_strcspn": "strcspn",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".strtol": "strtol",
+  "_strtol": "strtol",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".tolower": "tolower",
+  "_tolower": "tolower",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".__isoc99_sscanf": "__isoc99_sscanf",
+  "_isoc99_sscanf": "__isoc99_sscanf",
+  ".strpbrk": "strpbrk",
+  "_strpbrk": "strpbrk",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".strtoul": "strtoul",
+  "_strtoul": "strtoul",
+  ".atoi": "atoi",
+  "_atoi": "atoi",
+  ".strcat": "strcat",
+  "_strcat": "strcat",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".__ctype_b_loc": "__ctype_b_loc",
+  "_ctype_b_loc": "__ctype_b_loc"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".strncpy",
+   ".plt",
+   true,
+   "strncpy"
+  ],
+  [
+   ".strncmp",
+   ".plt",
+   true,
+   "strncmp"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".vsnprintf",
+   ".plt",
+   true,
+   "vsnprintf"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".strchr",
+   ".plt",
+   true,
+   "strchr"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".strrchr",
+   ".plt",
+   true,
+   "strrchr"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".strspn",
+   ".plt",
+   true,
+   "strspn"
+  ],
+  [
+   ".fputc",
+   ".plt",
+   true,
+   "fputc"
+  ],
+  [
+   ".strcspn",
+   ".plt",
+   true,
+   "strcspn"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".strtol",
+   ".plt",
+   true,
+   "strtol"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".tolower",
+   ".plt",
+   true,
+   "tolower"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".__isoc99_sscanf",
+   ".plt",
+   true,
+   "__isoc99_sscanf"
+  ],
+  [
+   ".strpbrk",
+   ".plt",
+   true,
+   "strpbrk"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".strtoul",
+   ".plt",
+   true,
+   "strtoul"
+  ],
+  [
+   ".atoi",
+   ".plt",
+   true,
+   "atoi"
+  ],
+  [
+   ".strcat",
+   ".plt",
+   true,
+   "strcat"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   ".__ctype_b_loc",
+   ".plt",
+   true,
+   "__ctype_b_loc"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872668
+ }
+}

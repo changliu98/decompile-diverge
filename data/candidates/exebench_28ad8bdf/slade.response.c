@@ -1,0 +1,1 @@
+void matrixApply(const float *m, const float a, const float b, const float c, float *X, float *Y) { *X = m[0] * a + m[1] * b + m[2] * c + m[3]; *Y = m[4] * a + m[5] * b + m[6] * c + m[7]; *Y = m[8] * a + m[9] * b + m[10] * c + m[11]; }

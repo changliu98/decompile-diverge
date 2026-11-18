@@ -1,0 +1,393 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+rctx], rdi\nmov     [rbp+e], rsi\nmov     [rbp+ifd], edx\ncmp     [rbp+ifd], 8\njb      loc_15E5\nmov     eax, [rbp+ifd]\nmov     rcx, [rbp+e]\nmov     rcx, [rcx+10h]\nsub     rcx, 12h\ncmp     rax, rcx\njbe     loc_15EA\njmp     loc_1752\nmov     rax, [rbp+e]\nmov     rdi, [rax+8]\nmov     eax, [rbp+ifd]\nadd     rdi, rax; b\nmov     rax, [rbp+e]\nmov     esi, [rax]; endian\ncall    iw_get_ui16_e\nmov     [rbp+tag_count], eax\ncmp     [rbp+tag_count], 3E8h\njbe     loc_1618\njmp     loc_1752\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\ncmp     eax, [rbp+tag_count]\njnb     loc_1752\nmov     eax, [rbp+ifd]\nadd     eax, 2\nimul    ecx, [rbp+i], 0Ch\nadd     eax, ecx\nmov     [rbp+tag_pos], eax\nmov     eax, [rbp+tag_pos]\nadd     eax, 0Ch\nmov     eax, eax\nmov     rcx, [rbp+e]\ncmp     rax, [rcx+10h]\njbe     loc_1655\njmp     loc_1752\nmov     rax, [rbp+e]\nmov     rdi, [rax+8]\nmov     ecx, [rbp+tag_pos]\nadd     rdi, rcx; b\nmov     esi, [rax]; endian\ncall    iw_get_ui16_e\nmov     [rbp+tag_id], eax\nmov     eax, [rbp+tag_id]\nadd     eax, 0FFFFFEEEh; switch 23 cases\nmov     ecx, eax\nmov     [rbp+var_38], rcx\nsub     eax, 16h\nja      def_1696; jumptable 0000000000001696 default case, cases 275-281,284-295\nmov     rax, [rbp+var_38]\nlea     rcx, jpt_1696\nmovsxd  rax, ds:(jpt_1696 - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nmov     rdi, [rbp+e]; jumptable 0000000000001696 case 274\nmov     esi, [rbp+tag_pos]; tag_pos\nlea     rdx, [rbp+v]; pv\ncall    get_exif_tag_int_value\ncmp     eax, 0\njz      loc_16BA\nmov     ecx, [rbp+v]\nmov     rax, [rbp+rctx]\nmov     [rax], ecx\njmp     def_1696; jumptable 0000000000001696 default case, cases 275-281,284-295\nmov     rdi, [rbp+e]; jumptable 0000000000001696 case 296\nmov     esi, [rbp+tag_pos]; tag_pos\nlea     rdx, [rbp+v]; pv\ncall    get_exif_tag_int_value\ncmp     eax, 0\njz      loc_16E2\nmov     ecx, [rbp+v]\nmov     rax, [rbp+rctx]\nmov     [rax+18h], ecx\njmp     def_1696; jumptable 0000000000001696 default case, cases 275-281,284-295\nmov     rdi, [rbp+e]; jumptable 0000000000001696 case 282\nmov     esi, [rbp+tag_pos]; tag_pos\nlea     rdx, [rbp+v_dbl]; pv\ncall    get_exif_tag_dbl_value\ncmp     eax, 0\njz      loc_170E\nmovsd   xmm0, [rbp+v_dbl]\nmov     rax, [rbp+rctx]\nmovsd   qword ptr [rax+8], xmm0\njmp     def_1696; jumptable 0000000000001696 default case, cases 275-281,284-295\nmov     rdi, [rbp+e]; jumptable 0000000000001696 case 283\nmov     esi, [rbp+tag_pos]; tag_pos\nlea     rdx, [rbp+v_dbl]; pv\ncall    get_exif_tag_dbl_value\ncmp     eax, 0\njz      loc_173A\nmovsd   xmm0, [rbp+v_dbl]\nmov     rax, [rbp+rctx]\nmovsd   qword ptr [rax+10h], xmm0\njmp     $+5; jumptable 0000000000001696 default case, cases 275-281,284-295\njmp     $+5; jumptable 0000000000001696 default case, cases 275-281,284-295\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_161F\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 26,
+  "edges": [
+   [
+    "start",
+    "loc_15CD"
+   ],
+   [
+    "start",
+    "loc_15E5"
+   ],
+   [
+    "loc_15CD",
+    "loc_15E5"
+   ],
+   [
+    "loc_15CD",
+    "loc_15EA"
+   ],
+   [
+    "loc_15E5",
+    "loc_1752"
+   ],
+   [
+    "loc_15EA",
+    "loc_1613"
+   ],
+   [
+    "loc_15EA",
+    "loc_1618"
+   ],
+   [
+    "loc_1613",
+    "loc_1752"
+   ],
+   [
+    "loc_1618",
+    "loc_161F"
+   ],
+   [
+    "loc_161F",
+    "loc_162B"
+   ],
+   [
+    "loc_161F",
+    "loc_1752"
+   ],
+   [
+    "loc_162B",
+    "loc_1650"
+   ],
+   [
+    "loc_162B",
+    "loc_1655"
+   ],
+   [
+    "loc_1650",
+    "loc_1752"
+   ],
+   [
+    "loc_1655",
+    "loc_1684"
+   ],
+   [
+    "loc_1655",
+    "loc_173F"
+   ],
+   [
+    "loc_1684",
+    "loc_1698"
+   ],
+   [
+    "loc_1684",
+    "loc_16BF"
+   ],
+   [
+    "loc_1684",
+    "loc_16E7"
+   ],
+   [
+    "loc_1684",
+    "loc_1713"
+   ],
+   [
+    "loc_1684",
+    "loc_173F"
+   ],
+   [
+    "loc_1698",
+    "loc_16B1"
+   ],
+   [
+    "loc_1698",
+    "loc_16BA"
+   ],
+   [
+    "loc_16B1",
+    "loc_16BA"
+   ],
+   [
+    "loc_16BA",
+    "loc_173F"
+   ],
+   [
+    "loc_16BF",
+    "loc_16D8"
+   ],
+   [
+    "loc_16BF",
+    "loc_16E2"
+   ],
+   [
+    "loc_16D8",
+    "loc_16E2"
+   ],
+   [
+    "loc_16E2",
+    "loc_173F"
+   ],
+   [
+    "loc_16E7",
+    "loc_1700"
+   ],
+   [
+    "loc_16E7",
+    "loc_170E"
+   ],
+   [
+    "loc_1700",
+    "loc_170E"
+   ],
+   [
+    "loc_170E",
+    "loc_173F"
+   ],
+   [
+    "loc_1713",
+    "loc_172C"
+   ],
+   [
+    "loc_1713",
+    "loc_173A"
+   ],
+   [
+    "loc_172C",
+    "loc_173A"
+   ],
+   [
+    "loc_173A",
+    "loc_173F"
+   ],
+   [
+    "loc_173F",
+    "loc_1744"
+   ],
+   [
+    "loc_1744",
+    "loc_161F"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+rctx], rdi\nmov     [rbp+e], rsi\nmov     [rbp+ifd], edx\ncmp     [rbp+ifd], 8\njb      loc_15E5",
+   "loc_15CD": "mov     eax, [rbp+ifd]\nmov     rcx, [rbp+e]\nmov     rcx, [rcx+10h]\nsub     rcx, 12h\ncmp     rax, rcx\njbe     loc_15EA",
+   "loc_15E5": "jmp     loc_1752",
+   "loc_15EA": "mov     rax, [rbp+e]\nmov     rdi, [rax+8]\nmov     eax, [rbp+ifd]\nadd     rdi, rax; b\nmov     rax, [rbp+e]\nmov     esi, [rax]; endian\ncall    iw_get_ui16_e\nmov     [rbp+tag_count], eax\ncmp     [rbp+tag_count], 3E8h\njbe     loc_1618",
+   "loc_1613": "jmp     loc_1752",
+   "loc_1618": "mov     [rbp+i], 0",
+   "loc_161F": "mov     eax, [rbp+i]\ncmp     eax, [rbp+tag_count]\njnb     loc_1752",
+   "loc_162B": "mov     eax, [rbp+ifd]\nadd     eax, 2\nimul    ecx, [rbp+i], 0Ch\nadd     eax, ecx\nmov     [rbp+tag_pos], eax\nmov     eax, [rbp+tag_pos]\nadd     eax, 0Ch\nmov     eax, eax\nmov     rcx, [rbp+e]\ncmp     rax, [rcx+10h]\njbe     loc_1655",
+   "loc_1650": "jmp     loc_1752",
+   "loc_1655": "mov     rax, [rbp+e]\nmov     rdi, [rax+8]\nmov     ecx, [rbp+tag_pos]\nadd     rdi, rcx; b\nmov     esi, [rax]; endian\ncall    iw_get_ui16_e\nmov     [rbp+tag_id], eax\nmov     eax, [rbp+tag_id]\nadd     eax, 0FFFFFEEEh; switch 23 cases\nmov     ecx, eax\nmov     [rbp+var_38], rcx\nsub     eax, 16h\nja      def_1696; jumptable 0000000000001696 default case, cases 275-281,284-295",
+   "loc_1684": "mov     rax, [rbp+var_38]\nlea     rcx, jpt_1696\nmovsxd  rax, ds:(jpt_1696 - 2004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_1698": "mov     rdi, [rbp+e]; jumptable 0000000000001696 case 274\nmov     esi, [rbp+tag_pos]; tag_pos\nlea     rdx, [rbp+v]; pv\ncall    get_exif_tag_int_value\ncmp     eax, 0\njz      loc_16BA",
+   "loc_16B1": "mov     ecx, [rbp+v]\nmov     rax, [rbp+rctx]\nmov     [rax], ecx",
+   "loc_16BA": "jmp     def_1696; jumptable 0000000000001696 default case, cases 275-281,284-295",
+   "loc_16BF": "mov     rdi, [rbp+e]; jumptable 0000000000001696 case 296\nmov     esi, [rbp+tag_pos]; tag_pos\nlea     rdx, [rbp+v]; pv\ncall    get_exif_tag_int_value\ncmp     eax, 0\njz      loc_16E2",
+   "loc_16D8": "mov     ecx, [rbp+v]\nmov     rax, [rbp+rctx]\nmov     [rax+18h], ecx",
+   "loc_16E2": "jmp     def_1696; jumptable 0000000000001696 default case, cases 275-281,284-295",
+   "loc_16E7": "mov     rdi, [rbp+e]; jumptable 0000000000001696 case 282\nmov     esi, [rbp+tag_pos]; tag_pos\nlea     rdx, [rbp+v_dbl]; pv\ncall    get_exif_tag_dbl_value\ncmp     eax, 0\njz      loc_170E",
+   "loc_1700": "movsd   xmm0, [rbp+v_dbl]\nmov     rax, [rbp+rctx]\nmovsd   qword ptr [rax+8], xmm0",
+   "loc_170E": "jmp     def_1696; jumptable 0000000000001696 default case, cases 275-281,284-295",
+   "loc_1713": "mov     rdi, [rbp+e]; jumptable 0000000000001696 case 283\nmov     esi, [rbp+tag_pos]; tag_pos\nlea     rdx, [rbp+v_dbl]; pv\ncall    get_exif_tag_dbl_value\ncmp     eax, 0\njz      loc_173A",
+   "loc_172C": "movsd   xmm0, [rbp+v_dbl]\nmov     rax, [rbp+rctx]\nmovsd   qword ptr [rax+10h], xmm0",
+   "loc_173A": "jmp     $+5; jumptable 0000000000001696 default case, cases 275-281,284-295",
+   "loc_173F": "jmp     $+5; jumptable 0000000000001696 default case, cases 275-281,284-295",
+   "loc_1744": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_161F",
+   "loc_1752": "add     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_38": "qword ptr -38h",
+   "v_dbl": "qword ptr -30h",
+   "v": "dword ptr -28h",
+   "tag_id": "dword ptr -24h",
+   "tag_pos": "dword ptr -20h",
+   "i": "dword ptr -1Ch",
+   "tag_count": "dword ptr -18h",
+   "ifd": "dword ptr -14h",
+   "e": "qword ptr -10h",
+   "rctx": "qword ptr -8"
+  },
+  ".rodata": {
+   "jpt_1696": "dword offset loc_1698 - 2004h; jump table for switch statement"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5552,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868499
+ }
+}

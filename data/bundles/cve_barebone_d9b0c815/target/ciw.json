@@ -1,0 +1,640 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0A0h\nmov     ax, cx\nmov     [rbp+ndo], rdi\nmov     [rbp+tptr], rsi\nmov     [rbp+ident], rdx\nmov     [rbp+afi], ax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 4\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_14F4\nmov     rax, [rbp+tptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 4\ncmp     rax, rcx\njbe     loc_1500\nmov     [rbp+var_4], 0\njmp     loc_1AA5\nmov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax]\nshl     eax, 18h\nmov     rcx, [rbp+tptr]\nmovzx   ecx, byte ptr [rcx+1]\nshl     ecx, 10h\nor      eax, ecx\nmov     rcx, [rbp+tptr]\nmovzx   ecx, byte ptr [rcx+2]\nshl     ecx, 8\nor      eax, ecx\nmov     rcx, [rbp+tptr]\nmovzx   ecx, byte ptr [rcx+3]\nshl     ecx, 0\nor      eax, ecx\nmov     [rbp+metric], eax\nmov     [rbp+processed], 4\nmov     rax, [rbp+tptr]\nadd     rax, 4\nmov     [rbp+tptr], rax\nmovzx   eax, [rbp+afi]\ncmp     eax, 2\njnz     loc_15F7\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 1\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_158A\nmov     rax, [rbp+tptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 1\ncmp     rax, rcx\njbe     loc_1596\nmov     [rbp+var_4], 0\njmp     loc_1AA5\nmov     rax, [rbp+tptr]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+tptr], rcx\nmovzx   eax, byte ptr [rax]\nmov     [rbp+status_byte], eax\nmov     eax, [rbp+status_byte]\nand     eax, 3Fh\nmov     [rbp+bit_length], eax\ncmp     [rbp+bit_length], 20h ; ' '\njbe     loc_15E9\nmov     rax, [rbp+ndo]\nmov     r8, [rax+10h]\nmov     rdi, [rbp+ndo]\nmov     rdx, [rbp+ident]\nmov     ecx, [rbp+bit_length]\nlea     rsi, aSipv4PrefixBad; \"%sIPv4 prefix: bad bit length %u\"\nmov     al, 0\ncall    r8\nmov     [rbp+var_4], 0\njmp     loc_1AA5\nmov     eax, [rbp+processed]\nadd     eax, 1\nmov     [rbp+processed], eax\njmp     loc_16C7\nmovzx   eax, [rbp+afi]\ncmp     eax, 0Ah\njnz     loc_16B6\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 1\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_163A\nmov     rax, [rbp+tptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 1\ncmp     rax, rcx\njbe     loc_1646\nmov     [rbp+var_4], 0\njmp     loc_1AA5\nmov     rax, [rbp+tptr]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+tptr], rcx\nmovzx   eax, byte ptr [rax]\nmov     [rbp+status_byte], eax\nmov     rax, [rbp+tptr]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+tptr], rcx\nmovzx   eax, byte ptr [rax]\nmov     [rbp+bit_length], eax\ncmp     [rbp+bit_length], 80h\njbe     loc_16A8\nmov     rax, [rbp+ndo]\nmov     r8, [rax+10h]\nmov     rdi, [rbp+ndo]\nmov     rdx, [rbp+ident]\nmov     ecx, [rbp+bit_length]\nlea     rsi, aSipv6PrefixBad; \"%sIPv6 prefix: bad bit length %u\"\nmov     al, 0\ncall    r8\nmov     [rbp+var_4], 0\njmp     loc_1AA5\nmov     eax, [rbp+processed]\nadd     eax, 2\nmov     [rbp+processed], eax\njmp     loc_16C2\nmov     [rbp+var_4], 0\njmp     loc_1AA5\njmp     $+5\nmov     eax, [rbp+bit_length]\nadd     eax, 7\nshr     eax, 3\nmov     [rbp+byte_length], eax\ncmp     [rbp+byte_length], 0\nja      loc_16E7\ncmp     [rbp+byte_length], 0\njnz     loc_1721\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nmov     ecx, [rbp+byte_length]\nsub     rax, rcx\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1721\nmov     rax, [rbp+tptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nmov     edx, [rbp+byte_length]\nsub     rcx, rdx\ncmp     rax, rcx\njbe     loc_172D\nmov     [rbp+var_4], 0\njmp     loc_1AA5\nlea     rdi, [rbp+prefix]; s\nxor     esi, esi; c\nmov     edx, 10h; n\ncall    memset\nlea     rdi, [rbp+prefix]; dest\nmov     rsi, [rbp+tptr]; src\nmov     eax, [rbp+byte_length]\nmov     edx, eax; n\ncall    memcpy\nmov     ecx, [rbp+byte_length]\nmov     rax, [rbp+tptr]\nmov     ecx, ecx\nadd     rax, rcx\nmov     [rbp+tptr], rax\nmov     eax, [rbp+byte_length]\nadd     eax, [rbp+processed]\nmov     [rbp+processed], eax\nmovzx   eax, [rbp+afi]\ncmp     eax, 2\njnz     loc_17C8\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_78], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_88], rax\nmov     rax, [rbp+ident]\nmov     [rbp+var_80], rax\nmov     rdi, [rbp+ndo]; ndo\nlea     rsi, [rbp+prefix]; ap\ncall    ipaddr_string\nmov     rdi, [rbp+var_88]\nmov     rdx, [rbp+var_80]\nmov     r9, [rbp+var_78]\nmov     rcx, rax\nmov     r8d, [rbp+bit_length]\nlea     rsi, aSipv4Prefix15s; \"%sIPv4 prefix: %15s/%u\"\nmov     al, 0\ncall    r9\njmp     loc_1834\nmovzx   eax, [rbp+afi]\ncmp     eax, 0Ah\njnz     loc_182F\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_90], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_A0], rax\nmov     rax, [rbp+ident]\nmov     [rbp+var_98], rax\nmov     rdi, [rbp+ndo]; ndo\nlea     rsi, [rbp+prefix]; ap\ncall    ip6addr_string\nmov     rdi, [rbp+var_A0]\nmov     rdx, [rbp+var_98]\nmov     r9, [rbp+var_90]\nmov     rcx, rax\nmov     r8d, [rbp+bit_length]\nlea     rsi, aSipv6PrefixSU; \"%sIPv6 prefix: %s/%u\"\nmov     al, 0\ncall    r9\njmp     $+5\nmov     rax, [rbp+ndo]\nmov     r8, [rax+10h]\nmov     rdi, [rbp+ndo]\nmov     ecx, [rbp+status_byte]\nand     ecx, 80h\nlea     rdx, aUp; \"up\"\nlea     rax, aDown; \"down\"\ncmp     ecx, 0\ncmovnz  rdx, rax\nmov     ecx, [rbp+metric]\nlea     rsi, aDistributionSM; \", Distribution: %s, Metric: %u\"\nmov     al, 0\ncall    r8\nmovzx   eax, [rbp+afi]\ncmp     eax, 2\njnz     loc_18A5\nmov     eax, [rbp+status_byte]\nand     eax, 40h\ncmp     eax, 0\njz      loc_18A5\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aSubTlvsPresent; \", sub-TLVs present\"\nmov     al, 0\ncall    rcx\njmp     loc_1905\nmovzx   eax, [rbp+afi]\ncmp     eax, 0Ah\njnz     loc_1900\nmov     rax, [rbp+ndo]\nmov     r8, [rax+10h]\nmov     rdi, [rbp+ndo]\nmov     ecx, [rbp+status_byte]\nand     ecx, 40h\nlea     rdx, aInternal; \"Internal\"\nlea     rax, aExternal; \"External\"\ncmp     ecx, 0\ncmovnz  rdx, rax\nmov     esi, [rbp+status_byte]\nand     esi, 20h\nlea     rcx, format+17h; \"\"\nlea     rax, aSubTlvsPresent; \", sub-TLVs present\"\ncmp     esi, 0\ncmovnz  rcx, rax\nlea     rsi, aSS; \", %s%s\"\nmov     al, 0\ncall    r8\njmp     $+5\nmovzx   eax, [rbp+afi]\ncmp     eax, 2\njnz     loc_1921\nmov     eax, [rbp+status_byte]\nand     eax, 40h\ncmp     eax, 0\njnz     loc_193D\nmovzx   eax, [rbp+afi]\ncmp     eax, 0Ah\njnz     loc_1A9F\nmov     eax, [rbp+status_byte]\nand     eax, 20h\ncmp     eax, 0\njz      loc_1A9F\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 1\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1973\nmov     rax, [rbp+tptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 1\ncmp     rax, rcx\njbe     loc_197F\nmov     [rbp+var_4], 0\njmp     loc_1AA5\nmov     rax, [rbp+tptr]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+tptr], rcx\nmovzx   eax, byte ptr [rax]\nmov     [rbp+sublen], eax\nmov     eax, [rbp+sublen]\nadd     eax, 1\nadd     eax, [rbp+processed]\nmov     [rbp+processed], eax\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nmov     edx, [rbp+sublen]\nlea     rsi, aU; \" (%u)\"\nmov     al, 0\ncall    rcx\ncmp     [rbp+sublen], 0\njbe     loc_1A9A\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 2\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_19FA\nmov     rax, [rbp+tptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 2\ncmp     rax, rcx\njbe     loc_1A06\nmov     [rbp+var_4], 0\njmp     loc_1AA5\nmov     rax, [rbp+tptr]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+tptr], rcx\nmovzx   eax, byte ptr [rax]\nmov     [rbp+subtlvtype], eax\nmov     rax, [rbp+tptr]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+tptr], rcx\nmovzx   eax, byte ptr [rax]\nmov     [rbp+subtlvlen], eax\nlea     rdi, [rbp+ident_buffer]; s\nmov     rcx, [rbp+ident]\nmov     esi, 14h; maxlen\nlea     rdx, aS; \"%s  \"\nmov     al, 0\ncall    snprintf\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+tptr]; tptr\nmov     edx, [rbp+subtlvtype]; subt\nmov     ecx, [rbp+subtlvlen]; subl\nlea     r8, [rbp+ident_buffer]; ident\ncall    isis_print_ip_reach_subtlv\ncmp     eax, 0\njnz     loc_1A77\nmov     [rbp+var_4], 0\njmp     loc_1AA5\nmov     ecx, [rbp+subtlvlen]\nmov     rax, [rbp+tptr]\nmov     ecx, ecx\nadd     rax, rcx\nmov     [rbp+tptr], rax\nmov     ecx, [rbp+subtlvlen]\nadd     ecx, 2\nmov     eax, [rbp+sublen]\nsub     eax, ecx\nmov     [rbp+sublen], eax\njmp     loc_19BA\njmp     $+5\nmov     eax, [rbp+processed]\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\nadd     rsp, 0A0h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 53,
+  "edges": [
+   [
+    "start",
+    "loc_14DB"
+   ],
+   [
+    "start",
+    "loc_14F4"
+   ],
+   [
+    "loc_14DB",
+    "loc_14F4"
+   ],
+   [
+    "loc_14DB",
+    "loc_1500"
+   ],
+   [
+    "loc_14F4",
+    "loc_1AA5"
+   ],
+   [
+    "loc_1500",
+    "loc_1554"
+   ],
+   [
+    "loc_1500",
+    "loc_15F7"
+   ],
+   [
+    "loc_1554",
+    "loc_1571"
+   ],
+   [
+    "loc_1554",
+    "loc_158A"
+   ],
+   [
+    "loc_1571",
+    "loc_158A"
+   ],
+   [
+    "loc_1571",
+    "loc_1596"
+   ],
+   [
+    "loc_158A",
+    "loc_1AA5"
+   ],
+   [
+    "loc_1596",
+    "loc_15BE"
+   ],
+   [
+    "loc_1596",
+    "loc_15E9"
+   ],
+   [
+    "loc_15BE",
+    "loc_1AA5"
+   ],
+   [
+    "loc_15E9",
+    "loc_16C7"
+   ],
+   [
+    "loc_15F7",
+    "loc_1604"
+   ],
+   [
+    "loc_15F7",
+    "loc_16B6"
+   ],
+   [
+    "loc_1604",
+    "loc_1621"
+   ],
+   [
+    "loc_1604",
+    "loc_163A"
+   ],
+   [
+    "loc_1621",
+    "loc_163A"
+   ],
+   [
+    "loc_1621",
+    "loc_1646"
+   ],
+   [
+    "loc_163A",
+    "loc_1AA5"
+   ],
+   [
+    "loc_1646",
+    "loc_167D"
+   ],
+   [
+    "loc_1646",
+    "loc_16A8"
+   ],
+   [
+    "loc_167D",
+    "loc_1AA5"
+   ],
+   [
+    "loc_16A8",
+    "loc_16C2"
+   ],
+   [
+    "loc_16B6",
+    "loc_1AA5"
+   ],
+   [
+    "loc_16C2",
+    "loc_16C7"
+   ],
+   [
+    "loc_16C7",
+    "loc_16DD"
+   ],
+   [
+    "loc_16C7",
+    "loc_16E7"
+   ],
+   [
+    "loc_16DD",
+    "loc_16E7"
+   ],
+   [
+    "loc_16DD",
+    "loc_1721"
+   ],
+   [
+    "loc_16E7",
+    "loc_1706"
+   ],
+   [
+    "loc_16E7",
+    "loc_1721"
+   ],
+   [
+    "loc_1706",
+    "loc_1721"
+   ],
+   [
+    "loc_1706",
+    "loc_172D"
+   ],
+   [
+    "loc_1721",
+    "loc_1AA5"
+   ],
+   [
+    "loc_172D",
+    "loc_1775"
+   ],
+   [
+    "loc_172D",
+    "loc_17C8"
+   ],
+   [
+    "loc_1775",
+    "loc_1834"
+   ],
+   [
+    "loc_17C8",
+    "loc_17D5"
+   ],
+   [
+    "loc_17C8",
+    "loc_182F"
+   ],
+   [
+    "loc_17D5",
+    "loc_182F"
+   ],
+   [
+    "loc_182F",
+    "loc_1834"
+   ],
+   [
+    "loc_1834",
+    "loc_187A"
+   ],
+   [
+    "loc_1834",
+    "loc_18A5"
+   ],
+   [
+    "loc_187A",
+    "loc_1889"
+   ],
+   [
+    "loc_187A",
+    "loc_18A5"
+   ],
+   [
+    "loc_1889",
+    "loc_1905"
+   ],
+   [
+    "loc_18A5",
+    "loc_18B2"
+   ],
+   [
+    "loc_18A5",
+    "loc_1900"
+   ],
+   [
+    "loc_18B2",
+    "loc_1900"
+   ],
+   [
+    "loc_1900",
+    "loc_1905"
+   ],
+   [
+    "loc_1905",
+    "loc_1912"
+   ],
+   [
+    "loc_1905",
+    "loc_1921"
+   ],
+   [
+    "loc_1912",
+    "loc_1921"
+   ],
+   [
+    "loc_1912",
+    "loc_193D"
+   ],
+   [
+    "loc_1921",
+    "loc_192E"
+   ],
+   [
+    "loc_1921",
+    "loc_1A9F"
+   ],
+   [
+    "loc_192E",
+    "loc_193D"
+   ],
+   [
+    "loc_192E",
+    "loc_1A9F"
+   ],
+   [
+    "loc_193D",
+    "loc_195A"
+   ],
+   [
+    "loc_193D",
+    "loc_1973"
+   ],
+   [
+    "loc_195A",
+    "loc_1973"
+   ],
+   [
+    "loc_195A",
+    "loc_197F"
+   ],
+   [
+    "loc_1973",
+    "loc_1AA5"
+   ],
+   [
+    "loc_197F",
+    "loc_19BA"
+   ],
+   [
+    "loc_19BA",
+    "loc_19C4"
+   ],
+   [
+    "loc_19BA",
+    "loc_1A9A"
+   ],
+   [
+    "loc_19C4",
+    "loc_19E1"
+   ],
+   [
+    "loc_19C4",
+    "loc_19FA"
+   ],
+   [
+    "loc_19E1",
+    "loc_19FA"
+   ],
+   [
+    "loc_19E1",
+    "loc_1A06"
+   ],
+   [
+    "loc_19FA",
+    "loc_1AA5"
+   ],
+   [
+    "loc_1A06",
+    "loc_1A6B"
+   ],
+   [
+    "loc_1A06",
+    "loc_1A77"
+   ],
+   [
+    "loc_1A6B",
+    "loc_1AA5"
+   ],
+   [
+    "loc_1A77",
+    "loc_19BA"
+   ],
+   [
+    "loc_1A9A",
+    "loc_1A9F"
+   ],
+   [
+    "loc_1A9F",
+    "loc_1AA5"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0A0h\nmov     ax, cx\nmov     [rbp+ndo], rdi\nmov     [rbp+tptr], rsi\nmov     [rbp+ident], rdx\nmov     [rbp+afi], ax\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 4\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_14F4",
+   "loc_14DB": "mov     rax, [rbp+tptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 4\ncmp     rax, rcx\njbe     loc_1500",
+   "loc_14F4": "mov     [rbp+var_4], 0\njmp     loc_1AA5",
+   "loc_1500": "mov     rax, [rbp+tptr]\nmovzx   eax, byte ptr [rax]\nshl     eax, 18h\nmov     rcx, [rbp+tptr]\nmovzx   ecx, byte ptr [rcx+1]\nshl     ecx, 10h\nor      eax, ecx\nmov     rcx, [rbp+tptr]\nmovzx   ecx, byte ptr [rcx+2]\nshl     ecx, 8\nor      eax, ecx\nmov     rcx, [rbp+tptr]\nmovzx   ecx, byte ptr [rcx+3]\nshl     ecx, 0\nor      eax, ecx\nmov     [rbp+metric], eax\nmov     [rbp+processed], 4\nmov     rax, [rbp+tptr]\nadd     rax, 4\nmov     [rbp+tptr], rax\nmovzx   eax, [rbp+afi]\ncmp     eax, 2\njnz     loc_15F7",
+   "loc_1554": "mov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 1\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_158A",
+   "loc_1571": "mov     rax, [rbp+tptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 1\ncmp     rax, rcx\njbe     loc_1596",
+   "loc_158A": "mov     [rbp+var_4], 0\njmp     loc_1AA5",
+   "loc_1596": "mov     rax, [rbp+tptr]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+tptr], rcx\nmovzx   eax, byte ptr [rax]\nmov     [rbp+status_byte], eax\nmov     eax, [rbp+status_byte]\nand     eax, 3Fh\nmov     [rbp+bit_length], eax\ncmp     [rbp+bit_length], 20h ; ' '\njbe     loc_15E9",
+   "loc_15BE": "mov     rax, [rbp+ndo]\nmov     r8, [rax+10h]\nmov     rdi, [rbp+ndo]\nmov     rdx, [rbp+ident]\nmov     ecx, [rbp+bit_length]\nlea     rsi, aSipv4PrefixBad; \"%sIPv4 prefix: bad bit length %u\"\nmov     al, 0\ncall    r8\nmov     [rbp+var_4], 0\njmp     loc_1AA5",
+   "loc_15E9": "mov     eax, [rbp+processed]\nadd     eax, 1\nmov     [rbp+processed], eax\njmp     loc_16C7",
+   "loc_15F7": "movzx   eax, [rbp+afi]\ncmp     eax, 0Ah\njnz     loc_16B6",
+   "loc_1604": "mov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 1\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_163A",
+   "loc_1621": "mov     rax, [rbp+tptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 1\ncmp     rax, rcx\njbe     loc_1646",
+   "loc_163A": "mov     [rbp+var_4], 0\njmp     loc_1AA5",
+   "loc_1646": "mov     rax, [rbp+tptr]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+tptr], rcx\nmovzx   eax, byte ptr [rax]\nmov     [rbp+status_byte], eax\nmov     rax, [rbp+tptr]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+tptr], rcx\nmovzx   eax, byte ptr [rax]\nmov     [rbp+bit_length], eax\ncmp     [rbp+bit_length], 80h\njbe     loc_16A8",
+   "loc_167D": "mov     rax, [rbp+ndo]\nmov     r8, [rax+10h]\nmov     rdi, [rbp+ndo]\nmov     rdx, [rbp+ident]\nmov     ecx, [rbp+bit_length]\nlea     rsi, aSipv6PrefixBad; \"%sIPv6 prefix: bad bit length %u\"\nmov     al, 0\ncall    r8\nmov     [rbp+var_4], 0\njmp     loc_1AA5",
+   "loc_16A8": "mov     eax, [rbp+processed]\nadd     eax, 2\nmov     [rbp+processed], eax\njmp     loc_16C2",
+   "loc_16B6": "mov     [rbp+var_4], 0\njmp     loc_1AA5",
+   "loc_16C2": "jmp     $+5",
+   "loc_16C7": "mov     eax, [rbp+bit_length]\nadd     eax, 7\nshr     eax, 3\nmov     [rbp+byte_length], eax\ncmp     [rbp+byte_length], 0\nja      loc_16E7",
+   "loc_16DD": "cmp     [rbp+byte_length], 0\njnz     loc_1721",
+   "loc_16E7": "mov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nmov     ecx, [rbp+byte_length]\nsub     rax, rcx\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1721",
+   "loc_1706": "mov     rax, [rbp+tptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nmov     edx, [rbp+byte_length]\nsub     rcx, rdx\ncmp     rax, rcx\njbe     loc_172D",
+   "loc_1721": "mov     [rbp+var_4], 0\njmp     loc_1AA5",
+   "loc_172D": "lea     rdi, [rbp+prefix]; s\nxor     esi, esi; c\nmov     edx, 10h; n\ncall    memset\nlea     rdi, [rbp+prefix]; dest\nmov     rsi, [rbp+tptr]; src\nmov     eax, [rbp+byte_length]\nmov     edx, eax; n\ncall    memcpy\nmov     ecx, [rbp+byte_length]\nmov     rax, [rbp+tptr]\nmov     ecx, ecx\nadd     rax, rcx\nmov     [rbp+tptr], rax\nmov     eax, [rbp+byte_length]\nadd     eax, [rbp+processed]\nmov     [rbp+processed], eax\nmovzx   eax, [rbp+afi]\ncmp     eax, 2\njnz     loc_17C8",
+   "loc_1775": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_78], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_88], rax\nmov     rax, [rbp+ident]\nmov     [rbp+var_80], rax\nmov     rdi, [rbp+ndo]; ndo\nlea     rsi, [rbp+prefix]; ap\ncall    ipaddr_string\nmov     rdi, [rbp+var_88]\nmov     rdx, [rbp+var_80]\nmov     r9, [rbp+var_78]\nmov     rcx, rax\nmov     r8d, [rbp+bit_length]\nlea     rsi, aSipv4Prefix15s; \"%sIPv4 prefix: %15s/%u\"\nmov     al, 0\ncall    r9\njmp     loc_1834",
+   "loc_17C8": "movzx   eax, [rbp+afi]\ncmp     eax, 0Ah\njnz     loc_182F",
+   "loc_17D5": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_90], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_A0], rax\nmov     rax, [rbp+ident]\nmov     [rbp+var_98], rax\nmov     rdi, [rbp+ndo]; ndo\nlea     rsi, [rbp+prefix]; ap\ncall    ip6addr_string\nmov     rdi, [rbp+var_A0]\nmov     rdx, [rbp+var_98]\nmov     r9, [rbp+var_90]\nmov     rcx, rax\nmov     r8d, [rbp+bit_length]\nlea     rsi, aSipv6PrefixSU; \"%sIPv6 prefix: %s/%u\"\nmov     al, 0\ncall    r9",
+   "loc_182F": "jmp     $+5",
+   "loc_1834": "mov     rax, [rbp+ndo]\nmov     r8, [rax+10h]\nmov     rdi, [rbp+ndo]\nmov     ecx, [rbp+status_byte]\nand     ecx, 80h\nlea     rdx, aUp; \"up\"\nlea     rax, aDown; \"down\"\ncmp     ecx, 0\ncmovnz  rdx, rax\nmov     ecx, [rbp+metric]\nlea     rsi, aDistributionSM; \", Distribution: %s, Metric: %u\"\nmov     al, 0\ncall    r8\nmovzx   eax, [rbp+afi]\ncmp     eax, 2\njnz     loc_18A5",
+   "loc_187A": "mov     eax, [rbp+status_byte]\nand     eax, 40h\ncmp     eax, 0\njz      loc_18A5",
+   "loc_1889": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nlea     rsi, aSubTlvsPresent; \", sub-TLVs present\"\nmov     al, 0\ncall    rcx\njmp     loc_1905",
+   "loc_18A5": "movzx   eax, [rbp+afi]\ncmp     eax, 0Ah\njnz     loc_1900",
+   "loc_18B2": "mov     rax, [rbp+ndo]\nmov     r8, [rax+10h]\nmov     rdi, [rbp+ndo]\nmov     ecx, [rbp+status_byte]\nand     ecx, 40h\nlea     rdx, aInternal; \"Internal\"\nlea     rax, aExternal; \"External\"\ncmp     ecx, 0\ncmovnz  rdx, rax\nmov     esi, [rbp+status_byte]\nand     esi, 20h\nlea     rcx, format+17h; \"\"\nlea     rax, aSubTlvsPresent; \", sub-TLVs present\"\ncmp     esi, 0\ncmovnz  rcx, rax\nlea     rsi, aSS; \", %s%s\"\nmov     al, 0\ncall    r8",
+   "loc_1900": "jmp     $+5",
+   "loc_1905": "movzx   eax, [rbp+afi]\ncmp     eax, 2\njnz     loc_1921",
+   "loc_1912": "mov     eax, [rbp+status_byte]\nand     eax, 40h\ncmp     eax, 0\njnz     loc_193D",
+   "loc_1921": "movzx   eax, [rbp+afi]\ncmp     eax, 0Ah\njnz     loc_1A9F",
+   "loc_192E": "mov     eax, [rbp+status_byte]\nand     eax, 20h\ncmp     eax, 0\njz      loc_1A9F",
+   "loc_193D": "mov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 1\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_1973",
+   "loc_195A": "mov     rax, [rbp+tptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 1\ncmp     rax, rcx\njbe     loc_197F",
+   "loc_1973": "mov     [rbp+var_4], 0\njmp     loc_1AA5",
+   "loc_197F": "mov     rax, [rbp+tptr]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+tptr], rcx\nmovzx   eax, byte ptr [rax]\nmov     [rbp+sublen], eax\nmov     eax, [rbp+sublen]\nadd     eax, 1\nadd     eax, [rbp+processed]\nmov     [rbp+processed], eax\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nmov     edx, [rbp+sublen]\nlea     rsi, aU; \" (%u)\"\nmov     al, 0\ncall    rcx",
+   "loc_19BA": "cmp     [rbp+sublen], 0\njbe     loc_1A9A",
+   "loc_19C4": "mov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nsub     rax, 2\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\ncmp     rax, rcx\nja      loc_19FA",
+   "loc_19E1": "mov     rax, [rbp+tptr]\nmov     rcx, [rbp+ndo]\nmov     rcx, [rcx+8]\nsub     rcx, 2\ncmp     rax, rcx\njbe     loc_1A06",
+   "loc_19FA": "mov     [rbp+var_4], 0\njmp     loc_1AA5",
+   "loc_1A06": "mov     rax, [rbp+tptr]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+tptr], rcx\nmovzx   eax, byte ptr [rax]\nmov     [rbp+subtlvtype], eax\nmov     rax, [rbp+tptr]\nmov     rcx, rax\nadd     rcx, 1\nmov     [rbp+tptr], rcx\nmovzx   eax, byte ptr [rax]\nmov     [rbp+subtlvlen], eax\nlea     rdi, [rbp+ident_buffer]; s\nmov     rcx, [rbp+ident]\nmov     esi, 14h; maxlen\nlea     rdx, aS; \"%s  \"\nmov     al, 0\ncall    snprintf\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+tptr]; tptr\nmov     edx, [rbp+subtlvtype]; subt\nmov     ecx, [rbp+subtlvlen]; subl\nlea     r8, [rbp+ident_buffer]; ident\ncall    isis_print_ip_reach_subtlv\ncmp     eax, 0\njnz     loc_1A77",
+   "loc_1A6B": "mov     [rbp+var_4], 0\njmp     loc_1AA5",
+   "loc_1A77": "mov     ecx, [rbp+subtlvlen]\nmov     rax, [rbp+tptr]\nmov     ecx, ecx\nadd     rax, rcx\nmov     [rbp+tptr], rax\nmov     ecx, [rbp+subtlvlen]\nadd     ecx, 2\nmov     eax, [rbp+sublen]\nsub     eax, ecx\nmov     [rbp+sublen], eax\njmp     loc_19BA",
+   "loc_1A9A": "jmp     $+5",
+   "loc_1A9F": "mov     eax, [rbp+processed]\nmov     [rbp+var_4], eax",
+   "loc_1AA5": "mov     eax, [rbp+var_4]\nadd     rsp, 0A0h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_A0": "qword ptr -0A0h",
+   "var_98": "qword ptr -98h",
+   "var_90": "qword ptr -90h",
+   "var_88": "qword ptr -88h",
+   "var_80": "qword ptr -80h",
+   "var_78": "qword ptr -78h",
+   "subtlvlen": "dword ptr -70h",
+   "subtlvtype": "dword ptr -6Ch",
+   "processed": "dword ptr -68h",
+   "sublen": "dword ptr -64h",
+   "byte_length": "dword ptr -60h",
+   "bit_length": "dword ptr -5Ch",
+   "status_byte": "dword ptr -58h",
+   "metric": "dword ptr -54h",
+   "prefix": "byte ptr -50h",
+   "ident_buffer": "byte ptr -40h",
+   "afi": "word ptr -22h",
+   "ident": "qword ptr -20h",
+   "tptr": "qword ptr -18h",
+   "ndo": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "aSipv4PrefixBad": "byte '%sIPv4 prefix: bad bit length %u',0",
+   "aSipv6PrefixBad": "byte '%sIPv6 prefix: bad bit length %u',0",
+   "aSipv4Prefix15s": "byte '%sIPv4 prefix: %15s/%u',0",
+   "aSipv6PrefixSU": "byte '%sIPv6 prefix: %s/%u',0",
+   "aUp": "byte 'up',0",
+   "aDown": "byte 'down',0",
+   "aDistributionSM": "byte ', Distribution: %s, Metric: %u',0",
+   "aSubTlvsPresent": "byte ', sub-TLVs present',0",
+   "aInternal": "byte 'Internal',0",
+   "aExternal": "byte 'External',0",
+   "unk_201B": "byte 'usage: %s <input-file>',0Ah,0",
+   "aSS": "byte ', %s%s',0",
+   "aU": "byte ' (%u)',0",
+   "aS": "byte '%s  ',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5280,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "printf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "snprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868493
+ }
+}

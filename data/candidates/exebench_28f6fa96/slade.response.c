@@ -1,0 +1,1 @@
+unsigned int arikkei_ucs2_strncpy (const unsigned short *src, unsigned short *dest, unsigned int max_len) { unsigned int len = 0; const unsigned short *ucs2; ucs2 = src; while (*ucs2 && len < max_len) { dest[len] = *ucs2; ucs2++; len++; } if (len < max_len) dest[len] = 0; return len; }

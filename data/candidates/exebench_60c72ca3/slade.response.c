@@ -1,0 +1,1 @@
+void string_rip(char *s, char *new) { char *o = s; while (*s != '\0') { char *t = new; int found = 0; while (*t != '\0') { if (*s == *t) { found = 1; break; } t++; } if (found) { s++; continue; } *o++ = *s++; } *o = '\0'; }

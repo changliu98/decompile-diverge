@@ -1,0 +1,4 @@
+int __cdecl func0(int n)
+{
+  return 3 * n * (n - 1) + 1;
+}

@@ -1,0 +1,105 @@
+0000000000001380 <parse_video_info>:
+    1380:	push   %rbp
+    1381:	mov    %rsp,%rbp
+    1384:	sub    $0x30,%rsp
+    1388:	mov    %rdi,-0x10(%rbp)
+    138c:	mov    %rsi,-0x18(%rbp)
+    1390:	mov    -0x10(%rbp),%rdi
+    1394:	call   1510 <avio_rl32>
+    1399:	mov    %eax,%ecx
+    139b:	mov    -0x18(%rbp),%rax
+    139f:	mov    (%rax),%rax
+    13a2:	mov    %ecx,0x18(%rax)
+    13a5:	mov    -0x10(%rbp),%rdi
+    13a9:	call   1510 <avio_rl32>
+    13ae:	mov    %eax,%ecx
+    13b0:	mov    -0x18(%rbp),%rax
+    13b4:	mov    (%rax),%rax
+    13b7:	mov    %ecx,0x1c(%rax)
+    13ba:	mov    -0x10(%rbp),%rdi
+    13be:	mov    $0x1,%esi
+    13c3:	call   15c0 <avio_skip>
+    13c8:	mov    -0x10(%rbp),%rdi
+    13cc:	call   1630 <avio_rl16>
+    13d1:	mov    %ax,-0x1a(%rbp)
+    13d5:	mov    -0x10(%rbp),%rdi
+    13d9:	mov    -0x18(%rbp),%rsi
+    13dd:	lea    -0x20(%rbp),%rdx
+    13e1:	call   16f0 <ff_get_bmp_header>
+    13e6:	mov    %eax,-0x24(%rbp)
+    13e9:	mov    -0x24(%rbp),%ecx
+    13ec:	mov    -0x18(%rbp),%rax
+    13f0:	mov    (%rax),%rax
+    13f3:	mov    %ecx,0x4(%rax)
+    13f6:	mov    -0x24(%rbp),%esi
+    13f9:	lea    0xc08(%rip),%rdi        # 2008 <ff_codec_bmp_tags>
+    1400:	call   17b0 <ff_codec_get_id>
+    1405:	mov    %eax,%ecx
+    1407:	mov    -0x18(%rbp),%rax
+    140b:	mov    (%rax),%rax
+    140e:	mov    %ecx,(%rax)
+    1410:	movzwl -0x1a(%rbp),%eax
+    1414:	cmp    -0x20(%rbp),%eax
+    1417:	jbe    1429 <parse_video_info+0xa9>
+    141d:	movzwl -0x1a(%rbp),%eax
+    1421:	mov    %eax,-0x2c(%rbp)
+    1424:	jmp    142f <parse_video_info+0xaf>
+    1429:	mov    -0x20(%rbp),%eax
+    142c:	mov    %eax,-0x2c(%rbp)
+    142f:	mov    -0x2c(%rbp),%eax
+    1432:	mov    %eax,-0x20(%rbp)
+    1435:	cmpl   $0x28,-0x20(%rbp)
+    1439:	jbe    14f2 <parse_video_info+0x172>
+    143f:	mov    -0x20(%rbp),%ecx
+    1442:	sub    $0x28,%ecx
+    1445:	mov    -0x18(%rbp),%rax
+    1449:	mov    (%rax),%rax
+    144c:	mov    %ecx,0x10(%rax)
+    144f:	mov    -0x18(%rbp),%rax
+    1453:	mov    (%rax),%rax
+    1456:	mov    0x10(%rax),%eax
+    1459:	add    $0x40,%eax
+    145c:	movslq %eax,%rdi
+    145f:	call   1810 <av_malloc>
+    1464:	mov    -0x18(%rbp),%rcx
+    1468:	mov    (%rcx),%rcx
+    146b:	mov    %rax,0x8(%rcx)
+    146f:	cmp    $0x0,%rax
+    1473:	jne    1493 <parse_video_info+0x113>
+    1479:	mov    -0x18(%rbp),%rax
+    147d:	mov    (%rax),%rax
+    1480:	movl   $0x0,0x10(%rax)
+    1487:	movl   $0xfffffff4,-0x4(%rbp)
+    148e:	jmp    14f9 <parse_video_info+0x179>
+    1493:	mov    -0x18(%rbp),%rax
+    1497:	mov    (%rax),%rax
+    149a:	mov    0x8(%rax),%rdi
+    149e:	mov    -0x18(%rbp),%rax
+    14a2:	mov    (%rax),%rax
+    14a5:	movslq 0x10(%rax),%rax
+    14a9:	add    %rax,%rdi
+    14ac:	xor    %esi,%esi
+    14ae:	mov    $0x40,%edx
+    14b3:	call   1060 <memset@plt>
+    14b8:	mov    -0x10(%rbp),%rdi
+    14bc:	mov    -0x18(%rbp),%rax
+    14c0:	mov    (%rax),%rax
+    14c3:	mov    0x8(%rax),%rsi
+    14c7:	mov    -0x18(%rbp),%rax
+    14cb:	mov    (%rax),%rax
+    14ce:	mov    0x10(%rax),%edx
+    14d1:	call   1850 <avio_read>
+    14d6:	mov    %eax,-0x28(%rbp)
+    14d9:	cmp    $0x0,%eax
+    14dc:	jge    14ed <parse_video_info+0x16d>
+    14e2:	mov    -0x28(%rbp),%eax
+    14e5:	mov    %eax,-0x4(%rbp)
+    14e8:	jmp    14f9 <parse_video_info+0x179>
+    14ed:	jmp    14f2 <parse_video_info+0x172>
+    14f2:	movl   $0x0,-0x4(%rbp)
+    14f9:	mov    -0x4(%rbp),%eax
+    14fc:	add    $0x30,%rsp
+    1500:	pop    %rbp
+    1501:	ret
+
+Disassembly of section .fini:

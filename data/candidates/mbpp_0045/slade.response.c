@@ -1,0 +1,1 @@
+int func0(int arr[], int n) { int a = arr[0]; int b = arr[1]; int x = find_gcd(a, b); for (int i = 2; i < n; i++) { x = find_gcd(x, arr[i]); } return x; }

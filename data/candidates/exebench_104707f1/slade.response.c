@@ -1,0 +1,1 @@
+void set_autofs_type_offset(void *a) { ((autofs_t *)a)->type = 4; }

@@ -1,0 +1,1 @@
+void geom_matinv2d(double m[3]) { double xinv, x; xinv = 1 / (m[0]*m[3] - m[1]*m[2]); x = m[0]; m[0] = m[3] * xinv; m[1] = -xinv*m[1]; m[2] = -xinv*m[2]; m[3] = xinv*x; }

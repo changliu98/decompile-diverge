@@ -1,0 +1,1 @@
+mrb_value mrb_realloc(mrb_state *mrb, mrb_value buf, mrb_int size) { mrb_value ptr = mrb_realloc_simple(mrb, buf, size); if (size == 0) return ptr; if (!ptr) { mrb_free(mrb, buf); mrb->flags |= (0x10); mrb_raise_nomemory(mrb); } else mrb->flags &= ~(0x10); return ptr; }

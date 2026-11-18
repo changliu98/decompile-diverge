@@ -1,0 +1,1 @@
+double func0(int n) { double f; double d; int i; if (n < 50) { d = (double) n * 100.0; i = 25; } else if (n < 101) { d = (double) (n - 50) * 100.0 + 24.0; i = 35; } else if (n < 201) { d = (double) (n - 100) * 100.0 + 32.0; i = 45; } else { d = (double) (n - 200) * 10.0 + 75.0; i = 75; } f = (double) i + (double) i; return f; }

@@ -1,0 +1,460 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+ipstr], rdi\nmov     [rbp+mask_or_numbits], rsi\nmov     [rbp+gateway], rdx\nmov     [rbp+dnn], rcx\nmov     [rbp+ifname], r8\nmov     [rbp+dev], 0\nmov     [rbp+subnet], 0\ncmp     [rbp+ifname], 0\njnz     loc_1290\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"ogs_assert failed: %s (line %d)\\n\"\nlea     rdx, aIfname; \"ifname\"\nmov     ecx, 0B4h\nmov     al, 0\ncall    fprintf\ncall    abort\njmp     $+5\nmov     rdi, [rbp+ifname]; ifname\ncall    ogs_pfcp_dev_find_by_ifname\nmov     [rbp+dev], rax\ncmp     [rbp+dev], 0\njnz     loc_12BA\nmov     rdi, [rbp+ifname]; ifname\ncall    ogs_pfcp_dev_add\nmov     [rbp+dev], rax\njmp     $+5\ncmp     [rbp+dev], 0\njnz     loc_12F3\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"ogs_assert failed: %s (line %d)\\n\"\nlea     rdx, aDev; \"dev\"\nmov     ecx, 0B9h\nmov     al, 0\ncall    fprintf\ncall    abort\njmp     $+5\nlea     rdi, [rbp+subnet]; out\ncall    pool_alloc\ncmp     [rbp+subnet], 0\njnz     loc_1335\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"ogs_assert failed: %s (line %d)\\n\"\nlea     rdx, aSubnet; \"subnet\"\nmov     ecx, 0BCh\nmov     al, 0\ncall    fprintf\ncall    abort\njmp     $+5\nmov     rdi, [rbp+subnet]; s\nxor     esi, esi; c\nmov     edx, 1D8h; n\ncall    memset\nmov     rax, [rbp+subnet]\nmov     dword ptr [rax+1C4h], 0\nmov     rcx, [rbp+dev]\nmov     rax, [rbp+subnet]\nmov     [rax+1D0h], rcx\ncmp     [rbp+ipstr], 0\njz      loc_142E\ncmp     [rbp+mask_or_numbits], 0\njz      loc_142E\nmov     rdi, [rbp+subnet]\nadd     rdi, 34h ; '4'; dst\nmov     rsi, [rbp+ipstr]; ipstr\nxor     eax, eax\nmov     edx, eax; mask\ncall    ogs_ipsubnet\nmov     [rbp+rv], eax\ncmp     [rbp+rv], 0\njz      loc_13C8\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"ogs_assert failed: %s (line %d)\\n\"\nlea     rdx, aRvOgsOk; \"rv == OGS_OK\"\nmov     ecx, 0C4h\nmov     al, 0\ncall    fprintf\ncall    abort\njmp     $+5\nmov     rdi, [rbp+subnet]\nadd     rdi, 10h; dst\nmov     rsi, [rbp+ipstr]; ipstr\nmov     rdx, [rbp+mask_or_numbits]; mask\ncall    ogs_ipsubnet\nmov     [rbp+rv], eax\ncmp     [rbp+rv], 0\njz      loc_1418\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"ogs_assert failed: %s (line %d)\\n\"\nlea     rdx, aRvOgsOk; \"rv == OGS_OK\"\nmov     ecx, 0C7h\nmov     al, 0\ncall    fprintf\ncall    abort\njmp     $+5\nmov     rax, [rbp+subnet]\nmov     ecx, [rax+34h]\nmov     rax, [rbp+subnet]\nmov     [rax+1C4h], ecx\ncmp     [rbp+gateway], 0\njz      loc_148E\nmov     rdi, [rbp+subnet]\nadd     rdi, 34h ; '4'; dst\nmov     rsi, [rbp+gateway]; ipstr\nxor     eax, eax\nmov     edx, eax; mask\ncall    ogs_ipsubnet\nmov     [rbp+rv], eax\ncmp     [rbp+rv], 0\njz      loc_1484\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"ogs_assert failed: %s (line %d)\\n\"\nlea     rdx, aRvOgsOk; \"rv == OGS_OK\"\nmov     ecx, 0CEh\nmov     al, 0\ncall    fprintf\ncall    abort\njmp     $+5\njmp     $+5\ncmp     [rbp+dnn], 0\njz      loc_14AA\nmov     rdi, [rbp+subnet]\nadd     rdi, 58h ; 'X'; dest\nmov     rsi, [rbp+dnn]; src\ncall    strcpy\nmov     rsi, [rbp+subnet]; lnode\nlea     rdi, subnet_list; list\ncall    ogs_list_add\nmov     rax, [rbp+subnet]\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 29,
+  "edges": [
+   [
+    "start",
+    "loc_1267"
+   ],
+   [
+    "start",
+    "loc_1290"
+   ],
+   [
+    "loc_1290",
+    "loc_1295"
+   ],
+   [
+    "loc_1295",
+    "loc_12AD"
+   ],
+   [
+    "loc_1295",
+    "loc_12BA"
+   ],
+   [
+    "loc_12AD",
+    "loc_12BA"
+   ],
+   [
+    "loc_12BA",
+    "loc_12BF"
+   ],
+   [
+    "loc_12BF",
+    "loc_12CA"
+   ],
+   [
+    "loc_12BF",
+    "loc_12F3"
+   ],
+   [
+    "loc_12F3",
+    "loc_12F8"
+   ],
+   [
+    "loc_12F8",
+    "loc_130C"
+   ],
+   [
+    "loc_12F8",
+    "loc_1335"
+   ],
+   [
+    "loc_1335",
+    "loc_133A"
+   ],
+   [
+    "loc_133A",
+    "loc_1372"
+   ],
+   [
+    "loc_133A",
+    "loc_142E"
+   ],
+   [
+    "loc_1372",
+    "loc_137D"
+   ],
+   [
+    "loc_1372",
+    "loc_142E"
+   ],
+   [
+    "loc_137D",
+    "loc_139F"
+   ],
+   [
+    "loc_137D",
+    "loc_13C8"
+   ],
+   [
+    "loc_13C8",
+    "loc_13CD"
+   ],
+   [
+    "loc_13CD",
+    "loc_13EF"
+   ],
+   [
+    "loc_13CD",
+    "loc_1418"
+   ],
+   [
+    "loc_1418",
+    "loc_141D"
+   ],
+   [
+    "loc_141D",
+    "loc_142E"
+   ],
+   [
+    "loc_142E",
+    "loc_1439"
+   ],
+   [
+    "loc_142E",
+    "loc_148E"
+   ],
+   [
+    "loc_1439",
+    "loc_145B"
+   ],
+   [
+    "loc_1439",
+    "loc_1484"
+   ],
+   [
+    "loc_1484",
+    "loc_1489"
+   ],
+   [
+    "loc_1489",
+    "loc_148E"
+   ],
+   [
+    "loc_148E",
+    "loc_1499"
+   ],
+   [
+    "loc_148E",
+    "loc_14AA"
+   ],
+   [
+    "loc_1499",
+    "loc_14AA"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+ipstr], rdi\nmov     [rbp+mask_or_numbits], rsi\nmov     [rbp+gateway], rdx\nmov     [rbp+dnn], rcx\nmov     [rbp+ifname], r8\nmov     [rbp+dev], 0\nmov     [rbp+subnet], 0\ncmp     [rbp+ifname], 0\njnz     loc_1290",
+   "loc_1267": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"ogs_assert failed: %s (line %d)\\n\"\nlea     rdx, aIfname; \"ifname\"\nmov     ecx, 0B4h\nmov     al, 0\ncall    fprintf\ncall    abort",
+   "loc_1290": "jmp     $+5",
+   "loc_1295": "mov     rdi, [rbp+ifname]; ifname\ncall    ogs_pfcp_dev_find_by_ifname\nmov     [rbp+dev], rax\ncmp     [rbp+dev], 0\njnz     loc_12BA",
+   "loc_12AD": "mov     rdi, [rbp+ifname]; ifname\ncall    ogs_pfcp_dev_add\nmov     [rbp+dev], rax",
+   "loc_12BA": "jmp     $+5",
+   "loc_12BF": "cmp     [rbp+dev], 0\njnz     loc_12F3",
+   "loc_12CA": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"ogs_assert failed: %s (line %d)\\n\"\nlea     rdx, aDev; \"dev\"\nmov     ecx, 0B9h\nmov     al, 0\ncall    fprintf\ncall    abort",
+   "loc_12F3": "jmp     $+5",
+   "loc_12F8": "lea     rdi, [rbp+subnet]; out\ncall    pool_alloc\ncmp     [rbp+subnet], 0\njnz     loc_1335",
+   "loc_130C": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"ogs_assert failed: %s (line %d)\\n\"\nlea     rdx, aSubnet; \"subnet\"\nmov     ecx, 0BCh\nmov     al, 0\ncall    fprintf\ncall    abort",
+   "loc_1335": "jmp     $+5",
+   "loc_133A": "mov     rdi, [rbp+subnet]; s\nxor     esi, esi; c\nmov     edx, 1D8h; n\ncall    memset\nmov     rax, [rbp+subnet]\nmov     dword ptr [rax+1C4h], 0\nmov     rcx, [rbp+dev]\nmov     rax, [rbp+subnet]\nmov     [rax+1D0h], rcx\ncmp     [rbp+ipstr], 0\njz      loc_142E",
+   "loc_1372": "cmp     [rbp+mask_or_numbits], 0\njz      loc_142E",
+   "loc_137D": "mov     rdi, [rbp+subnet]\nadd     rdi, 34h ; '4'; dst\nmov     rsi, [rbp+ipstr]; ipstr\nxor     eax, eax\nmov     edx, eax; mask\ncall    ogs_ipsubnet\nmov     [rbp+rv], eax\ncmp     [rbp+rv], 0\njz      loc_13C8",
+   "loc_139F": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"ogs_assert failed: %s (line %d)\\n\"\nlea     rdx, aRvOgsOk; \"rv == OGS_OK\"\nmov     ecx, 0C4h\nmov     al, 0\ncall    fprintf\ncall    abort",
+   "loc_13C8": "jmp     $+5",
+   "loc_13CD": "mov     rdi, [rbp+subnet]\nadd     rdi, 10h; dst\nmov     rsi, [rbp+ipstr]; ipstr\nmov     rdx, [rbp+mask_or_numbits]; mask\ncall    ogs_ipsubnet\nmov     [rbp+rv], eax\ncmp     [rbp+rv], 0\njz      loc_1418",
+   "loc_13EF": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"ogs_assert failed: %s (line %d)\\n\"\nlea     rdx, aRvOgsOk; \"rv == OGS_OK\"\nmov     ecx, 0C7h\nmov     al, 0\ncall    fprintf\ncall    abort",
+   "loc_1418": "jmp     $+5",
+   "loc_141D": "mov     rax, [rbp+subnet]\nmov     ecx, [rax+34h]\nmov     rax, [rbp+subnet]\nmov     [rax+1C4h], ecx",
+   "loc_142E": "cmp     [rbp+gateway], 0\njz      loc_148E",
+   "loc_1439": "mov     rdi, [rbp+subnet]\nadd     rdi, 34h ; '4'; dst\nmov     rsi, [rbp+gateway]; ipstr\nxor     eax, eax\nmov     edx, eax; mask\ncall    ogs_ipsubnet\nmov     [rbp+rv], eax\ncmp     [rbp+rv], 0\njz      loc_1484",
+   "loc_145B": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"ogs_assert failed: %s (line %d)\\n\"\nlea     rdx, aRvOgsOk; \"rv == OGS_OK\"\nmov     ecx, 0CEh\nmov     al, 0\ncall    fprintf\ncall    abort",
+   "loc_1484": "jmp     $+5",
+   "loc_1489": "jmp     $+5",
+   "loc_148E": "cmp     [rbp+dnn], 0\njz      loc_14AA",
+   "loc_1499": "mov     rdi, [rbp+subnet]\nadd     rdi, 58h ; 'X'; dest\nmov     rsi, [rbp+dnn]; src\ncall    strcpy",
+   "loc_14AA": "mov     rsi, [rbp+subnet]; lnode\nlea     rdi, subnet_list; list\ncall    ogs_list_add\nmov     rax, [rbp+subnet]\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "subnet": "qword ptr -40h",
+   "dev": "qword ptr -38h",
+   "rv": "dword ptr -2Ch",
+   "ifname": "qword ptr -28h",
+   "dnn": "qword ptr -20h",
+   "gateway": "qword ptr -18h",
+   "mask_or_numbits": "qword ptr -10h",
+   "ipstr": "qword ptr -8"
+  },
+  ".rodata": {
+   "format": "byte 'ogs_assert failed: %s (line %d)',0Ah,0",
+   "aIfname": "byte 'ifname',0",
+   "aDev": "byte 'dev',0",
+   "aSubnet": "byte 'subnet',0",
+   "aRvOgsOk": "byte 'rv == OGS_OK',0"
+  },
+  ".data": {},
+  ".bss": {
+   "subnet_list": "[]"
+  }
+ },
+ "func_ea": 4656,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".abort": "abort",
+  "_abort": "abort",
+  ".strncpy": "strncpy",
+  "_strncpy": "strncpy",
+  ".strcpy": "strcpy",
+  "_strcpy": "strcpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".abort",
+   ".plt",
+   true,
+   "abort"
+  ],
+  [
+   ".strncpy",
+   ".plt",
+   true,
+   "strncpy"
+  ],
+  [
+   ".strcpy",
+   ".plt",
+   true,
+   "strcpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "abort",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "printf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868445
+ }
+}

@@ -1,0 +1,1 @@
+void dpaa_clear_bits(unsigned long value, unsigned long *result) { *result &= ~value; }

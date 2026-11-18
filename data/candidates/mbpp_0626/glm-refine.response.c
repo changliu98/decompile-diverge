@@ -1,0 +1,7 @@
+int __cdecl func0(int r)
+{
+  if ( r < 0 )
+    return -1;
+  
+  return r * r;
+}

@@ -1,0 +1,1 @@
+void limit2_u16(unsigned short * a, unsigned short b, unsigned short w) { if (*a >= w) *a = w; else if (*a <= b) *a = b; }

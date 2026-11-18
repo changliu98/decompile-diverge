@@ -1,0 +1,1 @@
+int atomic_add(atomic_t *v, int i) { return v->count; }

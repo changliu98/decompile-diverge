@@ -1,0 +1,1 @@
+void clib_mallinfo (void **ret, size_t *retsize, size_t *retoffset, size_t *retsize, size_t *retoffset, size_t *retsize) { *ret = (void *) -1; *retsize = (size_t) -1; *retoffset = (size_t) -1; *retsize = (size_t) -1; *retoffset = (size_t) -1; *retsize = (size_t) -1; }

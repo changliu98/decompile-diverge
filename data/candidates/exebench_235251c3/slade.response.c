@@ -1,0 +1,1 @@
+void somar(float a, float b, float *result) { *result = a + b; }

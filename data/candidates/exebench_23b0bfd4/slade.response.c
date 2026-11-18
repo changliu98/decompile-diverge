@@ -1,0 +1,1 @@
+void zamenjaj(TipoChave *a, TipoChave *b) { TipoChave aux; aux = *a; *a = *b; *b = aux; }

@@ -1,0 +1,1 @@
+int MPI_Group_incl(MPI_Group group, int n, int *ranks, MPI_Group *newgroup) { if (n > 0) *newgroup = 0; else *newgroup = group; return 0; }

@@ -1,0 +1,666 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+depth], edi\nmov     [rbp+f], esi\nmov     [rbp+tls_fd], rdx\nmov     [rbp+name], rcx\nmov     eax, [rbp+depth]\ncmp     eax, cs:max_ls_depth\njnb     loc_19B7\nmov     eax, cs:matches\ncmp     eax, cs:max_ls_files\njb      loc_19BC\njmp     loc_1CE2\nlea     rdi, [rbp+names]; names_pnt\ncall    sreaddir\nmov     [rbp+dir], rax\ncmp     rax, 0\njnz     loc_19EF\nmov     rdx, [rbp+name]\nmov     edi, 0E2h; code\nlea     rsi, line; \"Sorry, we were unable to read [%s]\"\nmov     al, 0\ncall    addreply\njmp     loc_1CE2\nmov     rax, [rbp+dir]\nmov     [rbp+s], rax\nmov     rax, [rbp+s]\ncmp     qword ptr [rax+8], 0FFFFFFFFFFFFFFFFh\njz      loc_1B01\nmov     [rbp+d], 0\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     rax, [rax]\nmov     rcx, [rbp+s]\nmov     rcx, [rcx+8]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 2Eh ; '.'\njz      loc_1A41\nmov     rdi, [rbp+s]; fi\nxor     eax, eax\nmov     esi, eax; name\ncall    listfile\nmov     [rbp+d], eax\njmp     loc_1ADA\ncmp     cs:opt_a, 0\njz      loc_1AD5\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     rax, [rax]\nmov     rcx, [rbp+s]\nmov     rcx, [rcx+8]\nmovsx   eax, byte ptr [rax+rcx+1]\ncmp     eax, 0\njz      loc_1AAE\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     rax, [rax]\nmov     rcx, [rbp+s]\nmov     rcx, [rcx+8]\nmovsx   eax, byte ptr [rax+rcx+1]\ncmp     eax, 2Eh ; '.'\njnz     loc_1AC0\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     rax, [rax]\nmov     rcx, [rbp+s]\nmov     rcx, [rcx+8]\nmovsx   eax, byte ptr [rax+rcx+2]\ncmp     eax, 0\njnz     loc_1AC0\nmov     rdi, [rbp+s]; fi\nxor     eax, eax\nmov     esi, eax; name\ncall    listfile\njmp     loc_1AD0\nmov     rdi, [rbp+s]; fi\nxor     eax, eax\nmov     esi, eax; name\ncall    listfile\nmov     [rbp+d], eax\njmp     $+5\njmp     $+5\ncmp     [rbp+d], 0\njnz     loc_1AF0\nmov     rax, [rbp+s]\nmov     qword ptr [rax+8], 0FFFFFFFFFFFFFFFFh\nmov     rax, [rbp+s]\nadd     rax, 38h ; '8'\nmov     [rbp+s], rax\njmp     loc_19F7\nmov     edi, [rbp+f]; f\nmov     rsi, [rbp+tls_fd]; tls_fd\ncall    outputfiles\nmov     rax, [rbp+dir]\nmov     [rbp+r], rax\nxor     eax, eax\ncmp     cs:opt_R, 0\nmov     [rbp+var_51], al\njz      loc_1B35\nmov     rax, [rbp+r]\ncmp     rax, [rbp+s]\nsetnz   al\nmov     [rbp+var_51], al\nmov     al, [rbp+var_51]\ntest    al, 1\njnz     loc_1B45\njmp     loc_1CC3\nmov     rax, [rbp+r]\ncmp     qword ptr [rax+8], 0FFFFFFFFFFFFFFFFh\njz      loc_1CB2\nmov     rax, [rbp+r]\nmov     rax, [rax]\nmov     rdi, [rax]\nmov     rax, [rbp+r]\nadd     rdi, [rax+8]; path\ncall    chdir\ncmp     eax, 0\njnz     loc_1CB2\nmov     [rbp+sizeof_subdir], 1001h\nmov     rax, rsp\nadd     rax, 0FFFFFFFFFFFFEFF0h\nmov     rsp, rax\nmov     [rbp+alloca_subdir], rax\ncmp     rax, 0\njnz     loc_1B9B\njmp     toomany\nmov     rdi, [rbp+alloca_subdir]; s\nmov     rcx, [rbp+name]\nmov     rax, [rbp+r]\nmov     rax, [rax]\nmov     r8, [rax]\nmov     rax, [rbp+r]\nadd     r8, [rax+8]\nmov     esi, 1001h; maxlen\nlea     rdx, aSS; \"%s/%s\"\nmov     al, 0\ncall    snprintf\ncmp     eax, 1001h\njl      loc_1BD8\njmp     nolist\nmov     edi, [rbp+f]; f\nmov     rsi, [rbp+tls_fd]; tls_fd\nlea     rdx, s; \"\\r\\n\\r\\n\"\ncall    wrstr\nmov     edi, [rbp+f]; f\nmov     rsi, [rbp+tls_fd]; tls_fd\nmov     rdx, [rbp+alloca_subdir]; s\ncall    wrstr\nmov     edi, [rbp+f]; f\nmov     rsi, [rbp+tls_fd]; tls_fd\nlea     rdx, asc_4044; \":\"\ncall    wrstr\nmov     edi, [rbp+depth]\nadd     edi, 1; depth\nmov     esi, [rbp+f]; f\nmov     rdx, [rbp+tls_fd]; tls_fd\nmov     rcx, [rbp+alloca_subdir]; name\ncall    listdir\njmp     $+5\njmp     $+5\nmov     eax, cs:matches\ncmp     eax, cs:max_ls_files\njb      loc_1C45\njmp     toomany\nlea     rdi, path; \"..\"\ncall    chdir\ncmp     eax, 0\njz      loc_1CAD\nlea     rdi, wd; path\ncall    chdir\ncmp     eax, 0\njnz     loc_1C81\nmov     rdi, [rbp+name]; path\ncall    chdir\ncmp     eax, 0\njz      loc_1CA8\ncall    ___errno_location\nmov     edi, [rax]; errnum\ncall    strerror\nmov     rcx, rax\nmov     edi, 1A5h; err\nmov     esi, 3; priority\nlea     rdx, aChdirS; \"chdir: %s\"\nmov     al, 0\ncall    die\njmp     $+5\njmp     $+5\nmov     rax, [rbp+r]\nadd     rax, 38h ; '8'\nmov     [rbp+r], rax\njmp     loc_1B15\njmp     $+5\nmov     rdi, [rbp+names]; ptr\ncall    free\nmov     rdi, [rbp+dir]; ptr\ncall    free\nmov     [rbp+names], 0\nmov     rsp, rbp\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 46,
+  "edges": [
+   [
+    "start",
+    "loc_19A5"
+   ],
+   [
+    "start",
+    "loc_19B7"
+   ],
+   [
+    "loc_19A5",
+    "loc_19B7"
+   ],
+   [
+    "loc_19A5",
+    "loc_19BC"
+   ],
+   [
+    "loc_19B7",
+    "loc_1CE2"
+   ],
+   [
+    "loc_19BC",
+    "loc_19D3"
+   ],
+   [
+    "loc_19BC",
+    "loc_19EF"
+   ],
+   [
+    "loc_19D3",
+    "loc_1CE2"
+   ],
+   [
+    "loc_19EF",
+    "loc_19F7"
+   ],
+   [
+    "loc_19F7",
+    "loc_1A06"
+   ],
+   [
+    "loc_19F7",
+    "loc_1B01"
+   ],
+   [
+    "loc_1A06",
+    "loc_1A2C"
+   ],
+   [
+    "loc_1A06",
+    "loc_1A41"
+   ],
+   [
+    "loc_1A2C",
+    "loc_1ADA"
+   ],
+   [
+    "loc_1A41",
+    "loc_1A4E"
+   ],
+   [
+    "loc_1A41",
+    "loc_1AD5"
+   ],
+   [
+    "loc_1A4E",
+    "loc_1A6E"
+   ],
+   [
+    "loc_1A4E",
+    "loc_1AAE"
+   ],
+   [
+    "loc_1A6E",
+    "loc_1A8E"
+   ],
+   [
+    "loc_1A6E",
+    "loc_1AC0"
+   ],
+   [
+    "loc_1A8E",
+    "loc_1AAE"
+   ],
+   [
+    "loc_1A8E",
+    "loc_1AC0"
+   ],
+   [
+    "loc_1AAE",
+    "loc_1AD0"
+   ],
+   [
+    "loc_1AC0",
+    "loc_1AD0"
+   ],
+   [
+    "loc_1AD0",
+    "loc_1AD5"
+   ],
+   [
+    "loc_1AD5",
+    "loc_1ADA"
+   ],
+   [
+    "loc_1ADA",
+    "loc_1AE4"
+   ],
+   [
+    "loc_1ADA",
+    "loc_1AF0"
+   ],
+   [
+    "loc_1AE4",
+    "loc_1AF0"
+   ],
+   [
+    "loc_1AF0",
+    "loc_19F7"
+   ],
+   [
+    "loc_1B01",
+    "loc_1B15"
+   ],
+   [
+    "loc_1B15",
+    "loc_1B27"
+   ],
+   [
+    "loc_1B15",
+    "loc_1B35"
+   ],
+   [
+    "loc_1B27",
+    "loc_1B35"
+   ],
+   [
+    "loc_1B35",
+    "loc_1B40"
+   ],
+   [
+    "loc_1B35",
+    "loc_1B45"
+   ],
+   [
+    "loc_1B40",
+    "loc_1CC3"
+   ],
+   [
+    "loc_1B45",
+    "loc_1B54"
+   ],
+   [
+    "loc_1B45",
+    "loc_1CB2"
+   ],
+   [
+    "loc_1B54",
+    "loc_1B74"
+   ],
+   [
+    "loc_1B54",
+    "loc_1CB2"
+   ],
+   [
+    "loc_1B74",
+    "loc_1B96"
+   ],
+   [
+    "loc_1B74",
+    "loc_1B9B"
+   ],
+   [
+    "loc_1B96",
+    "loc_1CC8"
+   ],
+   [
+    "loc_1B9B",
+    "loc_1BD3"
+   ],
+   [
+    "loc_1B9B",
+    "loc_1BD8"
+   ],
+   [
+    "loc_1BD3",
+    "loc_1C24"
+   ],
+   [
+    "loc_1BD8",
+    "loc_1C24"
+   ],
+   [
+    "loc_1C24",
+    "loc_1C29"
+   ],
+   [
+    "loc_1C29",
+    "loc_1C2E"
+   ],
+   [
+    "loc_1C2E",
+    "loc_1C40"
+   ],
+   [
+    "loc_1C2E",
+    "loc_1C45"
+   ],
+   [
+    "loc_1C40",
+    "loc_1CC8"
+   ],
+   [
+    "loc_1C45",
+    "loc_1C5A"
+   ],
+   [
+    "loc_1C45",
+    "loc_1CAD"
+   ],
+   [
+    "loc_1C5A",
+    "loc_1C6F"
+   ],
+   [
+    "loc_1C5A",
+    "loc_1C81"
+   ],
+   [
+    "loc_1C6F",
+    "loc_1C81"
+   ],
+   [
+    "loc_1C6F",
+    "loc_1CA8"
+   ],
+   [
+    "loc_1CA8",
+    "loc_1CAD"
+   ],
+   [
+    "loc_1CAD",
+    "loc_1CB2"
+   ],
+   [
+    "loc_1CB2",
+    "loc_1B15"
+   ],
+   [
+    "loc_1CC3",
+    "loc_1CC8"
+   ],
+   [
+    "loc_1CC8",
+    "loc_1CE2"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+depth], edi\nmov     [rbp+f], esi\nmov     [rbp+tls_fd], rdx\nmov     [rbp+name], rcx\nmov     eax, [rbp+depth]\ncmp     eax, cs:max_ls_depth\njnb     loc_19B7",
+   "loc_19A5": "mov     eax, cs:matches\ncmp     eax, cs:max_ls_files\njb      loc_19BC",
+   "loc_19B7": "jmp     loc_1CE2",
+   "loc_19BC": "lea     rdi, [rbp+names]; names_pnt\ncall    sreaddir\nmov     [rbp+dir], rax\ncmp     rax, 0\njnz     loc_19EF",
+   "loc_19D3": "mov     rdx, [rbp+name]\nmov     edi, 0E2h; code\nlea     rsi, line; \"Sorry, we were unable to read [%s]\"\nmov     al, 0\ncall    addreply\njmp     loc_1CE2",
+   "loc_19EF": "mov     rax, [rbp+dir]\nmov     [rbp+s], rax",
+   "loc_19F7": "mov     rax, [rbp+s]\ncmp     qword ptr [rax+8], 0FFFFFFFFFFFFFFFFh\njz      loc_1B01",
+   "loc_1A06": "mov     [rbp+d], 0\nmov     rax, [rbp+s]\nmov     rax, [rax]\nmov     rax, [rax]\nmov     rcx, [rbp+s]\nmov     rcx, [rcx+8]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 2Eh ; '.'\njz      loc_1A41",
+   "loc_1A2C": "mov     rdi, [rbp+s]; fi\nxor     eax, eax\nmov     esi, eax; name\ncall    listfile\nmov     [rbp+d], eax\njmp     loc_1ADA",
+   "loc_1A41": "cmp     cs:opt_a, 0\njz      loc_1AD5",
+   "loc_1A4E": "mov     rax, [rbp+s]\nmov     rax, [rax]\nmov     rax, [rax]\nmov     rcx, [rbp+s]\nmov     rcx, [rcx+8]\nmovsx   eax, byte ptr [rax+rcx+1]\ncmp     eax, 0\njz      loc_1AAE",
+   "loc_1A6E": "mov     rax, [rbp+s]\nmov     rax, [rax]\nmov     rax, [rax]\nmov     rcx, [rbp+s]\nmov     rcx, [rcx+8]\nmovsx   eax, byte ptr [rax+rcx+1]\ncmp     eax, 2Eh ; '.'\njnz     loc_1AC0",
+   "loc_1A8E": "mov     rax, [rbp+s]\nmov     rax, [rax]\nmov     rax, [rax]\nmov     rcx, [rbp+s]\nmov     rcx, [rcx+8]\nmovsx   eax, byte ptr [rax+rcx+2]\ncmp     eax, 0\njnz     loc_1AC0",
+   "loc_1AAE": "mov     rdi, [rbp+s]; fi\nxor     eax, eax\nmov     esi, eax; name\ncall    listfile\njmp     loc_1AD0",
+   "loc_1AC0": "mov     rdi, [rbp+s]; fi\nxor     eax, eax\nmov     esi, eax; name\ncall    listfile\nmov     [rbp+d], eax",
+   "loc_1AD0": "jmp     $+5",
+   "loc_1AD5": "jmp     $+5",
+   "loc_1ADA": "cmp     [rbp+d], 0\njnz     loc_1AF0",
+   "loc_1AE4": "mov     rax, [rbp+s]\nmov     qword ptr [rax+8], 0FFFFFFFFFFFFFFFFh",
+   "loc_1AF0": "mov     rax, [rbp+s]\nadd     rax, 38h ; '8'\nmov     [rbp+s], rax\njmp     loc_19F7",
+   "loc_1B01": "mov     edi, [rbp+f]; f\nmov     rsi, [rbp+tls_fd]; tls_fd\ncall    outputfiles\nmov     rax, [rbp+dir]\nmov     [rbp+r], rax",
+   "loc_1B15": "xor     eax, eax\ncmp     cs:opt_R, 0\nmov     [rbp+var_51], al\njz      loc_1B35",
+   "loc_1B27": "mov     rax, [rbp+r]\ncmp     rax, [rbp+s]\nsetnz   al\nmov     [rbp+var_51], al",
+   "loc_1B35": "mov     al, [rbp+var_51]\ntest    al, 1\njnz     loc_1B45",
+   "loc_1B40": "jmp     loc_1CC3",
+   "loc_1B45": "mov     rax, [rbp+r]\ncmp     qword ptr [rax+8], 0FFFFFFFFFFFFFFFFh\njz      loc_1CB2",
+   "loc_1B54": "mov     rax, [rbp+r]\nmov     rax, [rax]\nmov     rdi, [rax]\nmov     rax, [rbp+r]\nadd     rdi, [rax+8]; path\ncall    chdir\ncmp     eax, 0\njnz     loc_1CB2",
+   "loc_1B74": "mov     [rbp+sizeof_subdir], 1001h\nmov     rax, rsp\nadd     rax, 0FFFFFFFFFFFFEFF0h\nmov     rsp, rax\nmov     [rbp+alloca_subdir], rax\ncmp     rax, 0\njnz     loc_1B9B",
+   "loc_1B96": "jmp     toomany",
+   "loc_1B9B": "mov     rdi, [rbp+alloca_subdir]; s\nmov     rcx, [rbp+name]\nmov     rax, [rbp+r]\nmov     rax, [rax]\nmov     r8, [rax]\nmov     rax, [rbp+r]\nadd     r8, [rax+8]\nmov     esi, 1001h; maxlen\nlea     rdx, aSS; \"%s/%s\"\nmov     al, 0\ncall    snprintf\ncmp     eax, 1001h\njl      loc_1BD8",
+   "loc_1BD3": "jmp     nolist",
+   "loc_1BD8": "mov     edi, [rbp+f]; f\nmov     rsi, [rbp+tls_fd]; tls_fd\nlea     rdx, s; \"\\r\\n\\r\\n\"\ncall    wrstr\nmov     edi, [rbp+f]; f\nmov     rsi, [rbp+tls_fd]; tls_fd\nmov     rdx, [rbp+alloca_subdir]; s\ncall    wrstr\nmov     edi, [rbp+f]; f\nmov     rsi, [rbp+tls_fd]; tls_fd\nlea     rdx, asc_4044; \":\"\ncall    wrstr\nmov     edi, [rbp+depth]\nadd     edi, 1; depth\nmov     esi, [rbp+f]; f\nmov     rdx, [rbp+tls_fd]; tls_fd\nmov     rcx, [rbp+alloca_subdir]; name\ncall    listdir",
+   "loc_1C24": "jmp     $+5",
+   "loc_1C29": "jmp     $+5",
+   "loc_1C2E": "mov     eax, cs:matches\ncmp     eax, cs:max_ls_files\njb      loc_1C45",
+   "loc_1C40": "jmp     toomany",
+   "loc_1C45": "lea     rdi, path; \"..\"\ncall    chdir\ncmp     eax, 0\njz      loc_1CAD",
+   "loc_1C5A": "lea     rdi, wd; path\ncall    chdir\ncmp     eax, 0\njnz     loc_1C81",
+   "loc_1C6F": "mov     rdi, [rbp+name]; path\ncall    chdir\ncmp     eax, 0\njz      loc_1CA8",
+   "loc_1C81": "call    ___errno_location\nmov     edi, [rax]; errnum\ncall    strerror\nmov     rcx, rax\nmov     edi, 1A5h; err\nmov     esi, 3; priority\nlea     rdx, aChdirS; \"chdir: %s\"\nmov     al, 0\ncall    die",
+   "loc_1CA8": "jmp     $+5",
+   "loc_1CAD": "jmp     $+5",
+   "loc_1CB2": "mov     rax, [rbp+r]\nadd     rax, 38h ; '8'\nmov     [rbp+r], rax\njmp     loc_1B15",
+   "loc_1CC3": "jmp     $+5",
+   "loc_1CC8": "mov     rdi, [rbp+names]; ptr\ncall    free\nmov     rdi, [rbp+dir]; ptr\ncall    free\nmov     [rbp+names], 0",
+   "loc_1CE2": "mov     rsp, rbp\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_51": "byte ptr -51h",
+   "sizeof_subdir": "qword ptr -50h",
+   "alloca_subdir": "qword ptr -48h",
+   "d": "dword ptr -3Ch",
+   "r": "qword ptr -38h",
+   "s": "qword ptr -30h",
+   "names": "qword ptr -28h",
+   "dir": "qword ptr -20h",
+   "name": "qword ptr -18h",
+   "tls_fd": "qword ptr -10h",
+   "f": "dword ptr -8",
+   "depth": "dword ptr -4"
+  },
+  ".rodata": {
+   "line": "byte 'Sorry, we were unable to read [%s]',0",
+   "aSS": "byte '%s/%s',0",
+   "s": "byte 0Dh,0Ah",
+   "asc_4044": "byte ':'",
+   "path": "byte '..',0",
+   "aChdirS": "byte 'chdir: %s',0"
+  },
+  ".data": {
+   "max_ls_depth": "dword 5",
+   "max_ls_files": "dword 2710h"
+  },
+  ".bss": {
+   "matches": "[]",
+   "opt_a": "[]",
+   "opt_R": "[]",
+   "wd": "[]"
+  }
+ },
+ "func_ea": 6528,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".localtime": "localtime",
+  "_localtime": "localtime",
+  ".__errno_location": "__errno_location",
+  "_errno_location": "__errno_location",
+  ".strncpy": "strncpy",
+  "_strncpy": "strncpy",
+  "._exit": "_exit",
+  "_exit": "_exit",
+  ".mkdir": "mkdir",
+  "_mkdir": "mkdir",
+  ".qsort": "qsort",
+  "_qsort": "qsort",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".readlink": "readlink",
+  "_readlink": "readlink",
+  ".write": "write",
+  "_write": "write",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".opendir": "opendir",
+  "_opendir": "opendir",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".chdir": "chdir",
+  "_chdir": "chdir",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".close": "close",
+  "_close": "close",
+  ".closedir": "closedir",
+  "_closedir": "closedir",
+  ".lstat": "lstat",
+  "_lstat": "lstat",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".time": "time",
+  "_time": "time",
+  ".readdir": "readdir",
+  "_readdir": "readdir",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".mkdtemp": "mkdtemp",
+  "_mkdtemp": "mkdtemp",
+  ".open": "open",
+  "_open": "open",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".sysconf": "sysconf",
+  "_sysconf": "sysconf",
+  ".vfprintf": "vfprintf",
+  "_vfprintf": "vfprintf",
+  ".strerror": "strerror",
+  "_strerror": "strerror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".localtime",
+   ".plt",
+   true,
+   "localtime"
+  ],
+  [
+   ".__errno_location",
+   ".plt",
+   true,
+   "__errno_location"
+  ],
+  [
+   ".strncpy",
+   ".plt",
+   true,
+   "strncpy"
+  ],
+  [
+   "._exit",
+   ".plt",
+   true,
+   "_exit"
+  ],
+  [
+   ".mkdir",
+   ".plt",
+   true,
+   "mkdir"
+  ],
+  [
+   ".qsort",
+   ".plt",
+   true,
+   "qsort"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".readlink",
+   ".plt",
+   true,
+   "readlink"
+  ],
+  [
+   ".write",
+   ".plt",
+   true,
+   "write"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".opendir",
+   ".plt",
+   true,
+   "opendir"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".chdir",
+   ".plt",
+   true,
+   "chdir"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".close",
+   ".plt",
+   true,
+   "close"
+  ],
+  [
+   ".closedir",
+   ".plt",
+   true,
+   "closedir"
+  ],
+  [
+   ".lstat",
+   ".plt",
+   true,
+   "lstat"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".stat",
+   ".plt",
+   true,
+   "stat_0"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".time",
+   ".plt",
+   true,
+   "time"
+  ],
+  [
+   ".readdir",
+   ".plt",
+   true,
+   "readdir"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".mkdtemp",
+   ".plt",
+   true,
+   "mkdtemp"
+  ],
+  [
+   ".open",
+   ".plt",
+   true,
+   "open"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".sysconf",
+   ".plt",
+   true,
+   "sysconf"
+  ],
+  [
+   ".vfprintf",
+   ".plt",
+   true,
+   "vfprintf"
+  ],
+  [
+   ".strerror",
+   ".plt",
+   true,
+   "strerror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "localtime",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868476
+ }
+}

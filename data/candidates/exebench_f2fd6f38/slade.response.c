@@ -1,0 +1,1 @@
+int find_max_idx(float *arr) { float max = 0; int max_idx = -1; int i; for (i = 0; i < 16; i++) { if (max < arr[i]) { max = arr[i]; max_idx = i; } } if (max_idx < 0) return -1; max = max * 0.10; for (i = 0; i < 16; i++) { if (max_idx != i) { if (max < arr[i]) return -1; } } return max_idx; }

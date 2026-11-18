@@ -1,0 +1,1 @@
+char * char_replace (char *s, char from, char to) { char *p; if (! s || ! *s) return s; p = s; while ((p = strchr (p, from))) *p++ = to; return s; }

@@ -1,0 +1,1 @@
+char *func0(char *s1, char *s2) { regex_t reg; int status; status = regcomp(&reg, s2, 0); if (status != 0) { return "Regex compilation failed!"; } status = regexec(&reg, s1, 0, NULL, 0); regfree(&reg); if (status == 0) { return "Not Matched!"; } else { return "Not Matched!"; } }

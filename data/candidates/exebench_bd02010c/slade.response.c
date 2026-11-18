@@ -1,0 +1,1 @@
+void get_vector_modulo(int vector[3],int mask[3]) { int i; for (i = 0; i < 3; i++) { vector[i] = vector[i] % mask[i]; if (vector[i] < 0) vector[i] = vector[i] + mask[i]; } }

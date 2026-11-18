@@ -1,0 +1,1 @@
+void SetBit(u32 *bitmap, u32 iBit) { u32 j = iBit / 32; u32 k = iBit % 32; u32 mask = 1; mask <<= k; bitmap[j] |= mask; }

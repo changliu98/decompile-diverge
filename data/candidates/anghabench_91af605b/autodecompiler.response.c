@@ -1,0 +1,12 @@
+__attribute__((used)) static const char *freezer_state_strs(CGroupMask mask) {
+        const char *state;
+
+        if (mask & CGROUP_FROZEN)
+                state = "FROZEN";
+        else if (mask & CGROUP_FREEZING)
+                state = "FREEZING";
+        else
+                state = "THAWED";
+
+        return state;
+}

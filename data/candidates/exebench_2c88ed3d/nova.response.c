@@ -1,0 +1,1 @@
+static void MPI_Comm_rank(int n, int *p) { *p = 0; }

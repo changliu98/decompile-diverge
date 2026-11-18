@@ -1,0 +1,1 @@
+void hex_to_word(char *str, char n) { if (!str) { return ; } str[0] = (n &0xf0) >> 4; str[1] = n &0x0f; for (n = 0; n < 2; n++) { if (str[n] >0x09) { str[n] += 'A' - 10; } else { str[n] += '0'; } } }

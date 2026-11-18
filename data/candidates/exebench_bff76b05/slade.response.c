@@ -1,0 +1,1 @@
+void project(int n, double *x, bool *y) { for (int i = 0; i < n; i++) { if (y[i]) { x[i] = 0; } } }

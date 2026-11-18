@@ -1,0 +1,137 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <sys/cdefs.h>\n\n#include <sys/param.h>\n\n#include <sys/wait.h>\n\n#include <sys/stat.h>\n\n#include <sys/types.h>\n\n#include <sys/file.h>\n\n#include <pwd.h>\n\n#include <unistd.h>\n\n#include <sys/uio.h>\n\n#include <signal.h>\n\n#include <termios.h>\n\n#include <syslog.h>\n\n#include <fcntl.h>\n\n#include <dirent.h>\n\n#include <errno.h>\n\n#include <stdio.h>\n\n#include <string.h>\n\n#include <stdlib.h>\n\n#include <ctype.h>\n\n#include <stdarg.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_39aa_hytn8.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(int key, char* p, int c, char* returnv) {\n  json output_json;\n\n  output_json[\"p\"] = p;\n\n  output_json[\"returnv\"] = returnv;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  int key = input_json[\"key\"];\n  char* p = strdup(input_json[\"p\"].get<std::string>().c_str());\n  int c = input_json[\"c\"];\n  clock_t begin = clock();\n  char* returnv = scnline(key, p, c);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(key, p, c, returnv);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "key": 111,
+    "p": "hcxkhpin",
+    "c": 16
+   },
+   "output": {
+    "p": "\u0010\u0010 \u0010\u0010\u0010\u0010n",
+    "returnv": "n"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "key": 56,
+    "p": "yzkflcnxaetx",
+    "c": 25
+   },
+   "output": {
+    "p": " \u0019\u0019\u0019   xaetx",
+    "returnv": "xaetx"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "key": 52,
+    "p": "h",
+    "c": 115
+   },
+   "output": {
+    "p": " ss s  ",
+    "returnv": ""
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "key": 106,
+    "p": "memxozuwvsfdxecxlpv",
+    "c": 9
+   },
+   "output": {
+    "p": "\t\t \t \t wvsfdxecxlpv",
+    "returnv": "wvsfdxecxlpv"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "key": 81,
+    "p": "nhiusukghnaohpgfpbxhsgpcp",
+    "c": 34
+   },
+   "output": {
+    "p": "\" \"   \"ghnaohpgfpbxhsgpcp",
+    "returnv": "ghnaohpgfpbxhsgpcp"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "key": 55,
+    "p": "wchxhdykxnbeacqqvqxoimbwpc",
+    "c": 106
+   },
+   "output": {
+    "p": " jj jjjkxnbeacqqvqxoimbwpc",
+    "returnv": "kxnbeacqqvqxoimbwpc"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "key": 55,
+    "p": "jabahgtdftctvmh",
+    "c": 78
+   },
+   "output": {
+    "p": " NN NNNdftctvmh",
+    "returnv": "dftctvmh"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "key": 19,
+    "p": "bywypmawvmznnvphq",
+    "c": 122
+   },
+   "output": {
+    "p": "  z  zzwvmznnvphq",
+    "returnv": "wvmznnvphq"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "key": 44,
+    "p": "n",
+    "c": 124
+   },
+   "output": {
+    "p": " | ||  ",
+    "returnv": ""
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "key": 13,
+    "p": "pknnocsltqybtsatobrr",
+    "c": 126
+   },
+   "output": {
+    "p": "   ~~ ~ltqybtsatobrr",
+    "returnv": "ltqybtsatobrr"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

@@ -1,0 +1,1 @@
+__size32 func0(__size32 param1) { __size32 eax; __size32 edx; __size32 ecx; __size32 ecx_1; __size32 edx; __size32 j; eax = 1; ecx_1 = 2; ecx = 0; while (ecx < param1) { eax += ecx_1; edx = eax; eax = ecx_1; ecx_1 = edx; edx = 1; for (j = 2; j * j <= eax; j++) { if (eax % j == 0) { edx = 0; break; } } if (edx) { ecx++; } if (ecx == param1) { return eax; } } return 0; }

@@ -1,0 +1,1 @@
+char *fix(char *dest, char *src) { int i, j; for (i = 0, j = 0; src[i] != '\0'; i++) { if (src[i] == '\b') { if (--j < 0) j = 0; } else { dest[j++] = src[i]; } } dest[j] = '\0'; return dest; }

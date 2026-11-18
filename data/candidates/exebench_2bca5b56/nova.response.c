@@ -1,0 +1,1 @@
+void mov_s(float *x, float *y) { *y = *x; }

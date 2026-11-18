@@ -1,0 +1,5 @@
+void ft_inti_vars(int *i, int *j, int *k) {
+  *i = 0;
+  *j = 0;
+  *k = 1;
+}

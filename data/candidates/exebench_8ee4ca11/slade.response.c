@@ -1,0 +1,1 @@
+void set_elmt(struct MCTStatStruc *pMCTstat, struct DCTStatStruc *pDCTstat) { pMCTstat->elmt = 3; }

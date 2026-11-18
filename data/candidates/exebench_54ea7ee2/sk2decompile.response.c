@@ -1,0 +1,37 @@
+void BTIC2D_TransWHT_Vert8(int *blk, int *blkout) {
+  int A, B, C, D, E, F, G, H;
+  int a, b, c, d, e, f, g, h;
+  A = blk[0];
+  B = blk[8];
+  C = blk[16];
+  D = blk[24];
+  E = blk[32];
+  F = blk[40];
+  G = blk[48];
+  H = blk[56];
+  a = (C + G) >> 1;
+  b = a - G;
+  c = (D + H) >> 1;
+  d = c - H;
+  e = A + B + F + H;
+  f = e >> 1;
+  g = f - e;
+  h = b + d + e >> 1;
+  e = h - e;
+  f = b + d + A + C + E >> 1;
+  g = f - (b + d + A + C);
+  h = b + d + A + E >> 1;
+  d = h - d;
+  e = e >> 1;
+  f = f >> 1;
+  g = g >> 1;
+  h = h >> 1;
+  blkout[0] = e + f + g + h + A;
+  blkout[8] = h;
+  blkout[16] = g + d;
+  blkout[24] = f;
+  blkout[32] = f >> 1;
+  blkout[40] = g >> 1;
+  blkout[48] = h >> 1;
+  blkout[56] = e;
+}

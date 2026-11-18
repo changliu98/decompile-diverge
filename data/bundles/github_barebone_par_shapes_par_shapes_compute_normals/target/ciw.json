@@ -1,0 +1,387 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+m], rdi\nmov     rax, [rbp+m]\nmov     rdi, [rax+20h]; ptr\ncall    free\nmov     rax, [rbp+m]\nimul    eax, [rax+8], 3\nmovsxd  rdi, eax\nshl     rdi, 2; nmemb\nmov     esi, 1; size\ncall    calloc\nmov     rcx, rax\nmov     rax, [rbp+m]\nmov     [rax+20h], rcx\nmov     rax, [rbp+m]\nmov     rax, [rax+10h]\nmov     [rbp+triangle], rax\nmov     [rbp+f], 0\nmov     eax, [rbp+f]\nmov     rcx, [rbp+m]\ncmp     eax, [rcx+18h]\njge     loc_1A06\nmov     rax, [rbp+m]\nmov     rax, [rax]\nmov     rcx, [rbp+triangle]\nmovzx   ecx, word ptr [rcx]\nimul    ecx, 3\nmovsxd  rcx, ecx\nshl     rcx, 2\nadd     rax, rcx\nmov     [rbp+pa], rax\nmov     rax, [rbp+m]\nmov     rax, [rax]\nmov     rcx, [rbp+triangle]\nmovzx   ecx, word ptr [rcx+2]\nimul    ecx, 3\nmovsxd  rcx, ecx\nshl     rcx, 2\nadd     rax, rcx\nmov     [rbp+pb], rax\nmov     rax, [rbp+m]\nmov     rax, [rax]\nmov     rcx, [rbp+triangle]\nmovzx   ecx, word ptr [rcx+4]\nimul    ecx, 3\nmovsxd  rcx, ecx\nshl     rcx, 2\nadd     rax, rcx\nmov     [rbp+pc], rax\nlea     rdi, [rbp+next]; result\nmov     rsi, [rbp+pb]; a\ncall    par_shapes__copy3\nlea     rdi, [rbp+next]; result\nmov     rsi, [rbp+pa]; a\ncall    par_shapes__subtract3\nlea     rdi, [rbp+prev]; result\nmov     rsi, [rbp+pc]; a\ncall    par_shapes__copy3\nlea     rdi, [rbp+prev]; result\nmov     rsi, [rbp+pa]; a\ncall    par_shapes__subtract3\nlea     rdi, [rbp+cp]; result\nlea     rsi, [rbp+next]; a\nlea     rdx, [rbp+prev]; b\ncall    par_shapes__cross3\nmov     rax, [rbp+m]\nmov     rdi, [rax+20h]\nmov     rax, [rbp+triangle]\nmovzx   eax, word ptr [rax]\nimul    eax, 3\ncdqe\nshl     rax, 2\nadd     rdi, rax; result\nlea     rsi, [rbp+cp]; a\ncall    par_shapes__add3\nlea     rdi, [rbp+next]; result\nmov     rsi, [rbp+pc]; a\ncall    par_shapes__copy3\nlea     rdi, [rbp+next]; result\nmov     rsi, [rbp+pb]; a\ncall    par_shapes__subtract3\nlea     rdi, [rbp+prev]; result\nmov     rsi, [rbp+pa]; a\ncall    par_shapes__copy3\nlea     rdi, [rbp+prev]; result\nmov     rsi, [rbp+pb]; a\ncall    par_shapes__subtract3\nlea     rdi, [rbp+cp]; result\nlea     rsi, [rbp+next]; a\nlea     rdx, [rbp+prev]; b\ncall    par_shapes__cross3\nmov     rax, [rbp+m]\nmov     rdi, [rax+20h]\nmov     rax, [rbp+triangle]\nmovzx   eax, word ptr [rax+2]\nimul    eax, 3\ncdqe\nshl     rax, 2\nadd     rdi, rax; result\nlea     rsi, [rbp+cp]; a\ncall    par_shapes__add3\nlea     rdi, [rbp+next]; result\nmov     rsi, [rbp+pa]; a\ncall    par_shapes__copy3\nlea     rdi, [rbp+next]; result\nmov     rsi, [rbp+pc]; a\ncall    par_shapes__subtract3\nlea     rdi, [rbp+prev]; result\nmov     rsi, [rbp+pb]; a\ncall    par_shapes__copy3\nlea     rdi, [rbp+prev]; result\nmov     rsi, [rbp+pc]; a\ncall    par_shapes__subtract3\nlea     rdi, [rbp+cp]; result\nlea     rsi, [rbp+next]; a\nlea     rdx, [rbp+prev]; b\ncall    par_shapes__cross3\nmov     rax, [rbp+m]\nmov     rdi, [rax+20h]\nmov     rax, [rbp+triangle]\nmovzx   eax, word ptr [rax+4]\nimul    eax, 3\ncdqe\nshl     rax, 2\nadd     rdi, rax; result\nlea     rsi, [rbp+cp]; a\ncall    par_shapes__add3\nmov     eax, [rbp+f]\nadd     eax, 1\nmov     [rbp+f], eax\nmov     rax, [rbp+triangle]\nadd     rax, 6\nmov     [rbp+triangle], rax\njmp     loc_1840\nmov     rax, [rbp+m]\nmov     rax, [rax+20h]\nmov     [rbp+normal], rax\nmov     [rbp+p], 0\nmov     eax, [rbp+p]\nmov     rcx, [rbp+m]\ncmp     eax, [rcx+8]\njge     loc_1A4C\nmov     rdi, [rbp+normal]; v\ncall    par_shapes__normalize3\nmov     eax, [rbp+p]\nadd     eax, 1\nmov     [rbp+p], eax\nmov     rax, [rbp+normal]\nadd     rax, 0Ch\nmov     [rbp+normal], rax\njmp     loc_1A19\nadd     rsp, 60h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 7,
+  "edges": [
+   [
+    "start",
+    "loc_1840"
+   ],
+   [
+    "loc_1840",
+    "loc_1850"
+   ],
+   [
+    "loc_1840",
+    "loc_1A06"
+   ],
+   [
+    "loc_1850",
+    "loc_1840"
+   ],
+   [
+    "loc_1A06",
+    "loc_1A19"
+   ],
+   [
+    "loc_1A19",
+    "loc_1A29"
+   ],
+   [
+    "loc_1A19",
+    "loc_1A4C"
+   ],
+   [
+    "loc_1A29",
+    "loc_1A19"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+m], rdi\nmov     rax, [rbp+m]\nmov     rdi, [rax+20h]; ptr\ncall    free\nmov     rax, [rbp+m]\nimul    eax, [rax+8], 3\nmovsxd  rdi, eax\nshl     rdi, 2; nmemb\nmov     esi, 1; size\ncall    calloc\nmov     rcx, rax\nmov     rax, [rbp+m]\nmov     [rax+20h], rcx\nmov     rax, [rbp+m]\nmov     rax, [rax+10h]\nmov     [rbp+triangle], rax\nmov     [rbp+f], 0",
+   "loc_1840": "mov     eax, [rbp+f]\nmov     rcx, [rbp+m]\ncmp     eax, [rcx+18h]\njge     loc_1A06",
+   "loc_1850": "mov     rax, [rbp+m]\nmov     rax, [rax]\nmov     rcx, [rbp+triangle]\nmovzx   ecx, word ptr [rcx]\nimul    ecx, 3\nmovsxd  rcx, ecx\nshl     rcx, 2\nadd     rax, rcx\nmov     [rbp+pa], rax\nmov     rax, [rbp+m]\nmov     rax, [rax]\nmov     rcx, [rbp+triangle]\nmovzx   ecx, word ptr [rcx+2]\nimul    ecx, 3\nmovsxd  rcx, ecx\nshl     rcx, 2\nadd     rax, rcx\nmov     [rbp+pb], rax\nmov     rax, [rbp+m]\nmov     rax, [rax]\nmov     rcx, [rbp+triangle]\nmovzx   ecx, word ptr [rcx+4]\nimul    ecx, 3\nmovsxd  rcx, ecx\nshl     rcx, 2\nadd     rax, rcx\nmov     [rbp+pc], rax\nlea     rdi, [rbp+next]; result\nmov     rsi, [rbp+pb]; a\ncall    par_shapes__copy3\nlea     rdi, [rbp+next]; result\nmov     rsi, [rbp+pa]; a\ncall    par_shapes__subtract3\nlea     rdi, [rbp+prev]; result\nmov     rsi, [rbp+pc]; a\ncall    par_shapes__copy3\nlea     rdi, [rbp+prev]; result\nmov     rsi, [rbp+pa]; a\ncall    par_shapes__subtract3\nlea     rdi, [rbp+cp]; result\nlea     rsi, [rbp+next]; a\nlea     rdx, [rbp+prev]; b\ncall    par_shapes__cross3\nmov     rax, [rbp+m]\nmov     rdi, [rax+20h]\nmov     rax, [rbp+triangle]\nmovzx   eax, word ptr [rax]\nimul    eax, 3\ncdqe\nshl     rax, 2\nadd     rdi, rax; result\nlea     rsi, [rbp+cp]; a\ncall    par_shapes__add3\nlea     rdi, [rbp+next]; result\nmov     rsi, [rbp+pc]; a\ncall    par_shapes__copy3\nlea     rdi, [rbp+next]; result\nmov     rsi, [rbp+pb]; a\ncall    par_shapes__subtract3\nlea     rdi, [rbp+prev]; result\nmov     rsi, [rbp+pa]; a\ncall    par_shapes__copy3\nlea     rdi, [rbp+prev]; result\nmov     rsi, [rbp+pb]; a\ncall    par_shapes__subtract3\nlea     rdi, [rbp+cp]; result\nlea     rsi, [rbp+next]; a\nlea     rdx, [rbp+prev]; b\ncall    par_shapes__cross3\nmov     rax, [rbp+m]\nmov     rdi, [rax+20h]\nmov     rax, [rbp+triangle]\nmovzx   eax, word ptr [rax+2]\nimul    eax, 3\ncdqe\nshl     rax, 2\nadd     rdi, rax; result\nlea     rsi, [rbp+cp]; a\ncall    par_shapes__add3\nlea     rdi, [rbp+next]; result\nmov     rsi, [rbp+pa]; a\ncall    par_shapes__copy3\nlea     rdi, [rbp+next]; result\nmov     rsi, [rbp+pc]; a\ncall    par_shapes__subtract3\nlea     rdi, [rbp+prev]; result\nmov     rsi, [rbp+pb]; a\ncall    par_shapes__copy3\nlea     rdi, [rbp+prev]; result\nmov     rsi, [rbp+pc]; a\ncall    par_shapes__subtract3\nlea     rdi, [rbp+cp]; result\nlea     rsi, [rbp+next]; a\nlea     rdx, [rbp+prev]; b\ncall    par_shapes__cross3\nmov     rax, [rbp+m]\nmov     rdi, [rax+20h]\nmov     rax, [rbp+triangle]\nmovzx   eax, word ptr [rax+4]\nimul    eax, 3\ncdqe\nshl     rax, 2\nadd     rdi, rax; result\nlea     rsi, [rbp+cp]; a\ncall    par_shapes__add3\nmov     eax, [rbp+f]\nadd     eax, 1\nmov     [rbp+f], eax\nmov     rax, [rbp+triangle]\nadd     rax, 6\nmov     [rbp+triangle], rax\njmp     loc_1840",
+   "loc_1A06": "mov     rax, [rbp+m]\nmov     rax, [rax+20h]\nmov     [rbp+normal], rax\nmov     [rbp+p], 0",
+   "loc_1A19": "mov     eax, [rbp+p]\nmov     rcx, [rbp+m]\ncmp     eax, [rcx+8]\njge     loc_1A4C",
+   "loc_1A29": "mov     rdi, [rbp+normal]; v\ncall    par_shapes__normalize3\nmov     eax, [rbp+p]\nadd     eax, 1\nmov     [rbp+p], eax\nmov     rax, [rbp+normal]\nadd     rax, 0Ch\nmov     [rbp+normal], rax\njmp     loc_1A19",
+   "loc_1A4C": "add     rsp, 60h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "p": "dword ptr -5Ch",
+   "normal": "qword ptr -58h",
+   "pc": "qword ptr -50h",
+   "pb": "qword ptr -48h",
+   "pa": "qword ptr -40h",
+   "f": "dword ptr -38h",
+   "cp": "dword ptr -34h",
+   "prev": "dword ptr -28h",
+   "next": "dword ptr -1Ch",
+   "triangle": "qword ptr -10h",
+   "m": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6128,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".strcpy": "strcpy",
+  "_strcpy": "strcpy",
+  ".cosf": "cosf",
+  "_cosf": "cosf",
+  ".puts": "puts",
+  "_puts": "puts",
+  ".qsort": "qsort",
+  "_qsort": "qsort",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".atof": "atof",
+  "_atof": "atof",
+  ".pow": "pow",
+  "_pow": "pow",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".strchr": "strchr",
+  "_strchr": "strchr",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".sinf": "sinf",
+  "_sinf": "sinf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".cos": "cos",
+  "_cos": "cos",
+  ".acos": "acos",
+  "_acos": "acos",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".strtok": "strtok",
+  "_strtok": "strtok",
+  ".sin": "sin",
+  "_sin": "sin",
+  ".atoi": "atoi",
+  "_atoi": "atoi",
+  ".llround": "llround",
+  "_llround": "llround",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".sqrt": "sqrt",
+  "_sqrt": "sqrt",
+  ".rand": "rand",
+  "_rand": "rand"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".strcpy",
+   ".plt",
+   true,
+   "strcpy"
+  ],
+  [
+   ".cosf",
+   ".plt",
+   true,
+   "cosf"
+  ],
+  [
+   ".puts",
+   ".plt",
+   true,
+   "puts"
+  ],
+  [
+   ".qsort",
+   ".plt",
+   true,
+   "qsort"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".atof",
+   ".plt",
+   true,
+   "atof"
+  ],
+  [
+   ".pow",
+   ".plt",
+   true,
+   "pow"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".strchr",
+   ".plt",
+   true,
+   "strchr"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".sinf",
+   ".plt",
+   true,
+   "sinf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".cos",
+   ".plt",
+   true,
+   "cos"
+  ],
+  [
+   ".acos",
+   ".plt",
+   true,
+   "acos"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".strtok",
+   ".plt",
+   true,
+   "strtok"
+  ],
+  [
+   ".sin",
+   ".plt",
+   true,
+   "sin"
+  ],
+  [
+   ".atoi",
+   ".plt",
+   true,
+   "atoi"
+  ],
+  [
+   ".llround",
+   ".plt",
+   true,
+   "llround"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   ".sqrt",
+   ".plt",
+   true,
+   "sqrt"
+  ],
+  [
+   ".rand",
+   ".plt",
+   true,
+   "rand"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "cosf",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872677
+ }
+}

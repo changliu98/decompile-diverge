@@ -1,0 +1,338 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     rax, [rbp+p_manager]\nmov     [rbp+p_j2k], rdi\nmov     [rbp+p_tile_coder], rsi\nmov     [rbp+p_data], rdx\nmov     [rbp+p_data_written], rcx\nmov     [rbp+p_total_data_size], r8d\nmov     [rbp+p_stream], r9\nmov     [rbp+l_cstr_info], 0\ncmp     [rbp+p_j2k], 0\njz      loc_162C\njmp     loc_164B\nlea     rdi, aPJ2k00; \"p_j2k != 00\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 0FDh; line\nlea     rcx, aOpjBoolOpjJ2kW; \"OPJ_BOOL opj_j2k_write_sod(opj_j2k_t *,\"...\ncall    ___assert_fail\ncmp     [rbp+p_manager], 0\njz      loc_165B\njmp     loc_167A\nlea     rdi, aPManager00; \"p_manager != 00\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 0FEh; line\nlea     rcx, aOpjBoolOpjJ2kW; \"OPJ_BOOL opj_j2k_write_sod(opj_j2k_t *,\"...\ncall    ___assert_fail\ncmp     [rbp+p_stream], 0\njz      loc_168A\njmp     loc_16A9\nlea     rdi, aPStream00; \"p_stream != 00\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 0FFh; line\nlea     rcx, aOpjBoolOpjJ2kW; \"OPJ_BOOL opj_j2k_write_sod(opj_j2k_t *,\"...\ncall    ___assert_fail\nmov     rdi, [rbp+p_data]; p_buffer\nmov     esi, 0FF93h; p_value\nmov     edx, 2; p_nb_bytes\ncall    opj_write_bytes_LE\nmov     rax, [rbp+p_data]\nadd     rax, 2\nmov     [rbp+p_data], rax\nmov     eax, [rbp+p_total_data_size]\nsub     eax, 4\nmov     [rbp+l_remaining_data], eax\nmov     rax, [rbp+p_j2k]\nmov     ecx, [rax]\nmov     rax, [rbp+p_tile_coder]\nmov     [rax], ecx\nmov     rax, [rbp+p_j2k]\nmov     ecx, [rax+4]\nmov     rax, [rbp+p_tile_coder]\nmov     [rax+4], ecx\nmov     rax, [rbp+p_j2k]\ncmp     dword ptr [rax+4], 0\njnz     loc_1725\nmov     rax, [rbp+p_tile_coder]\nmov     rax, [rax+8]\nmov     rax, [rax]\nmov     dword ptr [rax], 0\ncmp     [rbp+l_cstr_info], 0\njz      loc_1720\nmov     rax, [rbp+l_cstr_info]\nmov     dword ptr [rax+8], 0\njmp     $+5\nmov     rax, [rbp+p_data_written]\nmov     dword ptr [rax], 0\nmov     rdi, [rbp+p_tile_coder]; p_tcd\nmov     rax, [rbp+p_j2k]\nmov     esi, [rax+8]; p_tile_no\nmov     rdx, [rbp+p_data]; p_dest\nmov     rcx, [rbp+p_data_written]; p_data_written\nmov     r8d, [rbp+l_remaining_data]; p_len\nmov     r9, [rbp+l_cstr_info]; p_cstr_info\nmov     rax, [rbp+p_manager]\nmov     [rsp+50h+var_50], rax; p_manager\ncall    opj_tcd_encode_tile\ncmp     eax, 0\njnz     loc_1783\nmov     rdi, [rbp+p_manager]; event_mgr\nmov     esi, 1; event_type\nlea     rdx, fmt; \"Cannot encode tile\\n\"\nmov     al, 0\ncall    opj_event_msg\nmov     [rbp+var_4], 0\njmp     loc_1795\nmov     rax, [rbp+p_data_written]\nmov     ecx, [rax]\nadd     ecx, 2\nmov     [rax], ecx\nmov     [rbp+var_4], 1\nmov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 17,
+  "edges": [
+   [
+    "start",
+    "loc_1627"
+   ],
+   [
+    "start",
+    "loc_162C"
+   ],
+   [
+    "loc_1627",
+    "loc_164B"
+   ],
+   [
+    "loc_164B",
+    "loc_1656"
+   ],
+   [
+    "loc_164B",
+    "loc_165B"
+   ],
+   [
+    "loc_1656",
+    "loc_167A"
+   ],
+   [
+    "loc_167A",
+    "loc_1685"
+   ],
+   [
+    "loc_167A",
+    "loc_168A"
+   ],
+   [
+    "loc_1685",
+    "loc_16A9"
+   ],
+   [
+    "loc_16A9",
+    "loc_16F9"
+   ],
+   [
+    "loc_16A9",
+    "loc_1725"
+   ],
+   [
+    "loc_16F9",
+    "loc_1715"
+   ],
+   [
+    "loc_16F9",
+    "loc_1720"
+   ],
+   [
+    "loc_1715",
+    "loc_1720"
+   ],
+   [
+    "loc_1720",
+    "loc_1725"
+   ],
+   [
+    "loc_1725",
+    "loc_1760"
+   ],
+   [
+    "loc_1725",
+    "loc_1783"
+   ],
+   [
+    "loc_1760",
+    "loc_1795"
+   ],
+   [
+    "loc_1783",
+    "loc_1795"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     rax, [rbp+p_manager]\nmov     [rbp+p_j2k], rdi\nmov     [rbp+p_tile_coder], rsi\nmov     [rbp+p_data], rdx\nmov     [rbp+p_data_written], rcx\nmov     [rbp+p_total_data_size], r8d\nmov     [rbp+p_stream], r9\nmov     [rbp+l_cstr_info], 0\ncmp     [rbp+p_j2k], 0\njz      loc_162C",
+   "loc_1627": "jmp     loc_164B",
+   "loc_162C": "lea     rdi, aPJ2k00; \"p_j2k != 00\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 0FDh; line\nlea     rcx, aOpjBoolOpjJ2kW; \"OPJ_BOOL opj_j2k_write_sod(opj_j2k_t *,\"...\ncall    ___assert_fail",
+   "loc_164B": "cmp     [rbp+p_manager], 0\njz      loc_165B",
+   "loc_1656": "jmp     loc_167A",
+   "loc_165B": "lea     rdi, aPManager00; \"p_manager != 00\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 0FEh; line\nlea     rcx, aOpjBoolOpjJ2kW; \"OPJ_BOOL opj_j2k_write_sod(opj_j2k_t *,\"...\ncall    ___assert_fail",
+   "loc_167A": "cmp     [rbp+p_stream], 0\njz      loc_168A",
+   "loc_1685": "jmp     loc_16A9",
+   "loc_168A": "lea     rdi, aPStream00; \"p_stream != 00\"\nlea     rsi, file; \"harness.c\"\nmov     edx, 0FFh; line\nlea     rcx, aOpjBoolOpjJ2kW; \"OPJ_BOOL opj_j2k_write_sod(opj_j2k_t *,\"...\ncall    ___assert_fail",
+   "loc_16A9": "mov     rdi, [rbp+p_data]; p_buffer\nmov     esi, 0FF93h; p_value\nmov     edx, 2; p_nb_bytes\ncall    opj_write_bytes_LE\nmov     rax, [rbp+p_data]\nadd     rax, 2\nmov     [rbp+p_data], rax\nmov     eax, [rbp+p_total_data_size]\nsub     eax, 4\nmov     [rbp+l_remaining_data], eax\nmov     rax, [rbp+p_j2k]\nmov     ecx, [rax]\nmov     rax, [rbp+p_tile_coder]\nmov     [rax], ecx\nmov     rax, [rbp+p_j2k]\nmov     ecx, [rax+4]\nmov     rax, [rbp+p_tile_coder]\nmov     [rax+4], ecx\nmov     rax, [rbp+p_j2k]\ncmp     dword ptr [rax+4], 0\njnz     loc_1725",
+   "loc_16F9": "mov     rax, [rbp+p_tile_coder]\nmov     rax, [rax+8]\nmov     rax, [rax]\nmov     dword ptr [rax], 0\ncmp     [rbp+l_cstr_info], 0\njz      loc_1720",
+   "loc_1715": "mov     rax, [rbp+l_cstr_info]\nmov     dword ptr [rax+8], 0",
+   "loc_1720": "jmp     $+5",
+   "loc_1725": "mov     rax, [rbp+p_data_written]\nmov     dword ptr [rax], 0\nmov     rdi, [rbp+p_tile_coder]; p_tcd\nmov     rax, [rbp+p_j2k]\nmov     esi, [rax+8]; p_tile_no\nmov     rdx, [rbp+p_data]; p_dest\nmov     rcx, [rbp+p_data_written]; p_data_written\nmov     r8d, [rbp+l_remaining_data]; p_len\nmov     r9, [rbp+l_cstr_info]; p_cstr_info\nmov     rax, [rbp+p_manager]\nmov     [rsp+50h+var_50], rax; p_manager\ncall    opj_tcd_encode_tile\ncmp     eax, 0\njnz     loc_1783",
+   "loc_1760": "mov     rdi, [rbp+p_manager]; event_mgr\nmov     esi, 1; event_type\nlea     rdx, fmt; \"Cannot encode tile\\n\"\nmov     al, 0\ncall    opj_event_msg\nmov     [rbp+var_4], 0\njmp     loc_1795",
+   "loc_1783": "mov     rax, [rbp+p_data_written]\nmov     ecx, [rax]\nadd     ecx, 2\nmov     [rax], ecx\nmov     [rbp+var_4], 1",
+   "loc_1795": "mov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_50": "qword ptr -50h",
+   "l_remaining_data": "dword ptr -44h",
+   "l_cstr_info": "qword ptr -40h",
+   "p_stream": "qword ptr -38h",
+   "p_total_data_size": "dword ptr -2Ch",
+   "p_data_written": "qword ptr -28h",
+   "p_data": "qword ptr -20h",
+   "p_tile_coder": "qword ptr -18h",
+   "p_j2k": "qword ptr -10h",
+   "var_4": "dword ptr -4",
+   "p_manager": "qword ptr 10h"
+  },
+  ".rodata": {
+   "aPJ2k00": "byte 'p_j2k != 00',0",
+   "file": "byte 'harness.c',0",
+   "aOpjBoolOpjJ2kW": "byte 'OPJ_BOOL opj_j2k_write_sod(opj_j2k_t *, opj_tcd_t *, OPJ_BYTE *, '",
+   "aPManager00": "byte 'p_manager != 00',0",
+   "aPStream00": "byte 'p_stream != 00',0",
+   "fmt": "byte 'Cannot encode tile',0Ah,0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5616,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".vsnprintf": "vsnprintf",
+  "_vsnprintf": "vsnprintf",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".vsnprintf",
+   ".plt",
+   true,
+   "vsnprintf"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "vsnprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868452
+ }
+}

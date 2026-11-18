@@ -1,0 +1,8 @@
+float mlVectorDotProduct(float *a,float *b)
+
+{
+  float *b_local;
+  float *a_local;
+  
+  return a[2] * b[2] + *a * *b + a[1] * b[1];
+}

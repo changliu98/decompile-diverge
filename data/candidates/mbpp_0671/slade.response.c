@@ -1,0 +1,1 @@
+uint32_t func0(uint32_t input) { if (input == 0) { return 1; } else if ((input & (input + 1)) == 0) { return input; } else { uint32_t log0 = (uint32_t) (log2((double) (~input & (input + 1)) + 1.00000000) ); return input | (1 << (log0 - 1)); } }

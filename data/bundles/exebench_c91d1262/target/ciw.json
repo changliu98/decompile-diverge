@@ -1,0 +1,428 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nmov     [rbp+pattern], rdi\nmov     [rbp+ppos], esi\nmov     [rbp+len], rdx\nmov     [rbp+from], rcx\nmov     [rbp+to], r8\nmov     [rbp+reverse], r9\nmov     rax, [rbp+pattern]\nmovsxd  rcx, [rbp+ppos]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 5Eh ; '^'\njnz     loc_1228\nmov     eax, [rbp+ppos]\nadd     eax, 1\nmov     [rbp+ppos], eax\nmov     rax, [rbp+reverse]\nmov     dword ptr [rax], 1\njmp     loc_1232\nmov     rax, [rbp+reverse]\nmov     dword ptr [rax], 0\nmov     rax, [rbp+pattern]\nmovsxd  rcx, [rbp+ppos]\nmovsx   eax, byte ptr [rax+rcx]\nmov     [rbp+var_3C], eax\nsub     eax, 20h ; ' '\njz      loc_13AB\njmp     $+5\nmov     eax, [rbp+var_3C]\nsub     eax, 25h ; '%'\njz      loc_1271\njmp     $+5\nmov     eax, [rbp+var_3C]\nsub     eax, 5Bh ; '['\njz      loc_1328\njmp     loc_13C1\nmov     eax, [rbp+ppos]\nadd     eax, 1\nmov     [rbp+ppos], eax\nmov     rax, [rbp+len]\nmov     dword ptr [rax], 2\nmov     rax, [rbp+pattern]\nmovsxd  rcx, [rbp+ppos]\nmovsx   eax, byte ptr [rax+rcx]\nadd     eax, 0FFFFFFBDh; switch 50 cases\nmov     ecx, eax\nmov     [rbp+var_48], rcx\nsub     eax, 31h\nja      def_12B4; jumptable 00000000000012B4 default case, cases 68-79,81-98,101-104,106-111,113-115\nmov     rax, [rbp+var_48]\nlea     rcx, jpt_12B4\nmovsxd  rax, ds:(jpt_12B4 - 3004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nmov     [rbp+var_4], 2; jumptable 00000000000012B4 case 100\njmp     loc_13E4\nmov     [rbp+var_4], 1; jumptable 00000000000012B4 case 99\njmp     loc_13E4\nmov     [rbp+var_4], 4; jumptable 00000000000012B4 case 67\njmp     loc_13E4\nmov     [rbp+var_4], 5; jumptable 00000000000012B4 case 105\njmp     loc_13E4\nmov     [rbp+var_4], 6; jumptable 00000000000012B4 case 112\njmp     loc_13E4\nmov     [rbp+var_4], 7; jumptable 00000000000012B4 case 80\njmp     loc_13E4\nmov     [rbp+var_4], 9; jumptable 00000000000012B4 case 116\njmp     loc_13E4\nmov     ecx, [rbp+ppos]; jumptable 00000000000012B4 default case, cases 68-79,81-98,101-104,106-111,113-115\nmov     rax, [rbp+from]\nmov     [rax], ecx\nmov     ecx, [rbp+ppos]\nmov     rax, [rbp+to]\nmov     [rax], ecx\nmov     [rbp+var_4], 8\njmp     loc_13E4\nmov     ecx, [rbp+ppos]\nadd     ecx, 2\nmov     rax, [rbp+from]\nmov     [rax], ecx\nmov     rax, [rbp+pattern]\nmovsxd  rcx, [rbp+ppos]\nmovsx   ecx, byte ptr [rax+rcx]\nxor     eax, eax\ncmp     ecx, 0\nmov     [rbp+var_49], al\njz      loc_1363\nmov     rax, [rbp+pattern]\nmovsxd  rcx, [rbp+ppos]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 5Dh ; ']'\nsetnz   al\nmov     [rbp+var_49], al\nmov     al, [rbp+var_49]\ntest    al, 1\njnz     loc_1373\njmp     loc_1381\nmov     eax, [rbp+ppos]\nadd     eax, 1\nmov     [rbp+ppos], eax\njmp     loc_1334\nmov     ecx, [rbp+ppos]\nsub     ecx, 1\nmov     rax, [rbp+to]\nmov     [rax], ecx\nmov     ecx, [rbp+ppos]\nmov     rax, [rbp+from]\nsub     ecx, [rax]\nadd     ecx, 1\nmov     rax, [rbp+len]\nmov     [rax], ecx\nmov     [rbp+var_4], 8\njmp     loc_13E4\nmov     rax, [rbp+len]\nmov     dword ptr [rax], 1\nmov     [rbp+var_4], 3\njmp     loc_13E4\nmov     rax, [rbp+len]\nmov     dword ptr [rax], 1\nmov     ecx, [rbp+ppos]\nmov     rax, [rbp+from]\nmov     [rax], ecx\nmov     ecx, [rbp+ppos]\nmov     rax, [rbp+to]\nmov     [rax], ecx\nmov     [rbp+var_4], 8\nmov     eax, [rbp+var_4]\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 29,
+  "edges": [
+   [
+    "start",
+    "loc_1210"
+   ],
+   [
+    "start",
+    "loc_1228"
+   ],
+   [
+    "loc_1210",
+    "loc_1232"
+   ],
+   [
+    "loc_1228",
+    "loc_1232"
+   ],
+   [
+    "loc_1232",
+    "loc_124A"
+   ],
+   [
+    "loc_1232",
+    "loc_13AB"
+   ],
+   [
+    "loc_124A",
+    "loc_124F"
+   ],
+   [
+    "loc_124F",
+    "loc_125B"
+   ],
+   [
+    "loc_124F",
+    "loc_1271"
+   ],
+   [
+    "loc_125B",
+    "loc_1260"
+   ],
+   [
+    "loc_1260",
+    "loc_126C"
+   ],
+   [
+    "loc_1260",
+    "loc_1328"
+   ],
+   [
+    "loc_126C",
+    "loc_13C1"
+   ],
+   [
+    "loc_1271",
+    "loc_12A2"
+   ],
+   [
+    "loc_1271",
+    "loc_130A"
+   ],
+   [
+    "loc_12A2",
+    "loc_12B6"
+   ],
+   [
+    "loc_12A2",
+    "loc_12C2"
+   ],
+   [
+    "loc_12A2",
+    "loc_12CE"
+   ],
+   [
+    "loc_12A2",
+    "loc_12DA"
+   ],
+   [
+    "loc_12A2",
+    "loc_12E6"
+   ],
+   [
+    "loc_12A2",
+    "loc_12F2"
+   ],
+   [
+    "loc_12A2",
+    "loc_12FE"
+   ],
+   [
+    "loc_12A2",
+    "loc_130A"
+   ],
+   [
+    "loc_12B6",
+    "loc_13E4"
+   ],
+   [
+    "loc_12C2",
+    "loc_13E4"
+   ],
+   [
+    "loc_12CE",
+    "loc_13E4"
+   ],
+   [
+    "loc_12DA",
+    "loc_13E4"
+   ],
+   [
+    "loc_12E6",
+    "loc_13E4"
+   ],
+   [
+    "loc_12F2",
+    "loc_13E4"
+   ],
+   [
+    "loc_12FE",
+    "loc_13E4"
+   ],
+   [
+    "loc_130A",
+    "loc_13E4"
+   ],
+   [
+    "loc_1328",
+    "loc_1334"
+   ],
+   [
+    "loc_1334",
+    "loc_134E"
+   ],
+   [
+    "loc_1334",
+    "loc_1363"
+   ],
+   [
+    "loc_134E",
+    "loc_1363"
+   ],
+   [
+    "loc_1363",
+    "loc_136E"
+   ],
+   [
+    "loc_1363",
+    "loc_1373"
+   ],
+   [
+    "loc_136E",
+    "loc_1381"
+   ],
+   [
+    "loc_1373",
+    "loc_1334"
+   ],
+   [
+    "loc_1381",
+    "loc_13E4"
+   ],
+   [
+    "loc_13AB",
+    "loc_13E4"
+   ],
+   [
+    "loc_13C1",
+    "loc_13E4"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nmov     [rbp+pattern], rdi\nmov     [rbp+ppos], esi\nmov     [rbp+len], rdx\nmov     [rbp+from], rcx\nmov     [rbp+to], r8\nmov     [rbp+reverse], r9\nmov     rax, [rbp+pattern]\nmovsxd  rcx, [rbp+ppos]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 5Eh ; '^'\njnz     loc_1228",
+   "loc_1210": "mov     eax, [rbp+ppos]\nadd     eax, 1\nmov     [rbp+ppos], eax\nmov     rax, [rbp+reverse]\nmov     dword ptr [rax], 1\njmp     loc_1232",
+   "loc_1228": "mov     rax, [rbp+reverse]\nmov     dword ptr [rax], 0",
+   "loc_1232": "mov     rax, [rbp+pattern]\nmovsxd  rcx, [rbp+ppos]\nmovsx   eax, byte ptr [rax+rcx]\nmov     [rbp+var_3C], eax\nsub     eax, 20h ; ' '\njz      loc_13AB",
+   "loc_124A": "jmp     $+5",
+   "loc_124F": "mov     eax, [rbp+var_3C]\nsub     eax, 25h ; '%'\njz      loc_1271",
+   "loc_125B": "jmp     $+5",
+   "loc_1260": "mov     eax, [rbp+var_3C]\nsub     eax, 5Bh ; '['\njz      loc_1328",
+   "loc_126C": "jmp     loc_13C1",
+   "loc_1271": "mov     eax, [rbp+ppos]\nadd     eax, 1\nmov     [rbp+ppos], eax\nmov     rax, [rbp+len]\nmov     dword ptr [rax], 2\nmov     rax, [rbp+pattern]\nmovsxd  rcx, [rbp+ppos]\nmovsx   eax, byte ptr [rax+rcx]\nadd     eax, 0FFFFFFBDh; switch 50 cases\nmov     ecx, eax\nmov     [rbp+var_48], rcx\nsub     eax, 31h\nja      def_12B4; jumptable 00000000000012B4 default case, cases 68-79,81-98,101-104,106-111,113-115",
+   "loc_12A2": "mov     rax, [rbp+var_48]\nlea     rcx, jpt_12B4\nmovsxd  rax, ds:(jpt_12B4 - 3004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_12B6": "mov     [rbp+var_4], 2; jumptable 00000000000012B4 case 100\njmp     loc_13E4",
+   "loc_12C2": "mov     [rbp+var_4], 1; jumptable 00000000000012B4 case 99\njmp     loc_13E4",
+   "loc_12CE": "mov     [rbp+var_4], 4; jumptable 00000000000012B4 case 67\njmp     loc_13E4",
+   "loc_12DA": "mov     [rbp+var_4], 5; jumptable 00000000000012B4 case 105\njmp     loc_13E4",
+   "loc_12E6": "mov     [rbp+var_4], 6; jumptable 00000000000012B4 case 112\njmp     loc_13E4",
+   "loc_12F2": "mov     [rbp+var_4], 7; jumptable 00000000000012B4 case 80\njmp     loc_13E4",
+   "loc_12FE": "mov     [rbp+var_4], 9; jumptable 00000000000012B4 case 116\njmp     loc_13E4",
+   "loc_130A": "mov     ecx, [rbp+ppos]; jumptable 00000000000012B4 default case, cases 68-79,81-98,101-104,106-111,113-115\nmov     rax, [rbp+from]\nmov     [rax], ecx\nmov     ecx, [rbp+ppos]\nmov     rax, [rbp+to]\nmov     [rax], ecx\nmov     [rbp+var_4], 8\njmp     loc_13E4",
+   "loc_1328": "mov     ecx, [rbp+ppos]\nadd     ecx, 2\nmov     rax, [rbp+from]\nmov     [rax], ecx",
+   "loc_1334": "mov     rax, [rbp+pattern]\nmovsxd  rcx, [rbp+ppos]\nmovsx   ecx, byte ptr [rax+rcx]\nxor     eax, eax\ncmp     ecx, 0\nmov     [rbp+var_49], al\njz      loc_1363",
+   "loc_134E": "mov     rax, [rbp+pattern]\nmovsxd  rcx, [rbp+ppos]\nmovsx   eax, byte ptr [rax+rcx]\ncmp     eax, 5Dh ; ']'\nsetnz   al\nmov     [rbp+var_49], al",
+   "loc_1363": "mov     al, [rbp+var_49]\ntest    al, 1\njnz     loc_1373",
+   "loc_136E": "jmp     loc_1381",
+   "loc_1373": "mov     eax, [rbp+ppos]\nadd     eax, 1\nmov     [rbp+ppos], eax\njmp     loc_1334",
+   "loc_1381": "mov     ecx, [rbp+ppos]\nsub     ecx, 1\nmov     rax, [rbp+to]\nmov     [rax], ecx\nmov     ecx, [rbp+ppos]\nmov     rax, [rbp+from]\nsub     ecx, [rax]\nadd     ecx, 1\nmov     rax, [rbp+len]\nmov     [rax], ecx\nmov     [rbp+var_4], 8\njmp     loc_13E4",
+   "loc_13AB": "mov     rax, [rbp+len]\nmov     dword ptr [rax], 1\nmov     [rbp+var_4], 3\njmp     loc_13E4",
+   "loc_13C1": "mov     rax, [rbp+len]\nmov     dword ptr [rax], 1\nmov     ecx, [rbp+ppos]\nmov     rax, [rbp+from]\nmov     [rax], ecx\nmov     ecx, [rbp+ppos]\nmov     rax, [rbp+to]\nmov     [rax], ecx\nmov     [rbp+var_4], 8",
+   "loc_13E4": "mov     eax, [rbp+var_4]\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_49": "byte ptr -49h",
+   "var_48": "qword ptr -48h",
+   "var_3C": "dword ptr -3Ch",
+   "reverse": "qword ptr -38h",
+   "to": "qword ptr -30h",
+   "from": "qword ptr -28h",
+   "len": "qword ptr -20h",
+   "ppos": "dword ptr -14h",
+   "pattern": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "jpt_12B4": "dword offset loc_12CE - 3004h; jump table for switch statement"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4576,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868376
+ }
+}

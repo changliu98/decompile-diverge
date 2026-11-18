@@ -1,0 +1,1 @@
+int foo(struct A *p, struct A *q) { return p->i ++ + q->i++; }

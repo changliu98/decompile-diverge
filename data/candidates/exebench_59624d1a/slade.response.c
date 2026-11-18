@@ -1,0 +1,1 @@
+void set_autofs_type_any(autofs_t* autofs) { autofs->type =0x0; }

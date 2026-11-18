@@ -1,0 +1,694 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0F0h\nmov     [rbp+info], rdi\nmov     [rbp+glyph1], esi\nmov     [rbp+glyph2], edx\nmov     rax, [rbp+info]\ncmp     dword ptr [rax+30h], 0\njnz     loc_339F\nmov     [rbp+var_4], 0\njmp     loc_3920\nmov     rax, [rbp+info]\nmov     rax, [rax+8]\nmov     rcx, [rbp+info]\nmovsxd  rcx, dword ptr [rcx+30h]\nadd     rax, rcx\nmov     [rbp+data], rax\nmov     rdi, [rbp+data]; p\ncall    ttUSHORT\nmovzx   eax, ax\ncmp     eax, 1\njz      loc_33D7\nmov     [rbp+var_4], 0\njmp     loc_3920\nmov     rdi, [rbp+data]\nadd     rdi, 2; p\ncall    ttUSHORT\nmovzx   eax, ax\ncmp     eax, 0\njz      loc_33FC\nmov     [rbp+var_4], 0\njmp     loc_3920\nmov     rdi, [rbp+data]\nadd     rdi, 8; p\ncall    ttUSHORT\nmov     [rbp+lookupListOffset], ax\nmov     rax, [rbp+data]\nmovzx   ecx, [rbp+lookupListOffset]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+lookupList], rax\nmov     rdi, [rbp+lookupList]; p\ncall    ttUSHORT\nmov     [rbp+lookupCount], ax\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\nmovzx   ecx, [rbp+lookupCount]\ncmp     eax, ecx\njge     loc_3919\nmov     rdi, [rbp+lookupList]\nadd     rdi, 2\nmov     eax, [rbp+i]\nshl     eax, 1\ncdqe\nadd     rdi, rax; p\ncall    ttUSHORT\nmov     [rbp+lookupOffset], ax\nmov     rax, [rbp+lookupList]\nmovzx   ecx, [rbp+lookupOffset]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+lookupTable], rax\nmov     rdi, [rbp+lookupTable]; p\ncall    ttUSHORT\nmov     [rbp+lookupType], ax\nmov     rdi, [rbp+lookupTable]\nadd     rdi, 4; p\ncall    ttUSHORT\nmov     [rbp+subTableCount], ax\nmov     rax, [rbp+lookupTable]\nadd     rax, 6\nmov     [rbp+subTableOffsets], rax\nmovzx   eax, [rbp+lookupType]\ncmp     eax, 2\njz      loc_34AC\njmp     loc_390B\nmov     [rbp+sti], 0\nmov     eax, [rbp+sti]\nmovzx   ecx, [rbp+subTableCount]\ncmp     eax, ecx\njge     loc_3906\nmov     rdi, [rbp+subTableOffsets]\nmov     eax, [rbp+sti]\nshl     eax, 1\ncdqe\nadd     rdi, rax; p\ncall    ttUSHORT\nmov     [rbp+subtableOffset], ax\nmov     rax, [rbp+lookupTable]\nmovzx   ecx, [rbp+subtableOffset]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+table], rax\nmov     rdi, [rbp+table]; p\ncall    ttUSHORT\nmov     [rbp+posFormat], ax\nmov     rdi, [rbp+table]\nadd     rdi, 2; p\ncall    ttUSHORT\nmov     [rbp+coverageOffset], ax\nmov     rdi, [rbp+table]\nmovzx   eax, [rbp+coverageOffset]\ncdqe\nadd     rdi, rax; coverageTable\nmov     esi, [rbp+glyph1]; glyph\ncall    stbtt__GetCoverageIndex\nmov     [rbp+coverageIndex], eax\ncmp     [rbp+coverageIndex], 0FFFFFFFFh\njnz     loc_3531\njmp     loc_38F8\nmovzx   eax, [rbp+posFormat]\nmov     [rbp+var_F0], eax\nsub     eax, 1\njz      loc_355D\njmp     $+5\nmov     eax, [rbp+var_F0]\nsub     eax, 2\njz      loc_3745\njmp     loc_38E7\nmov     rdi, [rbp+table]\nadd     rdi, 4; p\ncall    ttUSHORT\nmov     [rbp+valueFormat1], ax\nmov     rdi, [rbp+table]\nadd     rdi, 6; p\ncall    ttUSHORT\nmov     [rbp+valueFormat2], ax\nmovzx   eax, [rbp+valueFormat1]\ncmp     eax, 4\njnz     loc_3734\nmovzx   eax, [rbp+valueFormat2]\ncmp     eax, 0\njnz     loc_3734\nmov     [rbp+valueRecordPairSizeInBytes], 2\nmov     rdi, [rbp+table]\nadd     rdi, 8; p\ncall    ttUSHORT\nmov     [rbp+pairSetCount], ax\nmov     rdi, [rbp+table]\nadd     rdi, 0Ah\nmov     eax, [rbp+coverageIndex]\nshl     eax, 1\ncdqe\nadd     rdi, rax; p\ncall    ttUSHORT\nmov     [rbp+pairPosOffset], ax\nmov     rax, [rbp+table]\nmovzx   ecx, [rbp+pairPosOffset]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+pairValueTable], rax\nmov     rdi, [rbp+pairValueTable]; p\ncall    ttUSHORT\nmov     [rbp+pairValueCount], ax\nmov     rax, [rbp+pairValueTable]\nadd     rax, 2\nmov     [rbp+pairValueArray], rax\nmov     eax, [rbp+coverageIndex]\nmovzx   ecx, [rbp+pairSetCount]\ncmp     eax, ecx\njl      loc_363D\nmov     [rbp+var_4], 0\njmp     loc_3920\nmov     eax, [rbp+glyph2]\nmov     [rbp+needle], eax\nmovzx   eax, [rbp+pairValueCount]\nsub     eax, 1\nmov     [rbp+r], eax\nmov     [rbp+l], 0\nmov     eax, [rbp+l]\ncmp     eax, [rbp+r]\njg      loc_372F\nmov     eax, [rbp+l]\nadd     eax, [rbp+r]\nsar     eax, 1\nmov     [rbp+m], eax\nmov     rax, [rbp+pairValueArray]\nmov     ecx, [rbp+valueRecordPairSizeInBytes]\nadd     ecx, 2\nimul    ecx, [rbp+m]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+pairValue], rax\nmov     rdi, [rbp+pairValue]; p\ncall    ttUSHORT\nmov     [rbp+secondGlyph], ax\nmovzx   eax, [rbp+secondGlyph]\nmov     [rbp+straw], eax\nmov     eax, [rbp+needle]\ncmp     eax, [rbp+straw]\njge     loc_36DC\nmov     eax, [rbp+m]\nsub     eax, 1\nmov     [rbp+r], eax\njmp     loc_372A\nmov     eax, [rbp+needle]\ncmp     eax, [rbp+straw]\njle     loc_36FF\nmov     eax, [rbp+m]\nadd     eax, 1\nmov     [rbp+l], eax\njmp     loc_3725\nmov     rdi, [rbp+pairValue]\nadd     rdi, 2; p\ncall    ttSHORT\nmov     [rbp+xAdvance], ax\nmovsx   eax, [rbp+xAdvance]\nmov     [rbp+var_4], eax\njmp     loc_3920\njmp     $+5\njmp     loc_365A\njmp     loc_3740\nmov     [rbp+var_4], 0\njmp     loc_3920\njmp     loc_38F3\nmov     rdi, [rbp+table]\nadd     rdi, 4; p\ncall    ttUSHORT\nmov     [rbp+valueFormat1_0], ax\nmov     rdi, [rbp+table]\nadd     rdi, 6; p\ncall    ttUSHORT\nmov     [rbp+valueFormat2_0], ax\nmovzx   eax, [rbp+valueFormat1_0]\ncmp     eax, 4\njnz     loc_38DB\nmovzx   eax, [rbp+valueFormat2_0]\ncmp     eax, 0\njnz     loc_38DB\nmov     rdi, [rbp+table]\nadd     rdi, 8; p\ncall    ttUSHORT\nmov     [rbp+classDef1Offset], ax\nmov     rdi, [rbp+table]\nadd     rdi, 0Ah; p\ncall    ttUSHORT\nmov     [rbp+classDef2Offset], ax\nmov     rdi, [rbp+table]\nmovzx   eax, [rbp+classDef1Offset]\ncdqe\nadd     rdi, rax; classDefTable\nmov     esi, [rbp+glyph1]; glyph\ncall    stbtt__GetGlyphClass\nmov     [rbp+glyph1class], eax\nmov     rdi, [rbp+table]\nmovzx   eax, [rbp+classDef2Offset]\ncdqe\nadd     rdi, rax; classDefTable\nmov     esi, [rbp+glyph2]; glyph\ncall    stbtt__GetGlyphClass\nmov     [rbp+glyph2class], eax\nmov     rdi, [rbp+table]\nadd     rdi, 0Ch; p\ncall    ttUSHORT\nmov     [rbp+class1Count], ax\nmov     rdi, [rbp+table]\nadd     rdi, 0Eh; p\ncall    ttUSHORT\nmov     [rbp+class2Count], ax\ncmp     [rbp+glyph1class], 0\njl      loc_383B\nmov     eax, [rbp+glyph1class]\nmovzx   ecx, [rbp+class1Count]\ncmp     eax, ecx\njl      loc_3847\nmov     [rbp+var_4], 0\njmp     loc_3920\ncmp     [rbp+glyph2class], 0\njl      loc_3869\nmov     eax, [rbp+glyph2class]\nmovzx   ecx, [rbp+class2Count]\ncmp     eax, ecx\njl      loc_3875\nmov     [rbp+var_4], 0\njmp     loc_3920\nmov     rax, [rbp+table]\nadd     rax, 10h\nmov     [rbp+class1Records], rax\nmov     rax, [rbp+class1Records]\nmov     ecx, [rbp+glyph1class]\nmovzx   edx, [rbp+class2Count]\nimul    ecx, edx\nshl     ecx, 1\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+class2Records], rax\nmov     rdi, [rbp+class2Records]\nmov     eax, [rbp+glyph2class]\nshl     eax, 1\ncdqe\nadd     rdi, rax; p\ncall    ttSHORT\nmov     [rbp+xAdvance_0], ax\nmovsx   eax, [rbp+xAdvance_0]\nmov     [rbp+var_4], eax\njmp     loc_3920\nmov     [rbp+var_4], 0\njmp     loc_3920\nmov     [rbp+var_4], 0\njmp     loc_3920\njmp     $+5\nmov     eax, [rbp+sti]\nadd     eax, 1\nmov     [rbp+sti], eax\njmp     loc_34B3\njmp     $+5\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_3433\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 0F0h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 51,
+  "edges": [
+   [
+    "start",
+    "loc_3393"
+   ],
+   [
+    "start",
+    "loc_339F"
+   ],
+   [
+    "loc_3393",
+    "loc_3920"
+   ],
+   [
+    "loc_339F",
+    "loc_33CB"
+   ],
+   [
+    "loc_339F",
+    "loc_33D7"
+   ],
+   [
+    "loc_33CB",
+    "loc_3920"
+   ],
+   [
+    "loc_33D7",
+    "loc_33F0"
+   ],
+   [
+    "loc_33D7",
+    "loc_33FC"
+   ],
+   [
+    "loc_33F0",
+    "loc_3920"
+   ],
+   [
+    "loc_33FC",
+    "loc_3433"
+   ],
+   [
+    "loc_3433",
+    "loc_3442"
+   ],
+   [
+    "loc_3433",
+    "loc_3919"
+   ],
+   [
+    "loc_3442",
+    "loc_34A7"
+   ],
+   [
+    "loc_3442",
+    "loc_34AC"
+   ],
+   [
+    "loc_34A7",
+    "loc_390B"
+   ],
+   [
+    "loc_34AC",
+    "loc_34B3"
+   ],
+   [
+    "loc_34B3",
+    "loc_34C2"
+   ],
+   [
+    "loc_34B3",
+    "loc_3906"
+   ],
+   [
+    "loc_34C2",
+    "loc_352C"
+   ],
+   [
+    "loc_34C2",
+    "loc_3531"
+   ],
+   [
+    "loc_352C",
+    "loc_38F8"
+   ],
+   [
+    "loc_3531",
+    "loc_3544"
+   ],
+   [
+    "loc_3531",
+    "loc_355D"
+   ],
+   [
+    "loc_3544",
+    "loc_3549"
+   ],
+   [
+    "loc_3549",
+    "loc_3558"
+   ],
+   [
+    "loc_3549",
+    "loc_3745"
+   ],
+   [
+    "loc_3558",
+    "loc_38E7"
+   ],
+   [
+    "loc_355D",
+    "loc_3595"
+   ],
+   [
+    "loc_355D",
+    "loc_3734"
+   ],
+   [
+    "loc_3595",
+    "loc_35A5"
+   ],
+   [
+    "loc_3595",
+    "loc_3734"
+   ],
+   [
+    "loc_35A5",
+    "loc_3631"
+   ],
+   [
+    "loc_35A5",
+    "loc_363D"
+   ],
+   [
+    "loc_3631",
+    "loc_3920"
+   ],
+   [
+    "loc_363D",
+    "loc_365A"
+   ],
+   [
+    "loc_365A",
+    "loc_3666"
+   ],
+   [
+    "loc_365A",
+    "loc_372F"
+   ],
+   [
+    "loc_3666",
+    "loc_36CB"
+   ],
+   [
+    "loc_3666",
+    "loc_36DC"
+   ],
+   [
+    "loc_36CB",
+    "loc_372A"
+   ],
+   [
+    "loc_36DC",
+    "loc_36EE"
+   ],
+   [
+    "loc_36DC",
+    "loc_36FF"
+   ],
+   [
+    "loc_36EE",
+    "loc_3725"
+   ],
+   [
+    "loc_36FF",
+    "loc_3920"
+   ],
+   [
+    "loc_3725",
+    "loc_372A"
+   ],
+   [
+    "loc_372A",
+    "loc_365A"
+   ],
+   [
+    "loc_372F",
+    "loc_3740"
+   ],
+   [
+    "loc_3734",
+    "loc_3920"
+   ],
+   [
+    "loc_3740",
+    "loc_38F3"
+   ],
+   [
+    "loc_3745",
+    "loc_377D"
+   ],
+   [
+    "loc_3745",
+    "loc_38DB"
+   ],
+   [
+    "loc_377D",
+    "loc_378D"
+   ],
+   [
+    "loc_377D",
+    "loc_38DB"
+   ],
+   [
+    "loc_378D",
+    "loc_3826"
+   ],
+   [
+    "loc_378D",
+    "loc_383B"
+   ],
+   [
+    "loc_3826",
+    "loc_383B"
+   ],
+   [
+    "loc_3826",
+    "loc_3847"
+   ],
+   [
+    "loc_383B",
+    "loc_3920"
+   ],
+   [
+    "loc_3847",
+    "loc_3854"
+   ],
+   [
+    "loc_3847",
+    "loc_3869"
+   ],
+   [
+    "loc_3854",
+    "loc_3869"
+   ],
+   [
+    "loc_3854",
+    "loc_3875"
+   ],
+   [
+    "loc_3869",
+    "loc_3920"
+   ],
+   [
+    "loc_3875",
+    "loc_3920"
+   ],
+   [
+    "loc_38DB",
+    "loc_3920"
+   ],
+   [
+    "loc_38E7",
+    "loc_3920"
+   ],
+   [
+    "loc_38F3",
+    "loc_38F8"
+   ],
+   [
+    "loc_38F8",
+    "loc_34B3"
+   ],
+   [
+    "loc_3906",
+    "loc_390B"
+   ],
+   [
+    "loc_390B",
+    "loc_3433"
+   ],
+   [
+    "loc_3919",
+    "loc_3920"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0F0h\nmov     [rbp+info], rdi\nmov     [rbp+glyph1], esi\nmov     [rbp+glyph2], edx\nmov     rax, [rbp+info]\ncmp     dword ptr [rax+30h], 0\njnz     loc_339F",
+   "loc_3393": "mov     [rbp+var_4], 0\njmp     loc_3920",
+   "loc_339F": "mov     rax, [rbp+info]\nmov     rax, [rax+8]\nmov     rcx, [rbp+info]\nmovsxd  rcx, dword ptr [rcx+30h]\nadd     rax, rcx\nmov     [rbp+data], rax\nmov     rdi, [rbp+data]; p\ncall    ttUSHORT\nmovzx   eax, ax\ncmp     eax, 1\njz      loc_33D7",
+   "loc_33CB": "mov     [rbp+var_4], 0\njmp     loc_3920",
+   "loc_33D7": "mov     rdi, [rbp+data]\nadd     rdi, 2; p\ncall    ttUSHORT\nmovzx   eax, ax\ncmp     eax, 0\njz      loc_33FC",
+   "loc_33F0": "mov     [rbp+var_4], 0\njmp     loc_3920",
+   "loc_33FC": "mov     rdi, [rbp+data]\nadd     rdi, 8; p\ncall    ttUSHORT\nmov     [rbp+lookupListOffset], ax\nmov     rax, [rbp+data]\nmovzx   ecx, [rbp+lookupListOffset]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+lookupList], rax\nmov     rdi, [rbp+lookupList]; p\ncall    ttUSHORT\nmov     [rbp+lookupCount], ax\nmov     [rbp+i], 0",
+   "loc_3433": "mov     eax, [rbp+i]\nmovzx   ecx, [rbp+lookupCount]\ncmp     eax, ecx\njge     loc_3919",
+   "loc_3442": "mov     rdi, [rbp+lookupList]\nadd     rdi, 2\nmov     eax, [rbp+i]\nshl     eax, 1\ncdqe\nadd     rdi, rax; p\ncall    ttUSHORT\nmov     [rbp+lookupOffset], ax\nmov     rax, [rbp+lookupList]\nmovzx   ecx, [rbp+lookupOffset]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+lookupTable], rax\nmov     rdi, [rbp+lookupTable]; p\ncall    ttUSHORT\nmov     [rbp+lookupType], ax\nmov     rdi, [rbp+lookupTable]\nadd     rdi, 4; p\ncall    ttUSHORT\nmov     [rbp+subTableCount], ax\nmov     rax, [rbp+lookupTable]\nadd     rax, 6\nmov     [rbp+subTableOffsets], rax\nmovzx   eax, [rbp+lookupType]\ncmp     eax, 2\njz      loc_34AC",
+   "loc_34A7": "jmp     loc_390B",
+   "loc_34AC": "mov     [rbp+sti], 0",
+   "loc_34B3": "mov     eax, [rbp+sti]\nmovzx   ecx, [rbp+subTableCount]\ncmp     eax, ecx\njge     loc_3906",
+   "loc_34C2": "mov     rdi, [rbp+subTableOffsets]\nmov     eax, [rbp+sti]\nshl     eax, 1\ncdqe\nadd     rdi, rax; p\ncall    ttUSHORT\nmov     [rbp+subtableOffset], ax\nmov     rax, [rbp+lookupTable]\nmovzx   ecx, [rbp+subtableOffset]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+table], rax\nmov     rdi, [rbp+table]; p\ncall    ttUSHORT\nmov     [rbp+posFormat], ax\nmov     rdi, [rbp+table]\nadd     rdi, 2; p\ncall    ttUSHORT\nmov     [rbp+coverageOffset], ax\nmov     rdi, [rbp+table]\nmovzx   eax, [rbp+coverageOffset]\ncdqe\nadd     rdi, rax; coverageTable\nmov     esi, [rbp+glyph1]; glyph\ncall    stbtt__GetCoverageIndex\nmov     [rbp+coverageIndex], eax\ncmp     [rbp+coverageIndex], 0FFFFFFFFh\njnz     loc_3531",
+   "loc_352C": "jmp     loc_38F8",
+   "loc_3531": "movzx   eax, [rbp+posFormat]\nmov     [rbp+var_F0], eax\nsub     eax, 1\njz      loc_355D",
+   "loc_3544": "jmp     $+5",
+   "loc_3549": "mov     eax, [rbp+var_F0]\nsub     eax, 2\njz      loc_3745",
+   "loc_3558": "jmp     loc_38E7",
+   "loc_355D": "mov     rdi, [rbp+table]\nadd     rdi, 4; p\ncall    ttUSHORT\nmov     [rbp+valueFormat1], ax\nmov     rdi, [rbp+table]\nadd     rdi, 6; p\ncall    ttUSHORT\nmov     [rbp+valueFormat2], ax\nmovzx   eax, [rbp+valueFormat1]\ncmp     eax, 4\njnz     loc_3734",
+   "loc_3595": "movzx   eax, [rbp+valueFormat2]\ncmp     eax, 0\njnz     loc_3734",
+   "loc_35A5": "mov     [rbp+valueRecordPairSizeInBytes], 2\nmov     rdi, [rbp+table]\nadd     rdi, 8; p\ncall    ttUSHORT\nmov     [rbp+pairSetCount], ax\nmov     rdi, [rbp+table]\nadd     rdi, 0Ah\nmov     eax, [rbp+coverageIndex]\nshl     eax, 1\ncdqe\nadd     rdi, rax; p\ncall    ttUSHORT\nmov     [rbp+pairPosOffset], ax\nmov     rax, [rbp+table]\nmovzx   ecx, [rbp+pairPosOffset]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+pairValueTable], rax\nmov     rdi, [rbp+pairValueTable]; p\ncall    ttUSHORT\nmov     [rbp+pairValueCount], ax\nmov     rax, [rbp+pairValueTable]\nadd     rax, 2\nmov     [rbp+pairValueArray], rax\nmov     eax, [rbp+coverageIndex]\nmovzx   ecx, [rbp+pairSetCount]\ncmp     eax, ecx\njl      loc_363D",
+   "loc_3631": "mov     [rbp+var_4], 0\njmp     loc_3920",
+   "loc_363D": "mov     eax, [rbp+glyph2]\nmov     [rbp+needle], eax\nmovzx   eax, [rbp+pairValueCount]\nsub     eax, 1\nmov     [rbp+r], eax\nmov     [rbp+l], 0",
+   "loc_365A": "mov     eax, [rbp+l]\ncmp     eax, [rbp+r]\njg      loc_372F",
+   "loc_3666": "mov     eax, [rbp+l]\nadd     eax, [rbp+r]\nsar     eax, 1\nmov     [rbp+m], eax\nmov     rax, [rbp+pairValueArray]\nmov     ecx, [rbp+valueRecordPairSizeInBytes]\nadd     ecx, 2\nimul    ecx, [rbp+m]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+pairValue], rax\nmov     rdi, [rbp+pairValue]; p\ncall    ttUSHORT\nmov     [rbp+secondGlyph], ax\nmovzx   eax, [rbp+secondGlyph]\nmov     [rbp+straw], eax\nmov     eax, [rbp+needle]\ncmp     eax, [rbp+straw]\njge     loc_36DC",
+   "loc_36CB": "mov     eax, [rbp+m]\nsub     eax, 1\nmov     [rbp+r], eax\njmp     loc_372A",
+   "loc_36DC": "mov     eax, [rbp+needle]\ncmp     eax, [rbp+straw]\njle     loc_36FF",
+   "loc_36EE": "mov     eax, [rbp+m]\nadd     eax, 1\nmov     [rbp+l], eax\njmp     loc_3725",
+   "loc_36FF": "mov     rdi, [rbp+pairValue]\nadd     rdi, 2; p\ncall    ttSHORT\nmov     [rbp+xAdvance], ax\nmovsx   eax, [rbp+xAdvance]\nmov     [rbp+var_4], eax\njmp     loc_3920",
+   "loc_3725": "jmp     $+5",
+   "loc_372A": "jmp     loc_365A",
+   "loc_372F": "jmp     loc_3740",
+   "loc_3734": "mov     [rbp+var_4], 0\njmp     loc_3920",
+   "loc_3740": "jmp     loc_38F3",
+   "loc_3745": "mov     rdi, [rbp+table]\nadd     rdi, 4; p\ncall    ttUSHORT\nmov     [rbp+valueFormat1_0], ax\nmov     rdi, [rbp+table]\nadd     rdi, 6; p\ncall    ttUSHORT\nmov     [rbp+valueFormat2_0], ax\nmovzx   eax, [rbp+valueFormat1_0]\ncmp     eax, 4\njnz     loc_38DB",
+   "loc_377D": "movzx   eax, [rbp+valueFormat2_0]\ncmp     eax, 0\njnz     loc_38DB",
+   "loc_378D": "mov     rdi, [rbp+table]\nadd     rdi, 8; p\ncall    ttUSHORT\nmov     [rbp+classDef1Offset], ax\nmov     rdi, [rbp+table]\nadd     rdi, 0Ah; p\ncall    ttUSHORT\nmov     [rbp+classDef2Offset], ax\nmov     rdi, [rbp+table]\nmovzx   eax, [rbp+classDef1Offset]\ncdqe\nadd     rdi, rax; classDefTable\nmov     esi, [rbp+glyph1]; glyph\ncall    stbtt__GetGlyphClass\nmov     [rbp+glyph1class], eax\nmov     rdi, [rbp+table]\nmovzx   eax, [rbp+classDef2Offset]\ncdqe\nadd     rdi, rax; classDefTable\nmov     esi, [rbp+glyph2]; glyph\ncall    stbtt__GetGlyphClass\nmov     [rbp+glyph2class], eax\nmov     rdi, [rbp+table]\nadd     rdi, 0Ch; p\ncall    ttUSHORT\nmov     [rbp+class1Count], ax\nmov     rdi, [rbp+table]\nadd     rdi, 0Eh; p\ncall    ttUSHORT\nmov     [rbp+class2Count], ax\ncmp     [rbp+glyph1class], 0\njl      loc_383B",
+   "loc_3826": "mov     eax, [rbp+glyph1class]\nmovzx   ecx, [rbp+class1Count]\ncmp     eax, ecx\njl      loc_3847",
+   "loc_383B": "mov     [rbp+var_4], 0\njmp     loc_3920",
+   "loc_3847": "cmp     [rbp+glyph2class], 0\njl      loc_3869",
+   "loc_3854": "mov     eax, [rbp+glyph2class]\nmovzx   ecx, [rbp+class2Count]\ncmp     eax, ecx\njl      loc_3875",
+   "loc_3869": "mov     [rbp+var_4], 0\njmp     loc_3920",
+   "loc_3875": "mov     rax, [rbp+table]\nadd     rax, 10h\nmov     [rbp+class1Records], rax\nmov     rax, [rbp+class1Records]\nmov     ecx, [rbp+glyph1class]\nmovzx   edx, [rbp+class2Count]\nimul    ecx, edx\nshl     ecx, 1\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+class2Records], rax\nmov     rdi, [rbp+class2Records]\nmov     eax, [rbp+glyph2class]\nshl     eax, 1\ncdqe\nadd     rdi, rax; p\ncall    ttSHORT\nmov     [rbp+xAdvance_0], ax\nmovsx   eax, [rbp+xAdvance_0]\nmov     [rbp+var_4], eax\njmp     loc_3920",
+   "loc_38DB": "mov     [rbp+var_4], 0\njmp     loc_3920",
+   "loc_38E7": "mov     [rbp+var_4], 0\njmp     loc_3920",
+   "loc_38F3": "jmp     $+5",
+   "loc_38F8": "mov     eax, [rbp+sti]\nadd     eax, 1\nmov     [rbp+sti], eax\njmp     loc_34B3",
+   "loc_3906": "jmp     $+5",
+   "loc_390B": "mov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_3433",
+   "loc_3919": "mov     [rbp+var_4], 0",
+   "loc_3920": "mov     eax, [rbp+var_4]\nadd     rsp, 0F0h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_F0": "dword ptr -0F0h",
+   "xAdvance_0": "word ptr -0EAh",
+   "class2Records": "qword ptr -0E8h",
+   "class1Records": "qword ptr -0E0h",
+   "class2Count": "word ptr -0D8h",
+   "class1Count": "word ptr -0D6h",
+   "glyph2class": "dword ptr -0D4h",
+   "glyph1class": "dword ptr -0D0h",
+   "classDef2Offset": "word ptr -0CAh",
+   "classDef1Offset": "word ptr -0C8h",
+   "valueFormat2_0": "word ptr -0C6h",
+   "valueFormat1_0": "word ptr -0C4h",
+   "xAdvance": "word ptr -0C2h",
+   "pairValue": "qword ptr -0C0h",
+   "secondGlyph": "word ptr -0B2h",
+   "pairValueArray": "qword ptr -0B0h",
+   "pairValueCount": "word ptr -0A2h",
+   "pairValueTable": "qword ptr -0A0h",
+   "pairPosOffset": "word ptr -98h",
+   "pairSetCount": "word ptr -96h",
+   "valueRecordPairSizeInBytes": "dword ptr -94h",
+   "valueFormat2": "word ptr -90h",
+   "valueFormat1": "word ptr -8Eh",
+   "needle": "dword ptr -8Ch",
+   "straw": "dword ptr -88h",
+   "m": "dword ptr -84h",
+   "r": "dword ptr -80h",
+   "l": "dword ptr -7Ch",
+   "coverageIndex": "dword ptr -78h",
+   "coverageOffset": "word ptr -74h",
+   "posFormat": "word ptr -72h",
+   "table": "qword ptr -70h",
+   "subtableOffset": "word ptr -62h",
+   "subTableOffsets": "qword ptr -60h",
+   "subTableCount": "word ptr -54h",
+   "lookupType": "word ptr -52h",
+   "lookupTable": "qword ptr -50h",
+   "lookupOffset": "word ptr -42h",
+   "sti": "dword ptr -40h",
+   "i": "dword ptr -3Ch",
+   "data": "qword ptr -38h",
+   "lookupCount": "word ptr -2Ah",
+   "lookupList": "qword ptr -28h",
+   "lookupListOffset": "word ptr -1Ah",
+   "glyph2": "dword ptr -18h",
+   "glyph1": "dword ptr -14h",
+   "info": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 13168,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".pow": "pow",
+  "_pow": "pow",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fmod": "fmod",
+  "_fmod": "fmod",
+  ".cos": "cos",
+  "_cos": "cos",
+  ".acos": "acos",
+  "_acos": "acos",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".floor": "floor",
+  "_floor": "floor",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".sqrt": "sqrt",
+  "_sqrt": "sqrt",
+  ".ceil": "ceil",
+  "_ceil": "ceil"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".pow",
+   ".plt",
+   true,
+   "pow"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fmod",
+   ".plt",
+   true,
+   "fmod"
+  ],
+  [
+   ".cos",
+   ".plt",
+   true,
+   "cos"
+  ],
+  [
+   ".acos",
+   ".plt",
+   true,
+   "acos"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".floor",
+   ".plt",
+   true,
+   "floor"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   ".sqrt",
+   ".plt",
+   true,
+   "sqrt"
+  ],
+  [
+   ".ceil",
+   ".plt",
+   true,
+   "ceil"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "pow",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fmod",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "cos",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "acos",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872686
+ }
+}

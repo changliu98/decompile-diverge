@@ -1,0 +1,1 @@
+void func0(void *p, char c) { *(char *)p = c; }

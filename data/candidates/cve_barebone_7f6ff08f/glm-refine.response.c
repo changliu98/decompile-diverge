@@ -1,0 +1,111 @@
+void __cdecl WritePixels(ngiflib_img *i, ngiflib_decode_context *context, const u8 *pixels, u16 n)
+{
+  ngiflib_gif *p = i->parent;
+  u16 Xtogo;
+
+  while (n)
+  {
+    // Determine how many pixels to process in this chunk
+    Xtogo = (context->Xtogo >= (int)n) ? n : context->Xtogo;
+
+    // Check if transparency is enabled (flag located at byte offset 3 of gce)
+    bool has_transparency = (*((u8 *)&i->gce + 3) & 0x10) != 0;
+    bool is_indexed_mode = (p->mode & 1) != 0;
+
+    if (has_transparency)
+    {
+      if (is_indexed_mode)
+      {
+        for (int j = Xtogo; j > 0; --j)
+        {
+          if (*pixels != i->gce.transparent_color)
+            *context->frbuff_p.p8 = *pixels;
+          ++pixels;
+          ++context->frbuff_p.p8;
+        }
+      }
+      else
+      {
+        for (int j = Xtogo; j > 0; --j)
+        {
+          if (*pixels != i->gce.transparent_color)
+            *context->frbuff_p.p32 = GifIndexToTrueColor(i->palette, *pixels);
+          ++pixels;
+          context->frbuff_p.p8 += 4;
+        }
+      }
+    }
+    else if (is_indexed_mode)
+    {
+      memcpy(context->frbuff_p.p8, pixels, Xtogo);
+      pixels += Xtogo;
+      context->frbuff_p.p8 += Xtogo;
+    }
+    else
+    {
+      for (int j = Xtogo; j > 0; --j)
+      {
+        u8 color_idx = *pixels++;
+        *context->frbuff_p.p32 = GifIndexToTrueColor(i->palette, color_idx);
+        context->frbuff_p.p8 += 4;
+      }
+    }
+
+    context->Xtogo -= Xtogo;
+
+    // Move to the next line if the current line is finished
+    if (!context->Xtogo)
+    {
+      context->Xtogo = i->width;
+      
+      // Handle interlaced row progression
+      switch (context->pass)
+      {
+        case 0u:
+          ++context->curY;
+          break;
+        case 1u:
+          context->curY += 8;
+          if (context->curY >= (int)p->height)
+          {
+            ++context->pass;
+            context->curY = i->posY + 4;
+          }
+          break;
+        case 2u:
+          context->curY += 8;
+          if (context->curY >= (int)p->height)
+          {
+            ++context->pass;
+            context->curY = i->posY + 2;
+          }
+          break;
+        case 3u:
+          context->curY += 4;
+          if (context->curY >= (int)p->height)
+          {
+            ++context->pass;
+            context->curY = i->posY + 1;
+          }
+          break;
+        case 4u:
+          context->curY += 2;
+          break;
+        default:
+          break;
+      }
+
+      // Recalculate frame buffer pointer for the new row
+      if (is_indexed_mode)
+      {
+        context->frbuff_p.p8 = p->frbuff.p8 + (p->width * context->curY) + i->posX;
+      }
+      else
+      {
+        context->frbuff_p.p8 = p->frbuff.p8 + (4 * p->width * context->curY) + (4 * i->posX);
+      }
+    }
+
+    n -= Xtogo;
+  }
+}

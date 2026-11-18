@@ -1,0 +1,495 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+host], rdi\nmov     [rbp+port], rsi\nmov     [rbp+hints], rdx\nmov     [rbp+addrinfo], rcx\nmov     [rbp+errbuf], r8\nmov     [rbp+errbuflen], r9d\nmov     rax, [rbp+host]\nmov     [rbp+name], rax\ncmp     [rbp+port], 0\njnz     loc_1293\nlea     rax, unk_2034\nmov     [rbp+service], rax\njmp     loc_129B\nmov     rax, [rbp+port]\nmov     [rbp+service], rax\nmov     rdi, [rbp+name]; name\nmov     rsi, [rbp+service]; service\nmov     rdx, [rbp+hints]; req\nmov     rcx, [rbp+addrinfo]; pai\ncall    getaddrinfo\nmov     [rbp+retval], eax\ncmp     [rbp+retval], 0\njz      loc_1383\ncmp     [rbp+errbuf], 0\njz      loc_1377\ncmp     [rbp+host], 0\njz      loc_1354\ncmp     [rbp+port], 0\njz      loc_1354\nmov     rdi, [rbp+host]; name\nmov     rdx, [rbp+hints]; req\nmov     rcx, [rbp+addrinfo]; pai\nxor     eax, eax\nmov     esi, eax; service\ncall    getaddrinfo\nmov     [rbp+try_retval], eax\ncmp     [rbp+try_retval], 0\njnz     loc_1330\nmov     rax, [rbp+addrinfo]\nmov     rdi, [rax]; ai\ncall    freeaddrinfo\nmov     rdi, [rbp+errbuf]; errbuf\nmov     esi, [rbp+errbuflen]; errbuflen\nmov     ecx, [rbp+retval]; err\nmov     r9, [rbp+port]; portname\nlea     rdx, aSockInitaddres+42h; prefix\nxor     eax, eax\nmov     r8d, eax; hostname\ncall    get_gai_errstring\njmp     loc_134F\nmov     rdi, [rbp+errbuf]; errbuf\nmov     esi, [rbp+errbuflen]; errbuflen\nmov     ecx, [rbp+retval]; err\nmov     r8, [rbp+host]; hostname\nlea     rdx, aSockInitaddres+42h; prefix\nxor     eax, eax\nmov     r9d, eax; portname\ncall    get_gai_errstring\njmp     loc_1372\nmov     rdi, [rbp+errbuf]; errbuf\nmov     esi, [rbp+errbuflen]; errbuflen\nmov     ecx, [rbp+retval]; err\nmov     r8, [rbp+host]; hostname\nmov     r9, [rbp+port]; portname\nlea     rdx, aSockInitaddres+42h; prefix\ncall    get_gai_errstring\njmp     $+5\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_145E\nmov     rax, [rbp+addrinfo]\nmov     rax, [rax]\ncmp     dword ptr [rax+4], 2\njz      loc_13E9\nmov     rax, [rbp+addrinfo]\nmov     rax, [rax]\ncmp     dword ptr [rax+4], 0Ah\njz      loc_13E9\ncmp     [rbp+errbuf], 0\njz      loc_13C6\nmov     rdi, [rbp+errbuf]; s\nmovsxd  rsi, [rbp+errbuflen]; maxlen\nlea     rdx, format; \"getaddrinfo(): socket type not supporte\"...\nmov     al, 0\ncall    snprintf\nmov     rax, [rbp+addrinfo]\nmov     rdi, [rax]; ai\ncall    freeaddrinfo\nmov     rax, [rbp+addrinfo]\nmov     qword ptr [rax], 0\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_145E\nmov     rax, [rbp+addrinfo]\nmov     rax, [rax]\ncmp     dword ptr [rax+8], 1\njnz     loc_1457\nmov     rax, [rbp+addrinfo]\nmov     rax, [rax]\nmov     rdi, [rax+18h]; saddr\ncall    sock_ismcastaddr\ncmp     eax, 0\njnz     loc_1457\ncmp     [rbp+errbuf], 0\njz      loc_1434\nmov     rdi, [rbp+errbuf]; s\nmovsxd  rsi, [rbp+errbuflen]; maxlen\nlea     rdx, aGetaddrinfoMul; \"getaddrinfo(): multicast addresses are \"...\nmov     al, 0\ncall    snprintf\nmov     rax, [rbp+addrinfo]\nmov     rdi, [rax]; ai\ncall    freeaddrinfo\nmov     rax, [rbp+addrinfo]\nmov     qword ptr [rax], 0\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_145E\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 26,
+  "edges": [
+   [
+    "start",
+    "loc_1283"
+   ],
+   [
+    "start",
+    "loc_1293"
+   ],
+   [
+    "loc_1283",
+    "loc_129B"
+   ],
+   [
+    "loc_1293",
+    "loc_129B"
+   ],
+   [
+    "loc_129B",
+    "loc_12BD"
+   ],
+   [
+    "loc_129B",
+    "loc_1383"
+   ],
+   [
+    "loc_12BD",
+    "loc_12C8"
+   ],
+   [
+    "loc_12BD",
+    "loc_1377"
+   ],
+   [
+    "loc_12C8",
+    "loc_12D3"
+   ],
+   [
+    "loc_12C8",
+    "loc_1354"
+   ],
+   [
+    "loc_12D3",
+    "loc_12DE"
+   ],
+   [
+    "loc_12D3",
+    "loc_1354"
+   ],
+   [
+    "loc_12DE",
+    "loc_1300"
+   ],
+   [
+    "loc_12DE",
+    "loc_1330"
+   ],
+   [
+    "loc_1300",
+    "loc_134F"
+   ],
+   [
+    "loc_1330",
+    "loc_134F"
+   ],
+   [
+    "loc_134F",
+    "loc_1372"
+   ],
+   [
+    "loc_1354",
+    "loc_1372"
+   ],
+   [
+    "loc_1372",
+    "loc_1377"
+   ],
+   [
+    "loc_1377",
+    "loc_145E"
+   ],
+   [
+    "loc_1383",
+    "loc_1394"
+   ],
+   [
+    "loc_1383",
+    "loc_13E9"
+   ],
+   [
+    "loc_1394",
+    "loc_13A5"
+   ],
+   [
+    "loc_1394",
+    "loc_13E9"
+   ],
+   [
+    "loc_13A5",
+    "loc_13B0"
+   ],
+   [
+    "loc_13A5",
+    "loc_13C6"
+   ],
+   [
+    "loc_13B0",
+    "loc_13C6"
+   ],
+   [
+    "loc_13C6",
+    "loc_145E"
+   ],
+   [
+    "loc_13E9",
+    "loc_13FA"
+   ],
+   [
+    "loc_13E9",
+    "loc_1457"
+   ],
+   [
+    "loc_13FA",
+    "loc_1413"
+   ],
+   [
+    "loc_13FA",
+    "loc_1457"
+   ],
+   [
+    "loc_1413",
+    "loc_141E"
+   ],
+   [
+    "loc_1413",
+    "loc_1434"
+   ],
+   [
+    "loc_141E",
+    "loc_1434"
+   ],
+   [
+    "loc_1434",
+    "loc_145E"
+   ],
+   [
+    "loc_1457",
+    "loc_145E"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+host], rdi\nmov     [rbp+port], rsi\nmov     [rbp+hints], rdx\nmov     [rbp+addrinfo], rcx\nmov     [rbp+errbuf], r8\nmov     [rbp+errbuflen], r9d\nmov     rax, [rbp+host]\nmov     [rbp+name], rax\ncmp     [rbp+port], 0\njnz     loc_1293",
+   "loc_1283": "lea     rax, unk_2034\nmov     [rbp+service], rax\njmp     loc_129B",
+   "loc_1293": "mov     rax, [rbp+port]\nmov     [rbp+service], rax",
+   "loc_129B": "mov     rdi, [rbp+name]; name\nmov     rsi, [rbp+service]; service\nmov     rdx, [rbp+hints]; req\nmov     rcx, [rbp+addrinfo]; pai\ncall    getaddrinfo\nmov     [rbp+retval], eax\ncmp     [rbp+retval], 0\njz      loc_1383",
+   "loc_12BD": "cmp     [rbp+errbuf], 0\njz      loc_1377",
+   "loc_12C8": "cmp     [rbp+host], 0\njz      loc_1354",
+   "loc_12D3": "cmp     [rbp+port], 0\njz      loc_1354",
+   "loc_12DE": "mov     rdi, [rbp+host]; name\nmov     rdx, [rbp+hints]; req\nmov     rcx, [rbp+addrinfo]; pai\nxor     eax, eax\nmov     esi, eax; service\ncall    getaddrinfo\nmov     [rbp+try_retval], eax\ncmp     [rbp+try_retval], 0\njnz     loc_1330",
+   "loc_1300": "mov     rax, [rbp+addrinfo]\nmov     rdi, [rax]; ai\ncall    freeaddrinfo\nmov     rdi, [rbp+errbuf]; errbuf\nmov     esi, [rbp+errbuflen]; errbuflen\nmov     ecx, [rbp+retval]; err\nmov     r9, [rbp+port]; portname\nlea     rdx, aSockInitaddres+42h; prefix\nxor     eax, eax\nmov     r8d, eax; hostname\ncall    get_gai_errstring\njmp     loc_134F",
+   "loc_1330": "mov     rdi, [rbp+errbuf]; errbuf\nmov     esi, [rbp+errbuflen]; errbuflen\nmov     ecx, [rbp+retval]; err\nmov     r8, [rbp+host]; hostname\nlea     rdx, aSockInitaddres+42h; prefix\nxor     eax, eax\nmov     r9d, eax; portname\ncall    get_gai_errstring",
+   "loc_134F": "jmp     loc_1372",
+   "loc_1354": "mov     rdi, [rbp+errbuf]; errbuf\nmov     esi, [rbp+errbuflen]; errbuflen\nmov     ecx, [rbp+retval]; err\nmov     r8, [rbp+host]; hostname\nmov     r9, [rbp+port]; portname\nlea     rdx, aSockInitaddres+42h; prefix\ncall    get_gai_errstring",
+   "loc_1372": "jmp     $+5",
+   "loc_1377": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_145E",
+   "loc_1383": "mov     rax, [rbp+addrinfo]\nmov     rax, [rax]\ncmp     dword ptr [rax+4], 2\njz      loc_13E9",
+   "loc_1394": "mov     rax, [rbp+addrinfo]\nmov     rax, [rax]\ncmp     dword ptr [rax+4], 0Ah\njz      loc_13E9",
+   "loc_13A5": "cmp     [rbp+errbuf], 0\njz      loc_13C6",
+   "loc_13B0": "mov     rdi, [rbp+errbuf]; s\nmovsxd  rsi, [rbp+errbuflen]; maxlen\nlea     rdx, format; \"getaddrinfo(): socket type not supporte\"...\nmov     al, 0\ncall    snprintf",
+   "loc_13C6": "mov     rax, [rbp+addrinfo]\nmov     rdi, [rax]; ai\ncall    freeaddrinfo\nmov     rax, [rbp+addrinfo]\nmov     qword ptr [rax], 0\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_145E",
+   "loc_13E9": "mov     rax, [rbp+addrinfo]\nmov     rax, [rax]\ncmp     dword ptr [rax+8], 1\njnz     loc_1457",
+   "loc_13FA": "mov     rax, [rbp+addrinfo]\nmov     rax, [rax]\nmov     rdi, [rax+18h]; saddr\ncall    sock_ismcastaddr\ncmp     eax, 0\njnz     loc_1457",
+   "loc_1413": "cmp     [rbp+errbuf], 0\njz      loc_1434",
+   "loc_141E": "mov     rdi, [rbp+errbuf]; s\nmovsxd  rsi, [rbp+errbuflen]; maxlen\nlea     rdx, aGetaddrinfoMul; \"getaddrinfo(): multicast addresses are \"...\nmov     al, 0\ncall    snprintf",
+   "loc_1434": "mov     rax, [rbp+addrinfo]\nmov     rdi, [rax]; ai\ncall    freeaddrinfo\nmov     rax, [rbp+addrinfo]\nmov     qword ptr [rax], 0\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_145E",
+   "loc_1457": "mov     [rbp+var_4], 0",
+   "loc_145E": "mov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "service": "qword ptr -50h",
+   "name": "qword ptr -48h",
+   "try_retval": "dword ptr -3Ch",
+   "retval": "dword ptr -38h",
+   "errbuflen": "dword ptr -34h",
+   "errbuf": "qword ptr -30h",
+   "addrinfo": "qword ptr -28h",
+   "hints": "qword ptr -20h",
+   "port": "qword ptr -18h",
+   "host": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "unk_2034": "byte 30h",
+   "unk_20EC": "byte 'sock_initaddress: retval=%d addrinfo=%p host=%s port=%s errbuf=%s'",
+   "format": "byte 'getaddrinfo(): socket type not supported',0",
+   "aGetaddrinfoMul": "byte 'getaddrinfo(): multicast addresses are not valid when using TCP s'"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4688,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".__errno_location": "__errno_location",
+  "_errno_location": "__errno_location",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".vsnprintf": "vsnprintf",
+  "_vsnprintf": "vsnprintf",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".rewind": "rewind",
+  "_rewind": "rewind",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".memchr": "memchr",
+  "_memchr": "memchr",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".getaddrinfo": "getaddrinfo",
+  "_getaddrinfo": "getaddrinfo",
+  ".ntohl": "ntohl",
+  "_ntohl": "ntohl",
+  ".freeaddrinfo": "freeaddrinfo",
+  "_freeaddrinfo": "freeaddrinfo"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".__errno_location",
+   ".plt",
+   true,
+   "__errno_location"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".vsnprintf",
+   ".plt",
+   true,
+   "vsnprintf"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".rewind",
+   ".plt",
+   true,
+   "rewind"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".memchr",
+   ".plt",
+   true,
+   "memchr"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".getaddrinfo",
+   ".plt",
+   true,
+   "getaddrinfo"
+  ],
+  [
+   ".ntohl",
+   ".plt",
+   true,
+   "ntohl"
+  ],
+  [
+   ".freeaddrinfo",
+   ".plt",
+   true,
+   "freeaddrinfo"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__errno_location",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "vsnprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "rewind",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "snprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memchr",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "getaddrinfo",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ntohl",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "freeaddrinfo",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868482
+ }
+}

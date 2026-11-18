@@ -1,0 +1,62 @@
+void ml_multiply_mat4_vec4(float *mat,float *vec,float *out)
+
+{
+  float fVar1;
+  float fVar2;
+  float fVar3;
+  float fVar4;
+  float fVar5;
+  float fVar6;
+  float fVar7;
+  float fVar8;
+  float fVar9;
+  float fVar10;
+  float fVar11;
+  float fVar12;
+  float fVar13;
+  float fVar14;
+  float fVar15;
+  float fVar16;
+  float fVar17;
+  float fVar18;
+  float fVar19;
+  float fVar20;
+  float fVar21;
+  float fVar22;
+  float fVar23;
+  float fVar24;
+  float temp [4];
+  float *out_local;
+  float *vec_local;
+  float *mat_local;
+  
+  fVar1 = mat[4];
+  fVar2 = *vec;
+  fVar3 = mat[5];
+  fVar4 = vec[1];
+  fVar5 = mat[6];
+  fVar6 = vec[2];
+  fVar7 = mat[7];
+  fVar8 = vec[3];
+  fVar9 = mat[8];
+  fVar10 = *vec;
+  fVar11 = mat[9];
+  fVar12 = vec[1];
+  fVar13 = mat[10];
+  fVar14 = vec[2];
+  fVar15 = mat[0xb];
+  fVar16 = vec[3];
+  fVar17 = mat[0xc];
+  fVar18 = *vec;
+  fVar19 = mat[0xd];
+  fVar20 = vec[1];
+  fVar21 = mat[0xe];
+  fVar22 = vec[2];
+  fVar23 = mat[0xf];
+  fVar24 = vec[3];
+  *out = mat[3] * vec[3] + mat[2] * vec[2] + *mat * *vec + mat[1] * vec[1];
+  out[1] = fVar7 * fVar8 + fVar5 * fVar6 + fVar1 * fVar2 + fVar3 * fVar4;
+  out[2] = fVar15 * fVar16 + fVar13 * fVar14 + fVar9 * fVar10 + fVar11 * fVar12;
+  out[3] = fVar23 * fVar24 + fVar21 * fVar22 + fVar17 * fVar18 + fVar19 * fVar20;
+  return;
+}

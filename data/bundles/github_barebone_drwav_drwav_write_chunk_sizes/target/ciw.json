@@ -1,0 +1,423 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+pWav], rdi\nmov     rax, [rbp+pWav]\ncmp     qword ptr [rax+10h], 0\njz      loc_8A2B\nmov     rax, [rbp+pWav]\ncmp     dword ptr [rax+0B0h], 0\njnz     loc_8A2B\nmov     rax, [rbp+pWav]\ncmp     dword ptr [rax+48h], 0\njnz     loc_88C1\nmov     rax, [rbp+pWav]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+pWav]\nmov     rdi, [rcx+20h]\nmov     esi, 4\nxor     edx, edx\ncall    rax\ncmp     eax, 0\njz      loc_8870\nmov     rax, [rbp+pWav]\nmov     rdi, [rax+88h]; dataChunkSize\nmov     rax, [rbp+pWav]\nmov     rsi, [rax+0B8h]; pMetadata\nmov     rax, [rbp+pWav]\nmov     edx, [rax+0C0h]; metadataCount\ncall    drwav__riff_chunk_size_riff\nmov     [rbp+riffChunkSize], eax\nmov     rdi, [rbp+pWav]; pWav\nmov     esi, [rbp+riffChunkSize]; value\ncall    drwav__write_u32ne_to_le\nmov     rax, [rbp+pWav]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+pWav]\nmov     rdi, [rcx+20h]\nmov     rcx, [rbp+pWav]\nmov     rcx, [rcx+90h]\nmov     esi, ecx\nsub     esi, 4\nxor     edx, edx\ncall    rax\ncmp     eax, 0\njz      loc_88BC\nmov     rax, [rbp+pWav]\nmov     rdi, [rax+88h]; dataChunkSize\ncall    drwav__data_chunk_size_riff\nmov     [rbp+dataChunkSize], eax\nmov     rdi, [rbp+pWav]; pWav\nmov     esi, [rbp+dataChunkSize]; value\ncall    drwav__write_u32ne_to_le\njmp     loc_8A26\nmov     rax, [rbp+pWav]\ncmp     dword ptr [rax+48h], 2\njnz     loc_8965\nmov     rax, [rbp+pWav]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+pWav]\nmov     rdi, [rcx+20h]\nmov     esi, 10h\nxor     edx, edx\ncall    rax\ncmp     eax, 0\njz      loc_8912\nmov     rax, [rbp+pWav]\nmov     rdi, [rax+88h]; dataChunkSize\ncall    drwav__riff_chunk_size_w64\nmov     [rbp+riffChunkSize_0], rax\nmov     rdi, [rbp+pWav]; pWav\nmov     rsi, [rbp+riffChunkSize_0]; value\ncall    drwav__write_u64ne_to_le\nmov     rax, [rbp+pWav]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+pWav]\nmov     rdi, [rcx+20h]\nmov     rcx, [rbp+pWav]\nmov     rcx, [rcx+90h]\nmov     esi, ecx\nsub     esi, 8\nxor     edx, edx\ncall    rax\ncmp     eax, 0\njz      loc_8960\nmov     rax, [rbp+pWav]\nmov     rdi, [rax+88h]; dataChunkSize\ncall    drwav__data_chunk_size_w64\nmov     [rbp+dataChunkSize_0], rax\nmov     rdi, [rbp+pWav]; pWav\nmov     rsi, [rbp+dataChunkSize_0]; value\ncall    drwav__write_u64ne_to_le\njmp     loc_8A21\nmov     rax, [rbp+pWav]\ncmp     dword ptr [rax+48h], 3\njnz     loc_8A1C\nmov     [rbp+ds64BodyPos], 14h\nmov     rax, [rbp+pWav]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+pWav]\nmov     rdi, [rcx+20h]\nmov     esi, [rbp+ds64BodyPos]\nadd     esi, 0\nxor     edx, edx\ncall    rax\ncmp     eax, 0\njz      loc_89D3\nmov     rax, [rbp+pWav]\nmov     rdi, [rax+88h]; dataChunkSize\nmov     rax, [rbp+pWav]\nmov     rsi, [rax+0B8h]; metadata\nmov     rax, [rbp+pWav]\nmov     edx, [rax+0C0h]; numMetadata\ncall    drwav__riff_chunk_size_rf64\nmov     [rbp+riffChunkSize_1], rax\nmov     rdi, [rbp+pWav]; pWav\nmov     rsi, [rbp+riffChunkSize_1]; value\ncall    drwav__write_u64ne_to_le\nmov     rax, [rbp+pWav]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+pWav]\nmov     rdi, [rcx+20h]\nmov     esi, [rbp+ds64BodyPos]\nadd     esi, 8\nxor     edx, edx\ncall    rax\ncmp     eax, 0\njz      loc_8A17\nmov     rax, [rbp+pWav]\nmov     rdi, [rax+88h]; dataChunkSize\ncall    drwav__data_chunk_size_rf64\nmov     [rbp+dataChunkSize_1], rax\nmov     rdi, [rbp+pWav]; pWav\nmov     rsi, [rbp+dataChunkSize_1]; value\ncall    drwav__write_u64ne_to_le\njmp     $+5\njmp     $+5\njmp     $+5\njmp     $+5\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 24,
+  "edges": [
+   [
+    "start",
+    "loc_87FB"
+   ],
+   [
+    "start",
+    "loc_8A2B"
+   ],
+   [
+    "loc_87FB",
+    "loc_880C"
+   ],
+   [
+    "loc_87FB",
+    "loc_8A2B"
+   ],
+   [
+    "loc_880C",
+    "loc_881A"
+   ],
+   [
+    "loc_880C",
+    "loc_88C1"
+   ],
+   [
+    "loc_881A",
+    "loc_883C"
+   ],
+   [
+    "loc_881A",
+    "loc_8870"
+   ],
+   [
+    "loc_883C",
+    "loc_8870"
+   ],
+   [
+    "loc_8870",
+    "loc_889D"
+   ],
+   [
+    "loc_8870",
+    "loc_88BC"
+   ],
+   [
+    "loc_889D",
+    "loc_88BC"
+   ],
+   [
+    "loc_88BC",
+    "loc_8A26"
+   ],
+   [
+    "loc_88C1",
+    "loc_88CF"
+   ],
+   [
+    "loc_88C1",
+    "loc_8965"
+   ],
+   [
+    "loc_88CF",
+    "loc_88F1"
+   ],
+   [
+    "loc_88CF",
+    "loc_8912"
+   ],
+   [
+    "loc_88F1",
+    "loc_8912"
+   ],
+   [
+    "loc_8912",
+    "loc_893F"
+   ],
+   [
+    "loc_8912",
+    "loc_8960"
+   ],
+   [
+    "loc_893F",
+    "loc_8960"
+   ],
+   [
+    "loc_8960",
+    "loc_8A21"
+   ],
+   [
+    "loc_8965",
+    "loc_8973"
+   ],
+   [
+    "loc_8965",
+    "loc_8A1C"
+   ],
+   [
+    "loc_8973",
+    "loc_899D"
+   ],
+   [
+    "loc_8973",
+    "loc_89D3"
+   ],
+   [
+    "loc_899D",
+    "loc_89D3"
+   ],
+   [
+    "loc_89D3",
+    "loc_89F6"
+   ],
+   [
+    "loc_89D3",
+    "loc_8A17"
+   ],
+   [
+    "loc_89F6",
+    "loc_8A17"
+   ],
+   [
+    "loc_8A17",
+    "loc_8A1C"
+   ],
+   [
+    "loc_8A1C",
+    "loc_8A21"
+   ],
+   [
+    "loc_8A21",
+    "loc_8A26"
+   ],
+   [
+    "loc_8A26",
+    "loc_8A2B"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+pWav], rdi\nmov     rax, [rbp+pWav]\ncmp     qword ptr [rax+10h], 0\njz      loc_8A2B",
+   "loc_87FB": "mov     rax, [rbp+pWav]\ncmp     dword ptr [rax+0B0h], 0\njnz     loc_8A2B",
+   "loc_880C": "mov     rax, [rbp+pWav]\ncmp     dword ptr [rax+48h], 0\njnz     loc_88C1",
+   "loc_881A": "mov     rax, [rbp+pWav]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+pWav]\nmov     rdi, [rcx+20h]\nmov     esi, 4\nxor     edx, edx\ncall    rax\ncmp     eax, 0\njz      loc_8870",
+   "loc_883C": "mov     rax, [rbp+pWav]\nmov     rdi, [rax+88h]; dataChunkSize\nmov     rax, [rbp+pWav]\nmov     rsi, [rax+0B8h]; pMetadata\nmov     rax, [rbp+pWav]\nmov     edx, [rax+0C0h]; metadataCount\ncall    drwav__riff_chunk_size_riff\nmov     [rbp+riffChunkSize], eax\nmov     rdi, [rbp+pWav]; pWav\nmov     esi, [rbp+riffChunkSize]; value\ncall    drwav__write_u32ne_to_le",
+   "loc_8870": "mov     rax, [rbp+pWav]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+pWav]\nmov     rdi, [rcx+20h]\nmov     rcx, [rbp+pWav]\nmov     rcx, [rcx+90h]\nmov     esi, ecx\nsub     esi, 4\nxor     edx, edx\ncall    rax\ncmp     eax, 0\njz      loc_88BC",
+   "loc_889D": "mov     rax, [rbp+pWav]\nmov     rdi, [rax+88h]; dataChunkSize\ncall    drwav__data_chunk_size_riff\nmov     [rbp+dataChunkSize], eax\nmov     rdi, [rbp+pWav]; pWav\nmov     esi, [rbp+dataChunkSize]; value\ncall    drwav__write_u32ne_to_le",
+   "loc_88BC": "jmp     loc_8A26",
+   "loc_88C1": "mov     rax, [rbp+pWav]\ncmp     dword ptr [rax+48h], 2\njnz     loc_8965",
+   "loc_88CF": "mov     rax, [rbp+pWav]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+pWav]\nmov     rdi, [rcx+20h]\nmov     esi, 10h\nxor     edx, edx\ncall    rax\ncmp     eax, 0\njz      loc_8912",
+   "loc_88F1": "mov     rax, [rbp+pWav]\nmov     rdi, [rax+88h]; dataChunkSize\ncall    drwav__riff_chunk_size_w64\nmov     [rbp+riffChunkSize_0], rax\nmov     rdi, [rbp+pWav]; pWav\nmov     rsi, [rbp+riffChunkSize_0]; value\ncall    drwav__write_u64ne_to_le",
+   "loc_8912": "mov     rax, [rbp+pWav]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+pWav]\nmov     rdi, [rcx+20h]\nmov     rcx, [rbp+pWav]\nmov     rcx, [rcx+90h]\nmov     esi, ecx\nsub     esi, 8\nxor     edx, edx\ncall    rax\ncmp     eax, 0\njz      loc_8960",
+   "loc_893F": "mov     rax, [rbp+pWav]\nmov     rdi, [rax+88h]; dataChunkSize\ncall    drwav__data_chunk_size_w64\nmov     [rbp+dataChunkSize_0], rax\nmov     rdi, [rbp+pWav]; pWav\nmov     rsi, [rbp+dataChunkSize_0]; value\ncall    drwav__write_u64ne_to_le",
+   "loc_8960": "jmp     loc_8A21",
+   "loc_8965": "mov     rax, [rbp+pWav]\ncmp     dword ptr [rax+48h], 3\njnz     loc_8A1C",
+   "loc_8973": "mov     [rbp+ds64BodyPos], 14h\nmov     rax, [rbp+pWav]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+pWav]\nmov     rdi, [rcx+20h]\nmov     esi, [rbp+ds64BodyPos]\nadd     esi, 0\nxor     edx, edx\ncall    rax\ncmp     eax, 0\njz      loc_89D3",
+   "loc_899D": "mov     rax, [rbp+pWav]\nmov     rdi, [rax+88h]; dataChunkSize\nmov     rax, [rbp+pWav]\nmov     rsi, [rax+0B8h]; metadata\nmov     rax, [rbp+pWav]\nmov     edx, [rax+0C0h]; numMetadata\ncall    drwav__riff_chunk_size_rf64\nmov     [rbp+riffChunkSize_1], rax\nmov     rdi, [rbp+pWav]; pWav\nmov     rsi, [rbp+riffChunkSize_1]; value\ncall    drwav__write_u64ne_to_le",
+   "loc_89D3": "mov     rax, [rbp+pWav]\nmov     rax, [rax+10h]\nmov     rcx, [rbp+pWav]\nmov     rdi, [rcx+20h]\nmov     esi, [rbp+ds64BodyPos]\nadd     esi, 8\nxor     edx, edx\ncall    rax\ncmp     eax, 0\njz      loc_8A17",
+   "loc_89F6": "mov     rax, [rbp+pWav]\nmov     rdi, [rax+88h]; dataChunkSize\ncall    drwav__data_chunk_size_rf64\nmov     [rbp+dataChunkSize_1], rax\nmov     rdi, [rbp+pWav]; pWav\nmov     rsi, [rbp+dataChunkSize_1]; value\ncall    drwav__write_u64ne_to_le",
+   "loc_8A17": "jmp     $+5",
+   "loc_8A1C": "jmp     $+5",
+   "loc_8A21": "jmp     $+5",
+   "loc_8A26": "jmp     $+5",
+   "loc_8A2B": "add     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "dataChunkSize_1": "qword ptr -38h",
+   "riffChunkSize_1": "qword ptr -30h",
+   "ds64BodyPos": "dword ptr -24h",
+   "dataChunkSize_0": "qword ptr -20h",
+   "riffChunkSize_0": "qword ptr -18h",
+   "dataChunkSize": "dword ptr -10h",
+   "riffChunkSize": "dword ptr -0Ch",
+   "pWav": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 34784,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872665
+ }
+}

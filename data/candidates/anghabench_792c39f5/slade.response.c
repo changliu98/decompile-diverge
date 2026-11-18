@@ -1,0 +1,1 @@
+bool check_need_swap(uint8_t expected) { uint8_t check =0x01; uint8_t *ptr = (uint8_t *)&check; int data; if (*ptr == 1) { data = ELFDATA2LSB; } else { data = ELFDATA2MSB; } return (data != expected); }

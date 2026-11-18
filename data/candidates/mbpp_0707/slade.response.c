@@ -1,0 +1,1 @@
+uint32_t func0(uint32_t x) { x++; uint32_t b = 2; uint32_t m = x / 2; while (b <= x) { uint32_t w = x / b; m += (w / 2) * b; if (w & 1) m += x % b; b = b * 2; } return m; }

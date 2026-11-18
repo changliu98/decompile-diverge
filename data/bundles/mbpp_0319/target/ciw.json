@@ -1,0 +1,326 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0B0h\nmov     [rbp+text], rdi\nmov     [rbp+count], rsi\nmovaps  xmm0, cs:xmmword_2010\nmovaps  xmmword ptr [rbp+pattern], xmm0\nmov     [rbp+word_count], 0\nmov     rdi, [rbp+text]; s\ncall    strlen\nmov     rcx, rax\nmov     rax, rcx\nadd     rax, 1\nmov     rdx, rsp\nmov     [rbp+var_80], rdx\nadd     rcx, 10h\nand     rcx, 0FFFFFFFFFFFFFFF0h\nmov     rdi, rsp\nsub     rdi, rcx; dest\nmov     [rbp+var_A8], rdi\nmov     rsp, rdi\nmov     [rbp+__vla_expr0], rax\nmov     rsi, [rbp+text]; src\ncall    strcpy\nlea     rsi, [rbp+pattern]; pattern\nlea     rdi, [rbp+regex]; preg\nmov     edx, 1; cflags\ncall    regcomp\nmov     rax, [rbp+var_A8]\nmov     [rbp+p], rax\nmov     rsi, [rbp+p]; string\nlea     rcx, [rbp+matches]; pmatch\nlea     rdi, [rbp+regex]; preg\nmov     edx, 1; nmatch\nxor     r8d, r8d; eflags\ncall    regexec\ncmp     eax, 0\njnz     loc_1395\nmov     eax, [rbp+matches.rm_so]\nmov     [rbp+start], eax\nmov     eax, [rbp+matches.rm_eo]\nmov     [rbp+end], eax\nmov     eax, [rbp+end]\nsub     eax, [rbp+start]\nadd     eax, 1\nmovsxd  rdi, eax\nshl     rdi, 0; size\ncall    malloc\nmov     [rbp+word], rax\nmov     rdi, [rbp+word]; dest\nmov     rsi, [rbp+p]\nmovsxd  rax, [rbp+start]\nadd     rsi, rax; src\nmov     eax, [rbp+end]\nsub     eax, [rbp+start]\nmovsxd  rdx, eax; n\ncall    strncpy\nmov     rax, [rbp+word]\nmov     ecx, [rbp+end]\nsub     ecx, [rbp+start]\nmovsxd  rcx, ecx\nmov     byte ptr [rax+rcx], 0\nmov     rdx, [rbp+word]\nmov     eax, [rbp+word_count]\nmov     ecx, eax\nadd     ecx, 1\nmov     [rbp+word_count], ecx\nmovsxd  rcx, eax\nlea     rax, func0_words\nmov     [rax+rcx*8], rdx\nmov     ecx, [rbp+end]\nmov     rax, [rbp+p]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+p], rax\njmp     loc_12B7\nlea     rdi, [rbp+regex]; preg\ncall    regfree\nmov     ecx, [rbp+word_count]\nmov     rax, [rbp+count]\nmov     [rax], ecx\nmov     rax, [rbp+var_80]\nmov     rsp, rax\nlea     rax, func0_words\nmov     rsp, rbp\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 4,
+  "edges": [
+   [
+    "start",
+    "loc_12B7"
+   ],
+   [
+    "loc_12B7",
+    "loc_12DC"
+   ],
+   [
+    "loc_12B7",
+    "loc_1395"
+   ],
+   [
+    "loc_12DC",
+    "loc_12B7"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0B0h\nmov     [rbp+text], rdi\nmov     [rbp+count], rsi\nmovaps  xmm0, cs:xmmword_2010\nmovaps  xmmword ptr [rbp+pattern], xmm0\nmov     [rbp+word_count], 0\nmov     rdi, [rbp+text]; s\ncall    strlen\nmov     rcx, rax\nmov     rax, rcx\nadd     rax, 1\nmov     rdx, rsp\nmov     [rbp+var_80], rdx\nadd     rcx, 10h\nand     rcx, 0FFFFFFFFFFFFFFF0h\nmov     rdi, rsp\nsub     rdi, rcx; dest\nmov     [rbp+var_A8], rdi\nmov     rsp, rdi\nmov     [rbp+__vla_expr0], rax\nmov     rsi, [rbp+text]; src\ncall    strcpy\nlea     rsi, [rbp+pattern]; pattern\nlea     rdi, [rbp+regex]; preg\nmov     edx, 1; cflags\ncall    regcomp\nmov     rax, [rbp+var_A8]\nmov     [rbp+p], rax",
+   "loc_12B7": "mov     rsi, [rbp+p]; string\nlea     rcx, [rbp+matches]; pmatch\nlea     rdi, [rbp+regex]; preg\nmov     edx, 1; nmatch\nxor     r8d, r8d; eflags\ncall    regexec\ncmp     eax, 0\njnz     loc_1395",
+   "loc_12DC": "mov     eax, [rbp+matches.rm_so]\nmov     [rbp+start], eax\nmov     eax, [rbp+matches.rm_eo]\nmov     [rbp+end], eax\nmov     eax, [rbp+end]\nsub     eax, [rbp+start]\nadd     eax, 1\nmovsxd  rdi, eax\nshl     rdi, 0; size\ncall    malloc\nmov     [rbp+word], rax\nmov     rdi, [rbp+word]; dest\nmov     rsi, [rbp+p]\nmovsxd  rax, [rbp+start]\nadd     rsi, rax; src\nmov     eax, [rbp+end]\nsub     eax, [rbp+start]\nmovsxd  rdx, eax; n\ncall    strncpy\nmov     rax, [rbp+word]\nmov     ecx, [rbp+end]\nsub     ecx, [rbp+start]\nmovsxd  rcx, ecx\nmov     byte ptr [rax+rcx], 0\nmov     rdx, [rbp+word]\nmov     eax, [rbp+word_count]\nmov     ecx, eax\nadd     ecx, 1\nmov     [rbp+word_count], ecx\nmovsxd  rcx, eax\nlea     rax, func0_words\nmov     [rax+rcx*8], rdx\nmov     ecx, [rbp+end]\nmov     rax, [rbp+p]\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+p], rax\njmp     loc_12B7",
+   "loc_1395": "lea     rdi, [rbp+regex]; preg\ncall    regfree\nmov     ecx, [rbp+word_count]\nmov     rax, [rbp+count]\nmov     [rax], ecx\nmov     rax, [rbp+var_80]\nmov     rsp, rax\nlea     rax, func0_words\nmov     rsp, rbp\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_A8": "qword ptr -0A8h",
+   "word": "qword ptr -0A0h",
+   "end": "dword ptr -98h",
+   "start": "dword ptr -94h",
+   "p": "qword ptr -90h",
+   "__vla_expr0": "qword ptr -88h",
+   "var_80": "qword ptr -80h",
+   "word_count": "dword ptr -74h",
+   "pattern": "byte ptr -70h",
+   "matches": "regmatch_t ptr -58h",
+   "regex": "regex_t ptr -50h",
+   "count": "qword ptr -10h",
+   "text": "qword ptr -8"
+  },
+  ".rodata": {
+   "xmmword_2010": "xmmword 625C7D357B5D5A2D417A2D615B625Ch"
+  },
+  ".data": {},
+  ".bss": {
+   "func0.words": "[]"
+  }
+ },
+ "func_ea": 4656,
+ "thunk_map": {
+  ".strncpy": "strncpy",
+  "_strncpy": "strncpy",
+  ".strcpy": "strcpy",
+  "_strcpy": "strcpy",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".regfree": "regfree",
+  "_regfree": "regfree",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".regcomp": "regcomp",
+  "_regcomp": "regcomp",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".regexec": "regexec",
+  "_regexec": "regexec",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".strncpy",
+   ".plt",
+   true,
+   "strncpy"
+  ],
+  [
+   ".strcpy",
+   ".plt",
+   true,
+   "strcpy"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".regfree",
+   ".plt",
+   true,
+   "regfree"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".regcomp",
+   ".plt",
+   true,
+   "regcomp"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".regexec",
+   ".plt",
+   true,
+   "regexec"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strncpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "regfree",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strlen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "regcomp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "regexec",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792867979
+ }
+}

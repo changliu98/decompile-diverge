@@ -1,0 +1,1 @@
+int obdRevConvert_45(float value, int* outputHandle, uint8_t* input, uint8_t* outputDst, uint8_t* outputSize) { *outputHandle = (int)((value * 255.0f ) / 100.0f); return 1; }

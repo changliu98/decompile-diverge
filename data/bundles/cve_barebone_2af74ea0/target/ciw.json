@@ -1,0 +1,437 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+source], rdi\njmp     $+5\njmp     $+5\nmov     rax, [rbp+source]\ncmp     dword ptr [rax], 0\njz      loc_1517\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"assertion failed: %s\\n\"\nlea     rdx, aSourceIsPipe; \"!source->is_pipe\"\nmov     al, 0\ncall    fprintf\ncall    abort\njmp     $+5\njmp     $+5\nmov     rax, [rbp+source]\ncmp     qword ptr [rax+28h], 0\njz      loc_1554\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"assertion failed: %s\\n\"\nlea     rdx, aSourceBlob; \"!source->blob\"\nmov     al, 0\ncall    fprintf\ncall    abort\njmp     $+5\njmp     $+5\nmov     rax, [rbp+source]\ncmp     qword ptr [rax+20h], 0\njz      loc_1591\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"assertion failed: %s\\n\"\nlea     rdx, aSourceHeaderBy; \"!source->header_bytes\"\nmov     al, 0\ncall    fprintf\ncall    abort\njmp     $+5\njmp     $+5\nmov     rax, [rbp+source]\ncmp     qword ptr [rax+10h], 0\njge     loc_15CE\nmov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"assertion failed: %s\\n\"\nlea     rdx, aSourceLength0; \"source->length >= 0\"\nmov     al, 0\ncall    fprintf\ncall    abort\njmp     $+5\nmov     rdi, [rbp+source]; source\ncall    vips_source_rewind\ncmp     eax, 0\njz      loc_15F1\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_172E\ncall    g_byte_array_new\nmov     [rbp+byte_array], rax\nmov     rdi, [rbp+byte_array]; array\nmov     rax, [rbp+source]\nmov     rax, [rax+10h]\nmov     esi, eax; length\ncall    g_byte_array_set_size\nmov     [rbp+read_position], 0\nmov     rax, [rbp+byte_array]\nmov     rax, [rax]\nmov     [rbp+q], rax\nmov     rax, [rbp+read_position]\nmov     rcx, [rbp+source]\ncmp     rax, [rcx+10h]\njge     loc_16F9\nmov     rax, [rbp+source]\nmov     [rbp+var_40], rax\nmov     rax, [rbp+q]\nmov     [rbp+buffer], rax\nmov     rax, [rbp+source]\nmov     rcx, [rax+10h]\nsub     rcx, [rbp+read_position]\nmov     eax, 1000h\ncmp     rax, rcx\njle     loc_166A\nmov     eax, 1000h\nmov     [rbp+length], rax\njmp     loc_167A\nmov     rax, [rbp+source]\nmov     rax, [rax+10h]\nsub     rax, [rbp+read_position]\nmov     [rbp+length], rax\nmov     rsi, [rbp+buffer]; buffer\nmov     rdi, [rbp+var_40]; source\nmov     rdx, [rbp+length]; length\ncall    vips_source_read\nmov     [rbp+bytes_read], rax\ncmp     [rbp+bytes_read], 0FFFFFFFFFFFFFFFFh\njnz     loc_16CC\njmp     $+5\ncmp     [rbp+byte_array], 0\njz      loc_16BB\nmov     rdi, [rbp+byte_array]; array\ncall    g_byte_array_unref\nmov     [rbp+byte_array], 0\njmp     $+5\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_172E\ncmp     [rbp+bytes_read], 0\njnz     loc_16DC\njmp     loc_16F9\nmov     rax, [rbp+bytes_read]\nadd     rax, [rbp+read_position]\nmov     [rbp+read_position], rax\nmov     rax, [rbp+bytes_read]\nadd     rax, [rbp+q]\nmov     [rbp+q], rax\njmp     loc_1620\nmov     rax, [rbp+byte_array]\nmov     rcx, [rax]\nmov     rax, [rbp+source]\nmov     [rax+18h], rcx\nmov     rax, [rbp+source]\nmov     dword ptr [rax], 0\nmov     rcx, [rbp+byte_array]\nmov     rax, [rbp+source]\nmov     [rax+20h], rcx\nmov     rdi, [rbp+source]; source\ncall    vips_source_minimise\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 35,
+  "edges": [
+   [
+    "start",
+    "loc_14E1"
+   ],
+   [
+    "loc_14E1",
+    "loc_14E6"
+   ],
+   [
+    "loc_14E6",
+    "loc_14F3"
+   ],
+   [
+    "loc_14E6",
+    "loc_1517"
+   ],
+   [
+    "loc_1517",
+    "loc_151C"
+   ],
+   [
+    "loc_151C",
+    "loc_1521"
+   ],
+   [
+    "loc_1521",
+    "loc_1530"
+   ],
+   [
+    "loc_1521",
+    "loc_1554"
+   ],
+   [
+    "loc_1554",
+    "loc_1559"
+   ],
+   [
+    "loc_1559",
+    "loc_155E"
+   ],
+   [
+    "loc_155E",
+    "loc_156D"
+   ],
+   [
+    "loc_155E",
+    "loc_1591"
+   ],
+   [
+    "loc_1591",
+    "loc_1596"
+   ],
+   [
+    "loc_1596",
+    "loc_159B"
+   ],
+   [
+    "loc_159B",
+    "loc_15AA"
+   ],
+   [
+    "loc_159B",
+    "loc_15CE"
+   ],
+   [
+    "loc_15CE",
+    "loc_15D3"
+   ],
+   [
+    "loc_15D3",
+    "loc_15E5"
+   ],
+   [
+    "loc_15D3",
+    "loc_15F1"
+   ],
+   [
+    "loc_15E5",
+    "loc_172E"
+   ],
+   [
+    "loc_15F1",
+    "loc_1620"
+   ],
+   [
+    "loc_1620",
+    "loc_1632"
+   ],
+   [
+    "loc_1620",
+    "loc_16F9"
+   ],
+   [
+    "loc_1632",
+    "loc_165C"
+   ],
+   [
+    "loc_1632",
+    "loc_166A"
+   ],
+   [
+    "loc_165C",
+    "loc_167A"
+   ],
+   [
+    "loc_166A",
+    "loc_167A"
+   ],
+   [
+    "loc_167A",
+    "loc_169A"
+   ],
+   [
+    "loc_167A",
+    "loc_16CC"
+   ],
+   [
+    "loc_169A",
+    "loc_169F"
+   ],
+   [
+    "loc_169F",
+    "loc_16AA"
+   ],
+   [
+    "loc_169F",
+    "loc_16BB"
+   ],
+   [
+    "loc_16AA",
+    "loc_16BB"
+   ],
+   [
+    "loc_16BB",
+    "loc_16C0"
+   ],
+   [
+    "loc_16C0",
+    "loc_172E"
+   ],
+   [
+    "loc_16CC",
+    "loc_16D7"
+   ],
+   [
+    "loc_16CC",
+    "loc_16DC"
+   ],
+   [
+    "loc_16D7",
+    "loc_16F9"
+   ],
+   [
+    "loc_16DC",
+    "loc_1620"
+   ],
+   [
+    "loc_16F9",
+    "loc_172E"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 50h\nmov     [rbp+source], rdi\njmp     $+5",
+   "loc_14E1": "jmp     $+5",
+   "loc_14E6": "mov     rax, [rbp+source]\ncmp     dword ptr [rax], 0\njz      loc_1517",
+   "loc_14F3": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"assertion failed: %s\\n\"\nlea     rdx, aSourceIsPipe; \"!source->is_pipe\"\nmov     al, 0\ncall    fprintf\ncall    abort",
+   "loc_1517": "jmp     $+5",
+   "loc_151C": "jmp     $+5",
+   "loc_1521": "mov     rax, [rbp+source]\ncmp     qword ptr [rax+28h], 0\njz      loc_1554",
+   "loc_1530": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"assertion failed: %s\\n\"\nlea     rdx, aSourceBlob; \"!source->blob\"\nmov     al, 0\ncall    fprintf\ncall    abort",
+   "loc_1554": "jmp     $+5",
+   "loc_1559": "jmp     $+5",
+   "loc_155E": "mov     rax, [rbp+source]\ncmp     qword ptr [rax+20h], 0\njz      loc_1591",
+   "loc_156D": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"assertion failed: %s\\n\"\nlea     rdx, aSourceHeaderBy; \"!source->header_bytes\"\nmov     al, 0\ncall    fprintf\ncall    abort",
+   "loc_1591": "jmp     $+5",
+   "loc_1596": "jmp     $+5",
+   "loc_159B": "mov     rax, [rbp+source]\ncmp     qword ptr [rax+10h], 0\njge     loc_15CE",
+   "loc_15AA": "mov     rax, cs:stderr_ptr\nmov     rdi, [rax]; stream\nlea     rsi, format; \"assertion failed: %s\\n\"\nlea     rdx, aSourceLength0; \"source->length >= 0\"\nmov     al, 0\ncall    fprintf\ncall    abort",
+   "loc_15CE": "jmp     $+5",
+   "loc_15D3": "mov     rdi, [rbp+source]; source\ncall    vips_source_rewind\ncmp     eax, 0\njz      loc_15F1",
+   "loc_15E5": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_172E",
+   "loc_15F1": "call    g_byte_array_new\nmov     [rbp+byte_array], rax\nmov     rdi, [rbp+byte_array]; array\nmov     rax, [rbp+source]\nmov     rax, [rax+10h]\nmov     esi, eax; length\ncall    g_byte_array_set_size\nmov     [rbp+read_position], 0\nmov     rax, [rbp+byte_array]\nmov     rax, [rax]\nmov     [rbp+q], rax",
+   "loc_1620": "mov     rax, [rbp+read_position]\nmov     rcx, [rbp+source]\ncmp     rax, [rcx+10h]\njge     loc_16F9",
+   "loc_1632": "mov     rax, [rbp+source]\nmov     [rbp+var_40], rax\nmov     rax, [rbp+q]\nmov     [rbp+buffer], rax\nmov     rax, [rbp+source]\nmov     rcx, [rax+10h]\nsub     rcx, [rbp+read_position]\nmov     eax, 1000h\ncmp     rax, rcx\njle     loc_166A",
+   "loc_165C": "mov     eax, 1000h\nmov     [rbp+length], rax\njmp     loc_167A",
+   "loc_166A": "mov     rax, [rbp+source]\nmov     rax, [rax+10h]\nsub     rax, [rbp+read_position]\nmov     [rbp+length], rax",
+   "loc_167A": "mov     rsi, [rbp+buffer]; buffer\nmov     rdi, [rbp+var_40]; source\nmov     rdx, [rbp+length]; length\ncall    vips_source_read\nmov     [rbp+bytes_read], rax\ncmp     [rbp+bytes_read], 0FFFFFFFFFFFFFFFFh\njnz     loc_16CC",
+   "loc_169A": "jmp     $+5",
+   "loc_169F": "cmp     [rbp+byte_array], 0\njz      loc_16BB",
+   "loc_16AA": "mov     rdi, [rbp+byte_array]; array\ncall    g_byte_array_unref\nmov     [rbp+byte_array], 0",
+   "loc_16BB": "jmp     $+5",
+   "loc_16C0": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_172E",
+   "loc_16CC": "cmp     [rbp+bytes_read], 0\njnz     loc_16DC",
+   "loc_16D7": "jmp     loc_16F9",
+   "loc_16DC": "mov     rax, [rbp+bytes_read]\nadd     rax, [rbp+read_position]\nmov     [rbp+read_position], rax\nmov     rax, [rbp+bytes_read]\nadd     rax, [rbp+q]\nmov     [rbp+q], rax\njmp     loc_1620",
+   "loc_16F9": "mov     rax, [rbp+byte_array]\nmov     rcx, [rax]\nmov     rax, [rbp+source]\nmov     [rax+18h], rcx\nmov     rax, [rbp+source]\nmov     dword ptr [rax], 0\nmov     rcx, [rbp+byte_array]\nmov     rax, [rbp+source]\nmov     [rax+20h], rcx\nmov     rdi, [rbp+source]; source\ncall    vips_source_minimise\nmov     [rbp+var_4], 0",
+   "loc_172E": "mov     eax, [rbp+var_4]\nadd     rsp, 50h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "length": "qword ptr -48h",
+   "var_40": "qword ptr -40h",
+   "buffer": "qword ptr -38h",
+   "bytes_read": "qword ptr -30h",
+   "q": "qword ptr -28h",
+   "read_position": "qword ptr -20h",
+   "byte_array": "qword ptr -18h",
+   "source": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "format": "byte 'assertion failed: %s',0Ah,0",
+   "aSourceIsPipe": "byte '!source->is_pipe',0",
+   "aSourceBlob": "byte '!source->blob',0",
+   "aSourceHeaderBy": "byte '!source->header_bytes',0",
+   "aSourceLength0": "byte 'source->length >= 0',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5328,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".abort": "abort",
+  "_abort": "abort",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".abort",
+   ".plt",
+   true,
+   "abort"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "abort",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868454
+ }
+}

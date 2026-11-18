@@ -1,0 +1,1 @@
+void mtxLoadScale(float *mtx, float xscale, float yscale, float zscale) { mtx[0] = xscale; mtx[5] = yscale; mtx[10] = zscale; mtx[15] = 1.0f; mtx[1] = mtx[11] = mtx[12] = mtx[13] = mtx[14] = mtx[16] = mtx[17] = mtx[8] = 0.0f; }

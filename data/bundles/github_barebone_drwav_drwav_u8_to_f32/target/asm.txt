@@ -1,0 +1,41 @@
+000000000000b050 <drwav_u8_to_f32>:
+    b050:	push   %rbp
+    b051:	mov    %rsp,%rbp
+    b054:	mov    %rdi,-0x8(%rbp)
+    b058:	mov    %rsi,-0x10(%rbp)
+    b05c:	mov    %rdx,-0x18(%rbp)
+    b060:	cmpq   $0x0,-0x8(%rbp)
+    b065:	je     b076 <drwav_u8_to_f32+0x26>
+    b06b:	cmpq   $0x0,-0x10(%rbp)
+    b070:	jne    b07b <drwav_u8_to_f32+0x2b>
+    b076:	jmp    b0f7 <drwav_u8_to_f32+0xa7>
+    b07b:	movq   $0x0,-0x20(%rbp)
+    b083:	mov    -0x20(%rbp),%rax
+    b087:	cmp    -0x18(%rbp),%rax
+    b08b:	jae    b0f7 <drwav_u8_to_f32+0xa7>
+    b091:	mov    -0x10(%rbp),%rax
+    b095:	mov    -0x20(%rbp),%rcx
+    b099:	movzbl (%rax,%rcx,1),%eax
+    b09d:	cvtsi2ss %eax,%xmm0
+    b0a1:	movss  %xmm0,-0x24(%rbp)
+    b0a6:	movss  0x8fde(%rip),%xmm0        # 1408c <_IO_stdin_used+0x8c>
+    b0ae:	mulss  -0x24(%rbp),%xmm0
+    b0b3:	movss  %xmm0,-0x24(%rbp)
+    b0b8:	movss  -0x24(%rbp),%xmm0
+    b0bd:	movss  0x8fbf(%rip),%xmm1        # 14084 <_IO_stdin_used+0x84>
+    b0c5:	subss  %xmm1,%xmm0
+    b0c9:	movss  %xmm0,-0x24(%rbp)
+    b0ce:	movss  -0x24(%rbp),%xmm0
+    b0d3:	mov    -0x8(%rbp),%rax
+    b0d7:	mov    %rax,%rcx
+    b0da:	add    $0x4,%rcx
+    b0de:	mov    %rcx,-0x8(%rbp)
+    b0e2:	movss  %xmm0,(%rax)
+    b0e6:	mov    -0x20(%rbp),%rax
+    b0ea:	add    $0x1,%rax
+    b0ee:	mov    %rax,-0x20(%rbp)
+    b0f2:	jmp    b083 <drwav_u8_to_f32+0x33>
+    b0f7:	pop    %rbp
+    b0f8:	ret
+
+Disassembly of section .fini:

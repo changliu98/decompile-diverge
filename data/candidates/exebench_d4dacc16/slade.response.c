@@ -1,0 +1,1 @@
+void findMinMax(data_t *array, data_t *min, data_t *max) { for (int i = 1; i < 5; i++) { if (array[i] < *min) *min = array[i]; if (array[i] > *max) *max = array[i]; } return ; }

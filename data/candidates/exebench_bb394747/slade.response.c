@@ -1,0 +1,1 @@
+int get_hashmask(int *b) { int m = 1; while (*b > m) m <<= 1; *b = m; return m - 1; }

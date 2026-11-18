@@ -1,0 +1,1 @@
+void xf_AppWindowDestroyImage(Xf_AppContext *ctx) { if (ctx->ximage != NULL) { ctx->ximage->display = NULL; XDestroyImage(ctx->ximage); ctx->ximage = NULL; } }

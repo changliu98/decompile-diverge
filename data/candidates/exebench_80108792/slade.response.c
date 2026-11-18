@@ -1,0 +1,1 @@
+void bitmap_free(uint32_t *bitmap, int idx) { bitmap[idx / 32] &= ~(0x1f >> (idx % 32)); }

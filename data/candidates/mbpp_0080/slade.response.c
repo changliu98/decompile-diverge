@@ -1,0 +1,1 @@
+double func0(int32 x) { return (x * (x + 1) * (x + 2)) / 2; }

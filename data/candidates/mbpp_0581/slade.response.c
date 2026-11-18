@@ -1,0 +1,1 @@
+int func0(int x, int y) { return (x * y * 2) + pow((double) x, 2.0); }

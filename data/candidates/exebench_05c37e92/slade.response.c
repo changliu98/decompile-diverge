@@ -1,0 +1,1 @@
+void put_user_long(long arg, void *buffer) { *((user_ptr) buffer) = arg; }

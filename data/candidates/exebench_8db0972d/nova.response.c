@@ -1,0 +1,1 @@
+float SumAFloatArray(const struct vec2 *v) { return v->x + v->y; }

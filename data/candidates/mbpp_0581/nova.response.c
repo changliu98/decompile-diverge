@@ -1,0 +1,1 @@
+int func0(int n, int k) { return 2 * n * k + pow(2, n); }

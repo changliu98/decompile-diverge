@@ -1,0 +1,1 @@
+double readDummyArray(double* array, size_t length) { size_t i, n = length / sizeof(double); double sum = 0; for (i = 0; i < n; i++) sum += array[i]; array[0] = sum / n; return sum; }

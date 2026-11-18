@@ -1,0 +1,1 @@
+char *strcpy2( char *d, char *s ) { char *save = d; int c; do { c = *d++ = *s++; } while( c != 0 ); return save; }

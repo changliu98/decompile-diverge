@@ -1,0 +1,3 @@
+float func0(float l, float b, float h) {
+ return (l*b*h)/2;
+}

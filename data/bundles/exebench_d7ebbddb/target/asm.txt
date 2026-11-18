@@ -1,0 +1,38 @@
+00000000000011e0 <raw_relu_bulk_apply_function>:
+    11e0:	push   %rbp
+    11e1:	mov    %rsp,%rbp
+    11e4:	mov    %edi,-0x4(%rbp)
+    11e7:	mov    %rsi,-0x10(%rbp)
+    11eb:	movl   $0x0,-0x14(%rbp)
+    11f2:	mov    -0x14(%rbp),%eax
+    11f5:	cmp    -0x4(%rbp),%eax
+    11f8:	jge    1268 <raw_relu_bulk_apply_function+0x88>
+    11fe:	mov    -0x10(%rbp),%rax
+    1202:	movslq -0x14(%rbp),%rcx
+    1206:	movss  (%rax,%rcx,4),%xmm0
+    120b:	cvtss2sd %xmm0,%xmm0
+    120f:	xorps  %xmm1,%xmm1
+    1212:	ucomisd %xmm1,%xmm0
+    1216:	jbe    1237 <raw_relu_bulk_apply_function+0x57>
+    121c:	mov    -0x10(%rbp),%rax
+    1220:	movslq -0x14(%rbp),%rcx
+    1224:	movss  (%rax,%rcx,4),%xmm0
+    1229:	cvtss2sd %xmm0,%xmm0
+    122d:	movsd  %xmm0,-0x20(%rbp)
+    1232:	jmp    1244 <raw_relu_bulk_apply_function+0x64>
+    1237:	xorps  %xmm0,%xmm0
+    123a:	movsd  %xmm0,-0x20(%rbp)
+    123f:	jmp    1244 <raw_relu_bulk_apply_function+0x64>
+    1244:	movsd  -0x20(%rbp),%xmm0
+    1249:	cvtsd2ss %xmm0,%xmm0
+    124d:	mov    -0x10(%rbp),%rax
+    1251:	movslq -0x14(%rbp),%rcx
+    1255:	movss  %xmm0,(%rax,%rcx,4)
+    125a:	mov    -0x14(%rbp),%eax
+    125d:	add    $0x1,%eax
+    1260:	mov    %eax,-0x14(%rbp)
+    1263:	jmp    11f2 <raw_relu_bulk_apply_function+0x12>
+    1268:	pop    %rbp
+    1269:	ret
+
+Disassembly of section .fini:

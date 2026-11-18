@@ -1,0 +1,1 @@
+unsigned char *scnline(int y, unsigned char *p, int c) { int n = 8; while (--n) { y <<= 1; *p++ = (y &0x80) ? c : ' '; } return p; }

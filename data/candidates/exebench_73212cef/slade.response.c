@@ -1,0 +1,1 @@
+int sendline(int fd, char *ptr, int size) { write(fd, ptr, size); return size; }

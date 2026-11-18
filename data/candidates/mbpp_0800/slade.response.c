@@ -1,0 +1,1 @@
+void func0(signed char *in, signed char *out) { int i = 0; int j = 0; while (in[i] != 0) { if ((__ctype_b_loc()->Ptr[(int) in[i]] &0x2000) == 0) { out[j++] = in[i]; } i++; } out[j] = 0; }

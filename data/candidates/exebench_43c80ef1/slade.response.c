@@ -1,0 +1,1 @@
+void IndexToData(uint8_t *data, uint8_t *index, uint8_t indexed) { *index = indexed &0x03; *data = indexed >> 2; }

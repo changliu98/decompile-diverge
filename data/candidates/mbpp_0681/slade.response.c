@@ -1,0 +1,1 @@
+int func0(int x) { int i; if (x % 2 == 0) return 2; for (i = 3; i * i <= x; i += 2) { if (x % i == 0) return i; } return x; }

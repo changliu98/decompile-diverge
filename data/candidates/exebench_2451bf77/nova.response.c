@@ -1,0 +1,1 @@
+void spin_unlock(int *p) { *p = 0; }

@@ -1,0 +1,1 @@
+INT func0(INT x) { return x * x; }

@@ -1,0 +1,1 @@
+float get_near_num(const float num, const float *i, float *p) { if (i < p) { *p = *i; return num; } }

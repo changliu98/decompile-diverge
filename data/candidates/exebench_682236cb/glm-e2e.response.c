@@ -1,0 +1,20 @@
+int RGB8toBGR32(
+    void *arg1, 
+    int arg2, 
+    int arg3, 
+    int arg4, 
+    int arg5, 
+    int arg6, 
+    long arg7, 
+    long arg8, 
+    long arg9, 
+    long arg10, 
+    long arg11, 
+    long arg12, 
+    long arg13, 
+    long arg14, 
+    long arg15, 
+    long arg16
+) {
+    return -1;
+}

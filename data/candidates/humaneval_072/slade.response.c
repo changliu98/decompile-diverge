@@ -1,0 +1,1 @@
+unsigned char func0(int *x, int n, int m) { int sum = 0; for (int i = 0; i < n/2; i++) { if (x[i] != x[n-1-i]) return 0; sum += x[i] + x[n-1-i]; } if (n%2 == 1) sum += x[n/2]; return sum <= m ? 1 : 0; }

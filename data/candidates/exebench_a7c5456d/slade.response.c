@@ -1,0 +1,1 @@
+long atomic_fetch_add(long *p, long delta) { long r = *p; *p += delta; return r; }

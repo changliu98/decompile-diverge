@@ -1,0 +1,1 @@
+int cond_read_lock(int *lock) { int rc; if (*lock >= 0) { *lock = *lock + 1; rc = 1; } else { rc = 0; } return rc; }

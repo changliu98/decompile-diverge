@@ -1,0 +1,107 @@
+00000000000011e0 <itoa>:
+    11e0:	push   %rbp
+    11e1:	mov    %rsp,%rbp
+    11e4:	sub    $0x70,%rsp
+    11e8:	mov    %edi,-0xc(%rbp)
+    11eb:	mov    %rsi,-0x18(%rbp)
+    11ef:	mov    %edx,-0x1c(%rbp)
+    11f2:	lea    -0x50(%rbp),%rdi
+    11f6:	lea    0xe13(%rip),%rsi        # 2010 <_IO_stdin_used+0x10>
+    11fd:	mov    $0x25,%edx
+    1202:	call   1080 <memcpy@plt>
+    1207:	mov    -0x18(%rbp),%rax
+    120b:	mov    %rax,-0x58(%rbp)
+    120f:	mov    -0x18(%rbp),%rax
+    1213:	mov    %rax,-0x60(%rbp)
+    1217:	cmpq   $0x0,-0x58(%rbp)
+    121c:	je     1236 <itoa+0x56>
+    1222:	cmpl   $0x2,-0x1c(%rbp)
+    1226:	jl     1236 <itoa+0x56>
+    122c:	cmpl   $0x24,-0x1c(%rbp)
+    1230:	jle    1243 <itoa+0x63>
+    1236:	mov    -0x58(%rbp),%rax
+    123a:	mov    %rax,-0x8(%rbp)
+    123e:	jmp    1365 <itoa+0x185>
+    1243:	cmpl   $0xa,-0x1c(%rbp)
+    1247:	je     1264 <itoa+0x84>
+    124d:	cmpl   $0x0,-0xc(%rbp)
+    1251:	jge    1264 <itoa+0x84>
+    1257:	mov    -0x58(%rbp),%rax
+    125b:	mov    %rax,-0x8(%rbp)
+    125f:	jmp    1365 <itoa+0x185>
+    1264:	cmpl   $0x0,-0xc(%rbp)
+    1268:	jne    1294 <itoa+0xb4>
+    126e:	mov    -0x58(%rbp),%rax
+    1272:	mov    %rax,%rcx
+    1275:	add    $0x1,%rcx
+    1279:	mov    %rcx,-0x58(%rbp)
+    127d:	movb   $0x30,(%rax)
+    1280:	mov    -0x58(%rbp),%rax
+    1284:	movb   $0x0,(%rax)
+    1287:	mov    -0x58(%rbp),%rax
+    128b:	mov    %rax,-0x8(%rbp)
+    128f:	jmp    1365 <itoa+0x185>
+    1294:	cmpl   $0xa,-0x1c(%rbp)
+    1298:	jne    12c2 <itoa+0xe2>
+    129e:	cmpl   $0x0,-0xc(%rbp)
+    12a2:	jge    12c2 <itoa+0xe2>
+    12a8:	mov    -0x58(%rbp),%rax
+    12ac:	mov    %rax,%rcx
+    12af:	add    $0x1,%rcx
+    12b3:	mov    %rcx,-0x58(%rbp)
+    12b7:	movb   $0x2d,(%rax)
+    12ba:	xor    %eax,%eax
+    12bc:	sub    -0xc(%rbp),%eax
+    12bf:	mov    %eax,-0xc(%rbp)
+    12c2:	jmp    12c7 <itoa+0xe7>
+    12c7:	cmpl   $0x0,-0xc(%rbp)
+    12cb:	je     1301 <itoa+0x121>
+    12d1:	mov    -0xc(%rbp),%eax
+    12d4:	cltd
+    12d5:	idivl  -0x1c(%rbp)
+    12d8:	movslq %edx,%rax
+    12db:	mov    -0x50(%rbp,%rax,1),%cl
+    12df:	mov    -0x58(%rbp),%rax
+    12e3:	mov    %rax,%rdx
+    12e6:	add    $0x1,%rdx
+    12ea:	mov    %rdx,-0x58(%rbp)
+    12ee:	mov    %cl,(%rax)
+    12f0:	mov    -0x1c(%rbp),%ecx
+    12f3:	mov    -0xc(%rbp),%eax
+    12f6:	cltd
+    12f7:	idiv   %ecx
+    12f9:	mov    %eax,-0xc(%rbp)
+    12fc:	jmp    12c7 <itoa+0xe7>
+    1301:	mov    -0x58(%rbp),%rax
+    1305:	movb   $0x0,(%rax)
+    1308:	mov    -0x58(%rbp),%rax
+    130c:	add    $0xffffffffffffffff,%rax
+    1310:	mov    %rax,-0x58(%rbp)
+    1314:	mov    -0x60(%rbp),%rax
+    1318:	cmp    -0x58(%rbp),%rax
+    131c:	jae    135d <itoa+0x17d>
+    1322:	mov    -0x60(%rbp),%rax
+    1326:	mov    (%rax),%al
+    1328:	mov    %al,-0x61(%rbp)
+    132b:	mov    -0x58(%rbp),%rax
+    132f:	mov    (%rax),%cl
+    1331:	mov    -0x60(%rbp),%rax
+    1335:	mov    %cl,(%rax)
+    1337:	mov    -0x61(%rbp),%cl
+    133a:	mov    -0x58(%rbp),%rax
+    133e:	mov    %cl,(%rax)
+    1340:	mov    -0x60(%rbp),%rax
+    1344:	add    $0x1,%rax
+    1348:	mov    %rax,-0x60(%rbp)
+    134c:	mov    -0x58(%rbp),%rax
+    1350:	add    $0xffffffffffffffff,%rax
+    1354:	mov    %rax,-0x58(%rbp)
+    1358:	jmp    1314 <itoa+0x134>
+    135d:	mov    -0x18(%rbp),%rax
+    1361:	mov    %rax,-0x8(%rbp)
+    1365:	mov    -0x8(%rbp),%rax
+    1369:	add    $0x70,%rsp
+    136d:	pop    %rbp
+    136e:	ret
+
+Disassembly of section .fini:

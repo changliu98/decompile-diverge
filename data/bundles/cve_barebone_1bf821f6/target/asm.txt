@@ -1,0 +1,48 @@
+00000000000011e0 <rdpsnd_virtual_channel_event_terminated>:
+    11e0:	push   %rbp
+    11e1:	mov    %rsp,%rbp
+    11e4:	sub    $0x10,%rsp
+    11e8:	mov    %rdi,-0x8(%rbp)
+    11ec:	cmpq   $0x0,-0x8(%rbp)
+    11f1:	je     1291 <rdpsnd_virtual_channel_event_terminated+0xb1>
+    11f7:	mov    -0x8(%rbp),%rax
+    11fb:	cmpq   $0x0,0x38(%rax)
+    1200:	je     1215 <rdpsnd_virtual_channel_event_terminated+0x35>
+    1206:	mov    -0x8(%rbp),%rax
+    120a:	mov    0x38(%rax),%rdi
+    120e:	xor    %esi,%esi
+    1210:	call   12a0 <MessageQueue_PostQuit>
+    1215:	mov    -0x8(%rbp),%rax
+    1219:	cmpq   $0x0,0x30(%rax)
+    121e:	je     1243 <rdpsnd_virtual_channel_event_terminated+0x63>
+    1224:	mov    -0x8(%rbp),%rax
+    1228:	mov    0x30(%rax),%rdi
+    122c:	mov    $0xffffffff,%esi
+    1231:	call   12c0 <WaitForSingleObject>
+    1236:	mov    -0x8(%rbp),%rax
+    123a:	mov    0x30(%rax),%rdi
+    123e:	call   12d0 <CloseHandle>
+    1243:	mov    -0x8(%rbp),%rax
+    1247:	mov    0x38(%rax),%rdi
+    124b:	call   1300 <MessageQueue_Free>
+    1250:	mov    -0x8(%rbp),%rdi
+    1254:	call   1330 <free_internals>
+    1259:	mov    -0x8(%rbp),%rax
+    125d:	mov    0x10(%rax),%rdi
+    1261:	mov    $0x1,%esi
+    1266:	call   13c0 <audio_formats_free>
+    126b:	mov    -0x8(%rbp),%rax
+    126f:	mov    0x18(%rax),%rdi
+    1273:	call   1030 <free@plt>
+    1278:	mov    -0x8(%rbp),%rax
+    127c:	mov    0x20(%rax),%rdi
+    1280:	call   1030 <free@plt>
+    1285:	mov    -0x8(%rbp),%rax
+    1289:	movq   $0x0,0x8(%rax)
+    1291:	mov    -0x8(%rbp),%rdi
+    1295:	call   1030 <free@plt>
+    129a:	add    $0x10,%rsp
+    129e:	pop    %rbp
+    129f:	ret
+
+Disassembly of section .fini:

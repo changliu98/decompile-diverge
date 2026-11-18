@@ -1,0 +1,167 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <stdio.h>\n\n#include <stdlib.h>\n\n#include <string.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_56x9hfwbup.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(unsigned char Src1, unsigned char Src2, unsigned char Dest, unsigned int SrcLength, int returnv) {\n  json output_json;\n\n  output_json[\"Src1\"] = Src1;\n\n  output_json[\"Src2\"] = Src2;\n\n  output_json[\"Dest\"] = Dest;\n\n  output_json[\"returnv\"] = returnv;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  unsigned char Src1 = input_json[\"Src1\"];\n  unsigned char Src2 = input_json[\"Src2\"];\n  unsigned char Dest = input_json[\"Dest\"];\n  unsigned int SrcLength = input_json[\"SrcLength\"];\n  clock_t begin = clock();\n  int returnv = SDL_imageFilterBitOrMMX(Src1, Src2, Dest, SrcLength);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(Src1, Src2, Dest, SrcLength, returnv);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "Src1": 659,
+    "Src2": 689,
+    "Dest": 589,
+    "SrcLength": 78
+   },
+   "output": {
+    "Dest": 77,
+    "Src1": 147,
+    "Src2": 177,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "Src1": 230,
+    "Src2": 468,
+    "Dest": 216,
+    "SrcLength": 870
+   },
+   "output": {
+    "Dest": 216,
+    "Src1": 230,
+    "Src2": 212,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "Src1": 924,
+    "Src2": 49,
+    "Dest": 533,
+    "SrcLength": 636
+   },
+   "output": {
+    "Dest": 21,
+    "Src1": 156,
+    "Src2": 49,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "Src1": 646,
+    "Src2": 89,
+    "Dest": 765,
+    "SrcLength": 57
+   },
+   "output": {
+    "Dest": 253,
+    "Src1": 134,
+    "Src2": 89,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "Src1": 852,
+    "Src2": 330,
+    "Dest": 645,
+    "SrcLength": 838
+   },
+   "output": {
+    "Dest": 133,
+    "Src1": 84,
+    "Src2": 74,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "Src1": 561,
+    "Src2": 350,
+    "Dest": 707,
+    "SrcLength": 744
+   },
+   "output": {
+    "Dest": 195,
+    "Src1": 49,
+    "Src2": 94,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "Src1": 651,
+    "Src2": 225,
+    "Dest": 142,
+    "SrcLength": 256
+   },
+   "output": {
+    "Dest": 142,
+    "Src1": 139,
+    "Src2": 225,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "Src1": 447,
+    "Src2": 274,
+    "Dest": 853,
+    "SrcLength": 870
+   },
+   "output": {
+    "Dest": 85,
+    "Src1": 191,
+    "Src2": 18,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "Src1": 575,
+    "Src2": 41,
+    "Dest": 251,
+    "SrcLength": 89
+   },
+   "output": {
+    "Dest": 251,
+    "Src1": 63,
+    "Src2": 41,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "Src1": 170,
+    "Src2": 802,
+    "Dest": 349,
+    "SrcLength": 198
+   },
+   "output": {
+    "Dest": 93,
+    "Src1": 170,
+    "Src2": 34,
+    "returnv": -1
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

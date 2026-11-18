@@ -1,0 +1,1 @@
+void SN_set_residual(double *buf, double residual) { buf[1] = residual; }

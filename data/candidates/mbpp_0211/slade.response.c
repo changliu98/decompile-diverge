@@ -1,0 +1,1 @@
+int func0(int x) { int y; if (x == 1) return 1; y = (int)pow(2.0, (double)(x-2)); return y; }

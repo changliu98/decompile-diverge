@@ -1,0 +1,1 @@
+void quant_u_dec(int32_t value, float *ptr, float are, float x, int32_t high) { *ptr = are + (x - are) / (float)(high - 1) * value; }

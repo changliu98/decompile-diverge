@@ -1,0 +1,42 @@
+0000000000001580 <mat3mulv>:
+    1580:	push   %rbp
+    1581:	mov    %rsp,%rbp
+    1584:	mov    %rdi,-0x8(%rbp)
+    1588:	mov    %rsi,-0x10(%rbp)
+    158c:	mov    %rdx,-0x18(%rbp)
+    1590:	movl   $0x0,-0x1c(%rbp)
+    1597:	cmpl   $0x3,-0x1c(%rbp)
+    159b:	jge    161a <mat3mulv+0x9a>
+    15a1:	xorps  %xmm0,%xmm0
+    15a4:	movss  %xmm0,-0x20(%rbp)
+    15a9:	movl   $0x0,-0x24(%rbp)
+    15b0:	cmpl   $0x3,-0x24(%rbp)
+    15b4:	jge    15fa <mat3mulv+0x7a>
+    15ba:	mov    -0x10(%rbp),%rax
+    15be:	imul   $0x3,-0x1c(%rbp),%ecx
+    15c2:	add    -0x24(%rbp),%ecx
+    15c5:	movslq %ecx,%rcx
+    15c8:	movss  (%rax,%rcx,4),%xmm0
+    15cd:	mov    -0x18(%rbp),%rax
+    15d1:	movslq -0x24(%rbp),%rcx
+    15d5:	movss  (%rax,%rcx,4),%xmm2
+    15da:	movss  -0x20(%rbp),%xmm1
+    15df:	mulss  %xmm2,%xmm0
+    15e3:	addss  %xmm1,%xmm0
+    15e7:	movss  %xmm0,-0x20(%rbp)
+    15ec:	mov    -0x24(%rbp),%eax
+    15ef:	add    $0x1,%eax
+    15f2:	mov    %eax,-0x24(%rbp)
+    15f5:	jmp    15b0 <mat3mulv+0x30>
+    15fa:	movss  -0x20(%rbp),%xmm0
+    15ff:	mov    -0x8(%rbp),%rax
+    1603:	movslq -0x1c(%rbp),%rcx
+    1607:	movss  %xmm0,(%rax,%rcx,4)
+    160c:	mov    -0x1c(%rbp),%eax
+    160f:	add    $0x1,%eax
+    1612:	mov    %eax,-0x1c(%rbp)
+    1615:	jmp    1597 <mat3mulv+0x17>
+    161a:	pop    %rbp
+    161b:	ret
+
+Disassembly of section .fini:

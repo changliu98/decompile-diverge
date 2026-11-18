@@ -1,0 +1,387 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <stdio.h>\n\n#include <stddef.h>\n\n#include <assert.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_62vm2e36ow.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(long int* address, long int* address_double, long int* PS) {\n  json output_json;\n  std::vector<json> output_temp_4;\n  for (unsigned int i5 = 0; i5 < 3; i5++) {\n    long int output_temp_6 = address[i5];\n\n    output_temp_4.push_back(output_temp_6);\n  }\n  output_json[\"address\"] = output_temp_4;\n  std::vector<json> output_temp_7;\n  for (unsigned int i8 = 0; i8 < 3; i8++) {\n    long int output_temp_9 = address_double[i8];\n\n    output_temp_7.push_back(output_temp_9);\n  }\n  output_json[\"address_double\"] = output_temp_7;\n  std::vector<json> output_temp_10;\n  for (unsigned int i11 = 0; i11 < 3; i11++) {\n    long int output_temp_12 = PS[i11];\n\n    output_temp_10.push_back(output_temp_12);\n  }\n  output_json[\"PS\"] = output_temp_10;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  std::vector<long int> input_temp_1_vec;\n  for (auto& elem : input_json[\"address\"]) {\n    long int input_temp_1_inner = elem;\n    input_temp_1_vec.push_back(input_temp_1_inner);\n  }\n  long int* address = &input_temp_1_vec[0];\n  std::vector<long int> input_temp_2_vec;\n  for (auto& elem : input_json[\"address_double\"]) {\n    long int input_temp_2_inner = elem;\n    input_temp_2_vec.push_back(input_temp_2_inner);\n  }\n  long int* address_double = &input_temp_2_vec[0];\n  std::vector<long int> input_temp_3_vec;\n  for (auto& elem : input_json[\"PS\"]) {\n    long int input_temp_3_inner = elem;\n    input_temp_3_vec.push_back(input_temp_3_inner);\n  }\n  long int* PS = &input_temp_3_vec[0];\n  clock_t begin = clock();\n  get_grid_address(address, address_double, PS);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(address, address_double, PS);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "address": [
+     78,
+     21,
+     19
+    ],
+    "address_double": [
+     18,
+     16,
+     122
+    ],
+    "PS": [
+     29,
+     97,
+     53
+    ]
+   },
+   "output": {
+    "PS": [
+     29,
+     97,
+     53
+    ],
+    "address": [
+     -5,
+     -40,
+     34
+    ],
+    "address_double": [
+     18,
+     16,
+     122
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "address": [
+     47,
+     58,
+     80
+    ],
+    "address_double": [
+     98,
+     105,
+     106
+    ],
+    "PS": [
+     82,
+     23,
+     74
+    ]
+   },
+   "output": {
+    "PS": [
+     82,
+     23,
+     74
+    ],
+    "address": [
+     8,
+     41,
+     16
+    ],
+    "address_double": [
+     98,
+     105,
+     106
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "address": [
+     0,
+     100,
+     79
+    ],
+    "address_double": [
+     92,
+     119,
+     106
+    ],
+    "PS": [
+     12,
+     69,
+     22
+    ]
+   },
+   "output": {
+    "PS": [
+     12,
+     69,
+     22
+    ],
+    "address": [
+     40,
+     25,
+     42
+    ],
+    "address_double": [
+     92,
+     119,
+     106
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "address": [
+     108,
+     15,
+     37
+    ],
+    "address_double": [
+     36,
+     59,
+     75
+    ],
+    "PS": [
+     58,
+     107,
+     22
+    ]
+   },
+   "output": {
+    "PS": [
+     58,
+     107,
+     22
+    ],
+    "address": [
+     -11,
+     -24,
+     26
+    ],
+    "address_double": [
+     36,
+     59,
+     75
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "address": [
+     21,
+     41,
+     124
+    ],
+    "address_double": [
+     14,
+     48,
+     123
+    ],
+    "PS": [
+     30,
+     95,
+     74
+    ]
+   },
+   "output": {
+    "PS": [
+     30,
+     95,
+     74
+    ],
+    "address": [
+     -8,
+     -23,
+     24
+    ],
+    "address_double": [
+     14,
+     48,
+     123
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "address": [
+     125,
+     55,
+     5
+    ],
+    "address_double": [
+     67,
+     103,
+     4
+    ],
+    "PS": [
+     112,
+     117,
+     99
+    ]
+   },
+   "output": {
+    "PS": [
+     112,
+     117,
+     99
+    ],
+    "address": [
+     -22,
+     -7,
+     -47
+    ],
+    "address_double": [
+     67,
+     103,
+     4
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "address": [
+     114,
+     60,
+     114
+    ],
+    "address_double": [
+     95,
+     20,
+     107
+    ],
+    "PS": [
+     17,
+     99,
+     102
+    ]
+   },
+   "output": {
+    "PS": [
+     17,
+     99,
+     102
+    ],
+    "address": [
+     39,
+     -39,
+     2
+    ],
+    "address_double": [
+     95,
+     20,
+     107
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "address": [
+     65,
+     17,
+     37
+    ],
+    "address_double": [
+     1,
+     77,
+     45
+    ],
+    "PS": [
+     71,
+     115,
+     77
+    ]
+   },
+   "output": {
+    "PS": [
+     71,
+     115,
+     77
+    ],
+    "address": [
+     -35,
+     -19,
+     -16
+    ],
+    "address_double": [
+     1,
+     77,
+     45
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "address": [
+     69,
+     118,
+     2
+    ],
+    "address_double": [
+     6,
+     36,
+     15
+    ],
+    "PS": [
+     5,
+     63,
+     81
+    ]
+   },
+   "output": {
+    "PS": [
+     5,
+     63,
+     81
+    ],
+    "address": [
+     0,
+     -13,
+     -33
+    ],
+    "address_double": [
+     6,
+     36,
+     15
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "address": [
+     93,
+     58,
+     98
+    ],
+    "address_double": [
+     95,
+     27,
+     74
+    ],
+    "PS": [
+     116,
+     13,
+     49
+    ]
+   },
+   "output": {
+    "PS": [
+     116,
+     13,
+     49
+    ],
+    "address": [
+     -10,
+     7,
+     12
+    ],
+    "address_double": [
+     95,
+     27,
+     74
+    ]
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

@@ -1,0 +1,61 @@
+void sse_dot4(float *v1x4,float *v2x4,float *results)
+
+{
+  float fVar1;
+  float fVar2;
+  float fVar3;
+  float fVar4;
+  float fVar5;
+  float fVar6;
+  float fVar7;
+  float fVar8;
+  float fVar9;
+  float fVar10;
+  float fVar11;
+  float fVar12;
+  float fVar13;
+  float fVar14;
+  float fVar15;
+  float fVar16;
+  float fVar17;
+  float fVar18;
+  float fVar19;
+  float fVar20;
+  float fVar21;
+  float fVar22;
+  float fVar23;
+  float fVar24;
+  float *results_local;
+  float *v2x4_local;
+  float *v1x4_local;
+  
+  fVar1 = v1x4[4];
+  fVar2 = v1x4[5];
+  fVar3 = v1x4[6];
+  fVar4 = v1x4[7];
+  fVar5 = v1x4[8];
+  fVar6 = v1x4[9];
+  fVar7 = v1x4[10];
+  fVar8 = v1x4[0xb];
+  fVar9 = v1x4[0xc];
+  fVar10 = v1x4[0xd];
+  fVar11 = v1x4[0xe];
+  fVar12 = v1x4[0xf];
+  fVar13 = v2x4[4];
+  fVar14 = v2x4[5];
+  fVar15 = v2x4[6];
+  fVar16 = v2x4[7];
+  fVar17 = v2x4[8];
+  fVar18 = v2x4[9];
+  fVar19 = v2x4[10];
+  fVar20 = v2x4[0xb];
+  fVar21 = v2x4[0xc];
+  fVar22 = v2x4[0xd];
+  fVar23 = v2x4[0xe];
+  fVar24 = v2x4[0xf];
+  *results = *v1x4 * *v2x4 + v1x4[2] * v2x4[2] + v1x4[1] * v2x4[1] + v1x4[3] * v2x4[3];
+  results[1] = fVar1 * fVar13 + fVar3 * fVar15 + fVar2 * fVar14 + fVar4 * fVar16;
+  results[2] = fVar5 * fVar17 + fVar7 * fVar19 + fVar6 * fVar18 + fVar8 * fVar20;
+  results[3] = fVar9 * fVar21 + fVar11 * fVar23 + fVar10 * fVar22 + fVar12 * fVar24;
+  return;
+}

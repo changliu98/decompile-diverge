@@ -1,0 +1,1 @@
+long ff_atomic_dec_long(volatile long *ptr) { return -ptr; }

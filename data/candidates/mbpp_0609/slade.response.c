@@ -1,0 +1,1 @@
+__attribute__((no, noclone))  int func0(int a, int b, int c) { int x = ((b - 1) > (c) ? (b - 1) : (c)); return a * x / b; }

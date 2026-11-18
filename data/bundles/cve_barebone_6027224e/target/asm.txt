@@ -1,0 +1,86 @@
+0000000000001220 <shift_line>:
+    1220:	push   %rbp
+    1221:	mov    %rsp,%rbp
+    1224:	sub    $0x20,%rsp
+    1228:	mov    %edi,-0x4(%rbp)
+    122b:	mov    %esi,-0x8(%rbp)
+    122e:	mov    %edx,-0xc(%rbp)
+    1231:	mov    %ecx,-0x10(%rbp)
+    1234:	mov    0x2e4d(%rip),%rdi        # 4088 <curbuf>
+    123b:	call   11d0 <get_sw_value_indent>
+    1240:	mov    %eax,-0x20(%rbp)
+    1243:	call   11e0 <get_indent>
+    1248:	mov    %eax,-0x14(%rbp)
+    124b:	cmpl   $0x0,-0x8(%rbp)
+    124f:	je     12c9 <shift_line+0xa9>
+    1255:	mov    -0x14(%rbp),%eax
+    1258:	cltd
+    1259:	idivl  -0x20(%rbp)
+    125c:	mov    %eax,-0x18(%rbp)
+    125f:	mov    -0x14(%rbp),%eax
+    1262:	cltd
+    1263:	idivl  -0x20(%rbp)
+    1266:	mov    %edx,-0x1c(%rbp)
+    1269:	cmpl   $0x0,-0x1c(%rbp)
+    126d:	je     1286 <shift_line+0x66>
+    1273:	cmpl   $0x0,-0x4(%rbp)
+    1277:	je     1286 <shift_line+0x66>
+    127d:	mov    -0xc(%rbp),%eax
+    1280:	add    $0xffffffff,%eax
+    1283:	mov    %eax,-0xc(%rbp)
+    1286:	cmpl   $0x0,-0x4(%rbp)
+    128a:	je     12b1 <shift_line+0x91>
+    1290:	mov    -0xc(%rbp),%ecx
+    1293:	mov    -0x18(%rbp),%eax
+    1296:	sub    %ecx,%eax
+    1298:	mov    %eax,-0x18(%rbp)
+    129b:	cmpl   $0x0,-0x18(%rbp)
+    129f:	jge    12ac <shift_line+0x8c>
+    12a5:	movl   $0x0,-0x18(%rbp)
+    12ac:	jmp    12ba <shift_line+0x9a>
+    12b1:	mov    -0xc(%rbp),%eax
+    12b4:	add    -0x18(%rbp),%eax
+    12b7:	mov    %eax,-0x18(%rbp)
+    12ba:	mov    -0x18(%rbp),%eax
+    12bd:	imul   -0x20(%rbp),%eax
+    12c1:	mov    %eax,-0x14(%rbp)
+    12c4:	jmp    130a <shift_line+0xea>
+    12c9:	cmpl   $0x0,-0x4(%rbp)
+    12cd:	je     12f8 <shift_line+0xd8>
+    12d3:	mov    -0x20(%rbp),%ecx
+    12d6:	imul   -0xc(%rbp),%ecx
+    12da:	mov    -0x14(%rbp),%eax
+    12dd:	sub    %ecx,%eax
+    12df:	mov    %eax,-0x14(%rbp)
+    12e2:	cmpl   $0x0,-0x14(%rbp)
+    12e6:	jge    12f3 <shift_line+0xd3>
+    12ec:	movl   $0x0,-0x14(%rbp)
+    12f3:	jmp    1305 <shift_line+0xe5>
+    12f8:	mov    -0x20(%rbp),%eax
+    12fb:	imul   -0xc(%rbp),%eax
+    12ff:	add    -0x14(%rbp),%eax
+    1302:	mov    %eax,-0x14(%rbp)
+    1305:	jmp    130a <shift_line+0xea>
+    130a:	mov    0x2d68(%rip),%eax        # 4078 <State>
+    1310:	and    $0x200,%eax
+    1315:	cmp    $0x0,%eax
+    1318:	je     1338 <shift_line+0x118>
+    131e:	mov    -0x14(%rbp),%esi
+    1321:	mov    -0x10(%rbp),%r8d
+    1325:	mov    $0x1,%edi
+    132a:	xor    %ecx,%ecx
+    132c:	mov    %ecx,%edx
+    132e:	call   1200 <change_indent>
+    1333:	jmp    1350 <shift_line+0x130>
+    1338:	mov    -0x14(%rbp),%edi
+    133b:	mov    -0x10(%rbp),%ecx
+    133e:	xor    %esi,%esi
+    1340:	mov    $0x1,%eax
+    1345:	cmp    $0x0,%ecx
+    1348:	cmovne %eax,%esi
+    134b:	call   11f0 <set_indent>
+    1350:	add    $0x20,%rsp
+    1354:	pop    %rbp
+    1355:	ret
+
+Disassembly of section .fini:

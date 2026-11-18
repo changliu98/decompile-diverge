@@ -1,0 +1,1 @@
+uintptr_t AddUintptr(uintptr_t utime, uintptr_t new) { asm volatile("lock xaddq %0, %1" : "=r"(utime) : "r"(new)); return new + new; }

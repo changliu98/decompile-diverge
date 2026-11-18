@@ -1,0 +1,683 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 1040h\nlea     rdi, name; \"TERM\"\ncall    getenv\nmov     [rbp+term], rax\ncmp     [rbp+term], 0\njnz     loc_86D8\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_8A2B\nlea     rdi, aTerminfo; \"TERMINFO\"\ncall    getenv\nmov     [rbp+terminfo], rax\ncmp     [rbp+terminfo], 0\njz      loc_8728\nmov     rdi, [rbp+terminfo]; path\nmov     rsi, [rbp+term]; term\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_8723\nmov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B\njmp     $+5\nlea     rdi, aHome; \"HOME\"\ncall    getenv\nmov     [rbp+home], rax\ncmp     [rbp+home], 0\njz      loc_87C9\njmp     $+5\nlea     rdi, [rbp+tmp]; s\nmov     rcx, [rbp+home]\nmov     esi, 1000h; maxlen\nlea     rdx, aSTerminfo; \"%s/.terminfo\"\nmov     al, 0\ncall    snprintf\nmov     [rbp+rv], eax\ncmp     [rbp+rv], 0\njl      loc_8789\ncmp     [rbp+rv], 1000h\njl      loc_8795\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_8A2B\njmp     $+5\nlea     rdi, [rbp+tmp]; path\nmov     rsi, [rbp+term]; term\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_87C4\nmov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B\njmp     $+5\nlea     rdi, aTerminfoDirs; \"TERMINFO_DIRS\"\ncall    getenv\nmov     [rbp+dirs], rax\ncmp     [rbp+dirs], 0\njz      loc_88D4\njmp     $+5\nlea     rdi, [rbp+tmp]; s\nmov     rcx, [rbp+dirs]\nmov     esi, 1000h; maxlen\nlea     rdx, aSCS+6; format\nmov     al, 0\ncall    snprintf\nmov     [rbp+rv], eax\ncmp     [rbp+rv], 0\njl      loc_882A\ncmp     [rbp+rv], 1000h\njl      loc_8836\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_8A2B\njmp     $+5\nlea     rdi, [rbp+tmp]; s\nlea     rsi, delim; \":\"\ncall    strtok\nmov     [rbp+dir], rax\ncmp     [rbp+dir], 0\njz      loc_88CF\nmov     rax, [rbp+dir]\nmov     [rbp+cdir], rax\nmov     rax, [rbp+cdir]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 0\njz      loc_88B3\nmov     rdi, [rbp+cdir]; path\nmov     rsi, [rbp+term]; term\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_88AE\nmov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B\njmp     $+5\nxor     eax, eax\nmov     edi, eax; s\nlea     rsi, delim; \":\"\ncall    strtok\nmov     [rbp+dir], rax\njmp     loc_8855\njmp     $+5\nmov     rsi, [rbp+term]; term\nlea     rdi, aUsrLocalEtcTer; \"/usr/local/etc/terminfo\"\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_88FE\nmov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B\nmov     rsi, [rbp+term]; term\nlea     rdi, aUsrLocalShareT; \"/usr/local/share/terminfo\"\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_8928\nmov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B\nmov     rsi, [rbp+term]; term\nlea     rdi, aUsrLocalLibTer; \"/usr/local/lib/terminfo\"\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_8952\nmov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B\nmov     rsi, [rbp+term]; term\nlea     rdi, aUsrLocalEtcTer+0Ah; path\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_897C\nmov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B\nmov     rsi, [rbp+term]; term\nlea     rdi, aUsrShareTermin; \"/usr/share/terminfo\"\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_89A6\nmov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B\nmov     rsi, [rbp+term]; term\nlea     rdi, aUsrLibTerminfo; \"/usr/lib/terminfo\"\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_89D0\nmov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B\nmov     rsi, [rbp+term]; term\nlea     rdi, aUsrShareLibTer; \"/usr/share/lib/terminfo\"\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_89FA\nmov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B\nmov     rsi, [rbp+term]; term\nlea     rdi, aUsrShareLibTer+0Ah; path\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_8A24\nmov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B\nmov     [rbp+var_4], 0FFFFFFFFh\nmov     eax, [rbp+var_4]\nadd     rsp, 1040h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 47,
+  "edges": [
+   [
+    "start",
+    "loc_86CC"
+   ],
+   [
+    "start",
+    "loc_86D8"
+   ],
+   [
+    "loc_86CC",
+    "loc_8A2B"
+   ],
+   [
+    "loc_86D8",
+    "loc_86F9"
+   ],
+   [
+    "loc_86D8",
+    "loc_8728"
+   ],
+   [
+    "loc_86F9",
+    "loc_8718"
+   ],
+   [
+    "loc_86F9",
+    "loc_8723"
+   ],
+   [
+    "loc_8718",
+    "loc_8A2B"
+   ],
+   [
+    "loc_8723",
+    "loc_8728"
+   ],
+   [
+    "loc_8728",
+    "loc_8749"
+   ],
+   [
+    "loc_8728",
+    "loc_87C9"
+   ],
+   [
+    "loc_8749",
+    "loc_874E"
+   ],
+   [
+    "loc_874E",
+    "loc_877C"
+   ],
+   [
+    "loc_874E",
+    "loc_8789"
+   ],
+   [
+    "loc_877C",
+    "loc_8789"
+   ],
+   [
+    "loc_877C",
+    "loc_8795"
+   ],
+   [
+    "loc_8789",
+    "loc_8A2B"
+   ],
+   [
+    "loc_8795",
+    "loc_879A"
+   ],
+   [
+    "loc_879A",
+    "loc_87B9"
+   ],
+   [
+    "loc_879A",
+    "loc_87C4"
+   ],
+   [
+    "loc_87B9",
+    "loc_8A2B"
+   ],
+   [
+    "loc_87C4",
+    "loc_87C9"
+   ],
+   [
+    "loc_87C9",
+    "loc_87EA"
+   ],
+   [
+    "loc_87C9",
+    "loc_88D4"
+   ],
+   [
+    "loc_87EA",
+    "loc_87EF"
+   ],
+   [
+    "loc_87EF",
+    "loc_881D"
+   ],
+   [
+    "loc_87EF",
+    "loc_882A"
+   ],
+   [
+    "loc_881D",
+    "loc_882A"
+   ],
+   [
+    "loc_881D",
+    "loc_8836"
+   ],
+   [
+    "loc_882A",
+    "loc_8A2B"
+   ],
+   [
+    "loc_8836",
+    "loc_883B"
+   ],
+   [
+    "loc_883B",
+    "loc_8855"
+   ],
+   [
+    "loc_8855",
+    "loc_8863"
+   ],
+   [
+    "loc_8855",
+    "loc_88CF"
+   ],
+   [
+    "loc_8863",
+    "loc_8884"
+   ],
+   [
+    "loc_8863",
+    "loc_88B3"
+   ],
+   [
+    "loc_8884",
+    "loc_88A3"
+   ],
+   [
+    "loc_8884",
+    "loc_88AE"
+   ],
+   [
+    "loc_88A3",
+    "loc_8A2B"
+   ],
+   [
+    "loc_88AE",
+    "loc_88B3"
+   ],
+   [
+    "loc_88B3",
+    "loc_8855"
+   ],
+   [
+    "loc_88CF",
+    "loc_88D4"
+   ],
+   [
+    "loc_88D4",
+    "loc_88F3"
+   ],
+   [
+    "loc_88D4",
+    "loc_88FE"
+   ],
+   [
+    "loc_88F3",
+    "loc_8A2B"
+   ],
+   [
+    "loc_88FE",
+    "loc_891D"
+   ],
+   [
+    "loc_88FE",
+    "loc_8928"
+   ],
+   [
+    "loc_891D",
+    "loc_8A2B"
+   ],
+   [
+    "loc_8928",
+    "loc_8947"
+   ],
+   [
+    "loc_8928",
+    "loc_8952"
+   ],
+   [
+    "loc_8947",
+    "loc_8A2B"
+   ],
+   [
+    "loc_8952",
+    "loc_8971"
+   ],
+   [
+    "loc_8952",
+    "loc_897C"
+   ],
+   [
+    "loc_8971",
+    "loc_8A2B"
+   ],
+   [
+    "loc_897C",
+    "loc_899B"
+   ],
+   [
+    "loc_897C",
+    "loc_89A6"
+   ],
+   [
+    "loc_899B",
+    "loc_8A2B"
+   ],
+   [
+    "loc_89A6",
+    "loc_89C5"
+   ],
+   [
+    "loc_89A6",
+    "loc_89D0"
+   ],
+   [
+    "loc_89C5",
+    "loc_8A2B"
+   ],
+   [
+    "loc_89D0",
+    "loc_89EF"
+   ],
+   [
+    "loc_89D0",
+    "loc_89FA"
+   ],
+   [
+    "loc_89EF",
+    "loc_8A2B"
+   ],
+   [
+    "loc_89FA",
+    "loc_8A19"
+   ],
+   [
+    "loc_89FA",
+    "loc_8A24"
+   ],
+   [
+    "loc_8A19",
+    "loc_8A2B"
+   ],
+   [
+    "loc_8A24",
+    "loc_8A2B"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 1040h\nlea     rdi, name; \"TERM\"\ncall    getenv\nmov     [rbp+term], rax\ncmp     [rbp+term], 0\njnz     loc_86D8",
+   "loc_86CC": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_8A2B",
+   "loc_86D8": "lea     rdi, aTerminfo; \"TERMINFO\"\ncall    getenv\nmov     [rbp+terminfo], rax\ncmp     [rbp+terminfo], 0\njz      loc_8728",
+   "loc_86F9": "mov     rdi, [rbp+terminfo]; path\nmov     rsi, [rbp+term]; term\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_8723",
+   "loc_8718": "mov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B",
+   "loc_8723": "jmp     $+5",
+   "loc_8728": "lea     rdi, aHome; \"HOME\"\ncall    getenv\nmov     [rbp+home], rax\ncmp     [rbp+home], 0\njz      loc_87C9",
+   "loc_8749": "jmp     $+5",
+   "loc_874E": "lea     rdi, [rbp+tmp]; s\nmov     rcx, [rbp+home]\nmov     esi, 1000h; maxlen\nlea     rdx, aSTerminfo; \"%s/.terminfo\"\nmov     al, 0\ncall    snprintf\nmov     [rbp+rv], eax\ncmp     [rbp+rv], 0\njl      loc_8789",
+   "loc_877C": "cmp     [rbp+rv], 1000h\njl      loc_8795",
+   "loc_8789": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_8A2B",
+   "loc_8795": "jmp     $+5",
+   "loc_879A": "lea     rdi, [rbp+tmp]; path\nmov     rsi, [rbp+term]; term\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_87C4",
+   "loc_87B9": "mov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B",
+   "loc_87C4": "jmp     $+5",
+   "loc_87C9": "lea     rdi, aTerminfoDirs; \"TERMINFO_DIRS\"\ncall    getenv\nmov     [rbp+dirs], rax\ncmp     [rbp+dirs], 0\njz      loc_88D4",
+   "loc_87EA": "jmp     $+5",
+   "loc_87EF": "lea     rdi, [rbp+tmp]; s\nmov     rcx, [rbp+dirs]\nmov     esi, 1000h; maxlen\nlea     rdx, aSCS+6; format\nmov     al, 0\ncall    snprintf\nmov     [rbp+rv], eax\ncmp     [rbp+rv], 0\njl      loc_882A",
+   "loc_881D": "cmp     [rbp+rv], 1000h\njl      loc_8836",
+   "loc_882A": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_8A2B",
+   "loc_8836": "jmp     $+5",
+   "loc_883B": "lea     rdi, [rbp+tmp]; s\nlea     rsi, delim; \":\"\ncall    strtok\nmov     [rbp+dir], rax",
+   "loc_8855": "cmp     [rbp+dir], 0\njz      loc_88CF",
+   "loc_8863": "mov     rax, [rbp+dir]\nmov     [rbp+cdir], rax\nmov     rax, [rbp+cdir]\nmovsx   eax, byte ptr [rax]\ncmp     eax, 0\njz      loc_88B3",
+   "loc_8884": "mov     rdi, [rbp+cdir]; path\nmov     rsi, [rbp+term]; term\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_88AE",
+   "loc_88A3": "mov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B",
+   "loc_88AE": "jmp     $+5",
+   "loc_88B3": "xor     eax, eax\nmov     edi, eax; s\nlea     rsi, delim; \":\"\ncall    strtok\nmov     [rbp+dir], rax\njmp     loc_8855",
+   "loc_88CF": "jmp     $+5",
+   "loc_88D4": "mov     rsi, [rbp+term]; term\nlea     rdi, aUsrLocalEtcTer; \"/usr/local/etc/terminfo\"\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_88FE",
+   "loc_88F3": "mov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B",
+   "loc_88FE": "mov     rsi, [rbp+term]; term\nlea     rdi, aUsrLocalShareT; \"/usr/local/share/terminfo\"\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_8928",
+   "loc_891D": "mov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B",
+   "loc_8928": "mov     rsi, [rbp+term]; term\nlea     rdi, aUsrLocalLibTer; \"/usr/local/lib/terminfo\"\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_8952",
+   "loc_8947": "mov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B",
+   "loc_8952": "mov     rsi, [rbp+term]; term\nlea     rdi, aUsrLocalEtcTer+0Ah; path\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_897C",
+   "loc_8971": "mov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B",
+   "loc_897C": "mov     rsi, [rbp+term]; term\nlea     rdi, aUsrShareTermin; \"/usr/share/terminfo\"\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_89A6",
+   "loc_899B": "mov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B",
+   "loc_89A6": "mov     rsi, [rbp+term]; term\nlea     rdi, aUsrLibTerminfo; \"/usr/lib/terminfo\"\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_89D0",
+   "loc_89C5": "mov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B",
+   "loc_89D0": "mov     rsi, [rbp+term]; term\nlea     rdi, aUsrShareLibTer; \"/usr/share/lib/terminfo\"\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_89FA",
+   "loc_89EF": "mov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B",
+   "loc_89FA": "mov     rsi, [rbp+term]; term\nlea     rdi, aUsrShareLibTer+0Ah; path\ncall    load_terminfo_from_path\nmov     [rbp+rv], eax\ncmp     eax, 0\njnz     loc_8A24",
+   "loc_8A19": "mov     eax, [rbp+rv]\nmov     [rbp+var_4], eax\njmp     loc_8A2B",
+   "loc_8A24": "mov     [rbp+var_4], 0FFFFFFFFh",
+   "loc_8A2B": "mov     eax, [rbp+var_4]\nadd     rsp, 1040h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "cdir": "qword ptr -1040h",
+   "dir": "qword ptr -1038h",
+   "dirs": "qword ptr -1030h",
+   "home": "qword ptr -1028h",
+   "terminfo": "qword ptr -1020h",
+   "term": "qword ptr -1018h",
+   "tmp": "byte ptr -1010h",
+   "rv": "dword ptr -8",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "name": "byte 'TERM',0",
+   "aTerminfo": "byte 'TERMINFO',0",
+   "aHome": "byte 'HOME',0",
+   "aSTerminfo": "byte '%s/.terminfo',0",
+   "aTerminfoDirs": "byte 'TERMINFO_DIRS',0",
+   "unk_BAA7": "byte '%s/%c/%s',0",
+   "delim": "byte ':',0",
+   "aUsrLocalEtcTer": "byte '/usr/local/etc/terminfo',0",
+   "aUsrLocalShareT": "byte '/usr/local/share/terminfo',0",
+   "aUsrLocalLibTer": "byte '/usr/local/lib/terminfo',0",
+   "unk_BA23": "byte '/usr/local/etc/terminfo',0",
+   "aUsrShareTermin": "byte '/usr/share/terminfo',0",
+   "aUsrLibTerminfo": "byte '/usr/lib/terminfo',0",
+   "aUsrShareLibTer": "byte '/usr/share/lib/terminfo',0",
+   "unk_BA93": "byte '/usr/share/lib/terminfo',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 34464,
+ "thunk_map": {
+  ".getenv": "getenv",
+  "_getenv": "getenv",
+  ".free": "free",
+  "_free": "free",
+  ".__errno_location": "__errno_location",
+  "_errno_location": "__errno_location",
+  ".isatty": "isatty",
+  "_isatty": "isatty",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".vsnprintf": "vsnprintf",
+  "_vsnprintf": "vsnprintf",
+  ".__xpg_strerror_r": "__xpg_strerror_r",
+  "_xpg_strerror_r": "__xpg_strerror_r",
+  ".write": "write",
+  "_write": "write",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".ioctl": "ioctl",
+  "_ioctl": "ioctl",
+  ".close": "close",
+  "_close": "close",
+  ".pipe": "pipe",
+  "_pipe": "pipe",
+  ".read": "read",
+  "_read": "read",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".fileno": "fileno",
+  "_fileno": "fileno",
+  ".select": "select",
+  "_select": "select",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".__isoc99_sscanf": "__isoc99_sscanf",
+  "_isoc99_sscanf": "__isoc99_sscanf",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".cfmakeraw": "cfmakeraw",
+  "_cfmakeraw": "cfmakeraw",
+  ".memmove": "memmove",
+  "_memmove": "memmove",
+  ".tcgetattr": "tcgetattr",
+  "_tcgetattr": "tcgetattr",
+  ".tcsetattr": "tcsetattr",
+  "_tcsetattr": "tcsetattr",
+  ".open": "open",
+  "_open": "open",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".strtok": "strtok",
+  "_strtok": "strtok",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".fstat": "fstat",
+  "_fstat": "fstat",
+  ".strstr": "strstr",
+  "_strstr": "strstr"
+ },
+ "thunk_debug": [
+  [
+   "sub_5020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".getenv",
+   ".plt",
+   true,
+   "getenv"
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".__errno_location",
+   ".plt",
+   true,
+   "__errno_location"
+  ],
+  [
+   ".isatty",
+   ".plt",
+   true,
+   "isatty"
+  ],
+  [
+   ".sigaction",
+   ".plt",
+   true,
+   "sigaction_0"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".vsnprintf",
+   ".plt",
+   true,
+   "vsnprintf"
+  ],
+  [
+   ".__xpg_strerror_r",
+   ".plt",
+   true,
+   "__xpg_strerror_r"
+  ],
+  [
+   ".write",
+   ".plt",
+   true,
+   "write"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".ioctl",
+   ".plt",
+   true,
+   "ioctl"
+  ],
+  [
+   ".close",
+   ".plt",
+   true,
+   "close"
+  ],
+  [
+   ".pipe",
+   ".plt",
+   true,
+   "pipe"
+  ],
+  [
+   ".read",
+   ".plt",
+   true,
+   "read"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".fileno",
+   ".plt",
+   true,
+   "fileno"
+  ],
+  [
+   ".select",
+   ".plt",
+   true,
+   "select"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".__isoc99_sscanf",
+   ".plt",
+   true,
+   "__isoc99_sscanf"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".cfmakeraw",
+   ".plt",
+   true,
+   "cfmakeraw"
+  ],
+  [
+   ".memmove",
+   ".plt",
+   true,
+   "memmove"
+  ],
+  [
+   ".tcgetattr",
+   ".plt",
+   true,
+   "tcgetattr"
+  ],
+  [
+   ".tcsetattr",
+   ".plt",
+   true,
+   "tcsetattr"
+  ],
+  [
+   ".open",
+   ".plt",
+   true,
+   "open"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".strtok",
+   ".plt",
+   true,
+   "strtok"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   ".fstat",
+   ".plt",
+   true,
+   "fstat"
+  ],
+  [
+   ".strstr",
+   ".plt",
+   true,
+   "strstr"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872689
+ }
+}

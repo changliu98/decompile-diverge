@@ -1,0 +1,1 @@
+node_t* parse_string_node(parser_t* p, size_t len) { node_t* node = (node_t*)plist_new_plist_data(); node->value.type = 3; node->value.s = (char*)malloc(len + 1); memcpy(node->value.s, p->s, len); node->value.s[len] = '\0'; node->value.len = strlen(node->value.s); return node_create(NULL, node); }

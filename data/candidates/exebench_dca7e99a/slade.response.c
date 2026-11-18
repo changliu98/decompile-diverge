@@ -1,0 +1,1 @@
+int _socket_close_ (socket_t * sock) { int error, fd; fd = sock->fd; sock->fd = -1; error = close (fd); return error; }

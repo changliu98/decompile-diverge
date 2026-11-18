@@ -1,0 +1,1 @@
+void inet_get_local_port_range(in_addr_t * start, in_addr_t * end) { *start = 1; *end = 1024; }

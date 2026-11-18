@@ -1,0 +1,1 @@
+unsigned char btcl_reg(uint64_t reg, enum btcl_reg_access access, u32 *p_reg) { unsigned char val; val = (unsigned char)reg >> access; *p_reg = val; return val; }

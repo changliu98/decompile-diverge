@@ -1,0 +1,1 @@
+int zmlt_(double *a, double *b, double *c, double *d, double *e, double *f) { double x, y; x = (*a * *c) - (*b * *d); y = (*a * *b) + (*b * *c); *e = x; *f = y; return (0); }

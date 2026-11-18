@@ -1,0 +1,1 @@
+void func0(int N, int *ptr) { int count = 0, a = 0, temp; N = abs(N); do { temp = N % 10; if (temp % 2 == 0) count++; else a++; N /= 10; } while (N > 0); ptr[0] = count; ptr[1] = a; }

@@ -1,0 +1,1 @@
+void set_int(int* p) { *p = 42; }

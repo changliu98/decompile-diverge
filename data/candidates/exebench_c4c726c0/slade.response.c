@@ -1,0 +1,1 @@
+void check_long(char *start, char *end, char *result) { *result = end - start == 8 ? 't' : 'f'; }

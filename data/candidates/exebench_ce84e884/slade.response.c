@@ -1,0 +1,1 @@
+void get_grid_address(long grid_address, long *x, long *y) { int i; for (i = 0; i < 3; i++) grid_address[i] = (x[i] - y[i])/2; }

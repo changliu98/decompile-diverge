@@ -1,0 +1,1 @@
+const char *freezer_state_strs(unsigned int state) { if (state & CGROUP_FROZEN) return "FROZEN"; else if (state & CGROUP_FREEZING) return "FROZING"; else return "THAWED"; }

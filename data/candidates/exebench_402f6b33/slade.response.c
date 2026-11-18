@@ -1,0 +1,1 @@
+void itoa(int n, char s[], int base) { int i, sign; char buffer[16]; sign = n; char *digits = "0123456789ABCDEF"; if (sign < 0) n = -n; i = 0; if (n == 0) { buffer[i++] = '0'; while (n != 0) { buffer[i++] = digits[n % base]; n /= base; } } if (sign < 0) buffer[i++] = '-'; while (i-- != 0) *(s++) = buffer[i]; s[0] = '\0'; }

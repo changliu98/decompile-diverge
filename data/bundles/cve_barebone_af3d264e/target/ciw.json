@@ -1,0 +1,449 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+ctx], rdi\nmov     [rbp+bitmap_caret], 0\nmov     [rbp+tga], 0\nmov     [rbp+image], 0\nmov     [rbp+x], 0\nmov     [rbp+y], 0\nmov     edi, 38h ; '8'; size\ncall    gdMalloc\nmov     [rbp+tga], rax\ncmp     [rbp+tga], 0\njnz     loc_2187\nmov     [rbp+var_8], 0\njmp     loc_2450\nmov     rax, [rbp+tga]\nmov     qword ptr [rax+30h], 0\nmov     rax, [rbp+tga]\nmov     qword ptr [rax+28h], 0\nmov     rdi, [rbp+ctx]; ctx\nmov     rsi, [rbp+tga]; tga\ncall    read_header_tga\ncmp     eax, 0\njge     loc_21CB\nmov     rdi, [rbp+tga]; tga\ncall    free_tga\nmov     [rbp+var_8], 0\njmp     loc_2450\nmov     rdi, [rbp+ctx]; ctx\nmov     rsi, [rbp+tga]; tga\ncall    read_image_tga\ncmp     eax, 0\njge     loc_21F7\nmov     rdi, [rbp+tga]; tga\ncall    free_tga\nmov     [rbp+var_8], 0\njmp     loc_2450\nmov     rax, [rbp+tga]\nmov     edi, [rax+18h]; sx\nmov     rax, [rbp+tga]\nmov     esi, [rax+1Ch]; sy\ncall    gdImageCreateTrueColor\nmov     [rbp+image], rax\nmov     rax, [rbp+image]\ncmp     rax, 0\njnz     loc_2232\nmov     rdi, [rbp+tga]; tga\ncall    free_tga\nmov     [rbp+var_8], 0\njmp     loc_2450\nmov     rax, [rbp+tga]\ncmp     byte ptr [rax+21h], 0\njz      loc_2259\nmov     rdi, [rbp+image]; im\nxor     esi, esi; alphaBlendingArg\ncall    gdImageAlphaBlending\nmov     rdi, [rbp+image]; im\nmov     esi, 1; saveAlphaArg\ncall    gdImageSaveAlpha\nmov     [rbp+y], 0\nmov     eax, [rbp+y]\nmov     rcx, [rbp+tga]\ncmp     eax, [rcx+1Ch]\njge     loc_23D2\nmov     rax, [rbp+image]\nmov     rax, [rax+1C58h]\nmovsxd  rcx, [rbp+y]\nmov     rax, [rax+rcx*8]\nmov     [rbp+tpix], rax\nmov     [rbp+x], 0\nmov     eax, [rbp+x]\nmov     rcx, [rbp+tga]\ncmp     eax, [rcx+18h]\njge     loc_23BF\nmov     rax, [rbp+tga]\nmovzx   eax, byte ptr [rax+20h]\ncmp     eax, 18h\njnz     loc_2302\nmov     rax, [rbp+tga]\nmov     rax, [rax+30h]\nmov     ecx, [rbp+bitmap_caret]\nadd     ecx, 2\nmovsxd  rcx, ecx\nmov     ecx, [rax+rcx*4]\nshl     ecx, 10h\nmov     rax, [rbp+tga]\nmov     rax, [rax+30h]\nmov     edx, [rbp+bitmap_caret]\nadd     edx, 1\nmovsxd  rdx, edx\nmov     eax, [rax+rdx*4]\nshl     eax, 8\nadd     ecx, eax\nmov     rax, [rbp+tga]\nmov     rax, [rax+30h]\nmovsxd  rdx, [rbp+bitmap_caret]\nadd     ecx, [rax+rdx*4]\nmov     rax, [rbp+tpix]\nmov     [rax], ecx\nmov     eax, [rbp+bitmap_caret]\nadd     eax, 3\nmov     [rbp+bitmap_caret], eax\njmp     loc_23A0\nmov     rax, [rbp+tga]\nmovzx   eax, byte ptr [rax+20h]\ncmp     eax, 20h ; ' '\njz      loc_2324\nmov     rax, [rbp+tga]\nmovzx   eax, byte ptr [rax+21h]\ncmp     eax, 0\njz      loc_239B\nmov     rax, [rbp+tga]\nmov     rax, [rax+30h]\nmov     ecx, [rbp+bitmap_caret]\nadd     ecx, 3\nmovsxd  rcx, ecx\nmov     eax, [rax+rcx*4]\nmov     [rbp+a], eax\nmov     eax, [rbp+a]\nsar     eax, 1\nmov     ecx, 7Fh\nsub     ecx, eax\nshl     ecx, 18h\nmov     rax, [rbp+tga]\nmov     rax, [rax+30h]\nmov     edx, [rbp+bitmap_caret]\nadd     edx, 2\nmovsxd  rdx, edx\nmov     eax, [rax+rdx*4]\nshl     eax, 10h\nadd     ecx, eax\nmov     rax, [rbp+tga]\nmov     rax, [rax+30h]\nmov     edx, [rbp+bitmap_caret]\nadd     edx, 1\nmovsxd  rdx, edx\nmov     eax, [rax+rdx*4]\nshl     eax, 8\nadd     ecx, eax\nmov     rax, [rbp+tga]\nmov     rax, [rax+30h]\nmovsxd  rdx, [rbp+bitmap_caret]\nadd     ecx, [rax+rdx*4]\nmov     rax, [rbp+tpix]\nmov     [rax], ecx\nmov     eax, [rbp+bitmap_caret]\nadd     eax, 4\nmov     [rbp+bitmap_caret], eax\njmp     $+5\njmp     $+5\nmov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\nmov     rax, [rbp+tpix]\nadd     rax, 4\nmov     [rbp+tpix], rax\njmp     loc_228E\njmp     $+5\nmov     eax, [rbp+y]\nadd     eax, 1\nmov     [rbp+y], eax\njmp     loc_2260\nmov     rax, [rbp+tga]\nmovzx   eax, byte ptr [rax+23h]\ncmp     eax, 0\njz      loc_2402\nmov     rax, [rbp+tga]\nmovzx   eax, byte ptr [rax+22h]\ncmp     eax, 0\njz      loc_2402\nmov     rdi, [rbp+image]; im\ncall    _D4core8internal2gc4impl6manualQp8ManualGC10__aggrDtorMFZv; Qp8ManualGC10__aggrDtorMFZv core.internal.gc.impl.manual\njmp     loc_243F\nmov     rax, [rbp+tga]\ncmp     byte ptr [rax+23h], 0\njz      loc_241E\nmov     rdi, [rbp+image]; im\ncall    gdImageFlipVertical\njmp     loc_243A\nmov     rax, [rbp+tga]\ncmp     byte ptr [rax+22h], 0\njz      loc_2435\nmov     rdi, [rbp+image]; im\ncall    gdImageFlipHorizontal\njmp     $+5\njmp     $+5\nmov     rdi, [rbp+tga]; tga\ncall    free_tga\nmov     rax, [rbp+image]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 35,
+  "edges": [
+   [
+    "start",
+    "loc_217A"
+   ],
+   [
+    "start",
+    "loc_2187"
+   ],
+   [
+    "loc_217A",
+    "loc_2450"
+   ],
+   [
+    "loc_2187",
+    "loc_21B5"
+   ],
+   [
+    "loc_2187",
+    "loc_21CB"
+   ],
+   [
+    "loc_21B5",
+    "loc_2450"
+   ],
+   [
+    "loc_21CB",
+    "loc_21E1"
+   ],
+   [
+    "loc_21CB",
+    "loc_21F7"
+   ],
+   [
+    "loc_21E1",
+    "loc_2450"
+   ],
+   [
+    "loc_21F7",
+    "loc_221C"
+   ],
+   [
+    "loc_21F7",
+    "loc_2232"
+   ],
+   [
+    "loc_221C",
+    "loc_2450"
+   ],
+   [
+    "loc_2232",
+    "loc_2240"
+   ],
+   [
+    "loc_2232",
+    "loc_2259"
+   ],
+   [
+    "loc_2240",
+    "loc_2259"
+   ],
+   [
+    "loc_2259",
+    "loc_2260"
+   ],
+   [
+    "loc_2260",
+    "loc_2270"
+   ],
+   [
+    "loc_2260",
+    "loc_23D2"
+   ],
+   [
+    "loc_2270",
+    "loc_228E"
+   ],
+   [
+    "loc_228E",
+    "loc_229E"
+   ],
+   [
+    "loc_228E",
+    "loc_23BF"
+   ],
+   [
+    "loc_229E",
+    "loc_22AF"
+   ],
+   [
+    "loc_229E",
+    "loc_2302"
+   ],
+   [
+    "loc_22AF",
+    "loc_23A0"
+   ],
+   [
+    "loc_2302",
+    "loc_2313"
+   ],
+   [
+    "loc_2302",
+    "loc_2324"
+   ],
+   [
+    "loc_2313",
+    "loc_2324"
+   ],
+   [
+    "loc_2313",
+    "loc_239B"
+   ],
+   [
+    "loc_2324",
+    "loc_239B"
+   ],
+   [
+    "loc_239B",
+    "loc_23A0"
+   ],
+   [
+    "loc_23A0",
+    "loc_23A5"
+   ],
+   [
+    "loc_23A5",
+    "loc_228E"
+   ],
+   [
+    "loc_23BF",
+    "loc_23C4"
+   ],
+   [
+    "loc_23C4",
+    "loc_2260"
+   ],
+   [
+    "loc_23D2",
+    "loc_23E3"
+   ],
+   [
+    "loc_23D2",
+    "loc_2402"
+   ],
+   [
+    "loc_23E3",
+    "loc_23F4"
+   ],
+   [
+    "loc_23E3",
+    "loc_2402"
+   ],
+   [
+    "loc_23F4",
+    "loc_243F"
+   ],
+   [
+    "loc_2402",
+    "loc_2410"
+   ],
+   [
+    "loc_2402",
+    "loc_241E"
+   ],
+   [
+    "loc_2410",
+    "loc_243A"
+   ],
+   [
+    "loc_241E",
+    "loc_242C"
+   ],
+   [
+    "loc_241E",
+    "loc_2435"
+   ],
+   [
+    "loc_242C",
+    "loc_2435"
+   ],
+   [
+    "loc_2435",
+    "loc_243A"
+   ],
+   [
+    "loc_243A",
+    "loc_243F"
+   ],
+   [
+    "loc_243F",
+    "loc_2450"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+ctx], rdi\nmov     [rbp+bitmap_caret], 0\nmov     [rbp+tga], 0\nmov     [rbp+image], 0\nmov     [rbp+x], 0\nmov     [rbp+y], 0\nmov     edi, 38h ; '8'; size\ncall    gdMalloc\nmov     [rbp+tga], rax\ncmp     [rbp+tga], 0\njnz     loc_2187",
+   "loc_217A": "mov     [rbp+var_8], 0\njmp     loc_2450",
+   "loc_2187": "mov     rax, [rbp+tga]\nmov     qword ptr [rax+30h], 0\nmov     rax, [rbp+tga]\nmov     qword ptr [rax+28h], 0\nmov     rdi, [rbp+ctx]; ctx\nmov     rsi, [rbp+tga]; tga\ncall    read_header_tga\ncmp     eax, 0\njge     loc_21CB",
+   "loc_21B5": "mov     rdi, [rbp+tga]; tga\ncall    free_tga\nmov     [rbp+var_8], 0\njmp     loc_2450",
+   "loc_21CB": "mov     rdi, [rbp+ctx]; ctx\nmov     rsi, [rbp+tga]; tga\ncall    read_image_tga\ncmp     eax, 0\njge     loc_21F7",
+   "loc_21E1": "mov     rdi, [rbp+tga]; tga\ncall    free_tga\nmov     [rbp+var_8], 0\njmp     loc_2450",
+   "loc_21F7": "mov     rax, [rbp+tga]\nmov     edi, [rax+18h]; sx\nmov     rax, [rbp+tga]\nmov     esi, [rax+1Ch]; sy\ncall    gdImageCreateTrueColor\nmov     [rbp+image], rax\nmov     rax, [rbp+image]\ncmp     rax, 0\njnz     loc_2232",
+   "loc_221C": "mov     rdi, [rbp+tga]; tga\ncall    free_tga\nmov     [rbp+var_8], 0\njmp     loc_2450",
+   "loc_2232": "mov     rax, [rbp+tga]\ncmp     byte ptr [rax+21h], 0\njz      loc_2259",
+   "loc_2240": "mov     rdi, [rbp+image]; im\nxor     esi, esi; alphaBlendingArg\ncall    gdImageAlphaBlending\nmov     rdi, [rbp+image]; im\nmov     esi, 1; saveAlphaArg\ncall    gdImageSaveAlpha",
+   "loc_2259": "mov     [rbp+y], 0",
+   "loc_2260": "mov     eax, [rbp+y]\nmov     rcx, [rbp+tga]\ncmp     eax, [rcx+1Ch]\njge     loc_23D2",
+   "loc_2270": "mov     rax, [rbp+image]\nmov     rax, [rax+1C58h]\nmovsxd  rcx, [rbp+y]\nmov     rax, [rax+rcx*8]\nmov     [rbp+tpix], rax\nmov     [rbp+x], 0",
+   "loc_228E": "mov     eax, [rbp+x]\nmov     rcx, [rbp+tga]\ncmp     eax, [rcx+18h]\njge     loc_23BF",
+   "loc_229E": "mov     rax, [rbp+tga]\nmovzx   eax, byte ptr [rax+20h]\ncmp     eax, 18h\njnz     loc_2302",
+   "loc_22AF": "mov     rax, [rbp+tga]\nmov     rax, [rax+30h]\nmov     ecx, [rbp+bitmap_caret]\nadd     ecx, 2\nmovsxd  rcx, ecx\nmov     ecx, [rax+rcx*4]\nshl     ecx, 10h\nmov     rax, [rbp+tga]\nmov     rax, [rax+30h]\nmov     edx, [rbp+bitmap_caret]\nadd     edx, 1\nmovsxd  rdx, edx\nmov     eax, [rax+rdx*4]\nshl     eax, 8\nadd     ecx, eax\nmov     rax, [rbp+tga]\nmov     rax, [rax+30h]\nmovsxd  rdx, [rbp+bitmap_caret]\nadd     ecx, [rax+rdx*4]\nmov     rax, [rbp+tpix]\nmov     [rax], ecx\nmov     eax, [rbp+bitmap_caret]\nadd     eax, 3\nmov     [rbp+bitmap_caret], eax\njmp     loc_23A0",
+   "loc_2302": "mov     rax, [rbp+tga]\nmovzx   eax, byte ptr [rax+20h]\ncmp     eax, 20h ; ' '\njz      loc_2324",
+   "loc_2313": "mov     rax, [rbp+tga]\nmovzx   eax, byte ptr [rax+21h]\ncmp     eax, 0\njz      loc_239B",
+   "loc_2324": "mov     rax, [rbp+tga]\nmov     rax, [rax+30h]\nmov     ecx, [rbp+bitmap_caret]\nadd     ecx, 3\nmovsxd  rcx, ecx\nmov     eax, [rax+rcx*4]\nmov     [rbp+a], eax\nmov     eax, [rbp+a]\nsar     eax, 1\nmov     ecx, 7Fh\nsub     ecx, eax\nshl     ecx, 18h\nmov     rax, [rbp+tga]\nmov     rax, [rax+30h]\nmov     edx, [rbp+bitmap_caret]\nadd     edx, 2\nmovsxd  rdx, edx\nmov     eax, [rax+rdx*4]\nshl     eax, 10h\nadd     ecx, eax\nmov     rax, [rbp+tga]\nmov     rax, [rax+30h]\nmov     edx, [rbp+bitmap_caret]\nadd     edx, 1\nmovsxd  rdx, edx\nmov     eax, [rax+rdx*4]\nshl     eax, 8\nadd     ecx, eax\nmov     rax, [rbp+tga]\nmov     rax, [rax+30h]\nmovsxd  rdx, [rbp+bitmap_caret]\nadd     ecx, [rax+rdx*4]\nmov     rax, [rbp+tpix]\nmov     [rax], ecx\nmov     eax, [rbp+bitmap_caret]\nadd     eax, 4\nmov     [rbp+bitmap_caret], eax",
+   "loc_239B": "jmp     $+5",
+   "loc_23A0": "jmp     $+5",
+   "loc_23A5": "mov     eax, [rbp+x]\nadd     eax, 1\nmov     [rbp+x], eax\nmov     rax, [rbp+tpix]\nadd     rax, 4\nmov     [rbp+tpix], rax\njmp     loc_228E",
+   "loc_23BF": "jmp     $+5",
+   "loc_23C4": "mov     eax, [rbp+y]\nadd     eax, 1\nmov     [rbp+y], eax\njmp     loc_2260",
+   "loc_23D2": "mov     rax, [rbp+tga]\nmovzx   eax, byte ptr [rax+23h]\ncmp     eax, 0\njz      loc_2402",
+   "loc_23E3": "mov     rax, [rbp+tga]\nmovzx   eax, byte ptr [rax+22h]\ncmp     eax, 0\njz      loc_2402",
+   "loc_23F4": "mov     rdi, [rbp+image]; im\ncall    _D4core8internal2gc4impl6manualQp8ManualGC10__aggrDtorMFZv; Qp8ManualGC10__aggrDtorMFZv core.internal.gc.impl.manual\njmp     loc_243F",
+   "loc_2402": "mov     rax, [rbp+tga]\ncmp     byte ptr [rax+23h], 0\njz      loc_241E",
+   "loc_2410": "mov     rdi, [rbp+image]; im\ncall    gdImageFlipVertical\njmp     loc_243A",
+   "loc_241E": "mov     rax, [rbp+tga]\ncmp     byte ptr [rax+22h], 0\njz      loc_2435",
+   "loc_242C": "mov     rdi, [rbp+image]; im\ncall    gdImageFlipHorizontal",
+   "loc_2435": "jmp     $+5",
+   "loc_243A": "jmp     $+5",
+   "loc_243F": "mov     rdi, [rbp+tga]; tga\ncall    free_tga\nmov     rax, [rbp+image]\nmov     [rbp+var_8], rax",
+   "loc_2450": "mov     rax, [rbp+var_8]\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "a": "dword ptr -3Ch",
+   "tpix": "qword ptr -38h",
+   "y": "dword ptr -30h",
+   "x": "dword ptr -2Ch",
+   "image": "qword ptr -28h",
+   "tga": "qword ptr -20h",
+   "bitmap_caret": "dword ptr -14h",
+   "ctx": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 8496,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868482
+ }
+}

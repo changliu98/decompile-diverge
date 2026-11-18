@@ -1,0 +1,1 @@
+char* func0(char *s) { char *regex = "ab*?"; int reti; reti = regcomp(&regex, regex, 1); if (reti) return "Regex compilation failed"; reti = regexec(&regex, s, 0, NULL, 0); regfree(&regex); if (!reti) return "Found a match!"; return "Not matched!"; }

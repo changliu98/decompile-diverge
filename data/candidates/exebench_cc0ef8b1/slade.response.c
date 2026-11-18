@@ -1,0 +1,1 @@
+float xCorrCoef(const float x[], const float y[], int n) { int i; float w = 0.0f, xw = 0.0f; for (i = 0; i < n; i++) { w += x[i] * y[i]; xw += y[i] * y[i]; } return w > 0.0f ? w * w / xw : 0.0f; }

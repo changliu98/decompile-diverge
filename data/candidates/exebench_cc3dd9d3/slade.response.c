@@ -1,0 +1,1 @@
+void AssignBit(u8 *data, u32 index, bool value) { u8 mask = 1UL << (index % ((1UL << 6) - 1)); if (value) data[index / ((1UL << 6) - 1)] |= mask; else data[index / ((1UL << 6) - 1)] &= ~mask; }

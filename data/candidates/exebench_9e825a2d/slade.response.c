@@ -1,0 +1,1 @@
+int C_Utils_compare_float_ptr(const void *va, const void *vb) { float a = *((float *) va); float b = *((float *) vb); if (a == b) return 0; else if (a < b) return -1; else return 1; }

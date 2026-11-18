@@ -1,0 +1,127 @@
+{
+ "kind": "exebench",
+ "real_deps": "#include <stdio.h>\n\n# 1 ",
+ "real_exe_wrapper": "extern \"C\" {\n#include \"/tmp/pytmpfile_2d0c40262005_406ns7nro8.c\"\n}\n\n#include <vector>\n#include <nlohmann/json.hpp>\n#include <fstream>\n#include <iomanip>\n#include <clib/synthesizer.h>\n#include <time.h>\n#include <math.h>\n#include <iostream>\nchar* output_file;\nchar* pre_accel_dump_file;  // optional dump file.\nusing json = nlohmann::json;\nconst char* __asan_default_options() {\n  return \"detect_leaks=0\";\n}\n\nclock_t AcceleratorStart;\nclock_t AcceleratorTotalNanos = 0;\nvoid StartAcceleratorTimer() {\n  AcceleratorStart = clock();\n}\n\nvoid StopAcceleratorTimer() {\n  AcceleratorTotalNanos += (clock()) - AcceleratorStart;\n}\n\nvoid write_output(char* compacted, char* expanded) {\n  json output_json;\n\n  output_json[\"compacted\"] = compacted;\n\n  output_json[\"expanded\"] = expanded;\n  std::ofstream out_str(output_file);\n  out_str << std::setw(4) << output_json << std::endl;\n}\nint main(int argc, char** argv) {\n  char* inpname = argv[1];\n  output_file = argv[2];\n\n  std::ifstream ifs(inpname);\n  json input_json = json::parse(ifs);\n  char* compacted = strdup(input_json[\"compacted\"].get<std::string>().c_str());\n  char* expanded = strdup(input_json[\"expanded\"].get<std::string>().c_str());\n  clock_t begin = clock();\n  expand(compacted, expanded);\n  clock_t end = clock();\n  std::cout << \"Time: \" << (double)(end - begin) / CLOCKS_PER_SEC << std::endl;\n  std::cout << \"AccTime: \" << (double)AcceleratorTotalNanos / CLOCKS_PER_SEC << std::endl;\n  write_output(compacted, expanded);\n}",
+ "real_io_pairs": [
+  {
+   "input": {
+    "compacted": "zwwkirsthmwtkudogccqvohgwdghbqo",
+    "expanded": "j"
+   },
+   "output": {
+    "compacted": "zwwkirsthmwtkudogccqvohgwdghbqo",
+    "expanded": "j"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "compacted": "nvvorx",
+    "expanded": ""
+   },
+   "output": {
+    "compacted": "nvvorx",
+    "expanded": "nopqrstuv"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "compacted": "tglxjneosrkwvi",
+    "expanded": "nylqablqdpbtkvxettlamhif"
+   },
+   "output": {
+    "compacted": "tglxjneosrkwvi",
+    "expanded": "nylqablqdpbtkvxettlamhif"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "compacted": "mfxnwigqvlttlezuplifxrqiyzf",
+    "expanded": "bqkqwhunzmapiwzfzeblcpee"
+   },
+   "output": {
+    "compacted": "mfxnwigqvlttlezuplifxrqiyzf",
+    "expanded": "mnopqrstuvwx"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "compacted": "lafxnsq",
+    "expanded": "hhvmupbz"
+   },
+   "output": {
+    "compacted": "lafxnsq",
+    "expanded": "hhvmupbz"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "compacted": "jrfxzaljvgfbylejiqgi",
+    "expanded": "qdkddqckpzqihzuzzpifhdupxydpn"
+   },
+   "output": {
+    "compacted": "jrfxzaljvgfbylejiqgi",
+    "expanded": "qdkddqckpzqihzuzzpifhdupxydpn"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "compacted": "xkfxaopbnyyrtljqkivmuduxpzrlj",
+    "expanded": "ulqvwvgzifm"
+   },
+   "output": {
+    "compacted": "xkfxaopbnyyrtljqkivmuduxpzrlj",
+    "expanded": "ulqvwvgzifm"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "compacted": "pq",
+    "expanded": ""
+   },
+   "output": {
+    "compacted": "pq",
+    "expanded": ""
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "compacted": "fwhrolksqjsxlcmvhwyrzhsyat",
+    "expanded": "rsugkddxejogz"
+   },
+   "output": {
+    "compacted": "fwhrolksqjsxlcmvhwyrzhsyat",
+    "expanded": "fgh"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  },
+  {
+   "input": {
+    "compacted": "okwcibsvilpycwavytit",
+    "expanded": "ockdtvuxibdytuhwektkqnipa"
+   },
+   "output": {
+    "compacted": "okwcibsvilpycwavytit",
+    "expanded": "opqrstuvw"
+   },
+   "dummy_funcs": null,
+   "dummy_funcs_seed": null
+  }
+ ]
+}

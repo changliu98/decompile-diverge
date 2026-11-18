@@ -1,0 +1,1 @@
+void norm(sf_int *x, sf_int *y, sf_int n) { sf_int d; if (*y < 0) { d = 1 + (-(*y) / n); *x -= d; *y += d * n; } if (*y >= n) { d = *y / n; *x += d; *y -= d * n; } }

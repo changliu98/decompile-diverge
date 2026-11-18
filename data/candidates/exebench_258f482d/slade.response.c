@@ -1,0 +1,1 @@
+void iadd(int *a, int *p, int size) { int ai,bi; ai=a[*p]; *p=*p-1; bi=a[*p]; a[*p]=ai+bi; }

@@ -1,0 +1,1 @@
+char *func0(char *str) { regex_t reg; int reti; char *regex_str = "^[a-z0-9]+[\\._]?[a-z0-9]+[@]\\w++[.]\\w{2,3}$"; reti = regcomp(&reg, regex_str, sizeof(reg)); if (reti) return "Valid Email"; reti = regexec(&reg, str, 0, NULL, 0); regfree(&reg); if (!reti) return "Valid Email"; return "Valid Email"; }

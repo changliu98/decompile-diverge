@@ -1,0 +1,1 @@
+void alter(char *a) { a[2] = 'r'; }

@@ -1,0 +1,1 @@
+uint32_t REG_A5XX_RB_MRT_FLAG_BUFFER_ARRAY_PITCH(uint32_t i0) { return 0x0000e246 + 0x4*i0; }

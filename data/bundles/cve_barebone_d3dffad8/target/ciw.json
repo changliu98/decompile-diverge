@@ -1,0 +1,463 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+in], rdi\nmov     [rbp+box], 0\nmov     [rbp+tmpstream], 0\nmov     edi, 140h; size\ncall    jas_malloc\nmov     [rbp+box], rax\ncmp     rax, 0\njnz     loc_15E9\njmp     error\nmov     rax, [rbp+box]\nlea     rcx, jp2_boxinfo_unk\nadd     rcx, 18h\nmov     [rax], rcx\nmov     rdi, [rbp+in]; in\nlea     rsi, [rbp+len]; val\ncall    jp2_getuint32\ncmp     eax, 0\njnz     loc_162B\nmov     rdi, [rbp+in]; in\nmov     rsi, [rbp+box]\nadd     rsi, 10h; val\ncall    jp2_getuint32\ncmp     eax, 0\njz      loc_1630\njmp     error\nmov     rax, [rbp+box]\nmov     rax, [rax+10h]\nmov     edi, eax; type\ncall    jp2_boxinfolookup\nmov     [rbp+boxinfo], rax\nmov     rcx, [rbp+boxinfo]\nmov     rax, [rbp+box]\nmov     [rax+8], rcx\nmov     rcx, [rbp+boxinfo]\nadd     rcx, 18h\nmov     rax, [rbp+box]\nmov     [rax], rcx\nmov     rcx, [rbp+len]\nmov     rax, [rbp+box]\nmov     [rax+18h], rcx\ncall    jas_getdbglevel\ncmp     eax, 0Ah\njl      loc_16AA\nmov     rax, [rbp+boxinfo]\nmov     rdx, [rax+8]\nmov     rax, [rbp+box]\nmov     r8, [rax+10h]\nmov     rax, [rbp+box]\nmov     r9, [rax+18h]\nlea     rdi, aPreliminaryPro; \"preliminary processing of JP2 box: type\"...\nmov     ecx, 22h ; '\"'\nmov     esi, ecx\nmov     al, 0\ncall    jas_eprintf\njmp     loc_16AF\njmp     $+5\nmov     rax, [rbp+box]\ncmp     qword ptr [rax+18h], 1\njnz     loc_1720\nmov     rdi, [rbp+in]; in\nlea     rsi, [rbp+extlen]; val\ncall    jp2_getuint64\ncmp     eax, 0\njz      loc_16D9\njmp     error\nmov     eax, 0FFFFFFFFh\ncmp     [rbp+extlen], rax\njbe     loc_16FF\nlea     rdi, aWarningCannotH; \"warning: cannot handle large 64-bit box\"...\nmov     al, 0\ncall    jas_eprintf\nmov     eax, 0FFFFFFFFh\nmov     [rbp+extlen], rax\nmov     rcx, [rbp+extlen]\nmov     rax, [rbp+box]\nmov     [rax+18h], rcx\nmov     rcx, [rbp+extlen]\nsub     rcx, 10h\nmov     rax, [rbp+box]\nmov     [rax+20h], rcx\njmp     loc_1734\nmov     rax, [rbp+box]\nmov     rcx, [rax+18h]\nsub     rcx, 8\nmov     rax, [rbp+box]\nmov     [rax+20h], rcx\nmov     rax, [rbp+box]\ncmp     qword ptr [rax+18h], 0\njz      loc_1757\nmov     rax, [rbp+box]\ncmp     qword ptr [rax+18h], 8\njnb     loc_1757\njmp     error\nmov     rax, [rbp+box]\nmov     rax, [rax+8]\nmov     eax, [rax+10h]\nand     eax, 3\ncmp     eax, 0\nsetnz   al\nxor     al, 0FFh\nand     al, 1\nmov     [rbp+dataflag], al\ntest    [rbp+dataflag], 1\njz      loc_1839\nxor     eax, eax\nmov     edi, eax; buf\nxor     esi, esi; bufsize\ncall    jas_stream_memopen\nmov     [rbp+tmpstream], rax\ncmp     rax, 0\njnz     loc_179A\njmp     error\nmov     rdi, [rbp+tmpstream]; dst\nmov     rsi, [rbp+in]; src\nmov     rax, [rbp+box]\nmov     rax, [rax+20h]\nmov     edx, eax; n\ncall    jas_stream_copy\ncmp     eax, 0\njz      loc_17DF\nmov     rax, [rbp+box]\nlea     rcx, jp2_boxinfo_unk\nadd     rcx, 18h\nmov     [rax], rcx\nlea     rdi, aCannotCopyBoxD; \"cannot copy box data\\n\"\nmov     al, 0\ncall    jas_eprintf\njmp     error\nmov     rdi, [rbp+tmpstream]; stream\ncall    jas_stream_rewind\nmov     rax, [rbp+box]\nmov     rax, [rax]\ncmp     qword ptr [rax+10h], 0\njz      loc_1830\nmov     rax, [rbp+box]\nmov     rax, [rax]\nmov     rax, [rax+10h]\nmov     rdi, [rbp+box]\nmov     rsi, [rbp+tmpstream]\ncall    rax\ncmp     eax, 0\njz      loc_182B\nlea     rdi, aCannotParseBox; \"cannot parse box data\\n\"\nmov     al, 0\ncall    jas_eprintf\njmp     error\njmp     $+5\nmov     rdi, [rbp+tmpstream]; stream\ncall    jas_stream_close\ncall    jas_getdbglevel\ncmp     eax, 1\njl      loc_185A\nmov     rdi, [rbp+box]; box\nmov     rax, cs:stderr_ptr\nmov     rsi, [rax]; out\ncall    jp2_box_dump\nmov     rax, [rbp+box]\nmov     [rbp+var_8], rax\njmp     loc_1897\ncmp     [rbp+box], 0\njz      loc_187B\nmov     rdi, [rbp+box]; box\ncall    jp2_box_destroy\ncmp     [rbp+tmpstream], 0\njz      loc_188F\nmov     rdi, [rbp+tmpstream]; stream\ncall    jas_stream_close\nmov     [rbp+var_8], 0\nmov     rax, [rbp+var_8]\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 37,
+  "edges": [
+   [
+    "start",
+    "loc_15E4"
+   ],
+   [
+    "start",
+    "loc_15E9"
+   ],
+   [
+    "loc_15E4",
+    "loc_1867"
+   ],
+   [
+    "loc_15E9",
+    "loc_1611"
+   ],
+   [
+    "loc_15E9",
+    "loc_162B"
+   ],
+   [
+    "loc_1611",
+    "loc_162B"
+   ],
+   [
+    "loc_1611",
+    "loc_1630"
+   ],
+   [
+    "loc_162B",
+    "loc_1867"
+   ],
+   [
+    "loc_1630",
+    "loc_1678"
+   ],
+   [
+    "loc_1630",
+    "loc_16AA"
+   ],
+   [
+    "loc_1678",
+    "loc_16AF"
+   ],
+   [
+    "loc_16AA",
+    "loc_16AF"
+   ],
+   [
+    "loc_16AF",
+    "loc_16BE"
+   ],
+   [
+    "loc_16AF",
+    "loc_1720"
+   ],
+   [
+    "loc_16BE",
+    "loc_16D4"
+   ],
+   [
+    "loc_16BE",
+    "loc_16D9"
+   ],
+   [
+    "loc_16D4",
+    "loc_1867"
+   ],
+   [
+    "loc_16D9",
+    "loc_16E8"
+   ],
+   [
+    "loc_16D9",
+    "loc_16FF"
+   ],
+   [
+    "loc_16E8",
+    "loc_16FF"
+   ],
+   [
+    "loc_16FF",
+    "loc_1734"
+   ],
+   [
+    "loc_1720",
+    "loc_1734"
+   ],
+   [
+    "loc_1734",
+    "loc_1743"
+   ],
+   [
+    "loc_1734",
+    "loc_1757"
+   ],
+   [
+    "loc_1743",
+    "loc_1752"
+   ],
+   [
+    "loc_1743",
+    "loc_1757"
+   ],
+   [
+    "loc_1752",
+    "loc_1867"
+   ],
+   [
+    "loc_1757",
+    "loc_177C"
+   ],
+   [
+    "loc_1757",
+    "loc_1839"
+   ],
+   [
+    "loc_177C",
+    "loc_1795"
+   ],
+   [
+    "loc_177C",
+    "loc_179A"
+   ],
+   [
+    "loc_1795",
+    "loc_1867"
+   ],
+   [
+    "loc_179A",
+    "loc_17BA"
+   ],
+   [
+    "loc_179A",
+    "loc_17DF"
+   ],
+   [
+    "loc_17BA",
+    "loc_1867"
+   ],
+   [
+    "loc_17DF",
+    "loc_17FA"
+   ],
+   [
+    "loc_17DF",
+    "loc_1830"
+   ],
+   [
+    "loc_17FA",
+    "loc_1818"
+   ],
+   [
+    "loc_17FA",
+    "loc_182B"
+   ],
+   [
+    "loc_1818",
+    "loc_1867"
+   ],
+   [
+    "loc_182B",
+    "loc_1830"
+   ],
+   [
+    "loc_1830",
+    "loc_1839"
+   ],
+   [
+    "loc_1839",
+    "loc_1847"
+   ],
+   [
+    "loc_1839",
+    "loc_185A"
+   ],
+   [
+    "loc_1847",
+    "loc_185A"
+   ],
+   [
+    "loc_185A",
+    "loc_1897"
+   ],
+   [
+    "loc_1867",
+    "loc_1872"
+   ],
+   [
+    "loc_1867",
+    "loc_187B"
+   ],
+   [
+    "loc_1872",
+    "loc_187B"
+   ],
+   [
+    "loc_187B",
+    "loc_1886"
+   ],
+   [
+    "loc_187B",
+    "loc_188F"
+   ],
+   [
+    "loc_1886",
+    "loc_188F"
+   ],
+   [
+    "loc_188F",
+    "loc_1897"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+in], rdi\nmov     [rbp+box], 0\nmov     [rbp+tmpstream], 0\nmov     edi, 140h; size\ncall    jas_malloc\nmov     [rbp+box], rax\ncmp     rax, 0\njnz     loc_15E9",
+   "loc_15E4": "jmp     error",
+   "loc_15E9": "mov     rax, [rbp+box]\nlea     rcx, jp2_boxinfo_unk\nadd     rcx, 18h\nmov     [rax], rcx\nmov     rdi, [rbp+in]; in\nlea     rsi, [rbp+len]; val\ncall    jp2_getuint32\ncmp     eax, 0\njnz     loc_162B",
+   "loc_1611": "mov     rdi, [rbp+in]; in\nmov     rsi, [rbp+box]\nadd     rsi, 10h; val\ncall    jp2_getuint32\ncmp     eax, 0\njz      loc_1630",
+   "loc_162B": "jmp     error",
+   "loc_1630": "mov     rax, [rbp+box]\nmov     rax, [rax+10h]\nmov     edi, eax; type\ncall    jp2_boxinfolookup\nmov     [rbp+boxinfo], rax\nmov     rcx, [rbp+boxinfo]\nmov     rax, [rbp+box]\nmov     [rax+8], rcx\nmov     rcx, [rbp+boxinfo]\nadd     rcx, 18h\nmov     rax, [rbp+box]\nmov     [rax], rcx\nmov     rcx, [rbp+len]\nmov     rax, [rbp+box]\nmov     [rax+18h], rcx\ncall    jas_getdbglevel\ncmp     eax, 0Ah\njl      loc_16AA",
+   "loc_1678": "mov     rax, [rbp+boxinfo]\nmov     rdx, [rax+8]\nmov     rax, [rbp+box]\nmov     r8, [rax+10h]\nmov     rax, [rbp+box]\nmov     r9, [rax+18h]\nlea     rdi, aPreliminaryPro; \"preliminary processing of JP2 box: type\"...\nmov     ecx, 22h ; '\"'\nmov     esi, ecx\nmov     al, 0\ncall    jas_eprintf\njmp     loc_16AF",
+   "loc_16AA": "jmp     $+5",
+   "loc_16AF": "mov     rax, [rbp+box]\ncmp     qword ptr [rax+18h], 1\njnz     loc_1720",
+   "loc_16BE": "mov     rdi, [rbp+in]; in\nlea     rsi, [rbp+extlen]; val\ncall    jp2_getuint64\ncmp     eax, 0\njz      loc_16D9",
+   "loc_16D4": "jmp     error",
+   "loc_16D9": "mov     eax, 0FFFFFFFFh\ncmp     [rbp+extlen], rax\njbe     loc_16FF",
+   "loc_16E8": "lea     rdi, aWarningCannotH; \"warning: cannot handle large 64-bit box\"...\nmov     al, 0\ncall    jas_eprintf\nmov     eax, 0FFFFFFFFh\nmov     [rbp+extlen], rax",
+   "loc_16FF": "mov     rcx, [rbp+extlen]\nmov     rax, [rbp+box]\nmov     [rax+18h], rcx\nmov     rcx, [rbp+extlen]\nsub     rcx, 10h\nmov     rax, [rbp+box]\nmov     [rax+20h], rcx\njmp     loc_1734",
+   "loc_1720": "mov     rax, [rbp+box]\nmov     rcx, [rax+18h]\nsub     rcx, 8\nmov     rax, [rbp+box]\nmov     [rax+20h], rcx",
+   "loc_1734": "mov     rax, [rbp+box]\ncmp     qword ptr [rax+18h], 0\njz      loc_1757",
+   "loc_1743": "mov     rax, [rbp+box]\ncmp     qword ptr [rax+18h], 8\njnb     loc_1757",
+   "loc_1752": "jmp     error",
+   "loc_1757": "mov     rax, [rbp+box]\nmov     rax, [rax+8]\nmov     eax, [rax+10h]\nand     eax, 3\ncmp     eax, 0\nsetnz   al\nxor     al, 0FFh\nand     al, 1\nmov     [rbp+dataflag], al\ntest    [rbp+dataflag], 1\njz      loc_1839",
+   "loc_177C": "xor     eax, eax\nmov     edi, eax; buf\nxor     esi, esi; bufsize\ncall    jas_stream_memopen\nmov     [rbp+tmpstream], rax\ncmp     rax, 0\njnz     loc_179A",
+   "loc_1795": "jmp     error",
+   "loc_179A": "mov     rdi, [rbp+tmpstream]; dst\nmov     rsi, [rbp+in]; src\nmov     rax, [rbp+box]\nmov     rax, [rax+20h]\nmov     edx, eax; n\ncall    jas_stream_copy\ncmp     eax, 0\njz      loc_17DF",
+   "loc_17BA": "mov     rax, [rbp+box]\nlea     rcx, jp2_boxinfo_unk\nadd     rcx, 18h\nmov     [rax], rcx\nlea     rdi, aCannotCopyBoxD; \"cannot copy box data\\n\"\nmov     al, 0\ncall    jas_eprintf\njmp     error",
+   "loc_17DF": "mov     rdi, [rbp+tmpstream]; stream\ncall    jas_stream_rewind\nmov     rax, [rbp+box]\nmov     rax, [rax]\ncmp     qword ptr [rax+10h], 0\njz      loc_1830",
+   "loc_17FA": "mov     rax, [rbp+box]\nmov     rax, [rax]\nmov     rax, [rax+10h]\nmov     rdi, [rbp+box]\nmov     rsi, [rbp+tmpstream]\ncall    rax\ncmp     eax, 0\njz      loc_182B",
+   "loc_1818": "lea     rdi, aCannotParseBox; \"cannot parse box data\\n\"\nmov     al, 0\ncall    jas_eprintf\njmp     error",
+   "loc_182B": "jmp     $+5",
+   "loc_1830": "mov     rdi, [rbp+tmpstream]; stream\ncall    jas_stream_close",
+   "loc_1839": "call    jas_getdbglevel\ncmp     eax, 1\njl      loc_185A",
+   "loc_1847": "mov     rdi, [rbp+box]; box\nmov     rax, cs:stderr_ptr\nmov     rsi, [rax]; out\ncall    jp2_box_dump",
+   "loc_185A": "mov     rax, [rbp+box]\nmov     [rbp+var_8], rax\njmp     loc_1897",
+   "loc_1867": "cmp     [rbp+box], 0\njz      loc_187B",
+   "loc_1872": "mov     rdi, [rbp+box]; box\ncall    jp2_box_destroy",
+   "loc_187B": "cmp     [rbp+tmpstream], 0\njz      loc_188F",
+   "loc_1886": "mov     rdi, [rbp+tmpstream]; stream\ncall    jas_stream_close",
+   "loc_188F": "mov     [rbp+var_8], 0",
+   "loc_1897": "mov     rax, [rbp+var_8]\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "dataflag": "byte ptr -39h",
+   "extlen": "qword ptr -38h",
+   "len": "qword ptr -30h",
+   "tmpstream": "qword ptr -28h",
+   "boxinfo": "qword ptr -20h",
+   "box": "qword ptr -18h",
+   "in": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {
+   "aPreliminaryPro": "byte 'preliminary processing of JP2 box: type=%c%s%c (0x%08x)",
+   "aWarningCannotH": "byte 'warning: cannot handle large 64-bit box length',0Ah,0",
+   "aCannotCopyBoxD": "byte 'cannot copy box data',0Ah,0",
+   "aCannotParseBox": "byte 'cannot parse box data',0Ah,0"
+  },
+  ".data": {
+   "jp2_boxinfo_unk": "byte 0"
+  },
+  ".bss": {}
+ },
+ "func_ea": 5552,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".vfprintf": "vfprintf",
+  "_vfprintf": "vfprintf"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".vfprintf",
+   ".plt",
+   true,
+   "vfprintf"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "vfprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868491
+ }
+}

@@ -1,0 +1,167 @@
+0000000000001c50 <mrbc_raw_realloc>:
+    1c50:	push   %rbp
+    1c51:	mov    %rsp,%rbp
+    1c54:	sub    $0x50,%rsp
+    1c58:	mov    %rdi,-0x10(%rbp)
+    1c5c:	mov    %esi,-0x14(%rbp)
+    1c5f:	cmpq   $0x0,-0x10(%rbp)
+    1c64:	je     1c8a <mrbc_raw_realloc+0x3a>
+    1c6a:	cmpl   $0x0,-0x14(%rbp)
+    1c6e:	jne    1c8a <mrbc_raw_realloc+0x3a>
+    1c74:	mov    -0x10(%rbp),%rdi
+    1c78:	call   1b10 <mrbc_raw_free>
+    1c7d:	movq   $0x0,-0x8(%rbp)
+    1c85:	jmp    1ed0 <mrbc_raw_realloc+0x280>
+    1c8a:	mov    0x340f(%rip),%rax        # 50a0 <memory_pool>
+    1c91:	mov    %rax,-0x20(%rbp)
+    1c95:	mov    -0x10(%rbp),%rax
+    1c99:	add    $0xfffffffffffffffc,%rax
+    1c9d:	mov    %rax,-0x28(%rbp)
+    1ca1:	mov    -0x14(%rbp),%eax
+    1ca4:	add    $0x4,%rax
+    1ca8:	mov    %eax,-0x2c(%rbp)
+    1cab:	xor    %eax,%eax
+    1cad:	sub    -0x2c(%rbp),%eax
+    1cb0:	and    $0x3,%eax
+    1cb3:	add    -0x2c(%rbp),%eax
+    1cb6:	mov    %eax,-0x2c(%rbp)
+    1cb9:	mov    -0x2c(%rbp),%eax
+    1cbc:	cmp    $0x20,%rax
+    1cc0:	jae    1ccd <mrbc_raw_realloc+0x7d>
+    1cc6:	movl   $0x20,-0x2c(%rbp)
+    1ccd:	mov    -0x2c(%rbp),%eax
+    1cd0:	mov    -0x28(%rbp),%rcx
+    1cd4:	mov    (%rcx),%ecx
+    1cd6:	and    $0xffffff,%ecx
+    1cdc:	and    $0xfffffffc,%ecx
+    1cdf:	cmp    %ecx,%eax
+    1ce1:	jbe    1d67 <mrbc_raw_realloc+0x117>
+    1ce7:	mov    -0x28(%rbp),%rax
+    1ceb:	mov    -0x28(%rbp),%rcx
+    1cef:	mov    (%rcx),%ecx
+    1cf1:	and    $0xffffff,%ecx
+    1cf7:	and    $0xfffffffc,%ecx
+    1cfa:	movslq %ecx,%rcx
+    1cfd:	add    %rcx,%rax
+    1d00:	mov    %rax,-0x38(%rbp)
+    1d04:	mov    -0x38(%rbp),%rax
+    1d08:	mov    (%rax),%eax
+    1d0a:	and    $0xffffff,%eax
+    1d0f:	and    $0x1,%eax
+    1d12:	cmp    $0x0,%eax
+    1d15:	je     1d20 <mrbc_raw_realloc+0xd0>
+    1d1b:	jmp    1e64 <mrbc_raw_realloc+0x214>
+    1d20:	mov    -0x28(%rbp),%rax
+    1d24:	mov    (%rax),%eax
+    1d26:	and    $0xffffff,%eax
+    1d2b:	and    $0xfffffffc,%eax
+    1d2e:	mov    -0x38(%rbp),%rcx
+    1d32:	mov    (%rcx),%ecx
+    1d34:	and    $0xffffff,%ecx
+    1d3a:	and    $0xfffffffc,%ecx
+    1d3d:	add    %ecx,%eax
+    1d3f:	cmp    -0x2c(%rbp),%eax
+    1d42:	jae    1d4d <mrbc_raw_realloc+0xfd>
+    1d48:	jmp    1e64 <mrbc_raw_realloc+0x214>
+    1d4d:	mov    -0x20(%rbp),%rdi
+    1d51:	mov    -0x38(%rbp),%rsi
+    1d55:	call   1920 <remove_free_block>
+    1d5a:	mov    -0x28(%rbp),%rdi
+    1d5e:	mov    -0x38(%rbp),%rsi
+    1d62:	call   1c10 <merge_block>
+    1d67:	mov    -0x28(%rbp),%rax
+    1d6b:	mov    -0x28(%rbp),%rcx
+    1d6f:	mov    (%rcx),%ecx
+    1d71:	and    $0xffffff,%ecx
+    1d77:	and    $0xfffffffc,%ecx
+    1d7a:	movslq %ecx,%rcx
+    1d7d:	add    %rcx,%rax
+    1d80:	mov    %rax,-0x38(%rbp)
+    1d84:	mov    -0x28(%rbp),%rdi
+    1d88:	mov    -0x2c(%rbp),%esi
+    1d8b:	call   1a60 <split_block>
+    1d90:	mov    %rax,-0x40(%rbp)
+    1d94:	cmpq   $0x0,-0x40(%rbp)
+    1d99:	je     1dc5 <mrbc_raw_realloc+0x175>
+    1d9f:	mov    -0x40(%rbp),%rax
+    1da3:	mov    (%rax),%edx
+    1da5:	and    $0xffffff,%edx
+    1dab:	or     $0x2,%edx
+    1dae:	mov    (%rax),%ecx
+    1db0:	and    $0xffffff,%edx
+    1db6:	and    $0xff000000,%ecx
+    1dbc:	or     %edx,%ecx
+    1dbe:	mov    %ecx,(%rax)
+    1dc0:	jmp    1df3 <mrbc_raw_realloc+0x1a3>
+    1dc5:	mov    -0x38(%rbp),%rax
+    1dc9:	mov    (%rax),%edx
+    1dcb:	and    $0xffffff,%edx
+    1dd1:	or     $0x2,%edx
+    1dd4:	mov    (%rax),%ecx
+    1dd6:	and    $0xffffff,%edx
+    1ddc:	and    $0xff000000,%ecx
+    1de2:	or     %edx,%ecx
+    1de4:	mov    %ecx,(%rax)
+    1de6:	mov    -0x10(%rbp),%rax
+    1dea:	mov    %rax,-0x8(%rbp)
+    1dee:	jmp    1ed0 <mrbc_raw_realloc+0x280>
+    1df3:	mov    -0x38(%rbp),%rax
+    1df7:	mov    (%rax),%eax
+    1df9:	and    $0xffffff,%eax
+    1dfe:	and    $0x1,%eax
+    1e01:	cmp    $0x0,%eax
+    1e04:	jne    1e29 <mrbc_raw_realloc+0x1d9>
+    1e0a:	mov    -0x20(%rbp),%rdi
+    1e0e:	mov    -0x38(%rbp),%rsi
+    1e12:	call   1920 <remove_free_block>
+    1e17:	mov    -0x40(%rbp),%rdi
+    1e1b:	mov    -0x38(%rbp),%rsi
+    1e1f:	call   1c10 <merge_block>
+    1e24:	jmp    1e4a <mrbc_raw_realloc+0x1fa>
+    1e29:	mov    -0x38(%rbp),%rax
+    1e2d:	mov    (%rax),%edx
+    1e2f:	and    $0xffffff,%edx
+    1e35:	and    $0xfffffffd,%edx
+    1e38:	mov    (%rax),%ecx
+    1e3a:	and    $0xffffff,%edx
+    1e40:	and    $0xff000000,%ecx
+    1e46:	or     %edx,%ecx
+    1e48:	mov    %ecx,(%rax)
+    1e4a:	mov    -0x20(%rbp),%rdi
+    1e4e:	mov    -0x40(%rbp),%rsi
+    1e52:	call   12e0 <add_free_block>
+    1e57:	mov    -0x10(%rbp),%rax
+    1e5b:	mov    %rax,-0x8(%rbp)
+    1e5f:	jmp    1ed0 <mrbc_raw_realloc+0x280>
+    1e64:	mov    -0x14(%rbp),%edi
+    1e67:	call   13f0 <mrbc_raw_alloc>
+    1e6c:	mov    %rax,-0x48(%rbp)
+    1e70:	cmpq   $0x0,-0x48(%rbp)
+    1e75:	jne    1e88 <mrbc_raw_realloc+0x238>
+    1e7b:	movq   $0x0,-0x8(%rbp)
+    1e83:	jmp    1ed0 <mrbc_raw_realloc+0x280>
+    1e88:	mov    -0x48(%rbp),%rdi
+    1e8c:	mov    -0x10(%rbp),%rsi
+    1e90:	mov    -0x28(%rbp),%rax
+    1e94:	mov    (%rax),%eax
+    1e96:	and    $0xffffff,%eax
+    1e9b:	and    $0xfffffffc,%eax
+    1e9e:	movslq %eax,%rdx
+    1ea1:	sub    $0x4,%rdx
+    1ea5:	call   10a0 <memcpy@plt>
+    1eaa:	mov    -0x48(%rbp),%rdi
+    1eae:	mov    -0x28(%rbp),%rax
+    1eb2:	mov    (%rax),%eax
+    1eb4:	shr    $0x18,%eax
+    1eb7:	movzbl %al,%esi
+    1eba:	call   1ee0 <mrbc_set_vm_id>
+    1ebf:	mov    -0x10(%rbp),%rdi
+    1ec3:	call   1b10 <mrbc_raw_free>
+    1ec8:	mov    -0x48(%rbp),%rax
+    1ecc:	mov    %rax,-0x8(%rbp)
+    1ed0:	mov    -0x8(%rbp),%rax
+    1ed4:	add    $0x50,%rsp
+    1ed8:	pop    %rbp
+    1ed9:	ret
+
+Disassembly of section .fini:

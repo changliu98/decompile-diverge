@@ -1,0 +1,1 @@
+int func0(int a, int b) { int i = 1; int j = 0; while (i <= a && j < 100) { if (i == a) return 1; i *= b; j++; } return 0; }

@@ -1,0 +1,1 @@
+void geom_cross3f(const float* x, const float* y, float* result) { result[0] = x[1]*y[2] - x[2]*y[1]; result[1] = x[2]*y[0] - x[0]*y[2]; result[2] = x[0]*y[1] - x[1]*y[0]; }

@@ -1,0 +1,1 @@
+int test_and_set_bit(int nr, void *addr) { volatile int bit; asm volatile("btsl %0,%1\n" "sbbl %2,%0\n" : "=&r" (bit) : "r" (nr), "r" (nr)); return bit; }

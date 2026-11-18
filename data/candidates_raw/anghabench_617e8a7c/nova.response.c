@@ -1,0 +1,1 @@
+static inline uint32_t func0(uint32_t i0) { return 0x00002246 + 0x2*i0; }

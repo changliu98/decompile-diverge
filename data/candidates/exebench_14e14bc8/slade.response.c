@@ -1,0 +1,1 @@
+void c_sysconf_(int *n, int *x, int *z) { *x = sysconf(*n); *z = *__errno_location(); }

@@ -1,0 +1,1 @@
+void _itoa_hex(unsigned int nb, char* buf) {  const char hexatab[] = "0123456789abcdef"; unsigned int i; for (i = 0; i < 8; i++) { buf[7 - i] = hexatab[nb &0xf]; nb /= 16; } }

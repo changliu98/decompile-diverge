@@ -1,0 +1,1 @@
+void func0(float *x, int N) { float x0 = x[0]; float x1 = x[0]; for (int i = 1; i < N; ++i) { if (x[i] < x0) x0 = x[i]; if (x[i] > x1) x1 = x[i]; } for (int i = 0; i < N; ++i) x[i] = x[i] / (x1 - x0); }

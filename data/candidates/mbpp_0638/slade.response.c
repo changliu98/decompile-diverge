@@ -1,0 +1,1 @@
+int func0(int param1, int param2) { double x; x = (1.0 + param2 * 1.15) - (0.01 * pow((double)param1, 0.49)) + (param2 * 0.01) * pow((double)param1, 0.49); return (int)round(x); }

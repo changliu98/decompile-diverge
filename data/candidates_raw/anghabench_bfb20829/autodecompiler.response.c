@@ -1,0 +1,1 @@
+int win2y(int win) { return win<<4; }

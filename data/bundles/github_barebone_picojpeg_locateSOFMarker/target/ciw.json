@@ -1,0 +1,308 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 10h\ncall    locateSOIMarker\nmov     [rbp+status], al\ncmp     [rbp+status], 0\njz      loc_1B65\nmov     al, [rbp+status]\nmov     [rbp+var_1], al\njmp     loc_1BF8\nlea     rdi, [rbp+c]; pMarker\ncall    processMarkers\nmov     [rbp+status], al\ncmp     [rbp+status], 0\njz      loc_1B86\nmov     al, [rbp+status]\nmov     [rbp+var_1], al\njmp     loc_1BF8\nmovzx   eax, [rbp+c]\nadd     eax, 0FFFFFF40h; switch 10 cases\nmov     ecx, eax\nmov     [rbp+var_10], rcx\nsub     eax, 9\nja      def_1BB0; jumptable 0000000000001BB0 default case, cases 195-200\nmov     rax, [rbp+var_10]\nlea     rcx, jpt_1BB0\nmovsxd  rax, ds:(jpt_1BB0 - 6004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump\nmov     [rbp+var_1], 25h ; '%'; jumptable 0000000000001BB0 case 194\njmp     loc_1BF8\ncall    readSOFMarker; jumptable 0000000000001BB0 case 192\nmov     [rbp+status], al\ncmp     [rbp+status], 0\njz      loc_1BD8\nmov     al, [rbp+status]\nmov     [rbp+var_1], al\njmp     loc_1BF8\njmp     loc_1BF4\nmov     [rbp+var_1], 11h; jumptable 0000000000001BB0 case 201\njmp     loc_1BF8\njmp     $+5; jumptable 0000000000001BB0 case 193\nmov     [rbp+var_1], 14h; jumptable 0000000000001BB0 default case, cases 195-200\njmp     loc_1BF8\nmov     [rbp+var_1], 0\nmovzx   eax, [rbp+var_1]\nadd     rsp, 10h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 15,
+  "edges": [
+   [
+    "start",
+    "loc_1B5A"
+   ],
+   [
+    "start",
+    "loc_1B65"
+   ],
+   [
+    "loc_1B5A",
+    "loc_1BF8"
+   ],
+   [
+    "loc_1B65",
+    "loc_1B7B"
+   ],
+   [
+    "loc_1B65",
+    "loc_1B86"
+   ],
+   [
+    "loc_1B7B",
+    "loc_1BF8"
+   ],
+   [
+    "loc_1B86",
+    "loc_1B9E"
+   ],
+   [
+    "loc_1B86",
+    "loc_1BEB"
+   ],
+   [
+    "loc_1B9E",
+    "loc_1BB2"
+   ],
+   [
+    "loc_1B9E",
+    "loc_1BBB"
+   ],
+   [
+    "loc_1B9E",
+    "loc_1BDD"
+   ],
+   [
+    "loc_1B9E",
+    "loc_1BE6"
+   ],
+   [
+    "loc_1B9E",
+    "loc_1BEB"
+   ],
+   [
+    "loc_1BB2",
+    "loc_1BF8"
+   ],
+   [
+    "loc_1BBB",
+    "loc_1BCD"
+   ],
+   [
+    "loc_1BBB",
+    "loc_1BD8"
+   ],
+   [
+    "loc_1BCD",
+    "loc_1BF8"
+   ],
+   [
+    "loc_1BD8",
+    "loc_1BF4"
+   ],
+   [
+    "loc_1BDD",
+    "loc_1BF8"
+   ],
+   [
+    "loc_1BE6",
+    "loc_1BEB"
+   ],
+   [
+    "loc_1BEB",
+    "loc_1BF8"
+   ],
+   [
+    "loc_1BF4",
+    "loc_1BF8"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 10h\ncall    locateSOIMarker\nmov     [rbp+status], al\ncmp     [rbp+status], 0\njz      loc_1B65",
+   "loc_1B5A": "mov     al, [rbp+status]\nmov     [rbp+var_1], al\njmp     loc_1BF8",
+   "loc_1B65": "lea     rdi, [rbp+c]; pMarker\ncall    processMarkers\nmov     [rbp+status], al\ncmp     [rbp+status], 0\njz      loc_1B86",
+   "loc_1B7B": "mov     al, [rbp+status]\nmov     [rbp+var_1], al\njmp     loc_1BF8",
+   "loc_1B86": "movzx   eax, [rbp+c]\nadd     eax, 0FFFFFF40h; switch 10 cases\nmov     ecx, eax\nmov     [rbp+var_10], rcx\nsub     eax, 9\nja      def_1BB0; jumptable 0000000000001BB0 default case, cases 195-200",
+   "loc_1B9E": "mov     rax, [rbp+var_10]\nlea     rcx, jpt_1BB0\nmovsxd  rax, ds:(jpt_1BB0 - 6004h)[rcx+rax*4]\nadd     rax, rcx\njmp     rax; switch jump",
+   "loc_1BB2": "mov     [rbp+var_1], 25h ; '%'; jumptable 0000000000001BB0 case 194\njmp     loc_1BF8",
+   "loc_1BBB": "call    readSOFMarker; jumptable 0000000000001BB0 case 192\nmov     [rbp+status], al\ncmp     [rbp+status], 0\njz      loc_1BD8",
+   "loc_1BCD": "mov     al, [rbp+status]\nmov     [rbp+var_1], al\njmp     loc_1BF8",
+   "loc_1BD8": "jmp     loc_1BF4",
+   "loc_1BDD": "mov     [rbp+var_1], 11h; jumptable 0000000000001BB0 case 201\njmp     loc_1BF8",
+   "loc_1BE6": "jmp     $+5; jumptable 0000000000001BB0 case 193",
+   "loc_1BEB": "mov     [rbp+var_1], 14h; jumptable 0000000000001BB0 default case, cases 195-200\njmp     loc_1BF8",
+   "loc_1BF4": "mov     [rbp+var_1], 0",
+   "loc_1BF8": "movzx   eax, [rbp+var_1]\nadd     rsp, 10h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_10": "qword ptr -10h",
+   "status": "byte ptr -3",
+   "c": "byte ptr -2",
+   "var_1": "byte ptr -1"
+  },
+  ".rodata": {
+   "jpt_1BB0": "dword offset loc_1BBB - 6004h; jump table for switch statement"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 6976,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872678
+ }
+}

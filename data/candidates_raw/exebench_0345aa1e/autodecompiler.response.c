@@ -1,0 +1,1 @@
+void c34(float *a, double b) { *a = (float)b; }

@@ -1,0 +1,1 @@
+void si_swapl( unsigned int *i ) { union { unsigned char c[4]; unsigned char i[2]; } u; unsigned int r; u.i[0] = *i; u.i[1] = u.c[0]; u.c[0] = u.c[3]; u.c[3] = u.c[1]; u.c[1] = u.c[2]; u.c[2] = u.c[3]; u.c[3] = u.c[1]; *i = r; }

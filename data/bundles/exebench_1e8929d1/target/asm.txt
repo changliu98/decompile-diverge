@@ -1,0 +1,46 @@
+0000000000001500 <convert2ASCII>:
+    1500:	push   %rbp
+    1501:	mov    %rsp,%rbp
+    1504:	mov    %dil,%al
+    1507:	mov    %al,-0x1(%rbp)
+    150a:	mov    %rsi,-0x10(%rbp)
+    150e:	movsbl -0x1(%rbp),%eax
+    1512:	sar    $0x4,%eax
+    1515:	mov    %al,-0x11(%rbp)
+    1518:	movzbl -0x11(%rbp),%eax
+    151c:	cmp    $0xa,%eax
+    151f:	jge    1539 <convert2ASCII+0x39>
+    1525:	movzbl -0x11(%rbp),%eax
+    1529:	add    $0x30,%eax
+    152c:	mov    %al,%cl
+    152e:	mov    -0x10(%rbp),%rax
+    1532:	mov    %cl,(%rax)
+    1534:	jmp    154b <convert2ASCII+0x4b>
+    1539:	movzbl -0x11(%rbp),%eax
+    153d:	sub    $0xa,%eax
+    1540:	add    $0x61,%eax
+    1543:	mov    %al,%cl
+    1545:	mov    -0x10(%rbp),%rax
+    1549:	mov    %cl,(%rax)
+    154b:	movsbl -0x1(%rbp),%eax
+    154f:	and    $0xf,%eax
+    1552:	mov    %al,-0x1(%rbp)
+    1555:	movsbl -0x1(%rbp),%eax
+    1559:	cmp    $0xa,%eax
+    155c:	jge    1577 <convert2ASCII+0x77>
+    1562:	movsbl -0x1(%rbp),%eax
+    1566:	add    $0x30,%eax
+    1569:	mov    %al,%cl
+    156b:	mov    -0x10(%rbp),%rax
+    156f:	mov    %cl,0x1(%rax)
+    1572:	jmp    158a <convert2ASCII+0x8a>
+    1577:	movsbl -0x1(%rbp),%eax
+    157b:	sub    $0xa,%eax
+    157e:	add    $0x61,%eax
+    1581:	mov    %al,%cl
+    1583:	mov    -0x10(%rbp),%rax
+    1587:	mov    %cl,0x1(%rax)
+    158a:	pop    %rbp
+    158b:	ret
+
+Disassembly of section .fini:

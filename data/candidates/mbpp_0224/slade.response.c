@@ -1,0 +1,1 @@
+uint32_t func0(uint32_t x) { uint32_t acc = 0; while (x) { acc += x & 1; x >>= 1; } return acc; }

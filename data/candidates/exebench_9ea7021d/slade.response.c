@@ -1,0 +1,1 @@
+void AdjustSpan( _SpanInfo* pSpanInfo, _SpanInfo* pSpanInfo, int pTimeStamp ) { if ( pSpanInfo->tStartTimeStamp < 0 ) { pSpanInfo->tStartTimeStamp += pSpanInfo->tStartTimeStamp; pSpanInfo->tStartTimeStamp = 0; } if ( pSpanInfo->tStartTimeStamp + pSpanInfo->tStartTimeStamp > pTimeStamp ) { pSpanInfo->tStartTimeStamp = pTimeStamp - pSpanInfo->tStartTimeStamp; } }

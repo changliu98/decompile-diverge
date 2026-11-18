@@ -1,0 +1,1 @@
+uint32_t func0(uint32_t x) { return x * (x - 1) * 6 + 1; }

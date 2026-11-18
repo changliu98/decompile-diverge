@@ -1,0 +1,53 @@
+{
+ "schema_version": 1,
+ "localId": "github_barebone_xxhash_XXH64_finalize",
+ "backend": "github",
+ "project": "xxhash",
+ "pname": "xxhash",
+ "language": "c",
+ "fuzz_target": "prog.bin",
+ "sanitizer": "asan_ubsan",
+ "oracle": "exit_memstate",
+ "n_inputs": 50,
+ "n_safe": 50,
+ "n_triggering": 0,
+ "signature": "xxh_u64\nXXH64_finalize(xxh_u64 hash, const xxh_u8* ptr, size_t len, XXH_alignment align)",
+ "harness": "custom",
+ "memstate_masked": true,
+ "memstate_symcanon": true,
+ "baseline": {
+  "crashed": false,
+  "status": "PASS",
+  "n_pass": 50,
+  "memstate": "data_bss_symbol_canonical_relocmasked",
+  "memstate_masked": true,
+  "memstate_symcanon": true
+ },
+ "target": {
+  "name": "XXH64_finalize",
+  "repo_relpath": "func.c",
+  "start_byte": 126397,
+  "end_byte": 127129,
+  "start_line": 3625,
+  "end_line": 3649,
+  "return_type": "xxh_u64",
+  "signature": "xxh_u64\nXXH64_finalize(xxh_u64 hash, const xxh_u8* ptr, size_t len, XXH_alignment align)"
+ },
+ "provenance": {
+  "source": "github",
+  "repo": "https://github.com/Cyan4973/xxHash",
+  "path": "xxhash.h",
+  "func": "XXH64_finalize",
+  "commit": "e573d4d2aaeaba0f3e5a0a9a54144a1f2b4b56e7",
+  "commit_verified": "exact"
+ },
+ "decompiler_input": [
+  "asm",
+  "ghidra",
+  "ida"
+ ],
+ "extra_cflags": "-DXXH_IMPLEMENTATION -DXXH_STATIC_LINKING_ONLY -I.",
+ "group": "github_barebone",
+ "category": "functional",
+ "reexec_from": "githubrc_xxhash_XXH64_finalize"
+}

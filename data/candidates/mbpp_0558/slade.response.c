@@ -1,0 +1,1 @@
+uint32_t func0(uint32_t a, uint32_t b) { uint32_t x = abs(a - b); uint32_t y = 0; while (x > 0) { y += x % 10; x /= 10; } return y; }

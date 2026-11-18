@@ -1,0 +1,1 @@
+void removeCharactersInPlace(char *buffer, char *characters) { char *dest = buffer; while (*buffer) { char x = 0; char *p = characters; do { x = (*buffer == *p); p++; } while (*p && x ^ 1); if (x ^ 1) { *dest = *buffer; dest++; } buffer++; } *dest = 0; }

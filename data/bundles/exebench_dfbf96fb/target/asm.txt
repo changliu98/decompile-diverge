@@ -1,0 +1,22 @@
+00000000000014b0 <a_swap>:
+    14b0:	push   %rbp
+    14b1:	mov    %rsp,%rbp
+    14b4:	mov    %rdi,-0x8(%rbp)
+    14b8:	mov    %esi,-0xc(%rbp)
+    14bb:	mov    -0x8(%rbp),%rax
+    14bf:	mov    (%rax),%eax
+    14c1:	mov    %eax,-0x10(%rbp)
+    14c4:	mov    -0x8(%rbp),%rcx
+    14c8:	mov    -0x10(%rbp),%eax
+    14cb:	mov    -0xc(%rbp),%edx
+    14ce:	lock cmpxchg %edx,(%rcx)
+    14d2:	mov    %eax,%ecx
+    14d4:	sete   %al
+    14d7:	xor    $0xff,%al
+    14d9:	test   $0x1,%al
+    14db:	jne    14bb <a_swap+0xb>
+    14e1:	mov    -0x10(%rbp),%eax
+    14e4:	pop    %rbp
+    14e5:	ret
+
+Disassembly of section .fini:

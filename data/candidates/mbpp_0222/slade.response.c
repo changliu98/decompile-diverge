@@ -1,0 +1,1 @@
+int func0(int *x, int m) { for (int i = 1; i < m; i++) { } return 1; }

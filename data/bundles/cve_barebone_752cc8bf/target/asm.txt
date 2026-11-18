@@ -1,0 +1,136 @@
+0000000000001530 <prepare_singleton_class>:
+    1530:	push   %rbp
+    1531:	mov    %rsp,%rbp
+    1534:	sub    $0x40,%rsp
+    1538:	mov    %rdi,-0x8(%rbp)
+    153c:	mov    %rsi,-0x10(%rbp)
+    1540:	mov    -0x10(%rbp),%rax
+    1544:	mov    (%rax),%rax
+    1547:	mov    0x10(%rax),%eax
+    154a:	and    $0xff,%eax
+    154f:	cmp    $0xc,%eax
+    1552:	jne    155d <prepare_singleton_class+0x2d>
+    1558:	jmp    173f <prepare_singleton_class+0x20f>
+    155d:	mov    -0x8(%rbp),%rdi
+    1561:	mov    -0x8(%rbp),%rax
+    1565:	mov    0x8(%rax),%rdx
+    1569:	mov    $0xc,%esi
+    156e:	call   11b0 <mrb_obj_alloc>
+    1573:	mov    %rax,-0x18(%rbp)
+    1577:	mov    -0x18(%rbp),%rax
+    157b:	mov    0x10(%rax),%edx
+    157e:	shr    $0xb,%edx
+    1581:	or     $0x20000,%edx
+    1587:	mov    0x10(%rax),%ecx
+    158a:	and    $0x1fffff,%edx
+    1590:	shl    $0xb,%edx
+    1593:	and    $0x7ff,%ecx
+    1599:	or     %edx,%ecx
+    159b:	mov    %ecx,0x10(%rax)
+    159e:	mov    -0x8(%rbp),%rdi
+    15a2:	call   11d0 <mt_new>
+    15a7:	mov    %rax,%rcx
+    15aa:	mov    -0x18(%rbp),%rax
+    15ae:	mov    %rcx,0x20(%rax)
+    15b2:	mov    -0x18(%rbp),%rax
+    15b6:	movq   $0x0,0x18(%rax)
+    15be:	mov    -0x10(%rbp),%rax
+    15c2:	mov    0x10(%rax),%eax
+    15c5:	and    $0xff,%eax
+    15ca:	cmp    $0x9,%eax
+    15cd:	jne    1617 <prepare_singleton_class+0xe7>
+    15d3:	mov    -0x10(%rbp),%rax
+    15d7:	mov    %rax,-0x20(%rbp)
+    15db:	mov    -0x20(%rbp),%rax
+    15df:	cmpq   $0x0,0x28(%rax)
+    15e4:	jne    15ff <prepare_singleton_class+0xcf>
+    15ea:	mov    -0x8(%rbp),%rax
+    15ee:	mov    0x8(%rax),%rcx
+    15f2:	mov    -0x18(%rbp),%rax
+    15f6:	mov    %rcx,0x28(%rax)
+    15fa:	jmp    1612 <prepare_singleton_class+0xe2>
+    15ff:	mov    -0x20(%rbp),%rax
+    1603:	mov    0x28(%rax),%rax
+    1607:	mov    (%rax),%rcx
+    160a:	mov    -0x18(%rbp),%rax
+    160e:	mov    %rcx,0x28(%rax)
+    1612:	jmp    16a8 <prepare_singleton_class+0x178>
+    1617:	mov    -0x10(%rbp),%rax
+    161b:	mov    0x10(%rax),%eax
+    161e:	and    $0xff,%eax
+    1623:	cmp    $0xc,%eax
+    1626:	jne    1687 <prepare_singleton_class+0x157>
+    162c:	mov    -0x10(%rbp),%rax
+    1630:	mov    %rax,-0x20(%rbp)
+    1634:	mov    -0x20(%rbp),%rax
+    1638:	mov    0x28(%rax),%rax
+    163c:	mov    0x10(%rax),%eax
+    163f:	and    $0xff,%eax
+    1644:	cmp    $0xb,%eax
+    1647:	jne    165e <prepare_singleton_class+0x12e>
+    164d:	mov    -0x20(%rbp),%rax
+    1651:	mov    0x28(%rax),%rax
+    1655:	mov    %rax,-0x20(%rbp)
+    1659:	jmp    1634 <prepare_singleton_class+0x104>
+    165e:	mov    -0x8(%rbp),%rdi
+    1662:	mov    -0x20(%rbp),%rax
+    1666:	mov    0x28(%rax),%rsi
+    166a:	call   1750 <make_metaclass>
+    166f:	mov    -0x20(%rbp),%rax
+    1673:	mov    0x28(%rax),%rax
+    1677:	mov    (%rax),%rcx
+    167a:	mov    -0x18(%rbp),%rax
+    167e:	mov    %rcx,0x28(%rax)
+    1682:	jmp    16a3 <prepare_singleton_class+0x173>
+    1687:	mov    -0x10(%rbp),%rax
+    168b:	mov    (%rax),%rcx
+    168e:	mov    -0x18(%rbp),%rax
+    1692:	mov    %rcx,0x28(%rax)
+    1696:	mov    -0x8(%rbp),%rdi
+    169a:	mov    -0x18(%rbp),%rsi
+    169e:	call   1530 <prepare_singleton_class>
+    16a3:	jmp    16a8 <prepare_singleton_class+0x178>
+    16a8:	mov    -0x18(%rbp),%rcx
+    16ac:	mov    -0x10(%rbp),%rax
+    16b0:	mov    %rcx,(%rax)
+    16b3:	mov    -0x8(%rbp),%rdi
+    16b7:	mov    -0x10(%rbp),%rsi
+    16bb:	mov    -0x18(%rbp),%rdx
+    16bf:	call   11e0 <mrb_field_write_barrier>
+    16c4:	mov    -0x8(%rbp),%rdi
+    16c8:	mov    -0x18(%rbp),%rsi
+    16cc:	mov    -0x10(%rbp),%rdx
+    16d0:	call   11e0 <mrb_field_write_barrier>
+    16d5:	mov    -0x8(%rbp),%rax
+    16d9:	mov    %rax,-0x40(%rbp)
+    16dd:	mov    -0x18(%rbp),%rax
+    16e1:	mov    %rax,-0x38(%rbp)
+    16e5:	mov    -0x10(%rbp),%rdi
+    16e9:	call   1200 <mrb_obj_value>
+    16ee:	mov    -0x40(%rbp),%rdi
+    16f2:	mov    -0x38(%rbp),%rsi
+    16f6:	mov    %rax,-0x30(%rbp)
+    16fa:	mov    %edx,-0x28(%rbp)
+    16fd:	mov    -0x30(%rbp),%rcx
+    1701:	mov    -0x28(%rbp),%r8d
+    1705:	xor    %edx,%edx
+    1707:	call   1230 <mrb_obj_iv_set>
+    170c:	mov    -0x10(%rbp),%rax
+    1710:	mov    0x10(%rax),%ecx
+    1713:	shr    $0xb,%ecx
+    1716:	and    $0x100000,%ecx
+    171c:	mov    -0x18(%rbp),%rax
+    1720:	mov    0x10(%rax),%edx
+    1723:	shr    $0xb,%edx
+    1726:	or     %ecx,%edx
+    1728:	mov    0x10(%rax),%ecx
+    172b:	and    $0x1fffff,%edx
+    1731:	shl    $0xb,%edx
+    1734:	and    $0x7ff,%ecx
+    173a:	or     %edx,%ecx
+    173c:	mov    %ecx,0x10(%rax)
+    173f:	add    $0x40,%rsp
+    1743:	pop    %rbp
+    1744:	ret
+
+Disassembly of section .fini:

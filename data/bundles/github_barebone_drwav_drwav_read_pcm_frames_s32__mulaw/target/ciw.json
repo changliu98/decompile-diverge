@@ -1,0 +1,393 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 1060h\nmov     [rbp+pWav], rdi\nmov     [rbp+framesToRead], rsi\nmov     [rbp+pBufferOut], rdx\nlea     rdi, [rbp+sampleData]; s\nxor     esi, esi; c\nmov     edx, 1000h; n\ncall    memset\nmov     rdi, [rbp+pWav]; pWav\ncall    drwav_get_bytes_per_pcm_frame\nmov     [rbp+bytesPerFrame], eax\ncmp     [rbp+bytesPerFrame], 0\njnz     loc_BF33\nmov     [rbp+var_8], 0\njmp     loc_C111\nmov     eax, [rbp+bytesPerFrame]\nmov     rcx, [rbp+pWav]\nmovzx   ecx, word ptr [rcx+78h]\nxor     edx, edx\ndiv     ecx\nmov     [rbp+bytesPerSample], eax\ncmp     [rbp+bytesPerSample], 0\njz      loc_BF73\nmov     eax, [rbp+bytesPerFrame]\nmov     rcx, [rbp+pWav]\nmovzx   ecx, word ptr [rcx+78h]\nxor     edx, edx\ndiv     ecx\ncmp     edx, 0\njz      loc_BF80\nmov     [rbp+var_8], 0\njmp     loc_C111\nmov     [rbp+totalFramesRead], 0\ncmp     [rbp+framesToRead], 0\njbe     loc_C109\nmov     rax, [rbp+framesToRead]\nmov     [rbp+var_1058], rax\nmov     eax, [rbp+bytesPerFrame]\nmov     ecx, eax\nmov     eax, 1000h\nxor     edx, edx\ndiv     rcx\nmov     rcx, rax\nmov     rax, [rbp+var_1058]\ncmp     rax, rcx\njnb     loc_BFD3\nmov     rax, [rbp+framesToRead]\nmov     [rbp+var_1060], rax\njmp     loc_BFEC\nmov     eax, [rbp+bytesPerFrame]\nmov     ecx, eax\nmov     eax, 1000h\nxor     edx, edx\ndiv     rcx\nmov     [rbp+var_1060], rax\nmov     rax, [rbp+var_1060]\nmov     [rbp+framesToReadThisIteration], rax\nmov     rdi, [rbp+pWav]; pWav\nmov     rsi, [rbp+framesToReadThisIteration]; framesToRead\nlea     rdx, [rbp+sampleData]; pBufferOut\ncall    drwav_read_pcm_frames\nmov     [rbp+framesRead], rax\ncmp     [rbp+framesRead], 0\njnz     loc_C02B\njmp     loc_C109\nmov     rax, [rbp+framesRead]\ncmp     rax, [rbp+framesToReadThisIteration]\nja      loc_C044\njmp     loc_C063\nlea     rdi, aFramesreadFram; \"framesRead <= framesToReadThisIteration\"\nlea     rsi, file; \"./func.c\"\nmov     edx, 1F0Ah; line\nlea     rcx, aDrwavUint64Drw_16; \"drwav_uint64 drwav_read_pcm_frames_s32_\"...\ncall    ___assert_fail\nmov     rax, [rbp+framesRead]\nmov     rcx, [rbp+pWav]\nmovzx   ecx, word ptr [rcx+78h]\nimul    rax, rcx\nmov     [rbp+samplesRead], rax\nmov     rax, [rbp+samplesRead]\nmov     ecx, [rbp+bytesPerSample]\nimul    rax, rcx\ncmp     rax, 1000h\njbe     loc_C0B9\nlea     rdi, aByteswritten20+16h; assertion\nlea     rsi, file; \"./func.c\"\nmov     edx, 1F0Fh; line\nlea     rcx, aDrwavUint64Drw_16; \"drwav_uint64 drwav_read_pcm_frames_s32_\"...\ncall    ___assert_fail\nmov     rdi, [rbp+pBufferOut]; pOut\nlea     rsi, [rbp+sampleData]; pIn\nmov     rdx, [rbp+samplesRead]; sampleCount\ncall    drwav_mulaw_to_s32\nmov     rax, [rbp+samplesRead]\nshl     rax, 2\nadd     rax, [rbp+pBufferOut]\nmov     [rbp+pBufferOut], rax\nmov     rcx, [rbp+framesRead]\nmov     rax, [rbp+framesToRead]\nsub     rax, rcx\nmov     [rbp+framesToRead], rax\nmov     rax, [rbp+framesRead]\nadd     rax, [rbp+totalFramesRead]\nmov     [rbp+totalFramesRead], rax\njmp     loc_BF88\nmov     rax, [rbp+totalFramesRead]\nmov     [rbp+var_8], rax\nmov     rax, [rbp+var_8]\nadd     rsp, 1060h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 20,
+  "edges": [
+   [
+    "start",
+    "loc_BF26"
+   ],
+   [
+    "start",
+    "loc_BF33"
+   ],
+   [
+    "loc_BF26",
+    "loc_C111"
+   ],
+   [
+    "loc_BF33",
+    "loc_BF58"
+   ],
+   [
+    "loc_BF33",
+    "loc_BF73"
+   ],
+   [
+    "loc_BF58",
+    "loc_BF73"
+   ],
+   [
+    "loc_BF58",
+    "loc_BF80"
+   ],
+   [
+    "loc_BF73",
+    "loc_C111"
+   ],
+   [
+    "loc_BF80",
+    "loc_BF88"
+   ],
+   [
+    "loc_BF88",
+    "loc_BF93"
+   ],
+   [
+    "loc_BF88",
+    "loc_C109"
+   ],
+   [
+    "loc_BF93",
+    "loc_BFC3"
+   ],
+   [
+    "loc_BF93",
+    "loc_BFD3"
+   ],
+   [
+    "loc_BFC3",
+    "loc_BFEC"
+   ],
+   [
+    "loc_BFD3",
+    "loc_BFEC"
+   ],
+   [
+    "loc_BFEC",
+    "loc_C026"
+   ],
+   [
+    "loc_BFEC",
+    "loc_C02B"
+   ],
+   [
+    "loc_C026",
+    "loc_C109"
+   ],
+   [
+    "loc_C02B",
+    "loc_C03F"
+   ],
+   [
+    "loc_C02B",
+    "loc_C044"
+   ],
+   [
+    "loc_C03F",
+    "loc_C063"
+   ],
+   [
+    "loc_C063",
+    "loc_C09A"
+   ],
+   [
+    "loc_C063",
+    "loc_C0B9"
+   ],
+   [
+    "loc_C0B9",
+    "loc_BF88"
+   ],
+   [
+    "loc_C109",
+    "loc_C111"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 1060h\nmov     [rbp+pWav], rdi\nmov     [rbp+framesToRead], rsi\nmov     [rbp+pBufferOut], rdx\nlea     rdi, [rbp+sampleData]; s\nxor     esi, esi; c\nmov     edx, 1000h; n\ncall    memset\nmov     rdi, [rbp+pWav]; pWav\ncall    drwav_get_bytes_per_pcm_frame\nmov     [rbp+bytesPerFrame], eax\ncmp     [rbp+bytesPerFrame], 0\njnz     loc_BF33",
+   "loc_BF26": "mov     [rbp+var_8], 0\njmp     loc_C111",
+   "loc_BF33": "mov     eax, [rbp+bytesPerFrame]\nmov     rcx, [rbp+pWav]\nmovzx   ecx, word ptr [rcx+78h]\nxor     edx, edx\ndiv     ecx\nmov     [rbp+bytesPerSample], eax\ncmp     [rbp+bytesPerSample], 0\njz      loc_BF73",
+   "loc_BF58": "mov     eax, [rbp+bytesPerFrame]\nmov     rcx, [rbp+pWav]\nmovzx   ecx, word ptr [rcx+78h]\nxor     edx, edx\ndiv     ecx\ncmp     edx, 0\njz      loc_BF80",
+   "loc_BF73": "mov     [rbp+var_8], 0\njmp     loc_C111",
+   "loc_BF80": "mov     [rbp+totalFramesRead], 0",
+   "loc_BF88": "cmp     [rbp+framesToRead], 0\njbe     loc_C109",
+   "loc_BF93": "mov     rax, [rbp+framesToRead]\nmov     [rbp+var_1058], rax\nmov     eax, [rbp+bytesPerFrame]\nmov     ecx, eax\nmov     eax, 1000h\nxor     edx, edx\ndiv     rcx\nmov     rcx, rax\nmov     rax, [rbp+var_1058]\ncmp     rax, rcx\njnb     loc_BFD3",
+   "loc_BFC3": "mov     rax, [rbp+framesToRead]\nmov     [rbp+var_1060], rax\njmp     loc_BFEC",
+   "loc_BFD3": "mov     eax, [rbp+bytesPerFrame]\nmov     ecx, eax\nmov     eax, 1000h\nxor     edx, edx\ndiv     rcx\nmov     [rbp+var_1060], rax",
+   "loc_BFEC": "mov     rax, [rbp+var_1060]\nmov     [rbp+framesToReadThisIteration], rax\nmov     rdi, [rbp+pWav]; pWav\nmov     rsi, [rbp+framesToReadThisIteration]; framesToRead\nlea     rdx, [rbp+sampleData]; pBufferOut\ncall    drwav_read_pcm_frames\nmov     [rbp+framesRead], rax\ncmp     [rbp+framesRead], 0\njnz     loc_C02B",
+   "loc_C026": "jmp     loc_C109",
+   "loc_C02B": "mov     rax, [rbp+framesRead]\ncmp     rax, [rbp+framesToReadThisIteration]\nja      loc_C044",
+   "loc_C03F": "jmp     loc_C063",
+   "loc_C044": "lea     rdi, aFramesreadFram; \"framesRead <= framesToReadThisIteration\"\nlea     rsi, file; \"./func.c\"\nmov     edx, 1F0Ah; line\nlea     rcx, aDrwavUint64Drw_16; \"drwav_uint64 drwav_read_pcm_frames_s32_\"...\ncall    ___assert_fail",
+   "loc_C063": "mov     rax, [rbp+framesRead]\nmov     rcx, [rbp+pWav]\nmovzx   ecx, word ptr [rcx+78h]\nimul    rax, rcx\nmov     [rbp+samplesRead], rax\nmov     rax, [rbp+samplesRead]\nmov     ecx, [rbp+bytesPerSample]\nimul    rax, rcx\ncmp     rax, 1000h\njbe     loc_C0B9",
+   "loc_C09A": "lea     rdi, aByteswritten20+16h; assertion\nlea     rsi, file; \"./func.c\"\nmov     edx, 1F0Fh; line\nlea     rcx, aDrwavUint64Drw_16; \"drwav_uint64 drwav_read_pcm_frames_s32_\"...\ncall    ___assert_fail",
+   "loc_C0B9": "mov     rdi, [rbp+pBufferOut]; pOut\nlea     rsi, [rbp+sampleData]; pIn\nmov     rdx, [rbp+samplesRead]; sampleCount\ncall    drwav_mulaw_to_s32\nmov     rax, [rbp+samplesRead]\nshl     rax, 2\nadd     rax, [rbp+pBufferOut]\nmov     [rbp+pBufferOut], rax\nmov     rcx, [rbp+framesRead]\nmov     rax, [rbp+framesToRead]\nsub     rax, rcx\nmov     [rbp+framesToRead], rax\nmov     rax, [rbp+framesRead]\nadd     rax, [rbp+totalFramesRead]\nmov     [rbp+totalFramesRead], rax\njmp     loc_BF88",
+   "loc_C109": "mov     rax, [rbp+totalFramesRead]\nmov     [rbp+var_8], rax",
+   "loc_C111": "mov     rax, [rbp+var_8]\nadd     rsp, 1060h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_1060": "qword ptr -1060h",
+   "var_1058": "qword ptr -1058h",
+   "framesRead": "qword ptr -1050h",
+   "framesToReadThisIteration": "qword ptr -1048h",
+   "samplesRead": "qword ptr -1040h",
+   "bytesPerSample": "dword ptr -1038h",
+   "bytesPerFrame": "dword ptr -1034h",
+   "sampleData": "byte ptr -1030h",
+   "totalFramesRead": "qword ptr -28h",
+   "pBufferOut": "qword ptr -20h",
+   "framesToRead": "qword ptr -18h",
+   "pWav": "qword ptr -10h",
+   "var_8": "qword ptr -8"
+  },
+  ".rodata": {
+   "aFramesreadFram": "byte 'framesRead <= framesToReadThisIteration',0",
+   "file": "byte './func.c',0",
+   "aDrwavUint64Drw_16": "byte 'drwav_uint64 drwav_read_pcm_frames_s32__mulaw(drwav *, drwav_uint'",
+   "unk_14F38": "byte '(bytesWritten % 2) == 0',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 48864,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792872665
+ }
+}

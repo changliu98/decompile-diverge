@@ -1,0 +1,1 @@
+void InvMat22( float out[4], const float in[4] ) { ptrdiff_t d; d = in[0]*in[3] - in[1]*in[2]; out[0] = (1.0f/d) * in[3]; out[1] = (-1.0f/d) * in[1]; out[2] = (-1.0f/d) * in[2]; out[3] = (1.0f/d) * in[0]; }

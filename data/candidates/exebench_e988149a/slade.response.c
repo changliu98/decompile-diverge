@@ -1,0 +1,1 @@
+__attribute__((no, noclone)) void f12 (int *p) { unsigned int i = 0; p[i] = 1; }

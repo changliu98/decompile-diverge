@@ -1,0 +1,76 @@
+00000000000013e0 <map_set_>:
+    13e0:	push   %rbp
+    13e1:	mov    %rsp,%rbp
+    13e4:	sub    $0x50,%rsp
+    13e8:	mov    %rdi,-0x10(%rbp)
+    13ec:	mov    %rsi,-0x18(%rbp)
+    13f0:	mov    %rdx,-0x20(%rbp)
+    13f4:	mov    %ecx,-0x24(%rbp)
+    13f7:	mov    -0x10(%rbp),%rdi
+    13fb:	mov    -0x18(%rbp),%rsi
+    13ff:	call   1310 <map_getref>
+    1404:	mov    %rax,-0x38(%rbp)
+    1408:	cmpq   $0x0,-0x38(%rbp)
+    140d:	je     1437 <map_set_+0x57>
+    1413:	mov    -0x38(%rbp),%rax
+    1417:	mov    (%rax),%rax
+    141a:	mov    0x8(%rax),%rdi
+    141e:	mov    -0x20(%rbp),%rsi
+    1422:	movslq -0x24(%rbp),%rdx
+    1426:	call   10b0 <memcpy@plt>
+    142b:	movl   $0x0,-0x4(%rbp)
+    1432:	jmp    1506 <map_set_+0x126>
+    1437:	mov    -0x18(%rbp),%rdi
+    143b:	mov    -0x20(%rbp),%rsi
+    143f:	mov    -0x24(%rbp),%edx
+    1442:	call   1510 <map_newnode>
+    1447:	mov    %rax,-0x40(%rbp)
+    144b:	cmpq   $0x0,-0x40(%rbp)
+    1450:	jne    145b <map_set_+0x7b>
+    1456:	jmp    14eb <map_set_+0x10b>
+    145b:	mov    -0x10(%rbp),%rax
+    145f:	mov    0xc(%rax),%eax
+    1462:	mov    -0x10(%rbp),%rcx
+    1466:	cmp    0x8(%rcx),%eax
+    1469:	jb     14c5 <map_set_+0xe5>
+    146f:	mov    -0x10(%rbp),%rax
+    1473:	cmpl   $0x0,0x8(%rax)
+    1477:	jbe    148f <map_set_+0xaf>
+    147d:	mov    -0x10(%rbp),%rax
+    1481:	mov    0x8(%rax),%eax
+    1484:	shl    $0x1,%eax
+    1487:	mov    %eax,-0x44(%rbp)
+    148a:	jmp    149c <map_set_+0xbc>
+    148f:	mov    $0x1,%eax
+    1494:	mov    %eax,-0x44(%rbp)
+    1497:	jmp    149c <map_set_+0xbc>
+    149c:	mov    -0x44(%rbp),%eax
+    149f:	mov    %eax,-0x28(%rbp)
+    14a2:	mov    -0x10(%rbp),%rdi
+    14a6:	mov    -0x28(%rbp),%esi
+    14a9:	call   15f0 <map_resize>
+    14ae:	mov    %eax,-0x2c(%rbp)
+    14b1:	cmpl   $0x0,-0x2c(%rbp)
+    14b5:	je     14c0 <map_set_+0xe0>
+    14bb:	jmp    14eb <map_set_+0x10b>
+    14c0:	jmp    14c5 <map_set_+0xe5>
+    14c5:	mov    -0x10(%rbp),%rdi
+    14c9:	mov    -0x40(%rbp),%rsi
+    14cd:	call   1730 <map_addnode>
+    14d2:	mov    -0x10(%rbp),%rax
+    14d6:	mov    0xc(%rax),%ecx
+    14d9:	add    $0x1,%ecx
+    14dc:	mov    %ecx,0xc(%rax)
+    14df:	movl   $0x0,-0x4(%rbp)
+    14e6:	jmp    1506 <map_set_+0x126>
+    14eb:	cmpq   $0x0,-0x40(%rbp)
+    14f0:	je     14ff <map_set_+0x11f>
+    14f6:	mov    -0x40(%rbp),%rdi
+    14fa:	call   1030 <free@plt>
+    14ff:	movl   $0xffffffff,-0x4(%rbp)
+    1506:	mov    -0x4(%rbp),%eax
+    1509:	add    $0x50,%rsp
+    150d:	pop    %rbp
+    150e:	ret
+
+Disassembly of section .fini:

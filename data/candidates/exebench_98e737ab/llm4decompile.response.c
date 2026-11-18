@@ -1,0 +1,1 @@
+void uint_to_double (double *dest, const uint *src) { *dest = (double)*src; }

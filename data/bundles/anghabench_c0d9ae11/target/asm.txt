@@ -1,0 +1,46 @@
+00000000000011c0 <check_crc_flex>:
+    11c0:	push   %rbp
+    11c1:	mov    %rsp,%rbp
+    11c4:	mov    %rdi,-0x10(%rbp)
+    11c8:	mov    %esi,-0x14(%rbp)
+    11cb:	movw   $0xffff,-0x16(%rbp)
+    11d1:	cmpl   $0x3,-0x14(%rbp)
+    11d5:	jge    11e7 <check_crc_flex+0x27>
+    11db:	movl   $0xffffffff,-0x4(%rbp)
+    11e2:	jmp    1268 <check_crc_flex+0xa8>
+    11e7:	jmp    11ec <check_crc_flex+0x2c>
+    11ec:	mov    -0x14(%rbp),%eax
+    11ef:	mov    %eax,%ecx
+    11f1:	add    $0xffffffff,%ecx
+    11f4:	mov    %ecx,-0x14(%rbp)
+    11f7:	cmp    $0x0,%eax
+    11fa:	je     1241 <check_crc_flex+0x81>
+    1200:	movzwl -0x16(%rbp),%eax
+    1204:	shl    $0x8,%eax
+    1207:	mov    0x2e72(%rip),%rcx        # 4080 <crc_flex_table>
+    120e:	movzwl -0x16(%rbp),%edx
+    1212:	sar    $0x8,%edx
+    1215:	mov    -0x10(%rbp),%rsi
+    1219:	mov    %rsi,%rdi
+    121c:	add    $0x1,%rdi
+    1220:	mov    %rdi,-0x10(%rbp)
+    1224:	movzbl (%rsi),%esi
+    1227:	xor    %esi,%edx
+    1229:	and    $0xff,%edx
+    122f:	movslq %edx,%rdx
+    1232:	movzwl (%rcx,%rdx,2),%ecx
+    1236:	xor    %ecx,%eax
+    1238:	mov    %ax,-0x16(%rbp)
+    123c:	jmp    11ec <check_crc_flex+0x2c>
+    1241:	movzwl -0x16(%rbp),%eax
+    1245:	and    $0xffff,%eax
+    124a:	cmp    $0x7070,%eax
+    124f:	je     1261 <check_crc_flex+0xa1>
+    1255:	movl   $0xffffffff,-0x4(%rbp)
+    125c:	jmp    1268 <check_crc_flex+0xa8>
+    1261:	movl   $0x0,-0x4(%rbp)
+    1268:	mov    -0x4(%rbp),%eax
+    126b:	pop    %rbp
+    126c:	ret
+
+Disassembly of section .fini:

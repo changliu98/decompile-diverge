@@ -1,0 +1,1 @@
+void func0(int *x, int n) { for (int i = n/2; i > 0; i /= 2) { for (int j = i; j < n; j++) { int y = x[j]; for (int y = j; y >= i && x[y-i] > y; y -= i) { x[y] = x[y-i]; } x[y] = y; } } }

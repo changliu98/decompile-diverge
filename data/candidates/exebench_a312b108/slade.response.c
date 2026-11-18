@@ -1,0 +1,1 @@
+long atomic_fetch_xor(long* p, long x) { long y = *p; *p ^= x; return y; }

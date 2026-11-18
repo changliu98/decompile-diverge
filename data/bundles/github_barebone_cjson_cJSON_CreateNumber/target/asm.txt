@@ -1,0 +1,39 @@
+00000000000031e0 <cJSON_CreateNumber>:
+    31e0:	push   %rbp
+    31e1:	mov    %rsp,%rbp
+    31e4:	sub    $0x10,%rsp
+    31e8:	movsd  %xmm0,-0x8(%rbp)
+    31ed:	lea    0x7ecc(%rip),%rdi        # b0c0 <malloc@GLIBC_2.2.5>
+    31f4:	call   1b10 <cJSON_New_Item>
+    31f9:	mov    %rax,-0x10(%rbp)
+    31fd:	cmpq   $0x0,-0x10(%rbp)
+    3202:	je     3281 <cJSON_CreateNumber+0xa1>
+    3208:	mov    -0x10(%rbp),%rax
+    320c:	movl   $0x8,0x18(%rax)
+    3213:	movsd  -0x8(%rbp),%xmm0
+    3218:	mov    -0x10(%rbp),%rax
+    321c:	movsd  %xmm0,0x30(%rax)
+    3221:	movsd  -0x8(%rbp),%xmm0
+    3226:	movsd  0x4de2(%rip),%xmm1        # 8010 <_IO_stdin_used+0x10>
+    322e:	ucomisd %xmm1,%xmm0
+    3232:	jb     3248 <cJSON_CreateNumber+0x68>
+    3238:	mov    -0x10(%rbp),%rax
+    323c:	movl   $0x7fffffff,0x28(%rax)
+    3243:	jmp    327c <cJSON_CreateNumber+0x9c>
+    3248:	movsd  0x4dc8(%rip),%xmm0        # 8018 <_IO_stdin_used+0x18>
+    3250:	ucomisd -0x8(%rbp),%xmm0
+    3255:	jb     326b <cJSON_CreateNumber+0x8b>
+    325b:	mov    -0x10(%rbp),%rax
+    325f:	movl   $0x80000000,0x28(%rax)
+    3266:	jmp    3277 <cJSON_CreateNumber+0x97>
+    326b:	cvttsd2si -0x8(%rbp),%ecx
+    3270:	mov    -0x10(%rbp),%rax
+    3274:	mov    %ecx,0x28(%rax)
+    3277:	jmp    327c <cJSON_CreateNumber+0x9c>
+    327c:	jmp    3281 <cJSON_CreateNumber+0xa1>
+    3281:	mov    -0x10(%rbp),%rax
+    3285:	add    $0x10,%rsp
+    3289:	pop    %rbp
+    328a:	ret
+
+Disassembly of section .fini:

@@ -1,0 +1,1 @@
+int name_len(const br_sslrec_buf *b, unsigned char *c, unsigned char *e) { unsigned char cc; unsigned char *ep = c; if (c >= e) return -1; if (b->len == 0 || b->len - 1 < c) goto bad; cc = *c; if ((cc &0xc0) ==0xc0) return 2; while (*c) { if (c >= e) return -1; if (!b->len || b->len - 1 < c) goto bad; c += *c + 1; } return c - ep + 1; bad: return -1; }

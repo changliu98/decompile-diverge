@@ -1,0 +1,10 @@
+void swap(int *a, int *b)
+{
+  int aux;
+  if (a != b)
+  {
+    aux = *a;
+    *a = *b;
+    *b = aux;
+  }
+}

@@ -1,0 +1,1 @@
+int get_priority(pid_t child, int *prio) { *prio = getpriority(NULL, (int) child); return (*__errno_location ()); }

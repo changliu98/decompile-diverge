@@ -1,0 +1,1 @@
+int func0(int x) { int y = (int)(pow(2.0, (double)x) - 1.0); return y * y - 2; }

@@ -1,0 +1,1 @@
+void cgi_alert_get_action(int *action) { action[1] = 3; action[2] = 1; }

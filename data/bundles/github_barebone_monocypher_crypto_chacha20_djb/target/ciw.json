@@ -1,0 +1,384 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 140h\nmov     [rbp+cipher_text], rdi\nmov     [rbp+plain_text], rsi\nmov     [rbp+text_size], rdx\nmov     [rbp+key], rcx\nmov     [rbp+nonce], r8\nmov     [rbp+ctr], r9\nlea     rdi, [rbp+input]; dst\nmov     rsi, cs:chacha20_constant; src\nmov     edx, 4; size\ncall    load32_le_buf\nlea     rdi, [rbp+input]\nadd     rdi, 10h; dst\nmov     rsi, [rbp+key]; src\nmov     edx, 8; size\ncall    load32_le_buf\nlea     rdi, [rbp+input]\nadd     rdi, 38h ; '8'; dst\nmov     rsi, [rbp+nonce]; src\nmov     edx, 2; size\ncall    load32_le_buf\nmov     rax, [rbp+ctr]\nmov     [rbp+input+30h], eax\nmov     rax, [rbp+ctr]\nshr     rax, 20h\nmov     [rbp+input+34h], eax\nmov     rax, [rbp+text_size]\nshr     rax, 6\nmov     [rbp+nb_blocks], rax\nmov     [rbp+i], 0\nmov     rax, [rbp+i]\ncmp     rax, [rbp+nb_blocks]\njnb     loc_1C86\nlea     rdi, [rbp+pool]; out\nlea     rsi, [rbp+input]; in\ncall    chacha20_rounds\ncmp     [rbp+plain_text], 0\njz      loc_1BDF\nmov     [rbp+j], 0\ncmp     [rbp+j], 10h\njnb     loc_1BDA\nmov     rax, [rbp+j]\nmov     eax, [rbp+rax*4+pool]\nmov     rcx, [rbp+j]\nadd     eax, [rbp+rcx*4+input]\nmov     [rbp+p], eax\nmov     rax, [rbp+cipher_text]\nmov     [rbp+out], rax\nmov     eax, [rbp+p]\nmov     [rbp+var_13C], eax\nmov     rdi, [rbp+plain_text]; s\ncall    load32_le\nmov     esi, [rbp+var_13C]\nmov     rdi, [rbp+out]; out\nxor     esi, eax; in\ncall    store32_le\nmov     rax, [rbp+cipher_text]\nadd     rax, 4\nmov     [rbp+cipher_text], rax\nmov     rax, [rbp+plain_text]\nadd     rax, 4\nmov     [rbp+plain_text], rax\nmov     rax, [rbp+j]\nadd     rax, 1\nmov     [rbp+j], rax\njmp     loc_1B4A\njmp     loc_1C4E\nmov     [rbp+j_0], 0\ncmp     [rbp+j_0], 10h\njnb     loc_1C49\nmov     rax, [rbp+j_0]\nmov     eax, [rbp+rax*4+pool]\nmov     rcx, [rbp+j_0]\nadd     eax, [rbp+rcx*4+input]\nmov     [rbp+p_0], eax\nmov     rdi, [rbp+cipher_text]; out\nmov     esi, [rbp+p_0]; in\ncall    store32_le\nmov     rax, [rbp+cipher_text]\nadd     rax, 4\nmov     [rbp+cipher_text], rax\nmov     rax, [rbp+j_0]\nadd     rax, 1\nmov     [rbp+j_0], rax\njmp     loc_1BEA\njmp     $+5\nmov     eax, [rbp+input+30h]\nadd     eax, 1\nmov     [rbp+input+30h], eax\ncmp     [rbp+input+30h], 0\njnz     loc_1C6A\nmov     eax, [rbp+input+34h]\nadd     eax, 1\nmov     [rbp+input+34h], eax\njmp     $+5\nmov     rax, [rbp+i]\nadd     rax, 1\nmov     [rbp+i], rax\njmp     loc_1B10\nmov     rax, [rbp+text_size]\nand     rax, 3Fh\nmov     [rbp+text_size], rax\ncmp     [rbp+text_size], 0\njbe     loc_1D9A\ncmp     [rbp+plain_text], 0\njnz     loc_1CB3\nlea     rax, zero\nmov     [rbp+plain_text], rax\nlea     rdi, [rbp+pool]; out\nlea     rsi, [rbp+input]; in\ncall    chacha20_rounds\nmov     [rbp+i_0], 0\ncmp     [rbp+i_0], 10h\njnb     loc_1D26\nlea     rdi, [rbp+tmp]\nmov     rax, [rbp+i_0]\nshl     rax, 2\nadd     rdi, rax; out\nmov     rax, [rbp+i_0]\nmov     esi, [rbp+rax*4+pool]\nmov     rax, [rbp+i_0]\nadd     esi, [rbp+rax*4+input]; in\ncall    store32_le\nmov     rax, [rbp+i_0]\nadd     rax, 1\nmov     [rbp+i_0], rax\njmp     loc_1CCE\nmov     [rbp+i_1], 0\nmov     rax, [rbp+i_1]\ncmp     rax, [rbp+text_size]\njnb     loc_1D89\nmov     rax, [rbp+i_1]\nmovzx   eax, [rbp+rax+tmp]\nmov     rcx, [rbp+plain_text]\nmov     rdx, [rbp+i_1]\nmovzx   ecx, byte ptr [rcx+rdx]\nxor     eax, ecx\nmov     dl, al\nmov     rax, [rbp+cipher_text]\nmov     rcx, [rbp+i_1]\nmov     [rax+rcx], dl\nmov     rax, [rbp+i_1]\nadd     rax, 1\nmov     [rbp+i_1], rax\njmp     loc_1D31\nlea     rdi, [rbp+tmp]; secret\nmov     esi, 40h ; '@'; size\ncall    crypto_wipe\nmov     eax, [rbp+input+30h]\nmov     ecx, [rbp+input+34h]\nshl     rcx, 20h\nadd     rax, rcx\ncmp     [rbp+text_size], 0\nsetnbe  cl\nand     cl, 1\nmovzx   ecx, cl\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+ctr], rax\nlea     rdi, [rbp+pool]; secret\nmov     esi, 40h ; '@'; size\ncall    crypto_wipe\nlea     rdi, [rbp+input]; secret\nmov     esi, 40h ; '@'; size\ncall    crypto_wipe\nmov     rax, [rbp+ctr]\nadd     rsp, 140h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 26,
+  "edges": [
+   [
+    "start",
+    "loc_1B10"
+   ],
+   [
+    "loc_1B10",
+    "loc_1B24"
+   ],
+   [
+    "loc_1B10",
+    "loc_1C86"
+   ],
+   [
+    "loc_1B24",
+    "loc_1B3F"
+   ],
+   [
+    "loc_1B24",
+    "loc_1BDF"
+   ],
+   [
+    "loc_1B3F",
+    "loc_1B4A"
+   ],
+   [
+    "loc_1B4A",
+    "loc_1B58"
+   ],
+   [
+    "loc_1B4A",
+    "loc_1BDA"
+   ],
+   [
+    "loc_1B58",
+    "loc_1B4A"
+   ],
+   [
+    "loc_1BDA",
+    "loc_1C4E"
+   ],
+   [
+    "loc_1BDF",
+    "loc_1BEA"
+   ],
+   [
+    "loc_1BEA",
+    "loc_1BF8"
+   ],
+   [
+    "loc_1BEA",
+    "loc_1C49"
+   ],
+   [
+    "loc_1BF8",
+    "loc_1BEA"
+   ],
+   [
+    "loc_1C49",
+    "loc_1C4E"
+   ],
+   [
+    "loc_1C4E",
+    "loc_1C61"
+   ],
+   [
+    "loc_1C4E",
+    "loc_1C6A"
+   ],
+   [
+    "loc_1C61",
+    "loc_1C6A"
+   ],
+   [
+    "loc_1C6A",
+    "loc_1C6F"
+   ],
+   [
+    "loc_1C6F",
+    "loc_1B10"
+   ],
+   [
+    "loc_1C86",
+    "loc_1C9D"
+   ],
+   [
+    "loc_1C86",
+    "loc_1D9A"
+   ],
+   [
+    "loc_1C9D",
+    "loc_1CA8"
+   ],
+   [
+    "loc_1C9D",
+    "loc_1CB3"
+   ],
+   [
+    "loc_1CA8",
+    "loc_1CB3"
+   ],
+   [
+    "loc_1CB3",
+    "loc_1CCE"
+   ],
+   [
+    "loc_1CCE",
+    "loc_1CDC"
+   ],
+   [
+    "loc_1CCE",
+    "loc_1D26"
+   ],
+   [
+    "loc_1CDC",
+    "loc_1CCE"
+   ],
+   [
+    "loc_1D26",
+    "loc_1D31"
+   ],
+   [
+    "loc_1D31",
+    "loc_1D42"
+   ],
+   [
+    "loc_1D31",
+    "loc_1D89"
+   ],
+   [
+    "loc_1D42",
+    "loc_1D31"
+   ],
+   [
+    "loc_1D89",
+    "loc_1D9A"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 140h\nmov     [rbp+cipher_text], rdi\nmov     [rbp+plain_text], rsi\nmov     [rbp+text_size], rdx\nmov     [rbp+key], rcx\nmov     [rbp+nonce], r8\nmov     [rbp+ctr], r9\nlea     rdi, [rbp+input]; dst\nmov     rsi, cs:chacha20_constant; src\nmov     edx, 4; size\ncall    load32_le_buf\nlea     rdi, [rbp+input]\nadd     rdi, 10h; dst\nmov     rsi, [rbp+key]; src\nmov     edx, 8; size\ncall    load32_le_buf\nlea     rdi, [rbp+input]\nadd     rdi, 38h ; '8'; dst\nmov     rsi, [rbp+nonce]; src\nmov     edx, 2; size\ncall    load32_le_buf\nmov     rax, [rbp+ctr]\nmov     [rbp+input+30h], eax\nmov     rax, [rbp+ctr]\nshr     rax, 20h\nmov     [rbp+input+34h], eax\nmov     rax, [rbp+text_size]\nshr     rax, 6\nmov     [rbp+nb_blocks], rax\nmov     [rbp+i], 0",
+   "loc_1B10": "mov     rax, [rbp+i]\ncmp     rax, [rbp+nb_blocks]\njnb     loc_1C86",
+   "loc_1B24": "lea     rdi, [rbp+pool]; out\nlea     rsi, [rbp+input]; in\ncall    chacha20_rounds\ncmp     [rbp+plain_text], 0\njz      loc_1BDF",
+   "loc_1B3F": "mov     [rbp+j], 0",
+   "loc_1B4A": "cmp     [rbp+j], 10h\njnb     loc_1BDA",
+   "loc_1B58": "mov     rax, [rbp+j]\nmov     eax, [rbp+rax*4+pool]\nmov     rcx, [rbp+j]\nadd     eax, [rbp+rcx*4+input]\nmov     [rbp+p], eax\nmov     rax, [rbp+cipher_text]\nmov     [rbp+out], rax\nmov     eax, [rbp+p]\nmov     [rbp+var_13C], eax\nmov     rdi, [rbp+plain_text]; s\ncall    load32_le\nmov     esi, [rbp+var_13C]\nmov     rdi, [rbp+out]; out\nxor     esi, eax; in\ncall    store32_le\nmov     rax, [rbp+cipher_text]\nadd     rax, 4\nmov     [rbp+cipher_text], rax\nmov     rax, [rbp+plain_text]\nadd     rax, 4\nmov     [rbp+plain_text], rax\nmov     rax, [rbp+j]\nadd     rax, 1\nmov     [rbp+j], rax\njmp     loc_1B4A",
+   "loc_1BDA": "jmp     loc_1C4E",
+   "loc_1BDF": "mov     [rbp+j_0], 0",
+   "loc_1BEA": "cmp     [rbp+j_0], 10h\njnb     loc_1C49",
+   "loc_1BF8": "mov     rax, [rbp+j_0]\nmov     eax, [rbp+rax*4+pool]\nmov     rcx, [rbp+j_0]\nadd     eax, [rbp+rcx*4+input]\nmov     [rbp+p_0], eax\nmov     rdi, [rbp+cipher_text]; out\nmov     esi, [rbp+p_0]; in\ncall    store32_le\nmov     rax, [rbp+cipher_text]\nadd     rax, 4\nmov     [rbp+cipher_text], rax\nmov     rax, [rbp+j_0]\nadd     rax, 1\nmov     [rbp+j_0], rax\njmp     loc_1BEA",
+   "loc_1C49": "jmp     $+5",
+   "loc_1C4E": "mov     eax, [rbp+input+30h]\nadd     eax, 1\nmov     [rbp+input+30h], eax\ncmp     [rbp+input+30h], 0\njnz     loc_1C6A",
+   "loc_1C61": "mov     eax, [rbp+input+34h]\nadd     eax, 1\nmov     [rbp+input+34h], eax",
+   "loc_1C6A": "jmp     $+5",
+   "loc_1C6F": "mov     rax, [rbp+i]\nadd     rax, 1\nmov     [rbp+i], rax\njmp     loc_1B10",
+   "loc_1C86": "mov     rax, [rbp+text_size]\nand     rax, 3Fh\nmov     [rbp+text_size], rax\ncmp     [rbp+text_size], 0\njbe     loc_1D9A",
+   "loc_1C9D": "cmp     [rbp+plain_text], 0\njnz     loc_1CB3",
+   "loc_1CA8": "lea     rax, zero\nmov     [rbp+plain_text], rax",
+   "loc_1CB3": "lea     rdi, [rbp+pool]; out\nlea     rsi, [rbp+input]; in\ncall    chacha20_rounds\nmov     [rbp+i_0], 0",
+   "loc_1CCE": "cmp     [rbp+i_0], 10h\njnb     loc_1D26",
+   "loc_1CDC": "lea     rdi, [rbp+tmp]\nmov     rax, [rbp+i_0]\nshl     rax, 2\nadd     rdi, rax; out\nmov     rax, [rbp+i_0]\nmov     esi, [rbp+rax*4+pool]\nmov     rax, [rbp+i_0]\nadd     esi, [rbp+rax*4+input]; in\ncall    store32_le\nmov     rax, [rbp+i_0]\nadd     rax, 1\nmov     [rbp+i_0], rax\njmp     loc_1CCE",
+   "loc_1D26": "mov     [rbp+i_1], 0",
+   "loc_1D31": "mov     rax, [rbp+i_1]\ncmp     rax, [rbp+text_size]\njnb     loc_1D89",
+   "loc_1D42": "mov     rax, [rbp+i_1]\nmovzx   eax, [rbp+rax+tmp]\nmov     rcx, [rbp+plain_text]\nmov     rdx, [rbp+i_1]\nmovzx   ecx, byte ptr [rcx+rdx]\nxor     eax, ecx\nmov     dl, al\nmov     rax, [rbp+cipher_text]\nmov     rcx, [rbp+i_1]\nmov     [rax+rcx], dl\nmov     rax, [rbp+i_1]\nadd     rax, 1\nmov     [rbp+i_1], rax\njmp     loc_1D31",
+   "loc_1D89": "lea     rdi, [rbp+tmp]; secret\nmov     esi, 40h ; '@'; size\ncall    crypto_wipe",
+   "loc_1D9A": "mov     eax, [rbp+input+30h]\nmov     ecx, [rbp+input+34h]\nshl     rcx, 20h\nadd     rax, rcx\ncmp     [rbp+text_size], 0\nsetnbe  cl\nand     cl, 1\nmovzx   ecx, cl\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+ctr], rax\nlea     rdi, [rbp+pool]; secret\nmov     esi, 40h ; '@'; size\ncall    crypto_wipe\nlea     rdi, [rbp+input]; secret\nmov     esi, 40h ; '@'; size\ncall    crypto_wipe\nmov     rax, [rbp+ctr]\nadd     rsp, 140h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_13C": "dword ptr -13Ch",
+   "out": "qword ptr -138h",
+   "i_1": "qword ptr -130h",
+   "i_0": "qword ptr -128h",
+   "tmp": "byte ptr -120h",
+   "p_0": "dword ptr -0DCh",
+   "j_0": "qword ptr -0D8h",
+   "p": "dword ptr -0CCh",
+   "j": "qword ptr -0C8h",
+   "i": "qword ptr -0C0h",
+   "nb_blocks": "qword ptr -0B8h",
+   "pool": "dword ptr -0B0h",
+   "input": "dword ptr -70h",
+   "ctr": "qword ptr -30h",
+   "nonce": "qword ptr -28h",
+   "key": "qword ptr -20h",
+   "text_size": "qword ptr -18h",
+   "plain_text": "qword ptr -10h",
+   "cipher_text": "qword ptr -8"
+  },
+  ".rodata": {
+   "zero": "byte 0"
+  },
+  ".data": {
+   "chacha20_constant": "qword offset aExpand32ByteK"
+  },
+  ".bss": {}
+ },
+ "func_ea": 6784,
+ "thunk_map": {
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fwrite",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868533
+ }
+}

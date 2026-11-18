@@ -1,0 +1,1 @@
+__attribute__((no, noclone)) int func0(int *input, int len) { int max = -2147483648; for (int i = 0; i < len; ++i) { if (input[i] > max) max = input[i]; } return max; }

@@ -1,0 +1,8 @@
+xxh_u64 XXH_swap64(xxh_u64 x)
+
+{
+  xxh_u64 x_local;
+  
+  return x << 0x38 | (x & 0xff00) << 0x28 | (x & 0xff0000) << 0x18 | (x & 0xff000000) << 8 |
+         x >> 8 & 0xff000000 | x >> 0x18 & 0xff0000 | x >> 0x28 & 0xff00 | x >> 0x38;
+}

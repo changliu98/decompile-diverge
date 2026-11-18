@@ -1,0 +1,1 @@
+void snake_upcase_char(char *str) { if(*str >= 'a' && *str <= 'z') *str &= ~0x20; else if(*str == '-') *str = '_'; }

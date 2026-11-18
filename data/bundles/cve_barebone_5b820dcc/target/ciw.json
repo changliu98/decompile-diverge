@@ -1,0 +1,283 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     al, dl\nmov     cl, sil\nmov     [rbp+idev], rdi\nmov     [rbp+InterfaceNumber], cl\nmov     [rbp+AlternateSetting], al\nmov     [rbp+error], 0\nmov     [rbp+diff], 0\nmov     rax, [rbp+idev]\nmov     [rbp+pdev], rax\nmov     [rbp+urbdrc], 0\nmov     [rbp+MsConfig], 0\nmov     [rbp+MsInterfaces], 0\ncmp     [rbp+pdev], 0\njz      loc_148F\nmov     rax, [rbp+pdev]\ncmp     qword ptr [rax+10h], 0\njnz     loc_149B\nmov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_1578\nmov     rax, [rbp+pdev]\nmov     rax, [rax+10h]\nmov     [rbp+urbdrc], rax\nmov     rax, [rbp+pdev]\nmov     rax, [rax+8]\nmov     [rbp+MsConfig], rax\ncmp     [rbp+MsConfig], 0\njz      loc_1572\nmov     rax, [rbp+MsConfig]\nmov     rax, [rax+10h]\nmov     [rbp+MsInterfaces], rax\ncmp     [rbp+MsInterfaces], 0\njz      loc_1531\nmov     rax, [rbp+urbdrc]\nmov     rdi, [rax]; log\nmovzx   ecx, [rbp+InterfaceNumber]\nmov     rax, [rbp+MsInterfaces]\nmovzx   edx, [rbp+InterfaceNumber]\nmov     rax, [rax+rdx*8]\nmovzx   r8d, byte ptr [rax+5]\nmovzx   r9d, [rbp+AlternateSetting]\nmov     esi, 2; level\nlea     rdx, fmt; \"select Interface(%u) curr AlternateSett\"...\nmov     al, 0\ncall    WLog_Print\nmov     rax, [rbp+MsInterfaces]\nmovzx   ecx, [rbp+InterfaceNumber]\nmov     rax, [rax+rcx*8]\nmovzx   eax, byte ptr [rax+5]\nmovzx   ecx, [rbp+AlternateSetting]\ncmp     eax, ecx\njz      loc_152C\nmov     [rbp+diff], 1\njmp     $+5\ncmp     [rbp+diff], 0\njz      loc_156D\nmov     rax, [rbp+pdev]\nmov     rdi, [rax]; dev_handle\nmovzx   esi, [rbp+InterfaceNumber]; interface_number\nmovzx   edx, [rbp+AlternateSetting]; alternate_setting\ncall    libusb_set_interface_alt_setting\nmov     [rbp+error], eax\nmov     rax, [rbp+urbdrc]\nmov     rdi, [rax]; log\nmov     ecx, [rbp+error]; error\nmov     esi, 4; lvl\nlea     rdx, aLibusbSetInter; \"libusb_set_interface_alt_setting\"\ncall    log_libusb_result_\njmp     $+5\nmov     eax, [rbp+error]\nmov     [rbp+var_4], eax\nmov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 13,
+  "edges": [
+   [
+    "start",
+    "loc_1480"
+   ],
+   [
+    "start",
+    "loc_148F"
+   ],
+   [
+    "loc_1480",
+    "loc_148F"
+   ],
+   [
+    "loc_1480",
+    "loc_149B"
+   ],
+   [
+    "loc_148F",
+    "loc_1578"
+   ],
+   [
+    "loc_149B",
+    "loc_14BE"
+   ],
+   [
+    "loc_149B",
+    "loc_1572"
+   ],
+   [
+    "loc_14BE",
+    "loc_14D5"
+   ],
+   [
+    "loc_14BE",
+    "loc_1531"
+   ],
+   [
+    "loc_14D5",
+    "loc_1525"
+   ],
+   [
+    "loc_14D5",
+    "loc_152C"
+   ],
+   [
+    "loc_1525",
+    "loc_152C"
+   ],
+   [
+    "loc_152C",
+    "loc_1531"
+   ],
+   [
+    "loc_1531",
+    "loc_153B"
+   ],
+   [
+    "loc_1531",
+    "loc_156D"
+   ],
+   [
+    "loc_153B",
+    "loc_156D"
+   ],
+   [
+    "loc_156D",
+    "loc_1572"
+   ],
+   [
+    "loc_1572",
+    "loc_1578"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     al, dl\nmov     cl, sil\nmov     [rbp+idev], rdi\nmov     [rbp+InterfaceNumber], cl\nmov     [rbp+AlternateSetting], al\nmov     [rbp+error], 0\nmov     [rbp+diff], 0\nmov     rax, [rbp+idev]\nmov     [rbp+pdev], rax\nmov     [rbp+urbdrc], 0\nmov     [rbp+MsConfig], 0\nmov     [rbp+MsInterfaces], 0\ncmp     [rbp+pdev], 0\njz      loc_148F",
+   "loc_1480": "mov     rax, [rbp+pdev]\ncmp     qword ptr [rax+10h], 0\njnz     loc_149B",
+   "loc_148F": "mov     [rbp+var_4], 0FFFFFFFFh\njmp     loc_1578",
+   "loc_149B": "mov     rax, [rbp+pdev]\nmov     rax, [rax+10h]\nmov     [rbp+urbdrc], rax\nmov     rax, [rbp+pdev]\nmov     rax, [rax+8]\nmov     [rbp+MsConfig], rax\ncmp     [rbp+MsConfig], 0\njz      loc_1572",
+   "loc_14BE": "mov     rax, [rbp+MsConfig]\nmov     rax, [rax+10h]\nmov     [rbp+MsInterfaces], rax\ncmp     [rbp+MsInterfaces], 0\njz      loc_1531",
+   "loc_14D5": "mov     rax, [rbp+urbdrc]\nmov     rdi, [rax]; log\nmovzx   ecx, [rbp+InterfaceNumber]\nmov     rax, [rbp+MsInterfaces]\nmovzx   edx, [rbp+InterfaceNumber]\nmov     rax, [rax+rdx*8]\nmovzx   r8d, byte ptr [rax+5]\nmovzx   r9d, [rbp+AlternateSetting]\nmov     esi, 2; level\nlea     rdx, fmt; \"select Interface(%u) curr AlternateSett\"...\nmov     al, 0\ncall    WLog_Print\nmov     rax, [rbp+MsInterfaces]\nmovzx   ecx, [rbp+InterfaceNumber]\nmov     rax, [rax+rcx*8]\nmovzx   eax, byte ptr [rax+5]\nmovzx   ecx, [rbp+AlternateSetting]\ncmp     eax, ecx\njz      loc_152C",
+   "loc_1525": "mov     [rbp+diff], 1",
+   "loc_152C": "jmp     $+5",
+   "loc_1531": "cmp     [rbp+diff], 0\njz      loc_156D",
+   "loc_153B": "mov     rax, [rbp+pdev]\nmov     rdi, [rax]; dev_handle\nmovzx   esi, [rbp+InterfaceNumber]; interface_number\nmovzx   edx, [rbp+AlternateSetting]; alternate_setting\ncall    libusb_set_interface_alt_setting\nmov     [rbp+error], eax\nmov     rax, [rbp+urbdrc]\nmov     rdi, [rax]; log\nmov     ecx, [rbp+error]; error\nmov     esi, 4; lvl\nlea     rdx, aLibusbSetInter; \"libusb_set_interface_alt_setting\"\ncall    log_libusb_result_",
+   "loc_156D": "jmp     $+5",
+   "loc_1572": "mov     eax, [rbp+error]\nmov     [rbp+var_4], eax",
+   "loc_1578": "mov     eax, [rbp+var_4]\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "MsInterfaces": "qword ptr -40h",
+   "MsConfig": "qword ptr -38h",
+   "urbdrc": "qword ptr -30h",
+   "pdev": "qword ptr -28h",
+   "diff": "dword ptr -1Ch",
+   "error": "dword ptr -18h",
+   "AlternateSetting": "byte ptr -12h",
+   "InterfaceNumber": "byte ptr -11h",
+   "idev": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "fmt": "byte 'select Interface(%u) curr AlternateSetting(%u) new AlternateSetti'",
+   "aLibusbSetInter": "byte 'libusb_set_interface_alt_setting',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 5168,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".vsnprintf": "vsnprintf",
+  "_vsnprintf": "vsnprintf",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".vsnprintf",
+   ".plt",
+   true,
+   "vsnprintf"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "vsnprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868464
+ }
+}

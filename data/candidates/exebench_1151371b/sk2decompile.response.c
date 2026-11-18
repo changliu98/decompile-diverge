@@ -1,0 +1,33 @@
+void ne_post_filter8_double(double *out, double *in, int *coeff) {
+  double a0, a1, a2, a3, a4, a5, a6, a7;
+  double b0, b1, b2, b3;
+  a0 = in[0] - in[7];
+  a1 = in[1] - in[6];
+  a2 = in[2] - in[5];
+  a3 = in[3] - in[4];
+  a4 = in[3] - a3 / 2.0;
+  a5 = in[2] - a2 / 2.0;
+  a6 = in[1] - a1 / 2.0;
+  a7 = in[0] - a0 / 2.0;
+  a3 -= a2 * coeff[7] / 16.0;
+  a2 -= a3 * coeff[4] / 16.0;
+  a2 -= a1 * coeff[8] / 16.0;
+  a1 -= a2 * coeff[5] / 16.0;
+  a1 -= a0 * coeff[9] / 16.0;
+  a0 = 16.0 * (a0 - a1 * coeff[6] / 16.0) / coeff[3];
+  a1 = 16.0 * a1 / coeff[2];
+  a2 = 16.0 * a2 / coeff[1];
+  a3 = 16.0 * a3 / coeff[0];
+  b0 = a7 + a0 / 2.0;
+  b1 = a6 + a1 / 2.0;
+  b2 = a5 + a2 / 2.0;
+  b3 = a4 + a3 / 2.0;
+  out[0] = b0;
+  out[1] = b1;
+  out[2] = b2;
+  out[3] = b3;
+  out[4] = b3 - a3;
+  out[5] = b2 - a2;
+  out[6] = b1 - a1;
+  out[7] = b0 - a0;
+}

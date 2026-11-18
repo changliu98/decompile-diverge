@@ -1,0 +1,1 @@
+void triggers_bug(struct cpu *cpu) { cpu->reg_dep =0xDEADBEEF; }

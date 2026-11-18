@@ -1,0 +1,721 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0A0h\nmov     [rbp+interp], rdi\nmov     [rbp+args], rsi\nmov     [rbp+_this], rdx\nmov     [rbp+ret], rcx\nmov     [rbp+funcPtr], r8\nmov     rax, [rbp+_this]\nmovzx   eax, byte ptr [rax+4]\ncmp     eax, 4\njnz     loc_24C9\nmov     rdi, [rbp+interp]; interp\nmov     rax, [rbp+_this]\nmov     rsi, [rax+10h]; o\ncall    Jsi_ObjIsArray\ntest    al, 1\njnz     loc_24E8\nmov     rdi, [rbp+interp]; interp\nmov     esi, 1; code\nlea     rdx, aExpectedArrayO; \"expected array object\"\nmov     al, 0\ncall    Jsi_LogMsg\nmov     [rbp+var_4], eax\njmp     loc_2A21\nmov     rax, [rbp+_this]\nmov     rax, [rax+10h]\nmov     [rbp+obj], rax\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+args]; args\nxor     edx, edx; index\ncall    Jsi_ValueArrayIndex\nmov     [rbp+start], rax\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+args]; args\nmov     edx, 1; index\ncall    Jsi_ValueArrayIndex\nmov     [rbp+howmany], rax\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+args]; v\ncall    Jsi_ValueGetLength\nmov     [rbp+argc], eax\nmov     [rbp+istart], 0\ncmp     [rbp+argc], 2\njl      loc_254F\nmov     eax, [rbp+argc]\nsub     eax, 2\nmov     [rbp+var_98], eax\njmp     loc_255C\nxor     eax, eax\nmov     [rbp+var_98], eax\njmp     $+5\nmov     eax, [rbp+var_98]\nmov     [rbp+ilen], eax\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+obj]; obj\ncall    Jsi_ObjGetLength\nmov     [rbp+n], eax\nmov     eax, [rbp+n]\nmov     [rbp+curlen], eax\ncmp     [rbp+start], 0\njnz     loc_258B\njmp     bail2\nmov     rdi, [rbp+interp]; interp\nmov     esi, 5; otype\ncall    Jsi_ObjNewType\nmov     [rbp+nobj], rax\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+ret]; vPtr\nmov     rdx, [rbp+nobj]; o\ncall    Jsi_ValueMakeArrayObject\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+nobj]; obj\nxor     edx, edx; len\ncall    Jsi_ObjSetLength\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+start]; value\nlea     rdx, [rbp+nstart]; n\ncall    Jsi_GetNumberFromValue\ncmp     eax, 0\njnz     loc_2619\ncvttsd2si eax, [rbp+nstart]\nmov     [rbp+istart], eax\nmov     eax, [rbp+istart]\ncmp     eax, [rbp+n]\njle     loc_25F0\njmp     bail\ncmp     [rbp+istart], 0\njge     loc_2603\nmov     eax, [rbp+n]\nadd     eax, [rbp+istart]\nmov     [rbp+istart], eax\ncmp     [rbp+istart], 0\njge     loc_2614\nmov     [rbp+istart], 0\njmp     $+5\nmov     eax, [rbp+n]\nsub     eax, [rbp+istart]\nmov     [rbp+rhowmany], eax\ncmp     [rbp+howmany], 0\njz      loc_2696\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+howmany]; value\nlea     rdx, [rbp+nhow]; n\ncall    Jsi_GetNumberFromValue\ncmp     eax, 0\njnz     loc_2696\ncvttsd2si eax, [rbp+nhow]\nmov     [rbp+rhowmany], eax\nmov     eax, [rbp+rhowmany]\nmov     ecx, [rbp+n]\nsub     ecx, [rbp+istart]\ncmp     eax, ecx\njl      loc_266F\nmov     eax, [rbp+n]\nsub     eax, [rbp+istart]\nmov     [rbp+rhowmany], eax\ncmp     [rbp+rhowmany], 0\njge     loc_2682\nmov     eax, [rbp+n]\nsub     eax, [rbp+istart]\nmov     [rbp+rhowmany], eax\ncmp     [rbp+rhowmany], 0\njge     loc_2691\njmp     bail\njmp     $+5\ncmp     [rbp+curlen], 0\njge     loc_26AF\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+obj]; obj\nxor     edx, edx; len\ncall    Jsi_ObjSetLength\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+obj]; obj\ncall    Jsi_ObjListifyArray\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+nobj]; obj\nmov     edx, [rbp+rhowmany]; len\ncall    Jsi_ObjArraySizer\nmov     [rbp+m], 0\nmov     [rbp+j], 0\nmov     eax, [rbp+istart]\nmov     [rbp+i], eax\nmov     ecx, [rbp+m]\nxor     eax, eax\ncmp     ecx, [rbp+rhowmany]\nmov     [rbp+var_99], al\njge     loc_2712\nmov     eax, [rbp+m]\ncmp     eax, [rbp+curlen]\nsetl    al\nmov     [rbp+var_99], al\nmov     al, [rbp+var_99]\ntest    al, 1\njnz     loc_2725\njmp     loc_27B3\nmov     rax, [rbp+obj]\nmov     rax, [rax+20h]\nmovsxd  rcx, [rbp+i]\ncmp     qword ptr [rax+rcx*8], 0\njnz     loc_2744\njmp     loc_2781\nmov     rax, [rbp+obj]\nmov     rax, [rax+20h]\nmovsxd  rcx, [rbp+i]\nmov     rdx, [rax+rcx*8]\nmov     rax, [rbp+nobj]\nmov     rax, [rax+20h]\nmovsxd  rcx, [rbp+m]\nmov     [rax+rcx*8], rdx\nmov     rax, [rbp+obj]\nmov     rax, [rax+20h]\nmovsxd  rcx, [rbp+i]\nmov     qword ptr [rax+rcx*8], 0\nmov     eax, [rbp+m]\nadd     eax, 1\nmov     [rbp+m], eax\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_26E9\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+nobj]; obj\nmov     edx, [rbp+m]; len\ncall    Jsi_ObjSetLength\nxor     eax, eax\ncmp     [rbp+rhowmany], 0\nmov     [rbp+var_9A], al\njz      loc_27EA\nmov     eax, [rbp+i]\ncmp     eax, [rbp+curlen]\nsetl    al\nmov     [rbp+var_9A], al\nmov     al, [rbp+var_9A]\ntest    al, 1\njnz     loc_27FD\njmp     loc_2853\nmov     rax, [rbp+obj]\nmov     rax, [rax+20h]\nmovsxd  rcx, [rbp+i]\nmov     rdx, [rax+rcx*8]\nmov     rax, [rbp+obj]\nmov     rax, [rax+20h]\nmov     ecx, [rbp+i]\nsub     ecx, [rbp+rhowmany]\nmovsxd  rcx, ecx\nmov     [rax+rcx*8], rdx\nmov     rax, [rbp+obj]\nmov     rax, [rax+20h]\nmovsxd  rcx, [rbp+i]\nmov     qword ptr [rax+rcx*8], 0\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_27C6\nmov     ecx, [rbp+j]\nmov     eax, [rbp+curlen]\nsub     eax, ecx\nmov     [rbp+curlen], eax\nmov     eax, [rbp+curlen]\nadd     eax, [rbp+argc]\nmov     esi, [rbp+argc]\nmov     ecx, 1\nmov     edx, 2\ncmp     esi, 2\ncmovge  ecx, edx\nsub     eax, ecx\nmov     [rbp+newlen], eax\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+obj]; obj\nmov     edx, [rbp+newlen]\nadd     edx, 3; len\ncall    Jsi_ObjArraySizer\ncmp     eax, 0\njg      loc_28CB\nmov     rdi, [rbp+interp]; interp\nmov     esi, 1; code\nlea     rdx, aTooLong; \"too long\"\nmov     al, 0\ncall    Jsi_LogMsg\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+ret]; vPtr\ncall    Jsi_ValueMakeUndef\nmov     [rbp+var_4], 1\njmp     loc_2A21\ncmp     [rbp+ilen], 0\njle     loc_29F1\nmov     eax, [rbp+curlen]\nsub     eax, 1\nmov     [rbp+i], eax\nmov     eax, [rbp+i]\ncmp     eax, [rbp+istart]\njl      loc_2946\nmov     rax, [rbp+obj]\nmov     rax, [rax+20h]\nmovsxd  rcx, [rbp+i]\nmov     rdx, [rax+rcx*8]\nmov     rax, [rbp+obj]\nmov     rax, [rax+20h]\nmov     ecx, [rbp+i]\nadd     ecx, [rbp+ilen]\nmovsxd  rcx, ecx\nmov     [rax+rcx*8], rdx\nmov     rax, [rbp+obj]\nmov     rax, [rax+20h]\nmovsxd  rcx, [rbp+i]\nmov     qword ptr [rax+rcx*8], 0\nmov     eax, [rbp+i]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+i], eax\njmp     loc_28E1\nmov     eax, [rbp+istart]\nmov     [rbp+m], eax\nmov     [rbp+i], 2\nmov     eax, [rbp+i]\ncmp     eax, [rbp+argc]\njge     loc_29EC\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+args]; args\nmov     edx, [rbp+i]; index\ncall    Jsi_ValueArrayIndex\nmov     [rbp+va], rax\ncmp     [rbp+va], 0\njnz     loc_298F\njmp     loc_29C9\nmov     rax, [rbp+obj]\nmov     rax, [rax+20h]\nmovsxd  rcx, [rbp+m]\nmov     qword ptr [rax+rcx*8], 0\nmov     rdi, [rbp+interp]; interp\nmov     rax, [rbp+obj]\nmov     rsi, [rax+20h]\nmovsxd  rax, [rbp+m]\nshl     rax, 3\nadd     rsi, rax; to\nmov     rdx, [rbp+va]; from\ncall    Jsi_ValueDup2\nmov     eax, [rbp+m]\nadd     eax, 1\nmov     [rbp+m], eax\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_2959\njmp     $+5\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+obj]; obj\nmov     edx, [rbp+newlen]; len\ncall    Jsi_ObjSetLength\nmov     [rbp+var_4], 0\njmp     loc_2A21\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+ret]; vPtr\ncall    Jsi_ValueMakeNull\nmov     [rbp+var_4], 0\nmov     eax, [rbp+var_4]\nadd     rsp, 0A0h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 59,
+  "edges": [
+   [
+    "start",
+    "loc_24B0"
+   ],
+   [
+    "start",
+    "loc_24C9"
+   ],
+   [
+    "loc_24B0",
+    "loc_24C9"
+   ],
+   [
+    "loc_24B0",
+    "loc_24E8"
+   ],
+   [
+    "loc_24C9",
+    "loc_2A21"
+   ],
+   [
+    "loc_24E8",
+    "loc_253E"
+   ],
+   [
+    "loc_24E8",
+    "loc_254F"
+   ],
+   [
+    "loc_253E",
+    "loc_255C"
+   ],
+   [
+    "loc_254F",
+    "loc_255C"
+   ],
+   [
+    "loc_255C",
+    "loc_2586"
+   ],
+   [
+    "loc_255C",
+    "loc_258B"
+   ],
+   [
+    "loc_2586",
+    "loc_2A0D"
+   ],
+   [
+    "loc_258B",
+    "loc_25D7"
+   ],
+   [
+    "loc_258B",
+    "loc_2619"
+   ],
+   [
+    "loc_25D7",
+    "loc_25EB"
+   ],
+   [
+    "loc_25D7",
+    "loc_25F0"
+   ],
+   [
+    "loc_25EB",
+    "loc_2A01"
+   ],
+   [
+    "loc_25F0",
+    "loc_25FA"
+   ],
+   [
+    "loc_25F0",
+    "loc_2603"
+   ],
+   [
+    "loc_25FA",
+    "loc_2603"
+   ],
+   [
+    "loc_2603",
+    "loc_260D"
+   ],
+   [
+    "loc_2603",
+    "loc_2614"
+   ],
+   [
+    "loc_260D",
+    "loc_2614"
+   ],
+   [
+    "loc_2614",
+    "loc_2619"
+   ],
+   [
+    "loc_2619",
+    "loc_262D"
+   ],
+   [
+    "loc_2619",
+    "loc_2696"
+   ],
+   [
+    "loc_262D",
+    "loc_264A"
+   ],
+   [
+    "loc_262D",
+    "loc_2696"
+   ],
+   [
+    "loc_264A",
+    "loc_2666"
+   ],
+   [
+    "loc_264A",
+    "loc_266F"
+   ],
+   [
+    "loc_2666",
+    "loc_266F"
+   ],
+   [
+    "loc_266F",
+    "loc_2679"
+   ],
+   [
+    "loc_266F",
+    "loc_2682"
+   ],
+   [
+    "loc_2679",
+    "loc_2682"
+   ],
+   [
+    "loc_2682",
+    "loc_268C"
+   ],
+   [
+    "loc_2682",
+    "loc_2691"
+   ],
+   [
+    "loc_268C",
+    "loc_2A01"
+   ],
+   [
+    "loc_2691",
+    "loc_2696"
+   ],
+   [
+    "loc_2696",
+    "loc_26A0"
+   ],
+   [
+    "loc_2696",
+    "loc_26AF"
+   ],
+   [
+    "loc_26A0",
+    "loc_26AF"
+   ],
+   [
+    "loc_26AF",
+    "loc_26E9"
+   ],
+   [
+    "loc_26E9",
+    "loc_2700"
+   ],
+   [
+    "loc_26E9",
+    "loc_2712"
+   ],
+   [
+    "loc_2700",
+    "loc_2712"
+   ],
+   [
+    "loc_2712",
+    "loc_2720"
+   ],
+   [
+    "loc_2712",
+    "loc_2725"
+   ],
+   [
+    "loc_2720",
+    "loc_27B3"
+   ],
+   [
+    "loc_2725",
+    "loc_273F"
+   ],
+   [
+    "loc_2725",
+    "loc_2744"
+   ],
+   [
+    "loc_273F",
+    "loc_2781"
+   ],
+   [
+    "loc_2744",
+    "loc_2781"
+   ],
+   [
+    "loc_2781",
+    "loc_26E9"
+   ],
+   [
+    "loc_27B3",
+    "loc_27C6"
+   ],
+   [
+    "loc_27C6",
+    "loc_27D8"
+   ],
+   [
+    "loc_27C6",
+    "loc_27EA"
+   ],
+   [
+    "loc_27D8",
+    "loc_27EA"
+   ],
+   [
+    "loc_27EA",
+    "loc_27F8"
+   ],
+   [
+    "loc_27EA",
+    "loc_27FD"
+   ],
+   [
+    "loc_27F8",
+    "loc_2853"
+   ],
+   [
+    "loc_27FD",
+    "loc_27C6"
+   ],
+   [
+    "loc_2853",
+    "loc_289B"
+   ],
+   [
+    "loc_2853",
+    "loc_28CB"
+   ],
+   [
+    "loc_289B",
+    "loc_2A21"
+   ],
+   [
+    "loc_28CB",
+    "loc_28D5"
+   ],
+   [
+    "loc_28CB",
+    "loc_29F1"
+   ],
+   [
+    "loc_28D5",
+    "loc_28E1"
+   ],
+   [
+    "loc_28E1",
+    "loc_28F0"
+   ],
+   [
+    "loc_28E1",
+    "loc_2946"
+   ],
+   [
+    "loc_28F0",
+    "loc_28E1"
+   ],
+   [
+    "loc_2946",
+    "loc_2959"
+   ],
+   [
+    "loc_2959",
+    "loc_2968"
+   ],
+   [
+    "loc_2959",
+    "loc_29EC"
+   ],
+   [
+    "loc_2968",
+    "loc_298A"
+   ],
+   [
+    "loc_2968",
+    "loc_298F"
+   ],
+   [
+    "loc_298A",
+    "loc_29C9"
+   ],
+   [
+    "loc_298F",
+    "loc_29C9"
+   ],
+   [
+    "loc_29C9",
+    "loc_2959"
+   ],
+   [
+    "loc_29EC",
+    "loc_29F1"
+   ],
+   [
+    "loc_29F1",
+    "loc_2A01"
+   ],
+   [
+    "loc_2A01",
+    "loc_2A21"
+   ],
+   [
+    "loc_2A0D",
+    "loc_2A21"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 0A0h\nmov     [rbp+interp], rdi\nmov     [rbp+args], rsi\nmov     [rbp+_this], rdx\nmov     [rbp+ret], rcx\nmov     [rbp+funcPtr], r8\nmov     rax, [rbp+_this]\nmovzx   eax, byte ptr [rax+4]\ncmp     eax, 4\njnz     loc_24C9",
+   "loc_24B0": "mov     rdi, [rbp+interp]; interp\nmov     rax, [rbp+_this]\nmov     rsi, [rax+10h]; o\ncall    Jsi_ObjIsArray\ntest    al, 1\njnz     loc_24E8",
+   "loc_24C9": "mov     rdi, [rbp+interp]; interp\nmov     esi, 1; code\nlea     rdx, aExpectedArrayO; \"expected array object\"\nmov     al, 0\ncall    Jsi_LogMsg\nmov     [rbp+var_4], eax\njmp     loc_2A21",
+   "loc_24E8": "mov     rax, [rbp+_this]\nmov     rax, [rax+10h]\nmov     [rbp+obj], rax\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+args]; args\nxor     edx, edx; index\ncall    Jsi_ValueArrayIndex\nmov     [rbp+start], rax\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+args]; args\nmov     edx, 1; index\ncall    Jsi_ValueArrayIndex\nmov     [rbp+howmany], rax\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+args]; v\ncall    Jsi_ValueGetLength\nmov     [rbp+argc], eax\nmov     [rbp+istart], 0\ncmp     [rbp+argc], 2\njl      loc_254F",
+   "loc_253E": "mov     eax, [rbp+argc]\nsub     eax, 2\nmov     [rbp+var_98], eax\njmp     loc_255C",
+   "loc_254F": "xor     eax, eax\nmov     [rbp+var_98], eax\njmp     $+5",
+   "loc_255C": "mov     eax, [rbp+var_98]\nmov     [rbp+ilen], eax\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+obj]; obj\ncall    Jsi_ObjGetLength\nmov     [rbp+n], eax\nmov     eax, [rbp+n]\nmov     [rbp+curlen], eax\ncmp     [rbp+start], 0\njnz     loc_258B",
+   "loc_2586": "jmp     bail2",
+   "loc_258B": "mov     rdi, [rbp+interp]; interp\nmov     esi, 5; otype\ncall    Jsi_ObjNewType\nmov     [rbp+nobj], rax\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+ret]; vPtr\nmov     rdx, [rbp+nobj]; o\ncall    Jsi_ValueMakeArrayObject\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+nobj]; obj\nxor     edx, edx; len\ncall    Jsi_ObjSetLength\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+start]; value\nlea     rdx, [rbp+nstart]; n\ncall    Jsi_GetNumberFromValue\ncmp     eax, 0\njnz     loc_2619",
+   "loc_25D7": "cvttsd2si eax, [rbp+nstart]\nmov     [rbp+istart], eax\nmov     eax, [rbp+istart]\ncmp     eax, [rbp+n]\njle     loc_25F0",
+   "loc_25EB": "jmp     bail",
+   "loc_25F0": "cmp     [rbp+istart], 0\njge     loc_2603",
+   "loc_25FA": "mov     eax, [rbp+n]\nadd     eax, [rbp+istart]\nmov     [rbp+istart], eax",
+   "loc_2603": "cmp     [rbp+istart], 0\njge     loc_2614",
+   "loc_260D": "mov     [rbp+istart], 0",
+   "loc_2614": "jmp     $+5",
+   "loc_2619": "mov     eax, [rbp+n]\nsub     eax, [rbp+istart]\nmov     [rbp+rhowmany], eax\ncmp     [rbp+howmany], 0\njz      loc_2696",
+   "loc_262D": "mov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+howmany]; value\nlea     rdx, [rbp+nhow]; n\ncall    Jsi_GetNumberFromValue\ncmp     eax, 0\njnz     loc_2696",
+   "loc_264A": "cvttsd2si eax, [rbp+nhow]\nmov     [rbp+rhowmany], eax\nmov     eax, [rbp+rhowmany]\nmov     ecx, [rbp+n]\nsub     ecx, [rbp+istart]\ncmp     eax, ecx\njl      loc_266F",
+   "loc_2666": "mov     eax, [rbp+n]\nsub     eax, [rbp+istart]\nmov     [rbp+rhowmany], eax",
+   "loc_266F": "cmp     [rbp+rhowmany], 0\njge     loc_2682",
+   "loc_2679": "mov     eax, [rbp+n]\nsub     eax, [rbp+istart]\nmov     [rbp+rhowmany], eax",
+   "loc_2682": "cmp     [rbp+rhowmany], 0\njge     loc_2691",
+   "loc_268C": "jmp     bail",
+   "loc_2691": "jmp     $+5",
+   "loc_2696": "cmp     [rbp+curlen], 0\njge     loc_26AF",
+   "loc_26A0": "mov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+obj]; obj\nxor     edx, edx; len\ncall    Jsi_ObjSetLength",
+   "loc_26AF": "mov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+obj]; obj\ncall    Jsi_ObjListifyArray\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+nobj]; obj\nmov     edx, [rbp+rhowmany]; len\ncall    Jsi_ObjArraySizer\nmov     [rbp+m], 0\nmov     [rbp+j], 0\nmov     eax, [rbp+istart]\nmov     [rbp+i], eax",
+   "loc_26E9": "mov     ecx, [rbp+m]\nxor     eax, eax\ncmp     ecx, [rbp+rhowmany]\nmov     [rbp+var_99], al\njge     loc_2712",
+   "loc_2700": "mov     eax, [rbp+m]\ncmp     eax, [rbp+curlen]\nsetl    al\nmov     [rbp+var_99], al",
+   "loc_2712": "mov     al, [rbp+var_99]\ntest    al, 1\njnz     loc_2725",
+   "loc_2720": "jmp     loc_27B3",
+   "loc_2725": "mov     rax, [rbp+obj]\nmov     rax, [rax+20h]\nmovsxd  rcx, [rbp+i]\ncmp     qword ptr [rax+rcx*8], 0\njnz     loc_2744",
+   "loc_273F": "jmp     loc_2781",
+   "loc_2744": "mov     rax, [rbp+obj]\nmov     rax, [rax+20h]\nmovsxd  rcx, [rbp+i]\nmov     rdx, [rax+rcx*8]\nmov     rax, [rbp+nobj]\nmov     rax, [rax+20h]\nmovsxd  rcx, [rbp+m]\nmov     [rax+rcx*8], rdx\nmov     rax, [rbp+obj]\nmov     rax, [rax+20h]\nmovsxd  rcx, [rbp+i]\nmov     qword ptr [rax+rcx*8], 0",
+   "loc_2781": "mov     eax, [rbp+m]\nadd     eax, 1\nmov     [rbp+m], eax\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_26E9",
+   "loc_27B3": "mov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+nobj]; obj\nmov     edx, [rbp+m]; len\ncall    Jsi_ObjSetLength",
+   "loc_27C6": "xor     eax, eax\ncmp     [rbp+rhowmany], 0\nmov     [rbp+var_9A], al\njz      loc_27EA",
+   "loc_27D8": "mov     eax, [rbp+i]\ncmp     eax, [rbp+curlen]\nsetl    al\nmov     [rbp+var_9A], al",
+   "loc_27EA": "mov     al, [rbp+var_9A]\ntest    al, 1\njnz     loc_27FD",
+   "loc_27F8": "jmp     loc_2853",
+   "loc_27FD": "mov     rax, [rbp+obj]\nmov     rax, [rax+20h]\nmovsxd  rcx, [rbp+i]\nmov     rdx, [rax+rcx*8]\nmov     rax, [rbp+obj]\nmov     rax, [rax+20h]\nmov     ecx, [rbp+i]\nsub     ecx, [rbp+rhowmany]\nmovsxd  rcx, ecx\nmov     [rax+rcx*8], rdx\nmov     rax, [rbp+obj]\nmov     rax, [rax+20h]\nmovsxd  rcx, [rbp+i]\nmov     qword ptr [rax+rcx*8], 0\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_27C6",
+   "loc_2853": "mov     ecx, [rbp+j]\nmov     eax, [rbp+curlen]\nsub     eax, ecx\nmov     [rbp+curlen], eax\nmov     eax, [rbp+curlen]\nadd     eax, [rbp+argc]\nmov     esi, [rbp+argc]\nmov     ecx, 1\nmov     edx, 2\ncmp     esi, 2\ncmovge  ecx, edx\nsub     eax, ecx\nmov     [rbp+newlen], eax\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+obj]; obj\nmov     edx, [rbp+newlen]\nadd     edx, 3; len\ncall    Jsi_ObjArraySizer\ncmp     eax, 0\njg      loc_28CB",
+   "loc_289B": "mov     rdi, [rbp+interp]; interp\nmov     esi, 1; code\nlea     rdx, aTooLong; \"too long\"\nmov     al, 0\ncall    Jsi_LogMsg\nmov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+ret]; vPtr\ncall    Jsi_ValueMakeUndef\nmov     [rbp+var_4], 1\njmp     loc_2A21",
+   "loc_28CB": "cmp     [rbp+ilen], 0\njle     loc_29F1",
+   "loc_28D5": "mov     eax, [rbp+curlen]\nsub     eax, 1\nmov     [rbp+i], eax",
+   "loc_28E1": "mov     eax, [rbp+i]\ncmp     eax, [rbp+istart]\njl      loc_2946",
+   "loc_28F0": "mov     rax, [rbp+obj]\nmov     rax, [rax+20h]\nmovsxd  rcx, [rbp+i]\nmov     rdx, [rax+rcx*8]\nmov     rax, [rbp+obj]\nmov     rax, [rax+20h]\nmov     ecx, [rbp+i]\nadd     ecx, [rbp+ilen]\nmovsxd  rcx, ecx\nmov     [rax+rcx*8], rdx\nmov     rax, [rbp+obj]\nmov     rax, [rax+20h]\nmovsxd  rcx, [rbp+i]\nmov     qword ptr [rax+rcx*8], 0\nmov     eax, [rbp+i]\nadd     eax, 0FFFFFFFFh\nmov     [rbp+i], eax\njmp     loc_28E1",
+   "loc_2946": "mov     eax, [rbp+istart]\nmov     [rbp+m], eax\nmov     [rbp+i], 2",
+   "loc_2959": "mov     eax, [rbp+i]\ncmp     eax, [rbp+argc]\njge     loc_29EC",
+   "loc_2968": "mov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+args]; args\nmov     edx, [rbp+i]; index\ncall    Jsi_ValueArrayIndex\nmov     [rbp+va], rax\ncmp     [rbp+va], 0\njnz     loc_298F",
+   "loc_298A": "jmp     loc_29C9",
+   "loc_298F": "mov     rax, [rbp+obj]\nmov     rax, [rax+20h]\nmovsxd  rcx, [rbp+m]\nmov     qword ptr [rax+rcx*8], 0\nmov     rdi, [rbp+interp]; interp\nmov     rax, [rbp+obj]\nmov     rsi, [rax+20h]\nmovsxd  rax, [rbp+m]\nshl     rax, 3\nadd     rsi, rax; to\nmov     rdx, [rbp+va]; from\ncall    Jsi_ValueDup2",
+   "loc_29C9": "mov     eax, [rbp+m]\nadd     eax, 1\nmov     [rbp+m], eax\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_2959",
+   "loc_29EC": "jmp     $+5",
+   "loc_29F1": "mov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+obj]; obj\nmov     edx, [rbp+newlen]; len\ncall    Jsi_ObjSetLength",
+   "loc_2A01": "mov     [rbp+var_4], 0\njmp     loc_2A21",
+   "loc_2A0D": "mov     rdi, [rbp+interp]; interp\nmov     rsi, [rbp+ret]; vPtr\ncall    Jsi_ValueMakeNull\nmov     [rbp+var_4], 0",
+   "loc_2A21": "mov     eax, [rbp+var_4]\nadd     rsp, 0A0h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_9A": "byte ptr -9Ah",
+   "var_99": "byte ptr -99h",
+   "var_98": "dword ptr -98h",
+   "m": "dword ptr -94h",
+   "j": "dword ptr -90h",
+   "i": "dword ptr -8Ch",
+   "nhow": "qword ptr -88h",
+   "nstart": "qword ptr -80h",
+   "obj": "qword ptr -78h",
+   "nobj": "qword ptr -70h",
+   "howmany": "qword ptr -68h",
+   "start": "qword ptr -60h",
+   "va": "qword ptr -58h",
+   "curlen": "dword ptr -4Ch",
+   "ilen": "dword ptr -48h",
+   "rhowmany": "dword ptr -44h",
+   "n": "dword ptr -40h",
+   "istart": "dword ptr -3Ch",
+   "argc": "dword ptr -38h",
+   "newlen": "dword ptr -34h",
+   "funcPtr": "qword ptr -30h",
+   "ret": "qword ptr -28h",
+   "_this": "qword ptr -20h",
+   "args": "qword ptr -18h",
+   "interp": "qword ptr -10h",
+   "var_4": "dword ptr -4"
+  },
+  ".rodata": {
+   "aExpectedArrayO": "byte 'expected array object',0",
+   "aTooLong": "byte 'too long',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 9344,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fputc": "fputc",
+  "_fputc": "fputc",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".vfprintf": "vfprintf",
+  "_vfprintf": "vfprintf"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fputc",
+   ".plt",
+   true,
+   "fputc"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".vfprintf",
+   ".plt",
+   true,
+   "vfprintf"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "snprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__assert_fail",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fputc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "strcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcpy",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "realloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "vfprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868467
+ }
+}

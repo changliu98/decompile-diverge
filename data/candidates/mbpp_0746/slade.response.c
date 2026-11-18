@@ -1,0 +1,1 @@
+double func0(int x, int N) { double a = 1.0; if (N >= 360 - 1) return 1.0; double ret = a * x * x * ((double) N / 2.0); return ret; }

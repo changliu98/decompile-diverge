@@ -1,0 +1,515 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+ndpi_struct], rdi\nmov     [rbp+flow], rsi\nmov     rax, [rbp+flow]\nadd     rax, 10h\nmov     [rbp+packet], rax\nmov     rax, [rbp+packet]\nmov     rax, [rax+10h]\nmov     [rbp+ovpn_payload], rax\nmov     [rbp+failed], 0\nmov     rax, [rbp+packet]\nmovzx   eax, word ptr [rax+18h]\ncmp     eax, 28h ; '('\njl      loc_1475\nmov     rax, [rbp+packet]\ncmp     qword ptr [rax], 0\njz      loc_1227\nmov     rax, [rbp+ovpn_payload]\nadd     rax, 2\nmov     [rbp+ovpn_payload], rax\nmov     rax, [rbp+ovpn_payload]\nmovzx   eax, byte ptr [rax]\nand     eax, 0F8h\nmov     [rbp+opcode], al\nmov     rax, [rbp+packet]\ncmp     qword ptr [rax+8], 0\njz      loc_12FC\nmov     rax, [rbp+flow]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 1\njnz     loc_12F7\nmov     rax, [rbp+packet]\nmovzx   eax, word ptr [rax+18h]\ncmp     eax, 70h ; 'p'\njnz     loc_1284\nmovzx   eax, [rbp+opcode]\ncmp     eax, 0A8h\njz      loc_12DE\nmovzx   eax, [rbp+opcode]\ncmp     eax, 0C0h\njz      loc_12DE\nmov     rax, [rbp+packet]\nmovzx   eax, word ptr [rax+18h]\ncmp     eax, 50h ; 'P'\njnz     loc_12F7\nmovzx   eax, [rbp+opcode]\ncmp     eax, 0B8h\njz      loc_12DE\nmovzx   eax, [rbp+opcode]\ncmp     eax, 58h ; 'X'\njz      loc_12DE\nmovzx   eax, [rbp+opcode]\ncmp     eax, 0A0h\njz      loc_12DE\nmovzx   eax, [rbp+opcode]\ncmp     eax, 0A8h\njz      loc_12DE\nmovzx   eax, [rbp+opcode]\ncmp     eax, 0C8h\njnz     loc_12F7\nmov     rdi, [rbp+ndpi_struct]; ndpi_struct\nmov     rsi, [rbp+flow]; flow\nmov     edx, 9Fh; upper_detected_protocol\nxor     ecx, ecx; lower_detected_protocol\ncall    ndpi_set_detected_protocol\njmp     loc_1475\njmp     $+5\nmov     rax, [rbp+flow]\nmovzx   eax, byte ptr [rax+9]\ncmp     eax, 5\njge     loc_1351\nmovzx   eax, [rbp+opcode]\ncmp     eax, 8\njz      loc_1327\nmovzx   eax, [rbp+opcode]\ncmp     eax, 38h ; '8'\njnz     loc_1351\nmov     rdi, [rbp+ovpn_payload]; payload\ncall    check_pkid_and_detect_hmac_size\nmovsx   eax, al\ncmp     eax, 0\njle     loc_134C\nmov     rax, [rbp+flow]\nmov     rcx, [rbp+ovpn_payload]\nmov     rcx, [rcx+1]\nmov     [rax+1], rcx\njmp     loc_1454\nmov     rax, [rbp+flow]\nmovzx   eax, byte ptr [rax+9]\ncmp     eax, 1\njl      loc_144B\nmov     rax, [rbp+flow]\nmovzx   eax, byte ptr [rax+9]\ncmp     eax, 5\njg      loc_144B\nmovzx   eax, [rbp+opcode]\ncmp     eax, 10h\njz      loc_138D\nmovzx   eax, [rbp+opcode]\ncmp     eax, 40h ; '@'\njnz     loc_144B\nmov     rdi, [rbp+ovpn_payload]; payload\ncall    check_pkid_and_detect_hmac_size\nmov     [rbp+hmac_size], al\nmovsx   eax, [rbp+hmac_size]\ncmp     eax, 0\njle     loc_1442\nmov     rax, [rbp+ovpn_payload]\nmovsx   ecx, [rbp+hmac_size]\nadd     ecx, 9\nadd     ecx, 8\nmovsxd  rcx, ecx\nmov     al, [rax+rcx]\nmov     [rbp+alen], al\nmovzx   eax, [rbp+alen]\ncmp     eax, 0\njle     loc_1439\nmov     rax, [rbp+ovpn_payload]\nmovsx   ecx, [rbp+hmac_size]\nadd     ecx, 9\nadd     ecx, 8\nmovsxd  rcx, ecx\nadd     rax, rcx\nadd     rax, 1\nmovzx   ecx, [rbp+alen]\nshl     ecx, 2\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+session_remote], rax\nmov     rax, [rbp+flow]\nadd     rax, 1\nmov     rcx, [rbp+session_remote]\nmov     rcx, [rcx]\nmov     rax, [rax]\nsub     rax, rcx\nsetnz   al\nmovzx   eax, al\ncmp     eax, 0\njnz     loc_1430\nmov     rdi, [rbp+ndpi_struct]; ndpi_struct\nmov     rsi, [rbp+flow]; flow\nmov     edx, 9Fh; upper_detected_protocol\nxor     ecx, ecx; lower_detected_protocol\ncall    ndpi_set_detected_protocol\njmp     loc_1475\nmov     [rbp+failed], 1\njmp     loc_143D\nmov     [rbp+failed], 1\njmp     loc_1446\nmov     [rbp+failed], 1\njmp     loc_144F\nmov     [rbp+failed], 1\njmp     $+5\nmov     rax, [rbp+flow]\nmov     cl, [rax+9]\nadd     cl, 1\nmov     [rax+9], cl\ncmp     [rbp+failed], 0\njz      loc_1470\njmp     $+5\njmp     $+5\nadd     rsp, 30h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 41,
+  "edges": [
+   [
+    "start",
+    "loc_120D"
+   ],
+   [
+    "start",
+    "loc_1475"
+   ],
+   [
+    "loc_120D",
+    "loc_121B"
+   ],
+   [
+    "loc_120D",
+    "loc_1227"
+   ],
+   [
+    "loc_121B",
+    "loc_1227"
+   ],
+   [
+    "loc_1227",
+    "loc_1245"
+   ],
+   [
+    "loc_1227",
+    "loc_12FC"
+   ],
+   [
+    "loc_1245",
+    "loc_1255"
+   ],
+   [
+    "loc_1245",
+    "loc_12F7"
+   ],
+   [
+    "loc_1255",
+    "loc_1266"
+   ],
+   [
+    "loc_1255",
+    "loc_1284"
+   ],
+   [
+    "loc_1266",
+    "loc_1275"
+   ],
+   [
+    "loc_1266",
+    "loc_12DE"
+   ],
+   [
+    "loc_1275",
+    "loc_1284"
+   ],
+   [
+    "loc_1275",
+    "loc_12DE"
+   ],
+   [
+    "loc_1284",
+    "loc_1295"
+   ],
+   [
+    "loc_1284",
+    "loc_12F7"
+   ],
+   [
+    "loc_1295",
+    "loc_12A4"
+   ],
+   [
+    "loc_1295",
+    "loc_12DE"
+   ],
+   [
+    "loc_12A4",
+    "loc_12B1"
+   ],
+   [
+    "loc_12A4",
+    "loc_12DE"
+   ],
+   [
+    "loc_12B1",
+    "loc_12C0"
+   ],
+   [
+    "loc_12B1",
+    "loc_12DE"
+   ],
+   [
+    "loc_12C0",
+    "loc_12CF"
+   ],
+   [
+    "loc_12C0",
+    "loc_12DE"
+   ],
+   [
+    "loc_12CF",
+    "loc_12DE"
+   ],
+   [
+    "loc_12CF",
+    "loc_12F7"
+   ],
+   [
+    "loc_12DE",
+    "loc_1475"
+   ],
+   [
+    "loc_12F7",
+    "loc_12FC"
+   ],
+   [
+    "loc_12FC",
+    "loc_130D"
+   ],
+   [
+    "loc_12FC",
+    "loc_1351"
+   ],
+   [
+    "loc_130D",
+    "loc_131A"
+   ],
+   [
+    "loc_130D",
+    "loc_1327"
+   ],
+   [
+    "loc_131A",
+    "loc_1327"
+   ],
+   [
+    "loc_131A",
+    "loc_1351"
+   ],
+   [
+    "loc_1327",
+    "loc_133C"
+   ],
+   [
+    "loc_1327",
+    "loc_134C"
+   ],
+   [
+    "loc_133C",
+    "loc_134C"
+   ],
+   [
+    "loc_134C",
+    "loc_1454"
+   ],
+   [
+    "loc_1351",
+    "loc_1362"
+   ],
+   [
+    "loc_1351",
+    "loc_144B"
+   ],
+   [
+    "loc_1362",
+    "loc_1373"
+   ],
+   [
+    "loc_1362",
+    "loc_144B"
+   ],
+   [
+    "loc_1373",
+    "loc_1380"
+   ],
+   [
+    "loc_1373",
+    "loc_138D"
+   ],
+   [
+    "loc_1380",
+    "loc_138D"
+   ],
+   [
+    "loc_1380",
+    "loc_144B"
+   ],
+   [
+    "loc_138D",
+    "loc_13A6"
+   ],
+   [
+    "loc_138D",
+    "loc_1442"
+   ],
+   [
+    "loc_13A6",
+    "loc_13CA"
+   ],
+   [
+    "loc_13A6",
+    "loc_1439"
+   ],
+   [
+    "loc_13CA",
+    "loc_1417"
+   ],
+   [
+    "loc_13CA",
+    "loc_1430"
+   ],
+   [
+    "loc_1417",
+    "loc_1475"
+   ],
+   [
+    "loc_1430",
+    "loc_143D"
+   ],
+   [
+    "loc_1439",
+    "loc_143D"
+   ],
+   [
+    "loc_143D",
+    "loc_1446"
+   ],
+   [
+    "loc_1442",
+    "loc_1446"
+   ],
+   [
+    "loc_1446",
+    "loc_144F"
+   ],
+   [
+    "loc_144B",
+    "loc_144F"
+   ],
+   [
+    "loc_144F",
+    "loc_1454"
+   ],
+   [
+    "loc_1454",
+    "loc_146B"
+   ],
+   [
+    "loc_1454",
+    "loc_1470"
+   ],
+   [
+    "loc_146B",
+    "loc_1470"
+   ],
+   [
+    "loc_1470",
+    "loc_1475"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 30h\nmov     [rbp+ndpi_struct], rdi\nmov     [rbp+flow], rsi\nmov     rax, [rbp+flow]\nadd     rax, 10h\nmov     [rbp+packet], rax\nmov     rax, [rbp+packet]\nmov     rax, [rax+10h]\nmov     [rbp+ovpn_payload], rax\nmov     [rbp+failed], 0\nmov     rax, [rbp+packet]\nmovzx   eax, word ptr [rax+18h]\ncmp     eax, 28h ; '('\njl      loc_1475",
+   "loc_120D": "mov     rax, [rbp+packet]\ncmp     qword ptr [rax], 0\njz      loc_1227",
+   "loc_121B": "mov     rax, [rbp+ovpn_payload]\nadd     rax, 2\nmov     [rbp+ovpn_payload], rax",
+   "loc_1227": "mov     rax, [rbp+ovpn_payload]\nmovzx   eax, byte ptr [rax]\nand     eax, 0F8h\nmov     [rbp+opcode], al\nmov     rax, [rbp+packet]\ncmp     qword ptr [rax+8], 0\njz      loc_12FC",
+   "loc_1245": "mov     rax, [rbp+flow]\nmovzx   eax, byte ptr [rax]\ncmp     eax, 1\njnz     loc_12F7",
+   "loc_1255": "mov     rax, [rbp+packet]\nmovzx   eax, word ptr [rax+18h]\ncmp     eax, 70h ; 'p'\njnz     loc_1284",
+   "loc_1266": "movzx   eax, [rbp+opcode]\ncmp     eax, 0A8h\njz      loc_12DE",
+   "loc_1275": "movzx   eax, [rbp+opcode]\ncmp     eax, 0C0h\njz      loc_12DE",
+   "loc_1284": "mov     rax, [rbp+packet]\nmovzx   eax, word ptr [rax+18h]\ncmp     eax, 50h ; 'P'\njnz     loc_12F7",
+   "loc_1295": "movzx   eax, [rbp+opcode]\ncmp     eax, 0B8h\njz      loc_12DE",
+   "loc_12A4": "movzx   eax, [rbp+opcode]\ncmp     eax, 58h ; 'X'\njz      loc_12DE",
+   "loc_12B1": "movzx   eax, [rbp+opcode]\ncmp     eax, 0A0h\njz      loc_12DE",
+   "loc_12C0": "movzx   eax, [rbp+opcode]\ncmp     eax, 0A8h\njz      loc_12DE",
+   "loc_12CF": "movzx   eax, [rbp+opcode]\ncmp     eax, 0C8h\njnz     loc_12F7",
+   "loc_12DE": "mov     rdi, [rbp+ndpi_struct]; ndpi_struct\nmov     rsi, [rbp+flow]; flow\nmov     edx, 9Fh; upper_detected_protocol\nxor     ecx, ecx; lower_detected_protocol\ncall    ndpi_set_detected_protocol\njmp     loc_1475",
+   "loc_12F7": "jmp     $+5",
+   "loc_12FC": "mov     rax, [rbp+flow]\nmovzx   eax, byte ptr [rax+9]\ncmp     eax, 5\njge     loc_1351",
+   "loc_130D": "movzx   eax, [rbp+opcode]\ncmp     eax, 8\njz      loc_1327",
+   "loc_131A": "movzx   eax, [rbp+opcode]\ncmp     eax, 38h ; '8'\njnz     loc_1351",
+   "loc_1327": "mov     rdi, [rbp+ovpn_payload]; payload\ncall    check_pkid_and_detect_hmac_size\nmovsx   eax, al\ncmp     eax, 0\njle     loc_134C",
+   "loc_133C": "mov     rax, [rbp+flow]\nmov     rcx, [rbp+ovpn_payload]\nmov     rcx, [rcx+1]\nmov     [rax+1], rcx",
+   "loc_134C": "jmp     loc_1454",
+   "loc_1351": "mov     rax, [rbp+flow]\nmovzx   eax, byte ptr [rax+9]\ncmp     eax, 1\njl      loc_144B",
+   "loc_1362": "mov     rax, [rbp+flow]\nmovzx   eax, byte ptr [rax+9]\ncmp     eax, 5\njg      loc_144B",
+   "loc_1373": "movzx   eax, [rbp+opcode]\ncmp     eax, 10h\njz      loc_138D",
+   "loc_1380": "movzx   eax, [rbp+opcode]\ncmp     eax, 40h ; '@'\njnz     loc_144B",
+   "loc_138D": "mov     rdi, [rbp+ovpn_payload]; payload\ncall    check_pkid_and_detect_hmac_size\nmov     [rbp+hmac_size], al\nmovsx   eax, [rbp+hmac_size]\ncmp     eax, 0\njle     loc_1442",
+   "loc_13A6": "mov     rax, [rbp+ovpn_payload]\nmovsx   ecx, [rbp+hmac_size]\nadd     ecx, 9\nadd     ecx, 8\nmovsxd  rcx, ecx\nmov     al, [rax+rcx]\nmov     [rbp+alen], al\nmovzx   eax, [rbp+alen]\ncmp     eax, 0\njle     loc_1439",
+   "loc_13CA": "mov     rax, [rbp+ovpn_payload]\nmovsx   ecx, [rbp+hmac_size]\nadd     ecx, 9\nadd     ecx, 8\nmovsxd  rcx, ecx\nadd     rax, rcx\nadd     rax, 1\nmovzx   ecx, [rbp+alen]\nshl     ecx, 2\nmovsxd  rcx, ecx\nadd     rax, rcx\nmov     [rbp+session_remote], rax\nmov     rax, [rbp+flow]\nadd     rax, 1\nmov     rcx, [rbp+session_remote]\nmov     rcx, [rcx]\nmov     rax, [rax]\nsub     rax, rcx\nsetnz   al\nmovzx   eax, al\ncmp     eax, 0\njnz     loc_1430",
+   "loc_1417": "mov     rdi, [rbp+ndpi_struct]; ndpi_struct\nmov     rsi, [rbp+flow]; flow\nmov     edx, 9Fh; upper_detected_protocol\nxor     ecx, ecx; lower_detected_protocol\ncall    ndpi_set_detected_protocol\njmp     loc_1475",
+   "loc_1430": "mov     [rbp+failed], 1\njmp     loc_143D",
+   "loc_1439": "mov     [rbp+failed], 1",
+   "loc_143D": "jmp     loc_1446",
+   "loc_1442": "mov     [rbp+failed], 1",
+   "loc_1446": "jmp     loc_144F",
+   "loc_144B": "mov     [rbp+failed], 1",
+   "loc_144F": "jmp     $+5",
+   "loc_1454": "mov     rax, [rbp+flow]\nmov     cl, [rax+9]\nadd     cl, 1\nmov     [rax+9], cl\ncmp     [rbp+failed], 0\njz      loc_1470",
+   "loc_146B": "jmp     $+5",
+   "loc_1470": "jmp     $+5",
+   "loc_1475": "add     rsp, 30h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "failed": "byte ptr -2Ch",
+   "hmac_size": "byte ptr -2Bh",
+   "alen": "byte ptr -2Ah",
+   "opcode": "byte ptr -29h",
+   "session_remote": "qword ptr -28h",
+   "ovpn_payload": "qword ptr -20h",
+   "packet": "qword ptr -18h",
+   "flow": "qword ptr -10h",
+   "ndpi_struct": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4560,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".ntohl": "ntohl",
+  "_ntohl": "ntohl"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".ntohl",
+   ".plt",
+   true,
+   "ntohl"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memcmp",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "calloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ntohl",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868464
+ }
+}

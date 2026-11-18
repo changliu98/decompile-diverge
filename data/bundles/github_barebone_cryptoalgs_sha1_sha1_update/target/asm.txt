@@ -1,0 +1,44 @@
+00000000000015f0 <sha1_update>:
+    15f0:	push   %rbp
+    15f1:	mov    %rsp,%rbp
+    15f4:	sub    $0x20,%rsp
+    15f8:	mov    %rdi,-0x8(%rbp)
+    15fc:	mov    %rsi,-0x10(%rbp)
+    1600:	mov    %rdx,-0x18(%rbp)
+    1604:	movq   $0x0,-0x20(%rbp)
+    160c:	mov    -0x20(%rbp),%rax
+    1610:	cmp    -0x18(%rbp),%rax
+    1614:	jae    168f <sha1_update+0x9f>
+    161a:	mov    -0x10(%rbp),%rax
+    161e:	mov    -0x20(%rbp),%rcx
+    1622:	mov    (%rax,%rcx,1),%dl
+    1625:	mov    -0x8(%rbp),%rax
+    1629:	mov    -0x8(%rbp),%rcx
+    162d:	mov    0x40(%rcx),%ecx
+    1630:	mov    %dl,(%rax,%rcx,1)
+    1633:	mov    -0x8(%rbp),%rax
+    1637:	mov    0x40(%rax),%ecx
+    163a:	add    $0x1,%ecx
+    163d:	mov    %ecx,0x40(%rax)
+    1640:	mov    -0x8(%rbp),%rax
+    1644:	cmpl   $0x40,0x40(%rax)
+    1648:	jne    1679 <sha1_update+0x89>
+    164e:	mov    -0x8(%rbp),%rdi
+    1652:	mov    -0x8(%rbp),%rsi
+    1656:	call   11d0 <sha1_transform>
+    165b:	mov    -0x8(%rbp),%rax
+    165f:	mov    0x48(%rax),%rcx
+    1663:	add    $0x200,%rcx
+    166a:	mov    %rcx,0x48(%rax)
+    166e:	mov    -0x8(%rbp),%rax
+    1672:	movl   $0x0,0x40(%rax)
+    1679:	jmp    167e <sha1_update+0x8e>
+    167e:	mov    -0x20(%rbp),%rax
+    1682:	add    $0x1,%rax
+    1686:	mov    %rax,-0x20(%rbp)
+    168a:	jmp    160c <sha1_update+0x1c>
+    168f:	add    $0x20,%rsp
+    1693:	pop    %rbp
+    1694:	ret
+
+Disassembly of section .fini:

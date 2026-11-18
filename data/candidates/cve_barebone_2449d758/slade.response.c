@@ -1,0 +1,1 @@
+int pj_scan_get_char(pj_token_t *token) { int c = *token->buf; if (!c) { pj_scan_syntax_err(token); return 0; } for (;;) { token->buf++; if (*token->buf <= ' ' && token->token) pj_scan_skip_whitespace(token); return c; } }

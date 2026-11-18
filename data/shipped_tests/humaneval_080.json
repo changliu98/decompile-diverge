@@ -1,0 +1,5 @@
+{
+ "kind": "humaneval",
+ "c_func": "#include <string.h>\n#include <stdbool.h>\n\nbool func0(const char* s) {\n    if (strlen(s) < 3) return false;\n    for (int i = 2; i < strlen(s); i++)\n        if (s[i] == s[i-1] || s[i] == s[i-2]) return false;\n    return true;\n}",
+ "c_test": "#include <assert.h>\n\nint main() {\n    assert(func0(\"a\") == false);\n    assert(func0(\"aa\") == false);\n    assert(func0(\"abcd\") == true);\n    assert(func0(\"aabb\") == false);\n    assert(func0(\"adb\") == true);\n    assert(func0(\"xyy\") == false);\n    assert(func0(\"iopaxpoi\") == true);\n    assert(func0(\"iopaxioi\") == false);\n\n    return 0;\n}"
+}

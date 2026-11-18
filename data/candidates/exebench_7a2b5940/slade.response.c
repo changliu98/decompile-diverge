@@ -1,0 +1,1 @@
+char *tcp_strflags(char *buf, u_int32_t flags) { char *cflags = "FSRPAYXY"; char *pbuf = buf; int i; for (i = 0; i < 8; i++) { if (flags & (1 << i)) *pbuf++ = cflags[i]; } *pbuf = '\0'; return buf; }

@@ -1,0 +1,407 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+ndo], rdi\nmov     [rbp+p], rsi\nmov     [rbp+length], edx\nmov     rdi, [rbp+p]\nadd     rdi, 2; p\ncall    EXTRACT_16BITS\nmovzx   eax, ax\nmov     [rbp+proto], eax\nmov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 0\njz      loc_139E\nmov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_20], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_30], rax\nmov     rax, [rbp+p]\nmovzx   edx, byte ptr [rax]; v\nlea     rdi, chdlc_cast_values; lp\nlea     rsi, fmt; \"0x%02x\"\ncall    tok2str\nmov     [rbp+var_28], rax\nmov     edx, [rbp+proto]; v\nlea     rdi, ethertype_values; lp\nlea     rsi, aUnknown; \"Unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_30]\nmov     rdx, [rbp+var_28]\nmov     r10, [rbp+var_20]\nmov     rcx, rax\nmov     r8d, [rbp+proto]\nmov     r9d, [rbp+length]\nlea     rsi, aSEthertypeS0x0; \"%s, ethertype %s (0x%04x), length %u: \"\nmov     al, 0\ncall    r10\nmov     eax, [rbp+length]\nadd     eax, 0FFFFFFFCh\nmov     [rbp+length], eax\nmov     rax, [rbp+p]\nadd     rax, 4\nmov     [rbp+p], rax\nmov     eax, [rbp+proto]\nmov     [rbp+var_34], eax\nsub     eax, 800h\njz      loc_1418\njmp     $+5\nmov     eax, [rbp+var_34]\nsub     eax, 8035h\njz      loc_1442\njmp     $+5\nmov     eax, [rbp+var_34]\nsub     eax, 86DDh\njz      loc_142D\njmp     $+5\nmov     eax, [rbp+var_34]\nadd     eax, 0FFFF77B9h\nsub     eax, 2\njb      loc_1457\njmp     $+5\nmov     eax, [rbp+var_34]\nsub     eax, 0FEFEh\njz      loc_146C\njmp     loc_14FC\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; bp_0\nmov     edx, [rbp+length]; length\ncall    ip_print\njmp     loc_1528\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; bp_0\nmov     edx, [rbp+length]; length\ncall    ip6_print\njmp     loc_1528\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; cp\nmov     edx, [rbp+length]; length\ncall    chdlc_slarp_print\njmp     loc_1528\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; bp_0\nmov     edx, [rbp+length]; length\ncall    mpls_print\njmp     loc_1528\nmov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 81h\njz      loc_14A5\nmov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 82h\njz      loc_14A5\nmov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 83h\njnz     loc_14D6\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]\nadd     rsi, 1; p\nmov     edx, [rbp+length]\nsub     edx, 1; length\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nmov     rcx, [rbp+p]\nsub     rax, rcx\nsub     rax, 1\nmov     ecx, eax; caplen\ncall    isoclns_print\njmp     loc_14F7\nmov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; p\nmov     edx, [rbp+length]; length\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nmov     rcx, [rbp+p]\nsub     rax, rcx\nmov     ecx, eax; caplen\ncall    isoclns_print\njmp     loc_1528\nmov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 0\njnz     loc_1523\nmov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nmov     edx, [rbp+proto]\nlea     rsi, aUnknownChdlcPr; \"unknown CHDLC protocol (0x%04x)\"\nmov     al, 0\ncall    rcx\njmp     $+5\nmov     eax, 4\nadd     rsp, 40h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 26,
+  "edges": [
+   [
+    "start",
+    "loc_1333"
+   ],
+   [
+    "start",
+    "loc_139E"
+   ],
+   [
+    "loc_1333",
+    "loc_139E"
+   ],
+   [
+    "loc_139E",
+    "loc_13C4"
+   ],
+   [
+    "loc_139E",
+    "loc_1418"
+   ],
+   [
+    "loc_13C4",
+    "loc_13C9"
+   ],
+   [
+    "loc_13C9",
+    "loc_13D7"
+   ],
+   [
+    "loc_13C9",
+    "loc_1442"
+   ],
+   [
+    "loc_13D7",
+    "loc_13DC"
+   ],
+   [
+    "loc_13DC",
+    "loc_13EA"
+   ],
+   [
+    "loc_13DC",
+    "loc_142D"
+   ],
+   [
+    "loc_13EA",
+    "loc_13EF"
+   ],
+   [
+    "loc_13EF",
+    "loc_1400"
+   ],
+   [
+    "loc_13EF",
+    "loc_1457"
+   ],
+   [
+    "loc_1400",
+    "loc_1405"
+   ],
+   [
+    "loc_1405",
+    "loc_1413"
+   ],
+   [
+    "loc_1405",
+    "loc_146C"
+   ],
+   [
+    "loc_1413",
+    "loc_14FC"
+   ],
+   [
+    "loc_1418",
+    "loc_1528"
+   ],
+   [
+    "loc_142D",
+    "loc_1528"
+   ],
+   [
+    "loc_1442",
+    "loc_1528"
+   ],
+   [
+    "loc_1457",
+    "loc_1528"
+   ],
+   [
+    "loc_146C",
+    "loc_147F"
+   ],
+   [
+    "loc_146C",
+    "loc_14A5"
+   ],
+   [
+    "loc_147F",
+    "loc_1492"
+   ],
+   [
+    "loc_147F",
+    "loc_14A5"
+   ],
+   [
+    "loc_1492",
+    "loc_14A5"
+   ],
+   [
+    "loc_1492",
+    "loc_14D6"
+   ],
+   [
+    "loc_14A5",
+    "loc_14F7"
+   ],
+   [
+    "loc_14D6",
+    "loc_14F7"
+   ],
+   [
+    "loc_14F7",
+    "loc_1528"
+   ],
+   [
+    "loc_14FC",
+    "loc_1509"
+   ],
+   [
+    "loc_14FC",
+    "loc_1523"
+   ],
+   [
+    "loc_1509",
+    "loc_1523"
+   ],
+   [
+    "loc_1523",
+    "loc_1528"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 40h\nmov     [rbp+ndo], rdi\nmov     [rbp+p], rsi\nmov     [rbp+length], edx\nmov     rdi, [rbp+p]\nadd     rdi, 2; p\ncall    EXTRACT_16BITS\nmovzx   eax, ax\nmov     [rbp+proto], eax\nmov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 0\njz      loc_139E",
+   "loc_1333": "mov     rax, [rbp+ndo]\nmov     rax, [rax+10h]\nmov     [rbp+var_20], rax\nmov     rax, [rbp+ndo]\nmov     [rbp+var_30], rax\nmov     rax, [rbp+p]\nmovzx   edx, byte ptr [rax]; v\nlea     rdi, chdlc_cast_values; lp\nlea     rsi, fmt; \"0x%02x\"\ncall    tok2str\nmov     [rbp+var_28], rax\nmov     edx, [rbp+proto]; v\nlea     rdi, ethertype_values; lp\nlea     rsi, aUnknown; \"Unknown\"\ncall    tok2str\nmov     rdi, [rbp+var_30]\nmov     rdx, [rbp+var_28]\nmov     r10, [rbp+var_20]\nmov     rcx, rax\nmov     r8d, [rbp+proto]\nmov     r9d, [rbp+length]\nlea     rsi, aSEthertypeS0x0; \"%s, ethertype %s (0x%04x), length %u: \"\nmov     al, 0\ncall    r10",
+   "loc_139E": "mov     eax, [rbp+length]\nadd     eax, 0FFFFFFFCh\nmov     [rbp+length], eax\nmov     rax, [rbp+p]\nadd     rax, 4\nmov     [rbp+p], rax\nmov     eax, [rbp+proto]\nmov     [rbp+var_34], eax\nsub     eax, 800h\njz      loc_1418",
+   "loc_13C4": "jmp     $+5",
+   "loc_13C9": "mov     eax, [rbp+var_34]\nsub     eax, 8035h\njz      loc_1442",
+   "loc_13D7": "jmp     $+5",
+   "loc_13DC": "mov     eax, [rbp+var_34]\nsub     eax, 86DDh\njz      loc_142D",
+   "loc_13EA": "jmp     $+5",
+   "loc_13EF": "mov     eax, [rbp+var_34]\nadd     eax, 0FFFF77B9h\nsub     eax, 2\njb      loc_1457",
+   "loc_1400": "jmp     $+5",
+   "loc_1405": "mov     eax, [rbp+var_34]\nsub     eax, 0FEFEh\njz      loc_146C",
+   "loc_1413": "jmp     loc_14FC",
+   "loc_1418": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; bp_0\nmov     edx, [rbp+length]; length\ncall    ip_print\njmp     loc_1528",
+   "loc_142D": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; bp_0\nmov     edx, [rbp+length]; length\ncall    ip6_print\njmp     loc_1528",
+   "loc_1442": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; cp\nmov     edx, [rbp+length]; length\ncall    chdlc_slarp_print\njmp     loc_1528",
+   "loc_1457": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; bp_0\nmov     edx, [rbp+length]; length\ncall    mpls_print\njmp     loc_1528",
+   "loc_146C": "mov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 81h\njz      loc_14A5",
+   "loc_147F": "mov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 82h\njz      loc_14A5",
+   "loc_1492": "mov     rax, [rbp+p]\nmovzx   eax, byte ptr [rax+1]\ncmp     eax, 83h\njnz     loc_14D6",
+   "loc_14A5": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]\nadd     rsi, 1; p\nmov     edx, [rbp+length]\nsub     edx, 1; length\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nmov     rcx, [rbp+p]\nsub     rax, rcx\nsub     rax, 1\nmov     ecx, eax; caplen\ncall    isoclns_print\njmp     loc_14F7",
+   "loc_14D6": "mov     rdi, [rbp+ndo]; ndo\nmov     rsi, [rbp+p]; p\nmov     edx, [rbp+length]; length\nmov     rax, [rbp+ndo]\nmov     rax, [rax+8]\nmov     rcx, [rbp+p]\nsub     rax, rcx\nmov     ecx, eax; caplen\ncall    isoclns_print",
+   "loc_14F7": "jmp     loc_1528",
+   "loc_14FC": "mov     rax, [rbp+ndo]\ncmp     dword ptr [rax], 0\njnz     loc_1523",
+   "loc_1509": "mov     rax, [rbp+ndo]\nmov     rcx, [rax+10h]\nmov     rdi, [rbp+ndo]\nmov     edx, [rbp+proto]\nlea     rsi, aUnknownChdlcPr; \"unknown CHDLC protocol (0x%04x)\"\nmov     al, 0\ncall    rcx",
+   "loc_1523": "jmp     $+5",
+   "loc_1528": "mov     eax, 4\nadd     rsp, 40h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "var_34": "dword ptr -34h",
+   "var_30": "qword ptr -30h",
+   "var_28": "qword ptr -28h",
+   "var_20": "qword ptr -20h",
+   "proto": "dword ptr -18h",
+   "length": "dword ptr -14h",
+   "p": "qword ptr -10h",
+   "ndo": "qword ptr -8"
+  },
+  ".rodata": {
+   "fmt": "byte '0x%02x',0",
+   "ethertype_values": "tok <0>",
+   "aUnknown": "byte 'Unknown',0",
+   "aSEthertypeS0x0": "byte '%s, ethertype %s (0x%04x), length %u: ',0",
+   "aUnknownChdlcPr": "byte 'unknown CHDLC protocol (0x%04x)',0"
+  },
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 4864,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".snprintf": "snprintf",
+  "_snprintf": "snprintf",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".ntohs": "ntohs",
+  "_ntohs": "ntohs",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".perror": "perror",
+  "_perror": "perror"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".snprintf",
+   ".plt",
+   true,
+   "snprintf"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".ntohs",
+   ".plt",
+   true,
+   "ntohs"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   "__cxa_finalize",
+   ".plt.got",
+   true,
+   "__imp___cxa_finalize"
+  ],
+  [
+   "free",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__libc_start_main",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fread",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fclose",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "snprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "memset",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fprintf",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ftell",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "malloc",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fseek",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "ntohs",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "fopen",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "perror",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__imp___cxa_finalize",
+   "extern",
+   false,
+   ""
+  ],
+  [
+   "__gmon_start__",
+   "extern",
+   false,
+   ""
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868450
+ }
+}

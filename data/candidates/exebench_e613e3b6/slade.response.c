@@ -1,0 +1,1 @@
+int cal_intervals(int *a, int *b, int n) { int i = 0, j, k = 0; while (k < n && a[k] == 0) { k++; } while (k < n) { while (k < n && a[k] != 0) { k++; } j = 0; while (k < n && a[k] == 0) { k++; j++; } if (k < n) { b[i] = j; i++; } } return i + 1; }

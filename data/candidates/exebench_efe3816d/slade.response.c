@@ -1,0 +1,1 @@
+int metric(const double data[], const size_t data_size, const size_t n, double x[]) { int i; for (i = 0; i < 9; i++) { x[i] = 0; } x[0] = x[4] = x[8] = 1; return 0; }

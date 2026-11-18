@@ -1,0 +1,1 @@
+void set_page_data(caddr_t addr, void *ptr) { struct page_data *ppd = ptr; uint32_t vpage = (uint32_t)addr; ppd->addr = vpage; }

@@ -1,0 +1,1 @@
+int alphabeta_cutoff (int bb, int *a, int *b, int alpha) { if (alpha && bb > *a) *a = bb; else if (!alpha && bb < *b) *b = bb; if (*b <= *a) return 1; return 0; }

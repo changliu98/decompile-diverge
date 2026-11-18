@@ -1,0 +1,1 @@
+void copy2 (char *x, char *y) { while ((*x = *y) != 0) { x++; y++; } }

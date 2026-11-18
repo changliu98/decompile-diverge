@@ -1,0 +1,1 @@
+void modify_int_refs_new_syntax (int *i, int *j) { (*i)++; (*j)--; }

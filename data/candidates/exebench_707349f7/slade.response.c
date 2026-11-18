@@ -1,0 +1,1 @@
+void zeroTryte(int x[]) { for (int i = 0; i < 6; ++i) { x[i] = 0; } }

@@ -1,0 +1,481 @@
+{
+ "error": null,
+ "asm_ida_com": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+original], rdi\nmov     [rbp+transposed], 0\nmov     rdi, [rbp+original]; A\nlea     rsi, [rbp+transposed]; Atransposed\ncall    stb_transpose_matrix\nmov     rax, [rbp+original]\nmovsxd  rdi, dword ptr [rax+0Ch]\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+ranks], rax\nmov     rax, [rbp+original]\nmovsxd  rdi, dword ptr [rax+0Ch]\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+counts], rax\nmov     rax, [rbp+original]\nmovsxd  rdi, dword ptr [rax+0Ch]\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+idx], rax\nmov     [rbp+i], 0\nmov     eax, [rbp+i]\nmov     rcx, [rbp+transposed]\ncmp     eax, [rcx+8]\njge     loc_F68E\nmov     rax, [rbp+transposed]\nmov     rax, [rax]\nmovsxd  rcx, [rbp+i]\nmov     rdi, [rax+rcx*8]; values\nmov     rsi, [rbp+idx]\nmovsxd  rax, [rbp+i]\nshl     rax, 3\nadd     rsi, rax; idx\nmov     rdx, [rbp+ranks]\nmovsxd  rax, [rbp+i]\nshl     rax, 3\nadd     rdx, rax; ranks\nmov     rcx, [rbp+counts]\nmovsxd  rax, [rbp+i]\nshl     rax, 3\nadd     rcx, rax; counts\nmov     rax, [rbp+transposed]\nmov     r8d, [rax+0Ch]; len\ncall    stb_didx\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_F627\nmov     rax, [rbp+original]\nmovsxd  rdi, dword ptr [rax+8]\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+means], rax\nmov     [rbp+sorted], 0\nmov     rdi, [rbp+transposed]; A\nlea     rsi, [rbp+sorted]; Atransposed\ncall    stb_transpose_matrix\nmov     rdi, [rbp+transposed]; matrix\ncall    _D2rt5tlsgc7destroyFNbNiPvZv; rt.tlsgc.destroy(void*)\nmov     [rbp+i_0], 0\nmov     eax, [rbp+i_0]\nmov     rcx, [rbp+sorted]\ncmp     eax, [rcx+8]\njge     loc_F714\nmov     rax, [rbp+sorted]\nmov     rax, [rax]\nmovsxd  rcx, [rbp+i_0]\nmov     rdi, [rax+rcx*8]; data\nmov     rax, [rbp+sorted]\nmov     esi, [rax+0Ch]; n\nmov     rdx, [rbp+means]\nmovsxd  rax, [rbp+i_0]\nshl     rax, 3\nadd     rdx, rax; mean\nlea     rcx, [rbp+var]; sample_variance\ncall    stb_meanvar\nmov     eax, [rbp+i_0]\nadd     eax, 1\nmov     [rbp+i_0], eax\njmp     loc_F6C8\nmov     rdi, [rbp+sorted]; matrix\ncall    _D2rt5tlsgc7destroyFNbNiPvZv; rt.tlsgc.destroy(void*)\nmov     [rbp+i_1], 0\nmov     eax, [rbp+i_1]\nmov     rcx, [rbp+original]\ncmp     eax, [rcx+0Ch]\njge     loc_F87D\nmov     [rbp+n], 0\nmov     eax, [rbp+n]\nmov     rcx, [rbp+original]\ncmp     eax, [rcx+8]\njge     loc_F86A\nmov     rax, [rbp+original]\nmov     rax, [rax]\nmov     rcx, [rbp+idx]\nmovsxd  rdx, [rbp+i_1]\nmov     rcx, [rcx+rdx*8]\nmovsxd  rdx, [rbp+n]\nmovsxd  rcx, dword ptr [rcx+rdx*4]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+i_1]\nxorps   xmm0, xmm0\nmovsd   qword ptr [rax+rcx*8], xmm0\nmov     [rbp+j], 0\nmov     eax, [rbp+j]\nmov     rcx, [rbp+counts]\nmovsxd  rdx, [rbp+i_1]\nmov     rcx, [rcx+rdx*8]\nmov     rdx, [rbp+ranks]\nmovsxd  rsi, [rbp+i_1]\nmov     rdx, [rdx+rsi*8]\nmovsxd  rsi, [rbp+n]\nmovsxd  rdx, dword ptr [rdx+rsi*4]\ncmp     eax, [rcx+rdx*4]\njge     loc_F806\nmov     rax, [rbp+means]\nmov     rcx, [rbp+ranks]\nmovsxd  rdx, [rbp+i_1]\nmov     rcx, [rcx+rdx*8]\nmovsxd  rdx, [rbp+n]\nmov     ecx, [rcx+rdx*4]\nadd     ecx, [rbp+j]\nmovsxd  rcx, ecx\nmovsd   xmm0, qword ptr [rax+rcx*8]\nmov     rax, [rbp+original]\nmov     rax, [rax]\nmov     rcx, [rbp+idx]\nmovsxd  rdx, [rbp+i_1]\nmov     rcx, [rcx+rdx*8]\nmovsxd  rdx, [rbp+n]\nmovsxd  rcx, dword ptr [rcx+rdx*4]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+i_1]\naddsd   xmm0, qword ptr [rax+rcx*8]\nmovsd   qword ptr [rax+rcx*8], xmm0\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_F77D\nmov     rax, [rbp+counts]\nmovsxd  rcx, [rbp+i_1]\nmov     rax, [rax+rcx*8]\nmov     rcx, [rbp+ranks]\nmovsxd  rdx, [rbp+i_1]\nmov     rcx, [rcx+rdx*8]\nmovsxd  rdx, [rbp+n]\nmovsxd  rcx, dword ptr [rcx+rdx*4]\ncvtsi2sd xmm1, dword ptr [rax+rcx*4]\nmov     rax, [rbp+original]\nmov     rax, [rax]\nmov     rcx, [rbp+idx]\nmovsxd  rdx, [rbp+i_1]\nmov     rcx, [rcx+rdx*8]\nmovsxd  rdx, [rbp+n]\nmovsxd  rcx, dword ptr [rcx+rdx*4]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+i_1]\nmovsd   xmm0, qword ptr [rax+rcx*8]\ndivsd   xmm0, xmm1\nmovsd   qword ptr [rax+rcx*8], xmm0\nmov     eax, [rbp+n]\nadd     eax, 1\nmov     [rbp+n], eax\njmp     loc_F73B\njmp     $+5\nmov     eax, [rbp+i_1]\nadd     eax, 1\nmov     [rbp+i_1], eax\njmp     loc_F724\nmov     [rbp+i_2], 0\nmov     eax, [rbp+i_2]\nmov     rcx, [rbp+original]\ncmp     eax, [rcx+0Ch]\njge     loc_F8D5\nmov     rax, [rbp+idx]\nmovsxd  rcx, [rbp+i_2]\nmov     rdi, [rax+rcx*8]; ptr\ncall    free\nmov     rax, [rbp+ranks]\nmovsxd  rcx, [rbp+i_2]\nmov     rdi, [rax+rcx*8]; ptr\ncall    free\nmov     rax, [rbp+counts]\nmovsxd  rcx, [rbp+i_2]\nmov     rdi, [rax+rcx*8]; ptr\ncall    free\nmov     eax, [rbp+i_2]\nadd     eax, 1\nmov     [rbp+i_2], eax\njmp     loc_F884\nmov     rdi, [rbp+idx]; ptr\ncall    free\nmov     rdi, [rbp+ranks]; ptr\ncall    free\nmov     rdi, [rbp+counts]; ptr\ncall    free\nmov     rdi, [rbp+means]; ptr\ncall    free\nadd     rsp, 60h\npop     rbp\nretn",
+ "assemgraph_com": {
+  "nodenum": 20,
+  "edges": [
+   [
+    "start",
+    "loc_F627"
+   ],
+   [
+    "loc_F627",
+    "loc_F637"
+   ],
+   [
+    "loc_F627",
+    "loc_F68E"
+   ],
+   [
+    "loc_F637",
+    "loc_F627"
+   ],
+   [
+    "loc_F68E",
+    "loc_F6C8"
+   ],
+   [
+    "loc_F6C8",
+    "loc_F6D8"
+   ],
+   [
+    "loc_F6C8",
+    "loc_F714"
+   ],
+   [
+    "loc_F6D8",
+    "loc_F6C8"
+   ],
+   [
+    "loc_F714",
+    "loc_F724"
+   ],
+   [
+    "loc_F724",
+    "loc_F734"
+   ],
+   [
+    "loc_F724",
+    "loc_F87D"
+   ],
+   [
+    "loc_F734",
+    "loc_F73B"
+   ],
+   [
+    "loc_F73B",
+    "loc_F74B"
+   ],
+   [
+    "loc_F73B",
+    "loc_F86A"
+   ],
+   [
+    "loc_F74B",
+    "loc_F77D"
+   ],
+   [
+    "loc_F77D",
+    "loc_F7A9"
+   ],
+   [
+    "loc_F77D",
+    "loc_F806"
+   ],
+   [
+    "loc_F7A9",
+    "loc_F77D"
+   ],
+   [
+    "loc_F806",
+    "loc_F73B"
+   ],
+   [
+    "loc_F86A",
+    "loc_F86F"
+   ],
+   [
+    "loc_F86F",
+    "loc_F724"
+   ],
+   [
+    "loc_F87D",
+    "loc_F884"
+   ],
+   [
+    "loc_F884",
+    "loc_F894"
+   ],
+   [
+    "loc_F884",
+    "loc_F8D5"
+   ],
+   [
+    "loc_F894",
+    "loc_F884"
+   ]
+  ],
+  "nodes": {
+   "start": "push    rbp\nmov     rbp, rsp\nsub     rsp, 60h\nmov     [rbp+original], rdi\nmov     [rbp+transposed], 0\nmov     rdi, [rbp+original]; A\nlea     rsi, [rbp+transposed]; Atransposed\ncall    stb_transpose_matrix\nmov     rax, [rbp+original]\nmovsxd  rdi, dword ptr [rax+0Ch]\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+ranks], rax\nmov     rax, [rbp+original]\nmovsxd  rdi, dword ptr [rax+0Ch]\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+counts], rax\nmov     rax, [rbp+original]\nmovsxd  rdi, dword ptr [rax+0Ch]\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+idx], rax\nmov     [rbp+i], 0",
+   "loc_F627": "mov     eax, [rbp+i]\nmov     rcx, [rbp+transposed]\ncmp     eax, [rcx+8]\njge     loc_F68E",
+   "loc_F637": "mov     rax, [rbp+transposed]\nmov     rax, [rax]\nmovsxd  rcx, [rbp+i]\nmov     rdi, [rax+rcx*8]; values\nmov     rsi, [rbp+idx]\nmovsxd  rax, [rbp+i]\nshl     rax, 3\nadd     rsi, rax; idx\nmov     rdx, [rbp+ranks]\nmovsxd  rax, [rbp+i]\nshl     rax, 3\nadd     rdx, rax; ranks\nmov     rcx, [rbp+counts]\nmovsxd  rax, [rbp+i]\nshl     rax, 3\nadd     rcx, rax; counts\nmov     rax, [rbp+transposed]\nmov     r8d, [rax+0Ch]; len\ncall    stb_didx\nmov     eax, [rbp+i]\nadd     eax, 1\nmov     [rbp+i], eax\njmp     loc_F627",
+   "loc_F68E": "mov     rax, [rbp+original]\nmovsxd  rdi, dword ptr [rax+8]\nshl     rdi, 3; size\ncall    malloc\nmov     [rbp+means], rax\nmov     [rbp+sorted], 0\nmov     rdi, [rbp+transposed]; A\nlea     rsi, [rbp+sorted]; Atransposed\ncall    stb_transpose_matrix\nmov     rdi, [rbp+transposed]; matrix\ncall    _D2rt5tlsgc7destroyFNbNiPvZv; rt.tlsgc.destroy(void*)\nmov     [rbp+i_0], 0",
+   "loc_F6C8": "mov     eax, [rbp+i_0]\nmov     rcx, [rbp+sorted]\ncmp     eax, [rcx+8]\njge     loc_F714",
+   "loc_F6D8": "mov     rax, [rbp+sorted]\nmov     rax, [rax]\nmovsxd  rcx, [rbp+i_0]\nmov     rdi, [rax+rcx*8]; data\nmov     rax, [rbp+sorted]\nmov     esi, [rax+0Ch]; n\nmov     rdx, [rbp+means]\nmovsxd  rax, [rbp+i_0]\nshl     rax, 3\nadd     rdx, rax; mean\nlea     rcx, [rbp+var]; sample_variance\ncall    stb_meanvar\nmov     eax, [rbp+i_0]\nadd     eax, 1\nmov     [rbp+i_0], eax\njmp     loc_F6C8",
+   "loc_F714": "mov     rdi, [rbp+sorted]; matrix\ncall    _D2rt5tlsgc7destroyFNbNiPvZv; rt.tlsgc.destroy(void*)\nmov     [rbp+i_1], 0",
+   "loc_F724": "mov     eax, [rbp+i_1]\nmov     rcx, [rbp+original]\ncmp     eax, [rcx+0Ch]\njge     loc_F87D",
+   "loc_F734": "mov     [rbp+n], 0",
+   "loc_F73B": "mov     eax, [rbp+n]\nmov     rcx, [rbp+original]\ncmp     eax, [rcx+8]\njge     loc_F86A",
+   "loc_F74B": "mov     rax, [rbp+original]\nmov     rax, [rax]\nmov     rcx, [rbp+idx]\nmovsxd  rdx, [rbp+i_1]\nmov     rcx, [rcx+rdx*8]\nmovsxd  rdx, [rbp+n]\nmovsxd  rcx, dword ptr [rcx+rdx*4]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+i_1]\nxorps   xmm0, xmm0\nmovsd   qword ptr [rax+rcx*8], xmm0\nmov     [rbp+j], 0",
+   "loc_F77D": "mov     eax, [rbp+j]\nmov     rcx, [rbp+counts]\nmovsxd  rdx, [rbp+i_1]\nmov     rcx, [rcx+rdx*8]\nmov     rdx, [rbp+ranks]\nmovsxd  rsi, [rbp+i_1]\nmov     rdx, [rdx+rsi*8]\nmovsxd  rsi, [rbp+n]\nmovsxd  rdx, dword ptr [rdx+rsi*4]\ncmp     eax, [rcx+rdx*4]\njge     loc_F806",
+   "loc_F7A9": "mov     rax, [rbp+means]\nmov     rcx, [rbp+ranks]\nmovsxd  rdx, [rbp+i_1]\nmov     rcx, [rcx+rdx*8]\nmovsxd  rdx, [rbp+n]\nmov     ecx, [rcx+rdx*4]\nadd     ecx, [rbp+j]\nmovsxd  rcx, ecx\nmovsd   xmm0, qword ptr [rax+rcx*8]\nmov     rax, [rbp+original]\nmov     rax, [rax]\nmov     rcx, [rbp+idx]\nmovsxd  rdx, [rbp+i_1]\nmov     rcx, [rcx+rdx*8]\nmovsxd  rdx, [rbp+n]\nmovsxd  rcx, dword ptr [rcx+rdx*4]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+i_1]\naddsd   xmm0, qword ptr [rax+rcx*8]\nmovsd   qword ptr [rax+rcx*8], xmm0\nmov     eax, [rbp+j]\nadd     eax, 1\nmov     [rbp+j], eax\njmp     loc_F77D",
+   "loc_F806": "mov     rax, [rbp+counts]\nmovsxd  rcx, [rbp+i_1]\nmov     rax, [rax+rcx*8]\nmov     rcx, [rbp+ranks]\nmovsxd  rdx, [rbp+i_1]\nmov     rcx, [rcx+rdx*8]\nmovsxd  rdx, [rbp+n]\nmovsxd  rcx, dword ptr [rcx+rdx*4]\ncvtsi2sd xmm1, dword ptr [rax+rcx*4]\nmov     rax, [rbp+original]\nmov     rax, [rax]\nmov     rcx, [rbp+idx]\nmovsxd  rdx, [rbp+i_1]\nmov     rcx, [rcx+rdx*8]\nmovsxd  rdx, [rbp+n]\nmovsxd  rcx, dword ptr [rcx+rdx*4]\nmov     rax, [rax+rcx*8]\nmovsxd  rcx, [rbp+i_1]\nmovsd   xmm0, qword ptr [rax+rcx*8]\ndivsd   xmm0, xmm1\nmovsd   qword ptr [rax+rcx*8], xmm0\nmov     eax, [rbp+n]\nadd     eax, 1\nmov     [rbp+n], eax\njmp     loc_F73B",
+   "loc_F86A": "jmp     $+5",
+   "loc_F86F": "mov     eax, [rbp+i_1]\nadd     eax, 1\nmov     [rbp+i_1], eax\njmp     loc_F724",
+   "loc_F87D": "mov     [rbp+i_2], 0",
+   "loc_F884": "mov     eax, [rbp+i_2]\nmov     rcx, [rbp+original]\ncmp     eax, [rcx+0Ch]\njge     loc_F8D5",
+   "loc_F894": "mov     rax, [rbp+idx]\nmovsxd  rcx, [rbp+i_2]\nmov     rdi, [rax+rcx*8]; ptr\ncall    free\nmov     rax, [rbp+ranks]\nmovsxd  rcx, [rbp+i_2]\nmov     rdi, [rax+rcx*8]; ptr\ncall    free\nmov     rax, [rbp+counts]\nmovsxd  rcx, [rbp+i_2]\nmov     rdi, [rax+rcx*8]; ptr\ncall    free\nmov     eax, [rbp+i_2]\nadd     eax, 1\nmov     [rbp+i_2], eax\njmp     loc_F884",
+   "loc_F8D5": "mov     rdi, [rbp+idx]; ptr\ncall    free\nmov     rdi, [rbp+ranks]; ptr\ncall    free\nmov     rdi, [rbp+counts]; ptr\ncall    free\nmov     rdi, [rbp+means]; ptr\ncall    free\nadd     rsp, 60h\npop     rbp\nretn"
+  }
+ },
+ "data": {
+  "param": {
+   "i_2": "dword ptr -5Ch",
+   "j": "dword ptr -58h",
+   "n": "dword ptr -54h",
+   "i_1": "dword ptr -50h",
+   "i_0": "dword ptr -4Ch",
+   "sorted": "qword ptr -48h",
+   "var": "qword ptr -40h",
+   "means": "qword ptr -38h",
+   "i": "dword ptr -2Ch",
+   "idx": "qword ptr -28h",
+   "counts": "qword ptr -20h",
+   "ranks": "qword ptr -18h",
+   "transposed": "qword ptr -10h",
+   "original": "qword ptr -8"
+  },
+  ".rodata": {},
+  ".data": {},
+  ".bss": {}
+ },
+ "func_ea": 62912,
+ "thunk_map": {
+  ".free": "free",
+  "_free": "free",
+  ".log2": "log2",
+  "_log2": "log2",
+  ".__isoc99_fscanf": "__isoc99_fscanf",
+  "_isoc99_fscanf": "__isoc99_fscanf",
+  ".qsort": "qsort",
+  "_qsort": "qsort",
+  ".fread": "fread",
+  "_fread": "fread",
+  ".pow": "pow",
+  "_pow": "pow",
+  ".fclose": "fclose",
+  "_fclose": "fclose",
+  ".strlen": "strlen",
+  "_strlen": "strlen",
+  ".logl": "logl",
+  "_logl": "logl",
+  ".printf": "printf",
+  "_printf": "printf",
+  ".__assert_fail": "__assert_fail",
+  "_assert_fail": "__assert_fail",
+  ".memset": "memset",
+  "_memset": "memset",
+  ".log1p": "log1p",
+  "_log1p": "log1p",
+  ".log": "log",
+  "_log": "log",
+  ".hypotf": "hypotf",
+  "_hypotf": "hypotf",
+  ".fgets": "fgets",
+  "_fgets": "fgets",
+  ".calloc": "calloc",
+  "_calloc": "calloc",
+  ".strcmp": "strcmp",
+  "_strcmp": "strcmp",
+  ".fprintf": "fprintf",
+  "_fprintf": "fprintf",
+  ".ftell": "ftell",
+  "_ftell": "ftell",
+  ".feof": "feof",
+  "_feof": "feof",
+  ".memcpy": "memcpy",
+  "_memcpy": "memcpy",
+  ".time": "time",
+  "_time": "time",
+  ".sqrtf": "sqrtf",
+  "_sqrtf": "sqrtf",
+  ".malloc": "malloc",
+  "_malloc": "malloc",
+  ".fseek": "fseek",
+  "_fseek": "fseek",
+  ".realloc": "realloc",
+  "_realloc": "realloc",
+  ".fopen": "fopen",
+  "_fopen": "fopen",
+  ".powl": "powl",
+  "_powl": "powl",
+  ".perror": "perror",
+  "_perror": "perror",
+  ".floor": "floor",
+  "_floor": "floor",
+  ".llround": "llround",
+  "_llround": "llround",
+  ".exit": "exit",
+  "_exit": "exit",
+  ".fwrite": "fwrite",
+  "_fwrite": "fwrite",
+  ".sqrt": "sqrt",
+  "_sqrt": "sqrt",
+  ".strdup": "strdup",
+  "_strdup": "strdup",
+  ".ceil": "ceil",
+  "_ceil": "ceil",
+  ".expl": "expl",
+  "_expl": "expl",
+  ".exp": "exp",
+  "_exp": "exp"
+ },
+ "thunk_debug": [
+  [
+   "sub_1020",
+   ".plt",
+   false,
+   ""
+  ],
+  [
+   ".free",
+   ".plt",
+   true,
+   "free"
+  ],
+  [
+   ".log2",
+   ".plt",
+   true,
+   "log2"
+  ],
+  [
+   ".__isoc99_fscanf",
+   ".plt",
+   true,
+   "__isoc99_fscanf"
+  ],
+  [
+   ".qsort",
+   ".plt",
+   true,
+   "qsort"
+  ],
+  [
+   ".fread",
+   ".plt",
+   true,
+   "fread"
+  ],
+  [
+   ".pow",
+   ".plt",
+   true,
+   "pow"
+  ],
+  [
+   ".fclose",
+   ".plt",
+   true,
+   "fclose"
+  ],
+  [
+   ".strlen",
+   ".plt",
+   true,
+   "strlen"
+  ],
+  [
+   ".logl",
+   ".plt",
+   true,
+   "logl"
+  ],
+  [
+   ".printf",
+   ".plt",
+   true,
+   "printf"
+  ],
+  [
+   ".__assert_fail",
+   ".plt",
+   true,
+   "__assert_fail"
+  ],
+  [
+   ".memset",
+   ".plt",
+   true,
+   "memset"
+  ],
+  [
+   ".log1p",
+   ".plt",
+   true,
+   "log1p"
+  ],
+  [
+   ".log",
+   ".plt",
+   true,
+   "log"
+  ],
+  [
+   ".hypotf",
+   ".plt",
+   true,
+   "hypotf"
+  ],
+  [
+   ".fgets",
+   ".plt",
+   true,
+   "fgets"
+  ],
+  [
+   ".calloc",
+   ".plt",
+   true,
+   "calloc"
+  ],
+  [
+   ".strcmp",
+   ".plt",
+   true,
+   "strcmp"
+  ],
+  [
+   ".fprintf",
+   ".plt",
+   true,
+   "fprintf"
+  ],
+  [
+   ".ftell",
+   ".plt",
+   true,
+   "ftell"
+  ],
+  [
+   ".feof",
+   ".plt",
+   true,
+   "feof"
+  ],
+  [
+   ".memcpy",
+   ".plt",
+   true,
+   "memcpy"
+  ],
+  [
+   ".time",
+   ".plt",
+   true,
+   "time"
+  ],
+  [
+   ".sqrtf",
+   ".plt",
+   true,
+   "sqrtf"
+  ],
+  [
+   ".malloc",
+   ".plt",
+   true,
+   "malloc"
+  ],
+  [
+   ".fseek",
+   ".plt",
+   true,
+   "fseek"
+  ],
+  [
+   ".realloc",
+   ".plt",
+   true,
+   "realloc"
+  ],
+  [
+   ".fopen",
+   ".plt",
+   true,
+   "fopen"
+  ],
+  [
+   ".powl",
+   ".plt",
+   true,
+   "powl"
+  ],
+  [
+   ".perror",
+   ".plt",
+   true,
+   "perror"
+  ],
+  [
+   ".floor",
+   ".plt",
+   true,
+   "floor"
+  ],
+  [
+   ".llround",
+   ".plt",
+   true,
+   "llround"
+  ],
+  [
+   ".exit",
+   ".plt",
+   true,
+   "exit"
+  ],
+  [
+   ".fwrite",
+   ".plt",
+   true,
+   "fwrite"
+  ],
+  [
+   ".sqrt",
+   ".plt",
+   true,
+   "sqrt"
+  ],
+  [
+   ".strdup",
+   ".plt",
+   true,
+   "strdup"
+  ],
+  [
+   ".ceil",
+   ".plt",
+   true,
+   "ceil"
+  ],
+  [
+   ".expl",
+   ".plt",
+   true,
+   "expl"
+  ],
+  [
+   ".exp",
+   ".plt",
+   true,
+   "exp"
+  ]
+ ],
+ "provenance": {
+  "recipe": "functional",
+  "source": "scripts/backfill_ciw.py",
+  "ida": "IDA Pro 8.3 (Hex-Rays license holder, remote)",
+  "ts": 1792868547
+ }
+}
